@@ -3,7 +3,258 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/* ─────────────────────────────────────────────────────────────
+   KODING INDONESIA – Neo-Brutalism Design System
+   Brand Colors: #2979FF (blue), #FF7A2F (orange), #2D3748 (dark), #000 / #FFF
+   ───────────────────────────────────────────────────────────── */
+
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    /* Fonts – self-hosted, added via resources/css/fonts.css */
+    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Brand Palette */
+    --color-primary:        #2979FF;
+    --color-primary-dark:   #1565C0;
+    --color-primary-light:  #82B1FF;
+    --color-accent:         #FF7A2F;
+    --color-accent-dark:    #E65100;
+    --color-accent-light:   #FFAB76;
+    --color-dark:           #2D3748;
+    --color-ink:            #000000;
+    --color-paper:          #FFFFFF;
+    --color-surface:        #F5F5F0;
+    --color-surface-dark:   #E8E8E0;
+    --color-muted:          #718096;
+
+    /* Neo-Brutalism Borders */
+    --border-brutal:        2px solid #000000;
+    --border-brutal-thick:  3px solid #000000;
+
+    /* Neo-Brutalism Shadows (no blur, hard offset) */
+    --shadow-brutal-sm:     3px 3px 0px #000000;
+    --shadow-brutal:        4px 4px 0px #000000;
+    --shadow-brutal-md:     6px 6px 0px #000000;
+    --shadow-brutal-lg:     8px 8px 0px #000000;
+    --shadow-brutal-blue:   4px 4px 0px var(--color-primary);
+    --shadow-brutal-orange: 4px 4px 0px var(--color-accent);
+
+    /* Spacing Scale */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4rem;
+
+    /* Border Radius – minimal for brutalism */
+    --radius-none:  0px;
+    --radius-sm:    2px;
+    --radius-md:    4px;
+
+    /* Typography Scale */
+    --text-xs:   0.75rem;
+    --text-sm:   0.875rem;
+    --text-base: 1rem;
+    --text-lg:   1.125rem;
+    --text-xl:   1.25rem;
+    --text-2xl:  1.5rem;
+    --text-3xl:  1.875rem;
+    --text-4xl:  2.25rem;
+    --text-5xl:  3rem;
+    --text-6xl:  3.75rem;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BASE STYLES
+   ───────────────────────────────────────────────────────────── */
+
+@layer base {
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        font-family: var(--font-sans);
+        background-color: var(--color-surface);
+        color: var(--color-dark);
+        line-height: 1.6;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--font-sans);
+        font-weight: 700;
+        color: var(--color-ink);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+    }
+
+    code, pre, kbd {
+        font-family: var(--font-mono);
+    }
+
+    a {
+        color: var(--color-primary);
+        text-decoration: none;
+    }
+
+    a:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    ::selection {
+        background-color: var(--color-primary);
+        color: var(--color-paper);
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   BRUTALISM COMPONENT UTILITIES
+   ───────────────────────────────────────────────────────────── */
+
+@layer utilities {
+    /* Cards */
+    .card-brutal {
+        background: var(--color-paper);
+        border: var(--border-brutal);
+        box-shadow: var(--shadow-brutal);
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
+    }
+
+    .card-brutal:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: var(--shadow-brutal-lg);
+    }
+
+    /* Buttons */
+    .btn-brutal {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.625rem 1.25rem;
+        font-family: var(--font-sans);
+        font-weight: 700;
+        font-size: var(--text-sm);
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+        border: var(--border-brutal);
+        box-shadow: var(--shadow-brutal-sm);
+        cursor: pointer;
+        transition: transform 0.1s ease, box-shadow 0.1s ease;
+        text-decoration: none !important;
+    }
+
+    .btn-brutal:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: var(--shadow-brutal);
+    }
+
+    .btn-brutal:active {
+        transform: translate(2px, 2px);
+        box-shadow: none;
+    }
+
+    .btn-primary {
+        background-color: var(--color-primary);
+        color: var(--color-paper);
+    }
+
+    .btn-accent {
+        background-color: var(--color-accent);
+        color: var(--color-paper);
+    }
+
+    .btn-dark {
+        background-color: var(--color-ink);
+        color: var(--color-paper);
+    }
+
+    .btn-outline {
+        background-color: var(--color-paper);
+        color: var(--color-ink);
+    }
+
+    /* Badges */
+    .badge-brutal {
+        display: inline-block;
+        padding: 0.125rem 0.5rem;
+        font-weight: 700;
+        font-size: var(--text-xs);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border: 2px solid var(--color-ink);
+    }
+
+    .badge-primary {
+        background-color: var(--color-primary);
+        color: var(--color-paper);
+    }
+
+    .badge-accent {
+        background-color: var(--color-accent);
+        color: var(--color-paper);
+    }
+
+    /* Input fields */
+    .input-brutal {
+        width: 100%;
+        padding: 0.625rem 0.875rem;
+        font-family: var(--font-sans);
+        font-size: var(--text-base);
+        border: var(--border-brutal);
+        background-color: var(--color-paper);
+        color: var(--color-ink);
+        outline: none;
+        box-shadow: var(--shadow-brutal-sm);
+        transition: box-shadow 0.1s ease;
+    }
+
+    .input-brutal:focus {
+        box-shadow: var(--shadow-brutal-blue);
+    }
+
+    /* Section headings */
+    .heading-brutal {
+        display: inline-block;
+        font-weight: 800;
+        position: relative;
+    }
+
+    .heading-brutal::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background-color: var(--color-accent);
+    }
+
+    /* Divider */
+    .divider-brutal {
+        border: none;
+        border-top: var(--border-brutal);
+        margin: 1.5rem 0;
+    }
+
+    /* Code blocks */
+    .code-block-brutal {
+        border: var(--border-brutal);
+        background-color: var(--color-ink);
+        color: #e2e8f0;
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        padding: 1rem 1.25rem;
+        overflow-x: auto;
+        position: relative;
+        box-shadow: var(--shadow-brutal);
+    }
 }
