@@ -1,0 +1,63 @@
+@props(['article', 'featured' => false])
+
+<article class="bg-white border-2 border-black flex flex-col h-full transition-all hover:-translate-y-0.5"
+         style="box-shadow: 4px 4px 0 #000; transition: transform .15s, box-shadow .15s;"
+         onmouseenter="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='6px 6px 0 #000'"
+         onmouseleave="this.style.transform='';this.style.boxShadow='4px 4px 0 #000'">
+
+    {{-- Cover Image --}}
+    <a href="{{ route('articles.show', $article->slug) }}" class="block overflow-hidden border-b-2 border-black" style="{{ $featured ? 'aspect-ratio:16/7' : 'aspect-ratio:16/9' }}">
+        @if($article->cover_image)
+            <img
+                src="{{ asset('storage/' . $article->cover_image) }}"
+                alt="{{ $article->title }}"
+                class="w-full h-full object-cover"
+                loading="lazy"
+            >
+        @else
+            <div class="w-full h-full flex items-center justify-center font-mono text-sm font-bold" style="background: #{{ substr(md5($article->title), 0, 2) . substr(md5($article->title), 6, 2) . substr(md5($article->title), 4, 2) }}20; color: #2979FF;">
+                <div class="text-center p-4">
+                    <div class="text-3xl mb-2">📝</div>
+                    <div class="text-xs opacity-60">{{ Str::limit($article->title, 30) }}</div>
+                </div>
+            </div>
+        @endif
+    </a>
+
+    <div class="p-5 flex flex-col flex-1">
+        {{-- Category + Read Time --}}
+        <div class="flex items-center justify-between mb-3">
+            @if($article->category)
+            <a href="{{ route('categories.show', $article->category->slug) }}"
+               class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 border-2 border-black"
+               style="background: {{ $article->category->color }}; color: #fff; box-shadow: 2px 2px 0 #000;">
+                {{ $article->category->name }}
+            </a>
+            @endif
+            <span class="text-xs font-mono" style="color: #718096;">{{ $article->read_time_minutes ?? 1 }} menit</span>
+        </div>
+
+        {{-- Title --}}
+        <h2 class="{{ $featured ? 'text-xl' : 'text-base' }} font-bold leading-snug mb-3 flex-1">
+            <a href="{{ route('articles.show', $article->slug) }}" class="hover:text-[#2979FF] transition-colors" style="color: #000; text-decoration: none;">
+                {{ $article->title }}
+            </a>
+        </h2>
+
+        {{-- Excerpt --}}
+        @if($article->excerpt)
+        <p class="text-sm leading-relaxed mb-4" style="color: #4A5568;">
+            {{ Str::limit($article->excerpt, 100) }}
+        </p>
+        @endif
+
+        {{-- Meta --}}
+        <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100 text-xs" style="color: #718096;">
+            <span class="font-medium">{{ $article->published_at?->translatedFormat('d M Y') ?? '-' }}</span>
+            <span class="flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                {{ number_format($article->views_count) }}
+            </span>
+        </div>
+    </div>
+</article>
