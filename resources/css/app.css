@@ -39,31 +39,10 @@
     --shadow-brutal-blue:   4px 4px 0px var(--color-primary);
     --shadow-brutal-orange: 4px 4px 0px var(--color-accent);
 
-    /* Spacing Scale */
-    --spacing-xs: 0.25rem;
-    --spacing-sm: 0.5rem;
-    --spacing-md: 1rem;
-    --spacing-lg: 1.5rem;
-    --spacing-xl: 2rem;
-    --spacing-2xl: 3rem;
-    --spacing-3xl: 4rem;
-
-    /* Border Radius – minimal for brutalism */
-    --radius-none:  0px;
-    --radius-sm:    2px;
-    --radius-md:    4px;
-
-    /* Typography Scale */
-    --text-xs:   0.75rem;
-    --text-sm:   0.875rem;
-    --text-base: 1rem;
-    --text-lg:   1.125rem;
-    --text-xl:   1.25rem;
-    --text-2xl:  1.5rem;
-    --text-3xl:  1.875rem;
-    --text-4xl:  2.25rem;
-    --text-5xl:  3rem;
-    --text-6xl:  3.75rem;
+    /* Border Radius – minimal for brutalism (prefixed to avoid conflict) */
+    --radius-brutal-none: 0px;
+    --radius-brutal-sm:   2px;
+    --radius-brutal-md:   4px;
 }
 
 /* ─────────────────────────────────────────────────────────────
