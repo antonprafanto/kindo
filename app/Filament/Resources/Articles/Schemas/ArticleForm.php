@@ -20,8 +20,9 @@ class ArticleForm
     {
         return $schema
             ->components([
+                // ─── 1. Konten utama — penuh di atas ───────────────────────
                 Section::make('Konten Artikel')
-                    ->description('Isi utama artikel')
+                    ->description('Tulis judul, ringkasan, dan isi artikel di sini')
                     ->schema([
                         TextInput::make('title')
                             ->label('Judul Artikel')
@@ -43,7 +44,7 @@ class ArticleForm
                             ->label('Ringkasan / Excerpt')
                             ->rows(3)
                             ->maxLength(500)
-                            ->hint('Maks 500 karakter. Ditampilkan di listing dan meta description.')
+                            ->hint('Maks 500 karakter — ditampilkan di listing dan meta description.')
                             ->columnSpanFull(),
 
                         RichEditor::make('body')
@@ -59,10 +60,28 @@ class ArticleForm
                             ])
                             ->columnSpanFull(),
                     ])
-                    ->columns(2),
+                    ->columnSpanFull(),
 
-                Section::make('Metadata')
-                    ->description('Pengaturan kategori, tag, dan publikasi')
+                // ─── 2. Gambar sampul ───────────────────────────────────────
+                Section::make('Gambar Sampul')
+                    ->description('Upload gambar cover artikel (rasio 16:9, ideal 1200×630px)')
+                    ->schema([
+                        FileUpload::make('cover_image')
+                            ->label(false)
+                            ->image()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('16:9')
+                            ->imageResizeTargetWidth('1200')
+                            ->imageResizeTargetHeight('630')
+                            ->directory('articles/covers')
+                            ->columnSpanFull(),
+                    ])
+                    ->columnSpanFull()
+                    ->collapsed(),
+
+                // ─── 3. Metadata publikasi — di bawah ──────────────────────
+                Section::make('Metadata & Publikasi')
+                    ->description('Atur kategori, tag, status, dan jadwal terbit')
                     ->schema([
                         Select::make('category_id')
                             ->label('Kategori')
@@ -70,8 +89,8 @@ class ArticleForm
                             ->searchable()
                             ->preload()
                             ->createOptionForm([
-                                TextInput::make('name')->required(),
-                                TextInput::make('slug')->required(),
+                                TextInput::make('name')->required()->label('Nama Kategori'),
+                                TextInput::make('slug')->required()->label('Slug'),
                             ]),
 
                         Select::make('tags')
@@ -81,42 +100,32 @@ class ArticleForm
                             ->searchable()
                             ->preload()
                             ->createOptionForm([
-                                TextInput::make('name')->required(),
-                                TextInput::make('slug')->required(),
+                                TextInput::make('name')->required()->label('Nama Tag'),
+                                TextInput::make('slug')->required()->label('Slug'),
                             ]),
 
                         Select::make('status')
-                            ->label('Status')
+                            ->label('Status Publikasi')
                             ->options([
-                                'draft'     => 'Draft',
-                                'published' => 'Published',
+                                'draft'     => '📝 Draft',
+                                'published' => '✅ Published',
                             ])
                             ->default('draft')
-                            ->required(),
+                            ->required()
+                            ->native(false),
 
                         DateTimePicker::make('published_at')
-                            ->label('Tanggal Publish')
-                            ->default(now()),
+                            ->label('Tanggal Terbit')
+                            ->default(now())
+                            ->seconds(false),
 
                         Toggle::make('is_featured')
                             ->label('Artikel Unggulan')
-                            ->helperText('Tampilkan di bagian hero/featured homepage'),
-                    ])
-                    ->columns(2),
-
-                Section::make('Gambar Sampul')
-                    ->schema([
-                        FileUpload::make('cover_image')
-                            ->label('Cover Image')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('16:9')
-                            ->imageResizeTargetWidth('1200')
-                            ->imageResizeTargetHeight('630')
-                            ->directory('articles/covers')
-                            ->hint('Ukuran ideal: 1200×630px (rasio 16:9)')
+                            ->helperText('Tampilkan di bagian featured homepage')
                             ->columnSpanFull(),
-                    ]),
+                    ])
+                    ->columns(2)
+                    ->columnSpanFull(),
             ]);
     }
 }
