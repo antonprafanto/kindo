@@ -10,10 +10,15 @@ class ListArticles extends ListRecords
 {
     protected static string $resource = ArticleResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Daftar Artikel';
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()->label('Tulis Artikel Baru'),
         ];
     }
 }

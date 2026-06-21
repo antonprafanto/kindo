@@ -28,8 +28,13 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('Koding Indonesia')
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => Color::hex('#2979FF'),
+                'danger'  => Color::Red,
+                'warning' => Color::hex('#FF7A2F'),
+                'success' => Color::Green,
+                'gray'    => Color::Slate,
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')

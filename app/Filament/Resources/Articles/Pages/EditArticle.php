@@ -12,12 +12,17 @@ class EditArticle extends EditRecord
 {
     protected static string $resource = ArticleResource::class;
 
+    public function getTitle(): string
+    {
+        return 'Edit Artikel';
+    }
+
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
-            ForceDeleteAction::make(),
-            RestoreAction::make(),
+            DeleteAction::make()->label('Hapus'),
+            ForceDeleteAction::make()->label('Hapus Permanen'),
+            RestoreAction::make()->label('Pulihkan'),
         ];
     }
 }

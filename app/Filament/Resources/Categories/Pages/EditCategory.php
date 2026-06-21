@@ -12,12 +12,14 @@ class EditCategory extends EditRecord
 {
     protected static string $resource = CategoryResource::class;
 
+    public function getTitle(): string { return 'Edit Kategori'; }
+
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
-            ForceDeleteAction::make(),
-            RestoreAction::make(),
+            DeleteAction::make()->label('Hapus'),
+            ForceDeleteAction::make()->label('Hapus Permanen'),
+            RestoreAction::make()->label('Pulihkan'),
         ];
     }
 }

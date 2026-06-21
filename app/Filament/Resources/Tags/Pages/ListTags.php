@@ -10,10 +10,12 @@ class ListTags extends ListRecords
 {
     protected static string $resource = TagResource::class;
 
+    public function getTitle(): string { return 'Daftar Tag'; }
+
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()->label('Tambah Tag'),
         ];
     }
 }

@@ -12,12 +12,14 @@ class EditTag extends EditRecord
 {
     protected static string $resource = TagResource::class;
 
+    public function getTitle(): string { return 'Edit Tag'; }
+
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
-            ForceDeleteAction::make(),
-            RestoreAction::make(),
+            DeleteAction::make()->label('Hapus'),
+            ForceDeleteAction::make()->label('Hapus Permanen'),
+            RestoreAction::make()->label('Pulihkan'),
         ];
     }
 }
