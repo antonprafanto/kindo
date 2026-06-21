@@ -3,6 +3,71 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/* ── Self-hosted fonts ─────────────────────────────────── */
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style:  normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/space-grotesk-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style:  normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/space-grotesk-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style:  normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/space-grotesk-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style:  normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/inter-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style:  normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/inter-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Inter';
+    font-style:  normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/inter-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style:  normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style:  normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style:  italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/jetbrains-mono-latin-400-italic.woff2') format('woff2');
+}
+
 /* ─────────────────────────────────────────────────────────────
    KODING INDONESIA – Neo-Brutalism Design System
    Brand Colors: #2979FF (blue), #FF7A2F (orange), #2D3748 (dark), #000 / #FFF

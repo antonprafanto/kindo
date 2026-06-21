@@ -34,10 +34,11 @@
     {{-- Canonical --}}
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
 
-    {{-- Fonts --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    {{-- Fonts (self-hosted, no external requests) --}}
+    <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/space-grotesk-latin-400-normal.woff2') }}" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/space-grotesk-latin-700-normal.woff2') }}" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/inter-latin-400-normal.woff2') }}" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/jetbrains-mono-latin-400-normal.woff2') }}" crossorigin>
 
     {{-- Assets --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
