@@ -68,6 +68,7 @@ class ArticleForm
                     ->schema([
                         FileUpload::make('cover_image')
                             ->label(false)
+                            ->disk('public')
                             ->image()
                             ->imageResizeMode('cover')
                             ->imageCropAspectRatio('16:9')
