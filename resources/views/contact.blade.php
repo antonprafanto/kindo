@@ -15,6 +15,10 @@
 
         <form method="POST" action="{{ route('contact.store') }}" class="space-y-5">
             @csrf
+            {{-- Honeypot: hidden field, bots fill it, humans don't --}}
+            <div style="display:none;" aria-hidden="true">
+                <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </div>
 
             <div>
                 <label class="block text-sm font-bold mb-2 uppercase tracking-wider">Nama <span class="text-red-500">*</span></label>

@@ -9,11 +9,27 @@
     {{-- OG / Social --}}
     <meta property="og:title" content="{{ $title ?? 'Koding Indonesia' }}">
     <meta property="og:description" content="{{ $description ?? 'Platform edukasi pemrograman berbahasa Indonesia.' }}">
-    <meta property="og:image" content="{{ $ogImage ?? asset('images/og-default.png') }}">
+    <meta property="og:image" content="{{ $ogImage ?? asset('og-default.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:type" content="{{ $ogType ?? 'website' }}">
     <meta property="og:url" content="{{ $canonical ?? url()->current() }}">
     <meta property="og:site_name" content="Koding Indonesia">
+    <meta property="og:locale" content="id_ID">
+
+    {{-- Twitter Cards --}}
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title ?? 'Koding Indonesia' }}">
+    <meta name="twitter:description" content="{{ $description ?? 'Platform edukasi pemrograman berbahasa Indonesia.' }}">
+    <meta name="twitter:image" content="{{ $ogImage ?? asset('og-default.png') }}">
+    <meta name="twitter:site" content="@kodingindonesia">
+
+    {{-- Favicon --}}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
+    <meta name="theme-color" content="#2979FF">
 
     {{-- Canonical --}}
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
