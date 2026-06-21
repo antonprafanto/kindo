@@ -50,20 +50,12 @@ class ArticleForm
                             ->label('Isi Artikel')
                             ->required()
                             ->toolbarButtons([
-                                'attachFiles',
-                                'blockquote',
-                                'bold',
-                                'bulletList',
-                                'codeBlock',
-                                'h2',
-                                'h3',
-                                'italic',
-                                'link',
-                                'orderedList',
-                                'redo',
-                                'strike',
-                                'underline',
-                                'undo',
+                                ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
+                                ['h2', 'h3', 'h4'],
+                                ['alignStart', 'alignCenter', 'alignEnd'],
+                                ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                                ['table', 'horizontalRule', 'attachFiles'],
+                                ['undo', 'redo'],
                             ])
                             ->columnSpanFull(),
                     ])
