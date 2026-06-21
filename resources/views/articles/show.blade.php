@@ -39,11 +39,29 @@
             <div>
 
                 {{-- Cover Image --}}
-                @if($article->cover_image)
                 <div class="border-2 border-black mb-8 overflow-hidden" style="box-shadow: 5px 5px 0 #000; aspect-ratio: 16/7;">
-                    <img src="{{ asset('storage/' . $article->cover_image) }}" alt="{{ $article->title }}" class="w-full h-full object-cover">
+                    @if($article->cover_image && file_exists(storage_path('app/public/' . $article->cover_image)))
+                        <img src="{{ asset('storage/' . $article->cover_image) }}"
+                             alt="{{ $article->title }}"
+                             class="w-full h-full object-cover">
+                    @else
+                        {{-- Placeholder branded gradient --}}
+                        <div class="w-full h-full flex flex-col items-center justify-center gap-3"
+                             style="background: linear-gradient(135deg, #2979FF 0%, #1a56cc 50%, #2D3748 100%);">
+                            <div class="text-white text-2xl font-black px-3 py-1 border-2 border-white"
+                                 style="letter-spacing:-0.03em; text-shadow: 2px 2px 0 rgba(0,0,0,0.3);">kindo</div>
+                            <p class="text-white text-center font-bold px-6 max-w-lg"
+                               style="font-size:1.1rem; text-shadow: 1px 1px 0 rgba(0,0,0,0.4); line-height:1.4;">
+                                {{ $article->title }}
+                            </p>
+                            @if($article->category)
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 border-2 border-white text-white opacity-80">
+                                {{ $article->category->name }}
+                            </span>
+                            @endif
+                        </div>
+                    @endif
                 </div>
-                @endif
 
                 {{-- Category + Meta --}}
                 <div class="flex flex-wrap items-center gap-3 mb-5">
