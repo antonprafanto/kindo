@@ -12,7 +12,7 @@ class TagController extends Controller
 
         $articles = $tag->articles()
             ->published()
-            ->with(['category', 'user'])
+            ->with(['category', 'user', 'tags'])
             ->latest('published_at')
             ->paginate(12);
 

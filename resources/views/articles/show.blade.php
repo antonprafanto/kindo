@@ -6,6 +6,10 @@
     :canonical="route('articles.show', $article->slug)"
 >
 
+{{-- Reading Progress Bar --}}
+<div id="reading-progress"
+     style="position:fixed; top:0; left:0; height:3px; width:0%; background:#2979FF; z-index:9999; transition:width .1s linear; box-shadow: 0 0 6px rgba(41,121,255,0.6);"></div>
+
 @push('schema')
 <script type="application/ld+json">
 {
@@ -200,6 +204,24 @@ document.addEventListener('DOMContentLoaded', () => {
         toc.appendChild(a);
     });
 });
+</script>
+@endpush
+
+@push('scripts')
+<script>
+// Reading progress bar
+(function() {
+    const bar = document.getElementById('reading-progress');
+    if (!bar) return;
+    function updateProgress() {
+        const docH   = document.documentElement.scrollHeight - window.innerHeight;
+        const scroll = window.scrollY;
+        const pct    = docH > 0 ? Math.min(100, (scroll / docH) * 100) : 0;
+        bar.style.width = pct + '%';
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+})();
 </script>
 @endpush
 

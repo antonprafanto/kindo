@@ -11,4 +11,9 @@ class PageController extends Controller
         $articleCount = Article::published()->count();
         return view('about', compact('articleCount'));
     }
+
+    public function privacy()
+    {
+        return view('privacy');
+    }
 }

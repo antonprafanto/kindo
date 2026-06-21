@@ -3,6 +3,13 @@
 
     <div class="max-w-6xl mx-auto px-4 py-10">
 
+        {{-- Rate limit error --}}
+        @if($rateLimitError)
+        <div class="mb-6 p-4 border-2 border-black font-bold text-sm" style="background:#FF7A2F; color:#fff; box-shadow:3px 3px 0 #000;">
+            ⚠ {{ $rateLimitError }}
+        </div>
+        @endif
+
         {{-- Search Input --}}
         <div class="mb-10">
             <h1 class="text-3xl font-black mb-6" style="letter-spacing:-0.02em;">Cari Artikel</h1>

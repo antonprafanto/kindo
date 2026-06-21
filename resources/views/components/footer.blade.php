@@ -48,7 +48,10 @@
 
         <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs" style="border-top: 1px solid #4A5568; color: #718096;">
             <span>© {{ date('Y') }} Koding Indonesia — Konten dilisensikan di bawah <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline hover:text-white">CC BY-NC-SA 4.0</a></span>
-            <span class="font-mono">Built with ♥ in Indonesia 🇮🇩</span>
+            <div class="flex items-center gap-4">
+                <a href="{{ route('privacy') }}" class="underline hover:text-white">Kebijakan Privasi</a>
+                <span class="font-mono">Built with ♥ in Indonesia 🇮🇩</span>
+            </div>
         </div>
     </div>
 </footer>

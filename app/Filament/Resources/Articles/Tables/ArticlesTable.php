@@ -7,13 +7,14 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Tables\Columns\BadgeColumn;
+use Filament\Tables\Actions\BulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Collection;
 
 class ArticlesTable
 {
@@ -23,9 +24,10 @@ class ArticlesTable
             ->columns([
                 ImageColumn::make('cover_image')
                     ->label('')
-                    ->width(60)
-                    ->height(40)
-                    ->defaultImageUrl(asset('images/placeholder.png')),
+                    ->disk('public')
+                    ->width(80)
+                    ->height(50)
+                    ->defaultImageUrl(asset('og-default.png')),
 
                 TextColumn::make('title')
                     ->label('Judul')
@@ -86,9 +88,36 @@ class ArticlesTable
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
+                    BulkAction::make('publish')
+                        ->label('Publish Semua')
+                        ->icon('heroicon-o-check-circle')
+                        ->color('success')
+                        ->requiresConfirmation()
+                        ->modalHeading('Publish Artikel Terpilih?')
+                        ->modalDescription('Semua artikel yang dipilih akan dipublish sekarang.')
+                        ->action(fn (Collection $records) => $records->each(
+                            fn ($r) => $r->update([
+                                'status'       => 'published',
+                                'published_at' => $r->published_at ?? now(),
+                            ])
+                        ))
+                        ->deselectRecordsAfterCompletion(),
+
+                    BulkAction::make('unpublish')
+                        ->label('Unpublish Semua')
+                        ->icon('heroicon-o-x-circle')
+                        ->color('warning')
+                        ->requiresConfirmation()
+                        ->modalHeading('Unpublish Artikel Terpilih?')
+                        ->modalDescription('Semua artikel yang dipilih akan dikembalikan ke Draft.')
+                        ->action(fn (Collection $records) => $records->each(
+                            fn ($r) => $r->update(['status' => 'draft'])
+                        ))
+                        ->deselectRecordsAfterCompletion(),
+
+                    DeleteBulkAction::make()->label('Hapus'),
+                    ForceDeleteBulkAction::make()->label('Hapus Permanen'),
+                    RestoreBulkAction::make()->label('Pulihkan'),
                 ]),
             ])
             ->defaultSort('created_at', 'desc');

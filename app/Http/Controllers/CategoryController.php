@@ -12,7 +12,7 @@ class CategoryController extends Controller
 
         $articles = $category->articles()
             ->published()
-            ->with(['user', 'tags'])
+            ->with(['category', 'user', 'tags'])
             ->latest('published_at')
             ->paginate(12);
 

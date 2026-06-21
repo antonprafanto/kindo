@@ -25,3 +25,5 @@ Route::get('/kontak', [ContactController::class, 'show'])->name('contact');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('privacy');
