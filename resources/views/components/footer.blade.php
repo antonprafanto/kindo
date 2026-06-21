@@ -6,7 +6,7 @@
             <div>
                 <a href="{{ route('home') }}" class="flex items-center gap-2 mb-4 no-underline">
                     <span class="text-white text-xl font-black px-2 py-0.5 border-2 border-white" style="background:#2979FF;">kindo</span>
-                    <span class="font-bold text-white text-xl">indonesia</span>
+                    <span class="font-bold text-white text-xl">Koding Indonesia</span>
                 </a>
                 <p class="text-sm leading-relaxed" style="color: #A0AEC0;">
                     Platform edukasi pemrograman berbahasa Indonesia. Belajar ESP32, IoT, Arduino, dan pemrograman dari konten berkualitas.
