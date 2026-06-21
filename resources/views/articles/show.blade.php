@@ -9,25 +9,28 @@
 @push('schema')
 <script type="application/ld+json">
 {
-    "@context": "https://schema.org",
-    "@type": "Article",
+    "@@context": "https://schema.org",
+    "@@type": "Article",
     "headline": "{{ $article->title }}",
     "description": "{{ $article->seo_description }}",
     "image": "{{ $article->cover_url }}",
     "datePublished": "{{ $article->published_at?->toIso8601String() }}",
     "dateModified": "{{ $article->updated_at->toIso8601String() }}",
-    "author": {"@type": "Person","name": "{{ $article->user->name ?? 'Koding Indonesia' }}"},
-    "publisher": {"@type": "Organization","name": "Koding Indonesia","url": "{{ url('/') }}"},
+    "author": {"@@type": "Person","name": "{{ $article->user->name ?? 'Koding Indonesia' }}"},
+    "publisher": {"@@type": "Organization","name": "Koding Indonesia","url": "{{ url('/') }}"},
     "url": "{{ route('articles.show', $article->slug) }}"
 }
 </script>
 @endpush
 
-    <x-breadcrumb :items="[
-        ['label' => 'Artikel', 'url' => route('articles.index')],
-        $article->category ? ['label' => $article->category->name, 'url' => route('categories.show', $article->category->slug)] : [],
-        ['label' => $article->title],
-    ]|array_filter|array_values" />
+    @php
+        $breadcrumbs = array_values(array_filter([
+            ['label' => 'Artikel', 'url' => route('articles.index')],
+            $article->category ? ['label' => $article->category->name, 'url' => route('categories.show', $article->category->slug)] : null,
+            ['label' => $article->title],
+        ]));
+    @endphp
+    <x-breadcrumb :items="$breadcrumbs" />
 
     <div class="max-w-6xl mx-auto px-4 py-10">
         <div class="grid lg:grid-cols-[1fr_280px] gap-10">
