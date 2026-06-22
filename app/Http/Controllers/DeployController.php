@@ -22,6 +22,10 @@ class DeployController extends Controller
         Artisan::call('config:clear');
         Artisan::call('route:clear');
 
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
         return response('Cache cleared', 200);
     }
 }
