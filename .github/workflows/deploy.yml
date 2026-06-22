@@ -61,18 +61,39 @@ jobs:
           FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL }}
           FTP_PORT: ${{ secrets.FTP_PORT }}
 
+      - name: Prepare FTP settings
+        id: ftp
+        run: |
+          dir="${{ secrets.FTP_SERVER_DIR }}"
+          dir="${dir//[[:space:]]/}"
+          dir="${dir%/}/"
+          if [ -z "$dir" ]; then
+            echo "::error::FTP_SERVER_DIR is empty"
+            exit 1
+          fi
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          proto="${{ secrets.FTP_PROTOCOL }}"
+          proto="${proto//[[:space:]]/}"
+          proto="${proto:-ftps}"
+          echo "protocol=$proto" >> "$GITHUB_OUTPUT"
+          port="${{ secrets.FTP_PORT }}"
+          port="${port//[[:space:]]/}"
+          port="${port:-21}"
+          echo "port=$port" >> "$GITHUB_OUTPUT"
+          echo "Deploy target: $proto://***@***:$port$dir"
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ${{ secrets.FTP_PROTOCOL || 'ftps' }}
-          port: ${{ secrets.FTP_PORT || 21 }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
           security: loose
           local-dir: ./
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          log-level: minimal
+          server-dir: ${{ steps.ftp.outputs.dir }}
+          log-level: verbose
           exclude: |
             **/.git*
             **/.github/**
