@@ -1,0 +1,90 @@
+name: Deploy to Rumahweb (FTP)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, curl, libxml, mbstring, zip, gd, bcmath, intl
+          coverage: none
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Build frontend assets
+        run: npm ci && npm run build
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          port: 21
+          local-dir: ./
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          log-level: minimal
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/tests/**
+            **/.env
+            **/.env.*
+            **/.editorconfig
+            **/.cursor/**
+            **/.vscode/**
+            **/.codex/**
+            **/storage/app/public/**
+            **/storage/app/private/**
+            **/storage/logs/**
+            **/storage/framework/cache/data/**
+            **/storage/framework/sessions/**
+            **/storage/framework/testing/**
+            **/storage/framework/views/**
+            **/bootstrap/cache/*.php
+            **/*.md
+            **/phpunit.xml
+            **/docker-compose*
+            **/database/database.sqlite
+            **/public/hot
+            **/public/storage
+
+      - name: Purge remote Laravel cache files (FTP)
+        continue-on-error: true
+        run: |
+          BASE="ftp://${{ secrets.FTP_SERVER }}${{ secrets.FTP_SERVER_DIR }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          for file in bootstrap/cache/config.php bootstrap/cache/routes-v7.php bootstrap/cache/packages.php bootstrap/cache/services.php; do
+            curl -sS --ftp-pasv --user "$AUTH" -Q "-DELE ${file}" "$BASE" || true
+          done
+
+      - name: Clear Laravel cache via deploy hook
+        continue-on-error: true
+        run: |
+          curl -fsS --max-time 60 \
+            "https://kodingindonesia.com/deploy/clear-cache?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"

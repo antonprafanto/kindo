@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Deploy Hook Token (GitHub Actions → FTP deploy)
+    |--------------------------------------------------------------------------
+    |
+    | Random secret for /deploy/clear-cache after CI/CD upload. Leave empty
+    | to disable the endpoint (returns 404).
+    |
+    */
+
+    'deploy_hook_token' => env('DEPLOY_HOOK_TOKEN'),
+
 ];

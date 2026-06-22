@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DeployController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SitemapController;
@@ -35,3 +36,7 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])
     ]);
 
 Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('privacy');
+
+Route::get('/deploy/clear-cache', [DeployController::class, 'clearCache'])
+    ->middleware('throttle:5,1')
+    ->name('deploy.clear-cache');

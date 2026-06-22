@@ -9,12 +9,94 @@
 4. Assign user ke database dengan ALL PRIVILEGES
 5. Catat: DB_DATABASE, DB_USERNAME, DB_PASSWORD
 
-### 2. Setup SSH Key (Opsional tapi Disarankan)
+### 2. Setup SSH Key (Opsional — hanya paket Unlimited M ke atas)
 ```bash
 # Generate key pair di laptop
 ssh-keygen -t ed25519 -C "kodingindonesia"
 # Copy public key ke ~/.ssh/authorized_keys di server
 ```
+
+> **Unlimited S tidak punya SSH.** Untuk deploy otomatis, gunakan **GitHub Actions + FTP** (lihat bagian bawah).
+
+---
+
+## Deploy Otomatis — GitHub Actions + FTP (Unlimited S)
+
+Tanpa SSH, deploy dilakukan via **FTP** dari GitHub Actions setiap push ke `main`.
+
+### Alur kerja
+
+```
+Push ke main → GitHub Actions
+  → composer install + npm build
+  → upload via FTP ke Rumahweb
+  → hapus cache config/routes
+  → panggil /deploy/clear-cache (webhook)
+```
+
+### Step 1: Siapkan FTP di cPanel
+
+1. Login cPanel → **FTP Accounts**
+2. Catat:
+   - **Server**: biasanya `ftp.kodingindonesia.com` atau hostname IIX Rumahweb
+   - **Username**: akun FTP cPanel (mis. `kodi0941`)
+   - **Password**: password FTP
+   - **Port**: `21`
+3. Catat **path folder Laravel** di server (root yang berisi `artisan`), misalnya:
+   - `/public_html/kodingindonesia/`
+   - atau `/kindo/`
+
+> Buka File Manager → cari file `artisan` → path itulah `FTP_SERVER_DIR` (harus diakhiri `/`).
+
+### Step 2: Tambah GitHub Secrets
+
+Repo: `https://github.com/antonprafanto/kindo` → **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
+
+| Secret | Contoh nilai |
+|--------|----------------|
+| `FTP_SERVER` | `ftp.kodingindonesia.com` |
+| `FTP_USERNAME` | `kodi0941` |
+| `FTP_PASSWORD` | password FTP cPanel |
+| `FTP_PORT` | `21` |
+| `FTP_SERVER_DIR` | `/public_html/kodingindonesia/` |
+| `DEPLOY_HOOK_TOKEN` | string acak 64 karakter (generate di bawah) |
+
+Generate token deploy hook:
+```bash
+php -r "echo bin2hex(random_bytes(32));"
+```
+
+### Step 3: Set token di server (.env production)
+
+Via cPanel **File Manager**, edit `.env` di folder Laravel, tambahkan:
+```
+DEPLOY_HOOK_TOKEN=token_yang_sama_dengan_github_secret
+```
+
+### Step 4: Deploy pertama (manual sekali)
+
+Karena workflow baru, jalankan sekali dari GitHub:
+1. Buka tab **Actions** di repo GitHub
+2. Pilih workflow **Deploy to Rumahweb (FTP)**
+3. Klik **Run workflow** → **Run workflow**
+
+Atau push commit apa pun ke `main`.
+
+### Step 5: Verifikasi
+
+1. Cek tab **Actions** — status hijau ✅
+2. Tes https://kodingindonesia.com/kontak (form kontak)
+3. Deploy berikutnya otomatis setiap `git push origin main`
+
+### Batasan (Unlimited S)
+
+| Bisa via CI/CD | Tidak bisa tanpa SSH |
+|----------------|----------------------|
+| Upload kode PHP, views, config | `php artisan migrate` |
+| Build & upload assets Vite | Composer di server |
+| Clear cache via deploy hook | SSH / Terminal |
+
+Untuk migration database: jalankan sekali via **cPanel → Terminal** (jika tersedia) atau upgrade ke Unlimited M.
 
 ---
 
@@ -94,6 +176,9 @@ npm install && npm run build
 
 ## Deployment Selanjutnya (Update)
 
+**Otomatis (disarankan — Unlimited S):** push ke `main` → GitHub Actions deploy via FTP.
+
+**Manual via SSH** (hanya Unlimited M+):
 ```bash
 ssh USER@SERVER_IP -p 2223
 cd ~/kindo
@@ -102,6 +187,8 @@ composer install --no-dev --optimize-autoloader
 php artisan migrate --force
 php artisan config:cache && php artisan route:cache && php artisan view:cache
 ```
+
+**Manual via cPanel Git:** cPanel → **Git Version Control** → Pull or Deploy (jika tersedia).
 
 ---
 
