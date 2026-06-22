@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      include_vendor:
+        description: Upload vendor/ (hanya jika composer.lock berubah)
+        required: false
+        default: false
+        type: boolean
 
 concurrency:
   group: deploy-production
@@ -12,7 +18,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     environment: antonprafanto
 
     steps:
@@ -20,13 +26,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup PHP
+        if: inputs.include_vendor == true
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           extensions: dom, curl, libxml, mbstring, zip, gd, bcmath, intl
           coverage: none
 
-      - name: Install Composer dependencies
+      - name: Composer install
+        if: inputs.include_vendor == true
         run: composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
       - name: Setup Node.js
@@ -50,7 +58,7 @@ jobs:
             fi
           done
           echo "FTP_PROTOCOL=${FTP_PROTOCOL:-ftps}"
-          echo "FTP_PORT=${FTP_PORT:-21}"
+          echo "include_vendor=${{ inputs.include_vendor }}"
           [ "$missing" -eq 0 ]
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
@@ -80,7 +88,6 @@ jobs:
           port="${port//[[:space:]]/}"
           port="${port:-21}"
           echo "port=$port" >> "$GITHUB_OUTPUT"
-          echo "Deploy target: $proto://***@***:$port$dir"
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
@@ -93,11 +100,13 @@ jobs:
           security: loose
           local-dir: ./
           server-dir: ${{ steps.ftp.outputs.dir }}
-          log-level: verbose
+          state-name: kindo-ftp-deploy
+          log-level: standard
           exclude: |
             **/.git*
             **/.github/**
             **/node_modules/**
+            **/vendor/**
             **/tests/**
             **/.env
             **/.env.*
@@ -105,20 +114,29 @@ jobs:
             **/.cursor/**
             **/.vscode/**
             **/.codex/**
-            **/storage/app/public/**
-            **/storage/app/private/**
-            **/storage/logs/**
-            **/storage/framework/cache/data/**
-            **/storage/framework/sessions/**
-            **/storage/framework/testing/**
-            **/storage/framework/views/**
-            **/bootstrap/cache/*.php
+            **/storage/**
+            **/bootstrap/cache/**
             **/*.md
             **/phpunit.xml
             **/docker-compose*
             **/database/database.sqlite
             **/public/hot
             **/public/storage
+
+      - name: Deploy vendor via FTP
+        if: inputs.include_vendor == true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./vendor/
+          server-dir: ${{ steps.ftp.outputs.dir }}vendor/
+          state-name: kindo-ftp-vendor
+          log-level: standard
 
       - name: Purge remote Laravel cache files (FTP)
         continue-on-error: true
