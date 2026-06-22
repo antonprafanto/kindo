@@ -15,15 +15,15 @@ class ContactMail extends Mailable
     public function __construct(
         public readonly string $senderName,
         public readonly string $senderEmail,
-        public readonly string $subject,
-        public readonly string $message,
+        public readonly string $contactSubject,
+        public readonly string $messageBody,
     ) {}
 
     public function envelope(): Envelope
     {
         return new Envelope(
             replyTo: [$this->senderEmail],
-            subject: '[Koding Indonesia] ' . $this->subject,
+            subject: '[Koding Indonesia] ' . $this->contactSubject,
         );
     }
 

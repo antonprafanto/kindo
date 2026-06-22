@@ -4,9 +4,9 @@
 
             {{-- Brand --}}
             <div>
-                <a href="{{ route('home') }}" class="flex items-center gap-2 mb-4 no-underline">
-                    <span class="text-white text-xl font-black px-2 py-0.5 border-2 border-white" style="background:#2979FF;">kindo</span>
-                    <span class="font-bold text-white text-xl">Koding Indonesia</span>
+                <a href="{{ route('home') }}" class="flex flex-wrap items-center gap-2 mb-4 no-underline">
+                    <span class="text-white text-lg sm:text-xl font-black px-2 py-0.5 border-2 border-white" style="background:#2979FF;">kindo</span>
+                    <span class="font-bold text-white text-lg sm:text-xl">Koding Indonesia</span>
                 </a>
                 <p class="text-sm leading-relaxed" style="color: #A0AEC0;">
                     Platform edukasi pemrograman berbahasa Indonesia. Belajar ESP32, IoT, Arduino, dan pemrograman dari konten berkualitas.
@@ -46,9 +46,9 @@
             </div>
         </div>
 
-        <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center gap-3 text-xs" style="border-top: 1px solid #4A5568; color: #718096;">
-            <span>© {{ date('Y') }} Koding Indonesia — Konten dilisensikan di bawah <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline hover:text-white">CC BY-NC-SA 4.0</a></span>
-            <div class="flex items-center gap-4">
+        <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs" style="border-top: 1px solid #4A5568; color: #718096;">
+            <span class="max-w-full">© {{ date('Y') }} Koding Indonesia — Konten dilisensikan di bawah <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline hover:text-white">CC BY-NC-SA 4.0</a></span>
+            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
                 <a href="{{ route('privacy') }}" class="underline hover:text-white">Kebijakan Privasi</a>
                 <span class="font-mono">Built with ♥ in Indonesia 🇮🇩</span>
             </div>

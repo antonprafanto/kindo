@@ -77,4 +77,10 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
+    /*
+    | Rumahweb shared hosting: document root (public_html) is outside the Laravel app.
+    | When set, cover uploads are mirrored here so /storage/... URLs work without symlink.
+    */
+    'public_html_storage' => env('PUBLIC_HTML_STORAGE'),
+
 ];

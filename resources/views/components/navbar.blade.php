@@ -4,7 +4,7 @@
     style="box-shadow: 0 3px 0 #000;"
 >
     <div class="max-w-6xl mx-auto px-4">
-        <div class="flex items-center justify-between h-16">
+        <div class="flex items-center justify-between h-14 sm:h-16">
 
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="flex items-center gap-2 no-underline">
@@ -12,7 +12,7 @@
                     class="text-white text-lg font-black tracking-tight px-2 py-0.5 border-2 border-black"
                     style="background:#2979FF; box-shadow: 2px 2px 0 #000; letter-spacing:-0.03em;"
                 >kindo</span>
-                <span class="font-bold text-black text-lg hidden sm:inline" style="letter-spacing:-0.02em;">Koding Indonesia</span>
+                <span class="font-bold text-black text-base sm:text-lg hidden sm:inline" style="letter-spacing:-0.02em;">Koding Indonesia</span>
                 <span class="w-2 h-2 rounded-full" style="background:#FF7A2F; border: 2px solid #000; display:inline-block;"></span>
             </a>
 

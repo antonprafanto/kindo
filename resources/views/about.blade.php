@@ -2,16 +2,16 @@
 
     <x-breadcrumb :items="[['label' => 'Tentang']]" />
 
-    <div class="max-w-4xl mx-auto px-4 py-16">
+    <div class="max-w-4xl mx-auto px-4 py-10 sm:py-16">
 
         {{-- Hero --}}
-        <div class="text-center mb-16">
-            <div class="inline-flex items-center gap-3 mb-6">
-                <span class="text-white text-3xl font-black px-4 py-2 border-2 border-black" style="background:#2979FF; box-shadow: 4px 4px 0 #000;">kindo</span>
-                <span class="text-3xl font-black">indonesia</span>
+        <div class="text-center mb-10 sm:mb-16">
+            <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6">
+                <span class="text-white text-2xl sm:text-3xl font-black px-3 sm:px-4 py-2 border-2 border-black" style="background:#2979FF; box-shadow: 4px 4px 0 #000;">kindo</span>
+                <span class="text-2xl sm:text-3xl font-black">Koding Indonesia</span>
                 <span class="w-4 h-4 rounded-full border-2 border-black" style="background:#FF7A2F;"></span>
             </div>
-            <h1 class="text-4xl font-black mb-4" style="letter-spacing:-0.02em;">Tentang Koding Indonesia</h1>
+            <h1 class="text-3xl sm:text-4xl font-black mb-4" style="letter-spacing:-0.02em;">Tentang Koding Indonesia</h1>
             <p class="text-lg max-w-2xl mx-auto" style="color:#4A5568; font-family:'Inter',sans-serif; line-height:1.7;">
                 Platform edukasi pemrograman berbahasa Indonesia — didirikan untuk membantu pelajar dan developer
                 Indonesia belajar embedded system, IoT, dan pemrograman dengan konten yang berkualitas.
@@ -19,10 +19,10 @@
         </div>
 
         {{-- Stats --}}
-        <div class="grid grid-cols-3 gap-4 mb-16">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 sm:mb-16">
             @foreach([['num' => $articleCount . '+', 'label' => 'Artikel Diterbitkan', 'color' => '#2979FF'], ['num' => '100%', 'label' => 'Bahasa Indonesia', 'color' => '#FF7A2F'], ['num' => '0', 'label' => 'Biaya Belajar', 'color' => '#2D3748']] as $stat)
-            <div class="text-center p-6 bg-white border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
-                <div class="text-3xl font-black mb-1" style="color: {{ $stat['color'] }};">{{ $stat['num'] }}</div>
+            <div class="text-center p-4 sm:p-6 bg-white border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+                <div class="text-2xl sm:text-3xl font-black mb-1" style="color: {{ $stat['color'] }};">{{ $stat['num'] }}</div>
                 <div class="text-xs font-semibold uppercase tracking-wider" style="color:#718096;">{{ $stat['label'] }}</div>
             </div>
             @endforeach

@@ -4,7 +4,7 @@
 
 ### 1. Buat Database di cPanel Rumahweb
 1. Login ke cPanel → **MySQL Databases**
-2. Buat database baru: misal `kodi0941_kodingindonesia`
+2. Buat database baru: misal `cpaneluser_dbname`
 3. Buat user database dan set password kuat
 4. Assign user ke database dengan ALL PRIVILEGES
 5. Catat: DB_DATABASE, DB_USERNAME, DB_PASSWORD
@@ -22,7 +22,7 @@ ssh-keygen -t ed25519 -C "kodingindonesia"
 
 ### Step 1: SSH ke Server
 ```bash
-ssh kodi0941@202.10.43.90
+ssh USER@SERVER_IP -p 2223
 ```
 
 ### Step 2: Clone Repository
@@ -95,8 +95,8 @@ npm install && npm run build
 ## Deployment Selanjutnya (Update)
 
 ```bash
-ssh kodi0941@202.10.43.90
-cd ~/kodingindonesia
+ssh USER@SERVER_IP -p 2223
+cd ~/kindo
 git pull origin main
 composer install --no-dev --optimize-autoloader
 php artisan migrate --force

@@ -2,7 +2,7 @@
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>{{ $title ?? 'Koding Indonesia — Tutorial ESP32, IoT & Pemrograman' }}</title>
     <meta name="description" content="{{ $description ?? 'Platform edukasi pemrograman berbahasa Indonesia. Tutorial ESP32, Arduino, IoT, dan pemrograman umum yang mudah dipahami.' }}">
 
@@ -59,7 +59,7 @@
     <button
         id="back-to-top"
         onclick="window.scrollTo({top:0,behavior:'smooth'})"
-        class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-black text-white border-2 border-black font-bold hidden transition-all"
+        class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-11 h-11 sm:w-12 sm:h-12 bg-black text-white border-2 border-black font-bold hidden transition-all"
         style="box-shadow: 3px 3px 0 #2979FF"
         title="Kembali ke atas"
     >↑</button>
@@ -83,16 +83,17 @@
         });
 
         // Copy button for code blocks
-        document.querySelectorAll('pre').forEach(pre => {
+        document.querySelectorAll('.article-body pre, #article-content pre').forEach(pre => {
             const wrap = document.createElement('div');
-            wrap.style.position = 'relative';
+            wrap.className = 'code-block-wrap';
             pre.parentNode.insertBefore(wrap, pre);
             wrap.appendChild(pre);
 
             const btn = document.createElement('button');
             btn.textContent = 'Salin';
             btn.className = 'copy-code-btn';
-            btn.style.cssText = 'position:absolute;top:8px;right:8px;padding:3px 10px;font-size:12px;font-weight:700;font-family:inherit;background:#2979FF;color:#fff;border:2px solid #000;cursor:pointer;';
+            btn.type = 'button';
+            btn.setAttribute('aria-label', 'Salin kode');
             btn.addEventListener('click', () => {
                 navigator.clipboard.writeText(pre.querySelector('code')?.textContent || pre.textContent);
                 btn.textContent = 'Tersalin!';

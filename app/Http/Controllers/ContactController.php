@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 
@@ -40,12 +41,23 @@ class ContactController extends Controller
 
         $contactEmail = config('mail.contact_email', config('mail.from.address'));
 
-        Mail::to($contactEmail)->send(new ContactMail(
-            senderName:  $validated['name'],
-            senderEmail: $validated['email'],
-            subject:     $validated['subject'],
-            message:     $validated['message'],
-        ));
+        try {
+            Mail::to($contactEmail)->send(new ContactMail(
+                senderName:     $validated['name'],
+                senderEmail:    $validated['email'],
+                contactSubject: $validated['subject'],
+                messageBody:    $validated['message'],
+            ));
+        } catch (\Throwable $e) {
+            Log::error('Contact form mail failed', [
+                'error' => $e->getMessage(),
+                'email' => $validated['email'],
+            ]);
+
+            return back()->withErrors([
+                'email' => 'Gagal mengirim pesan. Silakan coba lagi beberapa saat atau hubungi kami langsung via email.',
+            ])->withInput();
+        }
 
         return back()->with('success', 'Pesan kamu sudah terkirim! Kami akan merespons dalam 1–2 hari kerja. 🙏');
     }

@@ -37,12 +37,12 @@
             </div>
             <div class="field">
                 <div class="field-label">Subjek</div>
-                <div class="field-value"><strong>{{ $subject }}</strong></div>
+                <div class="field-value"><strong>{{ $contactSubject }}</strong></div>
             </div>
             <hr class="divider">
             <div class="field">
                 <div class="field-label">Pesan</div>
-                <div class="message-box">{{ $message }}</div>
+                <div class="message-box">{{ $messageBody }}</div>
             </div>
             <hr class="divider">
             <p style="font-size: 13px; color: #718096;">

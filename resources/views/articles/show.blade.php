@@ -36,14 +36,14 @@
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
 
-    <div class="max-w-6xl mx-auto px-4 py-10">
-        <div class="grid lg:grid-cols-[1fr_280px] gap-10">
+    <div class="max-w-6xl mx-auto px-4 py-6 sm:py-10">
+        <div class="grid lg:grid-cols-[1fr_280px] gap-8 lg:gap-10 min-w-0">
 
             {{-- ── MAIN CONTENT ── --}}
-            <div>
+            <div class="min-w-0">
 
                 {{-- Cover Image --}}
-                <div class="border-2 border-black mb-8 overflow-hidden" style="box-shadow: 5px 5px 0 #000; aspect-ratio: 16/7;">
+                <div class="border-2 border-black mb-6 sm:mb-8 overflow-hidden aspect-video lg:aspect-[16/7]" style="box-shadow: 5px 5px 0 #000;">
                     @if($article->cover_image && file_exists(storage_path('app/public/' . $article->cover_image)))
                         <img src="{{ asset('storage/' . $article->cover_image) }}"
                              alt="{{ $article->title }}"
@@ -85,7 +85,7 @@
                 </div>
 
                 {{-- Title --}}
-                <h1 class="text-3xl lg:text-4xl font-black leading-tight mb-6" style="letter-spacing:-0.02em;">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight mb-6" style="letter-spacing:-0.02em;">
                     {{ $article->title }}
                 </h1>
 
@@ -103,7 +103,7 @@
                 @endif
 
                 {{-- Article Body --}}
-                <div class="article-body prose max-w-none" id="article-content">
+                <div class="article-body prose max-w-none min-w-0" id="article-content">
                     {!! $article->body !!}
                 </div>
 

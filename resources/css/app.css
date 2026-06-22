@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 
+@source '../../resources/views/**/*.blade.php';
+@source '../../resources/js/**/*.js';
+@source '../../app/Livewire/**/*.php';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
@@ -122,6 +125,8 @@
     html {
         scroll-behavior: smooth;
         -webkit-font-smoothing: antialiased;
+        -webkit-text-size-adjust: 100%;
+        overflow-x: hidden;
     }
 
     body {
@@ -129,6 +134,13 @@
         background-color: var(--color-surface);
         color: var(--color-dark);
         line-height: 1.6;
+        overflow-x: hidden;
+        min-width: 0;
+    }
+
+    img, video, svg {
+        max-width: 100%;
+        height: auto;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -320,6 +332,18 @@
         border: 2px solid #000;
         box-shadow: 4px 4px 0 #000;
         border-radius: 0;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .article-body pre code {
+        display: block;
+        white-space: pre;
+        font-size: 0.8rem;
+        line-height: 1.6;
+        padding: 1rem 1.25rem;
+        padding-top: 2.25rem;
+        min-width: min-content;
     }
     .article-body code:not(pre code) {
         background: #1a1a2e;
@@ -328,6 +352,8 @@
         font-size: .875em;
         padding: .1em .4em;
         border: 1px solid #000;
+        word-break: break-word;
+        overflow-wrap: anywhere;
     }
     .article-body img {
         max-width: 100%;
@@ -338,11 +364,15 @@
         display: block;
     }
     .article-body table {
+        display: block;
         width: 100%;
+        max-width: 100%;
         border-collapse: collapse;
         margin: 1.5rem 0;
         font-family: 'Inter', sans-serif;
         font-size: .9rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     .article-body th {
         background: #000;
@@ -383,6 +413,28 @@
     }
 
     /* Code blocks */
+    .code-block-wrap {
+        position: relative;
+        max-width: 100%;
+        margin: 1.5rem 0;
+    }
+    .code-block-wrap pre {
+        margin: 0;
+    }
+    .copy-code-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 2;
+        padding: 3px 10px;
+        font-size: 12px;
+        font-weight: 700;
+        font-family: inherit;
+        background: #2979FF;
+        color: #fff;
+        border: 2px solid #000;
+        cursor: pointer;
+    }
     .code-block-brutal {
         border: var(--border-brutal);
         background-color: var(--color-ink);

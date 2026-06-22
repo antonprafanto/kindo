@@ -5,6 +5,11 @@
 
     RewriteEngine On
 
+    # Serve uploaded files when public/storage symlink is missing (shared hosting)
+    RewriteCond %{REQUEST_URI} ^/storage/(.+)$
+    RewriteCond %{DOCUMENT_ROOT}/../storage/app/public/%1 -f
+    RewriteRule ^storage/(.+)$ %{DOCUMENT_ROOT}/../storage/app/public/$1 [L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
