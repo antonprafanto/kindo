@@ -49,6 +49,8 @@ jobs:
               echo "✓ $key is set"
             fi
           done
+          echo "FTP_PROTOCOL=${FTP_PROTOCOL:-ftps}"
+          echo "FTP_PORT=${FTP_PORT:-21}"
           [ "$missing" -eq 0 ]
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
@@ -56,6 +58,8 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_SERVER_DIR: ${{ secrets.FTP_SERVER_DIR }}
           DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+          FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL }}
+          FTP_PORT: ${{ secrets.FTP_PORT }}
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
