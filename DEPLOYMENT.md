@@ -61,6 +61,9 @@ Repo: `https://github.com/antonprafanto/kindo` → **Settings** → **Secrets an
 | `FTP_SERVER_DIR` | `/public_html/kodingindonesia/` |
 | `DEPLOY_HOOK_TOKEN` | string acak 64 karakter (generate di bawah) |
 
+> Secrets bisa disimpan di **Repository secrets** atau **Environment secrets**.
+> Jika pakai Environment, nama environment harus `antonprafanto` (sesuai workflow).
+
 Generate token deploy hook:
 ```bash
 php -r "echo bin2hex(random_bytes(32));"
