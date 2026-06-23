@@ -103,7 +103,7 @@ jobs:
           security: loose
           local-dir: ./
           server-dir: ${{ steps.ftp.outputs.dir }}
-          state-name: kindo-ftp-deploy
+          state-name: kindo-ftp-deploy-v3
           log-level: standard
           exclude: |
             **/.git*
@@ -125,6 +125,21 @@ jobs:
             **/database/database.sqlite
             **/public/hot
             **/public/storage
+            **/public/build/**
+
+      - name: Deploy build assets via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./public/build/
+          server-dir: ${{ steps.ftp.outputs.dir }}public/build/
+          state-name: kindo-ftp-build
+          log-level: standard
 
       - name: Deploy vendor via FTP
         if: inputs.include_vendor == true
