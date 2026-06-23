@@ -11,6 +11,10 @@ class SitemapController extends Controller
 
     public function index(): Response
     {
-        return $this->sitemap->build()->toResponse(request());
+        return response(
+            $this->sitemap->build()->render(),
+            200,
+            ['Content-Type' => 'text/xml; charset=UTF-8']
+        );
     }
 }

@@ -19,7 +19,10 @@
         $metaDescription = $description ?? 'Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir.';
         $shareTitle = $ogTitle ?? 'Koding Indonesia';
         $defaultShareDescription = 'Tutorial ESP32, Arduino & IoT berbahasa Indonesia. Konten praktis gratis untuk pemula hingga mahir.';
-        $shareDescription = $ogDescription ?? ($description ? \Illuminate\Support\Str::limit(strip_tags($description), 120, '…') : $defaultShareDescription);
+        $pageDescription = $description ?? null;
+        $shareDescription = $ogDescription ?? ($pageDescription
+            ? \Illuminate\Support\Str::limit(strip_tags($pageDescription), 120, '…')
+            : $defaultShareDescription);
     @endphp
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
