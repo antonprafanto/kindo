@@ -115,6 +115,16 @@ jobs:
           port="${port:-21}"
           echo "port=$port" >> "$GITHUB_OUTPUT"
 
+      - name: Prepare public webroot path
+        id: public
+        run: |
+          pub="${{ secrets.FTP_PUBLIC_DIR }}"
+          pub="${pub//[[:space:]]/}"
+          pub="${pub:-/public_html/}"
+          pub="${pub%/}/"
+          echo "dir=$pub" >> "$GITHUB_OUTPUT"
+          echo "Public webroot FTP dir: $pub"
+
       - name: Deploy build assets via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -129,6 +139,28 @@ jobs:
           state-name: kindo-ftp-build-v3
           dangerous-clean-slate: true
           log-level: standard
+
+      - name: Deploy build assets to public webroot via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./public/build/
+          server-dir: ${{ steps.public.outputs.dir }}build/
+          state-name: kindo-ftp-public-build-v1
+          dangerous-clean-slate: true
+          log-level: standard
+
+      - name: Upload deploy marker to public webroot
+        run: |
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          curl -sS --ftp-pasv --user "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" \
+            -T public/deploy-check.txt \
+            "${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}deploy-check.txt"
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
