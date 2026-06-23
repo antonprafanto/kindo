@@ -127,13 +127,13 @@ html.dark {
     --shadow-brutal-blue:   4px 4px 0px #2979FF;
 }
 
-    html:not(.dark) {
-        color-scheme: light;
-    }
+html:not(.dark) {
+    color-scheme: light;
+}
 
-    [x-cloak] { display: none !important; }
+[x-cloak] { display: none !important; }
 
-    /* ─────────────────────────────────────────────────────────────
+/* ─────────────────────────────────────────────────────────────
    BASE STYLES
    ───────────────────────────────────────────────────────────── */
 

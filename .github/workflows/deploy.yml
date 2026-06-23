@@ -62,12 +62,36 @@ jobs:
             ls -la public/build/assets/ || true
             exit 1
           fi
-          for legacy in app-B8UEwyUe.css app-B3YkE1t1.css; do
+          # Keep aliases so stale cached HTML still resolves during deploy window
+          for legacy in app-B8UEwyUe.css app-B3YkE1t1.css app-Cn4EkkYE.css app-C5gSL19A.css; do
             target="public/build/assets/$legacy"
             [ "$(basename "$primary")" = "$legacy" ] && continue
             cp "$primary" "$target"
-            echo "Legacy CSS alias: $(basename "$primary") -> $legacy"
+            echo "CSS alias: $(basename "$primary") -> $legacy"
           done
+
+      - name: Purge compiled Blade views via FTP (pre-deploy)
+        continue-on-error: true
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIR: ${{ secrets.FTP_SERVER_DIR }}
+          FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL }}
+        run: |
+          PROTO="${FTP_PROTOCOL:-ftps}"
+          BASE="${PROTO}://${FTP_SERVER}${FTP_DIR}"
+          VIEWS_URL="${BASE}storage/framework/views/"
+          AUTH="${FTP_USERNAME}:${FTP_PASSWORD}"
+          count=0
+          for f in $(curl -sS --ftp-pasv --user "$AUTH" --list-only "$VIEWS_URL" 2>/dev/null); do
+            case "$f" in *.php)
+              curl -sS --ftp-pasv --user "$AUTH" -Q "-DELE storage/framework/views/$f" "$BASE" || true
+              count=$((count + 1))
+              ;;
+            esac
+          done
+          echo "Pre-deploy: deleted $count compiled view file(s)"
 
       - name: Write deploy marker
         run: echo "${{ github.sha }} $(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/deploy-check.txt
@@ -137,7 +161,6 @@ jobs:
           local-dir: ./public/build/
           server-dir: ${{ steps.ftp.outputs.dir }}public/build/
           state-name: kindo-ftp-build-v3
-          dangerous-clean-slate: true
           log-level: standard
 
       - name: Deploy build assets to public webroot via FTP
@@ -152,7 +175,6 @@ jobs:
           local-dir: ./public/build/
           server-dir: ${{ steps.public.outputs.dir }}build/
           state-name: kindo-ftp-public-build-v1
-          dangerous-clean-slate: true
           log-level: standard
 
       - name: Upload deploy marker to public webroot
