@@ -3,13 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>{{ $title ?? 'Koding Indonesia — Tutorial ESP32, IoT & Pemrograman' }}</title>
-    <meta name="description" content="{{ $description ?? 'Platform edukasi pemrograman berbahasa Indonesia. Tutorial ESP32, Arduino, IoT, dan pemrograman umum yang mudah dipahami.' }}">
+    @php
+        $pageTitle = $title ?? 'Koding Indonesia — Tutorial ESP32 & IoT';
+        $metaDescription = $description ?? 'Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir.';
+        $shareTitle = $ogTitle ?? 'Koding Indonesia';
+        $shareDescription = $ogDescription ?? $metaDescription;
+    @endphp
+    <title>{{ $pageTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}">
 
     {{-- OG / Social --}}
-    <meta property="og:title" content="{{ $title ?? 'Koding Indonesia' }}">
-    <meta property="og:description" content="{{ $description ?? 'Platform edukasi pemrograman berbahasa Indonesia.' }}">
+    <meta property="og:title" content="{{ $shareTitle }}">
+    <meta property="og:description" content="{{ $shareDescription }}">
     <meta property="og:image" content="{{ $ogImage ?? asset('og-default.png') }}">
+    <meta property="og:image:alt" content="Koding Indonesia — Platform edukasi ESP32, IoT & pemrograman">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:type" content="{{ $ogType ?? 'website' }}">
@@ -19,15 +26,16 @@
 
     {{-- Twitter Cards --}}
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ $title ?? 'Koding Indonesia' }}">
-    <meta name="twitter:description" content="{{ $description ?? 'Platform edukasi pemrograman berbahasa Indonesia.' }}">
+    <meta name="twitter:title" content="{{ $shareTitle }}">
+    <meta name="twitter:description" content="{{ $shareDescription }}">
     <meta name="twitter:image" content="{{ $ogImage ?? asset('og-default.png') }}">
+    <meta name="twitter:image:alt" content="Koding Indonesia — Platform edukasi ESP32, IoT & pemrograman">
     <meta name="twitter:site" content="@kodingindonesia">
 
-    {{-- Favicon --}}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    {{-- Favicon (PNG first — reliable on modern browsers) --}}
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
     <meta name="theme-color" content="#2979FF">
 

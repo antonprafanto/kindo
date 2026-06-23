@@ -1,4 +1,7 @@
-<x-layouts.app title="Koding Indonesia — Tutorial ESP32, IoT & Pemrograman Berbahasa Indonesia">
+<x-layouts.app
+    title="Koding Indonesia — Tutorial ESP32 & IoT"
+    description="Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir."
+>
 
     {{-- ═══════════════════════════════════ HERO ═══════════════════════════════════ --}}
     <section class="bg-white border-b-4 border-black" style="background-image: radial-gradient(#00000010 1.5px, transparent 1.5px); background-size: 24px 24px;">

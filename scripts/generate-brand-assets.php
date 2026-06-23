@@ -72,6 +72,19 @@ foreach ([16 => 'favicon-16x16.png', 32 => 'favicon-32x32.png', 180 => 'apple-to
     echo "Wrote {$filename} ({$size}x{$size})\n";
 }
 
+$icoScript = sprintf(
+    "from PIL import Image\nimg = Image.open(r'%s')\nimg16 = img.resize((16, 16), Image.Resampling.LANCZOS)\nimg.save(r'%s', format='ICO', sizes=[(16, 16), (32, 32)])\n",
+    $public . '/favicon-32x32.png',
+    $public . '/favicon.ico'
+);
+$proc = proc_open('python -', [['pipe', 'r'], ['pipe', 'w'], ['pipe', 'w']], $pipes);
+if (is_resource($proc)) {
+    fwrite($pipes[0], $icoScript);
+    fclose($pipes[0]);
+    proc_close($proc);
+    echo "Wrote favicon.ico\n";
+}
+
 $kindo = loadPng($ogSource);
 $canvas = imagecreatetruecolor(1200, 630);
 $black = imagecolorallocate($canvas, 0, 0, 0);
