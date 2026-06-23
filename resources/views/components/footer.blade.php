@@ -1,6 +1,6 @@
 <footer style="background:#2D3748; color:#fff; border-top: 4px solid #000;">
     <div class="max-w-6xl mx-auto px-4 py-14">
-        <div class="grid md:grid-cols-3 gap-10">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
 
             {{-- Brand --}}
             <div>
@@ -27,7 +27,17 @@
                     <li><a href="{{ route('search') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Cari Artikel</a></li>
                     <li><a href="{{ route('about') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Tentang Kami</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Kontak</a></li>
+                    <li><a href="{{ route('newsletter') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Newsletter</a></li>
                 </ul>
+            </div>
+
+            {{-- Newsletter --}}
+            <div>
+                <h3 class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#FF7A2F;">Newsletter</h3>
+                <p class="text-sm mb-4 leading-relaxed" style="color:#A0AEC0;">
+                    Dapatkan notifikasi artikel tutorial ESP32 & IoT terbaru langsung ke email kamu.
+                </p>
+                <x-newsletter-form :compact="true" />
             </div>
 
             {{-- Kategori --}}

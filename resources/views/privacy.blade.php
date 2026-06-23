@@ -20,6 +20,7 @@
             <p>Koding Indonesia hanya mengumpulkan informasi yang Anda berikan secara sukarela, yaitu:</p>
             <ul class="list-disc pl-6 mt-2 space-y-1">
                 <li>Nama dan alamat email melalui formulir kontak</li>
+                <li>Alamat email melalui formulir newsletter (dengan konfirmasi double opt-in)</li>
                 <li>Pesan yang Anda kirimkan melalui halaman Kontak</li>
             </ul>
             <p class="mt-3">Kami <strong>tidak</strong> mengumpulkan data pribadi tanpa sepengetahuan Anda, tidak menjual data Anda kepada pihak ketiga, dan tidak menggunakan cookie pelacakan pihak ketiga (kecuali analitik anonim).</p>
@@ -30,8 +31,10 @@
             <p>Informasi yang Anda berikan digunakan untuk:</p>
             <ul class="list-disc pl-6 mt-2 space-y-1">
                 <li>Merespons pertanyaan atau pesan yang Anda kirimkan</li>
+                <li>Mengirim notifikasi artikel baru kepada subscriber newsletter (hanya jika Anda mengonfirmasi langganan)</li>
                 <li>Meningkatkan kualitas konten dan layanan website</li>
             </ul>
+            <p class="mt-3">Anda dapat berhenti berlangganan newsletter kapan saja melalui link di setiap email yang kami kirim.</p>
         </section>
 
         <section>

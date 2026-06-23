@@ -37,6 +37,22 @@ class DeployController extends Controller
     }
 
     /**
+     * Run pending migrations after deploy (shared hosting tanpa SSH).
+     */
+    public function migrate()
+    {
+        $token = config('app.deploy_hook_token');
+
+        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
+            abort(404);
+        }
+
+        Artisan::call('migrate', ['--force' => true]);
+
+        return response(trim(Artisan::output()) ?: 'Migrated', 200);
+    }
+
+    /**
      * Publish artikel ke-6 via seeder (shared hosting tanpa SSH).
      * Idempotent — aman dipanggil ulang.
      */

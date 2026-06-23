@@ -281,6 +281,12 @@ jobs:
           done
           echo "Deleted $count compiled view file(s)"
 
+      - name: Run migrations via deploy hook
+        continue-on-error: true
+        run: |
+          curl -fsS --max-time 120 \
+            "https://kodingindonesia.com/deploy/migrate?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
+
       - name: Clear Laravel cache via deploy hook
         continue-on-error: true
         run: |

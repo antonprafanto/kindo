@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Jobs\NotifySubscribersOfNewArticle;
 use App\Models\Article;
+use App\Models\ArticleNewsletterLog;
 use App\Services\ImageService;
 use App\Services\SitemapService;
 use Illuminate\Support\Facades\Cache;
@@ -26,6 +28,10 @@ class ArticleObserver
             }
 
             $this->mirrorCoverToPublicHtml($article->fresh()->cover_image);
+        }
+
+        if ($this->wasJustPublished($article) && ! ArticleNewsletterLog::where('article_id', $article->id)->exists()) {
+            NotifySubscribersOfNewArticle::dispatchAfterResponse($article);
         }
 
         $this->clearCache();
@@ -88,5 +94,30 @@ class ArticleObserver
         } catch (\Throwable) {
             // Sitemap regeneration is best-effort
         }
+    }
+
+    private function wasJustPublished(Article $article): bool
+    {
+        if ($article->status !== 'published' || ! $article->published_at?->lte(now())) {
+            return false;
+        }
+
+        if ($article->wasRecentlyCreated) {
+            return true;
+        }
+
+        if ($article->wasChanged('status') && $article->status === 'published') {
+            return true;
+        }
+
+        if ($article->wasChanged('published_at')) {
+            $wasLive = $article->getOriginal('status') === 'published'
+                && $article->getOriginal('published_at')
+                && $article->getOriginal('published_at') <= now();
+
+            return ! $wasLive;
+        }
+
+        return false;
     }
 }

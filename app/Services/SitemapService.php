@@ -18,6 +18,7 @@ class SitemapService
         $sitemap->add(Url::create(route('articles.index'))->setChangeFrequency('daily')->setPriority(0.9));
         $sitemap->add(Url::create(route('about'))->setChangeFrequency('monthly')->setPriority(0.5));
         $sitemap->add(Url::create(route('contact'))->setChangeFrequency('monthly')->setPriority(0.4));
+        $sitemap->add(Url::create(route('newsletter'))->setChangeFrequency('monthly')->setPriority(0.5));
 
         Article::published()
             ->latest('published_at')
