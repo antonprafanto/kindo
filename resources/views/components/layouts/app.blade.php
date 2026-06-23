@@ -18,11 +18,12 @@
         $pageTitle = $title ?? 'Koding Indonesia — Tutorial ESP32 & IoT';
         $metaDescription = $description ?? 'Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir.';
         $shareTitle = $ogTitle ?? 'Koding Indonesia';
-        $defaultShareDescription = 'Tutorial ESP32, Arduino & IoT berbahasa Indonesia. Konten praktis gratis untuk pemula hingga mahir.';
+        $defaultShareDescription = 'Belajar ESP32, Arduino, dan IoT dengan tutorial praktis berbahasa Indonesia. Gratis untuk pemula hingga mahir.';
         $pageDescription = $description ?? null;
         $shareDescription = $ogDescription ?? ($pageDescription
             ? \Illuminate\Support\Str::limit(strip_tags($pageDescription), 120, '…')
             : $defaultShareDescription);
+        $shareImage = $ogImage ?? asset('og-default.png');
     @endphp
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
@@ -30,7 +31,10 @@
     {{-- OG / Social --}}
     <meta property="og:title" content="{{ $shareTitle }}">
     <meta property="og:description" content="{{ $shareDescription }}">
-    <meta property="og:image" content="{{ $ogImage ?? asset('og-default.png') }}">
+    <meta property="og:image" content="{{ $shareImage }}">
+    @if (str_starts_with($shareImage, 'https://'))
+        <meta property="og:image:secure_url" content="{{ $shareImage }}">
+    @endif
     <meta property="og:image:alt" content="Koding Indonesia — Platform edukasi ESP32, IoT & pemrograman">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -43,7 +47,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $shareTitle }}">
     <meta name="twitter:description" content="{{ $shareDescription }}">
-    <meta name="twitter:image" content="{{ $ogImage ?? asset('og-default.png') }}">
+    <meta name="twitter:image" content="{{ $shareImage }}">
     <meta name="twitter:image:alt" content="Koding Indonesia — Platform edukasi ESP32, IoT & pemrograman">
     <meta name="twitter:site" content="@kodingindonesia">
 
