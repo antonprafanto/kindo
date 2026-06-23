@@ -11,11 +11,13 @@ $paths = [
     '/tentang',
     '/kontak',
     '/kebijakan-privasi',
+    '/newsletter',
     '/sitemap.xml',
     '/cari',
     '/kategori/esp32-arduino',
     '/tag/esp32',
     '/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot',
+    '/artikel/membuat-web-server-esp32-monitoring-sensor-dht22',
     '/halaman-tidak-ada-xyz',
 ];
 
