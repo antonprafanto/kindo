@@ -79,8 +79,8 @@ imagefill($canvas, 0, 0, $black);
 
 $sourceWidth = imagesx($kindo);
 $sourceHeight = imagesy($kindo);
-$maxWidth = 1000;
-$maxHeight = 560;
+$maxWidth = 1200;
+$maxHeight = 630;
 $scale = min($maxWidth / $sourceWidth, $maxHeight / $sourceHeight);
 $targetWidth = (int) round($sourceWidth * $scale);
 $targetHeight = (int) round($sourceHeight * $scale);
