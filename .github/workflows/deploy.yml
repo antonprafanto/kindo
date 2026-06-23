@@ -47,7 +47,7 @@ jobs:
         run: |
           npm ci && npm run build
           # Back-compat: stale compiled Blade views may still reference old Vite hash
-          css_file=$(node -p "require('./public/build/manifest.json')['resources/css/app.css'].file")
+          css_file=$(jq -r '."resources/css/app.css".file' public/build/manifest.json)
           cp "public/build/${css_file}" "public/build/assets/app-B8UEwyUe.css"
 
       - name: Write deploy marker
