@@ -133,6 +133,52 @@ html:not(.dark) {
 
 [x-cloak] { display: none !important; }
 
+/* ── Theme switch animation ───────────────────────────────── */
+::view-transition-old(root),
+::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+html.theme-animate .theme-paper,
+html.theme-animate .theme-surface,
+html.theme-animate .theme-muted,
+html.theme-animate .theme-body,
+html.theme-animate .theme-heading,
+html.theme-animate .article-card,
+html.theme-animate .btn-outline,
+html.theme-animate .input-brutal,
+html.theme-animate body,
+html.theme-animate nav,
+html.theme-animate footer {
+    transition:
+        background-color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        color 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+        animation: none !important;
+    }
+
+    html.theme-animate .theme-paper,
+    html.theme-animate .theme-surface,
+    html.theme-animate .theme-muted,
+    html.theme-animate .theme-body,
+    html.theme-animate .theme-heading,
+    html.theme-animate .article-card,
+    html.theme-animate .btn-outline,
+    html.theme-animate .input-brutal,
+    html.theme-animate body,
+    html.theme-animate nav,
+    html.theme-animate footer {
+        transition: none;
+    }
+}
+
 /* ─────────────────────────────────────────────────────────────
    BASE STYLES
    ───────────────────────────────────────────────────────────── */
