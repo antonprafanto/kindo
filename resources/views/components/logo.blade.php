@@ -4,21 +4,21 @@
 
 @php
     $sizes = [
+        'xs' => 'h-7 w-7',
         'sm' => 'h-8 w-8',
-        'md' => 'h-10 w-10',
-        'lg' => 'h-14 w-14',
-        'xl' => 'h-20 w-20',
-        '2xl' => 'h-28 w-28',
+        'md' => 'h-9 w-9 sm:h-10 sm:w-10',
+        'lg' => 'h-14 w-14 sm:h-16 sm:w-16',
+        'xl' => 'h-20 w-20 sm:h-24 sm:w-24',
     ];
-    $classes = $sizes[$size] ?? $sizes['md'];
+    $class = $sizes[$size] ?? $sizes['md'];
 @endphp
 
 <img
     src="{{ asset('logo.png') }}"
     alt="Koding Indonesia"
-    {{ $attributes->merge(['class' => "$classes object-contain border-2 border-black flex-shrink-0"]) }}
-    style="box-shadow: 2px 2px 0 #000;"
-    width="40"
-    height="40"
+    width="512"
+    height="512"
+    {{ $attributes->merge(['class' => $class . ' object-contain flex-shrink-0']) }}
+    loading="eager"
     decoding="async"
 >

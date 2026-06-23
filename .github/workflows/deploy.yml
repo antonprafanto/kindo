@@ -170,6 +170,7 @@ jobs:
           for f in logo.png favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png og-default.png; do
             curl -sS --ftp-pasv --user "$AUTH" -T "public/$f" "$BASE$f"
           done
+          curl -sS --ftp-pasv --user "$AUTH" -T "public/images/og-default.png" "$BASEimages/og-default.png"
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6

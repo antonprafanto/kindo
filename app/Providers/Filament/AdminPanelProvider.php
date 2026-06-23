@@ -29,9 +29,9 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             ->brandName('Koding Indonesia')
-            ->brandLogo(asset('logo.png'))
+            ->brandLogo('/logo.png')
             ->brandLogoHeight('2.25rem')
-            ->favicon(asset('favicon.ico'))
+            ->favicon('/favicon.ico')
             ->colors([
                 'primary' => Color::hex('#2979FF'),
                 'danger'  => Color::Red,

@@ -21,7 +21,15 @@
     "datePublished": "{{ $article->published_at?->toIso8601String() }}",
     "dateModified": "{{ $article->updated_at->toIso8601String() }}",
     "author": {"@@type": "Person","name": "{{ $article->user->name ?? 'Koding Indonesia' }}"},
-    "publisher": {"@@type": "Organization","name": "Koding Indonesia","url": "{{ url('/') }}"},
+    "publisher": {
+        "@@type": "Organization",
+        "name": "Koding Indonesia",
+        "url": "{{ url('/') }}",
+        "logo": {
+            "@@type": "ImageObject",
+            "url": "{{ asset('logo.png') }}"
+        }
+    },
     "url": "{{ route('articles.show', $article->slug) }}"
 }
 </script>
@@ -52,7 +60,9 @@
                         {{-- Placeholder branded gradient --}}
                         <div class="w-full h-full flex flex-col items-center justify-center gap-3"
                              style="background: linear-gradient(135deg, #2979FF 0%, #1a56cc 50%, #2D3748 100%);">
-                            <x-logo size="lg" class="border-white" style="box-shadow: 3px 3px 0 rgba(0,0,0,0.4);" />
+                            <img src="{{ asset('logo.png') }}" alt="Koding Indonesia"
+                                 class="h-16 w-16 sm:h-20 sm:w-20 object-contain border-2 border-white"
+                                 style="box-shadow: 3px 3px 0 rgba(0,0,0,0.3);">
                             <p class="text-white text-center font-bold px-6 max-w-lg"
                                style="font-size:1.1rem; text-shadow: 1px 1px 0 rgba(0,0,0,0.4); line-height:1.4;">
                                 {{ $article->title }}

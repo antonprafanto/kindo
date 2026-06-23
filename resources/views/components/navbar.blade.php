@@ -8,9 +8,9 @@
 
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3 no-underline">
-                <x-logo size="md" />
+                <x-logo size="md" class="border-2 border-black" style="box-shadow: 2px 2px 0 #000;" />
                 <span class="font-bold text-black text-base sm:text-lg hidden sm:inline" style="letter-spacing:-0.02em;">Koding Indonesia</span>
-                <span class="w-2 h-2 rounded-full hidden sm:inline-block" style="background:#FF7A2F; border: 2px solid #000;"></span>
+                <span class="w-2 h-2 rounded-full" style="background:#FF7A2F; border: 2px solid #000; display:inline-block;"></span>
             </a>
 
             {{-- Desktop Nav --}}

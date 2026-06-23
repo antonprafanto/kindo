@@ -6,8 +6,8 @@
 
         {{-- Hero --}}
         <div class="text-center mb-10 sm:mb-16">
-            <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6">
-                <x-logo size="xl" />
+            <div class="inline-flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-6">
+                <x-logo size="xl" class="border-2 border-black" style="box-shadow: 4px 4px 0 #000;" />
                 <span class="text-2xl sm:text-3xl font-black">Koding Indonesia</span>
                 <span class="w-4 h-4 rounded-full border-2 border-black" style="background:#FF7A2F;"></span>
             </div>
