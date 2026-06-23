@@ -58,7 +58,9 @@ jobs:
             break
           done
           for legacy in app-B8UEwyUe.css app-B3YkE1t1.css; do
-            cp "$primary" "public/build/assets/$legacy"
+            target="public/build/assets/$legacy"
+            [ "$primary" = "$target" ] && continue
+            cp "$primary" "$target"
             echo "Legacy CSS alias: $(basename "$primary") -> $legacy"
           done
 
