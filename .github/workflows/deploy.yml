@@ -162,6 +162,15 @@ jobs:
             -T public/deploy-check.txt \
             "${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}deploy-check.txt"
 
+      - name: Upload brand assets to public webroot
+        run: |
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          BASE="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          for f in logo.png favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png og-default.png; do
+            curl -sS --ftp-pasv --user "$AUTH" -T "public/$f" "$BASE$f"
+          done
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:

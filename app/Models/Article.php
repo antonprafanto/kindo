@@ -76,7 +76,7 @@ class Article extends Model
 
     public function getCoverUrlAttribute(): string
     {
-        if (!$this->cover_image) return asset('images/og-default.png');
+        if (!$this->cover_image) return asset('og-default.png');
         if (str_starts_with($this->cover_image, 'http')) return $this->cover_image;
         return asset('storage/' . $this->cover_image);
     }

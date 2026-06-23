@@ -4,8 +4,8 @@
 
             {{-- Brand --}}
             <div>
-                <a href="{{ route('home') }}" class="flex flex-wrap items-center gap-2 mb-4 no-underline">
-                    <span class="text-white text-lg sm:text-xl font-black px-2 py-0.5 border-2 border-white" style="background:#2979FF;">kindo</span>
+                <a href="{{ route('home') }}" class="flex flex-wrap items-center gap-2 sm:gap-3 mb-4 no-underline">
+                    <x-logo size="md" class="border-white" style="box-shadow: 2px 2px 0 #fff;" />
                     <span class="font-bold text-white text-lg sm:text-xl">Koding Indonesia</span>
                 </a>
                 <p class="text-sm leading-relaxed" style="color: #A0AEC0;">

@@ -7,7 +7,7 @@
         {{-- Hero --}}
         <div class="text-center mb-10 sm:mb-16">
             <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-6">
-                <span class="text-white text-2xl sm:text-3xl font-black px-3 sm:px-4 py-2 border-2 border-black" style="background:#2979FF; box-shadow: 4px 4px 0 #000;">kindo</span>
+                <x-logo size="xl" />
                 <span class="text-2xl sm:text-3xl font-black">Koding Indonesia</span>
                 <span class="w-4 h-4 rounded-full border-2 border-black" style="background:#FF7A2F;"></span>
             </div>

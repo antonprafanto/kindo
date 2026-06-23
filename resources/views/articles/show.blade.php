@@ -52,8 +52,7 @@
                         {{-- Placeholder branded gradient --}}
                         <div class="w-full h-full flex flex-col items-center justify-center gap-3"
                              style="background: linear-gradient(135deg, #2979FF 0%, #1a56cc 50%, #2D3748 100%);">
-                            <div class="text-white text-2xl font-black px-3 py-1 border-2 border-white"
-                                 style="letter-spacing:-0.03em; text-shadow: 2px 2px 0 rgba(0,0,0,0.3);">kindo</div>
+                            <x-logo size="lg" class="border-white" style="box-shadow: 3px 3px 0 rgba(0,0,0,0.4);" />
                             <p class="text-white text-center font-bold px-6 max-w-lg"
                                style="font-size:1.1rem; text-shadow: 1px 1px 0 rgba(0,0,0,0.4); line-height:1.4;">
                                 {{ $article->title }}
