@@ -1,6 +1,7 @@
 <x-layouts.app
     title="Koding Indonesia — Tutorial ESP32 & IoT"
     description="Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir."
+    ogDescription="Tutorial ESP32, Arduino & IoT berbahasa Indonesia. Konten praktis gratis untuk pemula hingga mahir."
 >
 
     {{-- ═══════════════════════════════════ HERO ═══════════════════════════════════ --}}
