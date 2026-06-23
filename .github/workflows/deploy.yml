@@ -53,13 +53,18 @@ jobs:
           shopt -s nullglob
           primary=""
           for css in public/build/assets/app-*.css; do
-            case "$css" in *app-B8UEwyUe.css|*app-B3YkE1t1.css) continue ;; esac
+            case "$css" in *app-B8UEwyUe.css) continue ;; esac
             primary="$css"
             break
           done
+          if [ -z "$primary" ]; then
+            echo "::error::No CSS asset found after Vite build"
+            ls -la public/build/assets/ || true
+            exit 1
+          fi
           for legacy in app-B8UEwyUe.css app-B3YkE1t1.css; do
             target="public/build/assets/$legacy"
-            [ "$primary" = "$target" ] && continue
+            [ "$(basename "$primary")" = "$legacy" ] && continue
             cp "$primary" "$target"
             echo "Legacy CSS alias: $(basename "$primary") -> $legacy"
           done
