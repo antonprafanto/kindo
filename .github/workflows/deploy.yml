@@ -51,12 +51,15 @@ jobs:
           mkdir -p storage/framework/views
           npm ci && npm run build
           shopt -s nullglob
+          primary=""
           for css in public/build/assets/app-*.css; do
-            [[ "$css" == *app-B8UEwyUe.css ]] && continue
+            case "$css" in *app-B8UEwyUe.css|*app-B3YkE1t1.css) continue ;; esac
             primary="$css"
-            cp "$primary" public/build/assets/app-B8UEwyUe.css
-            echo "Legacy CSS alias: $(basename "$primary") -> app-B8UEwyUe.css"
             break
+          done
+          for legacy in app-B8UEwyUe.css app-B3YkE1t1.css; do
+            cp "$primary" "public/build/assets/$legacy"
+            echo "Legacy CSS alias: $(basename "$primary") -> $legacy"
           done
 
       - name: Write deploy marker
@@ -186,34 +189,21 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_DIR: ${{ secrets.FTP_SERVER_DIR }}
+          FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL }}
         run: |
-          python3 << 'PYEOF'
-          import ftplib
-          import os
-          import ssl
-
-          host = os.environ["FTP_SERVER"]
-          user = os.environ["FTP_USERNAME"]
-          password = os.environ["FTP_PASSWORD"]
-          base = os.environ["FTP_DIR"].strip().strip("/")
-          views = f"{base}/storage/framework/views"
-
-          ftp = ftplib.FTP_TLS(context=ssl.create_default_context())
-          ftp.connect(host, 21, timeout=60)
-          ftp.login(user, password)
-          ftp.prot_p()
-          ftp.cwd(views)
-          deleted = 0
-          for name in ftp.nlst():
-              if name.endswith(".php"):
-                  try:
-                      ftp.delete(name)
-                      deleted += 1
-                  except ftplib.error_perm:
-                      pass
-          ftp.quit()
-          print(f"Deleted {deleted} compiled view file(s)")
-          PYEOF
+          PROTO="${FTP_PROTOCOL:-ftps}"
+          BASE="${PROTO}://${FTP_SERVER}${FTP_DIR}"
+          VIEWS_URL="${BASE}storage/framework/views/"
+          AUTH="${FTP_USERNAME}:${FTP_PASSWORD}"
+          count=0
+          for f in $(curl -sS --ftp-pasv --user "$AUTH" --list-only "$VIEWS_URL" 2>/dev/null); do
+            case "$f" in *.php)
+              curl -sS --ftp-pasv --user "$AUTH" -Q "-DELE storage/framework/views/$f" "$BASE" || true
+              count=$((count + 1))
+              ;;
+            esac
+          done
+          echo "Deleted $count compiled view file(s)"
 
       - name: Clear Laravel cache via deploy hook
         continue-on-error: true
