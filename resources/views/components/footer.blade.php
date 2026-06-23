@@ -9,7 +9,7 @@
                     <span class="font-bold text-white text-lg sm:text-xl">Koding Indonesia</span>
                 </a>
                 <p class="text-sm leading-relaxed" style="color: #A0AEC0;">
-                    Platform edukasi pemrograman berbahasa Indonesia. Belajar ESP32, IoT, Arduino, dan pemrograman dari konten berkualitas.
+                    Platform edukasi pemrograman berbahasa Indonesia sejak 2016. Belajar ESP32, IoT, Arduino, dan pemrograman dari konten berkualitas.
                 </p>
                 <div class="mt-5 flex items-center gap-1">
                     <span class="text-xs px-2 py-0.5 border border-gray-500 font-mono" style="color:#A0AEC0;">PHP 8.4</span>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs" style="border-top: 1px solid #4A5568; color: #718096;">
-            <span class="max-w-full">© {{ date('Y') }} Koding Indonesia — Konten dilisensikan di bawah <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline hover:text-white">CC BY-NC-SA 4.0</a></span>
+            <span class="max-w-full">© {{ date('Y') }} Koding Indonesia — Menyebarkan ilmu coding sejak 2016 · Konten dilisensikan di bawah <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline hover:text-white">CC BY-NC-SA 4.0</a></span>
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
                 <a href="{{ route('privacy') }}" class="underline hover:text-white">Kebijakan Privasi</a>
                 <span class="font-mono">Built with ♥ in Indonesia 🇮🇩</span>
