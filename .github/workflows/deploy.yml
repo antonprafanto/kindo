@@ -195,6 +195,7 @@ jobs:
             **/database/database.sqlite
             **/public/hot
             **/public/storage
+            **/public/sitemap.xml
             **/public/build/**
 
       - name: Deploy vendor via FTP
@@ -214,12 +215,17 @@ jobs:
 
       - name: Purge remote Laravel cache files (FTP)
         continue-on-error: true
+        env:
+          FTP_PROTOCOL: ${{ secrets.FTP_PROTOCOL }}
         run: |
-          BASE="ftp://${{ secrets.FTP_SERVER }}${{ secrets.FTP_SERVER_DIR }}"
+          PROTO="${FTP_PROTOCOL:-ftps}"
+          BASE="${PROTO}://${{ secrets.FTP_SERVER }}${{ secrets.FTP_SERVER_DIR }}"
           AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
-          for file in bootstrap/cache/config.php bootstrap/cache/routes-v7.php bootstrap/cache/packages.php bootstrap/cache/services.php; do
+          for file in bootstrap/cache/config.php bootstrap/cache/routes-v7.php bootstrap/cache/packages.php bootstrap/cache/services.php public/sitemap.xml; do
             curl -sS --ftp-pasv --user "$AUTH" -Q "-DELE ${file}" "$BASE" || true
           done
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          curl -sS --ftp-pasv --user "$AUTH" -Q "-DELE sitemap.xml" "$PUB" || true
 
       - name: Purge compiled Blade views via FTP
         continue-on-error: true

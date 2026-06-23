@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\SitemapService;
 use Illuminate\Support\Facades\Artisan;
 
 class DeployController extends Controller
@@ -21,6 +22,12 @@ class DeployController extends Controller
         Artisan::call('view:clear');
         Artisan::call('config:clear');
         Artisan::call('route:clear');
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
 
         if (function_exists('opcache_reset')) {
             opcache_reset();
