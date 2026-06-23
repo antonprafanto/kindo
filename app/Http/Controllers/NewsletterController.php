@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\NewsletterService;
+use App\Services\TurnstileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
@@ -16,11 +17,19 @@ class NewsletterController extends Controller
         return view('newsletter');
     }
 
-    public function subscribe(Request $request)
+    public function subscribe(Request $request, TurnstileService $turnstile)
     {
         try {
             if ($request->filled('website')) {
                 return $this->successResponse($request, 'Cek email kamu untuk konfirmasi langganan newsletter.');
+            }
+
+            if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
+                return $this->errorResponse(
+                    $request,
+                    'Verifikasi keamanan gagal. Silakan coba lagi.',
+                    'turnstile'
+                );
             }
 
             $key = 'newsletter:' . $request->ip();
@@ -100,12 +109,12 @@ class NewsletterController extends Controller
         return back()->with('newsletter_success', $message);
     }
 
-    private function errorResponse(Request $request, string $message)
+    private function errorResponse(Request $request, string $message, string $field = 'email')
     {
         if ($request->expectsJson() || $request->boolean('ajax')) {
             return response()->json(['message' => $message], 422);
         }
 
-        return back()->withErrors(['email' => $message])->withInput();
+        return back()->withErrors([$field => $message])->withInput();
     }
 }

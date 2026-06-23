@@ -27,6 +27,16 @@
         </button>
     </div>
 
+    @if(config('services.turnstile.site_key'))
+    <div>
+        <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+        <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-theme="auto"></div>
+        @error('turnstile')
+        <p class="text-red-400 text-xs mt-1 font-semibold">{{ $message }}</p>
+        @enderror
+    </div>
+    @endif
+
     @if(session('newsletter_success') && ($compact ?? false))
     <p class="text-xs font-semibold" style="color:#68D391;">✓ {{ session('newsletter_success') }}</p>
     @endif
