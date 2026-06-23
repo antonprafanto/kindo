@@ -26,12 +26,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup PHP
-        if: inputs.include_vendor == true
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.4'
           extensions: dom, curl, libxml, mbstring, zip, gd, bcmath, intl
           coverage: none
+
+      - name: Composer install (for Tailwind @source scan)
+        if: inputs.include_vendor != true
+        run: composer install --no-dev --no-interaction --prefer-dist --no-scripts
 
       - name: Composer install
         if: inputs.include_vendor == true
@@ -45,10 +48,17 @@ jobs:
 
       - name: Build frontend assets
         run: |
+          mkdir -p storage/framework/views
           npm ci && npm run build
-          # Back-compat: stale compiled Blade views may still reference old Vite hash
-          css_file=$(jq -r '."resources/css/app.css".file' public/build/manifest.json)
-          cp "public/build/${css_file}" "public/build/assets/app-B8UEwyUe.css"
+          shopt -s nullglob
+          for css in public/build/assets/app-*.css; do
+            [[ "$css" == *app-B8UEwyUe.css ]] && continue
+            cp "$css" public/build/assets/app-B8UEwyUe.css
+            echo "Legacy CSS alias: $(basename "$css") -> app-B8UEwyUe.css"
+            exit 0
+          done
+          echo "::error::No built CSS asset found"
+          exit 1
 
       - name: Write deploy marker
         run: echo "${{ github.sha }} $(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/deploy-check.txt
