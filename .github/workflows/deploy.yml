@@ -92,6 +92,20 @@ jobs:
           port="${port:-21}"
           echo "port=$port" >> "$GITHUB_OUTPUT"
 
+      - name: Deploy build assets via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./public/build/
+          server-dir: ${{ steps.ftp.outputs.dir }}public/build/
+          state-name: kindo-ftp-build-v2
+          log-level: standard
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -126,20 +140,6 @@ jobs:
             **/public/hot
             **/public/storage
             **/public/build/**
-
-      - name: Deploy build assets via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ${{ steps.ftp.outputs.protocol }}
-          port: ${{ steps.ftp.outputs.port }}
-          security: loose
-          local-dir: ./public/build/
-          server-dir: ${{ steps.ftp.outputs.dir }}public/build/
-          state-name: kindo-ftp-build
-          log-level: standard
 
       - name: Deploy vendor via FTP
         if: inputs.include_vendor == true
