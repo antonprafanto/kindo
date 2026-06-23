@@ -5,7 +5,7 @@
  *
  * Sources (project root):
  *   logo2026.png     → favicons + public/logo.png
- *   Logo Kindo.png   → public/og-default.png (1200×630)
+ *   logo_fill.png   → OG default image logo tile
  */
 
 $root = dirname(__DIR__);
@@ -13,9 +13,9 @@ $public = $root . '/public';
 $imagesDir = $public . '/images';
 
 $logoSource = $root . '/logo2026.png';
-$ogSource = $root . '/Logo Kindo.png';
+$ogLogo = $public . '/logo_fill.png';
 
-foreach ([$logoSource, $ogSource] as $file) {
+foreach ([$logoSource, $ogLogo] as $file) {
     if (! is_file($file)) {
         fwrite(STDERR, "Missing source file: {$file}\n");
         exit(1);
@@ -90,7 +90,7 @@ $tmpOg = $public . '/og-default-tmp.png';
 $pyCmd = sprintf(
     'python %s %s %s',
     escapeshellarg($ogPy),
-    escapeshellarg($public . '/logo.png'),
+    escapeshellarg($ogLogo),
     escapeshellarg($tmpOg)
 );
 
@@ -118,9 +118,10 @@ if (! $pyOk) {
     $black = imagecolorallocate($canvas, 0, 0, 0);
     imagefill($canvas, 0, 0, $blue);
 
-    $logoResized = resizeSquare($logo, 180);
-    imagecopy($canvas, $logoResized, 72, 225, 0, 0, 180, 180);
-    imagerectangle($canvas, 68, 221, 256, 409, $black);
+    $ogLogoImg = is_file($ogLogo) ? loadPng($ogLogo) : $logo;
+    $logoResized = resizeSquare($ogLogoImg, 200);
+    imagecopy($canvas, $logoResized, 64, 215, 0, 0, 200, 200);
+    imagerectangle($canvas, 56, 207, 272, 423, $black);
 
     $font = null;
     foreach ([
@@ -147,6 +148,9 @@ if (! $pyOk) {
     }
     imagedestroy($canvas);
     imagedestroy($logoResized);
+    if ($ogLogoImg !== $logo) {
+        imagedestroy($ogLogoImg);
+    }
 }
 
 imagedestroy($logo);

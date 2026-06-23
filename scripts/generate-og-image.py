@@ -28,10 +28,20 @@ for x in range(0, W, 28):
         draw.ellipse([x, y, x + 2, y + 2], fill='#ffffff18')
 
 logo = Image.open(logo_path).convert('RGBA')
-logo = logo.resize((180, 180), Image.Resampling.LANCZOS)
-lx, ly = 72, (H - 180) // 2
+logo_size = 200
+logo = logo.resize((logo_size, logo_size), Image.Resampling.LANCZOS)
+lx, ly = 64, (H - logo_size) // 2
+
+# White tile behind filled logo for contrast on blue background
+tile_pad = 8
+draw.rounded_rectangle(
+    [lx - tile_pad, ly - tile_pad, lx + logo_size + tile_pad, ly + logo_size + tile_pad],
+    radius=24,
+    fill='#FFFFFF',
+    outline='#000000',
+    width=3,
+)
 img.paste(logo, (lx, ly), logo)
-draw.rectangle([lx - 4, ly - 4, lx + 184, ly + 184], outline='#000000', width=3)
 
 title_font = load_font(72)
 sub_font = load_font(36, bold=False)
