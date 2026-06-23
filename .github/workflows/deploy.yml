@@ -53,12 +53,11 @@ jobs:
           shopt -s nullglob
           for css in public/build/assets/app-*.css; do
             [[ "$css" == *app-B8UEwyUe.css ]] && continue
-            cp "$css" public/build/assets/app-B8UEwyUe.css
-            echo "Legacy CSS alias: $(basename "$css") -> app-B8UEwyUe.css"
-            exit 0
+            primary="$css"
+            cp "$primary" public/build/assets/app-B8UEwyUe.css
+            echo "Legacy CSS alias: $(basename "$primary") -> app-B8UEwyUe.css"
+            break
           done
-          echo "::error::No built CSS asset found"
-          exit 1
 
       - name: Write deploy marker
         run: echo "${{ github.sha }} $(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/deploy-check.txt
@@ -117,7 +116,8 @@ jobs:
           security: loose
           local-dir: ./public/build/
           server-dir: ${{ steps.ftp.outputs.dir }}public/build/
-          state-name: kindo-ftp-build-v2
+          state-name: kindo-ftp-build-v3
+          dangerous-clean-slate: true
           log-level: standard
 
       - name: Deploy via FTP
