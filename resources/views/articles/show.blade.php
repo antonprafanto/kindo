@@ -150,26 +150,26 @@
                 <div class="sticky top-24 space-y-6">
 
                     {{-- Table of Contents --}}
-                    <div class="bg-white border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+                    <div class="theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
                         <div class="px-4 py-3 border-b-2 border-black" style="background:#2979FF;">
                             <h3 class="text-sm font-bold text-white uppercase tracking-wider">Daftar Isi</h3>
                         </div>
                         <nav id="toc" class="p-4 text-sm space-y-1.5 max-h-80 overflow-y-auto">
-                            <p class="text-xs italic" style="color:#718096;">Memuat...</p>
+                            <p class="text-xs italic theme-muted">Memuat...</p>
                         </nav>
                     </div>
 
                     {{-- Related Articles --}}
                     @if($related->count())
-                    <div class="bg-white border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+                    <div class="theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
                         <div class="px-4 py-3 border-b-2 border-black" style="background:#FF7A2F;">
                             <h3 class="text-sm font-bold text-white uppercase tracking-wider">Artikel Terkait</h3>
                         </div>
                         <div class="p-4 space-y-4">
                             @foreach($related as $rel)
                             <a href="{{ route('articles.show', $rel->slug) }}" class="block group">
-                                <div class="text-sm font-semibold group-hover:text-[#2979FF] leading-snug mb-1">{{ $rel->title }}</div>
-                                <div class="text-xs font-mono" style="color:#718096;">{{ $rel->published_at?->translatedFormat('d M Y') }}</div>
+                                <div class="text-sm font-semibold theme-heading group-hover:text-[#2979FF] leading-snug mb-1">{{ $rel->title }}</div>
+                                <div class="text-xs font-mono theme-muted">{{ $rel->published_at?->translatedFormat('d M Y') }}</div>
                             </a>
                             @endforeach
                         </div>

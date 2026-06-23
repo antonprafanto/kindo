@@ -1,9 +1,6 @@
 @props(['article', 'featured' => false])
 
-<article class="bg-white border-2 border-black flex flex-col h-full transition-all hover:-translate-y-0.5"
-         style="box-shadow: 4px 4px 0 #000; transition: transform .15s, box-shadow .15s;"
-         onmouseenter="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='6px 6px 0 #000'"
-         onmouseleave="this.style.transform='';this.style.boxShadow='4px 4px 0 #000'">
+<article class="article-card border-2 border-black flex flex-col h-full">
 
     {{-- Cover Image --}}
     <a href="{{ route('articles.show', $article->slug) }}" class="block overflow-hidden border-b-2 border-black" style="{{ $featured ? 'aspect-ratio:16/7' : 'aspect-ratio:16/9' }}">
@@ -34,25 +31,25 @@
                 {{ $article->category->name }}
             </a>
             @endif
-            <span class="text-xs font-mono" style="color: #718096;">{{ $article->read_time_minutes ?? 1 }} menit</span>
+            <span class="text-xs font-mono theme-muted">{{ $article->read_time_minutes ?? 1 }} menit</span>
         </div>
 
         {{-- Title --}}
         <h2 class="{{ $featured ? 'text-xl' : 'text-base' }} font-bold leading-snug mb-3 flex-1">
-            <a href="{{ route('articles.show', $article->slug) }}" class="hover:text-[#2979FF] transition-colors" style="color: #000; text-decoration: none;">
+            <a href="{{ route('articles.show', $article->slug) }}" class="theme-heading hover:text-[#2979FF] transition-colors no-underline">
                 {{ $article->title }}
             </a>
         </h2>
 
         {{-- Excerpt --}}
         @if($article->excerpt)
-        <p class="text-sm leading-relaxed mb-4" style="color: #4A5568;">
+        <p class="text-sm leading-relaxed mb-4 theme-body">
             {{ Str::limit($article->excerpt, 100) }}
         </p>
         @endif
 
         {{-- Meta --}}
-        <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100 text-xs" style="color: #718096;">
+        <div class="flex items-center justify-between mt-auto pt-3 border-t border-black/10 dark:border-white/10 text-xs theme-muted">
             <span class="font-medium">{{ $article->published_at?->translatedFormat('d M Y') ?? '-' }}</span>
             <span class="flex items-center gap-1">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>

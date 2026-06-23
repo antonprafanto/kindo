@@ -1,6 +1,6 @@
 <nav
     x-data="{ open: false }"
-    class="sticky top-0 z-50 bg-white border-b-[3px] border-black"
+    class="sticky top-0 z-50 theme-paper border-b-[3px] border-black"
     style="box-shadow: 0 3px 0 #000;"
 >
     <div class="max-w-6xl mx-auto px-4">
@@ -9,7 +9,7 @@
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3 no-underline">
                 <x-logo size="md" class="border-2 border-black" style="box-shadow: 2px 2px 0 #000;" />
-                <span class="font-bold text-black text-base sm:text-lg hidden sm:inline" style="letter-spacing:-0.02em;">Koding Indonesia</span>
+                <span class="font-bold theme-heading text-base sm:text-lg hidden sm:inline" style="letter-spacing:-0.02em;">Koding Indonesia</span>
                 <span class="w-2 h-2 rounded-full" style="background:#FF7A2F; border: 2px solid #000; display:inline-block;"></span>
             </a>
 
@@ -36,13 +36,13 @@
                         x-transition:enter="transition ease-out duration-100"
                         x-transition:enter-start="opacity-0 -translate-y-1"
                         x-transition:enter-end="opacity-100 translate-y-0"
-                        class="absolute top-full left-0 mt-1 w-52 bg-white border-2 border-black z-50"
+                        class="absolute top-full left-0 mt-1 w-52 theme-paper border-2 border-black z-50"
                         style="box-shadow: 4px 4px 0 #000;"
                     >
                         @foreach($navCategories as $cat)
                         <a
                             href="{{ route('categories.show', $cat->slug) }}"
-                            class="flex items-center gap-2 px-4 py-2.5 text-sm font-medium hover:bg-black hover:text-white border-b border-gray-100 last:border-0"
+                            class="flex items-center gap-2 px-4 py-2.5 text-sm font-medium hover:bg-black hover:text-white border-b border-black/10 dark:border-white/10 last:border-0"
                             @click="catOpen = false"
                         >
                             <span class="w-2.5 h-2.5 rounded-full border border-black flex-shrink-0" style="background: {{ $cat->color }};"></span>
@@ -74,10 +74,13 @@
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                     </svg>
                 </a>
+
+                <x-theme-toggle />
             </div>
 
-            {{-- Mobile: Search + Hamburger --}}
+            {{-- Mobile: Search + Theme + Hamburger --}}
             <div class="flex items-center gap-2 md:hidden">
+                <x-theme-toggle />
                 <a href="{{ route('search') }}" class="p-2 border-2 border-black">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -97,9 +100,9 @@
         {{-- Mobile Menu --}}
         <div x-show="open" x-transition class="md:hidden border-t-2 border-black pb-4">
             <div class="flex flex-col pt-2">
-                <a href="{{ route('articles.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-gray-100 hover:bg-black hover:text-white">Artikel</a>
-                <div class="border-b border-gray-100">
-                    <div class="px-4 py-2 text-xs font-bold uppercase tracking-widest text-gray-400 mt-1">Kategori</div>
+                <a href="{{ route('articles.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Artikel</a>
+                <div class="border-b border-black/10 dark:border-white/10">
+                    <div class="px-4 py-2 text-xs font-bold uppercase tracking-widest theme-muted mt-1">Kategori</div>
                     @foreach($navCategories as $cat)
                     <a href="{{ route('categories.show', $cat->slug) }}" @click="open=false" class="flex items-center gap-2 px-6 py-2 text-sm hover:bg-black hover:text-white">
                         <span class="w-2 h-2 rounded-full" style="background: {{ $cat->color }};"></span>
@@ -107,7 +110,7 @@
                     </a>
                     @endforeach
                 </div>
-                <a href="{{ route('about') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-gray-100 hover:bg-black hover:text-white">Tentang</a>
+                <a href="{{ route('about') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Tentang</a>
                 <a href="{{ route('contact') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm hover:bg-black hover:text-white">Kontak</a>
             </div>
         </div>

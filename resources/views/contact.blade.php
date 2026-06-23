@@ -5,7 +5,7 @@
     <div class="max-w-2xl mx-auto px-4 py-10 sm:py-16">
 
         <h1 class="text-3xl sm:text-4xl font-black mb-2" style="letter-spacing:-0.02em;">Hubungi Kami</h1>
-        <p class="mb-10" style="color:#718096; font-family:'Inter',sans-serif;">Punya pertanyaan, saran, atau ingin berkolaborasi? Kirim pesan di bawah ini.</p>
+        <p class="mb-10 theme-muted" style="font-family:'Inter',sans-serif;">Punya pertanyaan, saran, atau ingin berkolaborasi? Kirim pesan di bawah ini.</p>
 
         @if(session('success'))
         <div class="mb-8 p-5 border-2 border-black font-semibold text-sm" style="background:#ECFDF5; color:#065F46; box-shadow: 4px 4px 0 #000;">

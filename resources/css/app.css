@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @source '../../resources/views/**/*.blade.php';
 @source '../../resources/js/**/*.js';
 @source '../../app/Livewire/**/*.php';
@@ -113,7 +115,25 @@
     --radius-brutal-md:   4px;
 }
 
-/* ─────────────────────────────────────────────────────────────
+/* ── Dark mode tokens ─────────────────────────────────────── */
+html.dark {
+    color-scheme: dark;
+    --color-surface:        #12121a;
+    --color-surface-dark:   #1a1a28;
+    --color-paper:          #2D3748;
+    --color-dark:           #E2E8F0;
+    --color-ink:            #F7FAFC;
+    --color-muted:          #A0AEC0;
+    --shadow-brutal-blue:   4px 4px 0px #2979FF;
+}
+
+    html:not(.dark) {
+        color-scheme: light;
+    }
+
+    [x-cloak] { display: none !important; }
+
+    /* ─────────────────────────────────────────────────────────────
    BASE STYLES
    ───────────────────────────────────────────────────────────── */
 
@@ -445,5 +465,50 @@
         overflow-x: auto;
         position: relative;
         box-shadow: var(--shadow-brutal);
+    }
+
+    /* Theme-aware utilities */
+    .theme-paper { background-color: var(--color-paper); color: var(--color-ink); }
+    .theme-surface { background-color: var(--color-surface); }
+    .theme-muted { color: var(--color-muted); }
+    .theme-body { color: var(--color-dark); }
+    .theme-heading { color: var(--color-ink); }
+    .hero-grid {
+        background-image: radial-gradient(#00000010 1.5px, transparent 1.5px);
+        background-size: 24px 24px;
+    }
+    html.dark .hero-grid {
+        background-image: radial-gradient(#ffffff12 1.5px, transparent 1.5px);
+    }
+
+    /* Article card hover — no inline JS background reset */
+    .article-card {
+        background: var(--color-paper);
+        box-shadow: var(--shadow-brutal);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .article-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: var(--shadow-brutal-lg);
+    }
+
+    /* Dark mode: article prose overrides */
+    html.dark .article-body h2,
+    html.dark .article-body h3,
+    html.dark .article-body h4 { color: var(--color-ink); }
+    html.dark .article-body h2 { border-bottom-color: var(--color-ink); }
+    html.dark .article-body p,
+    html.dark .article-body li { color: var(--color-dark); }
+    html.dark .article-body blockquote { background: #1e3a5f; color: var(--color-dark); }
+    html.dark .article-body tr:nth-child(even) td { background: var(--color-surface-dark); }
+    html.dark .article-body td { border-color: var(--color-ink); }
+    html.dark nav[aria-label="Pagination Navigation"] span,
+    html.dark nav[aria-label="Pagination Navigation"] a {
+        background: var(--color-paper);
+        color: var(--color-ink);
+    }
+    html.dark nav[aria-label="Pagination Navigation"] a:hover {
+        background: var(--color-ink);
+        color: var(--color-paper);
     }
 }

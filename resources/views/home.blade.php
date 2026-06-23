@@ -4,7 +4,7 @@
 >
 
     {{-- ═══════════════════════════════════ HERO ═══════════════════════════════════ --}}
-    <section class="bg-white border-b-4 border-black" style="background-image: radial-gradient(#00000010 1.5px, transparent 1.5px); background-size: 24px 24px;">
+    <section class="theme-paper border-b-4 border-black hero-grid">
         <div class="max-w-6xl mx-auto px-4 py-10 sm:py-16 lg:py-24">
             <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
 
@@ -13,13 +13,13 @@
                         <span>✦</span> Platform Edukasi Pemrograman
                     </div>
 
-                    <h1 class="font-black leading-[1.1] mb-4 sm:mb-6 text-4xl sm:text-5xl lg:text-6xl" style="letter-spacing:-0.03em; color:#000;">
+                    <h1 class="font-black leading-[1.1] mb-4 sm:mb-6 text-4xl sm:text-5xl lg:text-6xl theme-heading" style="letter-spacing:-0.03em;">
                         Belajar Coding<br>
                         <span class="text-white px-2 sm:px-3 py-1 border-2 border-black text-3xl sm:text-4xl lg:text-5xl" style="background:#2979FF; box-shadow:4px 4px 0 #000; display:inline;">Berbahasa</span><br>
                         Indonesia
                     </h1>
 
-                    <p class="text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-lg" style="color:#4A5568; font-family: 'Inter', sans-serif;">
+                    <p class="text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-lg theme-body" style="font-family: 'Inter', sans-serif;">
                         Tutorial ESP32, Arduino, IoT, dan pemrograman — ditulis dengan bahasa yang mudah dipahami oleh developer dan pelajar Indonesia.
                     </p>
 
@@ -38,15 +38,15 @@
                     <div class="flex flex-wrap gap-4 sm:gap-6 mt-6 sm:mt-8 pt-6 sm:pt-8 border-t-2 border-black">
                         <div>
                             <div class="text-2xl font-black" style="color:#2979FF;">{{ \App\Models\Article::published()->count() }}+</div>
-                            <div class="text-xs font-semibold uppercase tracking-wider" style="color:#718096;">Artikel</div>
+                            <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Artikel</div>
                         </div>
                         <div>
                             <div class="text-2xl font-black" style="color:#FF7A2F;">{{ \App\Models\Category::count() }}</div>
-                            <div class="text-xs font-semibold uppercase tracking-wider" style="color:#718096;">Kategori</div>
+                            <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Kategori</div>
                         </div>
                         <div>
                             <div class="text-2xl font-black">100%</div>
-                            <div class="text-xs font-semibold uppercase tracking-wider" style="color:#718096;">Bahasa Indonesia</div>
+                            <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Bahasa Indonesia</div>
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@
 
     {{-- ═══════════════════════════════ FEATURED ARTICLES ══════════════════════════ --}}
     @if($featuredArticles->count())
-    <section class="py-10 sm:py-16 border-b-4 border-black" style="background:#fff;">
+    <section class="py-10 sm:py-16 border-b-4 border-black theme-paper">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 sm:mb-10">
                 <div>
@@ -101,7 +101,7 @@
                         Artikel Unggulan
                         <span class="absolute -bottom-1 left-0 w-full h-1" style="background:#FF7A2F;"></span>
                     </h2>
-                    <p class="mt-3 text-sm" style="color:#718096; font-family:'Inter',sans-serif;">Artikel pilihan editor terbaik untuk kamu</p>
+                    <p class="mt-3 text-sm theme-muted" style="font-family:'Inter',sans-serif;">Artikel pilihan editor terbaik untuk kamu</p>
                 </div>
                 <a href="{{ route('articles.index') }}" class="btn-brutal btn-outline text-sm px-5 py-2 hidden sm:flex">
                     Lihat Semua →
@@ -125,19 +125,19 @@
                     Jelajahi Topik
                     <span class="absolute -bottom-1 left-0 w-full h-1" style="background:#2979FF;"></span>
                 </h2>
-                <p class="mt-3 text-sm" style="color:#718096; font-family:'Inter',sans-serif;">Pilih topik yang ingin kamu pelajari</p>
+                <p class="mt-3 text-sm theme-muted" style="font-family:'Inter',sans-serif;">Pilih topik yang ingin kamu pelajari</p>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                 @foreach($categories as $cat)
                 <a href="{{ route('categories.show', $cat->slug) }}"
-                   class="group bg-white border-2 border-black p-3 sm:p-5 text-center transition-all"
+                   class="group theme-paper border-2 border-black p-3 sm:p-5 text-center transition-all"
                    style="box-shadow: 3px 3px 0 #000;"
                    onmouseenter="this.style.transform='translate(-2px,-2px)';this.style.boxShadow='5px 5px 0 #000';this.style.background='{{ $cat->color }}'"
-                   onmouseleave="this.style.transform='';this.style.boxShadow='3px 3px 0 #000';this.style.background='#fff'">
+                   onmouseleave="this.style.transform='';this.style.boxShadow='3px 3px 0 #000';this.style.background=''">
                     <div class="w-10 h-10 rounded-full border-2 border-black mx-auto mb-3" style="background: {{ $cat->color }};"></div>
-                    <div class="font-bold text-sm text-black group-hover:text-white">{{ $cat->name }}</div>
-                    <div class="text-xs mt-1 font-mono text-gray-500 group-hover:text-white/80">{{ $cat->articles_count }} artikel</div>
+                    <div class="font-bold text-sm theme-heading group-hover:text-white">{{ $cat->name }}</div>
+                    <div class="text-xs mt-1 font-mono theme-muted group-hover:text-white/80">{{ $cat->articles_count }} artikel</div>
                 </a>
                 @endforeach
             </div>
@@ -146,7 +146,7 @@
 
     {{-- ═══════════════════════════════ RECENT ARTICLES ════════════════════════════ --}}
     @if($recentArticles->count())
-    <section class="py-10 sm:py-16" style="background:#fff;">
+    <section class="py-10 sm:py-16 theme-paper">
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 sm:mb-10">
                 <div>
@@ -175,11 +175,11 @@
 
     {{-- ═══════════════════════════════ EMPTY STATE ════════════════════════════════ --}}
     @if($recentArticles->isEmpty() && $featuredArticles->isEmpty())
-    <section class="py-32 text-center" style="background:#fff;">
+    <section class="py-32 text-center theme-paper">
         <div class="max-w-lg mx-auto px-4">
             <div class="text-8xl mb-6">🚀</div>
             <h2 class="text-3xl font-black mb-4">Konten Segera Hadir!</h2>
-            <p class="mb-8" style="color:#718096; font-family:'Inter',sans-serif;">Kami sedang mempersiapkan artikel-artikel berkualitas tentang ESP32, IoT, dan pemrograman. Tunggu sebentar ya!</p>
+            <p class="mb-8 theme-muted" style="font-family:'Inter',sans-serif;">Kami sedang mempersiapkan artikel-artikel berkualitas tentang ESP32, IoT, dan pemrograman. Tunggu sebentar ya!</p>
             <a href="{{ route('contact') }}" class="btn-brutal btn-primary px-8 py-3">Hubungi Kami</a>
         </div>
     </section>

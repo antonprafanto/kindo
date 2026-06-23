@@ -3,6 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    {{-- Theme: prevent flash before CSS/JS load --}}
+    <script>
+        (function () {
+            var k = 'kindo-theme';
+            var s = localStorage.getItem(k);
+            var t = s === 'dark' || s === 'light'
+                ? s
+                : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            if (t === 'dark') document.documentElement.classList.add('dark');
+        })();
+    </script>
     @php
         $pageTitle = $title ?? 'Koding Indonesia — Tutorial ESP32 & IoT';
         $metaDescription = $description ?? 'Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir.';
