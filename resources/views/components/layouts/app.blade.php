@@ -40,6 +40,11 @@
     <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/inter-latin-400-normal.woff2') }}" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/jetbrains-mono-latin-400-normal.woff2') }}" crossorigin>
 
+    {{-- Google Analytics 4 (production only, when GA4_MEASUREMENT_ID is set) --}}
+    @production
+        <x-google-analytics />
+    @endproduction
+
     {{-- Assets --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
