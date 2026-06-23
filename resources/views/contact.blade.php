@@ -48,6 +48,14 @@
                 @error('message')<p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p>@enderror
             </div>
 
+            @if(config('services.turnstile.site_key'))
+            <div>
+                <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+                <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-theme="auto"></div>
+                @error('turnstile')<p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p>@enderror
+            </div>
+            @endif
+
             <button type="submit" class="btn-brutal btn-primary w-full py-4 text-sm">
                 Kirim Pesan →
             </button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\TurnstileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -14,11 +15,17 @@ class ContactController extends Controller
         return view('contact');
     }
 
-    public function store(Request $request)
+    public function store(Request $request, TurnstileService $turnstile)
     {
         try {
             if ($request->filled('website')) {
                 return back()->with('success', 'Pesan kamu sudah terkirim! Kami akan merespons dalam 1–2 hari kerja.');
+            }
+
+            if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
+                return back()->withErrors([
+                    'turnstile' => 'Verifikasi keamanan gagal. Silakan centang kotak verifikasi dan coba lagi.',
+                ])->withInput();
             }
 
             $key = 'contact-form:' . $request->ip();
