@@ -35,4 +35,29 @@ class DeployController extends Controller
 
         return response('Cache cleared', 200);
     }
+
+    /**
+     * Publish artikel ke-6 via seeder (shared hosting tanpa SSH).
+     * Idempotent — aman dipanggil ulang.
+     */
+    public function publishArticle6()
+    {
+        $token = config('app.deploy_hook_token');
+
+        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
+            abort(404);
+        }
+
+        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article6Seeder', '--force' => true]);
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 6 published', 200);
+    }
 }

@@ -32,3 +32,7 @@ Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('priv
 Route::get('/deploy/clear-cache', [DeployController::class, 'clearCache'])
     ->middleware('throttle:5,1')
     ->name('deploy.clear-cache');
+
+Route::get('/deploy/publish-article-6', [DeployController::class, 'publishArticle6'])
+    ->middleware('throttle:3,1')
+    ->name('deploy.publish-article-6');
