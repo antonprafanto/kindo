@@ -44,7 +44,11 @@ jobs:
           cache: npm
 
       - name: Build frontend assets
-        run: npm ci && npm run build
+        run: |
+          npm ci && npm run build
+          # Back-compat: stale compiled Blade views may still reference old Vite hash
+          css_file=$(node -p "require('./public/build/manifest.json')['resources/css/app.css'].file")
+          cp "public/build/${css_file}" "public/build/assets/app-B8UEwyUe.css"
 
       - name: Write deploy marker
         run: echo "${{ github.sha }} $(date -u +%Y-%m-%dT%H:%M:%SZ)" > public/deploy-check.txt
@@ -164,6 +168,42 @@ jobs:
           for file in bootstrap/cache/config.php bootstrap/cache/routes-v7.php bootstrap/cache/packages.php bootstrap/cache/services.php; do
             curl -sS --ftp-pasv --user "$AUTH" -Q "-DELE ${file}" "$BASE" || true
           done
+
+      - name: Purge compiled Blade views via FTP
+        continue-on-error: true
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_DIR: ${{ secrets.FTP_SERVER_DIR }}
+        run: |
+          python3 << 'PYEOF'
+          import ftplib
+          import os
+          import ssl
+
+          host = os.environ["FTP_SERVER"]
+          user = os.environ["FTP_USERNAME"]
+          password = os.environ["FTP_PASSWORD"]
+          base = os.environ["FTP_DIR"].strip().strip("/")
+          views = f"{base}/storage/framework/views"
+
+          ftp = ftplib.FTP_TLS(context=ssl.create_default_context())
+          ftp.connect(host, 21, timeout=60)
+          ftp.login(user, password)
+          ftp.prot_p()
+          ftp.cwd(views)
+          deleted = 0
+          for name in ftp.nlst():
+              if name.endswith(".php"):
+                  try:
+                      ftp.delete(name)
+                      deleted += 1
+                  except ftplib.error_perm:
+                      pass
+          ftp.quit()
+          print(f"Deleted {deleted} compiled view file(s)")
+          PYEOF
 
       - name: Clear Laravel cache via deploy hook
         continue-on-error: true

@@ -15,10 +15,12 @@ else
     echo "    Fallback .htaccess di public/ seharusnya tetap bisa serve file upload"
 fi
 
-echo "==> Clear cache..."
+echo "==> Clear cache (jangan view:cache — bikin CSS stale)..."
+php artisan view:clear
+php artisan config:clear
+php artisan cache:clear
 php artisan config:cache
 php artisan route:cache
-php artisan view:cache
 
 echo ""
 echo "✅ Selesai! Cek gambar di:"

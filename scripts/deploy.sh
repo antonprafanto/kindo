@@ -23,7 +23,6 @@ php artisan config:clear
 php artisan cache:clear
 php artisan config:cache
 php artisan route:cache
-php artisan view:cache
 
 echo ""
 echo "✅ Deploy selesai! Tes form kontak di:"
