@@ -24,20 +24,26 @@ class Article7Seeder extends Seeder
         $article = Article::updateOrCreate(
             ['slug' => 'memahami-mqtt-esp32-kirim-data-sensor-broker'],
             [
-                'user_id'         => $admin->id,
-                'category_id'     => $iotCat->id,
-                'title'           => 'Memahami MQTT dengan ESP32: Kirim Data Sensor ke Broker IoT',
-                'body'            => $this->body(),
-                'cover_image'     => null,
-                'status'          => 'published',
-                'is_featured'     => false,
-                'published_at'    => now(),
-                'seo_title'       => 'Tutorial MQTT ESP32 — Publish Data Sensor ke Broker IoT',
-                'seo_description' => 'Pelajari protokol MQTT dan cara mengirim data sensor DHT22 dari ESP32 ke broker. Panduan lengkap untuk pemula IoT berbahasa Indonesia.',
+                'user_id'           => $admin->id,
+                'category_id'       => $iotCat->id,
+                'title'             => 'Memahami MQTT dengan ESP32: Kirim Data Sensor ke Broker IoT',
+                'body'              => $this->body(),
+                'cover_image'       => null,
+                'status'            => 'published',
+                'is_featured'       => false,
+                'seo_title'         => 'Tutorial MQTT ESP32 — Publish Data Sensor ke Broker IoT',
+                'seo_description'   => 'Pelajari protokol MQTT dan cara mengirim data sensor DHT22 dari ESP32 ke broker. Panduan lengkap untuk pemula IoT berbahasa Indonesia.',
             ]
         );
 
-        $tagSlugs = ['esp32', 'mqtt', 'iot', 'wifi', 'sensor'];
+        if ($article->wasRecentlyCreated || ! $article->published_at) {
+            $article->published_at = now();
+            $article->save();
+        }
+
+        Tag::updateOrCreate(['slug' => 'dht22'], ['name' => 'dht22']);
+
+        $tagSlugs = ['esp32', 'mqtt', 'iot', 'wifi', 'sensor', 'dht22'];
         $tagIds   = Tag::whereIn('slug', $tagSlugs)->pluck('id');
         $article->tags()->sync($tagIds);
 
@@ -48,7 +54,7 @@ class Article7Seeder extends Seeder
     {
         return <<<'HTML'
 <h2>Pendahuluan</h2>
-<p>Di artikel sebelumnya kita sudah membuat <strong>Web Server ESP32</strong> untuk monitoring sensor DHT22 lewat browser. Itu bagus untuk akses lokal, tapi di dunia IoT nyata, banyak perangkat perlu mengirim data ke satu sistem pusat — tanpa saling tahu IP masing-masing.</p>
+<p>Di artikel sebelumnya kita sudah membuat <strong><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web Server ESP32</a></strong> untuk monitoring sensor DHT22 lewat browser. Itu bagus untuk akses lokal, tapi di dunia IoT nyata, banyak perangkat perlu mengirim data ke satu sistem pusat — tanpa saling tahu IP masing-masing.</p>
 
 <p>Di sinilah protokol <strong>MQTT</strong> (Message Queuing Telemetry Transport) berperan. MQTT adalah standar de facto untuk komunikasi IoT: ringan, cepat, dan cocok untuk ESP32 yang mengirim data sensor secara berkala.</p>
 
@@ -91,7 +97,7 @@ class Article7Seeder extends Seeder
 </ul>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Sudah paham koneksi WiFi ESP32 dan cara membaca sensor DHT22. Jika belum, baca artikel <em>Menghubungkan ESP32 ke WiFi</em> dan <em>Membaca Sensor DHT22</em> terlebih dahulu.</p>
+  <p><strong>Prasyarat:</strong> Sudah paham koneksi WiFi ESP32 dan cara membaca sensor DHT22. Jika belum, baca artikel <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server"><em>Menghubungkan ESP32 ke WiFi</em></a> dan <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32"><em>Membaca Sensor DHT22</em></a> terlebih dahulu. Disarankan juga sudah membaca <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22"><em>Web Server ESP32 + DHT22</em></a>.</p>
 </blockquote>
 
 <h2>Install Library</h2>
@@ -200,6 +206,7 @@ void kirimDataSensor() {
 
 void setup() {
   Serial.begin(115200);
+  randomSeed(micros());
   dht.begin();
   koneksiWiFi();
   koneksiMQTT();
@@ -226,17 +233,17 @@ void loop() {
 
 <h3>Opsi 1 — MQTT Explorer (Laptop, disarankan)</h3>
 <ol>
-  <li>Download <strong>MQTT Explorer</strong> dari mqtt-explorer.com</li>
+  <li>Download <strong><a href="https://mqtt-explorer.com/" target="_blank" rel="noopener">MQTT Explorer</a></strong></li>
   <li>Buat koneksi baru: Host <code>test.mosquitto.org</code>, Port <code>1883</code></li>
   <li>Connect → cari topic <code>kodingindonesia/esp32/dht22</code></li>
   <li>Kamu akan melihat JSON suhu &amp; kelembaban update setiap 5 detik</li>
 </ol>
 
-<h3>Opsi 2 — mosquitto_sub (Terminal Linux/Mac)</h3>
+<h3>Opsi 2 — mosquitto_sub (Terminal)</h3>
 
 <pre><code class="language-bash">mosquitto_sub -h test.mosquitto.org -t "kodingindonesia/esp32/dht22" -v</code></pre>
 
-<p><em>Perintah <code>mosquitto_sub</code> adalah tool CLI dari paket Mosquitto — tersedia setelah install Mosquitto di komputer kamu.</em></p>
+<p><em>Perintah <code>mosquitto_sub</code> adalah tool CLI dari paket <a href="https://mosquitto.org/download/" target="_blank" rel="noopener">Mosquitto</a> — tersedia di Linux, Mac, dan Windows setelah install Mosquitto.</em></p>
 
 <h2>Memahami Struktur Topic</h2>
 <p>Topic MQTT menggunakan hierarki seperti folder:</p>
@@ -277,7 +284,7 @@ void loop() {
   <li><strong>Web Server</strong> → monitoring lokal via browser di rumah</li>
   <li><strong>MQTT</strong> → kirim data ke cloud/dashboard/Home Assistant</li>
 </ul>
-<p>Keduanya complementer — bukan pengganti satu sama lain.</p>
+<p>Keduanya <strong>komplementer</strong> — bukan pengganti satu sama lain.</p>
 
 <h2>Langkah Selanjutnya</h2>
 <ul>
