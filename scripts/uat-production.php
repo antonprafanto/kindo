@@ -33,11 +33,13 @@ $tests = [
     ['/tag/esp32', 200, 'Tag'],
     ['/cari', 200, 'Search'],
     ['/tentang', 200, 'About'],
+    ['/menjadi-kontributor', 200, 'Contributor page'],
     ['/kontak', 200, 'Contact'],
     ['/kebijakan-privasi', 200, 'Privacy'],
     ['/newsletter', 200, 'Newsletter page'],
     ['/sitemap.xml', 200, 'Sitemap'],
     ['/admin', 302, 'Admin redirect'],
+    ['/admin/password-reset/request', 200, 'Password reset request'],
     ['/halaman-tidak-ada-xyz', 404, '404 page'],
     ['/newsletter/konfirmasi/invalid-token-xyz', 200, 'Confirm invalid (status page)'],
     ['/newsletter/berhenti/invalid-token-xyz', 200, 'Unsubscribe invalid (status page)'],
@@ -60,6 +62,7 @@ foreach ($tests as [$path, $expected, $label]) {
 
 $home = httpBody($base . '/');
 $newsletterPage = httpBody($base . '/newsletter');
+$contributorPage = httpBody($base . '/menjadi-kontributor');
 $sitemap = httpBody($base . '/sitemap.xml');
 
 $contentChecks = [
@@ -69,7 +72,10 @@ $contentChecks = [
     ['Newsletter nav link', str_contains($home, '/newsletter')],
     ['Newsletter page form', str_contains($newsletterPage, 'Berlangganan Newsletter')],
     ['Newsletter benefits list', str_contains($newsletterPage, 'double opt-in') || str_contains($newsletterPage, 'Double opt-in')],
-    ['Sitemap has newsletter', str_contains($sitemap, '/newsletter')],
+    ['Contributor nav footer', str_contains($home, '/menjadi-kontributor')],
+    ['Contributor page form', str_contains($contributorPage, 'Formulir Aplikasi')],
+    ['Contributor guidelines', str_contains($contributorPage, 'Pedoman Penulisan')],
+    ['Sitemap has contributor', str_contains($sitemap, '/menjadi-kontributor')],
     ['Sitemap has article 6', str_contains($sitemap, 'membuat-web-server-esp32')],
     ['Sitemap URL count ≥ 42', substr_count($sitemap, '<loc>') >= 42],
 ];
