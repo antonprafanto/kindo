@@ -141,9 +141,10 @@
 
                 <div>
                     <label class="block text-sm font-bold mb-2 uppercase tracking-wider">Motivasi & Topik yang Ingin Ditulis <span class="text-red-500">*</span></label>
-                    <textarea name="motivation" rows="6" placeholder="Ceritakan pengalamanmu, topik yang ingin kamu tulis, dan mengapa ingin berkontribusi di Koding Indonesia (min. 50 karakter)..."
-                              class="input-brutal resize-none @error('motivation') border-red-500 @enderror">{{ old('motivation') }}</textarea>
-                    @error('motivation')<p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p>@enderror
+                <textarea name="motivation" rows="6" placeholder="Ceritakan pengalamanmu, topik yang ingin kamu tulis, dan mengapa ingin berkontribusi di Koding Indonesia (min. 50 karakter)..."
+                          class="input-brutal resize-none @error('motivation') border-red-500 @enderror">{{ old('motivation') }}</textarea>
+                @error('motivation')<p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p>@enderror
+                <p class="text-xs mt-1 theme-muted">Minimal 50 karakter — saat ini: <span id="motivation-count">{{ strlen(old('motivation', '')) }}</span>/50</p>
                 </div>
 
                 @if(config('services.turnstile.site_key'))
@@ -154,10 +155,21 @@
                 </div>
                 @endif
 
-                <button type="submit" class="btn-brutal btn-primary w-full py-4 text-sm">
-                    Kirim Aplikasi →
-                </button>
-            </form>
+            <button type="submit" class="btn-brutal btn-primary w-full py-4 text-sm">
+                Kirim Aplikasi →
+            </button>
+        </form>
+
+        <script>
+            (function () {
+                const field = document.querySelector('textarea[name="motivation"]');
+                const counter = document.getElementById('motivation-count');
+                if (!field || !counter) return;
+                const update = () => { counter.textContent = field.value.length; };
+                field.addEventListener('input', update);
+                update();
+            })();
+        </script>
         </div>
 
     </div>

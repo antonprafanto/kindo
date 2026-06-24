@@ -25,50 +25,52 @@ class ContributorController extends Controller
 
     public function store(Request $request, TurnstileService $turnstile)
     {
+        if ($request->filled('website')) {
+            return back()->with('success', 'Aplikasi kamu sudah terkirim! Kami akan meninjau dalam 3–5 hari kerja.');
+        }
+
+        if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
+            return back()->withErrors([
+                'turnstile' => 'Verifikasi keamanan gagal. Silakan centang kotak verifikasi dan coba lagi.',
+            ])->withInput();
+        }
+
+        $key = 'contributor-apply:' . $request->ip();
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            $seconds = RateLimiter::availableIn($key);
+
+            return back()->withErrors([
+                'email' => "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.",
+            ])->withInput();
+        }
+        RateLimiter::hit($key, 600);
+
+        $validated = $request->validate([
+            'name'            => 'required|string|max:100',
+            'email'           => 'required|email|max:200',
+            'topic_expertise' => 'required|string|max:200',
+            'sample_url'      => 'nullable|url|max:500',
+            'motivation'      => 'required|string|min:50|max:2000',
+        ], [
+            'motivation.min' => 'Motivasi minimal 50 karakter. Ceritakan pengalaman, topik yang ingin ditulis, dan alasan ingin berkontribusi.',
+        ]);
+
+        $validated['email'] = EmailNormalizer::normalize($validated['email']);
+
+        $existingUser = User::where('email', $validated['email'])->first();
+        if ($existingUser?->isAuthor() || $existingUser?->isAdmin()) {
+            return back()->withErrors([
+                'email' => 'Email ini sudah terdaftar sebagai kontributor. Silakan login ke panel admin.',
+            ])->withInput();
+        }
+
+        if (ContributorApplication::pending()->where('email', $validated['email'])->exists()) {
+            return back()->withErrors([
+                'email' => 'Kami sudah menerima aplikasi dari email ini dan sedang meninjaunya. Mohon tunggu kabar dari kami.',
+            ])->withInput();
+        }
+
         try {
-            if ($request->filled('website')) {
-                return back()->with('success', 'Aplikasi kamu sudah terkirim! Kami akan meninjau dalam 3–5 hari kerja.');
-            }
-
-            if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
-                return back()->withErrors([
-                    'turnstile' => 'Verifikasi keamanan gagal. Silakan centang kotak verifikasi dan coba lagi.',
-                ])->withInput();
-            }
-
-            $key = 'contributor-apply:' . $request->ip();
-            if (RateLimiter::tooManyAttempts($key, 3)) {
-                $seconds = RateLimiter::availableIn($key);
-
-                return back()->withErrors([
-                    'email' => "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.",
-                ])->withInput();
-            }
-            RateLimiter::hit($key, 600);
-
-            $validated = $request->validate([
-                'name'            => 'required|string|max:100',
-                'email'           => 'required|email|max:200',
-                'topic_expertise' => 'required|string|max:200',
-                'sample_url'      => 'nullable|url|max:500',
-                'motivation'      => 'required|string|min:50|max:2000',
-            ]);
-
-            $validated['email'] = EmailNormalizer::normalize($validated['email']);
-
-            $existingUser = User::where('email', $validated['email'])->first();
-            if ($existingUser?->isAuthor() || $existingUser?->isAdmin()) {
-                return back()->withErrors([
-                    'email' => 'Email ini sudah terdaftar sebagai kontributor. Silakan login ke panel admin.',
-                ])->withInput();
-            }
-
-            if (ContributorApplication::pending()->where('email', $validated['email'])->exists()) {
-                return back()->withErrors([
-                    'email' => 'Kami sudah menerima aplikasi dari email ini dan sedang meninjaunya. Mohon tunggu kabar dari kami.',
-                ])->withInput();
-            }
-
             $application = ContributorApplication::create([
                 ...$validated,
                 'status'     => 'pending',
@@ -77,21 +79,28 @@ class ContributorController extends Controller
 
             $contactEmail = config('mail.contact_email', config('mail.from.address'));
 
-            Mail::send('emails.contributor-application-admin', [
-                'application' => $application,
-                'adminUrl'    => url('/admin/contributor-applications'),
-            ], function ($message) use ($contactEmail, $application) {
-                $message->to($contactEmail)
-                    ->replyTo($application->email)
-                    ->subject('[Koding Indonesia] Aplikasi Kontributor Baru — ' . $application->name);
-            });
+            try {
+                Mail::send('emails.contributor-application-admin', [
+                    'application' => $application,
+                    'adminUrl'    => url('/admin/contributor-applications'),
+                ], function ($message) use ($contactEmail, $application) {
+                    $message->to($contactEmail)
+                        ->replyTo($application->email)
+                        ->subject('[Koding Indonesia] Aplikasi Kontributor Baru — ' . $application->name);
+                });
 
-            Mail::send('emails.contributor-application-received', [
-                'applicantName' => $application->name,
-            ], function ($message) use ($application) {
-                $message->to($application->email)
-                    ->subject('Aplikasi Kontributor Koding Indonesia Diterima');
-            });
+                Mail::send('emails.contributor-application-received', [
+                    'applicantName' => $application->name,
+                ], function ($message) use ($application) {
+                    $message->to($application->email)
+                        ->subject('Aplikasi Kontributor Koding Indonesia Diterima');
+                });
+            } catch (\Throwable $mailError) {
+                Log::warning('Contributor application emails failed', [
+                    'application_id' => $application->id,
+                    'error'          => $mailError->getMessage(),
+                ]);
+            }
 
             return back()->with('success', 'Aplikasi kamu sudah terkirim! Kami akan meninjau dalam 3–5 hari kerja dan menghubungi via email.');
         } catch (\Throwable $e) {
