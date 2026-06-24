@@ -28,6 +28,7 @@ $paths = [
     '/newsletter' => 200,
     '/tentang' => 200,
     '/kontak' => 200,
+    '/menjadi-kontributor' => 200,
     '/kebijakan-privasi' => 200,
     '/sitemap.xml' => 200,
     '/cari' => 200,

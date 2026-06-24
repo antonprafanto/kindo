@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Comments;
 
+use App\Filament\Concerns\AdminOnlyResource;
 use App\Filament\Resources\Comments\Pages\ListComments;
 use App\Filament\Resources\Comments\Tables\CommentsTable;
 use App\Models\Comment;
@@ -12,6 +13,8 @@ use Filament\Tables\Table;
 
 class CommentResource extends Resource
 {
+    use AdminOnlyResource;
+
     protected static ?string $model = Comment::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedChatBubbleLeftRight;

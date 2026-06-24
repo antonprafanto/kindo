@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContributorController;
 use App\Http\Controllers\DeployController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
@@ -22,6 +23,9 @@ Route::get('/tag/{slug}', [TagController::class, 'show'])->name('tags.show');
 Route::get('/cari', \App\Livewire\SearchPage::class)->name('search');
 
 Route::get('/tentang', [PageController::class, 'about'])->name('about');
+
+Route::get('/menjadi-kontributor', [ContributorController::class, 'show'])->name('contributor.apply');
+Route::post('/menjadi-kontributor', [ContributorController::class, 'store'])->name('contributor.apply.store');
 
 Route::get('/kontak', [ContactController::class, 'show'])->name('contact');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');

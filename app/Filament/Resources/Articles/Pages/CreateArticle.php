@@ -13,4 +13,19 @@ class CreateArticle extends CreateRecord
     {
         return 'Tulis Artikel Baru';
     }
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+
+        if (auth()->user()?->isAuthor()) {
+            $data['is_featured'] = false;
+
+            if (($data['status'] ?? 'draft') === 'published') {
+                $data['status'] = 'draft';
+            }
+        }
+
+        return $data;
+    }
 }

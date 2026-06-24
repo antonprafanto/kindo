@@ -20,7 +20,9 @@ class ArticlesTable
 {
     public static function configure(Table $table): Table
     {
-        return $table
+        $isAdmin = auth()->user()?->isAdmin() ?? false;
+
+        $table = $table
             ->columns([
                 ImageColumn::make('cover_image')
                     ->label('')
@@ -36,13 +38,26 @@ class ArticlesTable
                     ->limit(50)
                     ->description(fn ($record) => $record->category?->name),
 
+                TextColumn::make('user.name')
+                    ->label('Penulis')
+                    ->sortable()
+                    ->toggleable()
+                    ->visible($isAdmin),
+
                 TextColumn::make('status')
                     ->label('Status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'published' => 'success',
-                        'draft'     => 'warning',
-                        default     => 'gray',
+                        'published'      => 'success',
+                        'pending_review' => 'info',
+                        'draft'          => 'warning',
+                        default          => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'pending_review' => 'Menunggu Review',
+                        'published'      => 'Published',
+                        'draft'          => 'Draft',
+                        default          => $state,
                     }),
 
                 IconColumn::make('is_featured')
@@ -69,24 +84,28 @@ class ArticlesTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
+            ->filters(array_filter([
                 SelectFilter::make('status')
                     ->label('Status')
                     ->options([
-                        'draft'     => 'Draft',
-                        'published' => 'Published',
+                        'draft'          => 'Draft',
+                        'pending_review' => 'Menunggu Review',
+                        'published'      => 'Published',
                     ]),
 
                 SelectFilter::make('category')
                     ->label('Kategori')
                     ->relationship('category', 'name'),
 
-                TrashedFilter::make(),
-            ])
+                $isAdmin ? TrashedFilter::make() : null,
+            ]))
             ->recordActions([
-                EditAction::make(),
-            ])
-            ->toolbarActions([
+                EditAction::make()
+                    ->visible(fn ($record) => $isAdmin || $record->status !== 'published'),
+            ]);
+
+        if ($isAdmin) {
+            $table->toolbarActions([
                 BulkActionGroup::make([
                     BulkAction::make('publish')
                         ->label('Publish Semua')
@@ -119,7 +138,9 @@ class ArticlesTable
                     ForceDeleteBulkAction::make()->label('Hapus Permanen'),
                     RestoreBulkAction::make()->label('Pulihkan'),
                 ]),
-            ])
-            ->defaultSort('created_at', 'desc');
+            ]);
+        }
+
+        return $table->defaultSort('created_at', 'desc');
     }
 }

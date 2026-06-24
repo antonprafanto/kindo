@@ -54,7 +54,7 @@
                 <p class="mb-6" style="color:#CBD5E0;">
                     Punya artikel menarik atau ingin berbagi pengetahuan? Kami terbuka untuk kolaborasi!
                 </p>
-                <a href="{{ route('contact') }}" class="btn-brutal btn-primary px-8 py-3 text-sm inline-flex">Hubungi Kami</a>
+                <a href="{{ route('contributor.apply') }}" class="btn-brutal btn-primary px-8 py-3 text-sm inline-flex">Daftar Kontributor</a>
             </div>
 
         </div>

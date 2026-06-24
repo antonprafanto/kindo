@@ -27,6 +27,36 @@ class ArticleResource extends Resource
     protected static ?string $pluralModelLabel    = 'Artikel';
     protected static ?int    $navigationSort      = 1;
 
+    public static function getNavigationBadge(): ?string
+    {
+        if (! auth()->user()?->isAdmin()) {
+            return null;
+        }
+
+        $count = Article::where('status', 'pending_review')->count();
+
+        return $count > 0 ? (string) $count : null;
+    }
+
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return 'warning';
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        $query = parent::getEloquentQuery()
+            ->withoutGlobalScopes([
+                SoftDeletingScope::class,
+            ]);
+
+        if (auth()->user()?->isAuthor()) {
+            $query->where('user_id', auth()->id());
+        }
+
+        return $query;
+    }
+
     public static function form(Schema $schema): Schema
     {
         return ArticleForm::configure($schema);
@@ -55,9 +85,6 @@ class ArticleResource extends Resource
 
     public static function getRecordRouteBindingEloquentQuery(): Builder
     {
-        return parent::getRecordRouteBindingEloquentQuery()
-            ->withoutGlobalScopes([
-                SoftDeletingScope::class,
-            ]);
+        return static::getEloquentQuery();
     }
 }

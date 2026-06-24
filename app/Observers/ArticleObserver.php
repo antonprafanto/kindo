@@ -8,6 +8,8 @@ use App\Models\ArticleNewsletterLog;
 use App\Services\ImageService;
 use App\Services\SitemapService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class ArticleObserver
 {
@@ -32,6 +34,10 @@ class ArticleObserver
 
         if ($this->wasJustPublished($article) && ! ArticleNewsletterLog::where('article_id', $article->id)->exists()) {
             NotifySubscribersOfNewArticle::dispatchAfterResponse($article);
+        }
+
+        if ($article->wasChanged('status') && $article->status === 'pending_review') {
+            $this->notifyAdminOfPendingReview($article);
         }
 
         $this->clearCache();
@@ -119,5 +125,26 @@ class ArticleObserver
         }
 
         return false;
+    }
+
+    private function notifyAdminOfPendingReview(Article $article): void
+    {
+        try {
+            $contactEmail = config('mail.contact_email', config('mail.from.address'));
+
+            Mail::send('emails.article-pending-review', [
+                'article'    => $article->loadMissing('category', 'user'),
+                'authorName' => $article->user?->name ?? 'Kontributor',
+                'adminUrl'   => url('/admin/articles/' . $article->id . '/edit'),
+            ], function ($message) use ($contactEmail, $article) {
+                $message->to($contactEmail)
+                    ->subject('[Koding Indonesia] Artikel Menunggu Review — ' . $article->title);
+            });
+        } catch (\Throwable $e) {
+            Log::warning('Failed to notify admin of pending review article', [
+                'article_id' => $article->id,
+                'error'      => $e->getMessage(),
+            ]);
+        }
     }
 }
