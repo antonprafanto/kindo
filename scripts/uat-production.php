@@ -63,6 +63,7 @@ foreach ($tests as [$path, $expected, $label]) {
 $home = httpBody($base . '/');
 $newsletterPage = httpBody($base . '/newsletter');
 $contributorPage = httpBody($base . '/menjadi-kontributor');
+$adminLogin = httpBody($base . '/admin/login');
 $sitemap = httpBody($base . '/sitemap.xml');
 
 $contentChecks = [
@@ -75,6 +76,7 @@ $contentChecks = [
     ['Contributor nav footer', str_contains($home, '/menjadi-kontributor')],
     ['Contributor page form', str_contains($contributorPage, 'Formulir Aplikasi')],
     ['Contributor guidelines', str_contains($contributorPage, 'Pedoman Penulisan')],
+    ['Admin login Turnstile', str_contains($adminLogin, 'challenges.cloudflare.com/turnstile')],
     ['Sitemap has contributor', str_contains($sitemap, '/menjadi-kontributor')],
     ['Sitemap has article 6', str_contains($sitemap, 'membuat-web-server-esp32')],
     ['Sitemap URL count ≥ 42', substr_count($sitemap, '<loc>') >= 42],

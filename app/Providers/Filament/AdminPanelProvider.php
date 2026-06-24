@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Auth\Pages\Login;
+use App\Filament\Auth\Pages\RequestPasswordReset;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -26,8 +28,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
-            ->passwordReset()
+            ->login(Login::class)
+            ->passwordReset(requestAction: RequestPasswordReset::class)
             ->brandName('Koding Indonesia')
             ->brandLogo('/logo.png')
             ->brandLogoHeight('2.25rem')
