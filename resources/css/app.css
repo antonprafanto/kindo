@@ -96,6 +96,7 @@
     --color-surface:        #F5F5F0;
     --color-surface-dark:   #E8E8E0;
     --color-muted:          #718096;
+    --color-highlight:      #EBF4FF;
 
     /* Neo-Brutalism Borders */
     --border-brutal:        2px solid #000000;
@@ -125,6 +126,7 @@ html.dark {
     --color-ink:            #F7FAFC;
     --color-muted:          #A0AEC0;
     --shadow-brutal-blue:   4px 4px 0px #2979FF;
+    --color-highlight:      #1a365d;
 }
 
 html:not(.dark) {
@@ -519,6 +521,7 @@ html.theme-animate footer {
     .theme-muted { color: var(--color-muted); }
     .theme-body { color: var(--color-dark); }
     .theme-heading { color: var(--color-ink); }
+    .theme-highlight { background-color: var(--color-highlight); color: var(--color-ink); }
     .hero-grid {
         background-image: radial-gradient(#00000010 1.5px, transparent 1.5px);
         background-size: 24px 24px;

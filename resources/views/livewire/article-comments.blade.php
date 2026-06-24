@@ -34,12 +34,12 @@
             @if($comment->replies->isNotEmpty())
             <div class="mt-4 ml-6 sm:ml-10 space-y-3 border-l-2 border-black pl-4">
                 @foreach($comment->replies as $reply)
-                <div class="p-3 border-2 border-black" style="background:#F7F7F5;">
+                <div class="p-3 border-2 border-black theme-surface theme-body">
                     <div class="flex flex-wrap items-center gap-2 mb-1">
-                        <span class="font-bold text-sm">{{ $reply->author_name }}</span>
+                        <span class="font-bold text-sm theme-heading">{{ $reply->author_name }}</span>
                         <span class="text-xs font-mono theme-muted">{{ $reply->created_at->translatedFormat('d M Y H:i') }}</span>
                     </div>
-                    <p class="text-sm whitespace-pre-wrap break-words">{{ $reply->body }}</p>
+                    <p class="text-sm whitespace-pre-wrap break-words theme-body">{{ $reply->body }}</p>
                 </div>
                 @endforeach
             </div>
@@ -53,8 +53,8 @@
 
     <div class="p-5 sm:p-6 border-2 border-black theme-paper" style="box-shadow: 4px 4px 0 #000;">
         @if($replyingTo)
-        <div class="mb-4 flex items-center justify-between gap-2 p-3 border-2 border-black text-sm" style="background:#EBF4FF;">
-            <span>Membalas komentar</span>
+        <div class="mb-4 flex items-center justify-between gap-2 p-3 border-2 border-black text-sm theme-highlight">
+            <span class="font-semibold">Membalas komentar</span>
             <button type="button" wire:click="cancelReply" class="text-xs font-bold underline">Batal</button>
         </div>
         @endif
