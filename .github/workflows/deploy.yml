@@ -292,9 +292,3 @@ jobs:
         run: |
           curl -fsS --max-time 60 \
             "https://kodingindonesia.com/deploy/clear-cache?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
-
-      - name: Republish article 9 via deploy hook (audit fixes)
-        continue-on-error: true
-        run: |
-          curl -fsS --max-time 120 \
-            "https://kodingindonesia.com/deploy/publish-article-9?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
