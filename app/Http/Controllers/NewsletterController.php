@@ -24,7 +24,7 @@ class NewsletterController extends Controller
                 return $this->successResponse($request, 'Cek email kamu untuk konfirmasi langganan newsletter.');
             }
 
-            if ($turnstile->isConfigured() && $request->boolean('requires_turnstile') && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
+            if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
                 return $this->errorResponse(
                     $request,
                     'Verifikasi keamanan gagal. Silakan coba lagi.',

@@ -34,10 +34,12 @@
             {{-- Newsletter --}}
             <div>
                 <h3 class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#FF7A2F;">Newsletter</h3>
-                <p class="text-sm mb-4 leading-relaxed" style="color:#A0AEC0;">
+                <p class="text-sm mb-5 leading-relaxed" style="color:#A0AEC0;">
                     Dapatkan notifikasi artikel tutorial ESP32 & IoT terbaru langsung ke email kamu.
                 </p>
-                <x-newsletter-form :compact="true" />
+                <a href="{{ route('newsletter') }}" class="btn-brutal btn-primary inline-block py-3 px-6 text-sm no-underline">
+                    Berlangganan →
+                </a>
             </div>
 
             {{-- Kategori --}}

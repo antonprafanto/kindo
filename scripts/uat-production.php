@@ -63,7 +63,7 @@ $newsletterPage = httpBody($base . '/newsletter');
 $sitemap = httpBody($base . '/sitemap.xml');
 
 $contentChecks = [
-    ['Footer newsletter form', str_contains($home, 'newsletter/subscribe')],
+    ['Footer newsletter CTA', str_contains($home, '/newsletter') && str_contains($home, 'Berlangganan')],
     ['Dark mode toggle', str_contains($home, 'data-theme-toggle')],
     ['GA4 script', str_contains($home, 'googletagmanager') || str_contains($home, 'G-9LG05NN7FM')],
     ['Newsletter nav link', str_contains($home, '/newsletter')],
