@@ -214,11 +214,59 @@ MAIL_PASSWORD=password_email_kamu
 
 ---
 
+## Backup Hosting (Rumahweb)
+
+> **Penting:** Daily backup Rumahweb **bukan** toggle di cPanel — layanan tambahan berbayar yang diaktifkan lewat **Clientzone**. Weekly backup gratis otomatis dari Rumahweb (jika memenuhi syarat AUP).
+
+### Weekly backup gratis (sudah termasuk paket)
+
+Rumahweb backup mingguan otomatis **selama**:
+- Disk usage **< 5 GB**
+- Inodes **< 75.000**
+
+Cek di cPanel → **Disk Usage**. Jika melebihi limit, backup mingguan bisa dihentikan (email notifikasi dari Rumahweb).
+
+### Daily backup (berbayar, ~Rp 9.900/bulan)
+
+Untuk backup **setiap hari** (disarankan untuk website aktif):
+
+1. Login **[Clientzone Rumahweb](https://clientzone.rumahweb.com)**
+2. Menu **Hosting** → **Manage** (paket `kodingindonesia.com`)
+3. Bagian **Daily Backup** → klik **Beli**
+4. Pilih paket kapasitas — minimal **2× disk usage** saat ini (mis. paket 10 GB cukup untuk situs kecil)
+5. Checkout & bayar
+
+Setelah aktif:
+- Kelola backup: Clientzone → Hosting → Manage → **Login Backup**
+- Download: **Request Download** pada tanggal yang diinginkan
+- Restore full: upload ke cPanel + buka tiket support Rumahweb
+
+### Backup manual di cPanel (gratis, kapan saja)
+
+Sebelum perubahan besar (deploy, migration, hapus data):
+
+1. Login cPanel → **Backup** (atau **Backup Wizard**)
+2. **Download a Full Account Backup** → Generate → tunggu link download
+3. Simpan file `.tar.gz` di komputer / cloud pribadi
+
+Backup partial (lebih cepat):
+- **Home Directory** — file website (`kindo/`, `public_html/`)
+- **MySQL Database** — pilih database `kodingindonesia`
+
+### Checklist backup Koding Indonesia
+
+- [ ] Verifikasi weekly backup aktif (disk < 5 GB, inodes < 75k)
+- [ ] Beli & aktifkan Daily Backup di Clientzone *(opsional tapi disarankan)*
+- [ ] Download 1 full backup manual ke komputer (baseline)
+- [ ] Catat tanggal backup terakhir di catatan pribadi
+
+---
+
 ## Post-Deploy Checklist
 
 - [ ] Buka `https://kodingindonesia.com` — pastikan HTTPS aktif
 - [ ] Test homepage, artikel, kontak
 - [ ] Test Filament admin: `https://kodingindonesia.com/admin`
 - [ ] Submit sitemap ke Google Search Console: `https://kodingindonesia.com/sitemap.xml`
-- [ ] Aktifkan daily backup di Rumahweb cPanel
+- [ ] Aktifkan Daily Backup di Clientzone Rumahweb *(lihat bagian Backup di atas)*
 - [ ] Pasang Google Analytics 4 (tambah GA4 ID di `.env`)
