@@ -101,15 +101,20 @@ class Article7Seeder extends Seeder
   <li><strong>DHT sensor library</strong> — oleh Adafruit (+ Adafruit Unified Sensor)</li>
 </ol>
 
-<h2>Broker MQTT untuk Latihan</h2>
-<p>Kita akan menggunakan broker publik gratis untuk tutorial:</p>
+<h2>Broker MQTT untuk Latihan — Eclipse Mosquitto</h2>
+<p>Untuk tutorial ini kita memakai <strong>test server resmi</strong> dari proyek <a href="https://mosquitto.org/" target="_blank" rel="noopener">Eclipse Mosquitto</a> — broker MQTT open source yang populer di dunia IoT:</p>
 <ul>
-  <li><strong>Host:</strong> <code>broker.hivemq.com</code></li>
-  <li><strong>Port:</strong> <code>1883</code> (tanpa TLS)</li>
+  <li><strong>Host:</strong> <code>test.mosquitto.org</code></li>
+  <li><strong>Port:</strong> <code>1883</code> (MQTT plain, tanpa TLS)</li>
+  <li><strong>Autentikasi:</strong> tidak perlu username/password</li>
 </ul>
 
 <blockquote>
-  <p><strong>Keamanan:</strong> Broker publik hanya untuk belajar dan uji coba. Jangan kirim data sensitif atau kredensial. Untuk proyek production, gunakan broker pribadi (Mosquitto di VPS, EMQX Cloud, HiveMQ Cloud) dengan autentikasi username/password.</p>
+  <p><strong>Penting — broker bukan website:</strong> <code>test.mosquitto.org</code> adalah server MQTT, bukan halaman web. Jika kamu ketik alamat itu di browser Chrome/Firefox, akan muncul error — itu <em>normal</em>. MQTT berjalan di port 1883, bukan port 80/443. ESP32 dan MQTT Explorer yang terhubung ke broker, bukan browser biasa.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Keamanan:</strong> Broker publik hanya untuk belajar dan uji coba. Jangan kirim data sensitif. Untuk production, install <strong>Mosquitto</strong> sendiri di Raspberry Pi/VPS (lihat <a href="https://mosquitto.org/download/" target="_blank" rel="noopener">mosquitto.org/download</a>) dengan autentikasi username/password.</p>
 </blockquote>
 
 <h2>Kode Program: ESP32 + DHT22 + MQTT</h2>
@@ -124,7 +129,7 @@ const char* ssid     = "NamaWiFiKamu";
 const char* password = "PasswordWiFiKamu";
 
 // ── MQTT Broker ───────────────────────────────────────
-const char* mqttServer = "broker.hivemq.com";
+const char* mqttServer = "test.mosquitto.org";
 const int   mqttPort   = 1883;
 const char* mqttTopic  = "kodingindonesia/esp32/dht22";
 
@@ -222,14 +227,16 @@ void loop() {
 <h3>Opsi 1 — MQTT Explorer (Laptop, disarankan)</h3>
 <ol>
   <li>Download <strong>MQTT Explorer</strong> dari mqtt-explorer.com</li>
-  <li>Buat koneksi baru: Host <code>broker.hivemq.com</code>, Port <code>1883</code></li>
+  <li>Buat koneksi baru: Host <code>test.mosquitto.org</code>, Port <code>1883</code></li>
   <li>Connect → cari topic <code>kodingindonesia/esp32/dht22</code></li>
   <li>Kamu akan melihat JSON suhu &amp; kelembaban update setiap 5 detik</li>
 </ol>
 
 <h3>Opsi 2 — mosquitto_sub (Terminal Linux/Mac)</h3>
 
-<pre><code class="language-bash">mosquitto_sub -h broker.hivemq.com -t "kodingindonesia/esp32/dht22" -v</code></pre>
+<pre><code class="language-bash">mosquitto_sub -h test.mosquitto.org -t "kodingindonesia/esp32/dht22" -v</code></pre>
+
+<p><em>Perintah <code>mosquitto_sub</code> adalah tool CLI dari paket Mosquitto — tersedia setelah install Mosquitto di komputer kamu.</em></p>
 
 <h2>Memahami Struktur Topic</h2>
 <p>Topic MQTT menggunakan hierarki seperti folder:</p>
@@ -256,7 +263,8 @@ void loop() {
 <h2>Tips &amp; Troubleshooting</h2>
 <ul>
   <li><strong>rc=-2 saat connect:</strong> Broker tidak terjangkau. Cek koneksi internet WiFi.</li>
-  <li><strong>rc=4 (bad credentials):</strong> Broker butuh username/password — broker publik HiveMQ tidak perlu auth.</li>
+  <li><strong>rc=4 (bad credentials):</strong> Broker butuh username/password — <code>test.mosquitto.org</code> port 1883 tidak perlu auth.</li>
+  <li><strong>Broker tidak bisa dibuka di browser:</strong> Normal. Pakai MQTT Explorer atau ESP32, bukan Chrome.</li>
   <li><strong>Data tidak muncul di subscriber:</strong> Pastikan topic sama persis, case-sensitive.</li>
   <li><strong>ESP32 reconnect terus:</strong> Client ID bentrok — kode di atas sudah pakai ID random.</li>
   <li><strong>Nilai suhu NaN:</strong> Cek wiring DHT22 dan resistor pull-up 10kΩ.</li>
