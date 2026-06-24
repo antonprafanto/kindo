@@ -292,10 +292,3 @@ jobs:
         run: |
           curl -fsS --max-time 60 \
             "https://kodingindonesia.com/deploy/clear-cache?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
-
-      - name: Publish article 8 via deploy hook
-        continue-on-error: true
-        run: |
-          sleep 15
-          curl -fsS --max-time 120 \
-            "https://kodingindonesia.com/deploy/publish-article-8?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
