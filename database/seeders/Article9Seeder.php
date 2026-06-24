@@ -309,7 +309,7 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
 
 <h2>Langkah Selanjutnya</h2>
 <ul>
-  <li>Tambahkan <strong>Web Server lokal</strong> (<a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">artikel web server</a>) untuk dashboard di browser rumah</li>
+  <li><a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">Dashboard hybrid Web Server + MQTT</a> — monitoring lokal &amp; remote dalam satu sketch</li>
   <li>Integrasi <strong>Home Assistant</strong> — sensor MQTT + switch MQTT</li>
   <li>Broker <strong>Mosquitto pribadi</strong> di Raspberry Pi dengan username/password</li>
   <li>Simpan histori suhu ke database lewat subscriber Python/Node.js di server</li>
