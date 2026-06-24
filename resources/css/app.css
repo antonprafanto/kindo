@@ -522,6 +522,20 @@ html.theme-animate footer {
     .theme-body { color: var(--color-dark); }
     .theme-heading { color: var(--color-ink); }
     .theme-highlight { background-color: var(--color-highlight); color: var(--color-ink); }
+
+    .toc-link {
+        display: block;
+        padding: 4px 0 4px 8px;
+        color: var(--color-dark);
+        text-decoration: none;
+        border-left: 2px solid transparent;
+        transition: color 0.15s, border-color 0.15s;
+    }
+    .toc-link--h3 { padding-left: 20px; }
+    .toc-link:hover {
+        color: var(--color-primary);
+        border-left-color: var(--color-primary);
+    }
     .hero-grid {
         background-image: radial-gradient(#00000010 1.5px, transparent 1.5px);
         background-size: 24px 24px;

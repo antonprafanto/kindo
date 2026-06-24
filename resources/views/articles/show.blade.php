@@ -85,28 +85,28 @@
                         {{ $article->category->name }}
                     </a>
                     @endif
-                    <span class="text-sm font-mono" style="color:#718096;">{{ $article->published_at?->translatedFormat('d F Y') }}</span>
-                    <span class="text-sm font-mono" style="color:#718096;">{{ $article->read_time_minutes }} menit baca</span>
-                    <span class="flex items-center gap-1 text-sm font-mono" style="color:#718096;">
+                    <span class="text-sm font-mono theme-muted">{{ $article->published_at?->translatedFormat('d F Y') }}</span>
+                    <span class="text-sm font-mono theme-muted">{{ $article->read_time_minutes }} menit baca</span>
+                    <span class="flex items-center gap-1 text-sm font-mono theme-muted">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                         {{ number_format($article->views_count) }}
                     </span>
                 </div>
 
                 {{-- Title --}}
-                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight mb-6" style="letter-spacing:-0.02em;">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight mb-6 theme-heading" style="letter-spacing:-0.02em;">
                     {{ $article->title }}
                 </h1>
 
                 {{-- Author --}}
                 @if($article->user)
-                <div class="flex items-center gap-3 p-4 border-2 border-black mb-8" style="background:#F7F7F5;">
+                <div class="flex items-center gap-3 p-4 border-2 border-black mb-8 theme-surface">
                     <div class="w-10 h-10 rounded-full border-2 border-black flex-shrink-0 flex items-center justify-center font-bold text-white text-sm" style="background:#2979FF;">
                         {{ strtoupper(substr($article->user->name, 0, 1)) }}
                     </div>
                     <div>
-                        <div class="font-bold text-sm">{{ $article->user->name }}</div>
-                        <div class="text-xs" style="color:#718096;">Penulis · Koding Indonesia</div>
+                        <div class="font-bold text-sm theme-heading">{{ $article->user->name }}</div>
+                        <div class="text-xs theme-muted">Penulis · Koding Indonesia</div>
                     </div>
                 </div>
                 @endif
@@ -119,7 +119,7 @@
                 {{-- Tags --}}
                 @if($article->tags->count())
                 <div class="mt-10 pt-6 border-t-2 border-black">
-                    <span class="text-xs font-bold uppercase tracking-wider mr-3" style="color:#718096;">Tags:</span>
+                    <span class="text-xs font-bold uppercase tracking-wider mr-3 theme-muted">Tags:</span>
                     @foreach($article->tags as $tag)
                     <a href="{{ route('tags.show', $tag->slug) }}"
                        class="inline-block mr-2 mb-2 text-xs font-bold px-3 py-1.5 border-2 border-black hover:bg-black hover:text-white transition-colors"
@@ -131,7 +131,7 @@
                 @endif
 
                 {{-- Share --}}
-                <div class="mt-8 p-6 border-2 border-black" style="background: #EBF4FF; box-shadow: 4px 4px 0 #000;">
+                <div class="mt-8 p-6 border-2 border-black theme-highlight" style="box-shadow: 4px 4px 0 #000;">
                     <p class="font-bold text-sm mb-3">Bagikan artikel ini:</p>
                     <div class="flex flex-wrap gap-2">
                         <a href="https://wa.me/?text={{ urlencode($article->title . ' — ' . route('articles.show', $article->slug)) }}" target="_blank"
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const headings = content.querySelectorAll('h2, h3');
     if (!headings.length) {
-        toc.innerHTML = '<p class="text-xs italic" style="color:#718096;">Tidak ada daftar isi.</p>';
+        toc.innerHTML = '<p class="text-xs italic theme-muted">Tidak ada daftar isi.</p>';
         return;
     }
 
@@ -204,10 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const a = document.createElement('a');
         a.href = '#heading-' + i;
         a.textContent = h.textContent;
-        a.style.cssText = 'display:block; padding:4px 0; color:#4A5568; text-decoration:none; border-left:2px solid transparent; padding-left:8px; transition: all .15s;';
-        if (h.tagName === 'H3') a.style.paddingLeft = '20px';
-        a.addEventListener('mouseenter', () => { a.style.color='#2979FF'; a.style.borderLeftColor='#2979FF'; });
-        a.addEventListener('mouseleave', () => { a.style.color='#4A5568'; a.style.borderLeftColor='transparent'; });
+        a.className = 'toc-link' + (h.tagName === 'H3' ? ' toc-link--h3' : '');
         a.addEventListener('click', e => {
             e.preventDefault();
             document.getElementById('heading-' + i).scrollIntoView({ behavior: 'smooth', block: 'start' });
