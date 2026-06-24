@@ -143,6 +143,8 @@
                     </div>
                 </div>
 
+                <livewire:article-comments :article="$article" />
+
             </div>
 
             {{-- ── SIDEBAR ── --}}
