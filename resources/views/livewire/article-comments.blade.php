@@ -90,19 +90,20 @@
             </div>
 
             @if(config('services.turnstile.site_key'))
-            <div wire:ignore id="comment-turnstile-wrap">
-                <div id="comment-turnstile"
-                     class="cf-turnstile"
-                     data-sitekey="{{ config('services.turnstile.site_key') }}"
-                     data-theme="auto"
-                     data-callback="onCommentTurnstileSuccess"></div>
+            <div wire:ignore id="comment-turnstile-wrap" @class(['hidden' => ! $turnstileRequested])>
+                <p class="text-sm font-semibold mb-2 theme-heading">Verifikasi keamanan</p>
+                <div id="comment-turnstile"></div>
                 @error('turnstile') <p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p> @enderror
             </div>
             @endif
 
             <button type="submit" class="btn-brutal btn-primary px-6 py-3 text-sm" wire:loading.attr="disabled">
+                @if($turnstileRequested)
+                <span wire:loading.remove wire:target="submit">Selesaikan verifikasi di atas ↑</span>
+                @else
                 <span wire:loading.remove wire:target="submit">Kirim Komentar →</span>
-                <span wire:loading wire:target="submit">Mengirim...</span>
+                @endif
+                <span wire:loading wire:target="submit">Memproses...</span>
             </button>
 
             <p class="text-xs theme-muted">
@@ -119,14 +120,48 @@
 
 @script
 <script>
-    window.onCommentTurnstileSuccess = function (token) {
-        $wire.set('turnstileToken', token);
-    };
+    const turnstileSiteKey = @js(config('services.turnstile.site_key'));
+    let turnstileWidgetId = null;
+
+    function onCommentTurnstileSuccess(token) {
+        $wire.set('turnstileToken', token).then(() => $wire.submit());
+    }
+
+    function renderCommentTurnstile() {
+        const wrap = document.getElementById('comment-turnstile-wrap');
+        const el = document.getElementById('comment-turnstile');
+        if (! wrap || ! el) return;
+
+        wrap.classList.remove('hidden');
+
+        if (typeof turnstile === 'undefined') {
+            setTimeout(renderCommentTurnstile, 100);
+            return;
+        }
+
+        if (turnstileWidgetId !== null) {
+            turnstile.remove(turnstileWidgetId);
+            turnstileWidgetId = null;
+        }
+
+        el.innerHTML = '';
+        turnstileWidgetId = turnstile.render(el, {
+            sitekey: turnstileSiteKey,
+            theme: 'auto',
+            callback: onCommentTurnstileSuccess,
+        });
+    }
+
+    $wire.on('render-turnstile', () => renderCommentTurnstile());
 
     $wire.on('reset-turnstile', () => {
-        if (typeof turnstile === 'undefined') return;
+        if (turnstileWidgetId !== null && typeof turnstile !== 'undefined') {
+            turnstile.remove(turnstileWidgetId);
+            turnstileWidgetId = null;
+        }
         const el = document.getElementById('comment-turnstile');
-        if (el) turnstile.reset(el);
+        if (el) el.innerHTML = '';
+        document.getElementById('comment-turnstile-wrap')?.classList.add('hidden');
         $wire.set('turnstileToken', '');
     });
 </script>

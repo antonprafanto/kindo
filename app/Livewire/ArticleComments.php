@@ -26,6 +26,8 @@ class ArticleComments extends Component
 
     public ?string $successMessage = null;
 
+    public bool $turnstileRequested = false;
+
     public function mount(Article $article): void
     {
         $this->article = $article;
@@ -52,22 +54,6 @@ class ArticleComments extends Component
 
             return;
         }
-
-        if ($turnstile->isConfigured() && ! $turnstile->verify($this->turnstileToken, request()->ip())) {
-            $this->addError('turnstile', 'Verifikasi keamanan gagal. Silakan centang kotak verifikasi dan coba lagi.');
-            $this->dispatch('reset-turnstile');
-
-            return;
-        }
-
-        $key = 'comment:' . request()->ip();
-        if (RateLimiter::tooManyAttempts($key, 5)) {
-            $seconds = RateLimiter::availableIn($key);
-            $this->addError('body', "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.");
-
-            return;
-        }
-        RateLimiter::hit($key, 600);
 
         $validated = $this->validate([
             'author_name'  => 'required|string|max:100',
@@ -97,6 +83,32 @@ class ArticleComments extends Component
             }
         }
 
+        if ($turnstile->isConfigured()) {
+            if (! $this->turnstileRequested) {
+                $this->turnstileRequested = true;
+                $this->dispatch('render-turnstile');
+
+                return;
+            }
+
+            if (blank($this->turnstileToken) || ! $turnstile->verify($this->turnstileToken, request()->ip())) {
+                $this->addError('turnstile', 'Verifikasi keamanan gagal. Silakan coba lagi.');
+                $this->turnstileRequested = false;
+                $this->dispatch('reset-turnstile');
+
+                return;
+            }
+        }
+
+        $key = 'comment:' . request()->ip();
+        if (RateLimiter::tooManyAttempts($key, 5)) {
+            $seconds = RateLimiter::availableIn($key);
+            $this->addError('body', "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.");
+
+            return;
+        }
+        RateLimiter::hit($key, 600);
+
         Comment::create([
             'article_id'   => $this->article->id,
             'parent_id'    => $this->replyingTo,
@@ -114,7 +126,7 @@ class ArticleComments extends Component
 
     private function resetForm(): void
     {
-        $this->reset(['body', 'turnstileToken', 'replyingTo', 'website']);
+        $this->reset(['body', 'turnstileToken', 'replyingTo', 'website', 'turnstileRequested']);
         $this->resetValidation();
     }
 
