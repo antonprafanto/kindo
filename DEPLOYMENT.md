@@ -69,6 +69,20 @@ Generate token deploy hook:
 php -r "echo bin2hex(random_bytes(32));"
 ```
 
+### Rotasi `DEPLOY_HOOK_TOKEN` (disarankan berkala)
+
+Jika token pernah terlihat di log, screenshot, atau chat — ganti segera. **Jangan commit token ke repo.**
+
+Urutan yang benar (hindari hook 404 saat deploy):
+
+1. Generate token baru (perintah di atas)
+2. **Production dulu:** cPanel File Manager → edit `~/kindo/.env` → ganti baris `DEPLOY_HOOK_TOKEN=...`
+3. **GitHub:** repo **Settings → Secrets and variables → Actions** → environment `antonprafanto` → edit `DEPLOY_HOOK_TOKEN`
+4. Verifikasi: buka `https://kodingindonesia.com/deploy/clear-cache?token=TOKEN_BARU` — harus return `Cache cleared` (bukan 404)
+5. Push/deploy berikutnya memakai token baru otomatis dari GitHub secret
+
+Token lama langsung tidak berlaku setelah langkah 2–3 selesai.
+
 ### Step 3: Set token di server (.env production)
 
 Via cPanel **File Manager**, edit `.env` di folder Laravel, tambahkan:
