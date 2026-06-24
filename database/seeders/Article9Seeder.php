@@ -42,6 +42,7 @@ class Article9Seeder extends Seeder
         }
 
         $tagSlugs = ['esp32', 'mqtt', 'iot', 'dht22', 'relay', 'smarthome'];
+        Tag::updateOrCreate(['slug' => 'dht22'], ['name' => 'dht22']);
         $tagIds   = Tag::whereIn('slug', $tagSlugs)->pluck('id');
         $article->tags()->sync($tagIds);
 
@@ -52,9 +53,10 @@ class Article9Seeder extends Seeder
     {
         return <<<'HTML'
 <h2>Pendahuluan</h2>
-<p>Di tiga artikel sebelumnya kita sudah belajar:</p>
+<p>Dari artikel-artikel sebelumnya kita sudah belajar:</p>
 <ul>
-  <li><strong>Publish</strong> data suhu DHT22 ke MQTT (<a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>)</li>
+  <li>Membaca sensor <strong>DHT22</strong> (<a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">tutorial DHT22</a>)</li>
+  <li><strong>Publish</strong> data suhu ke MQTT (<a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>)</li>
   <li><strong>Subscribe</strong> perintah ON/OFF untuk relay lampu (<a href="/artikel/kontrol-lampu-esp32-mqtt-relay">artikel relay</a>)</li>
 </ul>
 <p>Kali ini kita <strong>menggabungkan keduanya dalam satu sketch</strong> — pola yang dipakai di smart home nyata: ESP32 mengirim data sensor sekaligus menerima perintah kontrol dari broker yang sama.</p>
@@ -67,16 +69,20 @@ class Article9Seeder extends Seeder
   <li>Sensor DHT22 + resistor pull-up 10kΩ</li>
   <li>Modul relay 1 channel (5V)</li>
   <li>Lampu kecil untuk latihan (LED/soket aman)</li>
-  <li>Library: <strong>DHT sensor library</strong>, <strong>PubSubClient</strong></li>
+  <li>Library: <strong>DHT sensor library</strong>, <strong>PubSubClient</strong>, <strong>ArduinoJson</strong> (v6 atau v7)</li>
   <li><a href="https://mqtt-explorer.com/" target="_blank" rel="noopener">MQTT Explorer</a></li>
 </ul>
+
+<blockquote>
+  <p><strong>Keamanan listrik:</strong> Untuk latihan gunakan lampu LED kecil atau lampu desk aman. Jangan menyentuh kabel AC 220V tanpa pengalaman — sama seperti <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">artikel relay</a>.</p>
+</blockquote>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Sudah paham dasar MQTT, wiring DHT22, dan modul relay. Baca <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">Membaca Sensor DHT22</a>, <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT ESP32</a>, dan <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Kontrol Lampu Relay</a> jika belum.</p>
 </blockquote>
 
 <h2>Topologi MQTT Proyek Ini</h2>
-<p>Kita pakai broker publik <code>test.mosquitto.org:1883</code> (sama seperti artikel sebelumnya):</p>
+<p>Kita pakai broker publik <a href="https://mosquitto.org/" target="_blank" rel="noopener">Eclipse Mosquitto</a> <code>test.mosquitto.org:1883</code> (sama seperti artikel sebelumnya):</p>
 
 <table>
   <thead>
@@ -88,8 +94,14 @@ class Article9Seeder extends Seeder
   </tbody>
 </table>
 
+<p><em>Catatan:</em> Di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a> topic sensor adalah <code>kodingindonesia/esp32/dht22</code> (payload teks). Di proyek gabungan kita pakai subtopic <code>.../dht22/data</code> + JSON agar lebih terstruktur. Topic kontrol relay sama dengan <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">artikel relay</a>.</p>
+
 <blockquote>
-  <p><strong>Pro tip:</strong> Ganti segmen topic dengan nama unik, misalnya <code>kodingindonesia/anton/esp32/...</code>, agar tidak bentrok dengan peserta tutorial lain.</p>
+  <p><strong>Broker bukan website</strong> — <code>test.mosquitto.org</code> tidak dibuka di browser. Gunakan ESP32 atau <a href="https://mqtt-explorer.com/" target="_blank" rel="noopener">MQTT Explorer</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Pro tip:</strong> Ganti segmen topic dengan nama unik, misalnya <code>kodingindonesia/anton/esp32/...</code>, agar tidak bentrok dengan peserta tutorial lain. Jangan kontrol perangkat produksi lewat broker publik tanpa autentikasi.</p>
 </blockquote>
 
 <h2>Wiring Ringkas</h2>
@@ -229,6 +241,7 @@ void setup() {
 
   koneksiWiFi();
   koneksiMQTT();
+  delay(2000); // stabilkan DHT22 sebelum baca pertama
 }
 
 void loop() {
@@ -248,7 +261,7 @@ void loop() {
 }</code></pre>
 
 <blockquote>
-  <p><strong>Library ArduinoJson:</strong> Install via Library Manager — cari <em>ArduinoJson</em> by Benoit Blanchon (v6 atau v7).</p>
+  <p><strong>Library ArduinoJson:</strong> Install via Library Manager — cari <em>ArduinoJson</em> by Benoit Blanchon. Kode di bawah memakai sintaks <strong>v6</strong> (<code>StaticJsonDocument</code>). Jika pakai v7, ganti dengan <code>JsonDocument doc;</code> — lihat <a href="https://arduinojson.org/" target="_blank" rel="noopener">dokumentasi ArduinoJson</a>.</p>
 </blockquote>
 
 <h2>Uji Coba</h2>
@@ -260,6 +273,15 @@ void loop() {
   <li>Publish ke <code>kodingindonesia/esp32/lampu/kontrol</code> pesan <code>ON</code> / <code>OFF</code> → relay bereaksi</li>
   <li>Tiup panas ke DHT22 (atau pegang sensor) — jika suhu &gt; 30°C dan lampu nyala, lampu mati otomatis</li>
 </ol>
+
+<h3>Alternatif: mosquitto_sub / mosquitto_pub (Terminal)</h3>
+<pre><code class="language-bash"># Lihat data sensor (subscribe)
+mosquitto_sub -h test.mosquitto.org -t "kodingindonesia/esp32/dht22/data" -v
+
+# Nyalakan / matikan lampu (publish)
+mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m "ON"
+mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m "OFF"</code></pre>
+<p><em>Tool CLI dari paket <a href="https://mosquitto.org/download/" target="_blank" rel="noopener">Mosquitto</a> — Linux, Mac, dan Windows setelah install Mosquitto.</em></p>
 
 <h2>Alur Program</h2>
 <ol>
@@ -276,9 +298,12 @@ void loop() {
 <ul>
   <li><strong>Publish OK, subscribe tidak jalan:</strong> Pastikan <code>mqttClient.loop()</code> dipanggil di setiap iterasi <code>loop()</code>.</li>
   <li><strong>JSON terpotong:</strong> Naikkan <code>setBufferSize(512)</code> atau lebih.</li>
+  <li><strong>Compile error ArduinoJson:</strong> Pastikan versi library cocok — v6 pakai <code>StaticJsonDocument</code>, v7 pakai <code>JsonDocument</code>.</li>
+  <li><strong>rc=-2 saat connect MQTT:</strong> WiFi atau broker tidak terjangkau — cek internet.</li>
+  <li><strong>rc=4 (bad credentials):</strong> <code>test.mosquitto.org</code> port 1883 tidak perlu auth.</li>
   <li><strong>ESP32 restart saat relay + WiFi aktif:</strong> Power supply relay terpisah 5V, GND common dengan ESP32.</li>
-  <li><strong>Suhu selalu NaN:</strong> Cek wiring DHT22 dan delay minimal 2 detik setelah <code>dht.begin()</code> sebelum baca pertama.</li>
-  <li><strong>Topic tidak muncul di Explorer:</strong> Topic case-sensitive — harus sama persis.</li>
+  <li><strong>Suhu selalu NaN:</strong> Cek wiring DHT22, pull-up 10kΩ, dan tunggu 2 detik setelah <code>dht.begin()</code>.</li>
+  <li><strong>Topic tidak muncul di Explorer:</strong> Topic case-sensitive — harus sama persis. Coba wildcard <code>kodingindonesia/esp32/#</code>.</li>
   <li><strong>Ingin interval lebih cepat:</strong> Ubah <code>intervalPublish</code> — jangan terlalu agresif di broker publik (hormati resource bersama).</li>
 </ul>
 
