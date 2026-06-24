@@ -294,7 +294,7 @@ jobs:
             "https://kodingindonesia.com/deploy/clear-cache?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
 
       - name: Republish article 7 (Mosquitto broker fix)
-        continue-on-error: true
         run: |
-          curl -fsS --max-time 60 \
+          sleep 15
+          curl -fsS --max-time 120 \
             "https://kodingindonesia.com/deploy/publish-article-7?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
