@@ -292,9 +292,3 @@ jobs:
         run: |
           curl -fsS --max-time 60 \
             "https://kodingindonesia.com/deploy/clear-cache?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
-
-      - name: Republish article 7 (audit fixes)
-        run: |
-          sleep 15
-          curl -fsS --max-time 120 \
-            "https://kodingindonesia.com/deploy/publish-article-7?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
