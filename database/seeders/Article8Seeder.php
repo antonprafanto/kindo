@@ -67,7 +67,7 @@ class Article8Seeder extends Seeder
 </ul>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Sudah paham dasar MQTT dan koneksi WiFi ESP32. Baca dulu <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker"><em>Memahami MQTT dengan ESP32</em></a> dan <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server"><em>Menghubungkan ESP32 ke WiFi</em></a>.</p>
+  <p><strong>Prasyarat:</strong> Sudah paham dasar MQTT dan koneksi WiFi ESP32. Baca dulu <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker"><em>Memahami MQTT dengan ESP32</em></a> dan <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server"><em>Menghubungkan ESP32 ke WiFi</em></a>. Opsional: <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22"><em>Web Server ESP32 + DHT22</em></a>.</p>
 </blockquote>
 
 <blockquote>
@@ -95,6 +95,10 @@ class Article8Seeder extends Seeder
 
 <blockquote>
   <p><strong>Broker bukan website</strong> — <code>test.mosquitto.org</code> tidak dibuka di browser. Gunakan ESP32 atau <a href="https://mqtt-explorer.com/" target="_blank" rel="noopener">MQTT Explorer</a>.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Keamanan broker publik:</strong> Siapa saja bisa publish ke topic yang sama di broker test. Pakai topic unik (lihat pro tip di bawah) dan jangan kontrol perangkat produksi lewat broker publik tanpa autentikasi.</p>
 </blockquote>
 
 <h2>Kode Program: ESP32 + Relay + MQTT Subscribe</h2>
@@ -188,6 +192,9 @@ void setup() {
 }
 
 void loop() {
+  if (WiFi.status() != WL_CONNECTED) {
+    koneksiWiFi();
+  }
   if (!mqttClient.connected()) {
     koneksiMQTT();
   }
@@ -206,6 +213,7 @@ void loop() {
 <h3>Alternatif: mosquitto_pub (Terminal)</h3>
 <pre><code class="language-bash">mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m "ON"
 mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m "OFF"</code></pre>
+<p><em>Perintah <code>mosquitto_pub</code> dari paket <a href="https://mosquitto.org/download/" target="_blank" rel="noopener">Mosquitto</a> — tersedia di Linux, Mac, dan Windows setelah install Mosquitto.</em></p>
 
 <h2>Cara Kerjanya</h2>
 <ol>
@@ -215,21 +223,24 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
   <li>Fungsi <code>callbackMQTT()</code> dipanggil → relay di GPIO 26 berubah state</li>
 </ol>
 
-<p>Ini kebalikan dari artikel sensor sebelumnya (publish data). Di smart home, sering keduanya digabung: publish suhu + subscribe kontrol lampu/AC.</p>
+<p>Ini kebalikan dari artikel sensor sebelumnya (publish data). Di smart home, sering keduanya digabung — lihat <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan DHT22 + relay</a> di artikel berikutnya.</p>
 
 <h2>Tips &amp; Troubleshooting</h2>
 <ul>
   <li><strong>Relay tidak klik:</strong> Cek VCC 5V dan GND. Beberapa board butuh power supply terpisah untuk relay.</li>
   <li><strong>Logika terbalik:</strong> Modul kamu mungkin active HIGH — tukar nilai <code>RELAY_ON</code> / <code>RELAY_OFF</code>.</li>
-  <li><strong>Pesan tidak diterima:</strong> Topic harus sama persis. Cek Serial Monitor saat publish.</li>
+  <li><strong>Pesan tidak diterima:</strong> Topic harus sama persis. Cek Serial Monitor saat publish. Pastikan <code>mqttClient.loop()</code> dipanggil di <code>loop()</code>.</li>
+  <li><strong>Pesan <code>on</code> kecil juga OK:</strong> Kode memanggil <code>toUpperCase()</code> — <code>ON</code>/<code>off</code> tetap dikenali.</li>
+  <li><strong>rc=-2 saat connect MQTT:</strong> WiFi atau broker tidak terjangkau — cek internet.</li>
+  <li><strong>rc=4 (bad credentials):</strong> <code>test.mosquitto.org</code> port 1883 tidak perlu auth.</li>
   <li><strong>ESP32 restart saat relay aktif:</strong> Relay boros arus — gunakan power supply eksternal 5V untuk modul relay, GND disatukan.</li>
   <li><strong>GPIO 26 tidak cocok:</strong> Pin lain yang aman: 25, 27, 32, 33. Hindari GPIO 6–11 (flash) dan GPIO 2 (boot).</li>
 </ul>
 
 <h2>Langkah Selanjutnya</h2>
 <ul>
-  <li>Gabungkan dengan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish data DHT22</a> + subscribe kontrol dalam satu sketch</li>
-  <li>Kontrol otomatis: matikan lampu jika suhu &gt; 30°C (logika di <code>callbackMQTT</code> atau loop)</li>
+  <li><a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">Gabungkan publish DHT22 + subscribe relay</a> dalam satu sketch ESP32</li>
+  <li>Kontrol otomatis: matikan lampu jika suhu &gt; 30°C — sudah ada contoh di artikel gabungan</li>
   <li>Integrasi <strong>Home Assistant</strong> — switch MQTT native</li>
   <li>Broker Mosquitto pribadi di Raspberry Pi dengan autentikasi</li>
 </ul>
