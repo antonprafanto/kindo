@@ -53,6 +53,30 @@ class DeployController extends Controller
     }
 
     /**
+     * Publish artikel ke-9 via seeder (shared hosting tanpa SSH).
+     */
+    public function publishArticle9()
+    {
+        $token = config('app.deploy_hook_token');
+
+        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
+            abort(404);
+        }
+
+        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article9Seeder', '--force' => true]);
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 9 published', 200);
+    }
+
+    /**
      * Publish artikel ke-8 via seeder (shared hosting tanpa SSH).
      */
     public function publishArticle8()
