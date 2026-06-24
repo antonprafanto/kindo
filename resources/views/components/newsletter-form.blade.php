@@ -3,6 +3,9 @@
     <div style="display:none;" aria-hidden="true">
         <input type="text" name="website" tabindex="-1" autocomplete="off">
     </div>
+    @if(!($compact ?? false))
+    <input type="hidden" name="requires_turnstile" value="1">
+    @endif
 
     <div class="{{ $compact ?? false ? 'flex flex-col sm:flex-row gap-3' : '' }}">
         <div class="{{ ($compact ?? false) ? 'flex-1' : '' }}">
@@ -27,7 +30,7 @@
         </button>
     </div>
 
-    @if(config('services.turnstile.site_key'))
+    @if(config('services.turnstile.site_key') && !($compact ?? false))
     <div>
         <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
         <div class="cf-turnstile" data-sitekey="{{ config('services.turnstile.site_key') }}" data-theme="auto"></div>
