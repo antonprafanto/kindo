@@ -185,13 +185,35 @@ jobs:
             "${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}deploy-check.txt"
 
       - name: Upload brand assets to public webroot
+        continue-on-error: true
         run: |
           PROTO="${{ steps.ftp.outputs.protocol }}"
           BASE="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
           AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          failed=0
           for f in logo.png favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png og-default.png; do
-            curl -sS --ftp-pasv --user "$AUTH" -T "public/$f" "$BASE$f"
+            if [ ! -f "public/$f" ]; then
+              echo "::warning::Missing public/$f — skip"
+              continue
+            fi
+            ok=0
+            for attempt in 1 2 3; do
+              if curl -fsS --ftp-pasv --user "$AUTH" -T "public/$f" "$BASE$f"; then
+                echo "Uploaded $f (attempt $attempt)"
+                ok=1
+                break
+              fi
+              echo "Retry $f attempt $attempt failed"
+              sleep 5
+            done
+            if [ "$ok" -ne 1 ]; then
+              echo "::warning::Failed to upload $f after 3 attempts"
+              failed=$((failed + 1))
+            fi
           done
+          if [ "$failed" -gt 0 ]; then
+            echo "::warning::$failed brand asset(s) failed — deploy continues"
+          fi
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
