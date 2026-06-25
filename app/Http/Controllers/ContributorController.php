@@ -35,16 +35,6 @@ class ContributorController extends Controller
             ])->withInput();
         }
 
-        $key = 'contributor-apply:' . $request->ip();
-        if (RateLimiter::tooManyAttempts($key, 3)) {
-            $seconds = RateLimiter::availableIn($key);
-
-            return back()->withErrors([
-                'email' => "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.",
-            ])->withInput();
-        }
-        RateLimiter::hit($key, 600);
-
         $validated = $request->validate([
             'name'            => 'required|string|max:100',
             'email'           => 'required|email|max:200',
@@ -69,6 +59,16 @@ class ContributorController extends Controller
                 'email' => 'Kami sudah menerima aplikasi dari email ini dan sedang meninjaunya. Mohon tunggu kabar dari kami.',
             ])->withInput();
         }
+
+        $key = 'contributor-apply:' . $request->ip();
+        if (RateLimiter::tooManyAttempts($key, 3)) {
+            $seconds = RateLimiter::availableIn($key);
+
+            return back()->withErrors([
+                'email' => "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.",
+            ])->withInput();
+        }
+        RateLimiter::hit($key, 600);
 
         try {
             $application = ContributorApplication::create([

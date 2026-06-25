@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\ContributorApplication;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ContributorService
@@ -13,7 +14,10 @@ class ContributorService
         private FilamentPasswordResetService $passwordReset,
     ) {}
 
-    public function approve(ContributorApplication $application): User
+    /**
+     * @return array{user: User, email_warnings: list<string>}
+     */
+    public function approve(ContributorApplication $application): array
     {
         if ($application->status !== 'pending') {
             throw new \InvalidArgumentException('Aplikasi ini sudah diproses.');
@@ -25,7 +29,7 @@ class ContributorService
             throw new \InvalidArgumentException('Email ini terdaftar sebagai admin.');
         }
 
-        return DB::transaction(function () use ($application, $existingUser) {
+        $user = DB::transaction(function () use ($application, $existingUser) {
             if (! $existingUser) {
                 $user = User::create([
                     'name'              => $application->name,
@@ -48,8 +52,23 @@ class ContributorService
                 'reviewed_at' => now(),
             ]);
 
-            $this->passwordReset->sendResetLink($user);
+            return $user->fresh();
+        });
 
+        $emailWarnings = [];
+
+        try {
+            $this->passwordReset->sendResetLink($user);
+        } catch (\Throwable $e) {
+            Log::warning('Contributor approve: password reset email failed', [
+                'application_id' => $application->id,
+                'user_id'        => $user->id,
+                'error'          => $e->getMessage(),
+            ]);
+            $emailWarnings[] = 'email reset password';
+        }
+
+        try {
             Mail::send('emails.contributor-approved', [
                 'applicantName' => $application->name,
                 'loginUrl'      => url('/admin/login'),
@@ -57,9 +76,18 @@ class ContributorService
                 $message->to($application->email)
                     ->subject('Selamat! Aplikasi Kontributor Koding Indonesia Disetujui');
             });
+        } catch (\Throwable $e) {
+            Log::warning('Contributor approve: approval email failed', [
+                'application_id' => $application->id,
+                'error'          => $e->getMessage(),
+            ]);
+            $emailWarnings[] = 'email pemberitahuan disetujui';
+        }
 
-            return $user->fresh();
-        });
+        return [
+            'user'           => $user,
+            'email_warnings' => $emailWarnings,
+        ];
     }
 
     public function reject(ContributorApplication $application, ?string $reason = null): void
@@ -74,14 +102,26 @@ class ContributorService
             'reviewed_at'      => now(),
         ]);
 
-        Mail::send('emails.contributor-rejected', [
-            'applicantName'   => $application->name,
-            'rejectionReason' => $reason,
-            'reapplyUrl'      => route('contributor.apply'),
-        ], function ($message) use ($application) {
-            $message->to($application->email)
-                ->subject('Update Aplikasi Kontributor Koding Indonesia');
-        });
+        try {
+            Mail::send('emails.contributor-rejected', [
+                'applicantName'   => $application->name,
+                'rejectionReason' => $reason,
+                'reapplyUrl'      => route('contributor.apply'),
+            ], function ($message) use ($application) {
+                $message->to($application->email)
+                    ->subject('Update Aplikasi Kontributor Koding Indonesia');
+            });
+        } catch (\Throwable $e) {
+            Log::warning('Contributor reject: notification email failed', [
+                'application_id' => $application->id,
+                'error'          => $e->getMessage(),
+            ]);
+
+            throw new \RuntimeException(
+                'Aplikasi sudah ditolak di sistem, tetapi email notifikasi gagal dikirim. '
+                . 'Balas manual ke pelamar atau coba lagi nanti. (' . $e->getMessage() . ')'
+            );
+        }
     }
 
     public function sendOnboardingEmail(

@@ -4,6 +4,7 @@ namespace App\Filament\Auth\Pages;
 
 use App\Filament\Concerns\VerifiesTurnstile;
 use App\Services\TurnstileService;
+use App\Support\EmailNormalizer;
 use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Filament\Auth\Pages\Login as BaseLogin;
 use Filament\Schemas\Components\Actions;
@@ -23,6 +24,14 @@ class Login extends BaseLogin
         }
 
         return parent::authenticate();
+    }
+
+    protected function getCredentialsFromFormData(array $data): array
+    {
+        return [
+            'email'    => EmailNormalizer::normalize($data['email']),
+            'password' => $data['password'],
+        ];
     }
 
     public function getFormContentComponent(): Component

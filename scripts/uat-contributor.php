@@ -103,6 +103,18 @@ $requestPageSource = file_get_contents(app_path('Filament/Auth/Pages/RequestPass
 check(str_contains($requestPageSource, 'FilamentPasswordResetService'), 'Password reset request page uses sync service');
 check(! str_contains($requestPageSource, 'parent::request()'), 'Password reset request page does not use queued Filament default');
 
+$contributorServiceSource = file_get_contents(app_path('Services/ContributorService.php'));
+check(str_contains($contributorServiceSource, 'email_warnings'), 'Approve returns email_warnings array');
+check(
+    str_contains($contributorServiceSource, 'return $user->fresh();')
+    && str_contains($contributorServiceSource, '$this->passwordReset->sendResetLink'),
+    'Approve sends emails after DB transaction'
+);
+
+$loginSource = file_get_contents(app_path('Filament/Auth/Pages/Login.php'));
+check(str_contains($loginSource, 'EmailNormalizer::normalize'), 'Login normalizes email');
+check(str_contains($requestPageSource, 'EmailNormalizer::normalize'), 'Password reset normalizes email');
+
 Mail::fake();
 Queue::fake();
 
@@ -112,7 +124,8 @@ check($userBefore === 0, 'No user before approve');
 Filament::setCurrentPanel(Filament::getPanel('admin'));
 
 try {
-    $user = app(ContributorService::class)->approve($app_row->fresh());
+    $result = app(ContributorService::class)->approve($app_row->fresh());
+    $user = $result['user'];
     check($user->isAuthor(), 'Approved user has author role');
     check(strlen($user->password) >= 60, 'Password stored as bcrypt hash');
 

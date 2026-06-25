@@ -96,11 +96,25 @@ class ContributorApplicationsTable
                     ->visible(fn (ContributorApplication $record) => $record->status === 'pending')
                     ->action(function (ContributorApplication $record) {
                         try {
-                            app(ContributorService::class)->approve($record);
+                            $result = app(ContributorService::class)->approve($record);
+
+                            if ($result['email_warnings'] !== []) {
+                                Notification::make()
+                                    ->title('Kontributor disetujui — sebagian email gagal')
+                                    ->body(
+                                        'Akun penulis sudah dibuat. Gagal mengirim: '
+                                        . implode(', ', $result['email_warnings'])
+                                        . '. Minta pelamar request reset password di /admin/password-reset/request.'
+                                    )
+                                    ->warning()
+                                    ->send();
+
+                                return;
+                            }
 
                             Notification::make()
                                 ->title('Kontributor disetujui')
-                                ->body('Akun penulis dibuat dan email notifikasi terkirim.')
+                                ->body('Akun penulis dibuat. Email reset password dan pemberitahuan terkirim.')
                                 ->success()
                                 ->send();
                         } catch (\Throwable $e) {
@@ -134,7 +148,7 @@ class ContributorApplicationsTable
 
                             Notification::make()
                                 ->title('Aplikasi ditolak')
-                                ->body('Email notifikasi terkirim ke pelamar.')
+                                ->body('Status diperbarui dan email notifikasi terkirim ke pelamar.')
                                 ->success()
                                 ->send();
                         } catch (\Throwable $e) {

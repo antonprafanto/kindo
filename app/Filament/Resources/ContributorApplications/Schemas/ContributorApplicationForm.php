@@ -2,10 +2,12 @@
 
 namespace App\Filament\Resources\ContributorApplications\Schemas;
 
-use Filament\Forms\Components\Select;
+use App\Models\ContributorApplication;
+use App\Support\EmailNormalizer;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Validation\ClosureValidationRule;
 
 class ContributorApplicationForm
 {
@@ -23,7 +25,17 @@ class ContributorApplicationForm
                     ->email()
                     ->required()
                     ->maxLength(200)
-                    ->unique(ignoreRecord: true)
+                    ->rules([
+                        fn (): ClosureValidationRule => new ClosureValidationRule(
+                            function (string $attribute, mixed $value, \Closure $fail): void {
+                                $normalized = EmailNormalizer::normalize((string) $value);
+
+                                if (ContributorApplication::pending()->where('email', $normalized)->exists()) {
+                                    $fail('Sudah ada aplikasi menunggu untuk email ini.');
+                                }
+                            }
+                        ),
+                    ])
                     ->helperText('Email dinormalisasi otomatis (Gmail tanpa titik).'),
 
                 TextInput::make('topic_expertise')
@@ -42,18 +54,8 @@ class ContributorApplicationForm
                     ->minLength(50)
                     ->maxLength(2000)
                     ->rows(6)
-                    ->columnSpanFull(),
-
-                Select::make('status')
-                    ->label('Status')
-                    ->options([
-                        'pending'  => 'Menunggu',
-                        'approved' => 'Disetujui',
-                        'rejected' => 'Ditolak',
-                    ])
-                    ->default('pending')
-                    ->required()
-                    ->helperText('Untuk backfill dari email: gunakan Menunggu, lalu Setujui/Tolak seperti biasa.'),
+                    ->columnSpanFull()
+                    ->helperText('Status akan diset Menunggu. Gunakan aksi Setujui/Tolak setelah disimpan.'),
             ]);
     }
 }

@@ -6,6 +6,7 @@ use App\Filament\Concerns\VerifiesTurnstile;
 use App\Models\User;
 use App\Services\FilamentPasswordResetService;
 use App\Services\TurnstileService;
+use App\Support\EmailNormalizer;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Auth\Pages\PasswordReset\RequestPasswordReset as BaseRequestPasswordReset;
 use Filament\Schemas\Components\Actions;
@@ -34,6 +35,7 @@ class RequestPasswordReset extends BaseRequestPasswordReset
         }
 
         $data = $this->form->getState();
+        $data['email'] = EmailNormalizer::normalize($data['email']);
         $user = User::where('email', $data['email'])->first();
 
         if (! $user) {

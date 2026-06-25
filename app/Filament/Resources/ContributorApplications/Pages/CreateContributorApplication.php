@@ -23,6 +23,7 @@ class CreateContributorApplication extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['email'] = EmailNormalizer::normalize($data['email']);
+        $data['status'] = 'pending';
 
         return $data;
     }
