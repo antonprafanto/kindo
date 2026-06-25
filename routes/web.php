@@ -43,6 +43,10 @@ Route::get('/deploy/migrate', [DeployController::class, 'migrate'])
     ->middleware('throttle:3,1')
     ->name('deploy.migrate');
 
+Route::get('/deploy/health', [DeployController::class, 'health'])
+    ->middleware('throttle:5,1')
+    ->name('deploy.health');
+
 Route::get('/deploy/clear-cache', [DeployController::class, 'clearCache'])
     ->middleware('throttle:5,1')
     ->name('deploy.clear-cache');

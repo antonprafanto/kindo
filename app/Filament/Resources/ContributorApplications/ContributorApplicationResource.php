@@ -3,11 +3,14 @@
 namespace App\Filament\Resources\ContributorApplications;
 
 use App\Filament\Concerns\AdminOnlyResource;
+use App\Filament\Resources\ContributorApplications\Pages\CreateContributorApplication;
 use App\Filament\Resources\ContributorApplications\Pages\ListContributorApplications;
+use App\Filament\Resources\ContributorApplications\Schemas\ContributorApplicationForm;
 use App\Filament\Resources\ContributorApplications\Tables\ContributorApplicationsTable;
 use App\Models\ContributorApplication;
 use BackedEnum;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
@@ -36,6 +39,11 @@ class ContributorApplicationResource extends Resource
         return 'warning';
     }
 
+    public static function form(Schema $schema): Schema
+    {
+        return ContributorApplicationForm::configure($schema);
+    }
+
     public static function table(Table $table): Table
     {
         return ContributorApplicationsTable::configure($table);
@@ -44,12 +52,13 @@ class ContributorApplicationResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListContributorApplications::route('/'),
+            'index'  => ListContributorApplications::route('/'),
+            'create' => CreateContributorApplication::route('/create'),
         ];
     }
 
     public static function canCreate(): bool
     {
-        return false;
+        return auth()->user()?->isAdmin() ?? false;
     }
 }

@@ -5,7 +5,15 @@
     <div class="max-w-2xl mx-auto px-4 py-10 sm:py-16">
 
         <h1 class="text-3xl sm:text-4xl font-black mb-2" style="letter-spacing:-0.02em;">Hubungi Kami</h1>
-        <p class="mb-10 theme-muted" style="font-family:'Inter',sans-serif;">Punya pertanyaan, saran, atau ingin berkolaborasi? Kirim pesan di bawah ini.</p>
+        <p class="mb-6 theme-muted" style="font-family:'Inter',sans-serif;">Punya pertanyaan, saran, atau ingin berkolaborasi? Kirim pesan di bawah ini.</p>
+
+        <div class="mb-8 p-5 border-2 border-black text-sm" style="background:#EFF6FF; box-shadow: 4px 4px 0 #000;">
+            <p class="font-bold mb-1" style="color:#1E40AF;">Ingin menjadi kontributor?</p>
+            <p class="theme-muted mb-3">Gunakan <strong>formulir aplikasi resmi</strong> agar pengajuanmu tercatat dan bisa ditinjau tim kami.</p>
+            <a href="{{ route('contributor.apply') }}" class="btn-brutal btn-primary inline-flex px-5 py-2 text-xs">
+                Formulir Aplikasi Kontributor →
+            </a>
+        </div>
 
         @if(session('success'))
         <div class="mb-8 p-5 border-2 border-black font-semibold text-sm" style="background:#ECFDF5; color:#065F46; box-shadow: 4px 4px 0 #000;">

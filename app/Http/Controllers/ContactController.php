@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ContactMessage;
 use App\Services\TurnstileService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -31,6 +32,7 @@ class ContactController extends Controller
             $key = 'contact-form:' . $request->ip();
             if (RateLimiter::tooManyAttempts($key, 3)) {
                 $seconds = RateLimiter::availableIn($key);
+
                 return back()->withErrors([
                     'email' => "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.",
                 ])->withInput();
@@ -44,18 +46,56 @@ class ContactController extends Controller
                 'message' => 'required|string|min:20|max:2000',
             ]);
 
+            $isContributorInquiry = ContactMessage::looksLikeContributorInquiry(
+                $validated['subject'],
+                $validated['message'],
+            );
+
+            $contactMessage = ContactMessage::create([
+                ...$validated,
+                'status'                  => 'unread',
+                'is_contributor_inquiry'  => $isContributorInquiry,
+                'ip_address'              => $request->ip(),
+            ]);
+
             $contactEmail = config('mail.contact_email', config('mail.from.address'));
 
-            Mail::send('emails.contact', [
-                'senderName'     => $validated['name'],
-                'senderEmail'    => $validated['email'],
-                'contactSubject' => $validated['subject'],
-                'messageBody'    => $validated['message'],
-            ], function ($message) use ($contactEmail, $validated) {
-                $message->to($contactEmail)
-                    ->replyTo($validated['email'])
-                    ->subject('[Koding Indonesia] ' . $validated['subject']);
-            });
+            try {
+                Mail::send('emails.contact', [
+                    'senderName'     => $validated['name'],
+                    'senderEmail'    => $validated['email'],
+                    'contactSubject' => $validated['subject'],
+                    'messageBody'    => $validated['message'],
+                ], function ($message) use ($contactEmail, $validated) {
+                    $message->to($contactEmail)
+                        ->replyTo($validated['email'])
+                        ->subject('[Koding Indonesia] ' . $validated['subject']);
+                });
+            } catch (\Throwable $mailError) {
+                Log::warning('Contact form admin email failed', [
+                    'contact_message_id' => $contactMessage->id,
+                    'error'              => $mailError->getMessage(),
+                ]);
+            }
+
+            if ($isContributorInquiry) {
+                try {
+                    Mail::send('emails.contact-contributor-redirect', [
+                        'senderName'    => $validated['name'],
+                        'contributorUrl' => route('contributor.apply'),
+                    ], function ($message) use ($validated) {
+                        $message->to($validated['email'])
+                            ->subject('Formulir Aplikasi Kontributor — Koding Indonesia');
+                    });
+
+                    $contactMessage->update(['auto_reply_sent_at' => now()]);
+                } catch (\Throwable $mailError) {
+                    Log::warning('Contact contributor auto-reply failed', [
+                        'contact_message_id' => $contactMessage->id,
+                        'error'              => $mailError->getMessage(),
+                    ]);
+                }
+            }
 
             return back()->with('success', 'Pesan kamu sudah terkirim! Kami akan merespons dalam 1–2 hari kerja.');
         } catch (\Throwable $e) {
