@@ -45,7 +45,7 @@
                 <div class="label">Motivasi</div>
                 <div class="box">{{ $application->motivation }}</div>
             </div>
-            <a href="{{ $adminUrl }}" class="btn">Buka Panel Admin →</a>
+            @include('emails.partials.btn', ['href' => $adminUrl, 'label' => 'Buka Panel Admin →', 'bg' => '#FF7A2F'])
         </div>
         <div class="footer">Koding Indonesia — Sistem Aplikasi Kontributor</div>
     </div>

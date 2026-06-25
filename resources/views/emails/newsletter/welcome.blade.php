@@ -12,7 +12,7 @@
     <li>Tanpa spam — hanya saat ada konten baru</li>
 </ul>
 <p style="text-align:center;">
-    <a href="https://kodingindonesia.com/artikel" class="btn">Jelajahi Artikel →</a>
+    @include('emails.partials.btn', ['href' => 'https://kodingindonesia.com/artikel', 'label' => 'Jelajahi Artikel →'])
 </p>
 <p class="muted">Tidak mau lagi menerima email? Gunakan link berhenti berlangganan di footer email ini.</p>
 @endcomponent

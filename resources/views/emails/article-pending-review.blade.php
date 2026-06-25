@@ -35,7 +35,7 @@
                 <div class="label">Kategori</div>
                 <div class="value">{{ $article->category?->name ?? '—' }}</div>
             </div>
-            <a href="{{ $adminUrl }}" class="btn">Tinjau di Panel Admin →</a>
+            @include('emails.partials.btn', ['href' => $adminUrl, 'label' => 'Tinjau di Panel Admin →'])
         </div>
         <div class="footer">Koding Indonesia — Editorial Workflow</div>
     </div>

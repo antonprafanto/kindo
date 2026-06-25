@@ -26,7 +26,7 @@
                 <li>Tulis konten, pilih kategori & tag yang sudah tersedia</li>
                 <li>Simpan sebagai Draft, lalu ubah status ke <strong>Menunggu Review</strong> saat siap</li>
             </ol>
-            <a href="{{ $loginUrl }}" class="btn">Login ke Panel Penulis →</a>
+            @include('emails.partials.btn', ['href' => $loginUrl, 'label' => 'Login ke Panel Penulis →'])
             <p>Baca pedoman lengkap di <a href="https://kodingindonesia.com/menjadi-kontributor">/menjadi-kontributor</a>.</p>
             <p>Salam,<br><strong>Tim Koding Indonesia</strong></p>
         </div>

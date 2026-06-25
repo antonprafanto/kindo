@@ -11,7 +11,8 @@
         .header h1 { color: #fff; margin: 0; font-size: 20px; font-weight: 800; }
         .header p { color: rgba(255,255,255,0.85); margin: 4px 0 0; font-size: 13px; }
         .body { padding: 32px; font-size: 15px; }
-        .btn { display: inline-block; background: #2979FF; color: #fff !important; text-decoration: none; padding: 14px 28px; font-weight: 700; border: 2px solid #000; box-shadow: 4px 4px 0 #000; margin: 16px 0; }
+        .btn, a.btn, a.btn:visited, a.btn:hover, a.btn:active { display: inline-block; background: #2979FF; color: #ffffff !important; -webkit-text-fill-color: #ffffff; text-decoration: none !important; padding: 14px 28px; font-weight: 700; border: 2px solid #000; box-shadow: 4px 4px 0 #000; margin: 16px 0; }
+        a.btn span { color: #ffffff !important; -webkit-text-fill-color: #ffffff; text-decoration: none !important; }
         .footer { background: #2D3748; padding: 16px 32px; border-top: 2px solid #000; color: rgba(255,255,255,0.6); font-size: 12px; }
         .footer a { color: #82B1FF; }
         .muted { color: #718096; font-size: 13px; }

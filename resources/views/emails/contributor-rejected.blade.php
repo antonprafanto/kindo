@@ -25,7 +25,7 @@
             <div class="box">{{ $rejectionReason }}</div>
             @endif
             <p>Kamu <strong>boleh mengajukan ulang</strong> kapan saja setelah memperbaiki profil, portofolio, atau contoh tulisan.</p>
-            <a href="{{ $reapplyUrl }}" class="btn">Ajukan Ulang →</a>
+            @include('emails.partials.btn', ['href' => $reapplyUrl, 'label' => 'Ajukan Ulang →'])
             <p>Salam,<br><strong>Tim Koding Indonesia</strong></p>
         </div>
         <div class="footer">© {{ date('Y') }} Koding Indonesia</div>

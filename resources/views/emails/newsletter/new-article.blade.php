@@ -15,7 +15,7 @@
 </div>
 
 <p style="text-align:center;">
-    <a href="{{ route('articles.show', $article->slug) }}" class="btn">Baca Artikel →</a>
+    @include('emails.partials.btn', ['href' => route('articles.show', $article->slug), 'label' => 'Baca Artikel →'])
 </p>
 
 <p class="muted">Kamu menerima email ini karena berlangganan newsletter Koding Indonesia.</p>

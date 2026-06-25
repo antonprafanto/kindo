@@ -41,7 +41,7 @@
                 <li>Baca pedoman lengkap di <a href="{{ $guidelinesUrl }}">/menjadi-kontributor</a></li>
             </ol>
 
-            <a href="{{ $loginUrl }}" class="btn">Login ke Panel Penulis →</a>
+            @include('emails.partials.btn', ['href' => $loginUrl, 'label' => 'Login ke Panel Penulis →'])
 
             @if(!empty($topicIdeas))
             <h3 style="margin-top:24px;">Ide topik artikel pertamamu</h3>
