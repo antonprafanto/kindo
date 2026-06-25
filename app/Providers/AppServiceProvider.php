@@ -11,7 +11,13 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register(): void {}
+    public function register(): void
+    {
+        $this->app->bind(
+            \Filament\Auth\Notifications\ResetPassword::class,
+            \App\Auth\Notifications\ResetPassword::class,
+        );
+    }
 
     public function boot(): void
     {

@@ -76,7 +76,7 @@
                 <h2 class="text-xl font-black mb-4 border-b border-gray-600 pb-3">🔄 Alur Kerja</h2>
                 <ol class="space-y-4 text-sm sm:text-base" style="color:#CBD5E0;">
                     <li class="flex gap-3"><span class="font-black text-[#FF7A2F] shrink-0">01</span> <span>Isi formulir aplikasi di bawah — tim kami meninjau dalam <strong>3–5 hari kerja</strong></span></li>
-                    <li class="flex gap-3"><span class="font-black text-[#FF7A2F] shrink-0">02</span> <span>Jika disetujui, kamu mendapat akses panel penulis di <code class="text-[#82B1FF]">/admin</code></span></li>
+                    <li class="flex gap-3"><span class="font-black text-[#FF7A2F] shrink-0">02</span> <span>Jika disetujui, kamu mendapat email untuk <strong>membuat password</strong> (link berlaku <strong>24 jam</strong>) lalu login panel penulis di <code class="text-[#82B1FF]">/admin</code></span></li>
                     <li class="flex gap-3"><span class="font-black text-[#FF7A2F] shrink-0">03</span> <span>Tulis artikel sebagai <strong>Draft</strong>, lalu ubah status ke <strong>Menunggu Review</strong> saat siap</span></li>
                     <li class="flex gap-3"><span class="font-black text-[#FF7A2F] shrink-0">04</span> <span>Admin meninjau, bisa minta revisi, lalu <strong>mempublikasikan</strong> artikelmu</span></li>
                     <li class="flex gap-3"><span class="font-black text-[#FF7A2F] shrink-0">05</span> <span>Artikel terbit di situs & otomatis masuk ke newsletter pelanggan</span></li>

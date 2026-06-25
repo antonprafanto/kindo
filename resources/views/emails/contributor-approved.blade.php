@@ -20,7 +20,7 @@
         <div class="body">
             <p>Halo <strong>{{ $applicantName }}</strong>,</p>
             <p>Aplikasi kontributormu telah <strong>disetujui</strong>. Selamat bergabung dengan Koding Indonesia!</p>
-            <p>Kami sudah mengirim email terpisah berisi link untuk <strong>membuat password</strong> akun panel penulis. Setelah login:</p>
+            <p>Kami sudah mengirim email terpisah berisi link untuk <strong>membuat password</strong> akun panel penulis. Link tersebut berlaku <strong>24 jam</strong> — klik segera setelah email masuk. Setelah login:</p>
             <ol>
                 <li>Buka menu <strong>Artikel → Tulis Artikel Baru</strong></li>
                 <li>Tulis konten, pilih kategori & tag yang sudah tersedia</li>

@@ -33,6 +33,11 @@
                 <li>Email konfirmasi bahwa aplikasimu <strong>disetujui</strong></li>
             </ol>
             <p>Kalau belum ada di inbox, cek folder <strong>Spam/Promosi</strong> juga ya.</p>
+            <div class="note">
+                <strong>Penting:</strong> Link reset password berlaku <strong>24 jam</strong> setelah email dikirim — ini terpisah dari proses review aplikasi (3–5 hari kerja).
+                Kalau sudah kedaluwarsa, minta link baru di
+                <a href="{{ url('/admin/password-reset/request') }}">/admin/password-reset/request</a>.
+            </div>
 
             <h3 style="margin-top:24px;">Langkah pertama</h3>
             <ol>
