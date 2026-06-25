@@ -2,11 +2,18 @@
 
 namespace App\Auth\Notifications;
 
-use Filament\Auth\Notifications\ResetPassword as FilamentResetPassword;
+use Illuminate\Auth\Notifications\ResetPassword as BaseResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ResetPassword extends FilamentResetPassword
+class ResetPassword extends BaseResetPassword
 {
+    public string $url;
+
+    protected function resetUrl($notifiable): string
+    {
+        return $this->url;
+    }
+
     public function toMail($notifiable): MailMessage
     {
         $expireMinutes = (int) config('auth.passwords.'.config('auth.defaults.passwords').'.expire');

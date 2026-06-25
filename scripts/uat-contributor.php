@@ -99,6 +99,10 @@ echo "\n=== UAT Contributor — Approve Flow (sync mail) ===\n";
 $serviceSource = file_get_contents(app_path('Services/FilamentPasswordResetService.php'));
 check(str_contains($serviceSource, 'notifyNow'), 'Password reset service uses notifyNow (sync)');
 
+$requestPageSource = file_get_contents(app_path('Filament/Auth/Pages/RequestPasswordReset.php'));
+check(str_contains($requestPageSource, 'FilamentPasswordResetService'), 'Password reset request page uses sync service');
+check(! str_contains($requestPageSource, 'parent::request()'), 'Password reset request page does not use queued Filament default');
+
 Mail::fake();
 Queue::fake();
 
