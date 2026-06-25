@@ -83,4 +83,97 @@ class ContributorService
                 ->subject('Update Aplikasi Kontributor Koding Indonesia');
         });
     }
+
+    public function sendOnboardingEmail(
+        ContributorApplication $application,
+        string $subject,
+        ?string $personalNote = null,
+        bool $includeTopicIdeas = true,
+    ): void {
+        if ($application->status !== 'approved') {
+            throw new \InvalidArgumentException('Email onboarding hanya untuk kontributor yang sudah disetujui.');
+        }
+
+        $topicIdeas = $includeTopicIdeas
+            ? $this->topicIdeasFor($application->topic_expertise)
+            : [];
+
+        Mail::send('emails.contributor-onboarding', [
+            'applicantName'  => $application->name,
+            'firstName'      => $this->firstName($application->name),
+            'topicExpertise' => $application->topic_expertise,
+            'personalNote'   => $personalNote,
+            'topicIdeas'     => $topicIdeas,
+            'loginUrl'       => url('/admin/login'),
+            'guidelinesUrl'  => route('contributor.apply'),
+            'contactUrl'     => route('contact'),
+            'senderName'     => config('mail.from.name', 'Tim Koding Indonesia'),
+        ], function ($message) use ($application, $subject) {
+            $message->to($application->email)
+                ->subject($subject);
+        });
+
+        $application->update(['onboarding_email_sent_at' => now()]);
+    }
+
+    public function defaultOnboardingSubject(): string
+    {
+        return 'Selamat bergabung sebagai kontributor Koding Indonesia';
+    }
+
+    /**
+     * @return list<string>
+     */
+    public function topicIdeasFor(string $expertise): array
+    {
+        $e = strtolower($expertise);
+        $ideas = [];
+
+        if (str_contains($e, 'esp32') || str_contains($e, 'iot') || str_contains($e, 'embedded')) {
+            $ideas[] = 'Proyek IoT sederhana: sensor + kirim data ke server';
+            $ideas[] = 'Membaca sensor dengan mikrokontroler — tutorial step-by-step';
+        }
+
+        if (preg_match('/\b(ai|ml)\b|artificial intelligence|machine learning|deep learning/i', $e)) {
+            $ideas[] = 'Pengenalan Machine Learning untuk pemula (tanpa jargon berlebihan)';
+            $ideas[] = 'Perbedaan AI, ML, dan Deep Learning — penjelasan sederhana';
+        }
+
+        if (str_contains($e, 'frontend') || str_contains($e, 'ui/ux') || str_contains($e, 'ui ux') || str_contains($e, 'design')) {
+            $ideas[] = 'Prinsip UI/UX dasar untuk developer';
+            $ideas[] = 'Cara membuat layout responsif dengan CSS modern (Flexbox/Grid)';
+        }
+
+        if (str_contains($e, 'laravel') || str_contains($e, 'next') || str_contains($e, 'vue') || str_contains($e, 'typescript') || str_contains($e, 'react')) {
+            $ideas[] = 'Tutorial step-by-step dengan cuplikan kode yang bisa langsung dicoba';
+            $ideas[] = 'Struktur folder proyek web modern yang rapi dan mudah dirawat';
+        }
+
+        if (str_contains($e, 'web') || str_contains($e, 'programming')) {
+            $ideas[] = 'Tutorial dasar untuk pemula di bidang web development';
+            $ideas[] = 'Perbedaan frontend vs backend — penjelasan sederhana';
+        }
+
+        if (str_contains($e, 'software engineer') || str_contains($e, 'engineer')) {
+            $ideas[] = 'Git workflow dasar untuk tim kecil (branch, commit, pull request)';
+            $ideas[] = 'Roadmap belajar software engineering untuk pemula di Indonesia';
+        }
+
+        $ideas = array_values(array_unique($ideas));
+
+        if (count($ideas) < 3) {
+            $ideas = array_merge($ideas, [
+                'Tutorial step-by-step di bidang keahlianmu',
+                'Tips praktis untuk pemula di topik yang kamu kuasai',
+                'Kesalahan umum yang sering terjadi dan cara mengatasinya',
+            ]);
+        }
+
+        return array_slice($ideas, 0, 4);
+    }
+
+    private function firstName(string $fullName): string
+    {
+        return str($fullName)->before(' ')->toString() ?: $fullName;
+    }
 }

@@ -6,6 +6,8 @@ use App\Models\ContributorApplication;
 use App\Services\ContributorService;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -58,6 +60,13 @@ class ContributorApplicationsTable
                     ->dateTime('d M Y H:i')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('onboarding_email_sent_at')
+                    ->label('Email Onboarding')
+                    ->dateTime('d M Y H:i')
+                    ->placeholder('Belum dikirim')
+                    ->sortable()
+                    ->toggleable(),
             ])
             ->filters([
                 SelectFilter::make('status')
@@ -131,6 +140,61 @@ class ContributorApplicationsTable
                         } catch (\Throwable $e) {
                             Notification::make()
                                 ->title('Gagal menolak')
+                                ->body($e->getMessage())
+                                ->danger()
+                                ->send();
+                        }
+                    }),
+
+                Action::make('sendOnboardingEmail')
+                    ->label('Kirim Email')
+                    ->icon('heroicon-o-envelope')
+                    ->color('info')
+                    ->visible(fn (ContributorApplication $record) => $record->status === 'approved')
+                    ->modalHeading(fn (ContributorApplication $record) => 'Kirim Email Onboarding — ' . $record->name)
+                    ->modalDescription(fn (ContributorApplication $record) => 'Email akan dikirim ke ' . $record->email . ' via SMTP situs.' .
+                        ($record->onboarding_email_sent_at
+                            ? ' Terakhir dikirim: ' . $record->onboarding_email_sent_at->format('d M Y H:i') . '.'
+                            : ''))
+                    ->fillForm(fn (ContributorApplication $record) => [
+                        'subject'             => app(ContributorService::class)->defaultOnboardingSubject(),
+                        'personal_note'       => '',
+                        'include_topic_ideas' => true,
+                    ])
+                    ->schema([
+                        TextInput::make('subject')
+                            ->label('Subjek Email')
+                            ->required()
+                            ->maxLength(255),
+
+                        Textarea::make('personal_note')
+                            ->label('Catatan Personal (opsional)')
+                            ->rows(4)
+                            ->maxLength(2000)
+                            ->helperText('Ditampilkan di awal email — misalnya sapaan khusus atau pengingat.'),
+
+                        Toggle::make('include_topic_ideas')
+                            ->label('Sertakan ide topik artikel')
+                            ->default(true)
+                            ->helperText('Ide disesuaikan otomatis dari bidang keahlian pelamar.'),
+                    ])
+                    ->action(function (ContributorApplication $record, array $data) {
+                        try {
+                            app(ContributorService::class)->sendOnboardingEmail(
+                                $record,
+                                $data['subject'],
+                                $data['personal_note'] ?: null,
+                                (bool) ($data['include_topic_ideas'] ?? true),
+                            );
+
+                            Notification::make()
+                                ->title('Email onboarding terkirim')
+                                ->body('Dikirim ke ' . $record->email)
+                                ->success()
+                                ->send();
+                        } catch (\Throwable $e) {
+                            Notification::make()
+                                ->title('Gagal mengirim email')
                                 ->body($e->getMessage())
                                 ->danger()
                                 ->send();

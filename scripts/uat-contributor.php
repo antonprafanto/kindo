@@ -120,6 +120,50 @@ try {
     check(false, 'Approve flow: ' . $e->getMessage());
 }
 
+echo "\n=== UAT Contributor — Onboarding Email ===\n";
+
+Mail::fake();
+
+try {
+    $onboardingApp = $app_row->fresh();
+    app(ContributorService::class)->sendOnboardingEmail(
+        $onboardingApp,
+        'Selamat bergabung sebagai kontributor Koding Indonesia',
+        'Senang kamu bergabung — silakan mulai artikel pertamamu.',
+        true,
+    );
+
+    $onboardingApp->refresh();
+    check($onboardingApp->onboarding_email_sent_at !== null, 'onboarding_email_sent_at recorded');
+    check(view()->exists('emails.contributor-onboarding'), 'Onboarding email view exists');
+
+    $ideas = app(ContributorService::class)->topicIdeasFor('Laravel, Vue.js, TypeScript');
+    check(count($ideas) >= 3, 'Topic ideas generated for web stack expertise');
+
+    try {
+        $pendingOnly = ContributorApplication::create([
+            'name'            => 'Pending Only',
+            'email'           => 'uat-pending-only-' . time() . '@example.test',
+            'topic_expertise' => 'Testing',
+            'motivation'      => str_repeat('Motivasi uji pending only. ', 5),
+            'status'          => 'pending',
+            'ip_address'      => '127.0.0.1',
+        ]);
+
+        app(ContributorService::class)->sendOnboardingEmail($pendingOnly, 'Test', null, false);
+        check(false, 'Onboarding email rejected for non-approved application');
+    } catch (InvalidArgumentException) {
+        check(true, 'Onboarding email blocked for non-approved application');
+    }
+} catch (Throwable $e) {
+    check(false, 'Onboarding email: ' . $e->getMessage());
+}
+
+check(
+    str_contains(file_get_contents(app_path('Filament/Resources/ContributorApplications/Tables/ContributorApplicationsTable.php')), "Action::make('sendOnboardingEmail')"),
+    'Filament send onboarding email action exists'
+);
+
 echo "\n=== UAT Contributor — Reject & Reapply ===\n";
 
 $rejectEmail = 'uat-reject-' . time() . '@example.test';

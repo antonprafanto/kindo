@@ -23,4 +23,16 @@
         <div class="mt-1 whitespace-pre-wrap">{{ $record->rejection_reason }}</div>
     </div>
     @endif
+    @if($record->status === 'approved')
+    <div>
+        <div class="text-xs font-semibold uppercase text-gray-500">Email Onboarding</div>
+        <div>
+            @if($record->onboarding_email_sent_at)
+                Terkirim {{ $record->onboarding_email_sent_at->format('d M Y H:i') }}
+            @else
+                Belum dikirim
+            @endif
+        </div>
+    </div>
+    @endif
 </div>

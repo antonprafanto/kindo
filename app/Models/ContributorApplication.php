@@ -17,11 +17,13 @@ class ContributorApplication extends Model
         'rejection_reason',
         'user_id',
         'reviewed_at',
+        'onboarding_email_sent_at',
         'ip_address',
     ];
 
     protected $casts = [
-        'reviewed_at' => 'datetime',
+        'reviewed_at'              => 'datetime',
+        'onboarding_email_sent_at' => 'datetime',
     ];
 
     public function user(): BelongsTo
