@@ -28,20 +28,20 @@ class Article10Seeder extends Seeder
                 'category_id'     => $iotCat->id,
                 'title'           => 'Dashboard ESP32: Web Server Lokal + MQTT untuk Monitoring DHT22',
                 'body'            => $this->body(),
-                'cover_image'     => null,
                 'status'          => 'published',
                 'is_featured'     => true,
                 'seo_title'       => 'Dashboard ESP32 Web Server + MQTT DHT22 — Proyek IoT Lengkap',
                 'seo_description' => 'Gabungkan dashboard lokal di browser dan publish MQTT ke cloud dalam satu ESP32. Capstone tutorial IoT DHT22 berbahasa Indonesia.',
             ]
         );
+        // cover_image tidak disentuh — upload manual via Filament; hindari wipe saat re-seed
 
         if ($article->wasRecentlyCreated || ! $article->published_at) {
             $article->published_at = now();
             $article->save();
         }
 
-        $tagSlugs = ['esp32', 'mqtt', 'iot', 'dht22', 'wifi', 'smarthome'];
+        $tagSlugs = ['esp32', 'mqtt', 'iot', 'dht22', 'wifi', 'smarthome', 'sensor'];
         Tag::updateOrCreate(['slug' => 'dht22'], ['name' => 'dht22']);
         $tagIds   = Tag::whereIn('slug', $tagSlugs)->pluck('id');
         $article->tags()->sync($tagIds);
@@ -58,6 +58,7 @@ class Article10Seeder extends Seeder
   <li>Dashboard <strong>lokal</strong> lewat Web Server (<a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">artikel web server</a>)</li>
   <li>Telemetri <strong>remote</strong> lewat MQTT (<a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>)</li>
   <li>Proyek gabungan sensor + aktuator (<a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel DHT22 + relay</a>)</li>
+  <li>Kontrol lampu via MQTT (<a href="/artikel/kontrol-lampu-esp32-mqtt-relay">artikel relay</a>)</li>
 </ul>
 <p>Kali ini kita satukan <strong>dua saluran monitoring</strong> dalam satu firmware:</p>
 <ul>
@@ -90,6 +91,8 @@ class Article10Seeder extends Seeder
 </table>
 
 <p>Topic MQTT sama dengan <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan</a> agar konsisten di seluruh seri.</p>
+
+<p><em>Catatan topik:</em> Di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a> kita pakai <code>kodingindonesia/esp32/dht22</code> (payload teks). Dari artikel gabungan ke dashboard ini kita pakai subtopic <code>.../dht22/data</code> dengan payload JSON — pola yang sama dengan <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel #9</a>.</p>
 
 <blockquote>
   <p><strong>Broker bukan website</strong> — <code>test.mosquitto.org</code> tidak dibuka di browser. Gunakan MQTT Explorer atau ESP32.</p>
@@ -178,7 +181,7 @@ void koneksiWiFi() {
 
 void koneksiMQTT() {
   mqttClient.setServer(mqttServer, mqttPort);
-  mqttClient.setBufferSize(256);
+  mqttClient.setBufferSize(512);
   while (!mqttClient.connected()) {
     Serial.print("MQTT connect...");
     String clientId = "ESP32-Dash-" + String(random(0xffff), HEX);
@@ -207,6 +210,7 @@ void setup() {
   Serial.begin(115200);
   randomSeed(micros());
   dht.begin();
+  delay(2000);
 
   koneksiWiFi();
 
@@ -276,9 +280,23 @@ void loop() {
   <li><strong>MQTT publish gagal tapi web OK:</strong> Cek internet router. <code>mqttClient.loop()</code> harus dipanggil di <code>loop()</code>.</li>
   <li><strong>rc=-2 / rc=4 MQTT:</strong> Broker tidak terjangkau atau masalah auth — <code>test.mosquitto.org:1883</code> tanpa password.</li>
   <li><strong>Nilai suhu NaN di dashboard:</strong> Cek wiring DHT22, pull-up 10kΩ, dan <code>delay(2000)</code> setelah <code>dht.begin()</code>.</li>
-  <li><strong>Web lambat saat MQTT reconnect:</strong> Normal di shared hosting WiFi — reconnect MQTT pakai <code>delay(5000)</code> di dalam blocking loop; untuk produksi pertimbangkan non-blocking reconnect.</li>
+  <li><strong>Web lambat saat MQTT reconnect:</strong> Normal di jaringan WiFi rumah — reconnect MQTT pakai <code>delay(5000)</code> di dalam blocking loop; untuk produksi pertimbangkan non-blocking reconnect.</li>
   <li><strong>Topic tidak muncul:</strong> Case-sensitive. Coba subscribe wildcard <code>kodingindonesia/esp32/#</code>.</li>
 </ul>
+
+<h2>Indeks Seri ESP32 IoT (10 Artikel)</h2>
+<ol>
+  <li><a href="/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot">Mengenal ESP32</a></li>
+  <li><a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">Install Arduino IDE &amp; ESP32 Board</a></li>
+  <li><a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">Blink LED — Tutorial Pertama</a></li>
+  <li><a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">ESP32 ke WiFi &amp; Kirim Data</a></li>
+  <li><a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">Baca Sensor DHT22</a></li>
+  <li><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web Server Monitoring DHT22</a></li>
+  <li><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT — Kirim Data ke Broker</a></li>
+  <li><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Kontrol Lampu via MQTT &amp; Relay</a></li>
+  <li><a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">Gabungan DHT22 + Relay MQTT</a></li>
+  <li><strong>Dashboard Web Server + MQTT</strong> — artikel ini (capstone)</li>
+</ol>
 
 <h2>Roadmap Belajar Selanjutnya</h2>
 <p>Seri 10 artikel ESP32 IoT ini sudah mencakup dasar hingga proyek gabungan. Untuk naik level:</p>
