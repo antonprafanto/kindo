@@ -24,6 +24,8 @@
             ? \Illuminate\Support\Str::limit(strip_tags($pageDescription), 120, '…')
             : $defaultShareDescription);
         $shareImage = $ogImage ?? asset('og-default.png');
+        $defaultOgImageAlt = 'Belajar ESP32 & IoT — Tutorial praktis berbahasa Indonesia. Mulai belajar gratis di Koding Indonesia.';
+        $shareImageAlt = $ogImageAlt ?? $defaultOgImageAlt;
     @endphp
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
@@ -37,7 +39,7 @@
     @if (str_starts_with($shareImage, 'https://'))
         <meta property="og:image:secure_url" content="{{ $shareImage }}">
     @endif
-    <meta property="og:image:alt" content="Koding Indonesia — Platform edukasi ESP32, IoT & pemrograman">
+    <meta property="og:image:alt" content="{{ $shareImageAlt }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:type" content="{{ $ogType ?? 'website' }}">
@@ -50,7 +52,7 @@
     <meta name="twitter:title" content="{{ $shareTitle }}">
     <meta name="twitter:description" content="{{ $shareDescription }}">
     <meta name="twitter:image" content="{{ $shareImage }}">
-    <meta name="twitter:image:alt" content="Koding Indonesia — Platform edukasi ESP32, IoT & pemrograman">
+    <meta name="twitter:image:alt" content="{{ $shareImageAlt }}">
     <meta name="twitter:site" content="@kodingindonesia">
     @endif
 

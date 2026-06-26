@@ -106,51 +106,13 @@ if ($pyCode === 0 && is_file($tmpOg)) {
 }
 
 if (! $pyOk) {
-    fwrite(STDERR, "Python OG generation failed, using fallback layout.\n");
+    fwrite(STDERR, "Python OG generation failed. Install Pillow and run:\n");
+    fwrite(STDERR, "  python scripts/generate-og-image.py public/logo_fill.png public/og-default.png\n");
     if (! empty($pyOut)) {
         fwrite(STDERR, implode("\n", $pyOut) . "\n");
     }
-
-    $canvas = imagecreatetruecolor(1200, 630);
-    $blue = imagecolorallocate($canvas, 41, 121, 255);
-    $white = imagecolorallocate($canvas, 255, 255, 255);
-    $orange = imagecolorallocate($canvas, 255, 122, 47);
-    $black = imagecolorallocate($canvas, 0, 0, 0);
-    imagefill($canvas, 0, 0, $blue);
-
-    $ogLogoImg = is_file($ogLogo) ? loadPng($ogLogo) : $logo;
-    $logoResized = resizeSquare($ogLogoImg, 200);
-    imagecopy($canvas, $logoResized, 64, 215, 0, 0, 200, 200);
-    imagerectangle($canvas, 56, 207, 272, 423, $black);
-
-    $font = null;
-    foreach ([
-        'C:/Windows/Fonts/arialbd.ttf',
-        '/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf',
-    ] as $fontPath) {
-        if (is_file($fontPath)) {
-            $font = $fontPath;
-            break;
-        }
-    }
-
-    if ($font) {
-        imagettftext($canvas, 48, 0, 300, 220, $white, $font, 'Koding Indonesia');
-        imagettftext($canvas, 26, 0, 300, 290, $white, $font, 'Tutorial ESP32 & IoT');
-    } else {
-        imagestring($canvas, 5, 300, 200, 'Koding Indonesia', $white);
-        imagestring($canvas, 4, 300, 270, 'Tutorial ESP32 & IoT', $white);
-    }
-
-    foreach (['og-default.png', 'images/og-default.png'] as $relative) {
-        savePng($canvas, $public . '/' . $relative);
-        echo "Wrote {$relative} (fallback)\n";
-    }
-    imagedestroy($canvas);
-    imagedestroy($logoResized);
-    if ($ogLogoImg !== $logo) {
-        imagedestroy($ogLogoImg);
-    }
+    imagedestroy($logo);
+    exit(1);
 }
 
 imagedestroy($logo);
