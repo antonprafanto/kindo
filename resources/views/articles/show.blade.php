@@ -2,6 +2,9 @@
     :title="($isPreview ?? false ? '[Pratinjau] ' : '') . $article->seo_title . ' — Koding Indonesia'"
     :description="$article->seo_description"
     :ogImage="$article->cover_url"
+    :ogImageAlt="$article->cover_image
+        ? $article->seo_title . ' — Tutorial ESP32 & IoT di Koding Indonesia'
+        : null"
     ogType="article"
     :canonical="($isPreview ?? false) ? null : route('articles.show', $article->slug)"
     :noindex="$isPreview ?? false"
