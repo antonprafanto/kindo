@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
 class Article extends Model
@@ -95,5 +96,45 @@ class Article extends Model
     public function incrementViews(): void
     {
         $this->increment('views_count');
+    }
+
+    public function isPubliclyVisible(): bool
+    {
+        return $this->status === 'published'
+            && $this->published_at !== null
+            && $this->published_at->lte(now());
+    }
+
+    public function isPreviewable(): bool
+    {
+        if (in_array($this->status, ['draft', 'pending_review'], true)) {
+            return true;
+        }
+
+        return $this->status === 'published'
+            && $this->published_at?->isFuture();
+    }
+
+    public function previewUrl(): ?string
+    {
+        if (! $this->isPreviewable() || ! $this->slug) {
+            return null;
+        }
+
+        return URL::temporarySignedRoute(
+            'articles.preview',
+            now()->addDays(config('article.preview_ttl_days', 7)),
+            ['slug' => $this->slug],
+        );
+    }
+
+    public function previewStatusLabel(): string
+    {
+        return match (true) {
+            $this->status === 'draft' => 'Draft',
+            $this->status === 'pending_review' => 'Menunggu Review',
+            $this->status === 'published' && $this->published_at?->isFuture() => 'Terjadwal',
+            default => $this->status,
+        };
     }
 }

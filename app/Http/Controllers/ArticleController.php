@@ -59,4 +59,37 @@ class ArticleController extends Controller
 
         return view('articles.show', compact('article', 'related'));
     }
+
+    public function preview(string $slug)
+    {
+        $article = Article::with(['category', 'user', 'tags'])
+            ->where('slug', $slug)
+            ->firstOrFail();
+
+        if ($article->isPubliclyVisible()) {
+            return redirect()->route('articles.show', $article->slug);
+        }
+
+        if (! $article->isPreviewable()) {
+            abort(404);
+        }
+
+        $related = Article::published()
+            ->with(['category', 'user'])
+            ->where('id', '!=', $article->id)
+            ->where(function ($q) use ($article) {
+                $q->where('category_id', $article->category_id)
+                  ->orWhereHas('tags', fn ($t) => $t->whereIn('tags.id', $article->tags->pluck('id')));
+            })
+            ->latest('published_at')
+            ->limit(3)
+            ->get();
+
+        return view('articles.show', [
+            'article'        => $article,
+            'related'        => $related,
+            'isPreview'      => true,
+            'previewBackUrl' => url('/admin/articles/' . $article->id . '/edit'),
+        ]);
+    }
 }

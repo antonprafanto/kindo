@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Articles\Pages;
 
 use App\Filament\Resources\Articles\ArticleResource;
+use App\Filament\Resources\Articles\Concerns\HasArticlePreviewAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
@@ -11,6 +12,8 @@ use Filament\Resources\Pages\EditRecord;
 
 class EditArticle extends EditRecord
 {
+    use HasArticlePreviewAction;
+
     protected static string $resource = ArticleResource::class;
 
     public function mount(int | string $record): void
@@ -56,6 +59,7 @@ class EditArticle extends EditRecord
     {
         if (auth()->user()?->isAuthor()) {
             return [
+                $this->makePreviewAction(),
                 DeleteAction::make()
                     ->label('Hapus')
                     ->visible(fn () => $this->record->fresh()->status === 'draft')
@@ -64,6 +68,7 @@ class EditArticle extends EditRecord
         }
 
         return [
+            $this->makePreviewAction(),
             DeleteAction::make()->label('Hapus'),
             ForceDeleteAction::make()->label('Hapus Permanen'),
             RestoreAction::make()->label('Pulihkan'),

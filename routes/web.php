@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/artikel', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/artikel/{slug}/pratinjau', [ArticleController::class, 'preview'])
+    ->middleware(['signed', \App\Http\Middleware\PreviewResponseHeaders::class])
+    ->name('articles.preview');
 Route::get('/artikel/{slug}', [ArticleController::class, 'show'])->name('articles.show');
 
 Route::get('/kategori/{slug}', [CategoryController::class, 'show'])->name('categories.show');

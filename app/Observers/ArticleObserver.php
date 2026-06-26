@@ -136,6 +136,7 @@ class ArticleObserver
                 'article'    => $article->loadMissing('category', 'user'),
                 'authorName' => $article->user?->name ?? 'Kontributor',
                 'adminUrl'   => url('/admin/articles/' . $article->id . '/edit'),
+                'previewUrl' => $article->previewUrl(),
             ], function ($message) use ($contactEmail, $article) {
                 $message->to($contactEmail)
                     ->subject('[Koding Indonesia] Artikel Menunggu Review — ' . $article->title);

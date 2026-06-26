@@ -1,15 +1,35 @@
 <x-layouts.app
-    :title="$article->seo_title . ' — Koding Indonesia'"
+    :title="($isPreview ?? false ? '[Pratinjau] ' : '') . $article->seo_title . ' — Koding Indonesia'"
     :description="$article->seo_description"
     :ogImage="$article->cover_url"
     ogType="article"
-    :canonical="route('articles.show', $article->slug)"
+    :canonical="($isPreview ?? false) ? null : route('articles.show', $article->slug)"
+    :noindex="$isPreview ?? false"
 >
 
 {{-- Reading Progress Bar --}}
 <div id="reading-progress"
      style="position:fixed; top:0; left:0; height:3px; width:0%; background:#2979FF; z-index:9999; transition:width .1s linear; box-shadow: 0 0 6px rgba(41,121,255,0.6);"></div>
 
+@if($isPreview ?? false)
+<div class="border-b-2 border-black px-4 py-3 text-center text-white" style="background:#FF7A2F;">
+    <p class="font-black text-sm sm:text-base uppercase tracking-wide">Pratinjau — Belum Dipublikasikan</p>
+    <p class="text-xs sm:text-sm mt-1 opacity-95">
+        Status: <strong>{{ $article->previewStatusLabel() }}</strong>
+        · Tampilan ini sama dengan artikel live, tetapi belum terlihat publik
+        · <strong>Simpan</strong> perubahan di panel sebelum pratinjau agar versi terbaru tampil
+    </p>
+    @if(!empty($previewBackUrl))
+    <a href="{{ $previewBackUrl }}"
+       class="inline-block mt-2 text-xs font-bold px-3 py-1.5 border-2 border-black bg-white text-black hover:bg-black hover:text-white transition-colors"
+       style="box-shadow: 2px 2px 0 #000;">
+        ← Kembali ke Panel Admin
+    </a>
+    @endif
+</div>
+@endif
+
+@unless($isPreview ?? false)
 @push('schema')
 <script type="application/ld+json">
 {
@@ -34,6 +54,7 @@
 }
 </script>
 @endpush
+@endunless
 
     @php
         $breadcrumbs = array_values(array_filter([
@@ -85,12 +106,20 @@
                         {{ $article->category->name }}
                     </a>
                     @endif
-                    <span class="text-sm font-mono theme-muted">{{ $article->published_at?->translatedFormat('d F Y') }}</span>
+                    <span class="text-sm font-mono theme-muted">
+                        @if($isPreview ?? false)
+                            Belum dipublikasikan
+                        @else
+                            {{ $article->published_at?->translatedFormat('d F Y') }}
+                        @endif
+                    </span>
                     <span class="text-sm font-mono theme-muted">{{ $article->read_time_minutes }} menit baca</span>
+                    @unless($isPreview ?? false)
                     <span class="flex items-center gap-1 text-sm font-mono theme-muted">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                         {{ number_format($article->views_count) }}
                     </span>
+                    @endunless
                 </div>
 
                 {{-- Title --}}
@@ -131,6 +160,7 @@
                 @endif
 
                 {{-- Share --}}
+                @unless($isPreview ?? false)
                 <div class="mt-8 p-6 border-2 border-black theme-highlight" style="box-shadow: 4px 4px 0 #000;">
                     <p class="font-bold text-sm mb-3">Bagikan artikel ini:</p>
                     <div class="flex flex-wrap gap-2">
@@ -144,6 +174,11 @@
                 </div>
 
                 <livewire:article-comments :article="$article" />
+                @else
+                <div class="mt-8 p-4 border-2 border-dashed border-black theme-muted text-sm text-center">
+                    Bagikan dan komentar akan tersedia setelah artikel dipublikasikan.
+                </div>
+                @endunless
 
             </div>
 

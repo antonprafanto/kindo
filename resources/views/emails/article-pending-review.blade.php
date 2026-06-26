@@ -36,6 +36,12 @@
                 <div class="value">{{ $article->category?->name ?? '—' }}</div>
             </div>
             @include('emails.partials.btn', ['href' => $adminUrl, 'label' => 'Tinjau di Panel Admin →'])
+            @if(!empty($previewUrl))
+            <p style="margin-top: 12px;">
+                @include('emails.partials.btn', ['href' => $previewUrl, 'label' => 'Lihat Pratinjau Artikel →'])
+            </p>
+            <p style="font-size: 12px; color: #718096; margin-top: 8px;">Link pratinjau berlaku {{ config('article.preview_ttl_days', 7) }} hari.</p>
+            @endif
         </div>
         <div class="footer">Koding Indonesia — Editorial Workflow</div>
     </div>

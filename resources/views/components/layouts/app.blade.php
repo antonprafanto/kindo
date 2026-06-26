@@ -27,7 +27,9 @@
     @endphp
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
-
+    @if (!empty($noindex))
+    <meta name="robots" content="noindex, nofollow">
+    @else
     {{-- OG / Social --}}
     <meta property="og:title" content="{{ $shareTitle }}">
     <meta property="og:description" content="{{ $shareDescription }}">
@@ -50,6 +52,7 @@
     <meta name="twitter:image" content="{{ $shareImage }}">
     <meta name="twitter:image:alt" content="Koding Indonesia — Platform edukasi ESP32, IoT & pemrograman">
     <meta name="twitter:site" content="@kodingindonesia">
+    @endif
 
     {{-- Favicon (PNG first — reliable on modern browsers) --}}
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
@@ -58,8 +61,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
     <meta name="theme-color" content="#2979FF">
 
-    {{-- Canonical --}}
+    {{-- Canonical (hidden on noindex preview pages) --}}
+    @if (empty($noindex))
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
+    @endif
 
     {{-- Fonts (self-hosted, no external requests) --}}
     <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/space-grotesk-latin-400-normal.woff2') }}" crossorigin>
@@ -67,9 +72,11 @@
     <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/inter-latin-400-normal.woff2') }}" crossorigin>
     <link rel="preload" as="font" type="font/woff2" href="{{ asset('fonts/jetbrains-mono-latin-400-normal.woff2') }}" crossorigin>
 
-    {{-- Google Analytics 4 (production only, when GA4_MEASUREMENT_ID is set) --}}
+    {{-- Google Analytics 4 (production only, skip preview/noindex pages) --}}
     @production
-        <x-google-analytics />
+        @if (empty($noindex))
+            <x-google-analytics />
+        @endif
     @endproduction
 
     {{-- Assets --}}

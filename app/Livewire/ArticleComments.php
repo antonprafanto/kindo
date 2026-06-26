@@ -31,6 +31,10 @@ class ArticleComments extends Component
     public function mount(Article $article): void
     {
         $this->article = $article;
+
+        if (! $article->isPubliclyVisible()) {
+            abort(404);
+        }
     }
 
     public function startReply(int $commentId): void
@@ -46,6 +50,10 @@ class ArticleComments extends Component
 
     public function submit(TurnstileService $turnstile): void
     {
+        if (! $this->article->isPubliclyVisible()) {
+            abort(404);
+        }
+
         $this->successMessage = null;
 
         if ($this->website !== '') {

@@ -275,6 +275,157 @@ if (isset($category) && $adminUser) {
     check(false, 'Could not create pending_review test article');
 }
 
+echo "\n=== UAT Contributor — Article Preview ===\n";
+
+if (isset($category) && $adminUser) {
+    $draft = Article::create([
+        'user_id'     => $adminUser->id,
+        'category_id' => $category->id,
+        'title'       => 'UAT Preview Draft ' . time(),
+        'slug'        => 'uat-preview-draft-' . time(),
+        'body'        => '<h2>Preview Heading</h2><p>Draft preview body content.</p>',
+        'status'      => 'draft',
+    ]);
+
+    check($draft->isPreviewable(), 'draft article is previewable');
+    check($draft->previewUrl() !== null, 'draft article has preview URL');
+
+    $unsignedRequest = Illuminate\Http\Request::create('/artikel/' . $draft->slug . '/pratinjau', 'GET');
+    $unsignedResponse = $kernel->handle($unsignedRequest);
+    check($unsignedResponse->getStatusCode() === 403, 'preview without signature returns 403');
+    $kernel->terminate($unsignedRequest, $unsignedResponse);
+
+    $previewUrl = $draft->previewUrl();
+    $previewPath = parse_url($previewUrl, PHP_URL_PATH);
+    $previewQuery = parse_url($previewUrl, PHP_URL_QUERY);
+    $signedRequest = Illuminate\Http\Request::create($previewPath . '?' . $previewQuery, 'GET');
+    $viewsBefore = $draft->fresh()->views_count;
+    $signedResponse = $kernel->handle($signedRequest);
+    $draft->refresh();
+
+    check($signedResponse->getStatusCode() === 200, 'signed preview URL returns 200');
+    check(str_contains($signedResponse->getContent(), 'Pratinjau — Belum Dipublikasikan'), 'preview page shows preview banner');
+    check(str_contains($signedResponse->getContent(), 'noindex, nofollow'), 'preview page has noindex meta');
+    check(str_contains($signedResponse->headers->get('Cache-Control', ''), 'no-store'), 'preview response has Cache-Control no-store');
+    check(str_contains($signedResponse->headers->get('X-Robots-Tag', ''), 'noindex'), 'preview response has X-Robots-Tag noindex');
+    check(! str_contains($signedResponse->getContent(), 'article-comments'), 'preview page hides comments component');
+    check($draft->views_count === $viewsBefore, 'preview does not increment views_count');
+
+    $expiredUrl = Illuminate\Support\Facades\URL::temporarySignedRoute(
+        'articles.preview',
+        now()->subMinute(),
+        ['slug' => $draft->slug],
+    );
+    $expiredPath = parse_url($expiredUrl, PHP_URL_PATH);
+    $expiredQuery = parse_url($expiredUrl, PHP_URL_QUERY);
+    $expiredRequest = Illuminate\Http\Request::create($expiredPath . '?' . $expiredQuery, 'GET');
+    $expiredResponse = $kernel->handle($expiredRequest);
+    check($expiredResponse->getStatusCode() === 403, 'expired preview signature returns 403');
+    $kernel->terminate($expiredRequest, $expiredResponse);
+
+    $redirectDraft = Article::withoutEvents(fn () => Article::create([
+        'user_id'     => $adminUser->id,
+        'category_id' => $category->id,
+        'title'       => 'UAT Preview Redirect ' . time(),
+        'slug'        => 'uat-preview-redirect-' . time(),
+        'body'        => '<p>Will be published then preview should redirect.</p>',
+        'status'      => 'draft',
+    ]));
+    $redirectSignedUrl = $redirectDraft->previewUrl();
+    Article::withoutEvents(fn () => $redirectDraft->update([
+        'status'       => 'published',
+        'published_at' => now()->subMinute(),
+    ]));
+    $redirectPath = parse_url($redirectSignedUrl, PHP_URL_PATH);
+    $redirectQuery = parse_url($redirectSignedUrl, PHP_URL_QUERY);
+    $redirectRequest = Illuminate\Http\Request::create($redirectPath . '?' . $redirectQuery, 'GET');
+    $redirectResponse = $kernel->handle($redirectRequest);
+    check($redirectResponse->getStatusCode() === 302, 'signed preview on live article redirects 302');
+    check(
+        str_contains($redirectResponse->headers->get('Location', ''), '/artikel/' . $redirectDraft->slug),
+        'preview redirect targets public article URL'
+    );
+    $kernel->terminate($redirectRequest, $redirectResponse);
+    Article::withoutEvents(fn () => $redirectDraft->forceDelete());
+
+    $kernel->terminate($signedRequest, $signedResponse);
+
+    $draft->forceDelete();
+} else {
+    check(false, 'Could not create draft preview test article');
+}
+
+if (isset($category) && $adminUser) {
+    $pending = Article::create([
+        'user_id'     => $adminUser->id,
+        'category_id' => $category->id,
+        'title'       => 'UAT Preview Pending ' . time(),
+        'slug'        => 'uat-preview-pending-' . time(),
+        'body'        => '<p>Pending review preview body.</p>',
+        'status'      => 'pending_review',
+    ]);
+
+    $pendingUrl = $pending->previewUrl();
+    $pendingPath = parse_url($pendingUrl, PHP_URL_PATH);
+    $pendingQuery = parse_url($pendingUrl, PHP_URL_QUERY);
+    $pendingRequest = Illuminate\Http\Request::create($pendingPath . '?' . $pendingQuery, 'GET');
+    $pendingResponse = $kernel->handle($pendingRequest);
+    check($pendingResponse->getStatusCode() === 200, 'pending_review signed preview returns 200');
+    $kernel->terminate($pendingRequest, $pendingResponse);
+
+    $scheduled = Article::create([
+        'user_id'      => $adminUser->id,
+        'category_id'  => $category->id,
+        'title'        => 'UAT Preview Scheduled ' . time(),
+        'slug'         => 'uat-preview-scheduled-' . time(),
+        'body'         => '<p>Scheduled preview body.</p>',
+        'status'       => 'published',
+        'published_at' => now()->addDays(3),
+    ]);
+
+    check($scheduled->isPreviewable(), 'scheduled future article is previewable');
+    check(! $scheduled->isPubliclyVisible(), 'scheduled future article is not publicly visible');
+
+    $scheduledUrl = $scheduled->previewUrl();
+    $scheduledPath = parse_url($scheduledUrl, PHP_URL_PATH);
+    $scheduledQuery = parse_url($scheduledUrl, PHP_URL_QUERY);
+    $scheduledRequest = Illuminate\Http\Request::create($scheduledPath . '?' . $scheduledQuery, 'GET');
+    $scheduledResponse = $kernel->handle($scheduledRequest);
+    check($scheduledResponse->getStatusCode() === 200, 'scheduled article signed preview returns 200');
+    check(str_contains($scheduledResponse->getContent(), 'Terjadwal'), 'scheduled preview shows Terjadwal status');
+    $kernel->terminate($scheduledRequest, $scheduledResponse);
+
+    $live = Article::withoutEvents(fn () => Article::create([
+        'user_id'      => $adminUser->id,
+        'category_id'  => $category->id,
+        'title'        => 'UAT Preview Live ' . time(),
+        'slug'         => 'uat-preview-live-' . time(),
+        'body'         => '<p>Live article preview redirect test.</p>',
+        'status'       => 'published',
+        'published_at' => now()->subHour(),
+    ]));
+
+    $livePreviewUrl = $live->previewUrl();
+    check($livePreviewUrl === null, 'live published article has no preview URL');
+
+    $livePreviewRequest = Illuminate\Http\Request::create(
+        '/artikel/' . $live->slug . '/pratinjau?' . http_build_query([
+            'expires' => now()->addDay()->getTimestamp(),
+            'signature' => 'invalid',
+        ]),
+        'GET'
+    );
+    $livePreviewResponse = $kernel->handle($livePreviewRequest);
+    check(in_array($livePreviewResponse->getStatusCode(), [403, 404], true), 'live article preview without valid signature is blocked');
+    $kernel->terminate($livePreviewRequest, $livePreviewResponse);
+
+    $pending->forceDelete();
+    $scheduled->forceDelete();
+    $live->forceDelete();
+} else {
+    check(false, 'Could not create pending/scheduled preview test articles');
+}
+
 echo "\n=== UAT Contributor — Honeypot POST ===\n";
 
 $request = Illuminate\Http\Request::create('/menjadi-kontributor', 'POST', [

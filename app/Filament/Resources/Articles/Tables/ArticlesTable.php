@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Articles\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -100,6 +101,15 @@ class ArticlesTable
                 $isAdmin ? TrashedFilter::make() : null,
             ]))
             ->recordActions([
+                Action::make('preview')
+                    ->label('Pratinjau')
+                    ->icon('heroicon-o-eye')
+                    ->color('info')
+                    ->url(fn ($record) => $record->previewUrl())
+                    ->openUrlInNewTab()
+                    ->visible(fn ($record) => $record->isPreviewable())
+                    ->disabled(fn ($record) => blank($record->previewUrl()))
+                    ->tooltip('Simpan perubahan dulu agar pratinjau menampilkan versi terbaru.'),
                 EditAction::make()
                     ->visible(fn ($record) => $isAdmin || $record->status !== 'published'),
             ]);
