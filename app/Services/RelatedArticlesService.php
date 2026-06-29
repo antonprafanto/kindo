@@ -14,11 +14,32 @@ class RelatedArticlesService
 
     public function forArticle(Article $article, int $limit = 3): Collection
     {
-        return Cache::remember(
-            $this->cacheKey($article),
-            self::TTL_SECONDS,
-            fn () => $this->query($article, $limit),
-        );
+        $key = $this->cacheKey($article);
+
+        $ids = Cache::get($key);
+
+        if ($ids !== null && ! is_array($ids)) {
+            Cache::forget($key);
+            $ids = null;
+        }
+
+        if ($ids === null) {
+            $ids = $this->query($article, $limit)->pluck('id')->all();
+            Cache::put($key, $ids, self::TTL_SECONDS);
+        }
+
+        if ($ids === []) {
+            return collect();
+        }
+
+        $order = array_flip($ids);
+
+        return Article::published()
+            ->with(['category', 'user'])
+            ->whereIn('id', $ids)
+            ->get()
+            ->sortBy(fn (Article $related) => $order[$related->id] ?? 999)
+            ->values();
     }
 
     public function bumpCacheVersion(): void
