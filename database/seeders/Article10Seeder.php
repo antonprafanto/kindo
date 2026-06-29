@@ -303,7 +303,7 @@ void loop() {
 <ul>
   <li><strong>Home Assistant</strong> — hubungkan sensor MQTT + switch relay</li>
   <li><strong>Broker Mosquitto pribadi</strong> di Raspberry Pi / VPS dengan autentikasi</li>
-  <li><strong>Deep sleep</strong> ESP32 untuk node sensor baterai</li>
+  <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32</a></strong> untuk node sensor baterai — artikel pembuka Seri 2</li>
   <li><strong>OTA update</strong> firmware ESP32 tanpa kabel USB</li>
   <li>Simpan histori sensor ke <strong>InfluxDB / MySQL</strong> via subscriber Python</li>
 </ul>

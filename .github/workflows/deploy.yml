@@ -322,3 +322,9 @@ jobs:
         run: |
           curl -fsS --max-time 120 \
             "https://kodingindonesia.com/deploy/publish-article-10?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
+
+      - name: Publish article 11 via deploy hook (idempotent)
+        continue-on-error: true
+        run: |
+          curl -fsS --max-time 120 \
+            "https://kodingindonesia.com/deploy/publish-article-11?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"

@@ -108,6 +108,28 @@ class DeployController extends Controller
         return $this->publishArticle('Article10Seeder', 'Article 10 published');
     }
 
+    /**
+     * Publish artikel ke-11 via seeder (shared hosting tanpa SSH).
+     * Juga re-seed artikel #10 agar backlink deep sleep ke Seri 2 ikut terbarui.
+     */
+    public function publishArticle11(): Response
+    {
+        $this->authorizeDeployHook();
+
+        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article11Seeder', '--force' => true]);
+        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article10Seeder', '--force' => true]);
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 11 published', 200);
+    }
+
     public function publishArticle9(): Response
     {
         return $this->publishArticle('Article9Seeder', 'Article 9 published');
