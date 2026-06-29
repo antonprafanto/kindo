@@ -22,7 +22,20 @@ ADMIN_EMAIL=...
 ADMIN_PASSWORD=...
 ```
 
-Lalu `php artisan db:seed`, atau buat user via:
+Lalu `php artisan db:seed`, atau perbaiki / buat admin via:
+
+```bash
+# Aman di production — tidak menjalankan seeder artikel
+php artisan kindo:ensure-admin --reset-password
+```
+
+**Tanpa SSH (cPanel + deploy hook):** set `ADMIN_*` di `.env`, deploy kode terbaru, lalu buka di browser (ganti `TOKEN` dari `DEPLOY_HOOK_TOKEN`):
+
+```
+https://kodingindonesia.com/deploy/ensure-admin?token=TOKEN
+```
+
+Opsi lain:
 
 ```bash
 php artisan make:filament-user

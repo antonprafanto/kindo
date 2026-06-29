@@ -135,4 +135,14 @@ return [
 
     'deploy_hook_token' => env('DEPLOY_HOOK_TOKEN'),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Initial admin (seeder + kindo:ensure-admin)
+    |--------------------------------------------------------------------------
+    */
+
+    'admin_name'     => env('ADMIN_NAME', 'Admin'),
+    'admin_email'    => env('ADMIN_EMAIL'),
+    'admin_password' => env('ADMIN_PASSWORD'),
+
 ];

@@ -1,7 +1,8 @@
 @if(app(\App\Services\TurnstileService::class)->isConfigured())
-<div wire:ignore class="mt-2 flex justify-center">
+<div>
     <div id="filament-auth-turnstile"></div>
 </div>
+@endif
 
 @assets
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -14,7 +15,7 @@
 
     function renderAuthTurnstile() {
         const el = document.getElementById('filament-auth-turnstile');
-        if (!el || !siteKey) return;
+        if (! el) return;
 
         if (typeof turnstile === 'undefined') {
             setTimeout(renderAuthTurnstile, 100);
@@ -24,9 +25,9 @@
         if (widgetId !== null) {
             turnstile.remove(widgetId);
             widgetId = null;
-            el.innerHTML = '';
         }
 
+        el.innerHTML = '';
         widgetId = turnstile.render(el, {
             sitekey: siteKey,
             theme: 'auto',
@@ -44,4 +45,3 @@
     });
 </script>
 @endscript
-@endif

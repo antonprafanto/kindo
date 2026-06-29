@@ -208,4 +208,27 @@ class DeployController extends Controller
 
         return response('Article 6 published', 200);
     }
+
+    /**
+     * Buat atau perbaiki akun admin dari ADMIN_* di .env (tanpa SSH).
+     */
+    public function ensureAdmin()
+    {
+        $token = config('app.deploy_hook_token');
+
+        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
+            abort(404);
+        }
+
+        Artisan::call('config:clear');
+
+        Artisan::call('kindo:ensure-admin', ['--reset-password' => true]);
+
+        $output = trim(Artisan::output());
+
+        return response()->json([
+            'status'  => str_contains($output, 'created') || str_contains($output, 'updated') ? 'ok' : 'check_output',
+            'message' => $output ?: 'No output',
+        ], 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
 }
