@@ -137,8 +137,8 @@ GPIO 4        ─────── DATA
 </ul>
 <p>Board: <strong>esp32</strong> by Espressif (v3.x). Library <code>Preferences</code> dan <code>WiFi</code> sudah built-in.</p>
 
-<p><strong>Broker latihan:</strong> <code>test.mosquitto.org:1883</code> (sama Seri 1).  
-<strong>Topic default:</strong> <code>kodingindonesia/esp32/dht22/data</code> — payload JSON <code>{"suhu":28.5,"kelembaban":65.2}</code> (bisa diubah lewat portal).</p>
+<p><strong>Broker latihan:</strong> <code>test.mosquitto.org:1883</code> (sama Seri 1).</p>
+<p><strong>Topic default:</strong> <code>kodingindonesia/esp32/dht22/data</code> — payload JSON <code>{"suhu":28.5,"kelembaban":65.2}</code> (bisa diubah lewat portal).</p>
 
 <blockquote>
   <p><strong>Broker bukan website:</strong> <code>test.mosquitto.org</code> tidak dibuka di browser. Pakai MQTT Explorer atau <code>mosquitto_sub</code>. Detail di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>.</p>
