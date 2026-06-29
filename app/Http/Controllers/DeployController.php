@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\SitemapService;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -78,11 +79,32 @@ class DeployController extends Controller
             ? DB::table('contributor_applications')
                 ->orderByDesc('created_at')
                 ->limit(10)
-                ->get(['id', 'name', 'email', 'status', 'created_at'])
+                ->get(['id', 'name', 'email', 'status', 'user_id', 'created_at', 'reviewed_at'])
             : [];
 
+        $contributorStats = null;
+
+        if (Schema::hasTable('contributor_applications')) {
+            $contributorStats = [
+                'pending'   => DB::table('contributor_applications')->where('status', 'pending')->count(),
+                'approved'  => DB::table('contributor_applications')->where('status', 'approved')->count(),
+                'rejected'  => DB::table('contributor_applications')->where('status', 'rejected')->count(),
+                'approved_missing_user_id' => DB::table('contributor_applications')
+                    ->where('status', 'approved')
+                    ->whereNull('user_id')
+                    ->count(),
+            ];
+        }
+
+        $authorCount = Schema::hasTable('users')
+            ? User::query()->where('role', 'author')->count()
+            : null;
+
         return response()->json([
-            'tables'                      => $tables,
+            'tables'                          => $tables,
+            'contributor_stats'               => $contributorStats,
+            'author_users'                    => $authorCount,
+            'password_reset_expire_minutes'   => (int) config('auth.passwords.users.expire'),
             'recent_contributor_applications' => $recent,
         ], 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }

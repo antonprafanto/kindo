@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Services\RelatedArticlesService;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    public function __construct(
+        private RelatedArticlesService $relatedArticles,
+    ) {}
     public function index(Request $request)
     {
         $query = Article::published()->with(['category', 'user', 'tags']);
@@ -46,16 +50,7 @@ class ArticleController extends Controller
             session()->put($viewKey, true);
         }
 
-        $related = Article::published()
-            ->with(['category', 'user'])
-            ->where('id', '!=', $article->id)
-            ->where(function ($q) use ($article) {
-                $q->where('category_id', $article->category_id)
-                  ->orWhereHas('tags', fn ($t) => $t->whereIn('tags.id', $article->tags->pluck('id')));
-            })
-            ->latest('published_at')
-            ->limit(3)
-            ->get();
+        $related = $this->relatedArticles->forArticle($article);
 
         return view('articles.show', compact('article', 'related'));
     }
@@ -74,16 +69,7 @@ class ArticleController extends Controller
             abort(404);
         }
 
-        $related = Article::published()
-            ->with(['category', 'user'])
-            ->where('id', '!=', $article->id)
-            ->where(function ($q) use ($article) {
-                $q->where('category_id', $article->category_id)
-                  ->orWhereHas('tags', fn ($t) => $t->whereIn('tags.id', $article->tags->pluck('id')));
-            })
-            ->latest('published_at')
-            ->limit(3)
-            ->get();
+        $related = $this->relatedArticles->forArticle($article);
 
         return view('articles.show', [
             'article'        => $article,

@@ -29,6 +29,7 @@ $tests = [
     ['/artikel', 200, 'Article list'],
     ['/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot/pratinjau', 403, 'Article preview unsigned'],
     ['/artikel/membuat-web-server-esp32-monitoring-sensor-dht22', 200, 'Article 6'],
+    ['/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22', 200, 'Article 10 capstone'],
     ['/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot', 200, 'Article 1'],
     ['/kategori/esp32-arduino', 200, 'Category'],
     ['/tag/esp32', 200, 'Tag'],
@@ -80,6 +81,7 @@ $contentChecks = [
     ['Admin login Turnstile', str_contains($adminLogin, 'filament-auth-turnstile') || str_contains($adminLogin, 'challenges.cloudflare.com/turnstile')],
     ['Sitemap has contributor', str_contains($sitemap, '/menjadi-kontributor')],
     ['Sitemap has article 6', str_contains($sitemap, 'membuat-web-server-esp32')],
+    ['Sitemap has article 10', str_contains($sitemap, 'dashboard-esp32-web-server-mqtt-monitoring-dht22')],
     ['Sitemap URL count ≥ 42', substr_count($sitemap, '<loc>') >= 42],
     ['Sitemap excludes preview URLs', ! str_contains($sitemap, '/pratinjau')],
 ];

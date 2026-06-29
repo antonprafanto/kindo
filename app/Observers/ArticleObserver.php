@@ -6,6 +6,7 @@ use App\Jobs\NotifySubscribersOfNewArticle;
 use App\Models\Article;
 use App\Models\ArticleNewsletterLog;
 use App\Services\ImageService;
+use App\Services\RelatedArticlesService;
 use App\Services\SitemapService;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -40,8 +41,10 @@ class ArticleObserver
             $this->notifyAdminOfPendingReview($article);
         }
 
-        $this->clearCache();
-        $this->regenerateSitemap();
+        if ($this->shouldBustArticleCache($article)) {
+            $this->clearCache();
+            $this->regenerateSitemap();
+        }
     }
 
     public function deleted(Article $article): void
@@ -56,11 +59,26 @@ class ArticleObserver
         $this->regenerateSitemap();
     }
 
+    private function shouldBustArticleCache(Article $article): bool
+    {
+        if ($article->wasRecentlyCreated) {
+            return true;
+        }
+
+        if (! $article->wasChanged()) {
+            return false;
+        }
+
+        return (bool) array_diff(array_keys($article->getChanges()), ['views_count']);
+    }
+
     private function clearCache(): void
     {
         Cache::forget('home.featured');
         Cache::forget('home.recent');
         Cache::forget('home.categories');
+
+        app(RelatedArticlesService::class)->bumpCacheVersion();
     }
 
     /**
