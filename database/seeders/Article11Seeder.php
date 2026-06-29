@@ -16,13 +16,18 @@ class Article11Seeder extends Seeder
         $iotCat = Category::where('slug', 'iot-smart-device')->first();
 
         if (! $admin || ! $iotCat) {
-            $this->command->error('User atau kategori tidak ditemukan. Jalankan DatabaseSeeder dulu.');
+            throw new \RuntimeException('User atau kategori tidak ditemukan. Jalankan DatabaseSeeder dulu.');
+        }
 
-            return;
+        $slug = 'deep-sleep-esp32-sensor-dht22-hemat-baterai';
+
+        $existing = Article::withTrashed()->where('slug', $slug)->first();
+        if ($existing?->trashed()) {
+            $existing->restore();
         }
 
         $article = Article::updateOrCreate(
-            ['slug' => 'deep-sleep-esp32-sensor-dht22-hemat-baterai'],
+            ['slug' => $slug],
             [
                 'user_id'         => $admin->id,
                 'category_id'     => $iotCat->id,

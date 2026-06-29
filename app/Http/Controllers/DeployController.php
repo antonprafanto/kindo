@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\User;
 use App\Services\SitemapService;
 use Illuminate\Http\JsonResponse;
@@ -116,8 +117,31 @@ class DeployController extends Controller
     {
         $this->authorizeDeployHook();
 
-        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article11Seeder', '--force' => true]);
-        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article10Seeder', '--force' => true]);
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article11Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 11 seed failed', 500);
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article10Seeder',
+            '--force' => true,
+        ]);
+
+        $published = Article::query()
+            ->where('slug', 'deep-sleep-esp32-sensor-dht22-hemat-baterai')
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 11 missing after Article11Seeder on deploy hook.'));
+
+            return response('Article 11 seed incomplete', 500);
+        }
 
         try {
             app(SitemapService::class)->writeToDisk();
