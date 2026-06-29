@@ -49,7 +49,7 @@ class Article12Seeder extends Seeder
         Tag::updateOrCreate(['slug' => 'wifimanager'], ['name' => 'wifimanager']);
         Tag::updateOrCreate(['slug' => 'nvs'], ['name' => 'nvs']);
 
-        $tagSlugs = ['esp32', 'wifi', 'iot', 'mqtt', 'sensor', 'wifimanager', 'nvs'];
+        $tagSlugs = ['esp32', 'wifi', 'iot', 'mqtt', 'sensor', 'dht22', 'wifimanager', 'nvs'];
         $tagIds   = Tag::whereIn('slug', $tagSlugs)->pluck('id');
         $article->tags()->sync($tagIds);
 
@@ -87,7 +87,7 @@ class Article12Seeder extends Seeder
   </tbody>
 </table>
 
-<p>Di artikel WiFi Seri 1 sudah disebutkan: gunakan <strong>WiFiManager</strong> atau file konfigurasi terpisah. Kali ini kita implementasi lengkapnya.</p>
+<p>Di <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">artikel WiFi ESP32 (#4)</a> sudah disebutkan: gunakan <strong>WiFiManager</strong> atau file konfigurasi terpisah — ini janji yang kita penuhi di artikel Seri 2. Kali ini kita implementasi lengkapnya.</p>
 
 <h2>NVS (Non-Volatile Storage) &amp; Preferences</h2>
 <p>ESP32 punya partisi flash bernama <strong>NVS</strong> untuk menyimpan key-value yang tetap ada setelah reboot atau deep sleep. Di Arduino, library <code>Preferences</code> adalah wrapper resmi:</p>
@@ -136,6 +136,13 @@ GPIO 4        ─────── DATA
   <li><strong>PubSubClient</strong> oleh <em>Nick O'Leary</em></li>
 </ul>
 <p>Board: <strong>esp32</strong> by Espressif (v3.x). Library <code>Preferences</code> dan <code>WiFi</code> sudah built-in.</p>
+
+<p><strong>Broker latihan:</strong> <code>test.mosquitto.org:1883</code> (sama Seri 1).  
+<strong>Topic default:</strong> <code>kodingindonesia/esp32/dht22/data</code> — payload JSON <code>{"suhu":28.5,"kelembaban":65.2}</code> (bisa diubah lewat portal).</p>
+
+<blockquote>
+  <p><strong>Broker bukan website:</strong> <code>test.mosquitto.org</code> tidak dibuka di browser. Pakai MQTT Explorer atau <code>mosquitto_sub</code>. Detail di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>.</p>
+</blockquote>
 
 <h2>Kode Lengkap: WiFiManager + NVS + DHT22 + MQTT</h2>
 <p>Tidak ada <code>const char* ssid</code> / <code>password</code> di bawah. Ganti default topic jika perlu; sisanya diatur lewat portal.</p>
@@ -300,10 +307,6 @@ void loop() {
 <pre><code class="language-bash">mosquitto_sub -h test.mosquitto.org -t "kodingindonesia/esp32/dht22/data" -v</code></pre>
 
 <blockquote>
-  <p><strong>Broker bukan website:</strong> <code>test.mosquitto.org</code> tidak dibuka di browser. Detail di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>.</p>
-</blockquote>
-
-<blockquote>
   <p><strong>Pro tip:</strong> Gunakan topic unik per perangkat, misalnya <code>kodingindonesia/anton/esp32/dht22/data</code>, agar tidak bentrok di broker publik.</p>
 </blockquote>
 
@@ -330,7 +333,7 @@ if (!wifiConfigured || tombolResetDitekan()) {
 <ul>
   <li><strong>Portal tidak muncul:</strong> Pastikan tidak ada WiFi tersimpan — reset dengan tahan BOOT saat boot, atau <code>wm.resetSettings()</code></li>
   <li><strong>Captive portal tidak redirect (Android):</strong> Buka manual <code>http://192.168.4.1</code></li>
-  <li><strong>WiFi connect loop:</strong> Cek 2.4 GHz (ESP32 tidak support 5 GHz saja); dekatkan ke router</li>
+  <li><strong>WiFi connect loop:</strong> Cek <strong>2.4 GHz</strong> — ESP32 tidak support jaringan WiFi <strong>5 GHz saja</strong>; dekatkan ke router</li>
   <li><strong>Topic MQTT kosong:</strong> Cek <code>prefs.getString</code> default; isi ulang lewat portal</li>
   <li><strong>DHT22 NaN:</strong> <code>delay(2000)</code> setelah <code>dht.begin()</code>; GPIO 4 + pull-up</li>
   <li><strong>Compile error WiFiManager:</strong> Update library tzapu ke 2.x; board esp32 v3.x</li>

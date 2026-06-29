@@ -52,7 +52,7 @@ check($article?->category?->slug === 'esp32-arduino', 'Kategori esp32-arduino');
 check($article?->is_featured === false, 'is_featured false');
 check($article?->cover_image === null || $article->cover_image !== '', 'cover_image tidak di-wipe seeder');
 
-$requiredTags = ['esp32', 'wifi', 'iot', 'mqtt', 'sensor', 'wifimanager', 'nvs'];
+$requiredTags = ['esp32', 'wifi', 'iot', 'mqtt', 'sensor', 'dht22', 'wifimanager', 'nvs'];
 $articleTags = $article?->tags->pluck('slug')->all() ?? [];
 foreach ($requiredTags as $tag) {
     check(in_array($tag, $articleTags, true), "Tag: {$tag}");
@@ -72,10 +72,22 @@ foreach ($requiredLinks as $linkSlug => $label) {
 
 check(str_contains($body, 'WiFiManager'), 'Menyebut WiFiManager');
 check(str_contains($body, 'Preferences'), 'Menyebut Preferences / NVS');
+check(str_contains($body, '#include &lt;Preferences.h&gt;'), 'Include Preferences.h');
+check(str_contains($body, 'WiFiManagerParameter'), 'Kode: WiFiManagerParameter');
+check(str_contains($body, 'setConfigPortalTimeout'), 'Kode: setConfigPortalTimeout');
+check(str_contains($body, 'prefs.getString'), 'Kode: prefs.getString');
 check(str_contains($body, 'autoConnect'), 'Kode: wm.autoConnect');
-check(str_contains($body, 'prefs.putString'), 'Kode: prefs.putString');
 check(str_contains($body, 'resetSettings'), 'Kode: resetSettings');
+check(str_contains($body, 'BTN_RESET_WIFI'), 'Tombol BOOT reset WiFi (GPIO 0)');
 check(str_contains($body, 'KindoESP32-Setup'), 'Nama AP portal');
+check(str_contains($body, '192.168.4.1'), 'Alamat portal captive manual');
+check(str_contains($body, '2.4 GHz'), 'Peringatan WiFi 2.4 GHz');
+check(
+    str_contains($body, 'menghubungkan-esp32-wifi-kirim-data-server') && str_contains($body, 'WiFiManager'),
+    'Link janji WiFiManager artikel #4'
+);
+check(str_contains($body, 'prefs.putString'), 'Kode: prefs.putString');
+check(str_contains($body, '{"suhu"'), 'Contoh payload JSON suhu/kelembaban');
 check(str_contains($body, 'kodingindonesia/esp32/dht22/data'), 'MQTT topic sensor konsisten');
 check(str_contains($body, 'test.mosquitto.org'), 'Broker latihan test.mosquitto.org');
 check(str_contains($body, 'Pro tip'), 'Pro tip topic unik');
@@ -90,11 +102,15 @@ check(
 check(str_contains($body, '#define DHT_PIN  4'), 'DHT GPIO 4');
 check(str_contains($body, 'Install Library'), 'Section install library');
 check(str_contains($body, 'tzapu'), 'Library WiFiManager (tzapu)');
+check(str_contains($body, "Nick O'Leary"), 'Library PubSubClient disebut');
+check(str_contains($body, 'Adafruit Unified Sensor'), 'Dependency Adafruit Unified Sensor');
 check(! preg_match('/const char\*\s+ssid\s*=\s*"[^"]+"/', $body), 'Tidak hardcode ssid di sketch utama');
 check(! preg_match('/const char\*\s+password\s*=\s*"[^"]+"/', $body), 'Tidak hardcode password di sketch utama');
 check(str_contains($body, 'Seri 2'), 'Menyebut Seri 2');
 check(str_contains($body, 'BME280'), 'Teaser artikel #13 BME280');
 check(str_contains($body, 'OTA'), 'Teaser artikel #15 OTA');
+check(str_contains($body, 'Mosquitto pribadi'), 'Teaser artikel #16 Mosquitto');
+check(str_contains($body, 'wifi_ok'), 'Flag wifi_ok untuk gabung deep sleep');
 check(str_contains($body, 'language-arduino'), 'Blok kode Arduino');
 check(str_contains($body, 'language-bash'), 'Blok mosquitto_sub bash');
 check(str_contains($body, '<table>'), 'Ada tabel');
