@@ -154,6 +154,51 @@ class DeployController extends Controller
         return response('Article 11 published', 200);
     }
 
+    /**
+     * Publish artikel ke-12 via seeder (shared hosting tanpa SSH).
+     * Juga re-seed artikel #11 agar backlink NVS/WiFiManager ikut terbarui.
+     */
+    public function publishArticle12(): Response
+    {
+        $this->authorizeDeployHook();
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article12Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 12 seed failed', 500);
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article11Seeder',
+            '--force' => true,
+        ]);
+
+        $published = Article::query()
+            ->where('slug', 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode')
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 12 missing after Article12Seeder on deploy hook.'));
+
+            return response('Article 12 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 12 published', 200);
+    }
+
     public function publishArticle9(): Response
     {
         return $this->publishArticle('Article9Seeder', 'Article 9 published');

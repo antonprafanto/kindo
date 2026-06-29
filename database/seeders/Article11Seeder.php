@@ -347,13 +347,13 @@ void loop() {
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel berikutnya (#12):</strong> Simpan kredensial WiFi di flash dengan <strong>NVS + WiFiManager</strong> — tidak perlu hardcode <code>ssid</code>/<code>password</code> di kode produksi</li>
+  <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager ESP32</a></strong> — simpan kredensial WiFi di flash, tanpa hardcode <code>ssid</code>/<code>password</code> di kode produksi</li>
   <li><strong>Artikel #16:</strong> Pindah dari <code>test.mosquitto.org</code> ke <strong>broker Mosquitto pribadi</strong> dengan autentikasi</li>
   <li>Kembali ke <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">dashboard capstone Seri 1</a> untuk membandingkan node always-on vs battery-powered</li>
 </ul>
 
 <blockquote>
-  <p><strong>Keamanan:</strong> Jangan hardcode password WiFi di repo publik. Untuk proyek lapangan, tunggu artikel NVS/WiFiManager atau simpan kredensial di file terpisah yang tidak di-commit.</p>
+  <p><strong>Keamanan:</strong> Jangan hardcode password WiFi di repo publik. Untuk proyek lapangan, gunakan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a> atau simpan kredensial di file terpisah yang tidak di-commit.</p>
 </blockquote>
 
 <p>Ini langkah pertama menuju node IoT yang benar-benar <em>wireless</em> — sensor di mana adaptor listrik tidak tersedia. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
