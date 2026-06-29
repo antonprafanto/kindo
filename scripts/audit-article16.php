@@ -130,7 +130,8 @@ check(str_contains($body, '8883'), 'Menyebut port TLS 8883 (teaser #17)');
 check(! preg_match('/const char\*\s+mqttServer\s*=\s*"test\.mosquitto/', $body), 'ESP32 tidak hardcode test.mosquitto');
 check(str_contains($body, 'language-bash'), 'Blok kode bash');
 check(str_contains($body, 'language-arduino'), 'Blok kode Arduino');
-check(str_contains($body, '<table>'), 'Ada tabel');
+check(str_contains($body, '<table>'), 'Ada tabel arsitektur');
+check(str_contains($body, 'Alur data secara singkat'), 'Diagram alur ASCII sederhana');
 check(str_contains($body, 'rel="noopener"') || ! str_contains($body, 'target="_blank"'), 'Link eksternal aman');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada typo shared hosting');
 

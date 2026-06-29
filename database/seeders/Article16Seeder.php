@@ -99,16 +99,29 @@ class Article16Seeder extends Seeder
 <p>Dari artikel ini ke depan (roadmap Seri 2), proyek production disarankan memakai <strong>broker sendiri</strong>. Artikel #11–#15 masih boleh pakai broker publik saat belajar hardware.</p>
 
 <h2>Arsitektur Sistem</h2>
-<pre><code>┌─────────────┐     WiFi/LAN      ┌──────────────────┐
-│   ESP32     │ ─── MQTT :1883 ──►│  Mosquitto       │
-│  (publisher)│    (auth)         │  Pi / VPS        │
-└─────────────┘                   └────────┬─────────┘
-                                           │
-                    ┌──────────────────────┼──────────────────────┐
-                    ▼                      ▼                      ▼
-             mosquitto_sub           MQTT Explorer          (nanti #18)
-             di laptop               di HP                  Python → MySQL
-</code></pre>
+<table>
+  <thead>
+    <tr><th>Komponen</th><th>Peran</th><th>Koneksi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>ESP32</strong></td><td>Publisher (kirim data sensor)</td><td>WiFi/LAN → MQTT <code>:1883</code> + auth</td></tr>
+    <tr><td><strong>Mosquitto</strong></td><td>Broker pusat</td><td>Raspberry Pi (LAN) atau VPS</td></tr>
+    <tr><td><strong>mosquitto_sub</strong></td><td>Subscriber CLI</td><td>Laptop → broker (uji coba)</td></tr>
+    <tr><td><strong>MQTT Explorer</strong></td><td>Subscriber GUI</td><td>Laptop / HP → broker</td></tr>
+    <tr><td><strong>Python</strong> (#18)</td><td>Subscriber + simpan data</td><td>Lanjutan Jalur B → MySQL</td></tr>
+  </tbody>
+</table>
+
+<p>Alur data secara singkat:</p>
+<pre><code>  [ ESP32 ]
+      |
+      |  WiFi/LAN  ·  MQTT :1883  ·  username + password
+      v
+  [ Mosquitto @ Pi / VPS ]
+      |
+      +-- mosquitto_sub  (laptop)
+      +-- MQTT Explorer  (HP)
+      +-- Python → MySQL (artikel #18, nanti)</code></pre>
 
 <p><strong>Topic sensor</strong> tetap mengikuti konvensi Seri 1: <code>kodingindonesia/esp32/dht22/data</code> dengan payload JSON <code>{"suhu":28.5,"kelembaban":65.2}</code>.</p>
 
