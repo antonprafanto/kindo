@@ -343,7 +343,7 @@ if (!wifiConfigured || tombolResetDitekan()) {
 <h2>Keamanan &amp; Produksi</h2>
 <ul>
   <li>Jangan commit file <code>secrets.h</code> dengan password — WiFiManager menghilangkan kebutuhan itu untuk WiFi</li>
-  <li>Portal default <strong>tidak pakai password AP</strong> — untuk deploy komersial, set <code>wm.setAPStaticIPConfig</code> + password AP atau gunakan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT dengan auth</a> di broker sendiri (<strong>artikel #16</strong>)</li>
+  <li>Portal default <strong>tidak pakai password AP</strong> — untuk deploy komersial, set <code>wm.setAPStaticIPConfig</code> + password AP atau gunakan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">MQTT dengan auth di broker sendiri</a> (<strong>artikel #16</strong>)</li>
   <li>Segera pindah dari <code>test.mosquitto.org</code> ke broker pribadi untuk data produksi</li>
 </ul>
 
@@ -351,7 +351,7 @@ if (!wifiConfigured || tombolResetDitekan()) {
 <ul>
   <li><strong>Artikel #13:</strong> Sensor <strong>BME280</strong> via I2C — lebih akurat dari DHT22</li>
   <li><strong>Artikel #15:</strong> <strong>OTA update</strong> — butuh WiFiManager (#12) agar firmware bisa di-update tanpa kabel setelah deploy</li>
-  <li><strong>Artikel #16:</strong> Broker <strong>Mosquitto pribadi</strong> + autentikasi — simpan host/user/pass di NVS dengan pola sama</li>
+  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi</a></strong> + autentikasi — simpan host/user/pass di NVS dengan pola sama</li>
   <li>Kembali ke <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep</a> untuk gabungkan hemat baterai + konfigurasi lapangan</li>
 </ul>
 

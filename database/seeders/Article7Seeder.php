@@ -120,7 +120,7 @@ class Article7Seeder extends Seeder
 </blockquote>
 
 <blockquote>
-  <p><strong>Keamanan:</strong> Broker publik hanya untuk belajar dan uji coba. Jangan kirim data sensitif. Untuk production, install <strong>Mosquitto</strong> sendiri di Raspberry Pi/VPS (lihat <a href="https://mosquitto.org/download/" target="_blank" rel="noopener">mosquitto.org/download</a>) dengan autentikasi username/password.</p>
+  <p><strong>Keamanan:</strong> Broker publik hanya untuk belajar dan uji coba. Jangan kirim data sensitif. Untuk production, pasang <strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker Mosquitto pribadi</a></strong> di Raspberry Pi/VPS dengan autentikasi username/password (artikel Seri 2 #16).</p>
 </blockquote>
 
 <h2>Kode Program: ESP32 + DHT22 + MQTT</h2>
