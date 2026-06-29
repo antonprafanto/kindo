@@ -307,13 +307,15 @@ jobs:
         continue-on-error: true
         run: |
           curl -fsS --max-time 120 \
-            "https://kodingindonesia.com/deploy/migrate?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/migrate"
 
       - name: Clear Laravel cache via deploy hook
         continue-on-error: true
         run: |
           curl -fsS --max-time 60 \
-            "https://kodingindonesia.com/deploy/clear-cache?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/clear-cache"
 
       - name: Publish article 10 via deploy hook (idempotent)
         continue-on-error: true

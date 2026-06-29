@@ -4,23 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Services\SitemapService;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 class DeployController extends Controller
 {
     /**
      * Clear cached config/routes/views after FTP deploy (shared hosting, no SSH).
-     * Protected by DEPLOY_HOOK_TOKEN — returns 404 when token is missing or invalid.
      */
-    public function clearCache()
+    public function clearCache(): Response
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
+        $this->authorizeDeployHook();
 
         Artisan::call('view:clear');
         Artisan::call('config:clear');
@@ -42,13 +40,9 @@ class DeployController extends Controller
     /**
      * Run pending migrations after deploy (shared hosting tanpa SSH).
      */
-    public function migrate()
+    public function migrate(): Response
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
+        $this->authorizeDeployHook();
 
         Artisan::call('migrate', ['--force' => true]);
 
@@ -58,13 +52,9 @@ class DeployController extends Controller
     /**
      * Cek kesehatan tabel admin (contributor + contact messages) tanpa SSH.
      */
-    public function health()
+    public function health(): JsonResponse
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
+        $this->authorizeDeployHook();
 
         $tables = [
             'contributor_applications' => null,
@@ -80,6 +70,10 @@ class DeployController extends Controller
                 ->orderByDesc('created_at')
                 ->limit(10)
                 ->get(['id', 'name', 'email', 'status', 'user_id', 'created_at', 'reviewed_at'])
+                ->map(fn ($row) => [
+                    ...((array) $row),
+                    'email' => $this->maskEmail((string) $row->email),
+                ])
             : [];
 
         $contributorStats = null;
@@ -109,148 +103,91 @@ class DeployController extends Controller
         ], 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
-    /**
-     * Publish artikel ke-10 via seeder (shared hosting tanpa SSH).
-     */
-    public function publishArticle10()
+    public function publishArticle10(): Response
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
-
-        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article10Seeder', '--force' => true]);
-
-        try {
-            app(SitemapService::class)->writeToDisk();
-        } catch (\Throwable $e) {
-            report($e);
-        }
-
-        Artisan::call('view:clear');
-
-        return response('Article 10 published', 200);
+        return $this->publishArticle('Article10Seeder', 'Article 10 published');
     }
 
-    /**
-     * Publish artikel ke-9 via seeder (shared hosting tanpa SSH).
-     */
-    public function publishArticle9()
+    public function publishArticle9(): Response
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
-
-        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article9Seeder', '--force' => true]);
-
-        try {
-            app(SitemapService::class)->writeToDisk();
-        } catch (\Throwable $e) {
-            report($e);
-        }
-
-        Artisan::call('view:clear');
-
-        return response('Article 9 published', 200);
+        return $this->publishArticle('Article9Seeder', 'Article 9 published');
     }
 
-    /**
-     * Publish artikel ke-8 via seeder (shared hosting tanpa SSH).
-     */
-    public function publishArticle8()
+    public function publishArticle8(): Response
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
-
-        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article8Seeder', '--force' => true]);
-
-        try {
-            app(SitemapService::class)->writeToDisk();
-        } catch (\Throwable $e) {
-            report($e);
-        }
-
-        Artisan::call('view:clear');
-
-        return response('Article 8 published', 200);
+        return $this->publishArticle('Article8Seeder', 'Article 8 published');
     }
 
-    /**
-     * Publish artikel ke-7 via seeder (shared hosting tanpa SSH).
-     * Idempotent — aman dipanggil ulang.
-     */
-    public function publishArticle7()
+    public function publishArticle7(): Response
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
-
-        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article7Seeder', '--force' => true]);
-
-        try {
-            app(SitemapService::class)->writeToDisk();
-        } catch (\Throwable $e) {
-            report($e);
-        }
-
-        Artisan::call('view:clear');
-
-        return response('Article 7 published', 200);
+        return $this->publishArticle('Article7Seeder', 'Article 7 published');
     }
 
-    /**
-     * Publish artikel ke-6 via seeder (shared hosting tanpa SSH).
-     * Idempotent — aman dipanggil ulang.
-     */
-    public function publishArticle6()
+    public function publishArticle6(): Response
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
-
-        Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article6Seeder', '--force' => true]);
-
-        try {
-            app(SitemapService::class)->writeToDisk();
-        } catch (\Throwable $e) {
-            report($e);
-        }
-
-        Artisan::call('view:clear');
-
-        return response('Article 6 published', 200);
+        return $this->publishArticle('Article6Seeder', 'Article 6 published');
     }
 
     /**
      * Buat atau perbaiki akun admin dari ADMIN_* di .env (tanpa SSH).
      */
-    public function ensureAdmin()
+    public function ensureAdmin(): JsonResponse
     {
-        $token = config('app.deploy_hook_token');
-
-        if (empty($token) || ! hash_equals($token, (string) request()->query('token', ''))) {
-            abort(404);
-        }
+        $this->authorizeDeployHook();
 
         Artisan::call('config:clear');
 
-        Artisan::call('kindo:ensure-admin', ['--reset-password' => true]);
+        $exitCode = Artisan::call('kindo:ensure-admin', ['--reset-password' => true]);
 
-        $output = trim(Artisan::output());
+        if ($exitCode !== 0) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Admin setup failed. Check server logs.',
+            ], HttpResponse::HTTP_INTERNAL_SERVER_ERROR, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }
 
         return response()->json([
-            'status'  => str_contains($output, 'created') || str_contains($output, 'updated') ? 'ok' : 'check_output',
-            'message' => $output ?: 'No output',
+            'status'  => 'ok',
+            'message' => 'Admin account ensured successfully.',
         ], 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+    private function publishArticle(string $seederClass, string $successMessage): Response
+    {
+        $this->authorizeDeployHook();
+
+        Artisan::call('db:seed', ['--class' => "Database\\Seeders\\{$seederClass}", '--force' => true]);
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response($successMessage, 200);
+    }
+
+    private function authorizeDeployHook(): void
+    {
+        $token = config('app.deploy_hook_token');
+        $provided = request()->header('X-Deploy-Token') ?? request()->query('token', '');
+
+        if (empty($token) || ! hash_equals($token, (string) $provided)) {
+            abort(404);
+        }
+    }
+
+    private function maskEmail(string $email): string
+    {
+        if (! str_contains($email, '@')) {
+            return '***';
+        }
+
+        [$local, $domain] = explode('@', $email, 2);
+        $visible = mb_substr($local, 0, 1);
+
+        return $visible . '***@' . $domain;
     }
 }
