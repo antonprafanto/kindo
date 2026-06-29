@@ -249,6 +249,66 @@ class DeployController extends Controller
         return response('Article 16 published', 200);
     }
 
+    /**
+     * Publish artikel ke-13 via seeder (shared hosting tanpa SSH).
+     * Juga re-seed #12, #16, #11 dan patch #5 agar backlink BME280 ikut terbarui.
+     */
+    public function publishArticle13(): Response
+    {
+        $this->authorizeDeployHook();
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article13Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 13 seed failed', 500);
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article12Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article16Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article11Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\PatchArticle5Seri2Seeder',
+            '--force' => true,
+        ]);
+
+        $published = Article::query()
+            ->where('slug', 'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt')
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 13 missing after Article13Seeder on deploy hook.'));
+
+            return response('Article 13 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 13 published', 200);
+    }
+
     public function publishArticle9(): Response
     {
         return $this->publishArticle('Article9Seeder', 'Article 9 published');

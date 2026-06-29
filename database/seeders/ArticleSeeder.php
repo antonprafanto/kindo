@@ -579,6 +579,13 @@ void loop() {
 <blockquote>
   <p><strong>Tips Troubleshooting:</strong> Jika pembacaan selalu NaN (Not a Number), periksa koneksi kabel dan pastikan resistor pull-up 10kΩ terpasang dengan benar. DHT22 sensitif terhadap noise listrik, jauhkan dari sumber interferensi.</p>
 </blockquote>
+
+<h2>Langkah Selanjutnya</h2>
+<ul>
+  <li><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web Server ESP32 + DHT22</a> — tampilkan data di browser</li>
+  <li><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">Publish data sensor via MQTT</a></li>
+  <li><strong>Seri 2:</strong> <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C</a> — upgrade akurasi + tekanan udara</li>
+</ul>
 HTML;
     }
 }

@@ -388,7 +388,7 @@ void loop() {
   <li><strong>Artikel #17:</strong> <strong>MQTT TLS</strong>, QoS, LWT &amp; retained messages — amankan broker di internet</li>
   <li><strong>Artikel #18:</strong> <strong>Subscriber Python</strong> → simpan data MQTT ke MySQL</li>
   <li><strong>Artikel #21:</strong> <strong>Home Assistant</strong> — integrasi ESP32 via broker pribadi</li>
-  <li><strong>Artikel #13:</strong> Sensor <strong>BME280</strong> via I2C — publish ke broker pribadi kamu</li>
+  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C</a></strong> — publish suhu, kelembaban &amp; tekanan ke broker pribadi kamu</li>
   <li>Kembali ke <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep (#11)</a> + <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a> untuk stack lapangan lengkap</li>
 </ul>
 

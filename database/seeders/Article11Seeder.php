@@ -348,7 +348,8 @@ void loop() {
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager ESP32</a></strong> — simpan kredensial WiFi di flash, tanpa hardcode <code>ssid</code>/<code>password</code> di kode produksi</li>
-  <li><strong>Artikel #16:</strong> Pindah dari <code>test.mosquitto.org</code> ke <strong>broker Mosquitto pribadi</strong> dengan autentikasi</li>
+  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi</a></strong> — pindah dari <code>test.mosquitto.org</code> dengan autentikasi</li>
+  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C</a></strong> — upgrade akurasi + tekanan udara untuk node lapangan</li>
   <li>Kembali ke <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">dashboard capstone Seri 1</a> untuk membandingkan node always-on vs battery-powered</li>
 </ul>
 
