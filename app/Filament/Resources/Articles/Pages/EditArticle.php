@@ -2,14 +2,16 @@
 
 namespace App\Filament\Resources\Articles\Pages;
 
-use App\Filament\Resources\Articles\Concerns\ArticleCoverUploadAction;
 use App\Filament\Resources\Articles\ArticleResource;
+use App\Filament\Resources\Articles\Concerns\ArticleCoverUploadAction;
 use App\Filament\Resources\Articles\Concerns\HasArticlePreviewAction;
+use App\Filament\Resources\Articles\Schemas\ArticleForm;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Schemas\Schema;
 
 class EditArticle extends EditRecord
 {
@@ -41,8 +43,26 @@ class EditArticle extends EditRecord
         return 'Edit Artikel';
     }
 
+    public function form(Schema $schema): Schema
+    {
+        return ArticleForm::configure($schema, lockBody: $this->shouldLockBodyForEdit());
+    }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        if ($this->shouldLockBodyForEdit()) {
+            unset($data['body']);
+        }
+
+        return $data;
+    }
+
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        if ($this->shouldLockBodyForEdit()) {
+            $data['body'] = $this->record->body;
+        }
+
         if (auth()->user()?->isAuthor()) {
             $this->assertAuthorCanMutateArticle();
 
@@ -54,6 +74,15 @@ class EditArticle extends EditRecord
         }
 
         return $data;
+    }
+
+    protected function shouldLockBodyForEdit(): bool
+    {
+        if (! auth()->user()?->isAdmin()) {
+            return false;
+        }
+
+        return $this->record->status === 'published';
     }
 
     protected function getHeaderActions(): array
