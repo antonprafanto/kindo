@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Articles\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -12,15 +13,22 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 class ArticleForm
 {
     /**
      * @param  bool  $includeCoverSection  Cover di form create; pada edit pakai tombol Upload Cover di daftar artikel.
+     * @param  bool  $excludeBodyFromForm  Edit: isi artikel lewat editor terpisah (hindari WAF + Livewire 403).
+     * @param  string|null  $bodyEditorUrl  URL editor isi saat excludeBodyFromForm aktif.
      */
-    public static function configure(Schema $schema, bool $includeCoverSection = true): Schema
-    {
+    public static function configure(
+        Schema $schema,
+        bool $includeCoverSection = true,
+        bool $excludeBodyFromForm = false,
+        ?string $bodyEditorUrl = null,
+    ): Schema {
         $isAuthor = auth()->user()?->isAuthor() ?? false;
 
         $statusOptions = $isAuthor
@@ -93,18 +101,34 @@ class ArticleForm
                         ->hint('Maks 500 karakter — ditampilkan di listing dan meta description.')
                         ->columnSpanFull(),
 
-                    RichEditor::make('body')
-                        ->label('Isi Artikel')
-                        ->required()
-                        ->toolbarButtons([
-                            ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
-                            ['h2', 'h3', 'h4'],
-                            ['alignStart', 'alignCenter', 'alignEnd'],
-                            ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
-                            ['table', 'horizontalRule', 'attachFiles'],
-                            ['undo', 'redo'],
-                        ])
-                        ->columnSpanFull(),
+                    ...($excludeBodyFromForm
+                        ? [
+                            Placeholder::make('body_editor_link')
+                                ->label('Isi Artikel')
+                                ->content(new HtmlString(
+                                    'Isi artikel diedit di halaman terpisah agar tidak diblokir WAF hosting saat menyimpan.<br><br>'
+                                    . '<a href="' . e($bodyEditorUrl ?? '#') . '" '
+                                    . 'style="display:inline-block;padding:.5rem 1rem;font-weight:700;'
+                                    . 'background:#2979FF;color:#fff;border:2px solid #000;text-decoration:none;">'
+                                    . 'Buka Editor Isi Artikel →</a>'
+                                    . '<br><br><span style="color:#718096;">Judul, ringkasan, kategori, tag, dan status disimpan dari form ini.</span>'
+                                ))
+                                ->columnSpanFull(),
+                        ]
+                        : [
+                            RichEditor::make('body')
+                                ->label('Isi Artikel')
+                                ->required()
+                                ->toolbarButtons([
+                                    ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
+                                    ['h2', 'h3', 'h4'],
+                                    ['alignStart', 'alignCenter', 'alignEnd'],
+                                    ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                                    ['table', 'horizontalRule', 'attachFiles'],
+                                    ['undo', 'redo'],
+                                ])
+                                ->columnSpanFull(),
+                        ]),
                 ])
                 ->columnSpanFull(),
         ];

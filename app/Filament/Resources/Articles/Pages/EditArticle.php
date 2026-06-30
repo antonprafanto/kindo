@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Articles\Pages;
 use App\Filament\Resources\Articles\ArticleResource;
 use App\Filament\Resources\Articles\Concerns\HasArticlePreviewAction;
 use App\Filament\Resources\Articles\Schemas\ArticleForm;
+use Filament\Actions\Action;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
@@ -21,6 +22,13 @@ class EditArticle extends EditRecord
     public function mount(int | string $record): void
     {
         parent::mount($record);
+
+        if (session()->pull('body_saved')) {
+            Notification::make()
+                ->title('Isi artikel berhasil disimpan')
+                ->success()
+                ->send();
+        }
 
         if (auth()->user()?->isAuthor()) {
             $this->record->refresh();
@@ -44,13 +52,26 @@ class EditArticle extends EditRecord
 
     public function form(Schema $schema): Schema
     {
-        return ArticleForm::configure($schema, includeCoverSection: false);
+        return ArticleForm::configure(
+            $schema,
+            includeCoverSection: false,
+            excludeBodyFromForm: true,
+            bodyEditorUrl: route('admin.articles.edit-body', ['article' => $this->record]),
+        );
+    }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        unset($data['body']);
+
+        return $data;
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
         // Cover dikelola lewat tombol Upload Cover di daftar artikel, bukan form edit.
         unset($data['cover_image']);
+        $data['body'] = $this->record->body;
 
         if (auth()->user()?->isAuthor()) {
             $this->assertAuthorCanMutateArticle();
@@ -67,8 +88,15 @@ class EditArticle extends EditRecord
 
     protected function getHeaderActions(): array
     {
+        $editBody = Action::make('editBody')
+            ->label('Edit Isi Artikel')
+            ->icon('heroicon-o-document-text')
+            ->color('primary')
+            ->url(fn () => route('admin.articles.edit-body', ['article' => $this->record]));
+
         if (auth()->user()?->isAuthor()) {
             return [
+                $editBody,
                 $this->makePreviewAction(),
                 DeleteAction::make()
                     ->label('Hapus')
@@ -78,6 +106,7 @@ class EditArticle extends EditRecord
         }
 
         return [
+            $editBody,
             $this->makePreviewAction(),
             DeleteAction::make()->label('Hapus'),
             ForceDeleteAction::make()->label('Hapus Permanen'),

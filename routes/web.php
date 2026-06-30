@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ArticleBodyEditorController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
@@ -41,6 +42,14 @@ Route::get('/newsletter', [NewsletterController::class, 'show'])->name('newslett
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 Route::get('/newsletter/konfirmasi/{token}', [NewsletterController::class, 'confirm'])->name('newsletter.confirm');
 Route::get('/newsletter/berhenti/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/articles/{article}/edit-body', [ArticleBodyEditorController::class, 'edit'])
+        ->name('admin.articles.edit-body');
+    Route::post('/admin/articles/{article}/edit-body', [ArticleBodyEditorController::class, 'update'])
+        ->middleware('throttle:30,1')
+        ->name('admin.articles.edit-body.update');
+});
 
 Route::get('/deploy/migrate', [DeployController::class, 'migrate'])
     ->middleware('throttle:3,1')
