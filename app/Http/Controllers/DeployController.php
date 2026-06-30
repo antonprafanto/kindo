@@ -311,7 +311,7 @@ class DeployController extends Controller
 
     /**
      * Publish artikel ke-14 via seeder (shared hosting tanpa SSH).
-     * Juga re-seed #13, #12, #16, #11 agar backlink OLED ikut terbarui.
+     * Juga re-seed #13, #12, #16, #11, patch #5, dan indeks #10 (5 artikel Seri 2).
      */
     public function publishArticle14(): Response
     {
@@ -348,6 +348,11 @@ class DeployController extends Controller
 
         Artisan::call('db:seed', [
             '--class' => 'Database\\Seeders\\PatchArticle5Seri2Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article10Seeder',
             '--force' => true,
         ]);
 

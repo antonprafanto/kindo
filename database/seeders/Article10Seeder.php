@@ -298,13 +298,19 @@ void loop() {
   <li><strong>Dashboard Web Server + MQTT</strong> — artikel ini (capstone)</li>
 </ol>
 
-<h2>Roadmap Belajar Selanjutnya</h2>
-<p>Seri 10 artikel ESP32 IoT ini sudah mencakup dasar hingga proyek gabungan. Untuk naik level:</p>
+<h2>Roadmap Belajar Selanjutnya — Seri 2</h2>
+<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — lima artikel pertama (urutan publish):</p>
+<ol>
+  <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32 + DHT22 hemat baterai</a></strong></li>
+  <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a></strong> — konfigurasi tanpa hardcode</li>
+  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi + autentikasi</a></strong></li>
+  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">I2C + sensor BME280</a></strong> — suhu, kelembaban &amp; tekanan</li>
+  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — tampilkan data di layar I2C</li>
+</ol>
+<p>Masih akan datang di Seri 2:</p>
 <ul>
-  <li><strong>Home Assistant</strong> — hubungkan sensor MQTT + switch relay</li>
-  <li><strong>Broker Mosquitto pribadi</strong> di Raspberry Pi / VPS dengan autentikasi</li>
-  <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32</a></strong> untuk node sensor baterai — artikel pembuka Seri 2</li>
   <li><strong>OTA update</strong> firmware ESP32 tanpa kabel USB</li>
+  <li><strong>Home Assistant</strong> — hubungkan sensor MQTT + switch relay</li>
   <li>Simpan histori sensor ke <strong>InfluxDB / MySQL</strong> via subscriber Python</li>
 </ul>
 
