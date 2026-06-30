@@ -362,7 +362,7 @@ void loop() {
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #15:</strong> <strong>OTA update</strong> — update firmware tanpa kabel USB (butuh #12 WiFiManager)</li>
+  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — update tanpa kabel USB (butuh #12 WiFiManager)</li>
   <li>Gabung <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> + BME280 + OLED untuk node lapangan (matikan OLED saat tidur)</li>
   <li>Subscriber <strong>Python → MySQL (#18)</strong> untuk histori + OLED sebagai panel lokal</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — sensor + layar + pompa relay</li>

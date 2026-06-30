@@ -98,6 +98,10 @@ Route::get('/deploy/cleanup-duplicate-bme280', [DeployController::class, 'cleanu
     ->middleware('throttle:3,1')
     ->name('deploy.cleanup-duplicate-bme280');
 
+Route::get('/deploy/publish-article-15', [DeployController::class, 'publishArticle15'])
+    ->middleware('throttle:3,1')
+    ->name('deploy.publish-article-15');
+
 Route::get('/deploy/ensure-admin', [DeployController::class, 'ensureAdmin'])
     ->middleware('throttle:3,1')
     ->name('deploy.ensure-admin');

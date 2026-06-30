@@ -351,7 +351,7 @@ if (!wifiConfigured || tombolResetDitekan()) {
 <ul>
   <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C</a></strong> — lebih akurat dari DHT22, plus tekanan udara</li>
   <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — tampilkan data sensor di layar I2C</li>
-  <li><strong>Artikel #15:</strong> <strong>OTA update</strong> — butuh WiFiManager (#12) agar firmware bisa di-update tanpa kabel setelah deploy</li>
+  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — butuh WiFiManager (#12) agar firmware bisa di-update tanpa kabel setelah deploy</li>
   <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi</a></strong> + autentikasi — simpan host/user/pass di NVS dengan pola sama</li>
   <li>Kembali ke <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep</a> untuk gabungkan hemat baterai + konfigurasi lapangan</li>
 </ul>
