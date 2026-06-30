@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Articles\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -12,14 +13,16 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 
 class ArticleForm
 {
     /**
      * @param  bool  $includeCoverSection  Cover di form create; pada edit pakai tombol Upload Cover di daftar artikel.
+     * @param  bool  $lockBody  Artikel published: jangan muat body ke Livewire (hindari WAF 403 di shared hosting).
      */
-    public static function configure(Schema $schema, bool $includeCoverSection = true): Schema
+    public static function configure(Schema $schema, bool $includeCoverSection = true, bool $lockBody = false): Schema
     {
         $isAuthor = auth()->user()?->isAuthor() ?? false;
 
@@ -93,18 +96,32 @@ class ArticleForm
                         ->hint('Maks 500 karakter — ditampilkan di listing dan meta description.')
                         ->columnSpanFull(),
 
-                    RichEditor::make('body')
-                        ->label('Isi Artikel')
-                        ->required()
-                        ->toolbarButtons([
-                            ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
-                            ['h2', 'h3', 'h4'],
-                            ['alignStart', 'alignCenter', 'alignEnd'],
-                            ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
-                            ['table', 'horizontalRule', 'attachFiles'],
-                            ['undo', 'redo'],
-                        ])
-                        ->columnSpanFull(),
+                    ...($lockBody
+                        ? [
+                            Placeholder::make('body_locked')
+                                ->label('Isi Artikel')
+                                ->content(new HtmlString(
+                                    'Konten HTML artikel terbit dikelola via <strong>deploy/seeder</strong> '
+                                    . '(bukan form ini) agar tidak kena blokir WAF hosting.<br><br>'
+                                    . 'Kamu tetap bisa mengubah judul, ringkasan, kategori, tag, dan metadata di bawah. '
+                                    . 'Untuk <strong>gambar sampul</strong>, pakai tombol <em>Upload Cover</em> di daftar artikel.'
+                                ))
+                                ->columnSpanFull(),
+                        ]
+                        : [
+                            RichEditor::make('body')
+                                ->label('Isi Artikel')
+                                ->required()
+                                ->toolbarButtons([
+                                    ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
+                                    ['h2', 'h3', 'h4'],
+                                    ['alignStart', 'alignCenter', 'alignEnd'],
+                                    ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                                    ['table', 'horizontalRule', 'attachFiles'],
+                                    ['undo', 'redo'],
+                                ])
+                                ->columnSpanFull(),
+                        ]),
                 ])
                 ->columnSpanFull(),
         ];
