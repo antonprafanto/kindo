@@ -102,10 +102,12 @@ class ArticleForm
                                 Placeholder::make('body_locked')
                                     ->label('Isi Artikel')
                                     ->content(new HtmlString(
-                                        'Konten HTML artikel terbit dikelola via <strong>deploy/seeder</strong> '
-                                        . '(bukan form ini) agar tidak kena blokir WAF hosting.<br><br>'
+                                        '<strong>Mode admin — artikel sudah terbit.</strong> '
+                                        . 'Konten HTML dikelola via deploy/seeder (bukan form ini) karena WAF hosting memblokir snippet kode Arduino/MQTT di Livewire.<br><br>'
+                                        . '<strong>Kontributor</strong> tetap mengedit lewat editor penuh saat status masih '
+                                        . '<em>Draft</em> atau <em>Menunggu Review</em>. Setelah terbit, kontributor tidak bisa edit — minta admin untuk revisi.<br><br>'
                                         . 'Untuk <strong>gambar sampul</strong>: tombol hijau <em>Upload Cover</em> di kanan atas, '
-                                        . 'atau <a href="/deploy/upload-article-cover" target="_blank" rel="noopener">form upload tanpa Livewire</a>.'
+                                        . 'atau <a href="/deploy/upload-article-cover" target="_blank" rel="noopener">form upload tanpa Livewire</a> (tambahkan <code>?token=...</code>).'
                                     ))
                                     ->columnSpanFull(),
                             ]
