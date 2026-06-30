@@ -117,6 +117,24 @@ Untuk migration database: jalankan sekali via **cPanel → Terminal** (jika ters
 
 ---
 
+## Filament / Livewire 403 saat simpan artikel (ModSecurity WAF)
+
+Gejala: notifikasi *"Error while loading page"*, console `POST /livewire-…/update 403 (Forbidden)` saat menyimpan artikel yang berisi cuplikan kode (ESP32, MQTT, shell).
+
+**Penyebab:** ModSecurity di Rumahweb memblokir payload POST Livewire (false positive), bukan bug Laravel/Filament.
+
+**Perbaikan otomatis (sudah di repo):** `public/.htaccess` mematikan WAF **hanya** untuk URL `/livewire*` — situs publik tetap dilindungi.
+
+**Jika masih 403 setelah deploy:**
+
+1. Login **cPanel** → cari **ModSecurity**
+2. Temukan domain `kodingindonesia.com` → toggle **Off** (atau nonaktifkan rule ID tertentu jika support Rumahweb memberi ID dari error log)
+3. Hard refresh admin (`Ctrl+Shift+R`) → coba simpan lagi
+
+> Catatan: menonaktifkan ModSecurity untuk seluruh domain sedikit mengurangi lapisan WAF, tapi umum dipakai situs Laravel + Filament di shared hosting. Alternatif jangka panjang: VPS dengan kontrol WAF lebih granular.
+
+---
+
 ## Deployment Pertama
 
 ### Step 1: SSH ke Server

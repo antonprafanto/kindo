@@ -1,3 +1,15 @@
+# ModSecurity (Rumahweb/cPanel): artikel tutorial berisi cuplikan kode/shell/MQTT
+# yang memicu false positive 403 pada POST Livewire/Filament. Matikan WAF hanya
+# untuk endpoint Livewire — admin & kontributor tetap bisa edit artikel penuh.
+<IfModule mod_security2.c>
+    SecRule REQUEST_URI "@rx (?i)^/livewire" \
+        "id:109001,phase:1,pass,nolog,ctl:ruleEngine=Off"
+</IfModule>
+<IfModule security2_module>
+    SecRule REQUEST_URI "@rx (?i)^/livewire" \
+        "id:109002,phase:1,pass,nolog,ctl:ruleEngine=Off"
+</IfModule>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
