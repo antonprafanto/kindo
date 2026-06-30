@@ -36,6 +36,9 @@ class Article extends Model
             if (empty($article->excerpt) && $article->body) {
                 $article->excerpt = Str::limit(strip_tags($article->body), 200);
             }
+            if ($article->status === 'published' && $article->published_at === null) {
+                $article->published_at = now();
+            }
         });
     }
 
