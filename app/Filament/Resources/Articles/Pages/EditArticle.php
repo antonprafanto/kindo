@@ -3,7 +3,6 @@
 namespace App\Filament\Resources\Articles\Pages;
 
 use App\Filament\Resources\Articles\ArticleResource;
-use App\Filament\Resources\Articles\Concerns\ArticleCoverUploadAction;
 use App\Filament\Resources\Articles\Concerns\HasArticlePreviewAction;
 use App\Filament\Resources\Articles\Schemas\ArticleForm;
 use Filament\Actions\DeleteAction;
@@ -45,23 +44,13 @@ class EditArticle extends EditRecord
 
     public function form(Schema $schema): Schema
     {
-        return ArticleForm::configure($schema, lockBody: $this->shouldLockBodyForEdit());
-    }
-
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        if ($this->shouldLockBodyForEdit()) {
-            unset($data['body']);
-        }
-
-        return $data;
+        return ArticleForm::configure($schema, includeCoverSection: false);
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        if ($this->shouldLockBodyForEdit()) {
-            $data['body'] = $this->record->body;
-        }
+        // Cover dikelola lewat tombol Upload Cover di daftar artikel, bukan form edit.
+        unset($data['cover_image']);
 
         if (auth()->user()?->isAuthor()) {
             $this->assertAuthorCanMutateArticle();
@@ -74,15 +63,6 @@ class EditArticle extends EditRecord
         }
 
         return $data;
-    }
-
-    protected function shouldLockBodyForEdit(): bool
-    {
-        if (! auth()->user()?->isAdmin()) {
-            return false;
-        }
-
-        return $this->record->status === 'published';
     }
 
     protected function getHeaderActions(): array
@@ -98,7 +78,6 @@ class EditArticle extends EditRecord
         }
 
         return [
-            ArticleCoverUploadAction::make(),
             $this->makePreviewAction(),
             DeleteAction::make()->label('Hapus'),
             ForceDeleteAction::make()->label('Hapus Permanen'),

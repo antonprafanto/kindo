@@ -6,9 +6,7 @@ use App\Models\Article;
 use App\Models\User;
 use App\Services\SitemapService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
@@ -309,39 +307,6 @@ class DeployController extends Controller
         Artisan::call('view:clear');
 
         return response('Article 13 published', 200);
-    }
-
-    /**
-     * Upload cover artikel tanpa Livewire/Filament (hindari WAF 403 di shared hosting).
-     */
-    public function uploadArticleCover(Request $request): Response|View
-    {
-        $this->authorizeDeployHook();
-
-        if ($request->isMethod('GET')) {
-            return view('deploy.upload-cover', [
-                'slug' => (string) $request->query('slug', 'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'),
-            ]);
-        }
-
-        $validated = $request->validate([
-            'slug'  => 'required|string|max:255',
-            'cover' => 'required|image|max:4096',
-        ]);
-
-        $article = Article::where('slug', $validated['slug'])->firstOrFail();
-        $path    = $request->file('cover')->store('articles/covers', 'public');
-        $article->update(['cover_image' => $path]);
-
-        try {
-            app(SitemapService::class)->writeToDisk();
-        } catch (\Throwable $e) {
-            report($e);
-        }
-
-        Artisan::call('view:clear');
-
-        return response("Cover uploaded for {$article->slug}: {$path}", 200);
     }
 
     public function publishArticle9(): Response
