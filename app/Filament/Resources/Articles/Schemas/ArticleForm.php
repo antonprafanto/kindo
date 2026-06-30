@@ -109,21 +109,18 @@ class ArticleForm
 
                 // ─── 2. Gambar sampul ───────────────────────────────────────
                 Section::make('Gambar Sampul')
-                    ->description('Upload gambar cover artikel (rasio 16:9, ideal 1200×630px)')
+                    ->description('Upload gambar cover artikel (rasio 16:9, ideal 1200×630px). Jika error, gunakan tombol hijau **Upload Cover** di kanan atas.')
                     ->schema([
                         FileUpload::make('cover_image')
                             ->label(false)
                             ->disk('public')
                             ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('16:9')
-                            ->imageResizeTargetWidth('1200')
-                            ->imageResizeTargetHeight('630')
+                            ->maxSize(4096)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                             ->directory('articles/covers')
                             ->columnSpanFull(),
                     ])
-                    ->columnSpanFull()
-                    ->collapsed(),
+                    ->columnSpanFull(),
 
                 // ─── 3. Metadata publikasi — di bawah ──────────────────────
                 Section::make('Metadata & Publikasi')

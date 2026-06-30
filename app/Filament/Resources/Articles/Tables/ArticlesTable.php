@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Articles\Tables;
 
+use App\Filament\Resources\Articles\Concerns\ArticleCoverUploadAction;
 use Filament\Actions\Action;
 use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
@@ -101,6 +102,7 @@ class ArticlesTable
                 $isAdmin ? TrashedFilter::make() : null,
             ]))
             ->recordActions([
+                ArticleCoverUploadAction::make(),
                 Action::make('preview')
                     ->label('Pratinjau')
                     ->icon('heroicon-o-eye')

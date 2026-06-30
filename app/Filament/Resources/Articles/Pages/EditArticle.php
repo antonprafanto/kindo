@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Articles\Pages;
 
+use App\Filament\Resources\Articles\Concerns\ArticleCoverUploadAction;
 use App\Filament\Resources\Articles\ArticleResource;
 use App\Filament\Resources\Articles\Concerns\HasArticlePreviewAction;
 use Filament\Actions\DeleteAction;
@@ -68,6 +69,7 @@ class EditArticle extends EditRecord
         }
 
         return [
+            ArticleCoverUploadAction::make(),
             $this->makePreviewAction(),
             DeleteAction::make()->label('Hapus'),
             ForceDeleteAction::make()->label('Hapus Permanen'),
