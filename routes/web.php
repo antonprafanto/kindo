@@ -44,9 +44,9 @@ Route::get('/newsletter/konfirmasi/{token}', [NewsletterController::class, 'conf
 Route::get('/newsletter/berhenti/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/admin/articles/{article}/edit-body', [ArticleBodyEditorController::class, 'edit'])
+    Route::get('/editor/artikel/{article}', [ArticleBodyEditorController::class, 'edit'])
         ->name('admin.articles.edit-body');
-    Route::post('/admin/articles/{article}/edit-body', [ArticleBodyEditorController::class, 'update'])
+    Route::post('/editor/artikel/{article}', [ArticleBodyEditorController::class, 'update'])
         ->middleware('throttle:30,1')
         ->name('admin.articles.edit-body.update');
 });
