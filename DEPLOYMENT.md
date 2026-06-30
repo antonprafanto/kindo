@@ -123,7 +123,7 @@ Gejala: notifikasi *"Error while loading page"*, console `POST /livewire-…/upd
 
 **Penyebab:** ModSecurity di Rumahweb memblokir payload POST Livewire (false positive), bukan bug Laravel/Filament.
 
-**Perbaikan otomatis (sudah di repo):** `public/.htaccess` mematikan WAF untuk URL `/livewire*` dan `/editor/artikel/*`. Isi artikel panjang disimpan lewat **Editor Isi Artikel** (tombol biru di halaman edit Filament) — form biasa dengan payload base64, bukan Livewire.
+**Perbaikan otomatis (sudah di repo):** `public/.htaccess` mematikan WAF untuk URL `/livewire*` dan `/admin/articles/*/isi`. Isi artikel panjang disimpan lewat **Editor Isi Artikel** (tombol biru di halaman edit Filament) — form biasa dengan payload base64, bukan Livewire.
 
 **Jika masih 403 setelah deploy:**
 

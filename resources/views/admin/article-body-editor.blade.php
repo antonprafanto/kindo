@@ -102,7 +102,7 @@
             <div class="error">{{ $errors->first() }}</div>
         @endif
 
-        <form method="post" action="{{ route('admin.articles.edit-body.update', $article) }}" id="body-form">
+        <form method="post" action="{{ route('filament.admin.articles.isi.update', $article) }}" id="body-form">
             @csrf
             <input type="hidden" name="body_b64" id="body_b64">
 

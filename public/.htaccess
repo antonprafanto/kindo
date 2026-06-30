@@ -4,13 +4,13 @@
 <IfModule mod_security2.c>
     SecRule REQUEST_URI "@rx (?i)^/livewire" \
         "id:109001,phase:1,pass,nolog,ctl:ruleEngine=Off"
-    SecRule REQUEST_URI "@rx (?i)^/editor/artikel" \
+    SecRule REQUEST_URI "@rx (?i)/articles/[0-9]+/isi" \
         "id:109003,phase:1,pass,nolog,ctl:ruleEngine=Off"
 </IfModule>
 <IfModule security2_module>
     SecRule REQUEST_URI "@rx (?i)^/livewire" \
         "id:109002,phase:1,pass,nolog,ctl:ruleEngine=Off"
-    SecRule REQUEST_URI "@rx (?i)^/editor/artikel" \
+    SecRule REQUEST_URI "@rx (?i)/articles/[0-9]+/isi" \
         "id:109004,phase:1,pass,nolog,ctl:ruleEngine=Off"
 </IfModule>
 

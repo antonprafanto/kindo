@@ -56,7 +56,7 @@ class EditArticle extends EditRecord
             $schema,
             includeCoverSection: false,
             excludeBodyFromForm: true,
-            bodyEditorUrl: route('admin.articles.edit-body', ['article' => $this->record]),
+            bodyEditorUrl: route('filament.admin.articles.isi', ['article' => $this->record]),
         );
     }
 
@@ -92,7 +92,7 @@ class EditArticle extends EditRecord
             ->label('Edit Isi Artikel')
             ->icon('heroicon-o-document-text')
             ->color('primary')
-            ->url(fn () => route('admin.articles.edit-body', ['article' => $this->record]));
+            ->url(fn () => route('filament.admin.articles.isi', ['article' => $this->record]));
 
         if (auth()->user()?->isAuthor()) {
             return [
