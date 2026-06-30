@@ -38,6 +38,11 @@ class ArticleController extends Controller
 
     public function show(string $slug)
     {
+        $redirects = config('article-redirects', []);
+        if (isset($redirects[$slug])) {
+            return redirect()->route('articles.show', $redirects[$slug], 301);
+        }
+
         $article = Article::published()
             ->with(['category', 'user', 'tags'])
             ->where('slug', $slug)

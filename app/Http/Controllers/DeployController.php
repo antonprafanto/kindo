@@ -368,6 +368,8 @@ class DeployController extends Controller
             return response('Article 14 seed incomplete', 500);
         }
 
+        $this->runDuplicateBme280Cleanup();
+
         try {
             app(SitemapService::class)->writeToDisk();
         } catch (\Throwable $e) {
@@ -377,6 +379,34 @@ class DeployController extends Controller
         Artisan::call('view:clear');
 
         return response('Article 14 published', 200);
+    }
+
+    /**
+     * Hapus duplikat BME280 manual + 301 redirect slug lama (shared hosting).
+     */
+    public function cleanupDuplicateBme280(): Response
+    {
+        $this->authorizeDeployHook();
+
+        $this->runDuplicateBme280Cleanup();
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Duplicate BME280 cleaned up', 200);
+    }
+
+    private function runDuplicateBme280Cleanup(): void
+    {
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\RemoveDuplicateBme280Seeder',
+            '--force' => true,
+        ]);
     }
 
     public function publishArticle9(): Response
