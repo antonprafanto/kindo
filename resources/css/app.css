@@ -455,25 +455,42 @@ html.theme-animate footer {
     }
     .article-body tr:nth-child(even) td { background: #F7F7F5; }
 
-    /* Pagination Neo-Brutalism override */
-    nav[aria-label="Pagination Navigation"] span,
-    nav[aria-label="Pagination Navigation"] a {
+    /* Pagination Neo-Brutalism override — target leaf buttons only (Laravel nests spans) */
+    nav[aria-label="Pagination Navigation"] > div > div:last-child > span.inline-flex {
+        display: inline-flex;
+        gap: 4px;
+        border: none;
+        background: transparent;
+        box-shadow: none;
+        padding: 0;
+        min-width: 0;
+        height: auto;
+        margin: 0;
+        border-radius: 0;
+    }
+    nav[aria-label="Pagination Navigation"] a,
+    nav[aria-label="Pagination Navigation"] [aria-current="page"] > span,
+    nav[aria-label="Pagination Navigation"] span[aria-disabled] > span,
+    nav[aria-label="Pagination Navigation"] > div.sm\:hidden > a,
+    nav[aria-label="Pagination Navigation"] > div.sm\:hidden > span {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         min-width: 38px;
         height: 38px;
         padding: 0 .5rem;
-        margin: 0 2px;
+        margin: 0;
         border: 2px solid #000;
+        border-radius: 0;
         font-weight: 700;
         font-size: .8rem;
         text-decoration: none;
         background: #fff;
         color: #000;
+        box-shadow: none;
     }
     nav[aria-label="Pagination Navigation"] a:hover { background: #000; color: #fff; }
-    nav[aria-label="Pagination Navigation"] [aria-current="page"] span {
+    nav[aria-label="Pagination Navigation"] [aria-current="page"] > span {
         background: #2979FF;
         color: #fff;
         border-color: #000;
@@ -565,13 +582,20 @@ html.theme-animate footer {
     html.dark .article-body blockquote { background: #1e3a5f; color: var(--color-dark); }
     html.dark .article-body tr:nth-child(even) td { background: var(--color-surface-dark); }
     html.dark .article-body td { border-color: var(--color-ink); }
-    html.dark nav[aria-label="Pagination Navigation"] span,
-    html.dark nav[aria-label="Pagination Navigation"] a {
+    html.dark nav[aria-label="Pagination Navigation"] a,
+    html.dark nav[aria-label="Pagination Navigation"] [aria-current="page"] > span,
+    html.dark nav[aria-label="Pagination Navigation"] span[aria-disabled] > span,
+    html.dark nav[aria-label="Pagination Navigation"] > div.sm\:hidden > a,
+    html.dark nav[aria-label="Pagination Navigation"] > div.sm\:hidden > span {
         background: var(--color-paper);
         color: var(--color-ink);
     }
     html.dark nav[aria-label="Pagination Navigation"] a:hover {
         background: var(--color-ink);
         color: var(--color-paper);
+    }
+    html.dark nav[aria-label="Pagination Navigation"] [aria-current="page"] > span {
+        background: #2979FF;
+        color: #fff;
     }
 }
