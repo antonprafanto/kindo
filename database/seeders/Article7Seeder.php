@@ -28,13 +28,13 @@ class Article7Seeder extends Seeder
                 'category_id'       => $iotCat->id,
                 'title'             => 'Memahami MQTT dengan ESP32: Kirim Data Sensor ke Broker IoT',
                 'body'              => $this->body(),
-                'cover_image'       => null,
                 'status'            => 'published',
                 'is_featured'       => false,
                 'seo_title'         => 'Tutorial MQTT ESP32 — Publish Data Sensor ke Broker IoT',
                 'seo_description'   => 'Pelajari protokol MQTT dan cara mengirim data sensor DHT22 dari ESP32 ke broker. Panduan lengkap untuk pemula IoT berbahasa Indonesia.',
             ]
         );
+        // cover_image tidak disentuh — upload manual via Filament; hindari wipe saat re-seed
 
         if ($article->wasRecentlyCreated || ! $article->published_at) {
             $article->published_at = now();

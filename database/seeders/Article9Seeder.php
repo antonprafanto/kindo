@@ -28,13 +28,13 @@ class Article9Seeder extends Seeder
                 'category_id'     => $iotCat->id,
                 'title'           => 'Gabungkan DHT22 dan Relay MQTT dalam Satu Proyek ESP32',
                 'body'            => $this->body(),
-                'cover_image'     => null,
                 'status'          => 'published',
                 'is_featured'     => false,
                 'seo_title'       => 'Proyek ESP32 Lengkap: DHT22 + Relay MQTT dalam Satu Sketch',
                 'seo_description' => 'Publish suhu DHT22 dan kontrol lampu relay lewat MQTT dalam satu kode ESP32. Tutorial gabungan smart home bahasa Indonesia.',
             ]
         );
+        // cover_image tidak disentuh — upload manual via Filament; hindari wipe saat re-seed
 
         if ($article->wasRecentlyCreated || ! $article->published_at) {
             $article->published_at = now();

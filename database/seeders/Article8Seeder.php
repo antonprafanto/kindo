@@ -28,13 +28,13 @@ class Article8Seeder extends Seeder
                 'category_id'     => $iotCat->id,
                 'title'           => 'Kontrol Lampu dengan ESP32 via MQTT dan Modul Relay',
                 'body'            => $this->body(),
-                'cover_image'     => null,
                 'status'          => 'published',
                 'is_featured'     => false,
                 'seo_title'       => 'Tutorial Kontrol Lampu ESP32 MQTT + Relay — Smart Home Dasar',
                 'seo_description' => 'Nyalakan dan matikan lampu dari HP atau laptop lewat MQTT. Tutorial ESP32, modul relay, dan broker Mosquitto berbahasa Indonesia.',
             ]
         );
+        // cover_image tidak disentuh — upload manual via Filament; hindari wipe saat re-seed
 
         if ($article->wasRecentlyCreated || ! $article->published_at) {
             $article->published_at = now();

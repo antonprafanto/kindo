@@ -27,14 +27,18 @@ class Article6Seeder extends Seeder
                 'category_id'     => $iotCat->id,
                 'title'           => 'Membuat Web Server ESP32 untuk Monitoring Sensor DHT22',
                 'body'            => $this->body(),
-                'cover_image'     => null,
                 'status'          => 'published',
                 'is_featured'     => false,
-                'published_at'    => now(),
                 'seo_title'       => 'Tutorial Web Server ESP32 + DHT22 — Monitoring Suhu via Browser',
                 'seo_description' => 'Buat dashboard monitoring suhu dan kelembaban langsung di browser. Gabungkan ESP32 WebServer, WiFi, dan sensor DHT22 dalam satu proyek IoT.',
             ]
         );
+        // cover_image tidak disentuh — upload manual via Filament; hindari wipe saat re-seed
+
+        if ($article->wasRecentlyCreated || ! $article->published_at) {
+            $article->published_at = now();
+            $article->save();
+        }
 
         $tagSlugs = ['esp32', 'iot', 'wifi', 'sensor', 'api'];
         $tagIds   = Tag::whereIn('slug', $tagSlugs)->pluck('id');
