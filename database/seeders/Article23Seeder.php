@@ -308,7 +308,7 @@ return null;</code></pre>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #24:</strong> Sensor <strong>PIR + lampu MQTT</strong> — automasi gerak dengan debounce</li>
+  <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — automasi gerak dengan debounce &amp; hold time</li>
   <li><strong>Artikel #17:</strong> MQTT <strong>TLS</strong> — amankan Mosquitto di internet</li>
   <li><strong>Artikel #18:</strong> <strong>Python subscriber</strong> → MySQL untuk histori sensor</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — gabung sensor, Node-RED/HA, dan aktuator</li>

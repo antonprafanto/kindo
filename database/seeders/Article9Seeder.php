@@ -313,6 +313,7 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
   <li>Integrasi <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> — sensor MQTT + switch relay di satu dashboard</li>
   <li>Atau pakai <strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — node DHT22 + relay tanpa coding Arduino</li>
   <li>Dashboard &amp; otomasi visual dengan <strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a></strong> — flow MQTT drag-and-drop</li>
+  <li>Automasi gerak dengan <strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">sensor PIR + lampu MQTT (#24)</a></strong> — debounce &amp; hold time</li>
   <li>Broker <strong>Mosquitto pribadi</strong> di Raspberry Pi dengan username/password</li>
   <li>Simpan histori suhu ke database lewat subscriber Python/Node.js di server</li>
   <li>Pelajari <strong>deep sleep</strong> ESP32 untuk hemat baterai pada node sensor</li>
