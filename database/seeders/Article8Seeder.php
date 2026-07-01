@@ -241,7 +241,7 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
 <ul>
   <li><a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">Gabungkan publish DHT22 + subscribe relay</a> dalam satu sketch ESP32</li>
   <li>Kontrol otomatis: matikan lampu jika suhu &gt; 30°C — sudah ada contoh di artikel gabungan</li>
-  <li>Integrasi <strong>Home Assistant</strong> — switch MQTT native</li>
+  <li>Integrasi <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> — switch &amp; sensor MQTT native di dashboard smart home</li>
   <li>Broker Mosquitto pribadi di Raspberry Pi dengan autentikasi</li>
 </ul>
 

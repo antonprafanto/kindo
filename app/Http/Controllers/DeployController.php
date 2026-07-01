@@ -473,6 +473,73 @@ class DeployController extends Controller
         return response('Article 15 published', 200);
     }
 
+    /**
+     * Publish artikel ke-21 via seeder (Home Assistant + ESP32 MQTT).
+     * Juga re-seed #8, #9, #10, #15, #16 + cleanup duplikat BME280.
+     */
+    public function publishArticle21(): Response
+    {
+        $this->authorizeDeployHook();
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article21Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 21 seed failed', 500);
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article16Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article15Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article10Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article9Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article8Seeder',
+            '--force' => true,
+        ]);
+
+        $this->runDuplicateBme280Cleanup();
+
+        $published = Article::query()
+            ->where('slug', 'home-assistant-integrasi-esp32-mqtt')
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 21 missing after Article21Seeder on deploy hook.'));
+
+            return response('Article 21 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 21 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

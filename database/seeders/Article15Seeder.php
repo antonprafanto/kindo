@@ -218,7 +218,7 @@ void loop() {
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
   <li>Gabungkan OTA + <a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED (#14)</a> + <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a> untuk node sensor lengkap</li>
-  <li><strong>Artikel #21:</strong> Home Assistant — integrasi ESP32 via MQTT</li>
+  <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — integrasi ESP32 via broker pribadi</li>
   <li><strong>Artikel #17:</strong> MQTT TLS — amankan broker di internet</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — stack lapangan dengan OTA maintenance</li>
 </ul>

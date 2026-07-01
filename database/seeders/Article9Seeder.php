@@ -310,7 +310,7 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
 <h2>Langkah Selanjutnya</h2>
 <ul>
   <li><a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">Dashboard hybrid Web Server + MQTT</a> — monitoring lokal &amp; remote dalam satu sketch</li>
-  <li>Integrasi <strong>Home Assistant</strong> — sensor MQTT + switch MQTT</li>
+  <li>Integrasi <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> — sensor MQTT + switch relay di satu dashboard</li>
   <li>Broker <strong>Mosquitto pribadi</strong> di Raspberry Pi dengan username/password</li>
   <li>Simpan histori suhu ke database lewat subscriber Python/Node.js di server</li>
   <li>Pelajari <strong>deep sleep</strong> ESP32 untuk hemat baterai pada node sensor</li>
