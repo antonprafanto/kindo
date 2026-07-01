@@ -515,6 +515,16 @@ class DeployController extends Controller
             '--force' => true,
         ]);
 
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article7Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article6Seeder',
+            '--force' => true,
+        ]);
+
         $this->runDuplicateBme280Cleanup();
 
         $published = Article::query()

@@ -77,7 +77,7 @@ class Article21Seeder extends Seeder
 <h2>Apa itu Home Assistant?</h2>
 <table>
   <thead>
-    <tr><th>Aspek</th><th>Web server ESP32 (#6)</th><th>Home Assistant</th></tr>
+    <tr><th>Aspek</th><th><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web server ESP32 (#6)</a></th><th>Home Assistant</th></tr>
   </thead>
   <tbody>
     <tr><td>Fokus</td><td>Halaman monitoring satu board</td><td><strong>Hub</strong> banyak perangkat &amp; protokol</td></tr>
@@ -168,12 +168,14 @@ docker compose up -d
       state_topic: "kodingindonesia/esp32/lampu/kontrol"
       payload_on: "ON"
       payload_off: "OFF"
-      state_on: "ON"
-      state_off: "OFF"
-      optimistic: false
+      optimistic: true
 </code></pre>
 
-<p>Switch ini memakai topic yang sama dengan <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">artikel relay #8</a> — ESP32 subscribe dan mengubah GPIO relay saat HA mengirim <code>ON</code>/<code>OFF</code>. Field <code>optimistic: false</code> membuat HA menunggu state topic sebelum mengubah ikon switch di UI.</p>
+<p>Switch ini memakai topic yang sama dengan <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">artikel relay #8</a> — ESP32 subscribe dan mengubah GPIO relay saat HA mengirim <code>ON</code>/<code>OFF</code>.</p>
+
+<blockquote>
+  <p><strong>Catatan <code>optimistic: true</code>:</strong> Sketch <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">#9</a> hanya <strong>subscribe</strong> topic kontrol — tidak mem-publish balik status relay. Tanpa itu, HA dengan <code>optimistic: false</code> + <code>state_topic</code> akan tampak &ldquo;macet&rdquo;. Untuk produksi, tambahkan <code>mqttClient.publish(topicKontrol, "ON")</code> di <code>callbackMQTT()</code> setelah relay berubah, lalu set <code>optimistic: false</code>.</p>
+</blockquote>
 
 <h2>Penjelasan Entity di Home Assistant</h2>
 <ul>
@@ -218,6 +220,11 @@ action:
   <li>Setup MQTT integration + <code>configuration.yaml</code> di HA → restart</li>
   <li>Buka dashboard — suhu/kelembaban harus update setiap ~10 detik</li>
   <li>Toggle switch lampu di HA → relay ESP32 klik ON/OFF</li>
+  <li>Opsional — uji relay tanpa HA dulu:
+<pre><code class="language-bash">mosquitto_pub -h 192.168.1.50 -p 1883 \
+  -u kindo_esp32 -P 'KindoMQTT2026!' \
+  -t "kodingindonesia/esp32/lampu/kontrol" -m "ON"</code></pre>
+  </li>
 </ol>
 
 <h2>Gabung dengan Stack Seri 2</h2>

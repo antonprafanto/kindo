@@ -45,6 +45,8 @@ Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article15Seeder', '--
 Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article10Seeder', '--force' => true]);
 Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article9Seeder', '--force' => true]);
 Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article8Seeder', '--force' => true]);
+Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article7Seeder', '--force' => true]);
+Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article6Seeder', '--force' => true]);
 Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\RemoveDuplicateBme280Seeder', '--force' => true]);
 
 $article = Article::where('slug', $slug)->first();
@@ -64,6 +66,7 @@ foreach ($requiredTags as $tag) {
 }
 
 $requiredLinks = [
+    'membuat-web-server-esp32-monitoring-sensor-dht22'             => 'Artikel #6 web server',
     'kontrol-lampu-esp32-mqtt-relay'                                 => 'Artikel #8 relay',
     'gabungkan-dht22-relay-mqtt-esp32-satu-proyek'                   => 'Artikel #9 gabungan',
     'memahami-mqtt-esp32-kirim-data-sensor-broker'                   => 'Artikel #7 MQTT',
@@ -84,6 +87,16 @@ check(str_contains($body, 'configuration.yaml'), 'Konfigurasi configuration.yaml
 check(str_contains($body, 'value_template'), 'MQTT sensor value_template');
 check(str_contains($body, 'kodingindonesia/esp32/dht22/data'), 'Topic sensor DHT22 konsisten');
 check(str_contains($body, 'kodingindonesia/esp32/lampu/kontrol'), 'Topic relay konsisten');
+check(str_contains($body, 'optimistic: true'), 'MQTT switch optimistic: true (cocok sketch #9)');
+check(str_contains($body, 'optimistic: false'), 'Menjelaskan kapan optimistic: false');
+check(str_contains($body, 'mqttClient.publish(topicKontrol'), 'Tips publish state relay balik');
+check(str_contains($body, 'mqttClient.loop()'), 'Troubleshooting mqttClient.loop()');
+check(str_contains($body, 'mosquitto_pub'), 'Uji coba mosquitto_pub relay');
+check(str_contains($body, 'Artikel #17'), 'Teaser MQTT TLS #17');
+check(str_contains($body, 'numeric_state'), 'Automasi numeric_state');
+check(str_contains($body, 'device_class'), 'YAML device_class sensor');
+check(str_contains($body, '{"suhu"'), 'Contoh payload JSON suhu');
+check(str_contains($body, 'test.mosquitto.org'), 'Peringatan jangan pakai broker publik');
 check(str_contains($body, 'payload_on'), 'MQTT switch payload_on');
 check(str_contains($body, 'docker-compose'), 'Install Docker Compose');
 check(str_contains($body, '8123'), 'Port Home Assistant 8123');
@@ -144,6 +157,22 @@ check(str_contains($a9?->body ?? '', 'home-assistant-integrasi-esp32-mqtt'), 'Ar
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
 check($a10 !== null, 'Artikel #10 ada');
 check(str_contains($a10?->body ?? '', 'home-assistant-integrasi-esp32-mqtt'), 'Artikel #10 indeks → #21');
+
+$a7 = Article::where('slug', 'memahami-mqtt-esp32-kirim-data-sensor-broker')->first();
+check($a7 !== null, 'Artikel #7 ada');
+check(str_contains($a7?->body ?? '', 'home-assistant-integrasi-esp32-mqtt'), 'Artikel #7 backlink → #21');
+
+$a6 = Article::where('slug', 'membuat-web-server-esp32-monitoring-sensor-dht22')->first();
+check($a6 !== null, 'Artikel #6 ada');
+check(str_contains($a6?->body ?? '', 'home-assistant-integrasi-esp32-mqtt'), 'Artikel #6 backlink → #21 (langkah selanjutnya)');
+
+check(
+    str_contains($a6?->body ?? '', 'home-assistant-integrasi-esp32-mqtt') &&
+    preg_match('/diintegrasikan dengan.*home-assistant-integrasi-esp32-mqtt/', $a6?->body ?? ''),
+    'Artikel #6 body pendahuluan → #21'
+);
+
+check(str_contains($a8?->body ?? '', 'broker-mosquitto-pribadi'), 'Artikel #8 backlink → #16 broker');
 
 echo "\n=== Post-deploy (manual) ===\n";
 echo "○ Upload cover image via Filament (daftar artikel → Upload Cover)\n";

@@ -288,7 +288,7 @@ void loop() {
 
 <h2>Langkah Selanjutnya</h2>
 <ul>
-  <li>Subscribe MQTT di <strong>Home Assistant</strong> untuk smart home dashboard</li>
+  <li>Subscribe MQTT di <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> untuk smart home dashboard</li>
   <li>Setup broker <strong>Mosquitto</strong> pribadi di Raspberry Pi atau VPS</li>
   <li>Tambahkan <strong>relay</strong> dan subscribe ke topic kontrol untuk nyalakan/matikan lampu</li>
   <li>Simpan data ke database via subscriber Node.js atau Python di server</li>

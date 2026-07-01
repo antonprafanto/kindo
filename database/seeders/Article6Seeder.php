@@ -206,7 +206,7 @@ void loop() {
   "device": "ESP32-001"
 }</code></pre>
 
-<p>Endpoint ini bisa dipakai untuk membangun dashboard custom, mengirim data ke server cloud, atau diintegrasikan dengan Home Assistant di fase berikutnya.</p>
+<p>Endpoint ini bisa dipakai untuk membangun dashboard custom, mengirim data ke server cloud, atau diintegrasikan dengan <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a> di fase berikutnya.</p>
 
 <h2>Cara Kerja Web Server ESP32</h2>
 <p>Berikut alur singkat yang terjadi di balik layar:</p>
@@ -234,7 +234,7 @@ void loop() {
   <li>Kirim data ke <strong>server cloud</strong> secara berkala (kombinasi dengan artikel HTTP POST)</li>
   <li>Pelajari protokol <strong>MQTT</strong> untuk komunikasi IoT yang lebih efisien</li>
   <li>Tambahkan <strong>relay</strong> untuk kontrol lampu berdasarkan suhu</li>
-  <li>Integrasikan dengan <strong>Home Assistant</strong> untuk smart home lengkap</li>
+  <li>Integrasikan dengan <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> untuk smart home lengkap</li>
 </ul>
 
 <blockquote>
