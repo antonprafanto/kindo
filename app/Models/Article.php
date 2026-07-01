@@ -21,6 +21,8 @@ class Article extends Model
     ];
 
     protected $casts = [
+        'user_id'      => 'integer',
+        'category_id'  => 'integer',
         'is_featured'  => 'boolean',
         'published_at' => 'datetime',
     ];
@@ -106,6 +108,18 @@ class Article extends Model
         return $this->status === 'published'
             && $this->published_at !== null
             && $this->published_at->lte(now());
+    }
+
+    public function isOwnedBy(User|int|null $user): bool
+    {
+        $ownerId = $user instanceof User ? $user->getKey() : $user;
+
+        return $ownerId !== null && (int) $this->user_id === (int) $ownerId;
+    }
+
+    public function isEditableByAuthor(): bool
+    {
+        return in_array($this->status, ['draft', 'pending_review'], true);
     }
 
     public function isPreviewable(): bool

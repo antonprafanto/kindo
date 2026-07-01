@@ -63,11 +63,17 @@ class ArticleBodyEditorController extends Controller
             return;
         }
 
-        if ($user->isAuthor() && $article->user_id === $user->id && $article->status !== 'published') {
-            return;
+        if (! $user->isAuthor()) {
+            abort(403, 'Anda tidak berhak mengedit isi artikel ini.');
         }
 
-        abort(403, 'Anda tidak berhak mengedit isi artikel ini.');
+        if (! $article->isOwnedBy($user)) {
+            abort(403, 'Anda tidak berhak mengedit isi artikel ini.');
+        }
+
+        if (! $article->isEditableByAuthor()) {
+            abort(403, 'Artikel yang sudah terbit tidak bisa diedit. Hubungi admin jika perlu revisi.');
+        }
     }
 
     private function filamentEditUrl(Article $article): string

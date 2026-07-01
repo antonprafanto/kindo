@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Auth\Pages\Login;
 use App\Filament\Auth\Pages\RequestPasswordReset;
 use App\Http\Controllers\Admin\ArticleBodyEditorController;
+use App\Models\Article;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -72,6 +73,16 @@ class AdminPanelProvider extends PanelProvider
                 fn () => view('filament.hooks.admin-editor-styles'),
             )
             ->routes(function () {
+                Route::bind('article', function (string $value): Article {
+                    $query = Article::query();
+
+                    if (auth()->user()?->isAuthor()) {
+                        $query->where('user_id', auth()->id());
+                    }
+
+                    return $query->whereKey($value)->firstOrFail();
+                });
+
                 Route::get('articles/{article}/isi', [ArticleBodyEditorController::class, 'edit'])
                     ->name('articles.isi');
                 Route::post('articles/{article}/isi', [ArticleBodyEditorController::class, 'update'])
