@@ -127,6 +127,24 @@ class ArticleForm
                                     ['table', 'horizontalRule', 'attachFiles'],
                                     ['undo', 'redo'],
                                 ])
+                                ->floatingToolbars([
+                                    'paragraph' => [
+                                        'bold', 'italic', 'underline', 'strike', 'code', 'link',
+                                    ],
+                                    'heading' => [
+                                        'h2', 'h3', 'h4',
+                                    ],
+                                    'blockquote' => [
+                                        'bold', 'italic', 'link',
+                                    ],
+                                    'table' => [
+                                        'tableAddColumnBefore', 'tableAddColumnAfter', 'tableDeleteColumn',
+                                        'tableAddRowBefore', 'tableAddRowAfter', 'tableDeleteRow',
+                                        'tableMergeCells', 'tableSplitCell',
+                                        'tableToggleHeaderRow', 'tableToggleHeaderCell',
+                                        'tableDelete',
+                                    ],
+                                ])
                                 ->columnSpanFull(),
                         ]),
                 ])

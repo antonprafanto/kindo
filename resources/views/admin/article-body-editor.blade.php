@@ -76,7 +76,71 @@
         .btn:disabled { opacity: .6; cursor: wait; }
         .btn:hover:not(:disabled) { filter: brightness(1.06); }
         .hint { color: var(--muted); font-size: .8rem; }
+        .hint kbd {
+            display: inline-block;
+            padding: .1rem .35rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: #0f172a;
+            font-size: .72rem;
+            font-family: inherit;
+        }
         .tox-tinymce { border: none !important; }
+        .tox-editor-header--sticky {
+            background: #111827 !important;
+            border-bottom: 1px solid var(--border) !important;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .28);
+        }
+        /* Floating toolbar saat teks diseleksi (mirip Medium) */
+        .tox-pop {
+            animation: kindo-quickbar-in .16s ease-out;
+        }
+        @keyframes kindo-quickbar-in {
+            from { opacity: 0; transform: translateY(6px) scale(.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .tox-pop .tox-toolbar,
+        .tox-pop .tox-toolbar__overflow,
+        .tox-pop .tox-toolbar__primary {
+            background: #1f2937 !important;
+            border: 1px solid #4b5563 !important;
+            border-radius: 10px !important;
+            box-shadow: 0 10px 28px rgba(0, 0, 0, .45) !important;
+        }
+        .tox-pop::before { border-bottom-color: #4b5563 !important; }
+        .tox-pop.tox-pop--bottom::before { border-top-color: #4b5563 !important; }
+        .tox-pop .tox-tbtn { color: #e5e7eb !important; }
+        .tox-pop .tox-tbtn:hover { background: #374151 !important; }
+        .tox-pop .tox-tbtn--enabled,
+        .tox-pop .tox-tbtn--enabled:hover {
+            background: #2979FF !important;
+            color: #fff !important;
+        }
+        @media (max-width: 640px) {
+            .wrap { padding-bottom: 5.5rem; }
+            .actions {
+                position: fixed;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 20;
+                margin: 0;
+                padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom));
+                background: rgba(17, 24, 39, .96);
+                border-top: 1px solid var(--border);
+                backdrop-filter: blur(8px);
+            }
+            .actions .hint { width: 100%; }
+            .tox-pop .tox-tbtn {
+                width: 2.5rem !important;
+                height: 2.5rem !important;
+            }
+            .tox-pop .tox-toolbar__group {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
     </style>
 </head>
 <body>
@@ -88,6 +152,7 @@
 
         <div class="notice">
             Editor visual seperti di Filament — judul, tag, kategori &amp; status tetap disimpan dari halaman edit utama.
+            Blok teks yang disorot menampilkan menu format mengambang (bold, link, heading, kutipan) tanpa perlu scroll ke toolbar atas.
         </div>
 
         @if (session('body_saved'))
@@ -110,7 +175,7 @@
             <div class="actions">
                 <button type="submit" class="btn btn-primary" id="save-btn">Simpan Isi Artikel</button>
                 <a href="{{ $backUrl }}" class="btn">Batal</a>
-                <span class="hint">Toolbar mirip Filament: heading, bold, list, kutipan, blok kode, tabel, link.</span>
+                <span class="hint">Sorot teks untuk menu format mengambang · Toolbar atas tetap saat scroll · <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>⌘</kbd>+<kbd>S</kbd> simpan</span>
             </div>
         </form>
     </div>
@@ -121,18 +186,37 @@
         tinymce.init({
             selector: '#body',
             height: 560,
+            min_height: 480,
             menubar: false,
             statusbar: true,
             branding: false,
             promotion: false,
             license_key: 'gpl',
+            language: 'id',
+            language_url: 'https://cdn.jsdelivr.net/npm/tinymce-i18n@26.6.8/langs7/id.js',
             skin: 'oxide-dark',
             content_css: 'dark',
+            toolbar_sticky: true,
+            toolbar_sticky_offset: 0,
             plugins: [
                 'autolink', 'lists', 'link', 'table', 'code', 'codesample',
                 'fullscreen', 'searchreplace', 'visualblocks', 'wordcount',
-                'charmap', 'anchor', 'insertdatetime', 'hr',
+                'charmap', 'anchor', 'insertdatetime', 'hr', 'quickbars', 'autoresize',
             ],
+            autoresize_bottom_margin: 32,
+            autoresize_overflow_padding: 16,
+            max_height: 1200,
+            quickbars_selection_toolbar: [
+                'bold italic underline strikethrough',
+                '| quicklink',
+                '| h2 h3 h4',
+                '| blockquote',
+            ].join(' '),
+            quickbars_insert_toolbar: false,
+            mobile: {
+                toolbar_mode: 'scrolling',
+                toolbar_sticky: true,
+            },
             toolbar: [
                 'undo redo | blocks | bold italic underline strikethrough',
                 '| alignleft aligncenter alignright',
@@ -149,6 +233,7 @@
             ],
             content_style: [
                 'body { font-family: system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: #e5e7eb; padding: 12px 16px; }',
+                '::selection { background: rgba(41, 121, 255, 0.35); color: #f9fafb; }',
                 'h2,h3,h4 { color: #f9fafb; margin-top: 1.25em; }',
                 'blockquote { border-left: 4px solid #2979FF; margin: 1em 0; padding: .5em 1em; background: #1e3a5f; }',
                 'code { background: #374151; padding: 2px 6px; border-radius: 4px; font-size: .9em; }',
@@ -166,7 +251,19 @@
             },
         });
 
-        document.getElementById('body-form').addEventListener('submit', function (e) {
+        const bodyForm = document.getElementById('body-form');
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+                if (e.target.closest('.tox-dialog, .tox-dialog-wrap')) {
+                    return;
+                }
+                e.preventDefault();
+                bodyForm.requestSubmit();
+            }
+        });
+
+        bodyForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
             const editor = tinymce.get('body');
