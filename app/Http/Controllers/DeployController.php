@@ -550,6 +550,88 @@ class DeployController extends Controller
         return response('Article 21 published', 200);
     }
 
+    /**
+     * Publish artikel ke-22 via seeder (ESPHome flash ESP32).
+     * Juga re-seed #21, #16, #15, #10, #9, #8, #7, #6 + cleanup duplikat BME280.
+     */
+    public function publishArticle22(): Response
+    {
+        $this->authorizeDeployHook();
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article22Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 22 seed failed', 500);
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article21Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article16Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article15Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article10Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article9Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article8Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article7Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article6Seeder',
+            '--force' => true,
+        ]);
+
+        $this->runDuplicateBme280Cleanup();
+
+        $published = Article::query()
+            ->where('slug', 'esphome-flash-esp32-tanpa-coding-arduino')
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 22 missing after Article22Seeder on deploy hook.'));
+
+            return response('Article 22 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 22 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

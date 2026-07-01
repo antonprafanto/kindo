@@ -277,7 +277,7 @@ action:
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #22:</strong> <strong>ESPHome</strong> — flash ESP32 tanpa coding Arduino (YAML)</li>
+  <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — flash ESP32 tanpa coding Arduino (YAML)</li>
   <li><strong>Artikel #23:</strong> <strong>Node-RED</strong> — dashboard &amp; otomasi visual</li>
   <li><strong>Artikel #24:</strong> Sensor <strong>PIR + lampu MQTT</strong> — automasi gerak dengan debounce</li>
   <li><strong>Artikel #17:</strong> MQTT <strong>TLS</strong> — amankan broker di internet</li>

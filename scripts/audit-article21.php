@@ -108,7 +108,7 @@ check(str_contains($body, 'Alur data secara singkat'), 'Diagram alur vertikal');
 check(str_contains($body, 'Publisher sensor'), 'Tabel arsitektur komponen');
 check(str_contains($body, 'Keamanan &amp; Produksi'), 'Section Keamanan & Produksi');
 check(str_contains($body, 'Pro tip'), 'Pro tip unique_id');
-check(str_contains($body, 'Artikel #22'), 'Teaser ESPHome #22');
+check(str_contains($body, 'esphome-flash-esp32-tanpa-coding-arduino'), 'Teaser link ESPHome #22');
 check(str_contains($body, 'Artikel #24'), 'Teaser PIR #24');
 check(str_contains($body, 'greenhouse'), 'Teaser capstone #39');
 check(str_contains($body, 'Seri 2'), 'Menyebut Seri 2');

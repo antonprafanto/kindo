@@ -308,6 +308,7 @@ void loop() {
   <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — tampilkan data di layar I2C</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware ESP32</a></strong> — update tanpa kabel USB</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — dashboard smart home</li>
+  <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome flash ESP32 tanpa Arduino</a></strong> — YAML + OTA</li>
 </ol>
 <p>Masih akan datang di Seri 2:</p>
 <ul>
