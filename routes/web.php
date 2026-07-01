@@ -110,6 +110,10 @@ Route::get('/deploy/publish-article-22', [DeployController::class, 'publishArtic
     ->middleware('throttle:3,1')
     ->name('deploy.publish-article-22');
 
+Route::get('/deploy/publish-article-23', [DeployController::class, 'publishArticle23'])
+    ->middleware('throttle:3,1')
+    ->name('deploy.publish-article-23');
+
 Route::get('/deploy/ensure-admin', [DeployController::class, 'ensureAdmin'])
     ->middleware('throttle:3,1')
     ->name('deploy.ensure-admin');

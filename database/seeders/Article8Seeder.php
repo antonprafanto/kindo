@@ -243,6 +243,7 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
   <li>Kontrol otomatis: matikan lampu jika suhu &gt; 30°C — sudah ada contoh di artikel gabungan</li>
   <li>Integrasi <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> — switch &amp; sensor MQTT native di dashboard smart home</li>
   <li>Alternatif tanpa sketch Arduino: <strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — flash ESP32 dari YAML</li>
+  <li>Dashboard &amp; otomasi visual: <strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a></strong> — kontrol relay lewat flow MQTT</li>
   <li>Broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi</a> di Raspberry Pi dengan autentikasi</li>
 </ul>
 

@@ -299,7 +299,7 @@ void loop() {
 </ol>
 
 <h2>Roadmap Belajar Selanjutnya — Seri 2</h2>
-<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — delapan artikel pertama (urutan publish):</p>
+<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — sembilan artikel pertama (urutan publish):</p>
 <ol>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32 + DHT22 hemat baterai</a></strong></li>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a></strong> — konfigurasi tanpa hardcode</li>
@@ -309,6 +309,7 @@ void loop() {
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware ESP32</a></strong> — update tanpa kabel USB</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — dashboard smart home</li>
   <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome flash ESP32 tanpa Arduino</a></strong> — YAML + OTA</li>
+  <li><strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED dashboard IoT MQTT</a></strong> — otomasi visual</li>
 </ol>
 <p>Masih akan datang di Seri 2:</p>
 <ul>
