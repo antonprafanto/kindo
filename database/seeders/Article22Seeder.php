@@ -62,7 +62,7 @@ class Article22Seeder extends Seeder
 <h2>Pendahuluan</h2>
 <p>Di <a href="/artikel/home-assistant-integrasi-esp32-mqtt">artikel #21</a> kamu menghubungkan ESP32 ke Home Assistant lewat <strong>MQTT manual</strong>: edit <code>configuration.yaml</code>, definisikan sensor <code>value_template</code>, dan atur switch relay sendiri. Itu fleksibel — tapi banyak boilerplate.</p>
 
-<p><strong>ESPHome</strong> adalah framework open-source yang mengubah file <strong>YAML</strong> menjadi firmware ESP32. Kamu tidak menulis <code>setup()</code> / <code>loop()</code> di Arduino IDE. Cukup deskripsikan hardware (DHT22, relay), flash sekali via USB, lalu entitas sensor &amp; switch muncul otomatis di Home Assistant.</p>
+<p>Artikel ini melanjutkan <strong>Jalur C</strong> (smart home): setelah <a href="/artikel/home-assistant-integrasi-esp32-mqtt">integrasi MQTT manual (#21)</a>, kamu bisa mempercepat deploy node ESP32 dengan <strong>ESPHome</strong> — tanpa menulis <code>setup()</code> / <code>loop()</code> di Arduino IDE.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Home Assistant sudah jalan (<a href="/artikel/home-assistant-integrasi-esp32-mqtt">artikel #21</a>). Paham wiring <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> dan <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">relay (#8)</a> — pin yang sama dipakai di sini. Familiar dengan <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan DHT22 + relay (#9)</a> membantu membandingkan pendekatan.</p>
@@ -75,6 +75,8 @@ class Article22Seeder extends Seeder
   <li>Sensor <strong>DHT22</strong> + modul <strong>relay 1 channel</strong> — wiring sama <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel #9</a></li>
   <li>PC dan ESP32 di <strong>WiFi 2.4 GHz</strong> yang sama dengan Home Assistant</li>
 </ul>
+
+<p><strong>Estimasi biaya:</strong> ESPHome &amp; add-on HA gratis — hardware sama proyek <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">#9</a> (ESP32 ~35rb + DHT22 ~25rb + relay ~15rb).</p>
 
 <h2>Arduino Sketch vs ESPHome</h2>
 <table>
@@ -110,9 +112,9 @@ class Article22Seeder extends Seeder
         v
   [ Home Assistant ]  (#21)
         |
-        +-- sensor.suhu_ruangan  (DHT22)
-        +-- sensor.kelembaban_ruangan
-        +-- switch.lampu_relay
+        +-- sensor.kindo_esp32_node_suhu_ruangan  (DHT22)
+        +-- sensor.kindo_esp32_node_kelembaban_ruangan
+        +-- switch.kindo_esp32_node_lampu_relay
         +-- automasi: suhu &gt; 30°C → matikan lampu</code></pre>
 
 <h2>Wiring Hardware</h2>
@@ -139,7 +141,10 @@ class Article22Seeder extends Seeder
 <pre><code class="language-yaml">wifi_ssid: "Nama_WiFi_Rumah"
 wifi_password: "password_wifi_anda"
 api_encryption_key: "ganti_dengan_string_acak_panjang"
-ota_password: "password_ota_anda"</code></pre>
+ota_password: "password_ota_anda"
+ap_password: "password_ap_fallback_anda"
+# Opsional — hanya jika pakai blok mqtt: ke Mosquitto (#16)
+mqtt_password: "password_mqtt_anda"</code></pre>
 
 <p>Generate <code>api_encryption_key</code> dari menu ESPHome → perangkat → <strong>API encryption key</strong>.</p>
 
@@ -159,7 +164,7 @@ wifi:
   password: !secret wifi_password
   ap:
     ssid: "Kindo-ESP32-Fallback"
-    password: "kindo1234"
+    password: !secret ap_password
 
 captive_portal:
 
@@ -201,7 +206,7 @@ switch:
   <li><code>dht</code> + <code>GPIO4</code> — sama dengan <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">sketch DHT22 (#5)</a></li>
   <li><code>inverted: true</code> — relay active LOW seperti di <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a></li>
   <li><code>api</code> + <code>ota</code> — koneksi aman ke HA dan update firmware nanti tanpa USB</li>
-  <li><code>captive_portal</code> — hotspot fallback jika WiFi gagal (mirip konsep <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager #12</a>)</li>
+  <li><code>captive_portal</code> — hotspot fallback jika WiFi gagal (mirip konsep <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager #12</a>); password AP di <code>secrets.yaml</code> → <code>ap_password</code></li>
 </ul>
 
 <h2>Langkah 4 — Flash Pertama (USB)</h2>
@@ -220,24 +225,42 @@ switch:
   <li>Tambahkan ke dashboard — tidak perlu edit <code>configuration.yaml</code> seperti di <a href="/artikel/home-assistant-integrasi-esp32-mqtt">#21</a></li>
 </ol>
 
+<h2>Dashboard di Home Assistant</h2>
+<ol>
+  <li>Buka <strong>Overview</strong> → <strong>Edit dashboard</strong> (ikon pensil)</li>
+  <li><strong>Add card</strong> → <strong>Entities</strong> → pilih sensor suhu, kelembaban, dan switch lampu</li>
+  <li>Simpan — nilai suhu harus update tiap ~10 detik</li>
+  <li>Opsional: klik sensor → <strong>Add to dashboard</strong> sebagai <strong>History graph</strong> (tren 24 jam)</li>
+</ol>
+
+<h2>Penjelasan Entity ID</h2>
+<p>ESPHome membuat entity ID dari <code>friendly_name</code> + <code>name</code> per komponen. Contoh setelah integrasi:</p>
+<ul>
+  <li><strong><code>sensor.kindo_esp32_node_suhu_ruangan</code></strong> — suhu DHT22</li>
+  <li><strong><code>sensor.kindo_esp32_node_kelembaban_ruangan</code></strong> — kelembaban</li>
+  <li><strong><code>switch.kindo_esp32_node_lampu_relay</code></strong> — kontrol relay</li>
+</ul>
+<p>Cek nama pasti di <strong>Settings → Devices &amp; Services → ESPHome</strong> → klik device → lihat entitas, atau <strong>Developer Tools → States</strong> (cari <code>kindo_esp32</code>).</p>
+
 <blockquote>
   <p><strong>Pro tip:</strong> Beri <code>friendly_name</code> yang jelas di YAML agar entitas mudah dicari di automasi HA.</p>
 </blockquote>
 
 <h2>Automasi Sederhana di Home Assistant</h2>
-<p>Contoh rule: matikan lampu jika suhu &gt; 30°C (sama konsep <a href="/artikel/home-assistant-integrasi-esp32-mqtt">automasi #21</a>):</p>
-<pre><code class="language-yaml">automation:
-  - alias: "Matikan lampu jika panas"
-    trigger:
-      - platform: numeric_state
-        entity_id: sensor.suhu_ruangan
-        above: 30
-    action:
-      - service: switch.turn_off
-        target:
-          entity_id: switch.lampu_relay</code></pre>
+<p>Contoh rule: matikan lampu jika suhu &gt; 30°C (sama konsep <a href="/artikel/home-assistant-integrasi-esp32-mqtt">automasi #21</a>). Ganti <code>entity_id</code> sesuai device kamu:</p>
+<pre><code class="language-yaml">alias: Matikan lampu jika panas
+trigger:
+  - platform: numeric_state
+    entity_id: sensor.kindo_esp32_node_suhu_ruangan
+    above: 30
+    for:
+      minutes: 5
+action:
+  - service: switch.turn_off
+    target:
+      entity_id: switch.kindo_esp32_node_lampu_relay</code></pre>
 
-<p>Nama entity ID bisa berbeda — cek di <strong>Developer Tools → States</strong> setelah integrasi.</p>
+<p>Tempel via <strong>Settings → Automations → Create → Edit in YAML</strong>. Nama entity bisa sedikit berbeda — selalu verifikasi di <strong>Developer Tools → States</strong> sebelum simpan.</p>
 
 <h2>OTA — Update Tanpa Kabel USB</h2>
 <p>Setelah flash pertama, edit YAML lalu klik <strong>Install → Wirelessly</strong> di ESPHome Dashboard. Ini menggantikan kebutuhan <a href="/artikel/ota-update-firmware-esp32-via-wifi">ArduinoOTA custom (#15)</a> untuk node ESPHome — meski sketch Arduino manual tetap relevan untuk proyek non-HA.</p>
@@ -256,6 +279,13 @@ switch:
 <blockquote>
   <p><strong>Broker publik:</strong> Jangan pakai <code>test.mosquitto.org</code> untuk produksi — sama seperti peringatan di <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a> dan <a href="/artikel/home-assistant-integrasi-esp32-mqtt">#21</a>.</p>
 </blockquote>
+
+<h2>Gabung dengan Stack Seri 2</h2>
+<ul>
+  <li>Sensor <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a> — tambah blok <code>bme280</code> di YAML ESPHome (bus I2C sama)</li>
+  <li>Konfigurasi lapangan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager + NVS (#12)</a> — untuk sketch Arduino; ESPHome pakai <code>captive_portal</code> + <code>!secret</code></li>
+  <li>Node Arduino lama tetap jalan via <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> — ESPHome bisa hidup berdampingan (bagian MQTT opsional di atas)</li>
+</ul>
 
 <h2>Uji Coba (Checklist)</h2>
 <ol>

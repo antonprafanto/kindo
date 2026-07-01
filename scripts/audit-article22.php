@@ -95,6 +95,15 @@ check(str_contains($body, 'Alur data secara singkat'), 'Diagram alur vertikal');
 check(str_contains($body, 'Arduino Sketch vs ESPHome'), 'Tabel perbandingan Arduino vs ESPHome');
 check(str_contains($body, 'discovery: false'), 'MQTT discovery false opsional');
 check(str_contains($body, 'test.mosquitto.org'), 'Peringatan broker publik');
+check(str_contains($body, 'mqtt_password'), 'secrets.yaml mqtt_password opsional');
+check(str_contains($body, 'sensor.kindo_esp32_node_suhu_ruangan'), 'Entity ID automasi contoh konkret');
+check(str_contains($body, 'Dashboard di Home Assistant'), 'Section dashboard HA');
+check(str_contains($body, 'Estimasi biaya'), 'Estimasi harga komponen');
+check(str_contains($body, 'ap_password'), 'secrets.yaml ap_password');
+check(str_contains($body, '!secret ap_password'), 'YAML AP password via secret');
+check(str_contains($body, 'sensor.kindo_esp32_node_suhu_ruangan'), 'Diagram alur entity ID konsisten');
+check(str_contains($body, 'Gabung dengan Stack Seri 2'), 'Section gabung stack Seri 2');
+check(str_contains($body, 'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'), 'Link BME280 #13');
 check(str_contains($body, 'numeric_state'), 'Automasi numeric_state');
 check(str_contains($body, 'device_class'), 'device_class sensor');
 check(str_contains($body, 'Artikel #23'), 'Teaser Node-RED #23');
@@ -140,9 +149,21 @@ check(str_contains($a10?->body ?? '', 'esphome-flash-esp32-tanpa-coding-arduino'
 
 $a16 = Article::where('slug', 'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32')->first();
 check($a16 !== null, 'Artikel #16 ada');
+check(str_contains($a16?->body ?? '', 'esphome-flash-esp32-tanpa-coding-arduino'), 'Artikel #16 backlink → #22');
 
 $a9 = Article::where('slug', 'gabungkan-dht22-relay-mqtt-esp32-satu-proyek')->first();
 check($a9 !== null, 'Artikel #9 ada');
+check(str_contains($a9?->body ?? '', 'esphome-flash-esp32-tanpa-coding-arduino'), 'Artikel #9 backlink → #22');
+
+$a8 = Article::where('slug', 'kontrol-lampu-esp32-mqtt-relay')->first();
+check($a8 !== null, 'Artikel #8 ada');
+check(str_contains($a8?->body ?? '', 'esphome-flash-esp32-tanpa-coding-arduino'), 'Artikel #8 backlink → #22');
+
+check(str_contains($a10?->body ?? '', 'delapan artikel pertama'), 'Artikel #10 teks delapan artikel');
+
+$a15 = Article::where('slug', 'ota-update-firmware-esp32-via-wifi')->first();
+check($a15 !== null, 'Artikel #15 ada');
+check(str_contains($a15?->body ?? '', 'esphome-flash-esp32-tanpa-coding-arduino'), 'Artikel #15 backlink → #22');
 
 echo "\n=== Post-deploy (manual) ===\n";
 echo "○ Upload cover image via Filament (daftar artikel → Upload Cover)\n";
