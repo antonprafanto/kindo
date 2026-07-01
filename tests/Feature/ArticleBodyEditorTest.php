@@ -31,7 +31,7 @@ class ArticleBodyEditorTest extends TestCase
             ->assertSee('Edit Isi Artikel');
     }
 
-    public function test_author_cannot_open_body_editor_for_published_article(): void
+    public function test_author_can_open_body_editor_for_published_article(): void
     {
         [$author, $category] = $this->seedAuthorAndCategory();
 
@@ -47,8 +47,8 @@ class ArticleBodyEditorTest extends TestCase
 
         $this->actingAs($author)
             ->get(route('filament.admin.articles.isi', ['article' => $article]))
-            ->assertForbidden()
-            ->assertSee('Artikel yang sudah terbit tidak bisa diedit');
+            ->assertOk()
+            ->assertSee('Edit Isi Artikel');
     }
 
     public function test_author_cannot_open_body_editor_for_someone_elses_article(): void

@@ -22,12 +22,14 @@ class ArticleForm
      * @param  bool  $includeCoverSection  Cover di form create; pada edit pakai tombol Upload Cover di daftar artikel.
      * @param  bool  $excludeBodyFromForm  Edit: isi artikel lewat editor terpisah (hindari WAF + Livewire 403).
      * @param  string|null  $bodyEditorUrl  URL editor isi saat excludeBodyFromForm aktif.
+     * @param  string|null  $authorLockedStatus  Kontributor: kunci status saat artikel sudah terbit (mis. `published`).
      */
     public static function configure(
         Schema $schema,
         bool $includeCoverSection = true,
         bool $excludeBodyFromForm = false,
         ?string $bodyEditorUrl = null,
+        ?string $authorLockedStatus = null,
     ): Schema {
         $isAuthor = auth()->user()?->isAuthor() ?? false;
 
@@ -172,19 +174,29 @@ class ArticleForm
 
         $components[] = Section::make('Metadata & Publikasi')
             ->description($isAuthor
-                ? 'Pilih kategori & tag yang sudah ada, lalu kirim untuk review saat siap'
+                ? ($authorLockedStatus === 'published'
+                    ? 'Artikel sudah terbit — perubahan judul, tag, dan isi langsung tampil di situs'
+                    : 'Pilih kategori & tag yang sudah ada, lalu kirim untuk review saat siap')
                 : 'Atur kategori, tag, status, dan jadwal terbit')
             ->schema([
                 $categorySelect,
                 $tagsSelect,
 
-                Select::make('status')
-                    ->label('Status Publikasi')
-                    ->options($statusOptions)
-                    ->default('draft')
-                    ->required()
-                    ->native(false)
-                    ->helperText($isAuthor ? 'Pilih "Menunggu Review" setelah artikel siap ditinjau admin.' : null),
+                ...($isAuthor && $authorLockedStatus === 'published'
+                    ? [
+                        Placeholder::make('status_locked')
+                            ->label('Status Publikasi')
+                            ->content('✅ Published — artikel aktif di situs. Perubahan tidak perlu review ulang.'),
+                    ]
+                    : [
+                        Select::make('status')
+                            ->label('Status Publikasi')
+                            ->options($statusOptions)
+                            ->default('draft')
+                            ->required()
+                            ->native(false)
+                            ->helperText($isAuthor ? 'Pilih "Menunggu Review" setelah artikel siap ditinjau admin.' : null),
+                    ]),
 
                 DateTimePicker::make('published_at')
                     ->label('Tanggal Terbit')

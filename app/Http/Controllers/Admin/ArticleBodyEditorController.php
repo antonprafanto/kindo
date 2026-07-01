@@ -70,10 +70,6 @@ class ArticleBodyEditorController extends Controller
         if (! $article->isOwnedBy($user)) {
             abort(403, 'Anda tidak berhak mengedit isi artikel ini.');
         }
-
-        if (! $article->isEditableByAuthor()) {
-            abort(403, 'Artikel yang sudah terbit tidak bisa diedit. Hubungi admin jika perlu revisi.');
-        }
     }
 
     private function filamentEditUrl(Article $article): string

@@ -119,7 +119,7 @@ class Article extends Model
 
     public function isEditableByAuthor(): bool
     {
-        return in_array($this->status, ['draft', 'pending_review'], true);
+        return in_array($this->status, ['draft', 'pending_review', 'published'], true);
     }
 
     public function isPreviewable(): bool

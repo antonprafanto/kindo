@@ -112,8 +112,7 @@ class ArticlesTable
                     ->visible(fn ($record) => $record->isPreviewable())
                     ->disabled(fn ($record) => blank($record->previewUrl()))
                     ->tooltip('Simpan perubahan dulu agar pratinjau menampilkan versi terbaru.'),
-                EditAction::make()
-                    ->visible(fn ($record) => $isAdmin || $record->status !== 'published'),
+                EditAction::make(),
             ]);
 
         if ($isAdmin) {

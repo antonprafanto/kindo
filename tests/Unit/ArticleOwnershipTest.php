@@ -73,7 +73,7 @@ class ArticleOwnershipTest extends TestCase
 
         $this->assertTrue($draft->isEditableByAuthor());
         $this->assertTrue($pending->isEditableByAuthor());
-        $this->assertFalse($published->isEditableByAuthor());
+        $this->assertTrue($published->isEditableByAuthor());
     }
 
     /** @return array{0: User, 1: Category} */
