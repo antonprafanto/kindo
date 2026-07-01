@@ -88,11 +88,33 @@ class Article21Seeder extends Seeder
 </table>
 
 <h2>Arsitektur: ESP32 → Mosquitto → Home Assistant</h2>
-<pre><code>┌─────────────┐   publish/subscribe   ┌──────────────┐   MQTT    ┌─────────────────┐
-│   ESP32     │ ◄──────────────────► │  Mosquitto   │ ◄───────► │ Home Assistant  │
-│ DHT22+relay │   port 1883 + auth     │  (#16)       │           │  (Jalur C)      │
-└─────────────┘                        └──────────────┘           └─────────────────┘
-</code></pre>
+<table>
+  <thead>
+    <tr><th>Komponen</th><th>Peran</th><th>Koneksi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>ESP32</strong> (DHT22 + relay)</td><td>Publisher sensor &amp; subscriber relay</td><td>WiFi/LAN → broker MQTT</td></tr>
+    <tr><td><strong>Mosquitto</strong> (<a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a>)</td><td>Broker pusat</td><td>Port <code>1883</code> + username/password</td></tr>
+    <tr><td><strong>Home Assistant</strong></td><td>Dashboard &amp; automasi smart home</td><td>Subscribe/publish ke topic yang sama</td></tr>
+  </tbody>
+</table>
+
+<p>Alur data secara singkat:</p>
+<pre><code>  [ ESP32 — DHT22 + relay ]
+      |
+      |  publish: kodingindonesia/esp32/dht22/data  (JSON suhu &amp; RH)
+      |  subscribe: kodingindonesia/esp32/lampu/kontrol  (ON / OFF)
+      |  WiFi/LAN · MQTT :1883 · auth
+      v
+  [ Mosquitto @ Raspberry Pi / VPS ]  (#16)
+      |
+      |  MQTT — topic sensor + switch
+      v
+  [ Home Assistant ]  (Jalur C)
+      |
+      +-- sensor: suhu &amp; kelembaban di dashboard
+      +-- switch: nyala/mati lampu relay
+      +-- automasi: rule (mis. suhu &gt; 30°C → matikan lampu)</code></pre>
 
 <p><strong>Topic MQTT</strong> (konsisten Seri 1):</p>
 <ul>
