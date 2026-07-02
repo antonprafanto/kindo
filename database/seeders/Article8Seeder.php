@@ -246,6 +246,7 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
   <li>Dashboard &amp; otomasi visual: <strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a></strong> — kontrol relay lewat flow MQTT</li>
   <li>Automasi gerak: <strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — interrupt &amp; debounce</li>
   <li>Broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi</a> di Raspberry Pi dengan autentikasi</li>
+  <li>Deploy remote / internet: amankan MQTT dengan <strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS port 8883 (#17)</a></strong> — QoS, LWT &amp; retained</li>
 </ul>
 
 <blockquote>

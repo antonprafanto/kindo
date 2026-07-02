@@ -289,10 +289,10 @@ void loop() {
 <h2>Langkah Selanjutnya</h2>
 <ul>
   <li>Subscribe MQTT di <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> untuk smart home dashboard</li>
-  <li>Setup broker <strong>Mosquitto</strong> pribadi di Raspberry Pi atau VPS</li>
+  <li>Setup broker <strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi (#16)</a></strong> di Raspberry Pi atau VPS</li>
   <li>Tambahkan <strong>relay</strong> dan subscribe ke topic kontrol untuk nyalakan/matikan lampu</li>
   <li>Simpan data ke database via subscriber Node.js atau Python di server</li>
-  <li>Pelajari <strong>MQTT over TLS</strong> (port 8883) untuk koneksi aman</li>
+  <li>Pelajari <strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT over TLS (#17)</a></strong> (port 8883) untuk koneksi aman</li>
 </ul>
 
 <blockquote>

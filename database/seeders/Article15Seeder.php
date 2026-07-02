@@ -220,7 +220,7 @@ void loop() {
   <li>Gabungkan OTA + <a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED (#14)</a> + <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a> untuk node sensor lengkap</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — integrasi ESP32 via broker pribadi</li>
   <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — OTA bawaan ESPHome untuk node smart home</li>
-  <li><strong>Artikel #17:</strong> MQTT TLS — amankan broker di internet</li>
+  <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan broker di internet</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — stack lapangan dengan OTA maintenance</li>
 </ul>
 

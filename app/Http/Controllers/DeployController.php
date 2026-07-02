@@ -801,6 +801,93 @@ class DeployController extends Controller
         return response('Article 24 published', 200);
     }
 
+    /**
+     * Publish artikel ke-17 via seeder (MQTT TLS, QoS, LWT, retained).
+     * Juga re-seed #24, #16, #12, #10, #7 + cleanup duplikat BME280.
+     */
+    public function publishArticle17(): Response
+    {
+        $this->authorizeDeployHook();
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article17Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 17 seed failed', 500);
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article24Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article23Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article22Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article21Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article16Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article15Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article12Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article10Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article7Seeder',
+            '--force' => true,
+        ]);
+
+        $this->runDuplicateBme280Cleanup();
+
+        $published = Article::query()
+            ->where('slug', 'mqtt-tls-qos-lwt-retained-mosquitto-esp32')
+            ->where('status', 'published')
+            ->whereNotNull('published_at')
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 17 missing after Article17Seeder on deploy hook.'));
+
+            return response('Article 17 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 17 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

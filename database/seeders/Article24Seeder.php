@@ -377,12 +377,12 @@ return null;</code></pre>
 <ul>
   <li>Jangan hardcode password MQTT di sketch yang di-share — gunakan build flag atau <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a></li>
   <li>Sensor gerak + lampu di area publik — pertimbangkan notifikasi HA, bukan hanya lampu lokal</li>
-  <li>MQTT over internet → wajib <strong>TLS (#17)</strong></li>
+  <li>MQTT over internet → wajib <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS (#17)</a></li>
 </ul>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #17:</strong> MQTT <strong>TLS</strong> — amankan Mosquitto</li>
+  <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan Mosquitto</li>
   <li><strong>Artikel #18:</strong> Simpan histori event PIR ke <strong>MySQL</strong> via subscriber Python</li>
   <li><strong>Artikel #34:</strong> <strong>NTP</strong> — timestamp akurat di log gerak</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — PIR + sensor + pompa relay</li>

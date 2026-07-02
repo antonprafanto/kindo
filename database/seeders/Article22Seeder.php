@@ -319,7 +319,7 @@ action:
 <ul>
   <li><strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a></strong> — dashboard &amp; otomasi visual via MQTT</li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">Sensor PIR + lampu MQTT (#24)</a></strong> — automasi gerak dengan debounce</li>
-  <li><strong>Artikel #17:</strong> MQTT <strong>TLS</strong> — amankan broker Mosquitto di internet</li>
+  <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan broker Mosquitto di internet</li>
   <li>Kembali ke pendekatan manual: <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + MQTT (#21)</a> untuk node non-ESPHome</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — gabung sensor, relay, dan dashboard</li>
 </ul>

@@ -199,7 +199,7 @@ sudo systemctl status mosquitto --no-pager</code></pre>
 <h2>Firewall &amp; Akses Jaringan</h2>
 <p><strong>Di LAN (Raspberry Pi):</strong> ESP32 dan laptop harus satu jaringan WiFi dengan Pi. Tidak perlu buka port ke internet jika hanya dipakai di rumah.</p>
 
-<p><strong>Di VPS (akses dari internet):</strong> buka port 1883 — tapi ingat artikel ini belum pakai TLS (plain MQTT). Untuk production internet, lanjut ke <strong>artikel #17</strong> (MQTT + TLS).</p>
+<p><strong>Di VPS (akses dari internet):</strong> buka port 1883 — tapi ingat artikel ini belum pakai TLS (plain MQTT). Untuk production internet, lanjut ke <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">artikel #17 (MQTT + TLS)</a>.</p>
 
 <pre><code class="language-bash"># VPS dengan UFW (opsional, hati-hati di production)
 sudo ufw allow 1883/tcp
@@ -385,7 +385,7 @@ void loop() {
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #17:</strong> <strong>MQTT TLS</strong>, QoS, LWT &amp; retained messages — amankan broker di internet</li>
+  <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — QoS, LWT &amp; retained messages — amankan broker di internet</li>
   <li><strong>Artikel #18:</strong> <strong>Subscriber Python</strong> → simpan data MQTT ke MySQL</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — integrasi ESP32 via broker pribadi</li>
   <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — alternatif flash tanpa sketch Arduino</li>

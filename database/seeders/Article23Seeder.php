@@ -303,13 +303,13 @@ return null;</code></pre>
   <li>Jangan expose port <code>1880</code> ke internet tanpa HTTPS + reverse proxy</li>
   <li>Simpan kredensial MQTT di credential store Node-RED (bukan hardcode di flow export publik)</li>
   <li>Backup folder <code>/data</code> (volume Docker) berisi flow — sama pentingnya dengan backup HA</li>
-  <li>Untuk MQTT over internet, gunakan <strong>TLS (#17)</strong> — bukan port 1883 plain</li>
+  <li>Untuk MQTT over internet, gunakan <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS (#17)</a> — bukan port 1883 plain</li>
 </ul>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — automasi gerak dengan debounce &amp; hold time</li>
-  <li><strong>Artikel #17:</strong> MQTT <strong>TLS</strong> — amankan Mosquitto di internet</li>
+  <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan Mosquitto di internet</li>
   <li><strong>Artikel #18:</strong> <strong>Python subscriber</strong> → MySQL untuk histori sensor</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — gabung sensor, Node-RED/HA, dan aktuator</li>
 </ul>
