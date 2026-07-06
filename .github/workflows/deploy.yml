@@ -400,23 +400,27 @@ jobs:
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
             "https://kodingindonesia.com/deploy/publish-article-17"
 
-      - name: Publish article 34 via deploy hook (idempotent)
-        continue-on-error: true
-        run: |
-          curl -fsS --max-time 120 \
-            "https://kodingindonesia.com/deploy/publish-article-34?token=${{ secrets.DEPLOY_HOOK_TOKEN }}"
-
-      - name: Verify article 34 is live
-        continue-on-error: true
-        run: |
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt")
-          echo "Article 34 HTTP status: $code"
-          test "$code" = "200"
-
       - name: Publish article 24 via deploy hook (idempotent)
         continue-on-error: true
         run: |
           curl -fsS --max-time 120 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
             "https://kodingindonesia.com/deploy/publish-article-24"
+
+      - name: Clear cache before article 34 publish
+        continue-on-error: true
+        run: |
+          curl -fsS --max-time 60 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/clear-cache"
+
+      - name: Publish article 34 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-34")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt")
+          echo "Article 34 HTTP status: $code"
+          test "$code" = "200"

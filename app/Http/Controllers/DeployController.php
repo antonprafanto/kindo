@@ -905,6 +905,10 @@ class DeployController extends Controller
             opcache_reset();
         }
 
+        if (! class_exists(\Database\Seeders\Article34Seeder::class)) {
+            return response('Article34Seeder class not found on server', 500);
+        }
+
         $exitCode = Artisan::call('db:seed', [
             '--class' => 'Database\\Seeders\\Article34Seeder',
             '--force' => true,
