@@ -43,89 +43,89 @@ Route::get('/newsletter/konfirmasi/{token}', [NewsletterController::class, 'conf
 Route::get('/newsletter/berhenti/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
 
 Route::get('/deploy/migrate', [DeployController::class, 'migrate'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.migrate');
 
 Route::get('/deploy/health', [DeployController::class, 'health'])
-    ->middleware('throttle:5,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.health');
 
 Route::get('/deploy/clear-cache', [DeployController::class, 'clearCache'])
-    ->middleware('throttle:5,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.clear-cache');
 
 Route::get('/deploy/publish-article-6', [DeployController::class, 'publishArticle6'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-6');
 
 Route::get('/deploy/publish-article-7', [DeployController::class, 'publishArticle7'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-7');
 
 Route::get('/deploy/publish-article-8', [DeployController::class, 'publishArticle8'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-8');
 
 Route::get('/deploy/publish-article-9', [DeployController::class, 'publishArticle9'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-9');
 
 Route::get('/deploy/publish-article-10', [DeployController::class, 'publishArticle10'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-10');
 
 Route::get('/deploy/publish-article-11', [DeployController::class, 'publishArticle11'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-11');
 
 Route::get('/deploy/publish-article-12', [DeployController::class, 'publishArticle12'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-12');
 
 Route::get('/deploy/publish-article-16', [DeployController::class, 'publishArticle16'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-16');
 
 Route::get('/deploy/publish-article-13', [DeployController::class, 'publishArticle13'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-13');
 
 Route::get('/deploy/publish-article-14', [DeployController::class, 'publishArticle14'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-14');
 
 Route::get('/deploy/cleanup-duplicate-bme280', [DeployController::class, 'cleanupDuplicateBme280'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.cleanup-duplicate-bme280');
 
 Route::get('/deploy/publish-article-15', [DeployController::class, 'publishArticle15'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-15');
 
 Route::get('/deploy/publish-article-21', [DeployController::class, 'publishArticle21'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-21');
 
 Route::get('/deploy/publish-article-22', [DeployController::class, 'publishArticle22'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-22');
 
 Route::get('/deploy/publish-article-23', [DeployController::class, 'publishArticle23'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-23');
 
 Route::get('/deploy/publish-article-17', [DeployController::class, 'publishArticle17'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-17');
 
 Route::get('/deploy/publish-article-34', [DeployController::class, 'publishArticle34'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-34');
 
 Route::get('/deploy/publish-article-24', [DeployController::class, 'publishArticle24'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.publish-article-24');
 
 Route::get('/deploy/ensure-admin', [DeployController::class, 'ensureAdmin'])
-    ->middleware('throttle:3,1')
+    ->middleware('throttle:120,1')
     ->name('deploy.ensure-admin');
