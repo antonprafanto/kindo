@@ -901,6 +901,10 @@ class DeployController extends Controller
     {
         $this->authorizeDeployHook();
 
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
         $exitCode = Artisan::call('db:seed', [
             '--class' => 'Database\\Seeders\\Article34Seeder',
             '--force' => true,
@@ -942,14 +946,14 @@ class DeployController extends Controller
 
         $this->runDuplicateBme280Cleanup();
 
-        $published = Article::query()
-            ->where('slug', 'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt')
-            ->where('status', 'published')
-            ->whereNotNull('published_at')
+        $slug = 'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt';
+
+        $published = Article::published()
+            ->where('slug', $slug)
             ->exists();
 
         if (! $published) {
-            report(new \RuntimeException('Article 34 missing after Article34Seeder on deploy hook.'));
+            report(new \RuntimeException('Article 34 missing or not visible after Article34Seeder on deploy hook.'));
 
             return response('Article 34 seed incomplete', 500);
         }
@@ -961,6 +965,12 @@ class DeployController extends Controller
         }
 
         Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
 
         return response('Article 34 published', 200);
     }
