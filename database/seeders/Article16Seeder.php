@@ -386,6 +386,7 @@ void loop() {
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — QoS, LWT &amp; retained messages — amankan broker di internet</li>
+  <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — waktu akurat sebelum subscriber Python (#18)</li>
   <li><strong>Artikel #18:</strong> <strong>Subscriber Python</strong> → simpan data MQTT ke MySQL</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — integrasi ESP32 via broker pribadi</li>
   <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — alternatif flash tanpa sketch Arduino</li>

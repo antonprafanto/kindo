@@ -384,7 +384,7 @@ return null;</code></pre>
 <ul>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan Mosquitto</li>
   <li><strong>Artikel #18:</strong> Simpan histori event PIR ke <strong>MySQL</strong> via subscriber Python</li>
-  <li><strong>Artikel #34:</strong> <strong>NTP</strong> — timestamp akurat di log gerak</li>
+  <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — timestamp akurat di log gerak</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — PIR + sensor + pompa relay</li>
 </ul>
 
