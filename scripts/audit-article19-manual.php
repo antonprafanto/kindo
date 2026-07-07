@@ -36,13 +36,18 @@ foreach ([
 }
 
 foreach ([
-    'Article18Seeder.php', 'Article16Seeder.php', 'Article17Seeder.php',
+    'Article19Seeder.php', 'Article18Seeder.php', 'Article16Seeder.php', 'Article17Seeder.php',
     'Article34Seeder.php', 'Article10Seeder.php', 'Article7Seeder.php',
     'Article13Seeder.php',     'Article14Seeder.php', 'Article23Seeder.php', 'Article24Seeder.php', 'Article21Seeder.php',
 ] as $file) {
     $content = file_get_contents(__DIR__ . '/../database/seeders/' . $file);
     check(! str_contains($content, 'Artikel #19'), "{$file}: tidak ada teks orphan 'Artikel #19'");
 }
+
+$href20 = '/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32';
+$a19body = Article::where('slug', 'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt')->value('body') ?? '';
+check(str_contains($a19body, $href20), '#19 hyperlink → #20');
+check(! str_contains(file_get_contents(__DIR__ . '/../database/seeders/Article19Seeder.php'), 'Artikel #20'), 'Article19Seeder: tidak ada teks orphan Artikel #20');
 
 $sources = [
     'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'        => '#18',
@@ -72,7 +77,7 @@ check(preg_match('/Publish article 19 via deploy hook \(required\)/', $yml) === 
 check(strpos($yml, 'publish-article-18') < strpos($yml, 'publish-article-19'), 'CI: hook #18 sebelum #19');
 
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
-check(str_contains($a10?->body ?? '', 'empat belas artikel'), '#10 indeks empat belas artikel');
+check(str_contains($a10?->body ?? '', 'lima belas artikel'), '#10 indeks lima belas artikel (post-#20)');
 check(substr_count($a10?->body ?? '', $href) >= 1, '#10 punya link #19');
 
 echo "\n=== RESULT: {$passed} passed, {$failed} failed ===\n";

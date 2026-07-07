@@ -373,6 +373,7 @@ LIMIT 24;</code></pre>
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — dashboard grafik time-series</li>
+  <li><strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST API vs MQTT (#20)</a></strong> — kapan pakai HTTP vs push MQTT</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — pastikan setiap node kirim <code>unix</code> akurat</li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan subscriber di jaringan publik</li>
   <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto (#16)</a></strong> — fondasi infrastruktur</li>

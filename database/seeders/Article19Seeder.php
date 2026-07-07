@@ -350,7 +350,7 @@ ORDER BY recorded_at;</code></pre>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #20:</strong> REST API vs MQTT — kapan pakai HTTP polling vs push MQTT</li>
+  <li><strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST API vs MQTT (#20)</a></strong> — kapan pakai HTTP polling vs push MQTT</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python → MySQL (#18)</a></strong> — arsip SQL paralel dengan grafik InfluxDB</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — dashboard smart home alternatif</li>
   <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a></strong> — tambah field tekanan di measurement <code>bme280</code></li>

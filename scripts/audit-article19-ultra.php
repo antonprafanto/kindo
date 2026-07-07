@@ -54,7 +54,7 @@ check(count($dupH2) === 0, 'Tidak ada judul H2 duplikat');
 
 $bodyNoH2 = preg_replace('/<h2>.*?<\/h2>/s', '', $body);
 check(! preg_match('/Artikel #(?!20)\d+/', $bodyNoH2), 'Tidak ada teks orphan "Artikel #N" (kecuali teaser #20)');
-check(str_contains($body, 'Artikel #20'), 'Teaser artikel #20 ada');
+check(str_contains($body, '/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32'), 'Hyperlink artikel #20 ada');
 check(substr_count($body, '<a href=') >= 15, 'Minimal 15 hyperlink di body (' . substr_count($body, '<a href=') . ')');
 
 echo "\n--- 2: Metadata & SEO ---\n\n";

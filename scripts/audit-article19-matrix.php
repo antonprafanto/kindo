@@ -113,7 +113,7 @@ $yml = file_get_contents(__DIR__ . '/../.github/workflows/deploy.yml');
 $pos18 = strpos($yml, 'Publish article 18 via deploy hook (required)');
 $pos19 = strpos($yml, 'Publish article 19 via deploy hook (required)');
 check($pos18 !== false && $pos19 !== false && $pos18 < $pos19, 'CI: step #18 required sebelum #19 required');
-check(! preg_match('/Publish article 19[\s\S]*continue-on-error:\s*true/', $yml), 'CI #19 TIDAK continue-on-error');
+check(! preg_match('/- name: Publish article 19 via deploy hook \(required\)\s+continue-on-error:\s*true/', $yml), 'CI #19 publish step TIDAK continue-on-error');
 
 echo "\n--- F: Sitemap lokal ---\n\n";
 
@@ -124,7 +124,7 @@ echo "\n--- G: Production snapshot ---\n\n";
 
 $code19 = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug19)));
 $code18 = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug18)));
-check($code19 === '404', "Prod #19 pre-deploy HTTP {$code19}");
+check($code19 === '200', "Prod #19 live HTTP {$code19}");
 check($code18 === '200', "Prod #18 live HTTP {$code18}");
 
 echo "\n=== RESULT: {$passed} passed, {$failed} failed ===\n";

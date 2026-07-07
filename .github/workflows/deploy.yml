@@ -460,3 +460,21 @@ jobs:
             "https://kodingindonesia.com/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt")
           echo "Article 19 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Clear cache before article 20 publish
+        continue-on-error: true
+        run: |
+          curl -fsS --max-time 60 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/clear-cache"
+
+      - name: Publish article 20 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-20")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32")
+          echo "Article 20 HTTP status: $code"
+          test "$code" = "200"

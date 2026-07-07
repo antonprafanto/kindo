@@ -237,6 +237,7 @@ void loop() {
   <li>Tambahkan <strong>auto-refresh</strong> di halaman HTML dengan JavaScript <code>setInterval</code></li>
   <li>Kirim data ke <strong>server cloud</strong> secara berkala (kombinasi dengan artikel HTTP POST)</li>
   <li>Pelajari protokol <strong>MQTT</strong> untuk komunikasi IoT yang lebih efisien</li>
+  <li>Pahami kapan pakai REST vs MQTT di <strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">panduan #20</a></strong> sebelum scale ke cloud</li>
   <li>Tambahkan <strong>relay</strong> untuk kontrol lampu berdasarkan suhu</li>
   <li>Integrasikan dengan <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> untuk smart home lengkap</li>
 </ul>

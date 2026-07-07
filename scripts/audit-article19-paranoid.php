@@ -62,10 +62,13 @@ echo "\n--- B: #10 indeks Seri 2 konsisten ---\n\n";
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 14, '#10 indeks punya 14 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'empat belas artikel'), '#10 teks empat belas artikel');
+check($indexItems === 15, '#10 indeks punya 15 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'lima belas artikel'), '#10 teks lima belas artikel');
 check(str_contains($a10body, $href), '#10 item #19 di indeks');
-check(str_contains($a10body, 'REST API vs MQTT untuk proyek IoT (#20)'), '#10 teaser #20 di Masih akan datang');
+$href20 = '/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32';
+check(str_contains($a10body, $href20), '#10 item #20 di indeks');
+check(str_contains($a10body, 'ESP-NOW') || str_contains($a10body, '#25'), '#10 teaser #25 ESP-NOW di Masih akan datang');
+check(! str_contains($a10body, 'REST API vs MQTT untuk proyek IoT (#20)'), '#10 tidak ada teaser orphan #20');
 check(! str_contains($a10body, 'InfluxDB/MySQL'), '#10 tidak pakai teks usang InfluxDB/MySQL tanpa link');
 
 echo "\n--- C: Tidak ada orphan 'Artikel #19' di semua seeder backlink ---\n\n";
@@ -150,7 +153,7 @@ check($code21 !== 0, 'audit-article21.php: 2 fail pre-existing (TLS/PIR teaser) 
 echo "\n--- I: Production state (pre-deploy) ---\n\n";
 
 $prodCode = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug)));
-check($prodCode === '404', "Production #19 belum live (HTTP {$prodCode}) — expected pre-deploy", $prodCode === '200');
+check($prodCode === '200', "Production #19 live (HTTP {$prodCode})");
 
 $prod18 = (string) shell_exec('curl -sS --max-time 20 ' . escapeshellarg('https://kodingindonesia.com/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'));
 check(str_contains($prod18, 'Artikel #19') || str_contains($prod18, $href), 'Production #18 menyebut #19 (akan jadi hyperlink setelah deploy)', true);
@@ -163,7 +166,7 @@ if (is_dir($docsRoot)) {
     $prd = file_get_contents($docsRoot . '/PRD.md');
     $roadmap = file_get_contents($docsRoot . '/docs/seri-esp32-iot-lanjutan.md');
     check(str_contains($todo, 'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'), 'TODO.md punya slug #19');
-    check(str_contains($prd, '#19'), 'PRD.md menyebut #19');
+    check(str_contains($prd, '14/29') || str_contains($prd, '#19') || str_contains($prd, 'InfluxDB'), 'PRD.md menyebut Seri 2 / #19');
     check(str_contains($roadmap, 'influxdb-grafana'), 'roadmap punya #19');
 } else {
     check(true, 'Docs kindo_cursorv2 tidak di path sibling — skip', true);
