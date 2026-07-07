@@ -65,7 +65,7 @@ class Article16Seeder extends Seeder
 
 <p>Di <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">artikel NVS + WiFiManager (#12)</a> kita sudah menyiapkan firmware tanpa hardcode WiFi. Artikel ini melengkapi langkah berikutnya: <strong>broker MQTT pribadi</strong> dengan <strong>autentikasi username/password</strong>, lalu hubungkan ESP32 dengan pola NVS yang sama.</p>
 
-<p>Ini adalah <strong>artikel pembuka Jalur B</strong> (infrastruktur &amp; data) di Seri 2 — fondasi sebelum <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python subscriber (#18)</a>, Grafana (#19), dan <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>.</p>
+<p>Ini adalah <strong>artikel pembuka Jalur B</strong> (infrastruktur &amp; data) di Seri 2 — fondasi sebelum <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python subscriber (#18)</a>, <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>, dan <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Paham dasar <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT &amp; publish ESP32 (#7)</a>. Familiar dengan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a> sangat membantu untuk bagian firmware. Wiring <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22</a> mengikuti Seri 1 (GPIO 4).</p>

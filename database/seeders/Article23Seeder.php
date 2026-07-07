@@ -284,6 +284,7 @@ return null;</code></pre>
   <li><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a> untuk node baru; Node-RED untuk orkestrasi MQTT lintas perangkat</li>
   <li>Sensor <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a> — tambah <strong>mqtt in</strong> ke topic <code>kodingindonesia/esp32/bme280/data</code></li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> — simpan histori MQTT ke MySQL (flow Node-RED + function, atau subscriber Python)</li>
+  <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — grafik histori jangka panjang; Node-RED untuk otomasi, Grafana untuk analitik</li>
 </ul>
 
 <h2>Tips &amp; Troubleshooting</h2>
@@ -311,6 +312,7 @@ return null;</code></pre>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — automasi gerak dengan debounce &amp; hold time</li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan Mosquitto di internet</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> → MySQL untuk histori sensor</li>
+  <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — dashboard grafik time-series profesional</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — gabung sensor, Node-RED/HA, dan aktuator</li>
 </ul>
 

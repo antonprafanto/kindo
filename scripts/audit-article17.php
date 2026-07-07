@@ -123,7 +123,7 @@ check(str_contains($body, 'language-ini'), 'Blok config Mosquitto ini');
 check(str_contains($body, 'Let\'s Encrypt'), 'Opsi Let\'s Encrypt');
 check(str_contains($body, '/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'), 'Link/hyperlink Python #18');
 check(str_contains($body, '/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'), 'Link/hyperlink NTP #34');
-check(str_contains($body, 'Artikel #19'), 'Teaser InfluxDB #19');
+check(str_contains($body, '/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'), 'Link/hyperlink InfluxDB #19');
 check(str_contains($body, '#38'), 'Teaser HTTPS #38');
 check(str_contains($body, 'Keamanan &amp; Produksi'), 'Section Keamanan');
 check(str_contains($body, 'Pro tip'), 'Pro tip');

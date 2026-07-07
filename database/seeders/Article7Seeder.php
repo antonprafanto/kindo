@@ -292,6 +292,7 @@ void loop() {
   <li>Setup broker <strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi (#16)</a></strong> di Raspberry Pi atau VPS</li>
   <li>Tambahkan <strong>relay</strong> dan subscribe ke topic kontrol untuk nyalakan/matikan lampu</li>
   <li>Simpan data ke database via <strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">subscriber Python → MySQL (#18)</a></strong> — setelah payload punya <strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">timestamp NTP (#34)</a></strong></li>
+  <li>Visualisasikan histori di <strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — grafik time-series interaktif</li>
   <li>Pelajari <strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT over TLS (#17)</a></strong> (port 8883) untuk koneksi aman</li>
 </ul>
 

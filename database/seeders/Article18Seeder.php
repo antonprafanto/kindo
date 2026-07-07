@@ -63,7 +63,7 @@ class Article18Seeder extends Seeder
 <h2>Pendahuluan — Kenapa Subscriber Python?</h2>
 <p>Di <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker Mosquitto (#16)</a>, ESP32 sudah publish JSON sensor ke topic MQTT. Di <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">artikel NTP (#34)</a>, setiap payload punya field <code>timestamp</code> dan <code>unix</code> — tapi data itu <strong>masih lewat</strong> kecuali ada proses yang <strong>menangkap dan menyimpan</strong> ke database.</p>
 
-<p>Artikel <strong>Jalur B</strong> ini melengkapi stack: script <strong>Python</strong> berjalan di Raspberry Pi / VPS, <strong>subscribe</strong> topic sensor, lalu <strong>INSERT</strong> ke <strong>MySQL</strong>. Hasilnya: histori suhu &amp; kelembaban bisa di-query, diekspor, atau divisualisasikan di <strong>Artikel #19</strong> (InfluxDB + Grafana).</p>
+<p>Artikel <strong>Jalur B</strong> ini melengkapi stack: script <strong>Python</strong> berjalan di Raspberry Pi / VPS, <strong>subscribe</strong> topic sensor, lalu <strong>INSERT</strong> ke <strong>MySQL</strong>. Hasilnya: histori suhu &amp; kelembaban bisa di-query, diekspor, atau divisualisasikan di <strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto #16</a> jalan, ESP32 publish JSON dengan timestamp (<a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>), paham dasar <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>. Opsi production: transport TLS dari <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">#17</a>.</p>
@@ -82,7 +82,7 @@ class Article18Seeder extends Seeder
   [ MySQL ]  tabel sensor_readings
         |
         +-- Query SQL / phpMyAdmin
-        +-- Grafana (#19 nanti) / export CSV</code></pre>
+        +-- Grafana (#19) / export CSV</code></pre>
 
 <p><strong>Payload contoh</strong> (dari ESP32 #34):</p>
 <pre><code>{"suhu":28.5,"kelembaban":65.2,"timestamp":"2026-07-02T14:30:00","unix":1782977400}</code></pre>
@@ -372,7 +372,7 @@ LIMIT 24;</code></pre>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #19:</strong> <strong>InfluxDB + Grafana</strong> — alternatif time-series + dashboard grafik</li>
+  <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — dashboard grafik time-series</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — pastikan setiap node kirim <code>unix</code> akurat</li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan subscriber di jaringan publik</li>
   <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto (#16)</a></strong> — fondasi infrastruktur</li>
@@ -380,7 +380,7 @@ LIMIT 24;</code></pre>
   <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a></strong> — perluas kolom tekanan udara di skema MySQL</li>
 </ul>
 
-<p>Dengan pipeline MQTT → Python → MySQL, data sensor ESP32 akhirnya tersimpan sebagai histori — fondasi dashboard Grafana di <strong>Artikel #19</strong>. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
+<p>Dengan pipeline MQTT → Python → MySQL, data sensor ESP32 akhirnya tersimpan sebagai histori — langkah berikutnya visualisasi di <strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong>. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
 HTML;
     }
 }

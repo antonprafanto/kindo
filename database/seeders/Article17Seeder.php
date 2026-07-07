@@ -376,7 +376,7 @@ void loop() {
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — timestamp akurat sebelum histori database</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — aktifkan TLS di integration broker</li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — upgrade sketch ke TLS untuk deploy remote</li>
-  <li><strong>Artikel #19:</strong> InfluxDB + Grafana untuk histori sensor</li>
+  <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — dashboard histori sensor</li>
 </ul>
 
 <p>Dengan TLS, QoS, LWT, dan retained, stack MQTT kamu siap naik level dari lab LAN ke deploy yang lebih aman. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

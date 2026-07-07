@@ -102,7 +102,7 @@ check(str_contains($body, 'setBufferSize(512)'), 'MQTT buffer 512');
 check(str_contains($body, 'sinkronisasiNTP'), 'Fungsi sinkronisasiNTP');
 check(str_contains($body, 'UDP'), 'Port/protokol UDP NTP');
 check(str_contains($body, '/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'), 'Link/hyperlink Python #18');
-check(str_contains($body, 'Artikel #19'), 'Teaser InfluxDB #19');
+check(str_contains($body, '/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'), 'Link/hyperlink InfluxDB #19');
 check(str_contains($body, 'language-bash'), 'Blok bash mosquitto_sub');
 check(str_contains($body, 'language-arduino'), 'Blok Arduino');
 check(str_contains($body, 'Pro tip'), 'Pro tip');
