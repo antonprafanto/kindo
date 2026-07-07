@@ -106,10 +106,35 @@ class Article25Seeder extends Seeder
 <p><strong>Estimasi biaya:</strong> ~Rp 80–120rb per ESP32 + sensor — total ~Rp 200–250rb untuk lab dua node.</p>
 
 <h2>Arsitektur Sensor + Gateway</h2>
-<pre><code>  [ ESP32 Sensor ]          [ ESP32 Gateway ]          [ Broker #16 ]
-   DHT22 baca suhu    ESP-NOW    WiFi STA + MQTT publish    Mosquitto
-   tanpa WiFi router  ----&gt;     topic: kodingindonesia/esp32/dht22/data
-   deep sleep (#11)             Serial monitor / Grafana (#19)</code></pre>
+<table>
+  <thead>
+    <tr><th>Komponen</th><th>Peran</th><th>Koneksi</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>ESP32 Sensor</strong> + DHT22</td><td>Baca suhu &amp; kelembaban, kirim paket kecil</td><td><strong>ESP-NOW</strong> saja — <em>tanpa</em> router WiFi</td></tr>
+    <tr><td><strong>ESP32 Gateway</strong></td><td>Terima paket ESP-NOW, publish ke MQTT</td><td>ESP-NOW + <strong>WiFi STA</strong> ke router</td></tr>
+    <tr><td><strong>Mosquitto</strong> (<a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a>)</td><td>Broker pusat</td><td>Topic <code>kodingindonesia/esp32/dht22/data</code></td></tr>
+    <tr><td><strong>Grafana</strong> (<a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a>)</td><td>Dashboard histori (opsional)</td><td>Subscribe / Telegraf dari broker</td></tr>
+  </tbody>
+</table>
+
+<p>Alur data secara singkat:</p>
+<pre><code>  [ ESP32 Sensor — DHT22 ]
+      |
+      |  ESP-NOW (peer-to-peer, tanpa router)
+      |  struct: suhu, kelembaban, unix
+      |  deep sleep (#11) — hemat baterai
+      v
+  [ ESP32 Gateway ]
+      |
+      |  WiFi STA → router rumah/kantor
+      |  MQTT publish :1883
+      |  topic: kodingindonesia/esp32/dht22/data
+      v
+  [ Mosquitto @ 192.168.1.50 ]  (#16)
+      |
+      +-- mosquitto_sub / subscriber Python (#18)
+      +-- Grafana dashboard (#19)</code></pre>
 
 <p>Sensor node hemat daya: bangun → baca sensor → kirim ESP-NOW → tidur (<a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep #11</a>). Gateway selalu hidup, terima paket, publish MQTT dengan timestamp <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a>.</p>
 
