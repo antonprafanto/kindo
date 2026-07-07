@@ -294,6 +294,7 @@ void loop() {
   <li>Simpan data ke database via <strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">subscriber Python → MySQL (#18)</a></strong> — setelah payload punya <strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">timestamp NTP (#34)</a></strong></li>
   <li>Visualisasikan histori di <strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — grafik time-series interaktif</li>
   <li>Bandingkan REST vs MQTT: <strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">kapan pakai yang mana (#20)</a></strong></li>
+  <li>Hop wireless tanpa router: <strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW antar ESP32 (#25)</a></strong> — sensor ke gateway tanpa AP WiFi</li>
   <li>Pelajari <strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT over TLS (#17)</a></strong> (port 8883) untuk koneksi aman</li>
 </ul>
 
