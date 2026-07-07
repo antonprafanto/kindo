@@ -424,3 +424,21 @@ jobs:
             "https://kodingindonesia.com/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt")
           echo "Article 34 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Clear cache before article 18 publish
+        continue-on-error: true
+        run: |
+          curl -fsS --max-time 60 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/clear-cache"
+
+      - name: Publish article 18 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-18")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32")
+          echo "Article 18 HTTP status: $code"
+          test "$code" = "200"

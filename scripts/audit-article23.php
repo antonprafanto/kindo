@@ -112,9 +112,9 @@ check(str_contains($body, 'IP LAN host'), 'Catatan Docker network host IP');
 check(str_contains($body, 'nama service'), 'Catatan Docker Compose hostname broker');
 check(str_contains($body, 'test.mosquitto.org'), 'Peringatan broker publik');
 check(str_contains($body, 'adminAuth'), 'Keamanan adminAuth Node-RED');
-check(str_contains($body, 'Artikel #24'), 'Teaser PIR #24');
-check(str_contains($body, 'Artikel #17'), 'Teaser MQTT TLS #17');
-check(str_contains($body, 'Artikel #18'), 'Teaser Python #18');
+check(str_contains($body, '/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce'), 'Link/hyperlink PIR #24');
+check(str_contains($body, '/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32'), 'Link/hyperlink MQTT TLS #17');
+check(str_contains($body, '/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'), 'Link/hyperlink Python #18');
 check(str_contains($body, 'Keamanan &amp; Produksi'), 'Section Keamanan & Produksi');
 check(str_contains($body, 'Pro tip'), 'Pro tip label node');
 check(str_contains($body, 'greenhouse'), 'Teaser capstone #39');
@@ -169,7 +169,7 @@ $a8 = Article::where('slug', 'kontrol-lampu-esp32-mqtt-relay')->first();
 check($a8 !== null, 'Artikel #8 ada');
 check(str_contains($a8?->body ?? '', 'node-red-dashboard-otomasi-iot-mqtt-esp32'), 'Artikel #8 backlink → #23');
 
-check(str_contains($a10?->body ?? '', 'sembilan artikel pertama'), 'Artikel #10 teks sembilan artikel');
+check(str_contains($a10?->body ?? '', 'tiga belas artikel'), 'Artikel #10 teks tiga belas artikel');
 
 echo "\n=== Post-deploy (manual) ===\n";
 echo "○ Upload cover image via Filament (daftar artikel → Upload Cover)\n";

@@ -335,7 +335,7 @@ void loop() {}</code></pre>
   <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — tampilkan suhu/tekanan di layar (<strong>bus I2C sama</strong>, alamat berbeda dari BME280)</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — update tanpa kabel</li>
   <li>Gabung dengan <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> untuk node sensor hemat baterai + BME280</li>
-  <li>Subscriber <strong>Python → MySQL (#18)</strong> untuk simpan histori tekanan &amp; suhu</li>
+  <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python → MySQL (#18)</a></strong> untuk simpan histori tekanan &amp; suhu</li>
 </ul>
 
 <p>Dengan I2C dan BME280, hardware stack kamu siap untuk dashboard OLED dan capstone greenhouse Seri 2. Lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

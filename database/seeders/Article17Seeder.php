@@ -372,7 +372,7 @@ void loop() {
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #18:</strong> <strong>Subscriber Python</strong> + <code>tls_set()</code> → simpan data MQTT ke MySQL</li>
+  <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> + <code>tls_set()</code> → simpan data MQTT ke MySQL</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — timestamp akurat sebelum histori database</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — aktifkan TLS di integration broker</li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — upgrade sketch ke TLS untuk deploy remote</li>

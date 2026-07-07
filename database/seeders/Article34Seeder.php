@@ -63,7 +63,7 @@ class Article34Seeder extends Seeder
 <h2>Pendahuluan — Kenapa Waktu Penting?</h2>
 <p>Di artikel <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a> dan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker Mosquitto (#16)</a>, payload sensor sudah berupa JSON — tapi sering <strong>tanpa penanda waktu</strong>. Fungsi <code>millis()</code> di ESP32 hanya menghitung milidetik sejak boot; setelah <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> atau reset, angka itu kembali ke nol.</p>
 
-<p>Artikel Tier 2 ini menutup celah itu: sinkronkan <strong>wall-clock time</strong> lewat <strong>NTP (Network Time Protocol)</strong>, set zona waktu Indonesia, lalu sisipkan <code>timestamp</code> ke setiap publish MQTT. Ini <strong>wajib</strong> sebelum <strong>Artikel #18</strong> (Python → MySQL) dan <strong>#19</strong> (InfluxDB + Grafana) — database histori butuh waktu yang konsisten dan bisa diurutkan.</p>
+<p>Artikel Tier 2 ini menutup celah itu: sinkronkan <strong>wall-clock time</strong> lewat <strong>NTP (Network Time Protocol)</strong>, set zona waktu Indonesia, lalu sisipkan <code>timestamp</code> ke setiap publish MQTT. Ini <strong>wajib</strong> sebelum <strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> → MySQL dan <strong>#19</strong> (InfluxDB + Grafana) — database histori butuh waktu yang konsisten dan bisa diurutkan.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> ESP32 sudah connect <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">WiFi (#4)</a> dan publish <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>. Broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi (#16)</a> disarankan (bukan broker publik). Familiar <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a> membantu untuk deploy lapangan.</p>
@@ -119,7 +119,7 @@ class Article34Seeder extends Seeder
       v
   [ Mosquitto #16 ]
       |
-      +-- Subscriber CLI / Python (#18 nanti) — INSERT dengan kolom waktu
+      +-- Subscriber Python (#18) — INSERT dengan kolom waktu
       +-- Home Assistant (#21) — entity dengan last_changed akurat</code></pre>
 
 <p><strong>Topic</strong> (konsisten Seri 2): <code>kodingindonesia/esp32/dht22/data</code></p>
@@ -312,7 +312,7 @@ void loop() {
 <ol>
   <li><strong>Urutan:</strong> WiFi → NTP → baca sensor → publish. NTP butuh route ke internet.</li>
   <li><strong><code>configTime()</code></strong> — memanggil SNTP di balik layar ESP32 Arduino core.</li>
-  <li><strong><code>timestamp</code> + <code>unix</code></strong> — ISO lokal (tanpa suffix <code>+07:00</code>) untuk dashboard manusia; Unix UTC untuk query SQL/Grafana di #18/#19.</li>
+  <li><strong><code>timestamp</code> + <code>unix</code></strong> — ISO lokal (tanpa suffix <code>+07:00</code>) untuk dashboard manusia; Unix UTC untuk query SQL/Grafana di <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a> / #19.</li>
   <li><strong>Max 5 percobaan MQTT</strong> — <code>koneksiMQTT()</code> tidak block <code>loop()</code> selamanya jika broker down (pola sama <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">#17</a>).</li>
   <li><strong><code>setBufferSize(512)</code></strong> — JSON lebih panjang setelah tambah field waktu.</li>
   <li><strong>Broker #16</strong> — ganti ke port <code>8883</code> + TLS jika sudah ikut <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">artikel #17</a>.</li>
@@ -333,7 +333,7 @@ void loop() {
 <p>Output yang diharapkan:</p>
 <pre><code>kodingindonesia/esp32/dht22/data {"suhu":28.5,"kelembaban":65.2,"timestamp":"2026-07-02T14:30:00","unix":1782977400}</code></pre>
 
-<p>Field <code>unix</code> akan dipakai di <strong>Artikel #18</strong> untuk kolom <code>DATETIME</code> atau <code>INT UNSIGNED</code> di MySQL — lebih mudah di-query daripada string ISO saja.</p>
+<p>Field <code>unix</code> akan dipakai di <strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> untuk kolom <code>DATETIME</code> atau <code>INT UNSIGNED</code> di MySQL — lebih mudah di-query daripada string ISO saja.</p>
 
 <p>Di Grafana (#19), sumbu waktu grafik otomatis benar jika setiap titik data punya timestamp UTC atau lokal yang konsisten — tanpa NTP, grafik akan terlihat “loncat” atau semua titik menumpuk di waktu upload subscriber, bukan waktu pengukuran sensor di lapangan.</p>
 
@@ -361,7 +361,7 @@ void loop() {
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong>Artikel #18:</strong> <strong>Subscriber Python</strong> — parse <code>timestamp</code> / <code>unix</code> → simpan ke <strong>MySQL</strong> (kolom <code>DATETIME</code>)</li>
+  <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> — parse <code>timestamp</code> / <code>unix</code> → simpan ke <strong>MySQL</strong> (kolom <code>DATETIME</code>)</li>
   <li><strong>Artikel #19:</strong> <strong>InfluxDB + Grafana</strong> — histori grafik dengan sumbu waktu benar</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — sensor MQTT dengan timestamp di <code>last_changed</code></li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan transport sebelum subscriber cloud</li>
@@ -373,7 +373,7 @@ void loop() {
   <p><strong>Keamanan:</strong> Jangan hardcode password WiFi atau MQTT di repo publik. Gunakan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a> untuk deploy lapangan.</p>
 </blockquote>
 
-<p>Dengan timestamp akurat, data sensor siap masuk pipeline histori — langkah berikutnya adalah <strong>Artikel #18</strong> Python → MySQL. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
+<p>Dengan timestamp akurat, data sensor siap masuk pipeline histori — langkah berikutnya adalah <strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> → MySQL. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
 HTML;
     }
 }

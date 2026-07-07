@@ -65,7 +65,7 @@ class Article16Seeder extends Seeder
 
 <p>Di <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">artikel NVS + WiFiManager (#12)</a> kita sudah menyiapkan firmware tanpa hardcode WiFi. Artikel ini melengkapi langkah berikutnya: <strong>broker MQTT pribadi</strong> dengan <strong>autentikasi username/password</strong>, lalu hubungkan ESP32 dengan pola NVS yang sama.</p>
 
-<p>Ini adalah <strong>artikel pembuka Jalur B</strong> (infrastruktur &amp; data) di Seri 2 — fondasi sebelum Python subscriber (#18), Grafana (#19), dan <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>.</p>
+<p>Ini adalah <strong>artikel pembuka Jalur B</strong> (infrastruktur &amp; data) di Seri 2 — fondasi sebelum <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python subscriber (#18)</a>, Grafana (#19), dan <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Paham dasar <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT &amp; publish ESP32 (#7)</a>. Familiar dengan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a> sangat membantu untuk bagian firmware. Wiring <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22</a> mengikuti Seri 1 (GPIO 4).</p>
@@ -108,7 +108,7 @@ class Article16Seeder extends Seeder
     <tr><td><strong>Mosquitto</strong></td><td>Broker pusat</td><td>Raspberry Pi (LAN) atau VPS</td></tr>
     <tr><td><strong>mosquitto_sub</strong></td><td>Subscriber CLI</td><td>Laptop → broker (uji coba)</td></tr>
     <tr><td><strong>MQTT Explorer</strong></td><td>Subscriber GUI</td><td>Laptop / HP → broker</td></tr>
-    <tr><td><strong>Python</strong> (#18)</td><td>Subscriber + simpan data</td><td>Lanjutan Jalur B → MySQL</td></tr>
+    <tr><td><strong>Python</strong> (<a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a>)</td><td>Subscriber + simpan data</td><td>Lanjutan Jalur B → MySQL</td></tr>
   </tbody>
 </table>
 
@@ -121,7 +121,7 @@ class Article16Seeder extends Seeder
       |
       +-- mosquitto_sub  (laptop)
       +-- MQTT Explorer  (HP)
-      +-- Python → MySQL (artikel #18, nanti)</code></pre>
+      +-- Python → MySQL (#18)</code></pre>
 
 <p><strong>Topic sensor</strong> tetap mengikuti konvensi Seri 1: <code>kodingindonesia/esp32/dht22/data</code> dengan payload JSON <code>{"suhu":28.5,"kelembaban":65.2}</code>.</p>
 
@@ -386,8 +386,8 @@ void loop() {
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — QoS, LWT &amp; retained messages — amankan broker di internet</li>
-  <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — waktu akurat sebelum subscriber Python (#18)</li>
-  <li><strong>Artikel #18:</strong> <strong>Subscriber Python</strong> → simpan data MQTT ke MySQL</li>
+  <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — waktu akurat sebelum <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">subscriber Python (#18)</a></li>
+  <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python → MySQL (#18)</a></strong> — simpan data MQTT ke database histori</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — integrasi ESP32 via broker pribadi</li>
   <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — alternatif flash tanpa sketch Arduino</li>
   <li><strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a></strong> — dashboard MQTT visual</li>

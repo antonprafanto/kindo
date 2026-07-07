@@ -383,7 +383,7 @@ return null;</code></pre>
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan Mosquitto</li>
-  <li><strong>Artikel #18:</strong> Simpan histori event PIR ke <strong>MySQL</strong> via subscriber Python</li>
+  <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> — simpan histori event PIR ke <strong>MySQL</strong></li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — timestamp akurat di log gerak</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — PIR + sensor + pompa relay</li>
 </ul>
