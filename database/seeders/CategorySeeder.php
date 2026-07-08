@@ -38,12 +38,13 @@ class CategorySeeder extends Seeder
                 'color'       => '#1565C0',
                 'sort_order'  => 4,
             ],
+            UiUxTaxonomy::category(),
             [
                 'name'        => 'Networking',
                 'slug'        => 'networking',
                 'description' => 'Jaringan komputer, protokol komunikasi, dan keamanan jaringan.',
                 'color'       => '#E65100',
-                'sort_order'  => 5,
+                'sort_order'  => 6,
             ],
         ];
 

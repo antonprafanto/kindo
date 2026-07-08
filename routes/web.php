@@ -46,6 +46,14 @@ Route::get('/deploy/migrate', [DeployController::class, 'migrate'])
     ->middleware('throttle:120,1')
     ->name('deploy.migrate');
 
+Route::get('/deploy/apply-ui-ux-taxonomy', [DeployController::class, 'applyUiUxTaxonomy'])
+    ->middleware('throttle:3,1')
+    ->name('deploy.apply-ui-ux-taxonomy');
+
+Route::get('/deploy/verify-ui-ux-taxonomy', [DeployController::class, 'verifyUiUxTaxonomy'])
+    ->middleware('throttle:5,1')
+    ->name('deploy.verify-ui-ux-taxonomy');
+
 Route::get('/deploy/health', [DeployController::class, 'health'])
     ->middleware('throttle:120,1')
     ->name('deploy.health');

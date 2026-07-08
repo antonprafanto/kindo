@@ -17,7 +17,7 @@
                 <h2 class="text-xl font-black mb-4 border-b-2 border-black pb-3">🎯 Visi Program</h2>
                 <p class="theme-body">
                     Koding Indonesia ingin menjadi rumah bagi konten IT & teknologi berkualitas dalam Bahasa Indonesia.
-                    Kontributor membantu memperkaya topik di luar fokus utama kami — dari embedded system hingga web development, networking, dan lainnya.
+                    Kontributor membantu memperkaya topik di luar fokus utama kami — dari embedded system hingga web development, UI/UX, networking, dan lainnya.
                 </p>
             </div>
 

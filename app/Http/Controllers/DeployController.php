@@ -47,7 +47,85 @@ class DeployController extends Controller
 
         Artisan::call('migrate', ['--force' => true]);
 
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
         return response(trim(Artisan::output()) ?: 'Migrated', 200);
+    }
+
+    /**
+     * Recategorize artikel UI/UX kontributor setelah taxonomy UI/UX live (idempotent).
+     */
+    public function applyUiUxTaxonomy(): Response
+    {
+        $this->authorizeDeployHook();
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\RecategorizeAjiUxArticlesSeeder',
+            '--force' => true,
+        ]);
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('UI/UX taxonomy applied to contributor articles', 200);
+    }
+
+    public function verifyUiUxTaxonomy(): JsonResponse
+    {
+        $this->authorizeDeployHook();
+
+        $expectedTags = \Database\Seeders\UiUxTaxonomy::tagSlugs();
+        $categoryOk = Schema::hasTable('categories')
+            && DB::table('categories')
+                ->where('slug', 'ui-ux-desain')
+                ->whereNull('deleted_at')
+                ->exists();
+
+        $tagCount = Schema::hasTable('tags')
+            ? DB::table('tags')
+                ->whereIn('slug', $expectedTags)
+                ->whereNull('deleted_at')
+                ->count()
+            : 0;
+
+        $ajiEmail = \App\Support\EmailNormalizer::normalize('caksaaji@gmail.com');
+        $ajiUserId = Schema::hasTable('users')
+            ? DB::table('users')->where('email', $ajiEmail)->value('id')
+            : null;
+
+        $ajiUntaggedWebDev = 0;
+        if ($ajiUserId && Schema::hasTable('articles')) {
+            $webCategoryId = DB::table('categories')->where('slug', 'web-development')->value('id');
+            if ($webCategoryId) {
+                $ajiUntaggedWebDev = DB::table('articles')
+                    ->where('user_id', $ajiUserId)
+                    ->where('category_id', $webCategoryId)
+                    ->whereNull('deleted_at')
+                    ->whereNotIn('id', function ($query) {
+                        $query->select('article_id')->from('article_tag');
+                    })
+                    ->count();
+            }
+        }
+
+        $ok = $categoryOk && $tagCount === count($expectedTags) && $ajiUntaggedWebDev === 0;
+
+        return response()->json([
+            'ok'                        => $ok,
+            'ui_ux_category'            => $categoryOk,
+            'ui_ux_tags'                => $tagCount,
+            'expected_ui_ux_tags'       => count($expectedTags),
+            'aji_untagged_web_dev_left' => $ajiUntaggedWebDev,
+        ], $ok ? 200 : 500, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     }
 
     /**

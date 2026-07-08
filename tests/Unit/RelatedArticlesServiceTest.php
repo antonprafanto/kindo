@@ -75,6 +75,11 @@ class RelatedArticlesServiceTest extends TestCase
         $service->forArticle($article->load('tags'));
         $this->assertNotEmpty(DB::getQueryLog());
     }
+
+    /**
+     * @return array{0: Article, 1: Article}
+     */
+    private function seedArticles(): array
     {
         $user = User::factory()->create();
         $category = Category::create([

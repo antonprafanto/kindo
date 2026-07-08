@@ -1,7 +1,7 @@
 <x-layouts.app
-    title="Koding Indonesia — Tutorial ESP32 & IoT"
-    description="Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir."
-    ogDescription="Belajar ESP32, Arduino, dan IoT dengan tutorial praktis berbahasa Indonesia. Gratis untuk pemula hingga mahir."
+    title="Koding Indonesia — Tutorial ESP32, IoT & Pemrograman"
+    description="Belajar ESP32, Arduino, IoT, web development, UI/UX, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir."
+    ogDescription="Belajar ESP32, Arduino, IoT, web development, dan UI/UX dengan tutorial praktis berbahasa Indonesia. Gratis untuk pemula hingga mahir."
 >
 
     {{-- ═══════════════════════════════════ HERO ═══════════════════════════════════ --}}
@@ -21,7 +21,7 @@
                     </h1>
 
                     <p class="text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-lg theme-body" style="font-family: 'Inter', sans-serif;">
-                        Tutorial ESP32, Arduino, IoT, dan pemrograman — ditulis dengan bahasa yang mudah dipahami oleh developer dan pelajar Indonesia.
+                        Tutorial ESP32, Arduino, IoT, web development, UI/UX, dan pemrograman — ditulis dengan bahasa yang mudah dipahami oleh developer dan pelajar Indonesia.
                     </p>
 
                     <div class="flex flex-wrap gap-3">
@@ -129,7 +129,7 @@
                 <p class="mt-3 text-sm theme-muted" style="font-family:'Inter',sans-serif;">Pilih topik yang ingin kamu pelajari</p>
             </div>
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
                 @foreach($categories as $cat)
                 <a href="{{ route('categories.show', $cat->slug) }}"
                    class="group theme-paper border-2 border-black p-3 sm:p-5 text-center transition-all"

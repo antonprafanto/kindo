@@ -45,6 +45,7 @@
                     <li class="flex items-start gap-2"><span class="text-[#2979FF] font-bold mt-0.5">▸</span> <span><strong>Embedded System & IoT</strong> — ESP32, ESP8266, Arduino, sensor, aktuator</span></li>
                     <li class="flex items-start gap-2"><span class="text-[#2979FF] font-bold mt-0.5">▸</span> <span><strong>Pemrograman Umum</strong> — Python, JavaScript, PHP, C/C++</span></li>
                     <li class="flex items-start gap-2"><span class="text-[#2979FF] font-bold mt-0.5">▸</span> <span><strong>Web Development</strong> — Laravel, React, database, API</span></li>
+                    <li class="flex items-start gap-2"><span class="text-[#2979FF] font-bold mt-0.5">▸</span> <span><strong>UI/UX & Desain</strong> — Wireframe, prototyping, usability, design system</span></li>
                     <li class="flex items-start gap-2"><span class="text-[#2979FF] font-bold mt-0.5">▸</span> <span><strong>Networking & Linux</strong> — Jaringan komputer, server, keamanan</span></li>
                 </ul>
             </div>

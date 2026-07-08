@@ -304,14 +304,24 @@ jobs:
           echo "Deleted $count compiled view file(s)"
 
       - name: Run migrations via deploy hook
-        continue-on-error: true
         run: |
           curl -fsS --max-time 120 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
             "https://kodingindonesia.com/deploy/migrate"
 
+      - name: Apply UI/UX taxonomy to contributor articles via deploy hook
+        run: |
+          curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/apply-ui-ux-taxonomy"
+
+      - name: Verify UI/UX taxonomy via deploy hook
+        run: |
+          curl -fsS --max-time 60 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/verify-ui-ux-taxonomy"
+
       - name: Clear Laravel cache via deploy hook
-        continue-on-error: true
         run: |
           curl -fsS --max-time 60 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
