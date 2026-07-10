@@ -295,6 +295,7 @@ void loop() {
   <li>Visualisasikan histori di <strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — grafik time-series interaktif</li>
   <li>Bandingkan REST vs MQTT: <strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">kapan pakai yang mana (#20)</a></strong></li>
   <li>Hop wireless tanpa router: <strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW antar ESP32 (#25)</a></strong> — sensor ke gateway tanpa AP WiFi</li>
+  <li>Sensor sangat jauh: <strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa SX1278 (#26)</a></strong> — kilometer tanpa WiFi di titik sensor</li>
   <li>Pelajari <strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT over TLS (#17)</a></strong> (port 8883) untuk koneksi aman</li>
 </ul>
 

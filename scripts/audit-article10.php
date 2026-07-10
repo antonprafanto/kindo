@@ -137,10 +137,11 @@ check($h2Count >= 8, "Minimal 8 section H2 (ada {$h2Count})");
 check($article?->read_time_minutes >= 5, 'read_time_minutes masuk akal (≥5 menit)');
 
 $seri2IndexCount = substr_count($body, '<li><strong><a href="/artikel/');
-check($seri2IndexCount === 16, 'Indeks Seri 2 punya 16 artikel live (' . $seri2IndexCount . ')');
-check(str_contains($body, 'enam belas artikel'), 'Teks indeks: enam belas artikel');
+check($seri2IndexCount === 17, 'Indeks Seri 2 punya 17 artikel live (' . $seri2IndexCount . ')');
+check(str_contains($body, 'tujuh belas artikel'), 'Teks indeks: tujuh belas artikel');
 check(str_contains($body, 'esp-now-kirim-data-antar-esp32-tanpa-router-wifi'), 'Indeks Seri 2 link artikel #25');
-check(str_contains($body, 'LoRa') && str_contains($body, '#26'), 'Teaser Seri 2: LoRa #26');
+check(str_contains($body, 'lora-esp32-modul-sx1278-kirim-data-jarak-jauh'), 'Indeks Seri 2 link artikel #26');
+check(str_contains($body, '#27') || str_contains($body, 'ESP32-CAM'), 'Teaser Seri 2: ESP32-CAM #27');
 
 echo "\n=== Pass 2: HTTP render lokal ===\n\n";
 

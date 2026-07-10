@@ -506,3 +506,21 @@ jobs:
             "https://kodingindonesia.com/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi")
           echo "Article 25 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Clear cache before article 26 publish
+        continue-on-error: true
+        run: |
+          curl -fsS --max-time 60 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/clear-cache"
+
+      - name: Publish article 26 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-26")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh")
+          echo "Article 26 HTTP status: $code"
+          test "$code" = "200"

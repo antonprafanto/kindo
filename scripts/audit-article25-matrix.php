@@ -121,8 +121,10 @@ check(str_contains($sitemap, $slug25), 'sitemap.xml mengandung slug #25');
 echo "\n--- H: Production snapshot ---\n\n";
 
 $code25 = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug25)));
+$code26 = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh')));
 $code20 = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug20)));
-check($code25 === '404', "Prod #25 pre-deploy HTTP {$code25}");
+check($code25 === '200', "Prod #25 live HTTP {$code25}");
+check($code26 === '404', "Prod #26 pre-deploy HTTP {$code26}");
 check($code20 === '200', "Prod #20 live HTTP {$code20}");
 
 echo "\n=== RESULT: {$passed} passed, {$failed} failed ===\n";

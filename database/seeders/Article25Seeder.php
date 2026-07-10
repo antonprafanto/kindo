@@ -89,7 +89,7 @@ class Article25Seeder extends Seeder
     <tr><td><strong>ESP-NOW</strong></td><td>~200 m LOS (tergantung antena)</td><td>2+ ESP32, tanpa router</td><td>Sensor lokal → gateway dekat</td></tr>
     <tr><td><strong>WiFi + MQTT (#7)</strong></td><td>Seluruh jaringan AP</td><td>Router + broker (#16)</td><td>Dashboard, multi-subscriber</td></tr>
     <tr><td><strong>REST (#6)</strong></td><td>LAN AP</td><td>Router</td><td>Debug cepat, satu klien</td></tr>
-    <tr><td><strong>LoRa (#26)</strong></td><td>Kilometer</td><td>2× ESP32 + modul SX1278</td><td>Sensor sangat jauh, data jarang</td></tr>
+    <tr><td><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a></strong></td><td>Kilometer</td><td>2× ESP32 + modul SX1278</td><td>Sensor sangat jauh, data jarang</td></tr>
   </tbody>
 </table>
 
@@ -332,7 +332,7 @@ void loop() {
 <ol>
   <li>Sensor jauh dari router, tapi dekat ke ESP32 lain? → <strong>ESP-NOW</strong></li>
   <li>Butuh kirim &lt; 250 byte, interval pendek? → <strong>ESP-NOW</strong></li>
-  <li>Butuh jangkau kilometer? → <strong>LoRa (#26)</strong>, bukan ESP-NOW</li>
+  <li>Butuh jangkau kilometer? → <strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a></strong>, bukan ESP-NOW</li>
   <li>Butuh banyak subscriber langsung dari sensor? → <strong>MQTT (#7)</strong></li>
   <li>Node baterai + gateway solar/USB? → <strong>ESP-NOW sensor + MQTT gateway</strong></li>
 </ol>
@@ -367,7 +367,7 @@ mosquitto_sub -h 192.168.1.50 -t "kodingindonesia/esp32/dht22/data" -v</code></p
   <li><strong>ESP-NOW GAGAL:</strong> MAC gateway salah atau channel beda — cek <code>onSent</code> callback</li>
   <li><strong>MQTT tidak publish:</strong> Gateway WiFi/MQTT bermasalah — debug terpisah dari ESP-NOW</li>
   <li><strong>Data korup:</strong> <code>struct</code> tidak <code>packed</code> sama di kedua sketch — ukuran harus identik</li>
-  <li><strong>Range pendek:</strong> Normal di dalam bangunan; antena eksternal atau LoRa (#26) untuk jarak jauh</li>
+  <li><strong>Range pendek:</strong> Normal di dalam bangunan; antena eksternal atau <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a> untuk jarak jauh</li>
   <li><strong>Payload &gt;250 byte:</strong> Pecah paket atau kirim field penting saja; atau pakai WiFi/MQTT</li>
   <li><strong>MAC berubah?</strong> Tidak untuk STA — tapi tulis di label agar tidak tertukar board</li>
 </ul>
@@ -382,7 +382,7 @@ mosquitto_sub -h 192.168.1.50 -t "kodingindonesia/esp32/dht22/data" -v</code></p
 
 <h2>Langkah Selanjutnya (Jalur D)</h2>
 <ul>
-  <li><strong>LoRa SX1278 (#26):</strong> sensor jarak jauh (ratusan meter–km) menggantikan/perluas ESP-NOW</li>
+  <li><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa SX1278 (#26)</a>:</strong> sensor jarak jauh (ratusan meter–km) menggantikan/perluas ESP-NOW</li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan hop gateway → broker</li>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep (#11)</a></strong> — optimalkan node sensor baterai</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — visualisasi data dari gateway MQTT</li>
