@@ -299,7 +299,7 @@ void loop() {
 </ol>
 
 <h2>Roadmap Belajar Selanjutnya — Seri 2</h2>
-<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — delapan belas artikel pertama (urutan publish):</p>
+<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — sembilan belas artikel pertama (urutan publish):</p>
 <ol>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32 + DHT22 hemat baterai</a></strong></li>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a></strong> — konfigurasi tanpa hardcode</li>
@@ -319,10 +319,11 @@ void loop() {
   <li><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW antar ESP32 tanpa router WiFi</a></strong> — peer-to-peer tanpa router</li>
   <li><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa ESP32 + SX1278 jarak jauh</a></strong> — sensor kilometer tanpa WiFi</li>
   <li><strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM MJPEG streaming</a></strong> — live video &amp; capture foto via WiFi</li>
+  <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT</a></strong> — sensor jarak jauh ke dashboard Grafana</li>
 </ol>
 <p>Masih akan datang di Seri 2:</p>
 <ul>
-  <li>Gateway LoRa → MQTT (#28)</li>
+  <li>Migrasi ke PlatformIO (#29)</li>
 </ul>
 
 <blockquote>

@@ -1569,6 +1569,83 @@ class DeployController extends Controller
         return response('Article 27 published', 200);
     }
 
+    public function publishArticle28(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! class_exists(\Database\Seeders\Article28Seeder::class)) {
+            return response('Article28Seeder class not found on server', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article28Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 28 seed failed', 500);
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article27Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article26Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article19Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article16Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article10Seeder',
+            '--force' => true,
+        ]);
+
+        $this->runDuplicateBme280Cleanup();
+
+        $slug = 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard';
+
+        $published = Article::published()
+            ->where('slug', $slug)
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 28 missing or not visible after Article28Seeder on deploy hook.'));
+
+            return response('Article 28 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 28 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

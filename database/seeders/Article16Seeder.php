@@ -395,6 +395,7 @@ void loop() {
   <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C</a></strong> — publish suhu, kelembaban &amp; tekanan ke broker pribadi kamu</li>
   <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — panel lokal untuk data BME280 di bus I2C</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — patch bug node terpasang tanpa buka casing</li>
+  <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT (#28)</a></strong> — forward paket sensor jauh ke broker ini</li>
   <li>Kembali ke <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep (#11)</a> + <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a> untuk stack lapangan lengkap</li>
 </ul>
 

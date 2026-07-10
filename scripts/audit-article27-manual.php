@@ -65,11 +65,11 @@ check(strpos($yml, 'publish-article-26') < strpos($yml, 'publish-article-27'), '
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
 $a10body = $a10?->body ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 18, '#10 indeks punya 18 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'delapan belas artikel'), '#10 indeks delapan belas artikel');
+check($indexItems === 19, '#10 indeks punya 19 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'sembilan belas artikel'), '#10 indeks sembilan belas artikel');
 check(substr_count($a10body, $href) >= 1, '#10 punya link #27');
-check(str_contains($a10body, 'Gateway LoRa → MQTT (#28)'), '#10 teaser #28 di Masih akan datang');
-check(! preg_match('/Masih akan datang[\s\S]*ESP32-CAM/', $a10body), '#10 tidak ada teaser orphan #27 di Masih akan datang');
+check(str_contains($a10body, 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'), '#10 punya link #28 di indeks');
+check(str_contains($a10body, '#29') || str_contains($a10body, 'PlatformIO'), '#10 teaser #29 PlatformIO');
 
 $a26 = Article::where('slug', 'lora-esp32-modul-sx1278-kirim-data-jarak-jauh')->first();
 check(str_contains($a26?->body ?? '', $href), '#26 hyperlink → #27');

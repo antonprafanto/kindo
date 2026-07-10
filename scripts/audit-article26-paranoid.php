@@ -62,11 +62,12 @@ echo "\n--- B: #10 indeks Seri 2 konsisten ---\n\n";
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 18, '#10 indeks punya 18 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'delapan belas artikel'), '#10 teks delapan belas artikel');
+check($indexItems === 19, '#10 indeks punya 19 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'sembilan belas artikel'), '#10 teks sembilan belas artikel');
 check(str_contains($a10body, $href), '#10 item #26 di indeks');
 check(str_contains($a10body, 'esp32-cam-streaming-mjpeg-capture-foto-wifi'), '#10 item #27 di indeks');
-check(str_contains($a10body, '#28') || str_contains($a10body, 'Gateway LoRa'), '#10 teaser #28 Gateway LoRa');
+check(str_contains($a10body, 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'), '#10 item #28 di indeks');
+check(str_contains($a10body, '#29') || str_contains($a10body, 'PlatformIO'), '#10 teaser #29 PlatformIO');
 
 echo "\n--- C: Tidak ada orphan 'Artikel #26' di seeder backlink ---\n\n";
 
@@ -144,12 +145,18 @@ if ($preDeploy) {
     $prod25html = (string) shell_exec('curl -sS --max-time 20 ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug25));
     $prod10html = (string) shell_exec('curl -sS --max-time 20 ' . escapeshellarg('https://kodingindonesia.com/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22'));
     $prod27slug = 'esp32-cam-streaming-mjpeg-capture-foto-wifi';
+    $slug28 = 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard';
     $prod27live = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $prod27slug))) === '200';
+    $prod28live = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug28))) === '200';
     check(str_contains($prod25html, $href), 'Production #25 hyperlink #26');
     check(str_contains($prod10html, $href), 'Production #10 link #26 di indeks');
-    if ($prod27live) {
-        check(str_contains($prod10html, 'delapan belas artikel'), 'Production #10 delapan belas artikel (pasca-deploy #27)');
+    if ($prod28live) {
+        check(str_contains($prod10html, 'sembilan belas artikel'), 'Production #10 sembilan belas artikel (pasca-deploy #28)');
+        check(str_contains($prod10html, $slug28), 'Production #10 link #28 di indeks');
+    } elseif ($prod27live) {
+        check(str_contains($prod10html, 'delapan belas artikel'), 'Production #10 delapan belas artikel (pre-deploy #28)');
         check(str_contains($prod10html, $prod27slug), 'Production #10 link #27 di indeks');
+        check(! str_contains($prod10html, $slug28), 'Production #10 belum punya link #28 (normal pre-deploy)');
     } else {
         check(str_contains($prod10html, 'tujuh belas artikel'), 'Production #10 tujuh belas artikel (pre-deploy #27)');
         check(! str_contains($prod10html, $prod27slug), 'Production #10 belum punya link #27 (normal pre-deploy)');

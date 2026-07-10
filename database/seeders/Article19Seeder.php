@@ -355,6 +355,7 @@ ORDER BY recorded_at;</code></pre>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — dashboard smart home alternatif</li>
   <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a></strong> — tambah field tekanan di measurement <code>bme280</code></li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR (#24)</a></strong> — panel event gerak di Grafana</li>
+  <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT (#28)</a></strong> — sensor kebun tanpa WiFi masuk panel Grafana ini</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — sensor + pompa + dashboard Grafana</li>
 </ul>
 

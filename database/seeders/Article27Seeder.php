@@ -348,7 +348,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 
 <h2>Langkah Selanjutnya (Jalur D)</h2>
 <ul>
-  <li><strong>Gateway LoRa → MQTT (#28):</strong> gabungkan sensor jauh + visual lokal</li>
+  <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT (#28)</a>:</strong> gabungkan sensor jauh + visual lokal</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — dashboard angka sensor (bukan video)</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA (#15)</a></strong> — update firmware kamera tanpa USB-TTL</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — integrasi stream kamera (addon terpisah)</li>
