@@ -560,3 +560,14 @@ jobs:
             "https://kodingindonesia.com/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard")
           echo "Article 28 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Publish article 29 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-29")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/migrasi-platformio-esp32-vscode-project-rapi")
+          echo "Article 29 HTTP status: $code"
+          test "$code" = "200"

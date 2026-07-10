@@ -329,7 +329,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 
 <h2>Langkah Selanjutnya (Jalur D selesai → Jalur E)</h2>
 <ul>
-  <li><strong>Migrasi PlatformIO (#29):</strong> struktur project gateway + sensor lebih rapi</li>
+  <li><strong><a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">Migrasi PlatformIO (#29)</a>:</strong> struktur project gateway + sensor lebih rapi</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python → MySQL (#18)</a></strong> — arsip SQL paralel Grafana</li>
   <li><strong>Capstone greenhouse (#39)</strong> — LoRa kebun + pompa relay + dashboard</li>
   <li>Kembali ke <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a> jika perlu tuning SF/antena</li>

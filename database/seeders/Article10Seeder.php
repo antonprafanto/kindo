@@ -299,7 +299,7 @@ void loop() {
 </ol>
 
 <h2>Roadmap Belajar Selanjutnya — Seri 2</h2>
-<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — sembilan belas artikel pertama (urutan publish):</p>
+<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — dua puluh artikel pertama (urutan publish):</p>
 <ol>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32 + DHT22 hemat baterai</a></strong></li>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a></strong> — konfigurasi tanpa hardcode</li>
@@ -320,10 +320,11 @@ void loop() {
   <li><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa ESP32 + SX1278 jarak jauh</a></strong> — sensor kilometer tanpa WiFi</li>
   <li><strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM MJPEG streaming</a></strong> — live video &amp; capture foto via WiFi</li>
   <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT</a></strong> — sensor jarak jauh ke dashboard Grafana</li>
+  <li><strong><a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">Migrasi ke PlatformIO di VS Code</a></strong> — project ESP32 lebih rapi dengan platformio.ini</li>
 </ol>
 <p>Masih akan datang di Seri 2:</p>
 <ul>
-  <li>Migrasi ke PlatformIO (#29)</li>
+  <li>ESP32 + Firebase (#30)</li>
 </ul>
 
 <blockquote>

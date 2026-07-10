@@ -65,11 +65,12 @@ check(strpos($yml, 'publish-article-26') < strpos($yml, 'publish-article-27'), '
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
 $a10body = $a10?->body ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 19, '#10 indeks punya 19 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'sembilan belas artikel'), '#10 indeks sembilan belas artikel');
+check($indexItems === 20, '#10 indeks punya 20 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'dua puluh artikel'), '#10 indeks dua puluh artikel');
 check(substr_count($a10body, $href) >= 1, '#10 punya link #27');
 check(str_contains($a10body, 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'), '#10 punya link #28 di indeks');
-check(str_contains($a10body, '#29') || str_contains($a10body, 'PlatformIO'), '#10 teaser #29 PlatformIO');
+check(str_contains($a10body, 'migrasi-platformio-esp32-vscode-project-rapi'), '#10 punya link #29 di indeks');
+check(str_contains($a10body, '#30') || str_contains($a10body, 'Firebase'), '#10 teaser #30 Firebase');
 
 $a26 = Article::where('slug', 'lora-esp32-modul-sx1278-kirim-data-jarak-jauh')->first();
 check(str_contains($a26?->body ?? '', $href), '#26 hyperlink → #27');

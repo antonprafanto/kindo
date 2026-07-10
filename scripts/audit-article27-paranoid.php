@@ -62,11 +62,12 @@ echo "\n--- B: #10 indeks Seri 2 konsisten ---\n\n";
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 19, '#10 indeks punya 19 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'sembilan belas artikel'), '#10 teks sembilan belas artikel');
+check($indexItems === 20, '#10 indeks punya 20 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'dua puluh artikel'), '#10 teks dua puluh artikel');
 check(str_contains($a10body, $href), '#10 item #27 di indeks');
 check(str_contains($a10body, 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'), '#10 item #28 di indeks');
-check(str_contains($a10body, '#29') || str_contains($a10body, 'PlatformIO'), '#10 teaser #29 PlatformIO');
+check(str_contains($a10body, 'migrasi-platformio-esp32-vscode-project-rapi'), '#10 item #29 di indeks');
+check(str_contains($a10body, '#30') || str_contains($a10body, 'Firebase'), '#10 teaser #30 Firebase');
 
 echo "\n--- C: Tidak ada orphan 'Artikel #27' di seeder backlink ---\n\n";
 
@@ -151,13 +152,19 @@ if ($preDeploy) {
     check(str_contains($prod10html, 'tujuh belas artikel'), 'Production #10 masih tujuh belas — akan fix saat deploy hook #27');
 } else {
     $slug28 = 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard';
+    $slug29 = 'migrasi-platformio-esp32-vscode-project-rapi';
     $prod28live = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug28))) === '200';
+    $prod29live = trim((string) shell_exec('curl -sS --max-time 20 -o NUL -w "%{http_code}" ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug29))) === '200';
     $prod26html = (string) shell_exec('curl -sS --max-time 20 ' . escapeshellarg('https://kodingindonesia.com/artikel/' . $slug26));
     $prod10html = (string) shell_exec('curl -sS --max-time 20 ' . escapeshellarg('https://kodingindonesia.com/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22'));
     check(str_contains($prod26html, $href), 'Production #26 hyperlink #27');
-    if ($prod28live) {
-        check(str_contains($prod10html, 'sembilan belas artikel'), 'Production #10 sembilan belas artikel (pasca-deploy #28)');
+    if ($prod29live) {
+        check(str_contains($prod10html, 'dua puluh artikel'), 'Production #10 dua puluh artikel (pasca-deploy #29)');
+        check(str_contains($prod10html, $slug29), 'Production #10 link #29 di indeks');
+    } elseif ($prod28live) {
+        check(str_contains($prod10html, 'sembilan belas artikel'), 'Production #10 sembilan belas artikel (pasca-deploy #28, pre-#29)');
         check(str_contains($prod10html, $slug28), 'Production #10 link #28 di indeks');
+        check(! str_contains($prod10html, $slug29), 'Production #10 belum punya link #29 (normal pre-deploy)');
     } else {
         check(str_contains($prod10html, 'delapan belas artikel'), 'Production #10 delapan belas artikel (pre-deploy #28)');
         check(str_contains($prod10html, $href), 'Production #10 link #27 di indeks');

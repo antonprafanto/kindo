@@ -230,6 +230,9 @@ void loop() {
 <blockquote>
   <p><strong>Masalah Umum:</strong> Jika gagal upload, tekan dan tahan tombol BOOT pada ESP32 saat proses upload dimulai, kemudian lepaskan ketika muncul teks "Connecting..." di output.</p>
 </blockquote>
+
+<h2>Langkah Selanjutnya — Seri 2</h2>
+<p>Setelah nyaman dengan Arduino IDE, project ESP32 yang lebih besar bisa dirapikan dengan <a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">migrasi ke PlatformIO di VS Code (#29)</a> — dependency terkelola lewat <code>platformio.ini</code> dan struktur folder siap kolaborasi tim.</p>
 HTML;
     }
 

@@ -62,7 +62,7 @@ check(preg_match('/Publish article 25 via deploy hook \(required\)/', $yml) === 
 check(strpos($yml, 'publish-article-20') < strpos($yml, 'publish-article-25'), 'CI: hook #20 sebelum #25');
 
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
-check(str_contains($a10?->body ?? '', 'sembilan belas artikel'), '#10 indeks sembilan belas artikel');
+check(str_contains($a10?->body ?? '', 'dua puluh artikel'), '#10 indeks dua puluh artikel');
 check(substr_count($a10?->body ?? '', $href) >= 1, '#10 punya link #25');
 check(str_contains($a10?->body ?? '', 'esp32-cam-streaming-mjpeg-capture-foto-wifi'), '#10 punya link #27 di indeks');
 check(! str_contains($a10?->body ?? '', 'ESP-NOW antar ESP32 tanpa router WiFi (#25)'), '#10 tidak ada teaser orphan #25');
