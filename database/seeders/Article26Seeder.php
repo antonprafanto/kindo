@@ -372,7 +372,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <li><strong>Gateway LoRa → MQTT (#28):</strong> receiver + WiFi publish ke <code>kodingindonesia/esp32/dht22/data</code> via broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> (<code>192.168.1.50</code>, user <code>kindo_esp32</code>)</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — visualisasi setelah data masuk MQTT</li>
   <li><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a></strong> — bandingkan untuk node dekat gateway</li>
-  <li><strong>ESP32-CAM (#27):</strong> streaming video — kebutuhan berbeda dari telemetry LoRa</li>
+  <li><strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM (#27)</a>:</strong> streaming video — kebutuhan berbeda dari telemetry LoRa</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — sensor LoRa kebun + pompa MQTT</li>
 </ul>
 

@@ -240,6 +240,7 @@ void loop() {
   <li>Pahami kapan pakai REST vs MQTT di <strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">panduan #20</a></strong> sebelum scale ke cloud</li>
   <li>Tambahkan <strong>relay</strong> untuk kontrol lampu berdasarkan suhu</li>
   <li>Integrasikan dengan <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> untuk smart home lengkap</li>
+  <li>Tambahkan visual: <strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM MJPEG streaming (#27)</a></strong> — live video di browser, melengkapi angka sensor di web server ini</li>
 </ul>
 
 <blockquote>

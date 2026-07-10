@@ -64,7 +64,7 @@ check(preg_match('/Publish article 26 via deploy hook \(required\)/', $yml) === 
 check(strpos($yml, 'publish-article-25') < strpos($yml, 'publish-article-26'), 'CI: hook #25 sebelum #26');
 
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
-check(str_contains($a10?->body ?? '', 'tujuh belas artikel'), '#10 indeks tujuh belas artikel');
+check(str_contains($a10?->body ?? '', 'delapan belas artikel'), '#10 indeks delapan belas artikel');
 check(substr_count($a10?->body ?? '', $href) >= 1, '#10 punya link #26');
 check(! str_contains($a10?->body ?? '', 'LoRa SX1278 — komunikasi jarak jauh antar ESP32 (#26)'), '#10 tidak ada teaser orphan #26');
 

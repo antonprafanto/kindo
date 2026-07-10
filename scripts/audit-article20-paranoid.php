@@ -61,10 +61,10 @@ echo "\n--- B: #10 indeks Seri 2 konsisten ---\n\n";
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 17, '#10 indeks punya 17 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'tujuh belas artikel'), '#10 teks tujuh belas artikel');
-check(str_contains($a10body, 'lora-esp32-modul-sx1278-kirim-data-jarak-jauh'), '#10 item #26 di indeks');
-check(str_contains($a10body, '#27') || str_contains($a10body, 'ESP32-CAM'), '#10 teaser #27 ESP32-CAM di Masih akan datang');
+check($indexItems === 18, '#10 indeks punya 18 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'delapan belas artikel'), '#10 teks delapan belas artikel');
+check(str_contains($a10body, 'esp32-cam-streaming-mjpeg-capture-foto-wifi'), '#10 item #27 di indeks');
+check(str_contains($a10body, '#28') || str_contains($a10body, 'Gateway LoRa'), '#10 teaser #28 Gateway LoRa');
 
 echo "\n--- C: Tidak ada orphan 'Artikel #20' di seeder backlink ---\n\n";
 
@@ -146,7 +146,7 @@ if ($preDeploy) {
     $prod19html = (string) shell_exec('curl -sS --max-time 20 ' . escapeshellarg('https://kodingindonesia.com/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'));
     $prod10html = (string) shell_exec('curl -sS --max-time 20 ' . escapeshellarg('https://kodingindonesia.com/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22'));
     check(str_contains($prod19html, $href), 'Production #19 hyperlink #20');
-    check(str_contains($prod10html, 'tujuh belas artikel') || str_contains($prod10html, 'enam belas artikel') || str_contains($prod10html, 'lima belas artikel'), 'Production #10 indeks artikel (tergantung deploy #25/#26)');
+    check(str_contains($prod10html, 'delapan belas artikel') || str_contains($prod10html, 'tujuh belas artikel') || str_contains($prod10html, 'enam belas artikel'), 'Production #10 indeks artikel (tergantung deploy #27)');
     check(str_contains($prod10html, $href), 'Production #10 link #20 di indeks');
 }
 
