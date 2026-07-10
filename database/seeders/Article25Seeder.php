@@ -64,7 +64,7 @@ class Article25Seeder extends Seeder
 
 <p>Di lapangan, tidak selalu demikian. Greenhouse besar, gudang, atau kebun punya <strong>node sensor di ujung</strong> yang jauh dari router — sinyal WiFi lemah, tapi jarak antar board ESP32 dekat. Di sinilah <strong>ESP-NOW</strong> masuk: protokol <strong>peer-to-peer</strong> Espressif untuk kirim paket kecil antar ESP32 <strong>tanpa router</strong>.</p>
 
-<p>Artikel <strong>Jalur D</strong> ini membahas pola paling umum: <strong>sensor node</strong> (ESP-NOW only) → <strong>gateway node</strong> (ESP-NOW + WiFi + MQTT) → broker → Grafana (#19). Ini pola <strong>sensor + gateway</strong> klasik untuk IoT lapangan.</p>
+<p>Artikel <strong>Jalur D</strong> ini membahas pola paling umum: <strong>sensor node</strong> (ESP-NOW only) → <strong>gateway node</strong> (ESP-NOW + WiFi + MQTT) → broker → <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>. Ini pola <strong>sensor + gateway</strong> klasik untuk IoT lapangan.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Paham <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">koneksi WiFi ESP32 (#4)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, dan dasar <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>. Disarankan baca <a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST vs MQTT (#20)</a> untuk konteks kapan butuh infrastruktur penuh.</p>
@@ -347,7 +347,7 @@ mosquitto_sub -h 192.168.1.50 -t "kodingindonesia/esp32/dht22/data" -v</code></p
   <li>Matikan sensor — stream berhenti; gateway tetap online</li>
   <li>Jauhkan sensor &gt;30 m atau balik dinding — amati packet loss</li>
   <li>Ubah channel salah di sensor — tidak ada data (debug channel)</li>
-  <li>Cek Grafana (#19) — titik suhu naik jika Telegraf/subscriber jalan</li>
+  <li>Cek <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a> — titik suhu naik jika Telegraf/subscriber jalan</li>
 </ol>
 
 <h2>FAQ Singkat</h2>
