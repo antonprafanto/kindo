@@ -169,7 +169,7 @@ $a8 = Article::where('slug', 'kontrol-lampu-esp32-mqtt-relay')->first();
 check($a8 !== null, 'Artikel #8 ada');
 check(str_contains($a8?->body ?? '', 'node-red-dashboard-otomasi-iot-mqtt-esp32'), 'Artikel #8 backlink → #23');
 
-check(str_contains($a10?->body ?? '', 'dua puluh dua artikel'), 'Artikel #10 teks dua puluh dua artikel');
+check(str_contains($a10?->body ?? '', 'dua puluh tiga artikel'), 'Artikel #10 teks dua puluh tiga artikel');
 
 echo "\n=== Post-deploy (manual) ===\n";
 echo "○ Upload cover image via Filament (daftar artikel → Upload Cover)\n";

@@ -42,10 +42,11 @@ check(preg_match('/Publish article 30 via deploy hook \(required\)/', $yml) === 
 check(strpos($yml, 'publish-article-29') < strpos($yml, 'publish-article-30'), 'CI: hook #29 sebelum #30');
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
-check(substr_count($a10body, '<li><strong><a href="/artikel/') === 22, '#10 indeks 22 item');
-check(str_contains($a10body, 'dua puluh dua artikel'), '#10 teks dua puluh dua artikel');
+check(substr_count($a10body, '<li><strong><a href="/artikel/') === 23, '#10 indeks 23 item');
+check(str_contains($a10body, 'dua puluh tiga artikel'), '#10 teks dua puluh tiga artikel');
 check(str_contains($a10body, $slug), '#10 link #30');
-check(str_contains($a10body, '#32') || str_contains($a10body, 'Bluetooth'), '#10 teaser #32');
+check(str_contains($a10body, 'bluetooth-esp32-ble-kirim-data-sensor-smartphone'), '#10 link #32');
+check(str_contains($a10body, '#33') || str_contains($a10body, 'Servo'), '#10 teaser #33');
 
 check(str_contains(Article::where('slug', 'migrasi-platformio-esp32-vscode-project-rapi')->value('body') ?? '', $slug), '#29 → #30');
 check(str_contains(Article::where('slug', 'menghubungkan-esp32-wifi-kirim-data-server')->value('body') ?? '', $slug), '#4 → #30');

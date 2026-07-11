@@ -59,10 +59,10 @@ echo "\n--- B: #10 indeks Seri 2 konsisten ---\n\n";
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 22, '#10 indeks punya 22 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'dua puluh dua artikel'), '#10 teks dua puluh dua artikel');
-check(str_contains($a10body, $slug), '#10 item #31 di indeks');
-check(str_contains($a10body, '#32') || str_contains($a10body, 'Bluetooth'), '#10 teaser #32 BLE');
+check($indexItems === 23, '#10 indeks punya 23 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'dua puluh tiga artikel'), '#10 teks dua puluh tiga artikel');
+check(str_contains($a10body, 'bluetooth-esp32-ble-kirim-data-sensor-smartphone'), '#10 item #32 di indeks');
+check(str_contains($a10body, '#33') || str_contains($a10body, 'Servo'), '#10 teaser #33 Servo');
 
 echo "\n--- C: Tidak ada orphan 'Artikel #31' di seeder backlink ---\n\n";
 

@@ -64,7 +64,7 @@ check(preg_match('/Publish article 20 via deploy hook \(required\)/', $yml) === 
 check(strpos($yml, 'publish-article-19') < strpos($yml, 'publish-article-20'), 'CI: hook #19 sebelum #20');
 
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
-check(str_contains($a10?->body ?? '', 'dua puluh dua artikel'), '#10 indeks dua puluh dua artikel');
+check(str_contains($a10?->body ?? '', 'dua puluh tiga artikel'), '#10 indeks dua puluh tiga artikel');
 check(substr_count($a10?->body ?? '', $href) >= 1, '#10 punya link #20');
 check(! str_contains($a10?->body ?? '', 'REST API vs MQTT untuk proyek IoT (#20)'), '#10 tidak ada teaser orphan #20');
 

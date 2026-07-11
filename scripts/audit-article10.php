@@ -137,8 +137,8 @@ check($h2Count >= 8, "Minimal 8 section H2 (ada {$h2Count})");
 check($article?->read_time_minutes >= 5, 'read_time_minutes masuk akal (≥5 menit)');
 
 $seri2IndexCount = substr_count($body, '<li><strong><a href="/artikel/');
-check($seri2IndexCount === 22, 'Indeks Seri 2 punya 22 artikel live (' . $seri2IndexCount . ')');
-check(str_contains($body, 'dua puluh dua artikel'), 'Teks indeks: dua puluh dua artikel');
+check($seri2IndexCount === 23, 'Indeks Seri 2 punya 23 artikel live (' . $seri2IndexCount . ')');
+check(str_contains($body, 'dua puluh tiga artikel'), 'Teks indeks: dua puluh tiga artikel');
 check(str_contains($body, 'esp-now-kirim-data-antar-esp32-tanpa-router-wifi'), 'Indeks Seri 2 link artikel #25');
 check(str_contains($body, 'lora-esp32-modul-sx1278-kirim-data-jarak-jauh'), 'Indeks Seri 2 link artikel #26');
 check(str_contains($body, 'esp32-cam-streaming-mjpeg-capture-foto-wifi'), 'Indeks Seri 2 link artikel #27');
@@ -146,7 +146,8 @@ check(str_contains($body, 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard')
 check(str_contains($body, 'migrasi-platformio-esp32-vscode-project-rapi'), 'Indeks Seri 2 link artikel #29');
 check(str_contains($body, 'esp32-firebase-realtime-database-sensor-cloud'), 'Indeks Seri 2 link artikel #30');
 check(str_contains($body, 'freertos-esp32-multi-task-sensor-wifi-mqtt'), 'Indeks Seri 2 link artikel #31');
-check(str_contains($body, '#32') || str_contains($body, 'Bluetooth'), 'Teaser Seri 2: BLE #32');
+check(str_contains($body, 'bluetooth-esp32-ble-kirim-data-sensor-smartphone'), 'Indeks Seri 2 link artikel #32');
+check(str_contains($body, '#33') || str_contains($body, 'Servo'), 'Teaser Seri 2: Servo #33');
 
 echo "\n=== Pass 2: HTTP render lokal ===\n\n";
 

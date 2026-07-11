@@ -333,7 +333,7 @@ lib_deps =
 <h2>Langkah Selanjutnya — Tier 2 Seri 2</h2>
 <p>Dengan Jalur E (#29–#31) selesai, Tier 1 inti Seri 2 <strong>lengkap</strong> — total 22 artikel live setelah deploy artikel ini, termasuk deep sleep (#11), broker sendiri (#16), dan capstone dashboard (#10). Lanjut ke pelengkap Tier 2:</p>
 <ul>
-  <li><strong>Bluetooth BLE (#32):</strong> kirim data sensor ke smartphone tanpa WiFi</li>
+  <li><strong><a href="/artikel/bluetooth-esp32-ble-kirim-data-sensor-smartphone">Bluetooth BLE (#32)</a>:</strong> kirim data sensor ke smartphone tanpa WiFi</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — timestamp live di payload JSON</li>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep (#11)</a></strong> — kombinasikan dengan task ringan pre-sleep</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — visualisasi histori dari topic yang sama</li>

@@ -65,8 +65,8 @@ check(strpos($yml, 'publish-article-26') < strpos($yml, 'publish-article-27'), '
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
 $a10body = $a10?->body ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 22, '#10 indeks punya 22 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'dua puluh dua artikel'), '#10 indeks dua puluh dua artikel');
+check($indexItems === 23, '#10 indeks punya 22 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'dua puluh tiga artikel'), '#10 indeks dua puluh tiga artikel');
 check(substr_count($a10body, $href) >= 1, '#10 punya link #27');
 check(str_contains($a10body, 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'), '#10 punya link #28 di indeks');
 check(str_contains($a10body, 'migrasi-platformio-esp32-vscode-project-rapi'), '#10 punya link #29 di indeks');

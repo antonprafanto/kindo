@@ -67,8 +67,8 @@ check(str_contains($routes, 'publish-article-29'), 'Route publish-article-29');
 $a10 = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->first();
 $a10body = $a10?->body ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 22, '#10 indeks punya 22 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'dua puluh dua artikel'), '#10 indeks dua puluh dua artikel');
+check($indexItems === 23, '#10 indeks punya 22 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'dua puluh tiga artikel'), '#10 indeks dua puluh tiga artikel');
 check(str_contains($a10body, $slug), '#10 punya link #29 di indeks');
 check(str_contains($a10body, '#30') || str_contains($a10body, 'Firebase'), '#10 teaser #30 Firebase');
 
