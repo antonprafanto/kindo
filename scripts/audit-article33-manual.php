@@ -34,11 +34,12 @@ Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article10Seeder', '--
 Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\PatchArticle8ServoSeeder', '--force' => true]);
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
-check(substr_count($a10body, '<li><strong><a href="/artikel/') === 25, '#10 indeks 25 item');
-check(str_contains($a10body, 'dua puluh lima artikel'), '#10 teks dua puluh lima artikel');
+check(substr_count($a10body, '<li><strong><a href="/artikel/') === 26, '#10 indeks 26 item');
+check(str_contains($a10body, 'dua puluh enam artikel'), '#10 teks dua puluh enam artikel');
 check(str_contains($a10body, $slug), '#10 item #33 di indeks');
 check(str_contains($a10body, 'adc-esp32-sensor-analog-soil-moisture-ldr-mqtt'), '#10 link #35 ADC di indeks');
-check(str_contains($a10body, '#36') || str_contains($a10body, 'ESP8266'), '#10 teaser #36 ESP8266');
+check(str_contains($a10body, 'esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade'), '#10 link #36 ESP8266 di indeks');
+check(str_contains($a10body, '#37') || str_contains($a10body, 'SD Card'), '#10 teaser #37 SD Card');
 check(file_exists(__DIR__ . '/../database/seeders/Article33Seeder.php'), 'Article33Seeder.php ada');
 check(file_exists(__DIR__ . '/../database/seeders/PatchArticle8ServoSeeder.php'), 'PatchArticle8ServoSeeder.php ada');
 foreach (['audit-article33.php', 'audit-article33-spotcheck.php'] as $script) {

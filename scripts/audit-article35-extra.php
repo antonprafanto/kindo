@@ -79,7 +79,7 @@ if (is_dir($docs)) {
     check(str_contains($todo, $slug) || str_contains($todo, '#35'), 'TODO.md konsisten');
     check(str_contains($prd, $slug) || str_contains($prd, '#35'), 'PRD.md konsisten');
     check(str_contains($roadmap, $slug) || str_contains($roadmap, '#35'), 'Roadmap konsisten');
-    check(str_contains($roadmap, '#36'), 'Roadmap teaser #36');
+    check(str_contains($roadmap, '#37') || str_contains($roadmap, 'SD Card'), 'Roadmap teaser #37');
 }
 
 $patch = file_get_contents(__DIR__ . '/../database/seeders/PatchArticle5AdcSeeder.php');

@@ -41,11 +41,12 @@ check($a33?->read_time_minutes >= 8, 'read_time ≥ 8 menit');
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 25, '#10 indeks 25 item (' . $indexItems . ')');
-check(str_contains($a10body, 'dua puluh lima artikel'), '#10 teks dua puluh lima artikel');
+check($indexItems === 26, '#10 indeks 26 item (' . $indexItems . ')');
+check(str_contains($a10body, 'dua puluh enam artikel'), '#10 teks dua puluh enam artikel');
 check(str_contains($a10body, $slug), '#10 item #33');
 check(str_contains($a10body, 'adc-esp32-sensor-analog-soil-moisture-ldr-mqtt'), '#10 link #35 ADC');
-check(str_contains($a10body, '#36') || str_contains($a10body, 'ESP8266'), '#10 teaser #36');
+check(str_contains($a10body, 'esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade'), '#10 link #36 ESP8266');
+check(str_contains($a10body, '#37') || str_contains($a10body, 'SD Card'), '#10 teaser #37');
 
 foreach (['Article10Seeder.php', 'Article32Seeder.php'] as $file) {
     $src = file_get_contents(__DIR__ . '/../database/seeders/' . $file);

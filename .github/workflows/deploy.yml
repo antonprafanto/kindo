@@ -626,3 +626,14 @@ jobs:
             "https://kodingindonesia.com/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt")
           echo "Article 35 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Publish article 36 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-36")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade")
+          echo "Article 36 HTTP status: $code"
+          test "$code" = "200"

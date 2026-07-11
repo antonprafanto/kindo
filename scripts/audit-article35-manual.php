@@ -35,10 +35,10 @@ Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\PatchArticle5AdcSeede
 Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\PatchArticle27LdrSeeder', '--force' => true]);
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
-check(substr_count($a10body, '<li><strong><a href="/artikel/') === 25, '#10 indeks 25 item');
-check(str_contains($a10body, 'dua puluh lima artikel'), '#10 teks dua puluh lima artikel');
+check(substr_count($a10body, '<li><strong><a href="/artikel/') === 26, '#10 indeks 26 item');
+check(str_contains($a10body, 'dua puluh enam artikel'), '#10 teks dua puluh enam artikel');
 check(str_contains($a10body, $slug), '#10 item #35 di indeks');
-check(str_contains($a10body, '#36') || str_contains($a10body, 'ESP8266'), '#10 teaser #36 ESP8266');
+check(str_contains($a10body, '#37') || str_contains($a10body, 'SD Card'), '#10 teaser #37 SD Card');
 check(file_exists(__DIR__ . '/../database/seeders/Article35Seeder.php'), 'Article35Seeder.php ada');
 check(file_exists(__DIR__ . '/../database/seeders/PatchArticle5AdcSeeder.php'), 'PatchArticle5AdcSeeder.php ada');
 check(file_exists(__DIR__ . '/../database/seeders/PatchArticle27LdrSeeder.php'), 'PatchArticle27LdrSeeder.php ada');

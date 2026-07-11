@@ -388,7 +388,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 <h2>Langkah Selanjutnya — Tier 2 Seri 2</h2>
 <p>Input analog melengkapi aktuator servo (#33) dan relay (#8) — sensor tanah siap untuk capstone. Lanjut ke pelengkap Tier 2:</p>
 <ul>
-  <li><strong>ESP8266 / NodeMCU vs ESP32 (#36):</strong> kapan pakai board murah vs upgrade</li>
+  <li><strong><a href="/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade">ESP8266 / NodeMCU vs ESP32</a></strong> — kapan pakai board murah vs upgrade</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — ganti unix contoh dengan waktu nyata</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> — simpan histori kelembaban tanah ke MySQL</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — grafik tanah vs cahaya vs suhu DHT</li>
