@@ -381,7 +381,7 @@ lib_deps =
   <li><strong><a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">SD Card &amp; SPI logging offline (#37)</a></strong> — backup data sensor di lapangan tanpa WiFi</li>
   <li><strong><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC (#35)</a></strong> — alasan upgrade ke ESP32 untuk multi-sensor analog</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — timestamp ISO <code>2026-07-02T14:30:00</code> di payload ESP32</li>
-  <li><strong>Keamanan HTTPS (#38)</strong> — sertifikat untuk HTTP client ESP32</li>
+  <li><strong><a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">Keamanan HTTPS (#38)</a></strong> — sertifikat untuk HTTP client ESP32</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — gabung multi-sensor + aktuator + dashboard</li>
 </ul>
 

@@ -190,6 +190,10 @@ Route::get('/deploy/publish-article-37', [DeployController::class, 'publishArtic
     ->middleware('throttle:120,1')
     ->name('deploy.publish-article-37');
 
+Route::get('/deploy/publish-article-38', [DeployController::class, 'publishArticle38'])
+    ->middleware('throttle:120,1')
+    ->name('deploy.publish-article-38');
+
 Route::get('/deploy/publish-article-24', [DeployController::class, 'publishArticle24'])
     ->middleware('throttle:120,1')
     ->name('deploy.publish-article-24');

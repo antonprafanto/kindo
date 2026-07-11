@@ -372,7 +372,7 @@ lib_deps =
 <h2>Langkah Selanjutnya — Tier 2 Seri 2</h2>
 <p>Logging offline melengkapi pipeline MQTT — data aman di lapangan dan di cloud. Lanjut:</p>
 <ul>
-  <li><strong>Keamanan HTTPS &amp; sertifikat (#38):</strong> amankan HTTP client ESP32 ke API eksternal</li>
+  <li><strong><a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">Keamanan HTTPS &amp; sertifikat (#38)</a></strong> — amankan HTTP client ESP32 ke API eksternal</li>
   <li><strong><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC (#35)</a></strong> — tambah kolom soil/LDR di CSV yang sama</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — visualisasi setelah CSV diimpor atau MQTT sync</li>
   <li>Capstone <strong>greenhouse (#39)</strong> — multi-sensor + SD backup + dashboard</li>

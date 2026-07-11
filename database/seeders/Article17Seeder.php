@@ -367,7 +367,7 @@ void loop() {
   <li>Tutup port <code>1883</code> dari internet setelah TLS aktif — hanya <code>8883</code> atau VPN</li>
   <li>Jangan commit <code>*.key</code> atau password ke Git — simpan di NVS (<a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">#12</a>)</li>
   <li>Pertimbangkan <strong>ACL Mosquitto</strong> agar user ESP32 hanya publish/subscribe topic tertentu</li>
-  <li>HTTPS client di ESP32 (bukan MQTT) → lihat artikel pelengkap <strong>#38</strong></li>
+  <li>HTTPS client di ESP32 (bukan MQTT) → lihat <a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">pelengkap HTTPS (#38)</a></li>
 </ul>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
