@@ -38,7 +38,7 @@ Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\PatchArticle37HttpsSe
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 check(substr_count($a10body, '<li><strong><a href="/artikel/') === 28, '#10 indeks 28 item');
-check(str_contains($a10body, 'dua puluh delapan artikel'), '#10 teks dua puluh delapan artikel');
+check(str_contains($a10body, 'dua puluh sembilan artikel'), '#10 teks dua puluh sembilan artikel');
 check(str_contains($a10body, $slug), '#10 item #38 di indeks');
 check(str_contains($a10body, '#39') || str_contains($a10body, 'greenhouse'), '#10 teaser #39 capstone');
 

@@ -659,3 +659,14 @@ jobs:
             "https://kodingindonesia.com/artikel/https-sertifikat-esp32-wificlientsecure-api-rest")
           echo "Article 38 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Publish article 39 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-39")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt")
+          echo "Article 39 HTTP status: $code"
+          test "$code" = "200"

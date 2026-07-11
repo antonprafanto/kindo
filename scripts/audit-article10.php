@@ -137,8 +137,8 @@ check($h2Count >= 8, "Minimal 8 section H2 (ada {$h2Count})");
 check($article?->read_time_minutes >= 5, 'read_time_minutes masuk akal (≥5 menit)');
 
 $seri2IndexCount = substr_count($body, '<li><strong><a href="/artikel/');
-check($seri2IndexCount === 28, 'Indeks Seri 2 punya 28 artikel live (' . $seri2IndexCount . ')');
-check(str_contains($body, 'dua puluh delapan artikel'), 'Teks indeks: dua puluh delapan artikel');
+check($seri2IndexCount === 29, 'Indeks Seri 2 punya 29 artikel live (' . $seri2IndexCount . ')');
+check(str_contains($body, 'dua puluh sembilan artikel'), 'Teks indeks: dua puluh sembilan artikel');
 check(str_contains($body, 'esp-now-kirim-data-antar-esp32-tanpa-router-wifi'), 'Indeks Seri 2 link artikel #25');
 check(str_contains($body, 'lora-esp32-modul-sx1278-kirim-data-jarak-jauh'), 'Indeks Seri 2 link artikel #26');
 check(str_contains($body, 'esp32-cam-streaming-mjpeg-capture-foto-wifi'), 'Indeks Seri 2 link artikel #27');
@@ -152,7 +152,8 @@ check(str_contains($body, 'adc-esp32-sensor-analog-soil-moisture-ldr-mqtt'), 'In
 check(str_contains($body, 'esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade'), 'Indeks Seri 2 link artikel #36');
 check(str_contains($body, 'sd-card-spi-esp32-logging-data-sensor-offline'), 'Indeks Seri 2 link artikel #37');
 check(str_contains($body, 'https-sertifikat-esp32-wificlientsecure-api-rest'), 'Indeks Seri 2 link artikel #38');
-check(str_contains($body, '#39') || str_contains($body, 'greenhouse'), 'Teaser Seri 2: capstone #39');
+check(str_contains($body, 'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'), 'Indeks Seri 2 link artikel #39');
+check(str_contains($body, '29/29') || str_contains($body, 'selesai'), 'Seri 2 selesai setelah #39');
 
 echo "\n=== Pass 2: HTTP render lokal ===\n\n";
 

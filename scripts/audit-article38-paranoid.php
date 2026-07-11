@@ -41,7 +41,7 @@ check($a38?->read_time_minutes >= 8, 'read_time ≥ 8 menit');
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
 check($indexItems === 28, '#10 indeks 28 item (' . $indexItems . ')');
-check(str_contains($a10body, 'dua puluh delapan artikel'), '#10 teks dua puluh delapan artikel');
+check(str_contains($a10body, 'dua puluh sembilan artikel'), '#10 teks dua puluh sembilan artikel');
 check(str_contains($a10body, $slug), '#10 item #38');
 check(str_contains($a10body, '#39') || str_contains($a10body, 'greenhouse'), '#10 teaser #39');
 

@@ -299,7 +299,7 @@ void loop() {
 </ol>
 
 <h2>Roadmap Belajar Selanjutnya — Seri 2</h2>
-<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — dua puluh delapan artikel pertama (urutan publish):</p>
+<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah lengkap — dua puluh sembilan artikel (urutan publish):</p>
 <ol>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32 + DHT22 hemat baterai</a></strong></li>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a></strong> — konfigurasi tanpa hardcode</li>
@@ -329,11 +329,9 @@ void loop() {
   <li><strong><a href="/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade">ESP8266 / NodeMCU vs ESP32</a></strong> — kapan pakai board murah vs upgrade</li>
   <li><strong><a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">SD Card &amp; SPI logging offline</a></strong> — backup data sensor di lapangan</li>
   <li><strong><a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">HTTPS &amp; sertifikat ESP32 (WiFiClientSecure)</a></strong> — REST API aman ke cloud</li>
+  <li><strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Capstone Smart Greenhouse</a></strong> — multi-sensor + aktuator + dashboard MQTT</li>
 </ol>
-<p>Masih akan datang di Seri 2:</p>
-<ul>
-  <li>Capstone <strong>Smart Greenhouse (#39)</strong> — multi-sensor + aktuator + dashboard</li>
-</ul>
+<p>Seri 2 resmi <strong>selesai (29/29)</strong> — indeks lengkap juga ada di <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">capstone #39</a>.</p>
 
 <blockquote>
   <p><strong>Terima kasih sudah mengikuti seri ini!</strong> Kamu sekarang punya fondasi solid: sensor → WiFi → web lokal → MQTT → aktuator → dashboard hybrid. Share proyek kamu dan pantau terus <a href="/artikel">artikel baru</a> di Koding Indonesia.</p>

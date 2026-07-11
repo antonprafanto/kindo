@@ -86,7 +86,7 @@ $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
 
 check($indexItems === 28, '#10 indeks 28 item (' . $indexItems . ')');
 
-check(str_contains($a10body, 'dua puluh delapan artikel'), '#10 teks dua puluh delapan artikel');
+check(str_contains($a10body, 'dua puluh sembilan artikel'), '#10 teks dua puluh sembilan artikel');
 
 check(str_contains($a10body, $slug), '#10 item #37');
 
