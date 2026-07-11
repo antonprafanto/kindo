@@ -346,7 +346,7 @@ void loop() {
 
 <h2>Langkah Selanjutnya (Jalur E)</h2>
 <ul>
-  <li><strong>FreeRTOS (#31):</strong> task terpisah sensor / WiFi / cloud</li>
+  <li><strong><a href="/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt">FreeRTOS (#31)</a>:</strong> task terpisah sensor / WiFi / cloud</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — timestamp live, bukan contoh statis</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python → MySQL (#18)</a></strong> — arsip SQL paralel cloud</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA (#15)</a></strong> — update firmware tanpa USB</li>

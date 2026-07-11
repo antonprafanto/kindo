@@ -582,3 +582,14 @@ jobs:
             "https://kodingindonesia.com/artikel/esp32-firebase-realtime-database-sensor-cloud")
           echo "Article 30 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Publish article 31 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-31")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt")
+          echo "Article 31 HTTP status: $code"
+          test "$code" = "200"

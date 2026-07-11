@@ -62,8 +62,8 @@ echo "\n--- B: #10 indeks Seri 2 konsisten ---\n\n";
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
 $indexItems = substr_count($a10body, '<li><strong><a href="/artikel/');
-check($indexItems === 21, '#10 indeks punya 21 item live (' . $indexItems . ')');
-check(str_contains($a10body, 'dua puluh satu artikel'), '#10 teks dua puluh satu artikel');
+check($indexItems === 22, '#10 indeks punya 22 item live (' . $indexItems . ')');
+check(str_contains($a10body, 'dua puluh dua artikel'), '#10 teks dua puluh dua artikel');
 check(str_contains($a10body, $href), '#10 item #26 di indeks');
 check(str_contains($a10body, 'esp32-cam-streaming-mjpeg-capture-foto-wifi'), '#10 item #27 di indeks');
 check(str_contains($a10body, 'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'), '#10 item #28 di indeks');
