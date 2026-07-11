@@ -615,3 +615,14 @@ jobs:
             "https://kodingindonesia.com/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi")
           echo "Article 33 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Publish article 35 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-35")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt")
+          echo "Article 35 HTTP status: $code"
+          test "$code" = "200"

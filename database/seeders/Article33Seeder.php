@@ -383,7 +383,7 @@ mosquitto_pub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 <h2>Langkah Selanjutnya — Tier 2 Seri 2</h2>
 <p>Servo melengkapi relay on/off — sekarang aktuator punya <strong>gerakan presisi</strong>. Lanjut ke pelengkap Tier 2:</p>
 <ul>
-  <li><strong>ADC soil moisture &amp; LDR (#35):</strong> sensor analog — melengkapi servo dengan input analog</li>
+  <li><strong><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC Soil Moisture &amp; LDR (#35)</a>:</strong> sensor analog — melengkapi servo dengan input tanah &amp; cahaya</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — timestamp di log pergerakan servo</li>
   <li><strong><a href="/artikel/bluetooth-esp32-ble-kirim-data-sensor-smartphone">BLE (#32)</a></strong> — kontrol servo dari app HP (lanjutan)</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — grafik histori sudut jika publish balik ke MQTT</li>
