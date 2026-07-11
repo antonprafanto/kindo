@@ -2120,6 +2120,73 @@ class DeployController extends Controller
         return response('Article 36 published', 200);
     }
 
+    public function publishArticle37(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! class_exists(\Database\Seeders\Article37Seeder::class)) {
+            return response('Article37Seeder class not found on server', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article37Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 37 seed failed', 500);
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article10Seeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\PatchArticle36SdCardSeeder',
+            '--force' => true,
+        ]);
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\PatchArticle27SdCardSeeder',
+            '--force' => true,
+        ]);
+
+        $this->runDuplicateBme280Cleanup();
+
+        $slug = 'sd-card-spi-esp32-logging-data-sensor-offline';
+
+        $published = Article::published()
+            ->where('slug', $slug)
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 37 missing or not visible after Article37Seeder on deploy hook.'));
+
+            return response('Article 37 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 37 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

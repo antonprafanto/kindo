@@ -637,3 +637,14 @@ jobs:
             "https://kodingindonesia.com/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade")
           echo "Article 36 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Publish article 37 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-37")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/sd-card-spi-esp32-logging-data-sensor-offline")
+          echo "Article 37 HTTP status: $code"
+          test "$code" = "200"

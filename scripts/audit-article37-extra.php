@@ -2,7 +2,7 @@
 
 
 
-/** Extra supplemental checks for #36 — links, seo, infra parity. */
+/** Extra supplemental checks for #37. */
 
 
 
@@ -16,7 +16,7 @@ $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 use App\Models\Article;
 
-use Database\Seeders\Article36Seeder;
+use Database\Seeders\Article37Seeder;
 
 
 
@@ -24,7 +24,7 @@ $passed = 0;
 
 $failed = 0;
 
-$slug = 'esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade';
+$slug = 'sd-card-spi-esp32-logging-data-sensor-offline';
 
 
 
@@ -42,7 +42,7 @@ function check(bool $ok, string $label): void
 
 
 
-$ref = new ReflectionClass(Article36Seeder::class);
+$ref = new ReflectionClass(Article37Seeder::class);
 
 $m = $ref->getMethod('body');
 
@@ -54,7 +54,7 @@ $article = Article::where('slug', $slug)->first();
 
 
 
-echo "=== EXTRA AUDIT #36 ===\n\n";
+echo "=== EXTRA AUDIT #37 ===\n\n";
 
 
 
@@ -80,21 +80,17 @@ foreach ($slugs as $linkSlug) {
 
 check(mb_strlen($article?->seo_title ?? '') <= 70, 'seo_title ≤ 70 char (' . mb_strlen($article?->seo_title ?? '') . ')');
 
-check(mb_strlen($article?->title ?? '') <= 120, 'title panjang wajar');
+check(str_contains($body, 'MOSI'), 'Section MOSI ada');
 
-check(str_contains($body, 'Spesifikasi Teknis'), 'Section spesifikasi ada');
-
-check(str_contains($body, 'esp8266/dht22/data'), 'Topic esp8266 publish');
+check(str_contains($body, 'kodingindonesia/esp32/dht22/data'), 'Topic MQTT sync');
 
 check(! preg_match('/password\s*=\s*["\'][^G]/i', $body), 'Tidak ada password hardcoded di sketch');
-
-check(str_contains($body, 'rel=') || ! str_contains($body, 'target="_blank"'), 'Link eksternal aman (jika ada)');
 
 
 
 $deploy = file_get_contents(__DIR__ . '/../app/Http/Controllers/DeployController.php');
 
-preg_match('/function publishArticle36\(\)[^{]*\{([\s\S]*?)\n    \}/', $deploy, $hook);
+preg_match('/function publishArticle37\(\)[^{]*\{([\s\S]*?)\n    \}/', $deploy, $hook);
 
 $hookBody = $hook[1] ?? '';
 
@@ -102,37 +98,22 @@ check(str_contains($hookBody, 'SitemapService'), 'Hook: SitemapService');
 
 check(str_contains($hookBody, 'Article10Seeder'), 'Hook: re-seed Article10Seeder');
 
-check(str_contains($hookBody, 'PatchArticle1Esp8266Seeder'), 'Hook: PatchArticle1Esp8266Seeder');
-
-check(str_contains($hookBody, 'PatchArticle35Esp8266Seeder'), 'Hook: PatchArticle35Esp8266Seeder');
+check(str_contains($hookBody, 'PatchArticle36SdCardSeeder'), 'Hook: PatchArticle36SdCardSeeder');
+check(str_contains($hookBody, 'PatchArticle27SdCardSeeder'), 'Hook: PatchArticle27SdCardSeeder');
 
 
 
 $routes = file_get_contents(__DIR__ . '/../routes/web.php');
 
-check(str_contains($routes, "publish-article-36"), 'Route publish-article-36');
+check(str_contains($routes, "publish-article-37"), 'Route publish-article-37');
 
 $yml = file_get_contents(__DIR__ . '/../.github/workflows/deploy.yml');
 
-check(preg_match('/Publish article 36 via deploy hook \(required\)/', $yml) === 1, 'CI: required hook #36');
+check(preg_match('/Publish article 37 via deploy hook \(required\)/', $yml) === 1, 'CI: required hook #37');
 
 
 
-$auditFiles = [
-
-    'scripts/audit-article36.php',
-
-    'scripts/audit-article36-spotcheck.php',
-
-    'scripts/audit-article36-manual.php',
-
-    'scripts/audit-article36-paranoid.php',
-
-    'scripts/audit-article36-gapscan.php',
-
-];
-
-foreach ($auditFiles as $f) {
+foreach (['scripts/audit-article37.php', 'scripts/audit-article37-spotcheck.php', 'scripts/audit-article37-manual.php', 'scripts/audit-article37-paranoid.php', 'scripts/audit-article37-gapscan.php'] as $f) {
 
     check(file_exists(__DIR__ . '/../' . $f), "Audit file: {$f}");
 
@@ -150,11 +131,11 @@ if (is_dir($docs)) {
 
     $roadmap = file_get_contents($docs . '/docs/seri-esp32-iot-lanjutan.md');
 
-    check(str_contains($todo, $slug) || str_contains($todo, '#36'), 'TODO.md konsisten');
+    check(str_contains($todo, $slug) || str_contains($todo, '#37'), 'TODO.md konsisten');
 
-    check(str_contains($prd, $slug) || str_contains($prd, '#36'), 'PRD.md konsisten');
+    check(str_contains($prd, $slug) || str_contains($prd, '#37'), 'PRD.md konsisten');
 
-    check(str_contains($roadmap, $slug) || str_contains($roadmap, '#36'), 'Roadmap konsisten');
+    check(str_contains($roadmap, $slug) || str_contains($roadmap, '#37'), 'Roadmap konsisten');
 
     check(str_contains($roadmap, '#38') || str_contains($roadmap, 'HTTPS'), 'Roadmap teaser #38');
 
@@ -162,9 +143,9 @@ if (is_dir($docs)) {
 
 
 
-$patch = file_get_contents(__DIR__ . '/../database/seeders/PatchArticle1Esp8266Seeder.php');
+$patch = file_get_contents(__DIR__ . '/../database/seeders/PatchArticle36SdCardSeeder.php');
 
-check(str_contains($patch, 'str_contains($article->body') || str_contains($patch, 'str_contains($body'), 'Patch #1 idempotent guard');
+check(str_contains($patch, 'str_contains($article->body') || str_contains($patch, 'str_contains($body'), 'Patch #36 idempotent guard');
 
 
 

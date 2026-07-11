@@ -267,7 +267,7 @@ void loop() {
 </ul>
 
 <h2>MicroSD (Opsional) — Simpan Foto di Lapangan</h2>
-<p>Banyak modul ESP32-CAM punya slot <strong>microSD</strong>. Kamu bisa simpan hasil <code>/capture</code> ke kartu untuk audit lapangan tanpa koneksi terus-menerus — pola mirip logging offline di artikel SD Card (#37, akan datang).</p>
+<p>Banyak modul ESP32-CAM punya slot <strong>microSD</strong>. Kamu bisa simpan hasil <code>/capture</code> ke kartu untuk audit lapangan tanpa koneksi terus-menerus — pola mirip <a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">logging offline SD Card (#37)</a>.</p>
 <ul>
   <li>Format kartu <strong>FAT32</strong> · kapasitas ≤32 GB untuk kompatibilitas terbaik</li>
   <li>Gunakan library <code>SD_MMC</code> atau <code>FS</code> dari board package</li>

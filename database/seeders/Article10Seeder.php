@@ -299,7 +299,7 @@ void loop() {
 </ol>
 
 <h2>Roadmap Belajar Selanjutnya — Seri 2</h2>
-<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — dua puluh enam artikel pertama (urutan publish):</p>
+<p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah berjalan — dua puluh tujuh artikel pertama (urutan publish):</p>
 <ol>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32 + DHT22 hemat baterai</a></strong></li>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a></strong> — konfigurasi tanpa hardcode</li>
@@ -327,10 +327,11 @@ void loop() {
   <li><strong><a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">Kontrol Servo &amp; PWM gerakan presisi via MQTT</a></strong> — SG90 sudut 0–180°</li>
   <li><strong><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC ESP32: Soil Moisture &amp; LDR via MQTT</a></strong> — sensor analog tanah &amp; cahaya</li>
   <li><strong><a href="/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade">ESP8266 / NodeMCU vs ESP32</a></strong> — kapan pakai board murah vs upgrade</li>
+  <li><strong><a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">SD Card &amp; SPI logging offline</a></strong> — backup data sensor di lapangan</li>
 </ol>
 <p>Masih akan datang di Seri 2:</p>
 <ul>
-  <li>SD Card &amp; SPI logging offline (#37)</li>
+  <li>Keamanan HTTPS &amp; sertifikat ESP32 (#38)</li>
 </ul>
 
 <blockquote>
