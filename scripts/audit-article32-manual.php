@@ -41,10 +41,11 @@ Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\Article10Seeder', '--
 Artisan::call('db:seed', ['--class' => 'Database\\Seeders\\PatchArticle1BluetoothSeeder', '--force' => true]);
 
 $a10body = Article::where('slug', 'dashboard-esp32-web-server-mqtt-monitoring-dht22')->value('body') ?? '';
-check(substr_count($a10body, '<li><strong><a href="/artikel/') === 23, '#10 indeks 23 item');
-check(str_contains($a10body, 'dua puluh tiga artikel'), '#10 teks dua puluh tiga artikel');
+check(substr_count($a10body, '<li><strong><a href="/artikel/') === 24, '#10 indeks 24 item');
+check(str_contains($a10body, 'dua puluh empat artikel'), '#10 teks dua puluh empat artikel');
 check(str_contains($a10body, $slug), '#10 item #32 di indeks');
-check(str_contains($a10body, '#33') || str_contains($a10body, 'Servo'), '#10 teaser #33 Servo');
+check(str_contains($a10body, 'kontrol-servo-pwm-esp32-mqtt-gerakan-presisi'), '#10 link #33');
+check(str_contains($a10body, '#35') || str_contains($a10body, 'soil moisture'), '#10 teaser #35');
 
 check(file_exists(__DIR__ . '/../database/seeders/Article32Seeder.php'), 'Article32Seeder.php ada');
 check(file_exists(__DIR__ . '/../database/seeders/PatchArticle1BluetoothSeeder.php'), 'PatchArticle1BluetoothSeeder.php ada');

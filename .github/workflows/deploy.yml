@@ -604,3 +604,14 @@ jobs:
             "https://kodingindonesia.com/artikel/bluetooth-esp32-ble-kirim-data-sensor-smartphone")
           echo "Article 32 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Publish article 33 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-33")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi")
+          echo "Article 33 HTTP status: $code"
+          test "$code" = "200"

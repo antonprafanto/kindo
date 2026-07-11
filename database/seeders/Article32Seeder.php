@@ -351,7 +351,7 @@ void loop() {
 <h2>Langkah Selanjutnya — Tier 2 Seri 2</h2>
 <p>Artikel pertama Tier 2 pelengkap selesai — janji Bluetooth dari <a href="/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot">#1</a> terpenuhi. Lanjutkan ke topik pelengkap:</p>
 <ul>
-  <li><strong>Kontrol Servo &amp; PWM (#33):</strong> gerakan presisi — melengkapi relay on/off di <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a></li>
+  <li><strong><a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">Kontrol Servo &amp; PWM (#33)</a>:</strong> gerakan presisi — melengkapi relay on/off di <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a></li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — ganti unix contoh dengan waktu nyata di JSON</li>
   <li><strong><a href="/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt">FreeRTOS (#31)</a></strong> — task BLE + task WiFi/MQTT paralel</li>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager (#12)</a></strong> — provisioning WiFi lewat portal web</li>
