@@ -333,7 +333,7 @@ monitor_filters = time, esp32_exception_decoder</code></pre>
 
 <h2>Langkah Selanjutnya (Jalur E)</h2>
 <ul>
-  <li><strong>ESP32 + Firebase (#30):</strong> backend cloud tanpa server sendiri</li>
+  <li><strong><a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">ESP32 + Firebase Realtime Database (#30)</a>:</strong> backend cloud tanpa server sendiri</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA (#15)</a></strong> — update firmware dari PlatformIO</li>
   <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa (#28)</a></strong> — refactor ke struktur <code>lib/</code></li>
   <li><strong>FreeRTOS (#31)</strong> — task terpisah sensor/WiFi/MQTT</li>

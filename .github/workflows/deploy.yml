@@ -571,3 +571,14 @@ jobs:
             "https://kodingindonesia.com/artikel/migrasi-platformio-esp32-vscode-project-rapi")
           echo "Article 29 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Publish article 30 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-30")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/esp32-firebase-realtime-database-sensor-cloud")
+          echo "Article 30 HTTP status: $code"
+          test "$code" = "200"
