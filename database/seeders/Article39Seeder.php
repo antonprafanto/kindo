@@ -80,13 +80,15 @@ class Article39Seeder extends Seeder
 </ul>
 
 <h2>Arsitektur Sistem Greenhouse</h2>
-<figure role="img" aria-label="Diagram flowchart arsitektur smart greenhouse: broker MQTT di tengah, cabang sensor ke kiri dan cabang aktuator ke kanan, dashboard di bawah" style="margin:1.5rem 0;max-width:100%;overflow-x:auto">
+<figure role="img" aria-label="Diagram flowchart arsitektur smart greenhouse: broker MQTT di tengah, cabang sensor ke kiri dan cabang aktuator ke kanan, dashboard di bawah" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" style="display:block;max-width:860px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
       <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
     </marker>
   </defs>
+  <!-- Canvas terang — garis panah tetap terbaca di dark mode -->
+  <rect x="0" y="0" width="860" height="520" fill="#F5F5F0" rx="6"/>
   <!-- Broker -->
   <rect x="230" y="16" width="400" height="76" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
   <text x="430" y="44" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Broker Mosquitto</text>
