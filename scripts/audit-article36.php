@@ -169,7 +169,11 @@ $requiredLinks = [
     'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                       => 'Artikel #13 BME280',
 
     'ota-update-firmware-esp32-via-wifi'                                => 'Artikel #15 OTA',
-
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'             => 'Artikel #18 Python',
+    'oled-ssd1306-esp32-tampilkan-data-sensor-i2c'                    => 'Artikel #14 OLED',
+    'sd-card-spi-esp32-logging-data-sensor-offline'                   => 'Artikel #37 SD Card',
+    'https-sertifikat-esp32-wificlientsecure-api-rest'                => 'Artikel #38 HTTPS',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'           => 'Artikel #39 Greenhouse',
 ];
 
 

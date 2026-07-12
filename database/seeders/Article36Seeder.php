@@ -123,10 +123,10 @@ class Article36Seeder extends Seeder
   </thead>
   <tbody>
     <tr><td>LED onboard</td><td>GPIO2 (<code>D4</code>)</td><td>GPIO2 (board umum)</td></tr>
-    <tr><td>DHT22 (#5)</td><td>GPIO4 (<code>D2</code>) — hindari konflik boot</td><td>GPIO4</td></tr>
-    <tr><td>Relay (#8)</td><td>GPIO5 (<code>D1</code>)</td><td>GPIO26</td></tr>
+    <tr><td><a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a></td><td>GPIO4 (<code>D2</code>) — hindari konflik boot</td><td>GPIO4</td></tr>
+    <tr><td><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Relay (#8)</a></td><td>GPIO5 (<code>D1</code>)</td><td>GPIO26</td></tr>
     <tr><td>Soil moisture analog</td><td>Hanya <strong>A0</strong> — pilih soil <em>atau</em> LDR</td><td>GPIO34 + GPIO35 bersamaan — <a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">#35</a></td></tr>
-    <tr><td>Servo PWM (#33)</td><td>Mungkin, tapi timing WiFi + servo rawan</td><td>GPIO27 + library <code>ESP32Servo</code></td></tr>
+    <tr><td><a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">Servo PWM (#33)</a></td><td>Mungkin, tapi timing WiFi + servo rawan</td><td>GPIO27 + library <code>ESP32Servo</code></td></tr>
   </tbody>
 </table>
 
@@ -158,7 +158,7 @@ class Article36Seeder extends Seeder
   <li>Timestamp akurat NTP di setiap payload (<a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>)</li>
   <li>OTA firmware tanpa kabel (<a href="/artikel/ota-update-firmware-esp32-via-wifi">#15</a>)</li>
   <li>Project <a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">PlatformIO (#29)</a> multi-target (esp32 + esp8266 dalam satu repo)</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — multi-jalur sensor + aktuator</li>
+  <li>Capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> — multi-jalur sensor + aktuator</li>
 </ul>
 
 <h2>Setup Arduino IDE — Board Manager ESP8266</h2>
@@ -317,7 +317,7 @@ lib_deps =
 <p>Jika kamu sudah menjalankan subscriber dari <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a>, tidak perlu script baru untuk ESP8266. Subscribe wildcard:</p>
 <pre><code class="language-bash">mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT -t "kodingindonesia/#" -v
 </code></pre>
-<p>Di callback Python, cabang berdasarkan prefix topic atau field <code>device</code> di JSON. Pola ini mempersiapkan capstone <strong>greenhouse (#39)</strong> di mana node murah dan node kaya coexist.</p>
+<p>Di callback Python, cabang berdasarkan prefix topic atau field <code>device</code> di JSON. Pola ini mempersiapkan capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> di mana node murah dan node kaya coexist.</p>
 
 <h2>Keamanan &amp; Produksi</h2>
 <ul>
@@ -382,7 +382,7 @@ lib_deps =
   <li><strong><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC (#35)</a></strong> — alasan upgrade ke ESP32 untuk multi-sensor analog</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — timestamp ISO <code>2026-07-02T14:30:00</code> di payload ESP32</li>
   <li><strong><a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">Keamanan HTTPS (#38)</a></strong> — sertifikat untuk HTTP client ESP32</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — gabung multi-sensor + aktuator + dashboard</li>
+  <li>Capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> — gabung multi-sensor + aktuator + dashboard</li>
 </ul>
 
 <p>Pilih board yang tepat, jangan over-engineer — lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
