@@ -80,25 +80,62 @@ class Article39Seeder extends Seeder
 </ul>
 
 <h2>Arsitektur Sistem Greenhouse</h2>
-<pre><code>┌─────────────────────────────────────────────────────────────────┐
-│  Broker Mosquitto 192.168.1.50:1883 (auth kindo_esp32)          │
-│  Topic: kodingindonesia/esp32/...                               │
-└────────────┬───────────────────────────────────────┬──────────────┘
-             │ publish sensor                       │ subscribe kontrol
-    ┌────────▼────────┐                    ┌────────▼────────┐
-    │ Gateway utama   │                    │ Node aktuator   │
-    │ BME280 + soil   │                    │ Relay pompa     │
-    │ + LDR (GPIO)    │                    │ + lampu grow    │
-    └────────┬────────┘                    └────────┬────────┘
-             │                                      │
-    ┌────────▼────────┐                    ┌────────▼────────┐
-    │ Node deep sleep │                    │ Servo flap (#33)│
-    │ (opsional)      │                    │ ventilasi       │
-    └─────────────────┘                    └─────────────────┘
-             │
-    ┌────────▼────────────────────────────────────────┐
-    │ InfluxDB + Grafana (#19) · HA (#21) · Node-RED  │
-    └─────────────────────────────────────────────────┘</code></pre>
+<figure role="img" aria-label="Diagram flowchart arsitektur smart greenhouse: broker MQTT di tengah, cabang sensor ke kiri dan cabang aktuator ke kanan, dashboard di bawah" style="margin:1.5rem 0;max-width:100%;overflow-x:auto">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 520" style="display:block;max-width:860px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <!-- Broker -->
+  <rect x="230" y="16" width="400" height="76" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="430" y="44" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Broker Mosquitto</text>
+  <text x="430" y="64" text-anchor="middle" fill="#e3f2fd" font-size="12">192.168.1.50:1883 · auth kindo_esp32</text>
+  <text x="430" y="82" text-anchor="middle" fill="#e3f2fd" font-size="11">Topic: kodingindonesia/esp32/...</text>
+  <!-- Split arrows from broker -->
+  <line x1="340" y1="92" x2="180" y2="138" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="520" y1="92" x2="680" y2="138" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="248" y="118" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">publish sensor</text>
+  <text x="612" y="118" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">subscribe kontrol</text>
+  <!-- Left: Gateway -->
+  <rect x="48" y="148" width="264" height="72" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="180" y="176" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Gateway utama</text>
+  <text x="180" y="196" text-anchor="middle" fill="#4A5568" font-size="12">BME280 + soil moisture + LDR</text>
+  <text x="180" y="212" text-anchor="middle" fill="#718096" font-size="11">GPIO 21/22 · 34 · 35</text>
+  <!-- Right: Aktuator -->
+  <rect x="548" y="148" width="264" height="72" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="680" y="176" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Node aktuator</text>
+  <text x="680" y="196" text-anchor="middle" fill="#4A5568" font-size="12">Relay pompa + lampu grow</text>
+  <text x="680" y="212" text-anchor="middle" fill="#718096" font-size="11">GPIO 26 · 27 · topic pompa/kontrol</text>
+  <!-- Down arrows -->
+  <line x1="180" y1="220" x2="180" y2="258" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="680" y1="220" x2="680" y2="258" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- Deep sleep -->
+  <rect x="48" y="268" width="264" height="56" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="180" y="292" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="600">Node deep sleep</text>
+  <text x="180" y="310" text-anchor="middle" fill="#718096" font-size="11">opsional · probe tanah jauh (#11)</text>
+  <!-- Servo -->
+  <rect x="548" y="268" width="264" height="56" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="680" y="292" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="600">Servo flap ventilasi</text>
+  <text x="680" y="310" text-anchor="middle" fill="#718096" font-size="11">opsional · topic servo/sudut (#33)</text>
+  <!-- Arrow to dashboard -->
+  <line x1="180" y1="324" x2="180" y2="368" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="180" y1="368" x2="430" y2="368" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="430" y1="368" x2="430" y2="398" stroke="#1a1a1a" stroke-width="2" marker-end="url(#arrow)"/>
+  <!-- Dashboard stack -->
+  <rect x="130" y="408" width="600" height="88" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
+  <text x="430" y="436" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Dashboard &amp; Otomasi</text>
+  <text x="430" y="458" text-anchor="middle" fill="#4A5568" font-size="12">InfluxDB + Grafana (#19) · Home Assistant (#21) · Node-RED (#23)</text>
+  <text x="430" y="478" text-anchor="middle" fill="#718096" font-size="11">Subscriber Python (#18) · alert Telegram · threshold pompa</text>
+  <!-- Side note: SD backup -->
+  <rect x="48" y="408" width="64" height="88" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="2"/>
+  <text x="80" y="444" text-anchor="middle" fill="#FF7A2F" font-size="10" font-weight="700">SD</text>
+  <text x="80" y="458" text-anchor="middle" fill="#718096" font-size="9">#37</text>
+  <text x="80" y="472" text-anchor="middle" fill="#718096" font-size="9">backup</text>
+  <line x1="112" y1="452" x2="130" y2="452" stroke="#FF7A2F" stroke-width="1.5" stroke-dasharray="4 3"/>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram alur smart greenhouse — sensor publish ke broker, dashboard histori &amp; otomasi, aktuator subscribe perintah pompa/ventilasi.</figcaption>
+</figure>
 
 <p>Alur data: sensor publish JSON ke MQTT → subscriber Python/InfluxDB menyimpan histori → Grafana menampilkan grafik → otomasi (Node-RED / HA / firmware) mengontrol pompa berdasarkan threshold kelembaban tanah.</p>
 
