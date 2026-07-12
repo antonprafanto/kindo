@@ -64,7 +64,7 @@ class Article37Seeder extends Seeder
 
 <p>Di lapangan — kebun, greenhouse, atau titik monitoring jauh dari router — koneksi bisa putus berjam-jam. Node <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> bangun sebentar, baca sensor, lalu tidur lagi; tanpa penyimpanan lokal, sampel hilang selamanya.</p>
 
-<p>Artikel <strong>Tier 2</strong> ini mengajarkan <strong>SD Card microSD</strong> lewat bus <strong>SPI</strong> (bukan I2C): tulis log CSV offline, lalu sinkron ke MQTT saat WiFi kembali — melengkapi arsitektur hybrid <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">capstone #10</a>, <a href="/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade">ESP8266 vs ESP32 (#36)</a>, dan persiapan capstone <strong>greenhouse (#39)</strong>.</p>
+<p>Artikel <strong>Tier 2</strong> ini mengajarkan <strong>SD Card microSD</strong> lewat bus <strong>SPI</strong> (bukan I2C): tulis log CSV offline, lalu sinkron ke MQTT saat WiFi kembali — melengkapi arsitektur hybrid <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">capstone #10</a>, <a href="/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade">ESP8266 vs ESP32 (#36)</a>, dan persiapan capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Paham <a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">GPIO (#3)</a>, <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">WiFi (#4)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, dan idealnya sudah pakai <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a> untuk timestamp akurat di setiap baris log.</p>
@@ -141,10 +141,10 @@ class Article37Seeder extends Seeder
     <tr><th>Fungsi lain</th><th>GPIO</th><th>Bentrok SPI?</th></tr>
   </thead>
   <tbody>
-    <tr><td>DHT22 (#5)</td><td>4</td><td>Tidak</td></tr>
-    <tr><td>Relay (#8)</td><td>26</td><td>Tidak</td></tr>
-    <tr><td>Soil ADC (#35)</td><td>34, 35</td><td>Tidak</td></tr>
-    <tr><td>Servo (#33)</td><td>27</td><td>Tidak</td></tr>
+    <tr><td><a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a></td><td>4</td><td>Tidak</td></tr>
+    <tr><td><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Relay (#8)</a></td><td>26</td><td>Tidak</td></tr>
+    <tr><td><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">Soil ADC (#35)</a></td><td>34, 35</td><td>Tidak</td></tr>
+    <tr><td><a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">Servo (#33)</a></td><td>27</td><td>Tidak</td></tr>
     <tr><td>SD CS</td><td>5</td><td>Hindari jika board pakai flash pada GPIO 6–11</td></tr>
   </tbody>
 </table>
@@ -162,7 +162,7 @@ class Article37Seeder extends Seeder
 <ul>
   <li><code>SPI.h</code> — bus SPI bawaan</li>
   <li><code>SD.h</code> — filesystem FAT di kartu</li>
-  <li><code>DHT sensor library</code> — sama seperti #5</li>
+  <li><code>DHT sensor library</code> — sama seperti <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">#5</a></li>
 </ul>
 
 <h2>Sketch — Init SD &amp; Tulis Baris Pertama</h2>
@@ -244,7 +244,7 @@ void publishLastSample(float t, float h, long unixTs) {
 }
 </code></pre>
 
-<p>Subscriber Python (#18) dan Grafana (#19) tidak perlu diubah — field JSON sama dengan node MQTT langsung.</p>
+<p>Subscriber <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python (#18)</a> dan <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a> tidak perlu diubah — field JSON sama dengan node MQTT langsung.</p>
 
 <h2>Deep Sleep + Log Satu Sampel</h2>
 <p>Gabung dengan <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a>: di setiap wake, baca DHT → <code>appendLog()</code> → tidur lagi. Kartu SD tetap terisi meski WiFi tidak pernah aktif selama seminggu.</p>
@@ -254,7 +254,7 @@ void publishLastSample(float t, float h, long unixTs) {
   <li><strong>Cabut microSD</strong> dengan aman (unmount tidak ada di bare metal — minimal stop write dengan delay setelah <code>f.close()</code>)</li>
   <li>Colok ke reader USB di laptop</li>
   <li>Buka <code>sensor.csv</code> di Excel/LibreOffice</li>
-  <li>Opsional: impor ke MySQL dengan script Python mirip #18 — baca CSV bukan MQTT</li>
+  <li>Opsional: impor ke MySQL dengan script <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python mirip #18</a> — baca CSV bukan MQTT</li>
 </ol>
 
 <h2>PlatformIO — Dependency</h2>
@@ -276,7 +276,7 @@ lib_deps =
   <tbody>
     <tr><td><strong>SD Card (SPI)</strong></td><td>GB</td><td>Log bulanan, cabut &amp; baca di PC</td></tr>
     <tr><td>SPIFFS / LittleFS</td><td>MB (flash chip)</td><td>Config kecil, web asset <a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA (#15)</a></td></tr>
-    <tr><td>MQTT → DB</td><td>Unlimited (server)</td><td>Dashboard real-time #19</td></tr>
+    <tr><td>MQTT → DB</td><td>Unlimited (server)</td><td>Dashboard real-time <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a></td></tr>
   </tbody>
 </table>
 
@@ -338,7 +338,7 @@ lib_deps =
 <h2>MQTT Credentials Saat Sync</h2>
 <p>Saat node kembali online dan mengirim backlog, gunakan pola kredensial yang sama dengan artikel MQTT Seri 1:</p>
 <ul>
-  <li>Broker: <code>192.168.1.50</code> (Mosquitto #16)</li>
+  <li>Broker: <code>192.168.1.50</code> (<a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto #16</a>)</li>
   <li>User: <code>kindo_esp32</code></li>
   <li>Password: <code>GANTI_PASSWORD_MQTT</code> — jangan hardcode di repo</li>
   <li>WiFi: <code>GANTI_NAMA_WIFI</code> / <code>GANTI_PASSWORD_WIFI</code></li>
@@ -364,7 +364,7 @@ lib_deps =
 <p>Setelah paham DHT22, tambahkan kolom dari <a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC soil &amp; LDR (#35)</a>:</p>
 <pre><code class="language-text">timestamp_iso,unix,temp_c,hum_pct,soil_pct,light_pct
 </code></pre>
-<p>Satu baris CSV = snapshot lengkap greenhouse — siap diimpor ke MySQL (#18) tanpa ubah skema MQTT.</p>
+<p>Satu baris CSV = snapshot lengkap greenhouse — siap diimpor ke <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">MySQL (#18)</a> tanpa ubah skema MQTT.</p>
 
 <h2>Node-RED &amp; Home Assistant</h2>
 <p>Setelah sync MQTT, flow <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a> dan entitas <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a> membaca topic yang sama seperti node tanpa SD — field <code>source: sd_sync</code> membantu debug data yang tertunda.</p>
@@ -375,7 +375,7 @@ lib_deps =
   <li><strong><a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">Keamanan HTTPS &amp; sertifikat (#38)</a></strong> — amankan HTTP client ESP32 ke API eksternal</li>
   <li><strong><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC (#35)</a></strong> — tambah kolom soil/LDR di CSV yang sama</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — visualisasi setelah CSV diimpor atau MQTT sync</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — multi-sensor + SD backup + dashboard</li>
+  <li>Capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> — multi-sensor + SD backup + dashboard</li>
 </ul>
 
 <p>SPI dan SD Card membuka jalur data offline — lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
