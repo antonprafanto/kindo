@@ -61,7 +61,7 @@ class Article38Seeder extends Seeder
 <h2>Pendahuluan — Dari HTTP ke HTTPS di ESP32</h2>
 <p>Seri 1 sudah mengajarkan <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">WiFi (#4)</a>, <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">web server lokal (#6)</a>, dan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>. Di Tier 2, <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a> mengamankan koneksi ke broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> di jaringan lokal — misalnya <code>192.168.1.50</code>.</p>
 
-<p>Artikel <strong>Tier 2</strong> ini fokus pada skenario berbeda: ESP32 memanggil <strong>REST API publik</strong> lewat <strong>HTTPS</strong> — webhook, layanan cloud, atau backend VPS di internet. Kita pakai <code>WiFiClientSecure</code> + <code>HTTPClient</code>, bukan protokol MQTT. Ini melengkapi <a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST vs MQTT (#20)</a>, <a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">Firebase (#30)</a>, dan persiapan capstone <strong>greenhouse (#39)</strong>.</p>
+<p>Artikel <strong>Tier 2</strong> ini fokus pada skenario berbeda: ESP32 memanggil <strong>REST API publik</strong> lewat <strong>HTTPS</strong> — webhook, layanan cloud, atau backend VPS di internet. Kita pakai <code>WiFiClientSecure</code> + <code>HTTPClient</code>, bukan protokol MQTT. Ini melengkapi <a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST vs MQTT (#20)</a>, <a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">Firebase (#30)</a>, dan persiapan capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Paham <a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">GPIO (#3)</a>, <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">WiFi (#4)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, dan idealnya sudah baca <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a> agar tidak bingung antara TLS untuk broker vs TLS untuk HTTP.</p>
@@ -78,25 +78,25 @@ class Article38Seeder extends Seeder
     <tr><td>Enkripsi</td><td>Tidak</td><td>TLS 1.2+</td></tr>
     <tr><td>Verifikasi server</td><td>Tidak</td><td>Root CA</td></tr>
     <tr><td>Cocok untuk API cloud</td><td>❌</td><td>✅</td></tr>
-    <tr><td>Web server ESP32 lokal (#6)</td><td>✅ LAN</td><td>Opsional</td></tr>
+    <tr><td>Web server ESP32 lokal (<a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">#6</a>)</td><td>✅ LAN</td><td>Opsional</td></tr>
   </tbody>
 </table>
 
 <h2>WiFiClientSecure vs WiFiClient Biasa</h2>
-<p>Library <code>HTTPClient</code> Arduino bisa memakai <code>WiFiClient</code> untuk URL <code>http://</code> atau <code>WiFiClientSecure</code> untuk <code>https://</code>. Kelas secure menambahkan handshake TLS di atas TCP — mirip konsep di MQTT TLS (#17), tapi stack aplikasinya HTTP, bukan publish/subscribe.</p>
+<p>Library <code>HTTPClient</code> Arduino bisa memakai <code>WiFiClient</code> untuk URL <code>http://</code> atau <code>WiFiClientSecure</code> untuk <code>https://</code>. Kelas secure menambahkan handshake TLS di atas TCP — mirip konsep di <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a>, tapi stack aplikasinya HTTP, bukan publish/subscribe.</p>
 <ul>
   <li><code>WiFiClient</code> — cukup untuk <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">web server lokal (#6)</a> di LAN</li>
-  <li><code>WiFiClientSecure</code> — wajib untuk API eksternal, Firebase (#30), webhook produksi</li>
+  <li><code>WiFiClientSecure</code> — wajib untuk API eksternal, <a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">Firebase (#30)</a>, webhook produksi</li>
 </ul>
 
 <blockquote>
-  <p><strong>Pro tip:</strong> Artikel ini <strong>tidak membutuhkan <code>SPI.h</code></strong> — tidak ada SD Card atau periferal SPI seperti di <a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">logging SD (#37)</a>. Cukup WiFi + sensor DHT22 (#5).</p>
+  <p><strong>Pro tip:</strong> Artikel ini <strong>tidak membutuhkan <code>SPI.h</code></strong> — tidak ada SD Card atau periferal SPI seperti di <a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">logging SD (#37)</a>. Cukup WiFi + sensor <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>.</p>
 </blockquote>
 
-<h2>Perbedaan dengan MQTT TLS (#17)</h2>
+<h2>Perbedaan dengan <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></h2>
 <table>
   <thead>
-    <tr><th>Topik</th><th>MQTT TLS (#17)</th><th>HTTPS REST (artikel ini)</th></tr>
+    <tr><th>Topik</th><th><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></th><th>HTTPS REST (artikel ini)</th></tr>
   </thead>
   <tbody>
     <tr><td>Protokol</td><td>MQTT publish/subscribe</td><td>HTTP GET/POST request-response</td></tr>
@@ -109,15 +109,63 @@ class Article38Seeder extends Seeder
 <p>Keduanya memakai <code>setCACert()</code> untuk verifikasi server — konsep sertifikat sama, konteks aplikasi berbeda. Baca <a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">#20</a> untuk memilih arsitektur proyek.</p>
 
 <h2>HTTPClient + WiFiClientSecure — Pola Dasar</h2>
-<p>Alur standar di firmware ESP32:</p>
-<ol>
-  <li>Connect WiFi dengan placeholder <code>GANTI_NAMA_WIFI</code> / <code>GANTI_PASSWORD_WIFI</code></li>
-  <li>Instansiasi <code>WiFiClientSecure client</code></li>
-  <li>Panggil <code>client.setCACert(root_ca)</code> dengan sertifikat CA yang di-embed</li>
-  <li><code>http.begin(client, url)</code> — pass client secure ke HTTPClient</li>
-  <li><code>GET</code> atau <code>POST</code> → baca <code>http.getString()</code> atau status code</li>
-  <li><code>http.end()</code> setiap selesai</li>
+<p>Bayangkan ESP32 seperti kurir paket: harus <strong>online dulu</strong>, lalu buka saluran aman (TLS), baru kirim atau terima data. Urutan 6 langkah ini selalu sama di setiap sketch HTTPS:</p>
+
+<figure role="img" aria-label="Alur 6 langkah HTTPS di ESP32: WiFi, WiFiClientSecure, setCACert, http begin, GET atau POST, http end" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem">
+<ol style="list-style:none;padding:0;margin:0">
+  <li style="display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+    <span style="flex-shrink:0;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#2979FF;color:#fff;border:2px solid #1a1a1a;border-radius:50%;font-weight:700;font-size:.875rem">1</span>
+    <div>
+      <strong style="display:block;color:#1a1a1a;margin-bottom:.25rem">Sambung WiFi</strong>
+      <span style="color:#4A5568;font-size:.9rem">Tanpa internet lokal, HTTPS tidak bisa dimulai. Pakai placeholder — jangan hardcode password di Git.</span>
+      <div style="margin-top:.5rem"><code>GANTI_NAMA_WIFI</code> · <code>GANTI_PASSWORD_WIFI</code></div>
+    </div>
+  </li>
+  <li style="display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+    <span style="flex-shrink:0;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#2979FF;color:#fff;border:2px solid #1a1a1a;border-radius:50%;font-weight:700;font-size:.875rem">2</span>
+    <div>
+      <strong style="display:block;color:#1a1a1a;margin-bottom:.25rem">Buat klien aman</strong>
+      <span style="color:#4A5568;font-size:.9rem">Deklarasikan objek TLS — ini “kotak amplop terenkripsi” untuk semua request HTTPS.</span>
+      <div style="margin-top:.5rem"><code>WiFiClientSecure client;</code></div>
+    </div>
+  </li>
+  <li style="display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+    <span style="flex-shrink:0;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#2979FF;color:#fff;border:2px solid #1a1a1a;border-radius:50%;font-weight:700;font-size:.875rem">3</span>
+    <div>
+      <strong style="display:block;color:#1a1a1a;margin-bottom:.25rem">Pasang sertifikat CA</strong>
+      <span style="color:#4A5568;font-size:.9rem">ESP32 memverifikasi server benar-benar <code>api.example.com</code>, bukan penipu di tengah jalan.</span>
+      <div style="margin-top:.5rem"><code>client.setCACert(root_ca);</code></div>
+    </div>
+  </li>
+  <li style="display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+    <span style="flex-shrink:0;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#FF7A2F;color:#fff;border:2px solid #1a1a1a;border-radius:50%;font-weight:700;font-size:.875rem">4</span>
+    <div>
+      <strong style="display:block;color:#1a1a1a;margin-bottom:.25rem">Buka koneksi HTTP(S)</strong>
+      <span style="color:#4A5568;font-size:.9rem">HTTPClient butuh klien secure + URL lengkap dengan <code>https://</code>.</span>
+      <div style="margin-top:.5rem"><code>http.begin(client, url);</code></div>
+    </div>
+  </li>
+  <li style="display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+    <span style="flex-shrink:0;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#FF7A2F;color:#fff;border:2px solid #1a1a1a;border-radius:50%;font-weight:700;font-size:.875rem">5</span>
+    <div>
+      <strong style="display:block;color:#1a1a1a;margin-bottom:.25rem">Kirim atau ambil data</strong>
+      <span style="color:#4A5568;font-size:.9rem"><strong>GET</strong> = baca konfigurasi/status. <strong>POST</strong> = kirim JSON sensor ke server.</span>
+      <div style="margin-top:.5rem"><code>http.GET()</code> atau <code>http.POST(payload)</code> → cek status code / <code>http.getString()</code></div>
+    </div>
+  </li>
+  <li style="display:flex;gap:1rem;align-items:flex-start;padding:.9rem 0">
+    <span style="flex-shrink:0;width:2rem;height:2rem;line-height:2rem;text-align:center;background:#1a1a1a;color:#fff;border:2px solid #1a1a1a;border-radius:50%;font-weight:700;font-size:.875rem">6</span>
+    <div>
+      <strong style="display:block;color:#1a1a1a;margin-bottom:.25rem">Tutup koneksi</strong>
+      <span style="color:#4A5568;font-size:.9rem">Selalu panggil setelah selesai — mencegah kebocoran memori dan koneksi menggantung.</span>
+      <div style="margin-top:.5rem"><code>http.end();</code></div>
+    </div>
+  </li>
 </ol>
+<figcaption style="margin-top:1rem;font-size:.875rem;color:#718096;text-align:center;border-top:1px solid #E2E8F0;padding-top:.75rem">Ringkasan: WiFi → TLS client → verifikasi CA → <code>http.begin</code> → GET/POST → <code>http.end</code></figcaption>
+</figure>
+
+<p>Mirip <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a>, langkah 2–3 adalah “kunci gembok” TLS. Bedanya, setelah langkah 5 Anda dapat respons HTTP sekali jalan — bukan subscribe topic berkelanjutan seperti MQTT.</p>
 
 <h2>Prasyarat &amp; Koneksi WiFi</h2>
 <p>Sama seperti seluruh seri — jangan hardcode SSID/password di repo publik:</p>
@@ -200,7 +248,7 @@ void setupSecureHttp() {
 <p>Response bisa JSON — parse dengan ArduinoJson jika perlu threshold suhu untuk relay di artikel <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">capstone #10</a>.</p>
 
 <h2>HTTPS POST — Kirim Data Sensor JSON</h2>
-<p>Pola utama artikel ini: kirim pembacaan DHT22 (#5) ke backend REST, paralel atau pengganti MQTT:</p>
+<p>Pola utama artikel ini: kirim pembacaan <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> ke backend REST, paralel atau pengganti MQTT:</p>
 <pre><code class="language-cpp">void httpsPostSensor(float tempC, float humPct, long unixTs) {
   HTTPClient http;
   const char* url = "https://api.example.com/v1/sensors";
@@ -285,7 +333,7 @@ http.setReuse(false); // tutup koneksi bersih tiap request
   <li><code>WiFi.h</code> — koneksi jaringan</li>
   <li><code>WiFiClientSecure.h</code> — lapisan TLS</li>
   <li><code>HTTPClient.h</code> — GET/POST HTTP(S)</li>
-  <li><code>DHT.h</code> — sensor demo (#5)</li>
+  <li><code>DHT.h</code> — sensor demo (<a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">#5</a>)</li>
   <li><strong>Tidak</strong> <code>SPI.h</code> / <code>SD.h</code> — logging offline ada di <a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">#37</a></li>
 </ul>
 
@@ -398,7 +446,7 @@ lib_deps =
     <tr><td>ESP32 DevKit</td><td>35.000 – 55.000</td></tr>
     <tr><td>DHT22</td><td>35.000 – 55.000</td></tr>
     <tr><td>Breadboard + jumper</td><td>15.000 – 25.000</td></tr>
-    <tr><td>API cloud gratis tier</td><td>0 (Firebase #30, webhook, dll.)</td></tr>
+    <tr><td>API cloud gratis tier</td><td>0 (<a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">Firebase #30</a>, webhook, dll.)</td></tr>
     <tr><td>VPS HTTPS (opsional)</td><td>50.000 – 150.000 / bulan</td></tr>
     <tr><td><strong>Total hardware demo</strong></td><td><strong>~85.000 – 135.000</strong></td></tr>
   </tbody>
@@ -417,8 +465,8 @@ lib_deps =
 
 <h2>FAQ Singkat</h2>
 <dl>
-  <dt><strong>Sama dengan MQTT TLS (#17)?</strong></dt>
-  <dd>Tidak — #17 mengamankan broker MQTT; artikel ini mengamankan <strong>HTTP REST</strong> ke API web.</dd>
+  <dt><strong>Sama dengan <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a>?</strong></dt>
+  <dd>Tidak — <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">#17</a> mengamankan broker MQTT; artikel ini mengamankan <strong>HTTP REST</strong> ke API web.</dd>
   <dt><strong>Perlu SPI.h?</strong></dt>
   <dd>Tidak — tidak ada SD Card. Lihat <a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">#37</a> jika butuh log offline.</dd>
   <dt><strong>setInsecure aman di rumah?</strong></dt>
@@ -436,23 +484,23 @@ lib_deps =
   <li><strong>401 terus:</strong> Token salah; jangan pakai password MQTT sebagai Bearer token</li>
   <li><strong>Heap low:</strong> Kurangi ukuran <code>String</code>; pakai buffer <code>char[]</code> untuk payload</li>
   <li><strong>DHT NaN:</strong> Sama seperti <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">#5</a> — jangan POST jika bacaan invalid</li>
-  <li><strong>Deep sleep gagal POST:</strong> Beri waktu cukup setelah wake untuk WiFi + TLS sebelum sleep lagi (#11)</li>
+  <li><strong>Deep sleep gagal POST:</strong> Beri waktu cukup setelah wake untuk WiFi + TLS sebelum sleep lagi (<a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">#11</a>)</li>
 </ul>
 
 <h2>Deep Sleep, NVS &amp; URL API</h2>
-<p>Simpan URL endpoint dan interval POST di <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a> agar bisa ganti backend tanpa re-flash. Node <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> bangun → WiFi → NTP (#34) → satu POST HTTPS → tidur — hemat energi dibanding maintain koneksi MQTT persisten.</p>
+<p>Simpan URL endpoint dan interval POST di <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a> agar bisa ganti backend tanpa re-flash. Node <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> bangun → WiFi → <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a> → satu POST HTTPS → tidur — hemat energi dibanding maintain koneksi MQTT persisten.</p>
 
 <h2>Hybrid: MQTT Lokal + HTTPS Cloud</h2>
 <p>Arsitektur <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">capstone #10</a> bisa diperluas: publish ke broker <code>192.168.1.50</code> untuk <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>, sekaligus POST HTTPS ke VPS untuk rekan yang tidak punya akses LAN. Data dari <a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">SD Card (#37)</a> bisa di-upload lewat HTTPS saat backlog sync.</p>
 
-<h2>Langkah Selanjutnya — Menuju Greenhouse #39</h2>
-<p>HTTPS REST melengkapi puzzle keamanan Tier 2 setelah MQTT TLS (#17). Anda sekarang bisa:</p>
+<h2>Langkah Selanjutnya — Menuju <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Greenhouse #39</a></h2>
+<p>HTTPS REST melengkapi puzzle keamanan Tier 2 setelah <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a>. Anda sekarang bisa:</p>
 <ul>
   <li>Mengirim sensor ke API cloud dengan TLS dan verifikasi CA</li>
-  <li>Membedakan kapan MQTT (#7), REST (#20), atau keduanya</li>
+  <li>Membedakan kapan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>, <a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST (#20)</a>, atau keduanya</li>
   <li>Mempersiapkan backend yang menerima JSON dengan timestamp <code>1782977400</code> / <code>2026-07-02T14:30:00</code></li>
 </ul>
-<p>Di artikel berikutnya, <strong>capstone greenhouse (#39)</strong> akan menggabungkan multi-sensor, logging <a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">SD (#37)</a>, MQTT, dan HTTPS ke satu sistem monitoring kebun lengkap — lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
+<p>Di artikel berikutnya, <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">capstone greenhouse (#39)</a> akan menggabungkan multi-sensor, logging <a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">SD (#37)</a>, MQTT, dan HTTPS ke satu sistem monitoring kebun lengkap — lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
 HTML;
     }
 }

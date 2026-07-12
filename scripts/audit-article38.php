@@ -80,6 +80,7 @@ $requiredLinks = [
     'esp32-firebase-realtime-database-sensor-cloud'                  => 'Artikel #30 Firebase',
     'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'               => 'Artikel #34 NTP',
     'sd-card-spi-esp32-logging-data-sensor-offline'                  => 'Artikel #37 SD Card',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -104,6 +105,8 @@ check(str_contains($body, 'Pro tip'), 'Pro tip');
 check(str_contains($body, 'Keamanan'), 'Section keamanan');
 check(str_contains($body, 'Estimasi Biaya'), 'Estimasi biaya');
 check(str_contains($body, '#39') || str_contains($body, 'greenhouse'), 'Teaser capstone #39');
+check(str_contains($body, 'Pola Dasar') && str_contains($body, 'background:#F5F5F0'), 'Diagram alur Pola Dasar (kontras dark mode)');
+check(str_contains($body, 'http.end'), 'Langkah http.end di Pola Dasar');
 check(str_contains($body, 'Checklist'), 'Section checklist');
 
 $h2Count = substr_count($body, '<h2>');
