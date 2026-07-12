@@ -78,6 +78,10 @@ $requiredLinks = [
     'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'                  => 'Artikel #34 NTP',
     'esp32-cam-streaming-mjpeg-capture-foto-wifi'                       => 'Artikel #27 ESP32-CAM',
     'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'             => 'Artikel #18 Python',
+    'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                       => 'Artikel #13 BME280',
+    'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode'    => 'Artikel #12 NVS',
+    'esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade'                    => 'Artikel #36 ESP8266',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'           => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {

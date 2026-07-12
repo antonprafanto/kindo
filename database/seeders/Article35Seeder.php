@@ -62,7 +62,7 @@ class Article35Seeder extends Seeder
 <h2>Pendahuluan — Dari Digital ke Analog</h2>
 <p>Di Seri 1, sensor utama adalah <strong>DHT22</strong> — output <strong>digital</strong> suhu &amp; kelembaban udara lewat protokol satu-wire (<a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">artikel #5</a>). Banyak proyek IoT lapangan butuh input lain: <strong>kelembaban tanah</strong> untuk pompa greenhouse dan <strong>tingkat cahaya</strong> (LDR) untuk lampu otomatis atau flash kamera.</p>
 
-<p>Artikel <strong>Tier 2</strong> ini mengajarkan <strong>ADC</strong> (Analog-to-Digital Converter) bawaan ESP32: baca tegangan 0–3,3 V dari modul <strong>soil moisture</strong> dan <strong>LDR</strong>, kalibrasi ke persen, lalu publish JSON ke MQTT — pola yang melengkapi <a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">servo (#33)</a> dan relay <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a> di capstone <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">#10</a> dan <strong>greenhouse (#39)</strong>.</p>
+<p>Artikel <strong>Tier 2</strong> ini mengajarkan <strong>ADC</strong> (Analog-to-Digital Converter) bawaan ESP32: baca tegangan 0–3,3 V dari modul <strong>soil moisture</strong> dan <strong>LDR</strong>, kalibrasi ke persen, lalu publish JSON ke MQTT — pola yang melengkapi <a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">servo (#33)</a> dan relay <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a> di capstone <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">#10</a> dan <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Sudah paham <a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">GPIO (#3)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, dan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT publish (#7)</a>. Broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> dipakai di sketch. Timestamp JSON mengikuti <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a>.</p>
@@ -74,14 +74,14 @@ class Article35Seeder extends Seeder
     <tr><th>Sensor</th><th>Tipe</th><th>Contoh</th><th>API umum</th></tr>
   </thead>
   <tbody>
-    <tr><td>DHT22 (#5)</td><td>Digital protokol</td><td>Suhu &amp; RH udara</td><td><code>dht.readTemperature()</code></td></tr>
-    <tr><td>BME280 (#13)</td><td>Digital I2C</td><td>Suhu, tekanan, RH</td><td><code>bme.readHumidity()</code></td></tr>
+    <tr><td><a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a></td><td>Digital protokol</td><td>Suhu &amp; RH udara</td><td><code>dht.readTemperature()</code></td></tr>
+    <tr><td><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a></td><td>Digital I2C</td><td>Suhu, tekanan, RH</td><td><code>bme.readHumidity()</code></td></tr>
     <tr><td>Soil moisture</td><td><strong>Analog</strong></td><td>Kelembaban media tanam</td><td><code>analogRead()</code></td></tr>
     <tr><td>LDR + resistor</td><td><strong>Analog</strong></td><td>Terang/gelap</td><td><code>analogRead()</code></td></tr>
   </tbody>
 </table>
 
-<p>DHT22 tidak bisa menggantikan soil probe — yang diukur adalah <strong>udara</strong>, bukan <strong>tanah</strong>. Untuk greenhouse (#39), kombinasi BME280 + soil moisture + relay pompa adalah pola standar.</p>
+<p>DHT22 tidak bisa menggantikan soil probe — yang diukur adalah <strong>udara</strong>, bukan <strong>tanah</strong>. Untuk <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>, kombinasi BME280 + soil moisture + relay pompa adalah pola standar.</p>
 
 <h2>ADC di ESP32 — 12-bit</h2>
 <p>ESP32 punya SAR ADC <strong>12-bit</strong> (nilai mentah 0–4095 pada resolusi default). Tegangan referensi sekitar <strong>3,3 V</strong> — jangan kirim &gt;3,3 V ke pin ADC atau modul bisa rusak.</p>
@@ -100,9 +100,9 @@ class Article35Seeder extends Seeder
   <tbody>
     <tr><td>Soil moisture (signal)</td><td><strong>GPIO 34</strong></td><td>Input only · ADC1 · tidak bentrok DHT GPIO 4</td></tr>
     <tr><td>LDR (titik tengah divider)</td><td><strong>GPIO 35</strong></td><td>Input only · ADC1</td></tr>
-    <tr><td>DHT22 (#5)</td><td>GPIO 4</td><td>Digital — jangan pakai untuk analog</td></tr>
-    <tr><td>Relay (#8)</td><td>GPIO 26</td><td>Digital output</td></tr>
-    <tr><td>Servo (#33)</td><td>GPIO 27</td><td>PWM</td></tr>
+    <tr><td><a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a></td><td>GPIO 4</td><td>Digital — jangan pakai untuk analog</td></tr>
+    <tr><td><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Relay (#8)</a></td><td>GPIO 26</td><td>Digital output</td></tr>
+    <tr><td><a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">Servo (#33)</a></td><td>GPIO 27</td><td>PWM</td></tr>
   </tbody>
 </table>
 
@@ -115,7 +115,7 @@ class Article35Seeder extends Seeder
   <li><strong>Modul soil moisture</strong> capacitive atau resistive (corrosion-resistant lebih awet)</li>
   <li><strong>ESP32 DevKit</strong></li>
   <li>Kabel jumper · breadboard</li>
-  <li>Opsional: pompa mini + relay untuk demo otomasi (#8)</li>
+  <li>Opsional: pompa mini + relay untuk demo otomasi (<a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a>)</li>
 </ul>
 
 <p>Modul umum punya 3 pin: <code>VCC</code>, <code>GND</code>, <code>AOUT</code> (analog out). Supply 3,3 V cukup untuk pembacaan ADC — beberapa modul juga punya pin digital <code>D0</code> (threshold) yang tidak kita pakai di artikel ini.</p>
@@ -177,7 +177,7 @@ void loop() {
   <li>Celup probe di <strong>air</strong> (atau tanah basah) — catat <code>SOIL_WET</code></li>
   <li>Angkat ke <strong>udara</strong> (kering) — catat <code>SOIL_DRY</code></li>
   <li>Beberapa modul resistive: basah = nilai <em>lebih rendah</em> — balik argumen <code>map()</code> jika perlu</li>
-  <li>Simpan konstanta di <code>config.h</code> atau NVS (#12) untuk deploy lapangan</li>
+  <li>Simpan konstanta di <code>config.h</code> atau <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a> untuk deploy lapangan</li>
 </ol>
 
 <h2>Capacitive vs Resistive Probe</h2>
@@ -188,7 +188,7 @@ void loop() {
   </thead>
   <tbody>
     <tr><td><strong>Resistive</strong></td><td>Arus kecil lewat media basah — hantaran listrik</td><td>Korosi elektroda setelah minggu basah terus</td></tr>
-    <tr><td><strong>Capacitive</strong></td><td>Mengukur kapasitansi dielektrik tanah</td><td>Lebih awet — disarankan untuk greenhouse (#39)</td></tr>
+    <tr><td><strong>Capacitive</strong></td><td>Mengukur kapasitansi dielektrik tanah</td><td>Lebih awet — disarankan untuk <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></td></tr>
   </tbody>
 </table>
 <p>Keduanya keluaran <code>AOUT</code> analog — wiring ke GPIO 34 dan sketch <code>analogRead</code> sama. Bedanya di kalibrasi dan interval penyiraman: jangan siram setiap menit hanya karena ADC turun 1% — pakai hysteresis seperti relay PIR di <a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">artikel #24</a>.</p>
@@ -212,7 +212,7 @@ void loop() {
   <li><strong>Tanah:</strong> <code>kodingindonesia/esp32/tanah/data</code></li>
   <li><strong>Cahaya LDR:</strong> <code>kodingindonesia/esp32/cahaya/data</code></li>
   <li><strong>Referensi DHT22:</strong> <code>kodingindonesia/esp32/dht22/data</code></li>
-  <li><strong>Relay pompa (#8):</strong> <code>kodingindonesia/esp32/lampu/kontrol</code> — <code>ON</code>/<code>OFF</code></li>
+  <li><strong><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Relay pompa (#8)</a>:</strong> <code>kodingindonesia/esp32/lampu/kontrol</code> — <code>ON</code>/<code>OFF</code></li>
 </ul>
 
 <h2>Payload JSON + Timestamp NTP</h2>
@@ -309,7 +309,7 @@ void loop() {
 <h2>Otomasi Pompa — Tanah Kering + Relay</h2>
 <p>Gabungkan dengan <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">relay (#8)</a>: jika <code>kelembaban_tanah &lt; 30</code>, publish <code>ON</code> ke pompa; jika &gt; 60, <code>OFF</code> (hysteresis anti-flicker). Logika bisa di firmware ESP32 atau di <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a> — function node subscribe <code>tanah/data</code> dan publish ke <code>lampu/kontrol</code>.</p>
 
-<p>Itu pratinjau arsitektur <strong>greenhouse (#39)</strong>: soil moisture → MQTT → pompa relay + servo flap (#33) + grafik <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>.</p>
+<p>Itu pratinjau arsitektur <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>: soil moisture → MQTT → pompa relay + <a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">servo flap (#33)</a> + grafik <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>.</p>
 
 <h2>Integrasi Home Assistant (Opsional)</h2>
 <p>Di <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>:</p>
@@ -373,7 +373,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <dt><strong>Bisa gabung DHT22 + soil satu board?</strong></dt>
   <dd>Ya — DHT GPIO 4 digital, soil GPIO 34 analog; publish ke topic terpisah.</dd>
   <dt><strong>Perlu library khusus?</strong></dt>
-  <dd>Tidak untuk ADC dasar — cukup <code>analogRead</code> + PubSubClient dari #7.</dd>
+  <dd>Tidak untuk ADC dasar — cukup <code>analogRead</code> + PubSubClient dari <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">#7</a>.</dd>
 </dl>
 
 <h2>Tips &amp; Troubleshooting</h2>
@@ -386,13 +386,13 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 </ul>
 
 <h2>Langkah Selanjutnya — Tier 2 Seri 2</h2>
-<p>Input analog melengkapi aktuator servo (#33) dan relay (#8) — sensor tanah siap untuk capstone. Lanjut ke pelengkap Tier 2:</p>
+<p>Input analog melengkapi aktuator <a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">servo (#33)</a> dan <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">relay (#8)</a> — sensor tanah siap untuk capstone. Lanjut ke pelengkap Tier 2:</p>
 <ul>
   <li><strong><a href="/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade">ESP8266 / NodeMCU vs ESP32</a></strong> — kapan pakai board murah vs upgrade</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — ganti unix contoh dengan waktu nyata</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> — simpan histori kelembaban tanah ke MySQL</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — grafik tanah vs cahaya vs suhu DHT</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — BME280 + soil + pompa + dashboard</li>
+  <li>Capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> — BME280 + soil + pompa + dashboard</li>
 </ul>
 
 <p>ADC membuka sensor analog murah di proyek ESP32 — lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
