@@ -507,6 +507,8 @@ jobs:
           echo "Article 25 HTTP status: $code"
           test "$code" = "200"
 
+          test "$code" = "200"
+
       - name: Clear cache before article 26 publish
         continue-on-error: true
         run: |
@@ -670,3 +672,11 @@ jobs:
             "https://kodingindonesia.com/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt")
           echo "Article 39 HTTP status: $code"
           test "$code" = "200"
+
+      - name: Patch article 39 formatting via deploy hook (idempotent)
+        continue-on-error: true
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/patch-article-39-formatting")
+          echo "Hook response: $resp"

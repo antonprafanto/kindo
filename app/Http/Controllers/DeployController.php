@@ -2390,6 +2390,41 @@ class DeployController extends Controller
         return response($successMessage, 200);
     }
 
+    /**
+     * Patch formatting artikel #39 (tabel artikel + FAQ terpisah) — tanpa re-seed artikel lain.
+     */
+    public function patchArticle39Formatting(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! class_exists(\Database\Seeders\PatchArticle39FormattingSeeder::class)) {
+            return response('PatchArticle39FormattingSeeder class not found on server', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\PatchArticle39FormattingSeeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 39 formatting patch failed', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 39 formatting patched', 200);
+    }
+
     private function authorizeDeployHook(): void
     {
         $token = config('app.deploy_hook_token');

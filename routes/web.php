@@ -202,6 +202,10 @@ Route::get('/deploy/publish-article-24', [DeployController::class, 'publishArtic
     ->middleware('throttle:120,1')
     ->name('deploy.publish-article-24');
 
+Route::get('/deploy/patch-article-39-formatting', [DeployController::class, 'patchArticle39Formatting'])
+    ->middleware('throttle:120,1')
+    ->name('deploy.patch-article-39-formatting');
+
 Route::get('/deploy/ensure-admin', [DeployController::class, 'ensureAdmin'])
     ->middleware('throttle:120,1')
     ->name('deploy.ensure-admin');
