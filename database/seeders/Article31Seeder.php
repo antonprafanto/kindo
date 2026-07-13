@@ -83,13 +83,13 @@ class Article31Seeder extends Seeder
 
 <h2>Arsitektur Task</h2>
 <figure role="img" aria-label="Diagram arsitektur FreeRTOS ESP32: task sensor Core 1 mengirim data ke queue, task MQTT Core 0 publish ke broker" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" style="display:block;max-width:820px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 370" style="display:block;max-width:820px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="frtArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
       <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="820" height="360" fill="#F5F5F0" rx="6"/>
+  <rect x="0" y="0" width="820" height="370" fill="#F5F5F0" rx="6"/>
   <!-- Core labels -->
   <text x="130" y="36" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">Core 1</text>
   <text x="610" y="36" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">Core 0</text>
@@ -115,19 +115,19 @@ class Article31Seeder extends Seeder
   <line x1="480" y1="92" x2="544" y2="92" stroke="#1a1a1a" stroke-width="2" marker-end="url(#frtArrow)"/>
   <text x="512" y="82" text-anchor="middle" fill="#4A5568" font-size="10" font-weight="600">recv</text>
   <!-- Broker -->
-  <line x1="670" y1="136" x2="670" y2="188" stroke="#1a1a1a" stroke-width="2" marker-end="url(#frtArrow)"/>
-  <text x="700" y="168" text-anchor="start" fill="#4A5568" font-size="10" font-weight="600">publish</text>
-  <rect x="220" y="200" width="380" height="76" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="410" y="228" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Broker Mosquitto</text>
-  <text x="410" y="248" text-anchor="middle" fill="#e3f2fd" font-size="12">192.168.1.50:1883 · user kindo_esp32</text>
-  <text x="410" y="266" text-anchor="middle" fill="#e3f2fd" font-size="11">topic kodingindonesia/esp32/dht22/data</text>
-  <line x1="670" y1="188" x2="600" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#frtArrow)"/>
-  <!-- loop() note -->
-  <rect x="24" y="200" width="172" height="56" rx="4" fill="#fff" stroke="#CBD5E0" stroke-width="1.5"/>
-  <text x="110" y="224" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="600">loop() kosong</text>
-  <text x="110" y="242" text-anchor="middle" fill="#718096" font-size="10">vTaskDelay(portMAX_DELAY)</text>
+  <rect x="220" y="210" width="380" height="76" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="410" y="238" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Broker Mosquitto</text>
+  <text x="410" y="258" text-anchor="middle" fill="#e3f2fd" font-size="12">192.168.1.50:1883 · user kindo_esp32</text>
+  <text x="410" y="276" text-anchor="middle" fill="#e3f2fd" font-size="11">topic kodingindonesia/esp32/dht22/data</text>
+  <line x1="670" y1="136" x2="410" y2="210" stroke="#2979FF" stroke-width="2.5" marker-end="url(#frtArrow)"/>
+  <text x="548" y="162" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">publish</text>
+  <!-- loop() note — bukan bagian alur data -->
+  <rect x="24" y="210" width="172" height="56" rx="4" fill="#fff" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="110" y="232" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="600">loop() kosong</text>
+  <text x="110" y="250" text-anchor="middle" fill="#718096" font-size="10">vTaskDelay(portMAX_DELAY)</text>
+  <text x="110" y="278" text-anchor="middle" fill="#A0AEC0" font-size="9">bukan alur data</text>
   <!-- Legend -->
-  <text x="410" y="320" text-anchor="middle" fill="#718096" font-size="10">Dua task jalan paralel — sensor tidak terblokir saat WiFi/MQTT reconnect</text>
+  <text x="410" y="330" text-anchor="middle" fill="#718096" font-size="10">Alur data: sensor → queue → MQTT → broker · dua task jalan paralel di core berbeda</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram arsitektur FreeRTOS — task sensor (Core 1) mengisi queue; task MQTT (Core 0) mengonsumsi dan publish ke broker.</figcaption>
 </figure>
