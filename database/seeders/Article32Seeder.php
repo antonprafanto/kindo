@@ -101,8 +101,8 @@ class Article32Seeder extends Seeder
     <marker id="arrBlueR" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
       <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
     </marker>
-    <marker id="arrOrangeL" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
-      <path d="M8,0 L0,4 L8,8 Z" fill="#FF7A2F"/>
+    <marker id="arrOrangeL" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/>
     </marker>
   </defs>
   <rect x="0" y="0" width="780" height="460" fill="#F5F5F0" rx="6"/>
@@ -141,7 +141,7 @@ class Article32Seeder extends Seeder
   <circle cx="36" cy="328" r="14" fill="#FF7A2F" stroke="#000" stroke-width="2"/>
   <text x="36" y="333" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">4</text>
   <line x1="580" y1="328" x2="200" y2="328" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#arrOrangeL)"/>
-  <text x="390" y="318" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">notify JSON (~2 detik)</text>
+  <text x="390" y="318" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">notify JSON (~2 detik) ← ke HP</text>
   <rect x="500" y="348" width="244" height="44" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="2"/>
   <text x="622" y="366" text-anchor="middle" fill="#1a1a1a" font-size="10" font-family="monospace">{&quot;suhu&quot;:28.5,&quot;kelembaban&quot;:62,&quot;unix&quot;:…}</text>
   <text x="622" y="382" text-anchor="middle" fill="#718096" font-size="10">DHT22 → setValue() → notify()</text>
