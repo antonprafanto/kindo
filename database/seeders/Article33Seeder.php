@@ -73,7 +73,7 @@ class Article33Seeder extends Seeder
     <tr><th>Aktuator</th><th>Kontrol</th><th>MQTT payload</th><th>Cocok untuk</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>Relay (#8)</strong></td><td>Digital on/off</td><td><code>ON</code> / <code>OFF</code></td><td>Lampu, pompa, kipas on/off</td></tr>
+    <tr><td><strong><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Relay (#8)</a></strong></td><td>Digital on/off</td><td><code>ON</code> / <code>OFF</code></td><td>Lampu, pompa, kipas on/off</td></tr>
     <tr><td><strong>Servo SG90</strong></td><td>Sudut 0–180°</td><td><code>0</code> … <code>180</code></td><td>Flap, lengan robot, throttle</td></tr>
     <tr><td><strong>PWM / LEDC</strong></td><td>Duty cycle 0–100%</td><td>Angka atau persen</td><td>Dimmer, kecepatan DC motor kecil</td></tr>
   </tbody>
@@ -101,7 +101,7 @@ class Article33Seeder extends Seeder
   </tbody>
 </table>
 
-<p>Kita pakai <strong>GPIO 27</strong> agar tidak bentrok dengan <strong>GPIO 26</strong> relay (#8) dan <strong>GPIO 4</strong> DHT22 (#5). Hindari GPIO 6–11 (flash internal).</p>
+<p>Kita pakai <strong>GPIO 27</strong> agar tidak bentrok dengan <strong>GPIO 26</strong> <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">relay (#8)</a> dan <strong>GPIO 4</strong> <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>. Hindari GPIO 6–11 (flash internal).</p>
 
 <blockquote>
   <p><strong>Pro tip:</strong> Jika servo bergetar di sudut tertentu, sambungkan kapasitor 100 µF antara VCC dan GND dekat servo — mengurangi noise saat WiFi transmit.</p>
@@ -121,7 +121,7 @@ class Article33Seeder extends Seeder
 <p>Di Arduino IDE, install dari Library Manager:</p>
 <ul>
   <li><strong>ESP32Servo</strong> oleh Kevin Harrington</li>
-  <li><strong>PubSubClient</strong> + <strong>WiFi</strong> (sudah familiar dari #7/#8)</li>
+  <li><strong>PubSubClient</strong> + <strong>WiFi</strong> (sudah familiar dari <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">#7</a>/<a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a>)</li>
 </ul>
 
 <p>Di <a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">PlatformIO (#29)</a>:</p>
@@ -134,7 +134,7 @@ class Article33Seeder extends Seeder
 <ul>
   <li><strong>Topic sudut servo:</strong> <code>kodingindonesia/esp32/servo/sudut</code></li>
   <li><strong>Payload:</strong> angka bulat <code>0</code>–<code>180</code> (derajat)</li>
-  <li><strong>Topic relay (referensi #8):</strong> <code>kodingindonesia/esp32/lampu/kontrol</code> — <code>ON</code>/<code>OFF</code></li>
+  <li><strong>Topic relay (referensi <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a>):</strong> <code>kodingindonesia/esp32/lampu/kontrol</code> — <code>ON</code>/<code>OFF</code></li>
 </ul>
 
 <h2>Sketch Dasar — Sweep Lokal (Tanpa MQTT)</h2>
@@ -232,7 +232,7 @@ void loop() {
   mqtt.loop();
 }</code></pre>
 
-<p>Payload MQTT mengikuti pola JSON sensor di topic <code>kodingindonesia/esp32/dht22/data</code> — di sini sengaja <strong>angka mentah</strong> agar mudah dikirim dari <code>mosquitto_pub</code> atau Node-RED (#23). Untuk timestamp di log, lihat <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a> — contoh unix <code>1782977400</code> = <code>2026-07-02T14:30:00</code> UTC.</p>
+<p>Payload MQTT mengikuti pola JSON sensor di topic <code>kodingindonesia/esp32/dht22/data</code> — di sini sengaja <strong>angka mentah</strong> agar mudah dikirim dari <code>mosquitto_pub</code> atau <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a>. Untuk timestamp di log, lihat <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a> — contoh unix <code>1782977400</code> = <code>2026-07-02T14:30:00</code> UTC.</p>
 
 <h2>Mapping Sudut ke Skenario Nyata</h2>
 <p>Beberapa contoh mapping praktis untuk proyek IoT:</p>
@@ -241,7 +241,7 @@ void loop() {
     <tr><th>Sudut MQTT</th><th>Contoh mekanik</th><th>Proyek terkait</th></tr>
   </thead>
   <tbody>
-    <tr><td><code>0</code></td><td>Flap tertutup penuh</td><td>Greenhouse capstone (#39)</td></tr>
+    <tr><td><code>0</code></td><td>Flap tertutup penuh</td><td><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Greenhouse capstone (#39)</a></td></tr>
     <tr><td><code>90</code></td><td>Posisi netral / setengah buka</td><td>Kamera tilt</td></tr>
     <tr><td><code>180</code></td><td>Flap terbuka penuh</td><td>Ventilasi maksimum</td></tr>
   </tbody>
@@ -301,7 +301,7 @@ mosquitto_pub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 }</code></pre>
 <p>Panggil <code>moveServoSmooth(angle)</code> dari callback MQTT menggantikan <code>servo.write(angle)</code> langsung. Di produksi, pertimbangkan <code>millis()</code> non-blocking agar <code>mqtt.loop()</code> tetap responsif — pola yang sama dengan task terpisah di <a href="/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt">FreeRTOS (#31)</a>.</p>
 
-<p>Untuk flap greenhouse (#39), ramp 2° per 20 ms sering cukup: flap tidak “membanting” engsel plastik, tapi tetap merespons perintah MQTT dalam waktu kurang dari dua detik untuk perjalanan penuh 0→180°.</p>
+<p>Untuk flap <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>, ramp 2° per 20 ms sering cukup: flap tidak “membanting” engsel plastik, tapi tetap merespons perintah MQTT dalam waktu kurang dari dua detik untuk perjalanan penuh 0→180°.</p>
 
 <h2>Kalibrasi Pulse Width SG90</h2>
 <p>Parameter <code>servo.attach(SERVO_PIN, 500, 2400)</code> memetakan sudut ke lebar pulsa dalam mikrodetik. SG90 murah kadang tidak mencapai 0° atau 180° nominal — jika lengan mentok sebelum angka MQTT, sesuaikan:</p>
@@ -353,10 +353,10 @@ mosquitto_pub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 <h2>Node-RED &amp; Dashboard Visual</h2>
 <p>Di <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a>, tambahkan node <strong>ui_slider</strong> yang publish ke <code>kodingindonesia/esp32/servo/sudut</code>. Slider 0–180 di browser langsung menggerakkan SG90 — pola mirip tombol ON/OFF relay di dashboard yang sama, tapi dengan kontrol analog.</p>
 
-<p>Kombinasikan dengan chart suhu dari topic <code>kodingindonesia/esp32/dht22/data</code> — misalnya buka flap (sudut 120) otomatis saat suhu &gt; 30°C lewat function node. Itu pratinjau logika capstone <strong>greenhouse (#39)</strong>.</p>
+<p>Kombinasikan dengan chart suhu dari topic <code>kodingindonesia/esp32/dht22/data</code> — misalnya buka flap (sudut 120) otomatis saat suhu &gt; 30°C lewat function node. Itu pratinjau logika capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>.</p>
 
 <h2>Publish Balik Sudut (Opsional)</h2>
-<p>Untuk monitoring di <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>, ESP32 bisa publish sudut terakhir ke topic <code>kodingindonesia/esp32/servo/status</code> setelah setiap perubahan — payload sama angka 0–180. Subscriber Python (#18) bisa menyimpan histori posisi aktuator, bukan hanya sensor.</p>
+<p>Untuk monitoring di <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>, ESP32 bisa publish sudut terakhir ke topic <code>kodingindonesia/esp32/servo/status</code> setelah setiap perubahan — payload sama angka 0–180. <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a> bisa menyimpan histori posisi aktuator, bukan hanya sensor.</p>
 
 <h2>FAQ Singkat</h2>
 <dl>
@@ -387,7 +387,7 @@ mosquitto_pub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — timestamp di log pergerakan servo</li>
   <li><strong><a href="/artikel/bluetooth-esp32-ble-kirim-data-sensor-smartphone">BLE (#32)</a></strong> — kontrol servo dari app HP (lanjutan)</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — grafik histori sudut jika publish balik ke MQTT</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — servo flap + pompa relay + sensor</li>
+  <li>Capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> — servo flap + pompa relay + sensor</li>
 </ul>
 
 <p>PWM membuka gerakan halus di proyek ESP32 — lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

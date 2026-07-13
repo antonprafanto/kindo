@@ -74,6 +74,10 @@ $requiredLinks = [
     'freertos-esp32-multi-task-sensor-wifi-mqtt'                        => 'Artikel #31 FreeRTOS',
     'bluetooth-esp32-ble-kirim-data-sensor-smartphone'                 => 'Artikel #32 BLE',
     'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'                  => 'Artikel #34 NTP',
+    'membaca-sensor-dht22-suhu-kelembaban-esp32'                      => 'Artikel #5 DHT22',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'             => 'Artikel #18 Python',
+    'adc-esp32-sensor-analog-soil-moisture-ldr-mqtt'                  => 'Artikel #35 ADC',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'           => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
