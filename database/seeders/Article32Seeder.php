@@ -128,12 +128,13 @@ class Article32Seeder extends Seeder
   <line x1="200" y1="168" x2="580" y2="168" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowR)"/>
   <text x="390" y="158" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">connect</text>
   <text x="622" y="188" text-anchor="middle" fill="#718096" font-size="10">onConnect → deviceConnected=true</text>
-  <!-- Step 3 -->
+  <!-- Step 3 — Central menulis CCC descriptor di Peripheral -->
   <circle cx="36" cy="238" r="14" fill="#FF7A2F" stroke="#000" stroke-width="2"/>
   <text x="36" y="243" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">3</text>
-  <line x1="580" y1="238" x2="200" y2="238" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowL)"/>
+  <line x1="200" y1="238" x2="580" y2="238" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowR)"/>
   <text x="390" y="228" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">subscribe notify</text>
-  <text x="390" y="258" text-anchor="middle" fill="#718096" font-size="10">aktifkan ikon notify di characteristic</text>
+  <text x="390" y="258" text-anchor="middle" fill="#718096" font-size="10">HP aktifkan ikon notify (tulis descriptor CCC)</text>
+  <text x="622" y="268" text-anchor="middle" fill="#718096" font-size="10">ESP32 siap kirim notifikasi</text>
   <!-- Step 4 loop -->
   <circle cx="36" cy="318" r="14" fill="#FF7A2F" stroke="#000" stroke-width="2"/>
   <text x="36" y="323" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">4</text>
@@ -145,7 +146,7 @@ class Article32Seeder extends Seeder
   <path d="M 200 340 Q 158 370 200 340" fill="none" stroke="#718096" stroke-width="1.5" stroke-dasharray="4 3"/>
   <text x="158" y="378" text-anchor="middle" fill="#718096" font-size="9">ulang selama terhubung</text>
 </svg>
-<figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram urutan BLE — HP memulai scan &amp; connect; ESP32 mengirim data sensor lewat notifikasi GATT.</figcaption>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram urutan BLE — HP memulai scan, connect, dan subscribe; ESP32 mengirim data sensor lewat notifikasi GATT.</figcaption>
 </figure>
 
 <h2>UUID Kustom Koding Indonesia</h2>
