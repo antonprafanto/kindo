@@ -81,7 +81,7 @@ class Article39Seeder extends Seeder
 
 <h2>Arsitektur Sistem Greenhouse</h2>
 <figure role="img" aria-label="Diagram flowchart arsitektur smart greenhouse: sensor publish ke broker, dashboard subscribe histori, aktuator terima perintah kontrol" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 540" style="display:block;max-width:860px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 560" style="display:block;max-width:860px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="ghArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
       <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
@@ -93,56 +93,56 @@ class Article39Seeder extends Seeder
       <path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="860" height="540" fill="#F5F5F0" rx="6"/>
-  <!-- Broker -->
+  <rect x="0" y="0" width="860" height="560" fill="#F5F5F0" rx="6"/>
+  <!-- Garis alur — digambar dulu agar label tidak tertutup -->
+  <line x1="180" y1="148" x2="300" y2="92" stroke="#2979FF" stroke-width="2.5" marker-end="url(#ghArrowBlue)"/>
+  <line x1="560" y1="92" x2="680" y2="148" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#ghArrowOrange)"/>
+  <line x1="448" y1="138" x2="448" y2="408" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ghArrow)"/>
+  <line x1="372" y1="408" x2="372" y2="138" stroke="#718096" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ghArrow)"/>
+  <line x1="180" y1="220" x2="180" y2="268" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="680" y1="220" x2="680" y2="268" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <line x1="112" y1="368" x2="160" y2="220" stroke="#FF7A2F" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- Kotak komponen -->
   <rect x="230" y="16" width="400" height="76" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
   <text x="430" y="44" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Broker Mosquitto</text>
   <text x="430" y="64" text-anchor="middle" fill="#e3f2fd" font-size="12">192.168.1.50:1883 · auth kindo_esp32</text>
   <text x="430" y="82" text-anchor="middle" fill="#e3f2fd" font-size="11">Topic: kodingindonesia/esp32/...</text>
-  <text x="430" y="108" text-anchor="middle" fill="#718096" font-size="10">Pusat MQTT — semua publish &amp; subscribe lewat sini</text>
-  <!-- Left: Gateway -->
   <rect x="48" y="148" width="264" height="72" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
   <text x="180" y="176" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Gateway utama</text>
   <text x="180" y="196" text-anchor="middle" fill="#4A5568" font-size="12">BME280 + soil moisture + LDR</text>
   <text x="180" y="212" text-anchor="middle" fill="#718096" font-size="11">GPIO 21/22 · 34 · 35</text>
-  <!-- Right: Aktuator -->
   <rect x="548" y="148" width="264" height="72" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
   <text x="680" y="176" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Node aktuator</text>
   <text x="680" y="196" text-anchor="middle" fill="#4A5568" font-size="12">Relay pompa + lampu grow</text>
   <text x="680" y="212" text-anchor="middle" fill="#718096" font-size="11">GPIO 26 · 27 · topic pompa/kontrol</text>
-  <!-- MQTT arrows — arah data benar -->
-  <line x1="180" y1="148" x2="310" y2="92" stroke="#2979FF" stroke-width="2.5" marker-end="url(#ghArrowBlue)"/>
-  <text x="228" y="128" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">publish sensor ↑</text>
-  <line x1="550" y1="92" x2="680" y2="148" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#ghArrowOrange)"/>
-  <text x="612" y="128" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">perintah kontrol ↓</text>
-  <!-- Optional nodes — grouping, bukan alur MQTT -->
-  <line x1="180" y1="220" x2="180" y2="268" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="5 4"/>
   <rect x="48" y="268" width="264" height="56" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2" stroke-dasharray="6 4"/>
   <text x="180" y="292" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="600">Node deep sleep</text>
   <text x="180" y="310" text-anchor="middle" fill="#718096" font-size="11">opsional · probe tanah jauh (#11)</text>
-  <line x1="680" y1="220" x2="680" y2="268" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="5 4"/>
   <rect x="548" y="268" width="264" height="56" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2" stroke-dasharray="6 4"/>
   <text x="680" y="292" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="600">Servo flap ventilasi</text>
   <text x="680" y="310" text-anchor="middle" fill="#718096" font-size="11">opsional · topic servo/sudut (#33)</text>
-  <!-- Dashboard -->
   <rect x="130" y="408" width="600" height="88" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
   <text x="430" y="436" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Dashboard &amp; Otomasi</text>
   <text x="430" y="458" text-anchor="middle" fill="#4A5568" font-size="12">InfluxDB + Grafana (#19) · Home Assistant (#21) · Node-RED (#23)</text>
   <text x="430" y="478" text-anchor="middle" fill="#718096" font-size="11">Subscriber Python (#18) · alert Telegram · threshold pompa</text>
-  <!-- Broker ↔ Dashboard -->
-  <line x1="430" y1="92" x2="430" y2="408" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ghArrow)"/>
-  <text x="456" y="250" text-anchor="start" fill="#4A5568" font-size="10" font-weight="600">subscribe data ↓</text>
-  <line x1="500" y1="408" x2="500" y2="120" stroke="#718096" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ghArrow)"/>
-  <text x="524" y="270" text-anchor="start" fill="#718096" font-size="10">publish otomasi ↑</text>
-  <!-- SD backup di gateway -->
-  <rect x="48" y="340" width="64" height="56" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="2"/>
-  <text x="80" y="364" text-anchor="middle" fill="#FF7A2F" font-size="10" font-weight="700">SD</text>
-  <text x="80" y="378" text-anchor="middle" fill="#718096" font-size="9">#37</text>
-  <text x="80" y="390" text-anchor="middle" fill="#718096" font-size="9">backup</text>
-  <line x1="112" y1="368" x2="140" y2="200" stroke="#FF7A2F" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="88" y="332" text-anchor="middle" fill="#A0AEC0" font-size="9">offline</text>
+  <rect x="48" y="340" width="72" height="64" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="2"/>
+  <text x="84" y="364" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">SD #37</text>
+  <text x="84" y="382" text-anchor="middle" fill="#4A5568" font-size="10" font-weight="600">backup</text>
+  <text x="84" y="396" text-anchor="middle" fill="#718096" font-size="9">saat offline</text>
+  <!-- Label panah — pill putih di atas garis -->
+  <rect x="188" y="100" width="118" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="247" y="117" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">publish sensor ↑</text>
+  <rect x="594" y="100" width="128" height="24" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="658" y="117" text-anchor="middle" fill="#FF7A2F" font-size="12" font-weight="700">perintah kontrol ↓</text>
+  <rect x="458" y="248" width="118" height="24" rx="4" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="517" y="265" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">subscribe data ↓</text>
+  <rect x="248" y="288" width="132" height="24" rx="4" fill="#fff" stroke="#718096" stroke-width="1.5"/>
+  <text x="314" y="305" text-anchor="middle" fill="#4A5568" font-size="12" font-weight="700">publish otomasi ↑</text>
+  <!-- Keterangan pusat -->
+  <rect x="248" y="118" width="364" height="24" rx="4" fill="#fff" stroke="#CBD5E0" stroke-width="1.5"/>
+  <text x="430" y="135" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">Pusat MQTT — semua publish &amp; subscribe lewat sini</text>
 </svg>
-<figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram alur smart greenhouse — sensor <strong>publish ↑</strong> ke broker; dashboard <strong>subscribe ↓</strong> histori &amp; <strong>publish ↑</strong> otomasi; aktuator <strong>terima perintah ↓</strong> dari broker.</figcaption>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram alur smart greenhouse — sensor <strong>publish ↑</strong> ke broker; dashboard <strong>subscribe ↓</strong> histori &amp; <strong>publish ↑</strong> otomasi; aktuator <strong>terima perintah ↓</strong> dari broker.</figcaption>
 </figure>
 
 <p>Alur data: sensor publish JSON ke MQTT → subscriber Python/InfluxDB menyimpan histori → Grafana menampilkan grafik → otomasi (Node-RED / HA / firmware) mengontrol pompa berdasarkan threshold kelembaban tanah.</p>
