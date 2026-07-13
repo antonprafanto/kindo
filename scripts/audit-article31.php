@@ -70,6 +70,15 @@ $requiredLinks = [
     'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                   => 'Artikel #17 TLS',
     'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'        => 'Artikel #19 Grafana',
     'deep-sleep-esp32-sensor-dht22-hemat-baterai'                   => 'Artikel #11 Deep sleep',
+    'bluetooth-esp32-ble-kirim-data-sensor-smartphone'            => 'Artikel #32 BLE',
+    'adc-esp32-sensor-analog-soil-moisture-ldr-mqtt'               => 'Artikel #35 ADC',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'       => 'Artikel #39 Greenhouse',
+    'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                   => 'Artikel #13 I2C',
+    'oled-ssd1306-esp32-tampilkan-data-sensor-i2c'                => 'Artikel #14 OLED',
+    'ota-update-firmware-esp32-via-wifi'                          => 'Artikel #15 OTA',
+    'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'         => 'Artikel #28 LoRa',
+    'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode' => 'Artikel #12 NVS',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'       => 'Artikel #18 Python',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -97,6 +106,8 @@ check(str_contains($body, 'Pro tip'), 'Pro tip');
 check(str_contains($body, 'Keamanan'), 'Section keamanan');
 check(str_contains($body, 'Estimasi Biaya'), 'Estimasi biaya');
 check(str_contains($body, 'Bluetooth BLE (#32)'), 'Teaser BLE #32');
+check(str_contains($body, '<svg') && str_contains($body, 'Task Sensor'), 'Diagram arsitektur FreeRTOS SVG');
+check(! str_contains($body, '┌'), 'Tidak ada diagram ASCII box-drawing');
 check(str_contains($body, 'Checklist'), 'Section checklist');
 
 $h2Count = substr_count($body, '<h2>');
@@ -115,6 +126,7 @@ $html = $response->getContent();
 
 check($response->getStatusCode() === 200, 'GET artikel → 200');
 check(str_contains($html, 'FreeRTOS'), 'Konten FreeRTOS ter-render');
+check(str_contains($html, 'Task Sensor'), 'Diagram SVG ter-render');
 check(str_contains($html, 'application/ld+json'), 'JSON-LD schema ada');
 check(str_contains($html, 'xTaskCreatePinnedToCore'), 'API task ter-render');
 

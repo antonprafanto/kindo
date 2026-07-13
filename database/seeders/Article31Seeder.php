@@ -79,18 +79,58 @@ class Article31Seeder extends Seeder
   </tbody>
 </table>
 
-<p>Artikel ini fokus pada <strong>sensor → queue → MQTT</strong> — fondasi sebelum kamu menambah relay subscribe seperti di #9 atau cloud bridge <a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">Firebase (#30)</a>.</p>
+<p>Artikel ini fokus pada <strong>sensor → queue → MQTT</strong> — fondasi sebelum kamu menambah relay subscribe seperti di <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">#9</a> atau cloud bridge <a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">Firebase (#30)</a>.</p>
 
 <h2>Arsitektur Task</h2>
-<pre><code>┌─────────────────┐     xQueueSend      ┌──────────────────┐
-│  Task Sensor    │ ──────────────────► │  Task MQTT       │
-│  (Core 1)       │   struct SensorData │  (Core 0)        │
-│  DHT22 @ GPIO4  │                     │  WiFi + publish  │
-└─────────────────┘                     └────────┬─────────┘
-                                                 │
-                                                 ▼
-                                    Broker 192.168.1.50
-                                    topic .../dht22/data</code></pre>
+<figure role="img" aria-label="Diagram arsitektur FreeRTOS ESP32: task sensor Core 1 mengirim data ke queue, task MQTT Core 0 publish ke broker" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" style="display:block;max-width:820px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="frtArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="820" height="360" fill="#F5F5F0" rx="6"/>
+  <!-- Core labels -->
+  <text x="130" y="36" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">Core 1</text>
+  <text x="610" y="36" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">Core 0</text>
+  <!-- Task Sensor -->
+  <rect x="24" y="48" width="212" height="88" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="130" y="76" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Task Sensor</text>
+  <text x="130" y="96" text-anchor="middle" fill="#4A5568" font-size="12">DHT22 @ GPIO4</text>
+  <text x="130" y="114" text-anchor="middle" fill="#718096" font-size="11">baca tiap 5 detik</text>
+  <text x="130" y="128" text-anchor="middle" fill="#718096" font-size="10">vTaskDelay · xQueueSend</text>
+  <!-- Queue -->
+  <rect x="300" y="64" width="180" height="56" rx="6" fill="#fff" stroke="#2979FF" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="390" y="88" text-anchor="middle" fill="#2979FF" font-size="13" font-weight="700">FreeRTOS Queue</text>
+  <text x="390" y="106" text-anchor="middle" fill="#4A5568" font-size="11">SensorReading · depth 5</text>
+  <!-- Task MQTT -->
+  <rect x="544" y="48" width="252" height="88" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="670" y="76" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Task MQTT / WiFi</text>
+  <text x="670" y="96" text-anchor="middle" fill="#4A5568" font-size="12">mqttClient.loop()</text>
+  <text x="670" y="114" text-anchor="middle" fill="#718096" font-size="11">xQueueReceive → publish</text>
+  <text x="670" y="128" text-anchor="middle" fill="#718096" font-size="10">reconnect broker otomatis</text>
+  <!-- Arrows sensor → queue → mqtt -->
+  <line x1="236" y1="92" x2="300" y2="92" stroke="#1a1a1a" stroke-width="2" marker-end="url(#frtArrow)"/>
+  <text x="268" y="82" text-anchor="middle" fill="#4A5568" font-size="10" font-weight="600">send</text>
+  <line x1="480" y1="92" x2="544" y2="92" stroke="#1a1a1a" stroke-width="2" marker-end="url(#frtArrow)"/>
+  <text x="512" y="82" text-anchor="middle" fill="#4A5568" font-size="10" font-weight="600">recv</text>
+  <!-- Broker -->
+  <line x1="670" y1="136" x2="670" y2="188" stroke="#1a1a1a" stroke-width="2" marker-end="url(#frtArrow)"/>
+  <text x="700" y="168" text-anchor="start" fill="#4A5568" font-size="10" font-weight="600">publish</text>
+  <rect x="220" y="200" width="380" height="76" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="410" y="228" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Broker Mosquitto</text>
+  <text x="410" y="248" text-anchor="middle" fill="#e3f2fd" font-size="12">192.168.1.50:1883 · user kindo_esp32</text>
+  <text x="410" y="266" text-anchor="middle" fill="#e3f2fd" font-size="11">topic kodingindonesia/esp32/dht22/data</text>
+  <line x1="670" y1="188" x2="600" y2="220" stroke="#1a1a1a" stroke-width="2" marker-end="url(#frtArrow)"/>
+  <!-- loop() note -->
+  <rect x="24" y="200" width="172" height="56" rx="4" fill="#fff" stroke="#CBD5E0" stroke-width="1.5"/>
+  <text x="110" y="224" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="600">loop() kosong</text>
+  <text x="110" y="242" text-anchor="middle" fill="#718096" font-size="10">vTaskDelay(portMAX_DELAY)</text>
+  <!-- Legend -->
+  <text x="410" y="320" text-anchor="middle" fill="#718096" font-size="10">Dua task jalan paralel — sensor tidak terblokir saat WiFi/MQTT reconnect</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram arsitektur FreeRTOS — task sensor (Core 1) mengisi queue; task MQTT (Core 0) mengonsumsi dan publish ke broker.</figcaption>
+</figure>
 
 <p>ESP32 punya dua core. Pola umum: networking di <strong>Core 0</strong>, pembacaan sensor di <strong>Core 1</strong> — mengurangi kontensi saat TLS atau reconnect WiFi.</p>
 
@@ -98,11 +138,11 @@ class Article31Seeder extends Seeder
 <p>Arduino-ESP32 menjalankan WiFi stack dan sebagian driver di core tertentu. Meskipun detail internal bisa berubah antar versi core, aturan praktis untuk proyek Koding Indonesia:</p>
 <ul>
   <li><strong>Core 0</strong> — WiFi, MQTT client, reconnect broker, opsional HTTPS/Firebase</li>
-  <li><strong>Core 1</strong> — pembacaan DHT22, debounce GPIO, sampling ADC (#35 nanti)</li>
+  <li><strong>Core 1</strong> — pembacaan DHT22, debounce GPIO, sampling <a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC (#35)</a> nanti</li>
   <li>Hindari dua task memanggil <code>WiFi.disconnect()</code> bersamaan — race condition</li>
 </ul>
 
-<p>Jika kamu hanya punya satu task berat (mis. TLS Firebase #30), pertimbangkan stack 12–16 KB dan monitor heap secara berkala di Serial.</p>
+<p>Jika kamu hanya punya satu task berat (mis. TLS <a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">Firebase (#30)</a>), pertimbangkan stack 12–16 KB dan monitor heap secara berkala di Serial.</p>
 
 <h2>Struktur Data &amp; Queue</h2>
 <pre><code class="language-cpp">typedef struct {
@@ -188,20 +228,20 @@ void loop() {
 <p>Di <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel #9</a>, <code>loop()</code> memanggil <code>dht.read</code>, <code>mqttClient.loop()</code>, dan callback subscribe relay secara serial. Itu valid untuk satu node. FreeRTOS menjadi penting ketika:</p>
 <ul>
   <li>Interval sensor ketat (mis. setiap 2 detik) tapi MQTT harus responsif untuk relay</li>
-  <li>Ada task ketiga: OLED (#14), OTA check (#15), atau NTP sync (#34)</li>
-  <li>Gateway LoRa (#28) menerima packet sementara WiFi reconnect</li>
+  <li>Ada task ketiga: <a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED (#14)</a>, <a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA check (#15)</a>, atau <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP sync (#34)</a></li>
+  <li><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa (#28)</a> menerima packet sementara WiFi reconnect</li>
 </ul>
 
-<p>Kamu bisa migrasi bertahap: pertahankan logika #9, pindahkan hanya bagian sensor ke task pertama — tanpa rewrite total.</p>
+<p>Kamu bisa migrasi bertahap: pertahankan logika <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">#9</a>, pindahkan hanya bagian sensor ke task pertama — tanpa rewrite total.</p>
 
 <h2>Rencana Migrasi dari Sketch #9 (Langkah demi Langkah)</h2>
 <ol>
-  <li><strong>Salin sketch #9</strong> ke project baru — pastikan MQTT ke broker <code>192.168.1.50</code> masih jalan</li>
+  <li><strong>Salin sketch <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">#9</a></strong> ke project baru — pastikan MQTT ke broker <code>192.168.1.50</code> masih jalan</li>
   <li><strong>Ekstrak fungsi baca DHT22</strong> ke <code>sensorTask</code> — interval 5 detik dengan <code>vTaskDelay</code></li>
   <li><strong>Pindahkan WiFi + mqttClient.loop + publish</strong> ke <code>mqttTask</code></li>
   <li><strong>Tambahkan queue</strong> di antara keduanya — mulai depth 3–5</li>
   <li><strong>Kosongkan loop()</strong> — hanya <code>vTaskDelay(portMAX_DELAY)</code></li>
-  <li><strong>Uji subscribe relay</strong> — jika masih dipakai dari #9, tambahkan task ketiga atau gabung di mqttTask dengan prioritas lebih tinggi</li>
+  <li><strong>Uji subscribe relay</strong> — jika masih dipakai dari <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">#9</a>, tambahkan task ketiga atau gabung di mqttTask dengan prioritas lebih tinggi</li>
 </ol>
 
 <p>Setiap langkah di atas bisa di-commit terpisah di Git — memudahkan rollback jika stack overflow muncul di tengah migrasi.</p>
@@ -209,12 +249,12 @@ void loop() {
 <h2>Prioritas, Mutex &amp; Watchdog</h2>
 <p>FreeRTOS menyediakan primitif lain untuk produksi:</p>
 <ul>
-  <li><strong>Mutex</strong> — lindungi bus I2C (#13) jika OLED dan BME280 dibaca dari task berbeda</li>
+  <li><strong>Mutex</strong> — lindungi bus <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">I2C (#13)</a> jika OLED dan BME280 dibaca dari task berbeda</li>
   <li><strong>Semaphore</strong> — signal event (tombol GPIO interrupt → task MQTT)</li>
   <li><strong>Task watchdog (TWDT)</strong> — reset ESP32 jika task macet; wajib di firmware lapangan</li>
 </ul>
 
-<p>Untuk lab, watchdog bisa dimatikan dulu. Sebelum deploy ke kebun/ greenhouse capstone (#39), aktifkan TWDT di task yang paling kritis.</p>
+<p>Untuk lab, watchdog bisa dimatikan dulu. Sebelum deploy ke kebun <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse capstone (#39)</a>, aktifkan TWDT di task yang paling kritis.</p>
 
 <h2>Stack Size — Titik Awal yang Aman</h2>
 <table>
@@ -224,8 +264,8 @@ void loop() {
   <tbody>
     <tr><td>Sensor DHT22</td><td>4096</td><td>Cukup untuk float + queue send</td></tr>
     <tr><td>MQTT plain</td><td>8192</td><td>Naikkan jika PubSubClient + String JSON</td></tr>
-    <tr><td>MQTT + TLS</td><td>12288+</td><td>Lihat <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">#17</a> — uji di lapangan</td></tr>
-    <tr><td>Firebase HTTPS</td><td>16384+</td><td>Pisah task cloud dari MQTT lokal (#30)</td></tr>
+    <tr><td>MQTT + TLS</td><td>12288+</td><td>Lihat <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a> — uji di lapangan</td></tr>
+    <tr><td>Firebase HTTPS</td><td>16384+</td><td>Pisah task cloud dari MQTT lokal (<a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">#30</a>)</td></tr>
   </tbody>
 </table>
 
@@ -268,7 +308,7 @@ lib_deps =
 
 <h2>Keamanan &amp; Produksi</h2>
 <ul>
-  <li>Jangan commit <code>GANTI_PASSWORD_MQTT</code> — pakai NVS (#12) atau <code>build_flags</code></li>
+  <li>Jangan commit <code>GANTI_PASSWORD_MQTT</code> — pakai <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a> atau <code>build_flags</code></li>
   <li>Broker produksi: aktifkan <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></li>
   <li>Batasi ukuran queue agar RAM tidak habis saat broker down berjam-jam</li>
   <li>Log stack watermark sebelum rilis firmware</li>
@@ -282,7 +322,7 @@ lib_deps =
   <tbody>
     <tr><td>FreeRTOS (built-in ESP32)</td><td>Rp 0</td></tr>
     <tr><td>Hardware (ESP32 + DHT22 dari seri sebelumnya)</td><td>Rp 0 tambahan</td></tr>
-    <tr><td>Waktu belajar abstraksi task</td><td>±2–4 jam setelah #9 menguasai</td></tr>
+    <tr><td>Waktu belajar abstraksi task</td><td>±2–4 jam setelah <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">#9</a> menguasai</td></tr>
   </tbody>
 </table>
 
@@ -291,7 +331,7 @@ lib_deps =
   <li>Hanya satu task mengelola WiFi/MQTT client?</li>
   <li>Stack size cukup (cek high water mark)?</li>
   <li>Queue depth sesuai interval publish?</li>
-  <li>Topic dan JSON konsisten dengan Grafana (#19)?</li>
+  <li>Topic dan JSON konsisten dengan <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>?</li>
   <li>Watchdog dipertimbangkan untuk node lapangan?</li>
 </ol>
 
@@ -331,13 +371,13 @@ lib_deps =
 <p>Saat debugging di <a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">PlatformIO (#29)</a>, filter log per task dengan prefix — lebih mudah dibanding satu aliran Serial panjang dari loop tunggal. Simpan log panic backtrace jika Guru Meditation muncul — biasanya menunjuk task mana yang kehabisan stack.</p>
 
 <h2>Langkah Selanjutnya — Tier 2 Seri 2</h2>
-<p>Dengan Jalur E (#29–#31) selesai, Tier 1 inti Seri 2 <strong>lengkap</strong> — total 22 artikel live setelah deploy artikel ini, termasuk deep sleep (#11), broker sendiri (#16), dan capstone dashboard (#10). Lanjut ke pelengkap Tier 2:</p>
+<p>Dengan Jalur E (<a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">#29</a>–#31) selesai, Tier 1 inti Seri 2 <strong>lengkap</strong> — total 22 artikel live setelah deploy artikel ini, termasuk <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a>, broker sendiri (<a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a>), dan <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">capstone dashboard (#10)</a>. Lanjut ke pelengkap Tier 2:</p>
 <ul>
   <li><strong><a href="/artikel/bluetooth-esp32-ble-kirim-data-sensor-smartphone">Bluetooth BLE (#32)</a>:</strong> kirim data sensor ke smartphone tanpa WiFi</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — timestamp live di payload JSON</li>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep (#11)</a></strong> — kombinasikan dengan task ringan pre-sleep</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — visualisasi histori dari topic yang sama</li>
-  <li>Capstone <strong>greenhouse (#39)</strong></li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong></li>
 </ul>
 
 <p>FreeRTOS membuka pintu ke firmware ESP32 yang lebih andal dan siap skala tim — lanjutkan perjalanan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
