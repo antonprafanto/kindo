@@ -66,7 +66,7 @@ class Article32Seeder extends Seeder
 <p>Kamu akan membuat <strong>BLE GATT server</strong> di ESP32 yang membaca <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> dan mengirim JSON suhu &amp; kelembaban ke <strong>smartphone</strong> lewat notifikasi BLE — <strong>tanpa router WiFi</strong>, tanpa broker <code>192.168.1.50</code>, tanpa kabel USB setelah upload firmware.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Sudah pernah upload sketch Arduino (<a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">Blink LED #3</a>), paham GPIO dasar, dan pernah baca DHT22 (#5). Familiar dengan pola JSON di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a> membantu membandingkan transport — tapi MQTT tidak wajib untuk lab ini.</p>
+  <p><strong>Prasyarat:</strong> Sudah pernah upload sketch Arduino (<a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">Blink LED #3</a>), paham GPIO dasar, dan pernah baca <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>. Familiar dengan pola JSON di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a> membantu membandingkan transport — tapi MQTT tidak wajib untuk lab ini.</p>
 </blockquote>
 
 <h2>BLE vs WiFi vs ESP-NOW — Kapan Pakai Apa</h2>
@@ -76,7 +76,7 @@ class Article32Seeder extends Seeder
   </thead>
   <tbody>
     <tr><td><strong>BLE</strong></td><td>~5–15 m</td><td>Hanya ESP32 + smartphone</td><td>Setup perangkat, monitoring dekat, app companion</td></tr>
-    <tr><td><strong>WiFi + MQTT</strong></td><td>Seluruh jaringan rumah</td><td>Router + broker (#16)</td><td>Dashboard 24/7, histori Grafana (#19)</td></tr>
+    <tr><td><strong>WiFi + MQTT</strong></td><td>Seluruh jaringan rumah</td><td>Router + <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker (#16)</a></td><td>Dashboard 24/7, histori <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></td></tr>
     <tr><td><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a></strong></td><td>~50–200 m (LOS)</td><td>Dua+ ESP32, tanpa router</td><td>Sensor node → gateway ESP32</td></tr>
   </tbody>
 </table>
@@ -93,11 +93,60 @@ class Article32Seeder extends Seeder
   <li><strong>Notify</strong> — ESP32 push data otomatis saat terhubung (butuh descriptor <code>BLE2902</code>)</li>
 </ul>
 
-<pre><code>Smartphone (Central)          ESP32 (Peripheral / GATT Server)
-      │ scan "KindoESP32-DHT22"
-      │ connect ─────────────────► onConnect → deviceConnected=true
-      │ subscribe notify ◄──────── pCharacteristic-&gt;notify(JSON)
-      │ read value ◄────────────── setValue + notify tiap 2 detik</code></pre>
+<p>Urutan komunikasi dari scan sampai data sensor masuk ke HP — bayangkan dua pihak berbicara lewat Bluetooth:</p>
+
+<figure role="img" aria-label="Diagram urutan BLE: smartphone scan, connect, subscribe notify, terima JSON sensor dari ESP32" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" style="display:block;max-width:780px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="bleArrowR" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+    <marker id="bleArrowL" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="780" height="400" fill="#F5F5F0" rx="6"/>
+  <!-- Aktor -->
+  <rect x="48" y="20" width="220" height="56" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="158" y="44" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Smartphone</text>
+  <text x="158" y="62" text-anchor="middle" fill="#4A5568" font-size="11">Central — nRF Connect / app</text>
+  <rect x="512" y="20" width="220" height="56" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="622" y="44" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">ESP32</text>
+  <text x="622" y="62" text-anchor="middle" fill="#e3f2fd" font-size="11">Peripheral — GATT Server</text>
+  <!-- Lifelines -->
+  <line x1="158" y1="76" x2="158" y2="360" stroke="#CBD5E0" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="622" y1="76" x2="622" y2="360" stroke="#CBD5E0" stroke-width="2" stroke-dasharray="6 4"/>
+  <!-- Step 1 -->
+  <circle cx="36" cy="108" r="14" fill="#2979FF" stroke="#000" stroke-width="2"/>
+  <text x="36" y="113" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">1</text>
+  <rect x="72" y="90" width="172" height="36" rx="4" fill="#fff" stroke="#CBD5E0" stroke-width="1.5"/>
+  <text x="158" y="108" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="600">Scan</text>
+  <text x="158" y="122" text-anchor="middle" fill="#4A5568" font-size="10">cari &quot;KindoESP32-DHT22&quot;</text>
+  <!-- Step 2 -->
+  <circle cx="36" cy="168" r="14" fill="#2979FF" stroke="#000" stroke-width="2"/>
+  <text x="36" y="173" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">2</text>
+  <line x1="200" y1="168" x2="580" y2="168" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowR)"/>
+  <text x="390" y="158" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">connect</text>
+  <text x="622" y="188" text-anchor="middle" fill="#718096" font-size="10">onConnect → deviceConnected=true</text>
+  <!-- Step 3 -->
+  <circle cx="36" cy="238" r="14" fill="#FF7A2F" stroke="#000" stroke-width="2"/>
+  <text x="36" y="243" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">3</text>
+  <line x1="580" y1="238" x2="200" y2="238" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowL)"/>
+  <text x="390" y="228" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">subscribe notify</text>
+  <text x="390" y="258" text-anchor="middle" fill="#718096" font-size="10">aktifkan ikon notify di characteristic</text>
+  <!-- Step 4 loop -->
+  <circle cx="36" cy="318" r="14" fill="#FF7A2F" stroke="#000" stroke-width="2"/>
+  <text x="36" y="323" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">4</text>
+  <line x1="580" y1="308" x2="200" y2="308" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowL)"/>
+  <text x="390" y="298" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">notify JSON tiap ~2 detik</text>
+  <rect x="480" y="318" width="284" height="40" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="2"/>
+  <text x="622" y="336" text-anchor="middle" fill="#1a1a1a" font-size="10" font-family="monospace">{&quot;suhu&quot;:28.5,&quot;kelembaban&quot;:62,&quot;unix&quot;:…}</text>
+  <text x="622" y="350" text-anchor="middle" fill="#718096" font-size="10">DHT22 baca → setValue → notify()</text>
+  <path d="M 200 340 Q 158 370 200 340" fill="none" stroke="#718096" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="158" y="378" text-anchor="middle" fill="#718096" font-size="9">ulang selama terhubung</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram urutan BLE — HP memulai scan &amp; connect; ESP32 mengirim data sensor lewat notifikasi GATT.</figcaption>
+</figure>
 
 <h2>UUID Kustom Koding Indonesia</h2>
 <p>Gunakan UUID 128-bit kustom agar tidak bentrok dengan service standar (Battery Service, dll.):</p>
@@ -110,7 +159,7 @@ class Article32Seeder extends Seeder
 <p>Simpan UUID ini di dokumentasi proyek internal — app Android/iOS custom nanti memakai nilai yang sama.</p>
 
 <h2>Hardware &amp; Wiring DHT22</h2>
-<p>Sama seperti artikel DHT22 (#5):</p>
+<p>Sama seperti artikel <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>:</p>
 <ul>
   <li><strong>VCC</strong> → 3.3 V</li>
   <li><strong>GND</strong> → GND</li>
@@ -124,7 +173,7 @@ class Article32Seeder extends Seeder
 <p>Di <strong>Arduino IDE</strong>, library BLE sudah termasuk di core ESP32 — tidak perlu install tambahan:</p>
 <ul>
   <li><code>BLEDevice.h</code>, <code>BLEServer.h</code>, <code>BLEUtils.h</code>, <code>BLE2902.h</code></li>
-  <li><code>DHT sensor library</code> oleh Adafruit (sama seperti #5)</li>
+  <li><code>DHT sensor library</code> oleh Adafruit (sama seperti <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">#5</a>)</li>
 </ul>
 
 <p>Di <a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">PlatformIO (#29)</a>, tambahkan di <code>platformio.ini</code>:</p>
@@ -355,7 +404,7 @@ void loop() {
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — ganti unix contoh dengan waktu nyata di JSON</li>
   <li><strong><a href="/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt">FreeRTOS (#31)</a></strong> — task BLE + task WiFi/MQTT paralel</li>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager (#12)</a></strong> — provisioning WiFi lewat portal web</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — sensor multi-saluran + aktuator</li>
+  <li>Capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> — sensor multi-saluran + aktuator</li>
 </ul>
 
 <p>BLE membuka ESP32 ke dunia smartphone — lanjutkan perjalanan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

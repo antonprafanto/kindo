@@ -73,6 +73,10 @@ $requiredLinks = [
     'migrasi-platformio-esp32-vscode-project-rapi'                    => 'Artikel #29 PlatformIO',
     'freertos-esp32-multi-task-sensor-wifi-mqtt'                      => 'Artikel #31 FreeRTOS',
     'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'                => 'Artikel #34 NTP',
+    'kontrol-servo-pwm-esp32-mqtt-gerakan-presisi'                    => 'Artikel #33 Servo',
+    'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32'     => 'Artikel #16 Mosquitto',
+    'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'            => 'Artikel #19 Grafana',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'           => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -102,6 +106,8 @@ check(str_contains($body, 'Pro tip'), 'Pro tip');
 check(str_contains($body, 'Keamanan'), 'Section keamanan');
 check(str_contains($body, 'Estimasi Biaya'), 'Estimasi biaya');
 check(str_contains($body, 'Servo') && str_contains($body, '#33'), 'Teaser Servo #33');
+check(str_contains($body, '<svg') && str_contains($body, 'KindoESP32-DHT22'), 'Diagram urutan BLE SVG');
+check(str_contains($body, 'background:#F5F5F0'), 'Diagram kontras dark mode');
 check(str_contains($body, 'Checklist'), 'Section checklist');
 
 $h2Count = substr_count($body, '<h2>');
