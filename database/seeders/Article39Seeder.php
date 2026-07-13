@@ -97,11 +97,11 @@ class Article39Seeder extends Seeder
   <!-- Garis alur — digambar dulu -->
   <line x1="180" y1="192" x2="300" y2="104" stroke="#2979FF" stroke-width="2.5" marker-end="url(#ghArrowBlue)"/>
   <line x1="560" y1="104" x2="680" y2="192" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#ghArrowOrange)"/>
-  <line x1="448" y1="168" x2="448" y2="448" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ghArrow)"/>
-  <line x1="372" y1="448" x2="372" y2="168" stroke="#718096" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ghArrow)"/>
+  <line x1="490" y1="104" x2="490" y2="448" stroke="#1a1a1a" stroke-width="2" marker-end="url(#ghArrow)"/>
+  <line x1="370" y1="448" x2="370" y2="104" stroke="#718096" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ghArrow)"/>
   <line x1="180" y1="264" x2="180" y2="312" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="5 4"/>
   <line x1="680" y1="264" x2="680" y2="312" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <line x1="112" y1="412" x2="160" y2="264" stroke="#FF7A2F" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <line x1="100" y1="384" x2="150" y2="264" stroke="#FF7A2F" stroke-width="1.5" stroke-dasharray="4 3"/>
   <!-- Kotak komponen -->
   <rect x="230" y="16" width="400" height="88" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
   <text x="430" y="42" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Broker Mosquitto</text>
@@ -130,15 +130,15 @@ class Article39Seeder extends Seeder
   <text x="84" y="408" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">SD #37</text>
   <text x="84" y="426" text-anchor="middle" fill="#4A5568" font-size="10" font-weight="600">backup</text>
   <text x="84" y="440" text-anchor="middle" fill="#718096" font-size="9">saat offline</text>
-  <!-- Label panah — kiri/kanan, tidak di tengah -->
+  <!-- Label panah — di samping garis, area tengah bebas dari kotak samping -->
   <rect x="108" y="128" width="118" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
   <text x="167" y="145" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">publish sensor ↑</text>
   <rect x="634" y="128" width="128" height="24" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="1.5"/>
   <text x="698" y="145" text-anchor="middle" fill="#FF7A2F" font-size="12" font-weight="700">perintah kontrol ↓</text>
-  <rect x="458" y="288" width="118" height="24" rx="4" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
-  <text x="517" y="305" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">subscribe data ↓</text>
-  <rect x="248" y="328" width="132" height="24" rx="4" fill="#fff" stroke="#718096" stroke-width="1.5"/>
-  <text x="314" y="345" text-anchor="middle" fill="#4A5568" font-size="12" font-weight="700">publish otomasi ↑</text>
+  <rect x="368" y="220" width="118" height="24" rx="4" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="427" y="237" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">subscribe data ↓</text>
+  <rect x="218" y="262" width="132" height="24" rx="4" fill="#fff" stroke="#718096" stroke-width="1.5"/>
+  <text x="284" y="279" text-anchor="middle" fill="#4A5568" font-size="12" font-weight="700">publish otomasi ↑</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram alur smart greenhouse — sensor <strong>publish ↑</strong> ke broker; dashboard <strong>subscribe ↓</strong> histori &amp; <strong>publish ↑</strong> otomasi; aktuator <strong>terima perintah ↓</strong> dari broker.</figcaption>
 </figure>
