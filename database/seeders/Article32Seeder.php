@@ -96,57 +96,59 @@ class Article32Seeder extends Seeder
 <p>Urutan komunikasi dari scan sampai data sensor masuk ke HP — bayangkan dua pihak berbicara lewat Bluetooth:</p>
 
 <figure role="img" aria-label="Diagram urutan BLE: smartphone scan, connect, subscribe notify, terima JSON sensor dari ESP32" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 400" style="display:block;max-width:780px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 460" style="display:block;max-width:780px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
-    <marker id="bleArrowR" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    <marker id="arrBlueR" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
     </marker>
-    <marker id="bleArrowL" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
-      <path d="M8,0 L0,4 L8,8 Z" fill="#1a1a1a"/>
+    <marker id="arrOrangeL" markerWidth="8" markerHeight="8" refX="1" refY="4" orient="auto">
+      <path d="M8,0 L0,4 L8,8 Z" fill="#FF7A2F"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="780" height="400" fill="#F5F5F0" rx="6"/>
+  <rect x="0" y="0" width="780" height="460" fill="#F5F5F0" rx="6"/>
   <!-- Aktor -->
-  <rect x="48" y="20" width="220" height="56" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="158" y="44" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Smartphone</text>
-  <text x="158" y="62" text-anchor="middle" fill="#4A5568" font-size="11">Central — nRF Connect / app</text>
-  <rect x="512" y="20" width="220" height="56" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="622" y="44" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">ESP32</text>
-  <text x="622" y="62" text-anchor="middle" fill="#e3f2fd" font-size="11">Peripheral — GATT Server</text>
+  <rect x="48" y="16" width="220" height="56" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="158" y="40" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Smartphone</text>
+  <text x="158" y="58" text-anchor="middle" fill="#4A5568" font-size="11">Central — nRF Connect / app</text>
+  <rect x="512" y="16" width="220" height="56" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="622" y="40" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">ESP32</text>
+  <text x="622" y="58" text-anchor="middle" fill="#e3f2fd" font-size="11">Peripheral — GATT Server</text>
   <!-- Lifelines -->
-  <line x1="158" y1="76" x2="158" y2="360" stroke="#CBD5E0" stroke-width="2" stroke-dasharray="6 4"/>
-  <line x1="622" y1="76" x2="622" y2="360" stroke="#CBD5E0" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="158" y1="72" x2="158" y2="420" stroke="#CBD5E0" stroke-width="2" stroke-dasharray="6 4"/>
+  <line x1="622" y1="72" x2="622" y2="420" stroke="#CBD5E0" stroke-width="2" stroke-dasharray="6 4"/>
+  <!-- Legenda arah -->
+  <text x="390" y="92" text-anchor="middle" fill="#718096" font-size="10">Panah biru = HP memulai aksi · Panah oranye = ESP32 kirim data</text>
   <!-- Step 1 -->
-  <circle cx="36" cy="108" r="14" fill="#2979FF" stroke="#000" stroke-width="2"/>
-  <text x="36" y="113" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">1</text>
-  <rect x="72" y="90" width="172" height="36" rx="4" fill="#fff" stroke="#CBD5E0" stroke-width="1.5"/>
-  <text x="158" y="108" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="600">Scan</text>
-  <text x="158" y="122" text-anchor="middle" fill="#4A5568" font-size="10">cari &quot;KindoESP32-DHT22&quot;</text>
+  <circle cx="36" cy="118" r="14" fill="#2979FF" stroke="#000" stroke-width="2"/>
+  <text x="36" y="123" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">1</text>
+  <rect x="72" y="100" width="172" height="36" rx="4" fill="#fff" stroke="#CBD5E0" stroke-width="1.5"/>
+  <text x="158" y="118" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="600">Scan</text>
+  <text x="158" y="132" text-anchor="middle" fill="#4A5568" font-size="10">cari &quot;KindoESP32-DHT22&quot;</text>
   <!-- Step 2 -->
-  <circle cx="36" cy="168" r="14" fill="#2979FF" stroke="#000" stroke-width="2"/>
-  <text x="36" y="173" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">2</text>
-  <line x1="200" y1="168" x2="580" y2="168" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowR)"/>
-  <text x="390" y="158" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">connect</text>
-  <text x="622" y="188" text-anchor="middle" fill="#718096" font-size="10">onConnect → deviceConnected=true</text>
-  <!-- Step 3 — Central menulis CCC descriptor di Peripheral -->
-  <circle cx="36" cy="238" r="14" fill="#FF7A2F" stroke="#000" stroke-width="2"/>
-  <text x="36" y="243" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">3</text>
-  <line x1="200" y1="238" x2="580" y2="238" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowR)"/>
-  <text x="390" y="228" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">subscribe notify</text>
-  <text x="390" y="258" text-anchor="middle" fill="#718096" font-size="10">HP aktifkan ikon notify (tulis descriptor CCC)</text>
-  <text x="622" y="268" text-anchor="middle" fill="#718096" font-size="10">ESP32 siap kirim notifikasi</text>
-  <!-- Step 4 loop -->
-  <circle cx="36" cy="318" r="14" fill="#FF7A2F" stroke="#000" stroke-width="2"/>
-  <text x="36" y="323" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">4</text>
-  <line x1="580" y1="308" x2="200" y2="308" stroke="#1a1a1a" stroke-width="2" marker-end="url(#bleArrowL)"/>
-  <text x="390" y="298" text-anchor="middle" fill="#4A5568" font-size="11" font-weight="600">notify JSON tiap ~2 detik</text>
-  <rect x="480" y="318" width="284" height="40" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="2"/>
-  <text x="622" y="336" text-anchor="middle" fill="#1a1a1a" font-size="10" font-family="monospace">{&quot;suhu&quot;:28.5,&quot;kelembaban&quot;:62,&quot;unix&quot;:…}</text>
-  <text x="622" y="350" text-anchor="middle" fill="#718096" font-size="10">DHT22 baca → setValue → notify()</text>
-  <path d="M 200 340 Q 158 370 200 340" fill="none" stroke="#718096" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="158" y="378" text-anchor="middle" fill="#718096" font-size="9">ulang selama terhubung</text>
+  <circle cx="36" cy="178" r="14" fill="#2979FF" stroke="#000" stroke-width="2"/>
+  <text x="36" y="183" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">2</text>
+  <line x1="200" y1="178" x2="580" y2="178" stroke="#2979FF" stroke-width="2.5" marker-end="url(#arrBlueR)"/>
+  <text x="390" y="168" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">connect</text>
+  <text x="622" y="198" text-anchor="middle" fill="#718096" font-size="10">onConnect → deviceConnected=true</text>
+  <!-- Step 3 -->
+  <circle cx="36" cy="248" r="14" fill="#2979FF" stroke="#000" stroke-width="2"/>
+  <text x="36" y="253" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">3</text>
+  <line x1="200" y1="248" x2="580" y2="248" stroke="#2979FF" stroke-width="2.5" marker-end="url(#arrBlueR)"/>
+  <text x="390" y="238" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">subscribe notify</text>
+  <text x="158" y="268" text-anchor="middle" fill="#718096" font-size="10">HP tap ikon notify</text>
+  <text x="622" y="268" text-anchor="middle" fill="#718096" font-size="10">descriptor CCC aktif</text>
+  <!-- Step 4 -->
+  <circle cx="36" cy="328" r="14" fill="#FF7A2F" stroke="#000" stroke-width="2"/>
+  <text x="36" y="333" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">4</text>
+  <line x1="580" y1="328" x2="200" y2="328" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#arrOrangeL)"/>
+  <text x="390" y="318" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">notify JSON (~2 detik)</text>
+  <rect x="500" y="348" width="244" height="44" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="2"/>
+  <text x="622" y="366" text-anchor="middle" fill="#1a1a1a" font-size="10" font-family="monospace">{&quot;suhu&quot;:28.5,&quot;kelembaban&quot;:62,&quot;unix&quot;:…}</text>
+  <text x="622" y="382" text-anchor="middle" fill="#718096" font-size="10">DHT22 → setValue() → notify()</text>
+  <text x="158" y="366" text-anchor="middle" fill="#718096" font-size="10">HP terima data sensor</text>
+  <text x="390" y="420" text-anchor="middle" fill="#718096" font-size="10" font-style="italic">↻ Langkah 4 diulang setiap ~2 detik selama masih terhubung</text>
 </svg>
-<figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram urutan BLE — HP memulai scan, connect, dan subscribe; ESP32 mengirim data sensor lewat notifikasi GATT.</figcaption>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#718096;text-align:center">Diagram urutan BLE — HP memulai scan, connect, dan subscribe (panah biru); ESP32 mengirim data sensor lewat notifikasi GATT (panah oranye).</figcaption>
 </figure>
 
 <h2>UUID Kustom Koding Indonesia</h2>
