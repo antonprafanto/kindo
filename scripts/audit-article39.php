@@ -107,6 +107,8 @@ check(str_contains($body, 'Keamanan'), 'Section keamanan');
 check(str_contains($body, 'Estimasi Biaya'), 'Estimasi biaya');
 check(str_contains($body, 'Indeks Lengkap Seri 2'), 'Indeks lengkap Seri 2');
 check(str_contains($body, '<svg') && str_contains($body, 'Broker Mosquitto'), 'Diagram flowchart SVG arsitektur');
+check(str_contains($body, 'publish sensor ↑'), 'Diagram: panah publish sensor ke broker (bukan sebaliknya)');
+check(! str_contains($body, '┌'), 'Tidak ada diagram ASCII box-drawing');
 check(str_contains($body, 'Checklist'), 'Section checklist');
 
 $h2Count = substr_count($body, '<h2>');
