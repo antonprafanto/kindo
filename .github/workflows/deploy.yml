@@ -565,7 +565,7 @@ jobs:
 
       - name: Publish article 29 via deploy hook (required)
         run: |
-          resp=$(curl -fsS --max-time 120 \
+          resp=$(curl -fsS --max-time 180 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
             "https://kodingindonesia.com/deploy/publish-article-29")
           echo "Hook response: $resp"
@@ -576,7 +576,7 @@ jobs:
 
       - name: Publish article 30 via deploy hook (required)
         run: |
-          resp=$(curl -fsS --max-time 120 \
+          resp=$(curl -fsS --max-time 180 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
             "https://kodingindonesia.com/deploy/publish-article-30")
           echo "Hook response: $resp"
