@@ -57,7 +57,7 @@ class Article30Seeder extends Seeder
     {
         return <<<'HTML'
 <h2>Pendahuluan — Cloud Tanpa Server Sendiri</h2>
-<p>Sejauh ini Seri 2 mengandalkan <strong>broker MQTT sendiri</strong> (<a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto #16</a>) atau web server lokal. Itu bagus untuk kontrol penuh — tapi butuh VPS/Raspberry Pi yang selalu online.</p>
+<p>Sejauh ini Seri 2 mengandalkan <strong>broker MQTT sendiri</strong> (<a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a>) atau web server lokal. Itu bagus untuk kontrol penuh — tapi butuh VPS/Raspberry Pi yang selalu online.</p>
 
 <p><strong>Firebase Realtime Database</strong> menawarkan backend cloud Google: ESP32 cukup push JSON lewat HTTPS, data langsung tersedia di console atau app mobile. Artikel <strong>Jalur E</strong> ini melengkapi <a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">PlatformIO (#29)</a> — cocok untuk prototipe cepat tanpa maintain server.</p>
 
@@ -71,8 +71,8 @@ class Article30Seeder extends Seeder
     <tr><th>Pendekatan</th><th>Cocok untuk</th><th>Contoh Seri 2</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>MQTT + broker sendiri</strong></td><td>Kontrol penuh, banyak device, offline LAN</td><td><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">#7</a>, <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana #19</a></td></tr>
-    <tr><td><strong>REST / HTTP</strong></td><td>Request-response, API sederhana</td><td><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web server #6</a></td></tr>
+    <tr><td><strong>MQTT + broker sendiri</strong></td><td>Kontrol penuh, banyak device, offline LAN</td><td><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>, <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></td></tr>
+    <tr><td><strong>REST / HTTP</strong></td><td>Request-response, API sederhana</td><td><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web server (#6)</a></td></tr>
     <tr><td><strong>Firebase Realtime DB</strong></td><td>Prototipe cloud, sync real-time ke app</td><td>Artikel ini (#30)</td></tr>
   </tbody>
 </table>
@@ -81,36 +81,37 @@ class Article30Seeder extends Seeder
 
 <h2>Arsitektur Project</h2>
 <figure role="img" aria-label="Diagram arsitektur ESP32 Firebase: ESP32 push JSON lewat HTTPS ke Realtime Database, lalu terbaca di Console atau app" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 280" style="display:block;max-width:820px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 340" style="display:block;max-width:860px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="fbArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
       <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
     </marker>
   </defs>
-  <rect x="0" y="0" width="820" height="280" fill="#F5F5F0" rx="6"/>
+  <rect x="0" y="0" width="860" height="340" fill="#F5F5F0" rx="6"/>
+  <!-- Garis dulu -->
+  <line x1="248" y1="100" x2="378" y2="100" stroke="#2979FF" stroke-width="2.5" marker-end="url(#fbArrow)"/>
+  <line x1="520" y1="148" x2="520" y2="220" stroke="#2979FF" stroke-width="2.5" marker-end="url(#fbArrow)"/>
   <!-- ESP32 -->
-  <rect x="24" y="48" width="220" height="96" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="134" y="80" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 + DHT22</text>
-  <text x="134" y="102" text-anchor="middle" fill="#4A5568" font-size="12">baca sensor · format JSON</text>
-  <text x="134" y="122" text-anchor="middle" fill="#718096" font-size="11">GPIO 4 · WiFi client</text>
-  <!-- Arrow ESP32 → Firebase -->
-  <line x1="244" y1="96" x2="336" y2="96" stroke="#2979FF" stroke-width="2.5" marker-end="url(#fbArrow)"/>
-  <rect x="248" y="64" width="100" height="22" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
-  <text x="298" y="80" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">HTTPS push →</text>
+  <rect x="28" y="52" width="220" height="96" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="138" y="84" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 + DHT22</text>
+  <text x="138" y="106" text-anchor="middle" fill="#4A5568" font-size="12">baca sensor · format JSON</text>
+  <text x="138" y="126" text-anchor="middle" fill="#718096" font-size="11">GPIO 4 · WiFi client</text>
+  <!-- Label push — di atas jalur, tidak menimpa panah -->
+  <rect x="262" y="56" width="100" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="312" y="73" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">HTTPS push →</text>
   <!-- Firebase -->
-  <rect x="340" y="48" width="260" height="96" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="470" y="78" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Firebase Realtime DB</text>
-  <text x="470" y="100" text-anchor="middle" fill="#e3f2fd" font-size="12">cloud Google · JSON node</text>
-  <text x="470" y="120" text-anchor="middle" fill="#cfe4ff" font-size="11">/kodingindonesia/esp32/...</text>
-  <!-- Arrow Firebase → Console -->
-  <line x1="470" y1="144" x2="470" y2="188" stroke="#2979FF" stroke-width="2.5" marker-end="url(#fbArrow)"/>
-  <rect x="490" y="152" width="88" height="22" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
-  <text x="534" y="168" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">sync real-time</text>
+  <rect x="390" y="52" width="260" height="96" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="520" y="82" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Firebase Realtime DB</text>
+  <text x="520" y="104" text-anchor="middle" fill="#e3f2fd" font-size="12">cloud Google · JSON node</text>
+  <text x="520" y="124" text-anchor="middle" fill="#cfe4ff" font-size="11">/kodingindonesia/esp32/...</text>
+  <!-- Label sync — di samping panah vertikal -->
+  <rect x="540" y="168" width="110" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="595" y="185" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">sync real-time ↓</text>
   <!-- Console / App -->
-  <rect x="300" y="196" width="340" height="56" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
-  <text x="470" y="220" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Console / App / Web</text>
-  <text x="470" y="240" text-anchor="middle" fill="#4A5568" font-size="11">lihat data · onValue() · dashboard mobile</text>
-  <text x="410" y="268" text-anchor="middle" fill="#718096" font-size="10">ESP32 push ke cloud — tanpa broker MQTT / VPS lokal</text>
+  <rect x="280" y="228" width="480" height="64" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="520" y="256" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Console / App / Web</text>
+  <text x="520" y="276" text-anchor="middle" fill="#4A5568" font-size="12">lihat data · onValue() · dashboard mobile</text>
+  <text x="520" y="320" text-anchor="middle" fill="#4A5568" font-size="11">ESP32 push ke cloud — tanpa broker MQTT / VPS lokal</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram arsitektur Firebase — ESP32 push JSON lewat HTTPS ke Realtime Database; console/app membaca node secara real-time.</figcaption>
 </figure>
@@ -257,7 +258,7 @@ void loop() {
   delay(30000);
 }</code></pre>
 
-<p>Path <code>/kodingindonesia/esp32/dht22/data</code> konsisten dengan topic MQTT Seri 2 — memudahkan migrasi mental dari <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT #7</a>.</p>
+<p>Path <code>/kodingindonesia/esp32/dht22/data</code> konsisten dengan topic MQTT Seri 2 — memudahkan migrasi mental dari <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>.</p>
 
 <h2>Verifikasi di Firebase Console</h2>
 <ol>
@@ -272,10 +273,10 @@ void loop() {
 <ul>
   <li>MQTT lokal untuk automasi cepat (relay, <a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR (#24)</a>)</li>
   <li>Firebase untuk app mobile penjaga kebun</li>
-  <li>Gateway seperti <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">LoRa #28</a> tetap ke Mosquitto; cloud bridge terpisah</li>
+  <li>Gateway seperti <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">LoRa (#28)</a> tetap ke Mosquitto; cloud bridge terpisah</li>
 </ul>
 
-<p>Baca <a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">#20</a> sebelum memutuskan satu stack saja.</p>
+<p>Baca <a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST vs MQTT (#20)</a> sebelum memutuskan satu stack saja.</p>
 
 <h2>Keamanan &amp; Produksi</h2>
 <ul>
@@ -332,7 +333,7 @@ void loop() {
 <p>Jika kamu sudah punya node MQTT yang publish ke <code>kodingindonesia/esp32/dht22/data</code>, berikut peta konsepnya:</p>
 <table>
   <thead>
-    <tr><th><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a></th><th>Firebase (#30 — ini)</th></tr>
+    <tr><th><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a></th><th>Artikel ini (#30)</th></tr>
   </thead>
   <tbody>
     <tr><td>Broker <code>192.168.1.50</code></td><td>Database URL Google</td></tr>
@@ -361,7 +362,7 @@ void loop() {
 <ul>
   <li><strong>auth/network-request-failed:</strong> Cek SSID 2.4 GHz, bukan guest network terisolasi</li>
   <li><strong>Permission denied:</strong> Rules atau token auth salah — login ulang device user di Authentication tab</li>
-  <li><strong>DHT22 nan:</strong> Ulangi <code>delay(2000)</code> setelah <code>dht.begin()</code> seperti <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">#5</a></li>
+  <li><strong>DHT22 nan:</strong> Ulangi <code>delay(2000)</code> setelah <code>dht.begin()</code> seperti <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a></li>
   <li><strong>Token expired:</strong> Panggil <code>Firebase.ready()</code> di loop atau refresh sesuai docs library</li>
   <li><strong>Heap low / crash:</strong> Kurangi buffer SSL — matikan fitur Firebase yang tidak dipakai; pertimbangkan partition Huge APP</li>
   <li><strong>Data tidak update:</strong> Pastikan path diawali <code>/</code> dan tidak ada typo <code>dht22</code> vs <code>dht-22</code></li>
