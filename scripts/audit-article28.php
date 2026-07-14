@@ -71,6 +71,13 @@ $requiredLinks = [
     'rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32'                 => 'Artikel #20 REST vs MQTT',
     'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                   => 'Artikel #17 TLS',
     'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'            => 'Artikel #34 NTP',
+    'node-red-dashboard-otomasi-iot-mqtt-esp32'                   => 'Artikel #23 Node-RED',
+    'home-assistant-integrasi-esp32-mqtt'                         => 'Artikel #21 Home Assistant',
+    'ota-update-firmware-esp32-via-wifi'                          => 'Artikel #15 OTA',
+    'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode' => 'Artikel #12 WiFiManager',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'       => 'Artikel #39 Greenhouse',
+    'migrasi-platformio-esp32-vscode-project-rapi'                => 'Artikel #29 PlatformIO',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'       => 'Artikel #18 Python',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -97,6 +104,9 @@ check(str_contains($body, 'Pro tip'), 'Pro tip');
 check(str_contains($body, 'Keamanan'), 'Section keamanan');
 check(str_contains($body, 'Estimasi Biaya'), 'Estimasi biaya');
 check(str_contains($body, '/artikel/migrasi-platformio-esp32-vscode-project-rapi">Migrasi PlatformIO (#29)</a>'), 'Hyperlink PlatformIO #29');
+check(str_contains($body, '<svg') && str_contains($body, 'Gateway ESP32'), 'Diagram arsitektur Gateway LoRa SVG');
+check(! str_contains($body, '[ Sensor node ]'), 'Tidak ada diagram ASCII arsitektur');
+check(str_contains($body, 'Checklist'), 'Section checklist');
 check(! str_contains($body, 'Bukan ESP-NOW') || str_contains($body, 'ESP-NOW'), 'Bedakan dari ESP-NOW');
 check(str_contains($body, '/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a>'), 'Tabel/link hyperlink #26');
 

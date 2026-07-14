@@ -68,14 +68,55 @@ class Article28Seeder extends Seeder
 </blockquote>
 
 <h2>Arsitektur Gateway LoRa → MQTT</h2>
-<pre><code>  [ Sensor node ]          [ Gateway ESP32 ]              [ Cloud lokal ]
-  ESP32 + LoRa TX    --LoRa--&gt;  ESP32 + LoRa RX + WiFi  --MQTT--&gt;  Mosquitto (#16)
-  DHT22 (#5)                    PubSubClient publish            |
-  deep sleep (#11)              topic Seri 2                    v
-                                                          Grafana (#19)
-                                                          Node-RED (#23)</code></pre>
+<figure role="img" aria-label="Diagram gateway LoRa ke MQTT: sensor node kirim LoRa ke gateway ESP32, gateway publish MQTT ke Mosquitto, lalu Grafana dan Node-RED" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" style="display:block;max-width:900px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="gwArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
+    </marker>
+    <marker id="gwArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="340" fill="#F5F5F0" rx="6"/>
+  <!-- Garis dulu -->
+  <line x1="248" y1="100" x2="318" y2="100" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#gwArrowOrange)"/>
+  <line x1="568" y1="100" x2="638" y2="100" stroke="#2979FF" stroke-width="2.5" marker-end="url(#gwArrow)"/>
+  <line x1="760" y1="148" x2="760" y2="210" stroke="#2979FF" stroke-width="2.5" marker-end="url(#gwArrow)"/>
+  <!-- Sensor -->
+  <rect x="24" y="40" width="224" height="120" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="136" y="70" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Sensor node</text>
+  <text x="136" y="92" text-anchor="middle" fill="#4A5568" font-size="12">ESP32 + LoRa TX</text>
+  <text x="136" y="112" text-anchor="middle" fill="#718096" font-size="11">DHT22 · deep sleep</text>
+  <text x="136" y="132" text-anchor="middle" fill="#718096" font-size="11">tanpa WiFi</text>
+  <rect x="260" y="56" width="70" height="24" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="295" y="73" text-anchor="middle" fill="#FF7A2F" font-size="12" font-weight="700">LoRa →</text>
+  <!-- Gateway -->
+  <rect x="328" y="40" width="240" height="120" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="448" y="70" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Gateway ESP32</text>
+  <text x="448" y="92" text-anchor="middle" fill="#4A5568" font-size="12">LoRa RX + WiFi</text>
+  <text x="448" y="112" text-anchor="middle" fill="#718096" font-size="11">PubSubClient publish</text>
+  <text x="448" y="132" text-anchor="middle" fill="#718096" font-size="11">topic Seri 2</text>
+  <rect x="580" y="56" width="70" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="615" y="73" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">MQTT →</text>
+  <!-- Mosquitto -->
+  <rect x="648" y="40" width="224" height="108" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="760" y="72" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Broker Mosquitto</text>
+  <text x="760" y="94" text-anchor="middle" fill="#e3f2fd" font-size="12">192.168.1.50:1883</text>
+  <text x="760" y="114" text-anchor="middle" fill="#cfe4ff" font-size="11">user kindo_esp32</text>
+  <rect x="780" y="166" width="100" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="830" y="183" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">subscribe ↓</text>
+  <!-- Dashboard -->
+  <rect x="548" y="218" width="320" height="80" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
+  <text x="708" y="248" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Cloud lokal / Dashboard</text>
+  <text x="708" y="270" text-anchor="middle" fill="#4A5568" font-size="12">Grafana · Node-RED · Home Assistant</text>
+  <text x="708" y="288" text-anchor="middle" fill="#718096" font-size="11">histori + otomasi dari topic MQTT</text>
+  <text x="450" y="322" text-anchor="middle" fill="#4A5568" font-size="11">Alur data: sensor LoRa → gateway → broker MQTT → dashboard</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram gateway LoRa → MQTT — sensor jauh kirim paket LoRa; gateway forward JSON ke Mosquitto; dashboard subscribe untuk Grafana/otomasi.</figcaption>
+</figure>
 
-<p>Node sensor tetap seperti #26 (kirim <code>lora_packet_t</code>). Gateway menambahkan lapisan <strong>WiFi + MQTT</strong> — pola mirip <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish MQTT (#7)</a>, tapi sumber datanya bukan sensor lokal, melainkan <strong>radio LoRa</strong>.</p>
+<p>Node sensor tetap seperti <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a> (kirim <code>lora_packet_t</code>). Gateway menambahkan lapisan <strong>WiFi + MQTT</strong> — pola mirip <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish MQTT (#7)</a>, tapi sumber datanya bukan sensor lokal, melainkan <strong>radio LoRa</strong>.</p>
 
 <h2>LoRa Gateway vs ESP-NOW vs WiFi Langsung</h2>
 <table>
@@ -85,7 +126,7 @@ class Article28Seeder extends Seeder
   <tbody>
     <tr><td><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a></strong></td><td>~10–200 m</td><td>ESP32 kedua (bisa tanpa LoRa)</td><td>Serial / MQTT manual</td></tr>
     <tr><td><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa P2P (#26)</a></strong></td><td>ratusan m – km</td><td>Receiver Serial saja</td><td>Belum MQTT</td></tr>
-    <tr><td><strong>Gateway (artikel ini)</strong></td><td>sama LoRa #26</td><td>LoRa RX + WiFi + MQTT</td><td>Grafana / HA / Node-RED</td></tr>
+    <tr><td><strong>Gateway (artikel ini)</strong></td><td>sama <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a></td><td>LoRa RX + WiFi + MQTT</td><td>Grafana / HA / Node-RED</td></tr>
     <tr><td><strong><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">WiFi + MQTT (#7)</a></strong></td><td>jangkau AP</td><td>Sensor punya WiFi</td><td>Langsung ke broker</td></tr>
   </tbody>
 </table>
@@ -94,29 +135,29 @@ class Article28Seeder extends Seeder
 
 <h2>Yang Kamu Butuhkan</h2>
 <ul>
-  <li><strong>1× node sensor</strong> — sketch sender #26 (ESP32 + LoRa + DHT22)</li>
+  <li><strong>1× node sensor</strong> — sketch sender <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a> (ESP32 + LoRa + DHT22)</li>
   <li><strong>1× gateway ESP32</strong> — ESP32 + modul SX1278 + akses WiFi rumah/lab</li>
-  <li><strong>Broker Mosquitto</strong> — <code>192.168.1.50</code>, user <code>kindo_esp32</code> (sesuaikan dengan #16)</li>
-  <li><strong>Stack dashboard</strong> — Grafana + InfluxDB dari #19 (opsional tapi disarankan)</li>
+  <li><strong>Broker Mosquitto</strong> — <code>192.168.1.50</code>, user <code>kindo_esp32</code> (sesuaikan dengan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a>)</li>
+  <li><strong>Stack dashboard</strong> — Grafana + InfluxDB dari <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a> (opsional tapi disarankan)</li>
   <li>Library: <strong>LoRa</strong> (Sandeep Mistry), <strong>PubSubClient</strong>, <strong>WiFi</strong></li>
 </ul>
 
 <h2>Topik MQTT &amp; Format JSON</h2>
-<p>Gunakan topic konsisten Seri 2 agar panel Grafana #19 langsung menangkap data:</p>
+<p>Gunakan topic konsisten Seri 2 agar panel <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a> langsung menangkap data:</p>
 <pre><code class="language-bash">Topic: kodingindonesia/esp32/dht22/data
 Payload contoh:
 {"suhu":28.5,"kelembaban":65.2,"unix":1782977400,"iso":"2026-07-02T14:30:00","source":"lora"}</code></pre>
 
 <p>Field <code>source":"lora"</code> membantu membedakan node WiFi vs node LoRa di query Grafana. Timestamp selaras <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a> — gateway bisa menambahkan <code>unix</code> saat forward jika paket sensor belum punya waktu akurat.</p>
 
-<h2>Struktur Paket LoRa (Sama dengan #26)</h2>
+<h2>Struktur Paket LoRa (Sama dengan <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a>)</h2>
 <pre><code class="language-cpp">typedef struct __attribute__((packed)) {
   float suhu;
   float kelembaban;
   uint32_t unix;
 } lora_packet_t;</code></pre>
 
-<p>Sync word, frequency, dan spreading factor gateway <strong>harus identik</strong> dengan node sensor — lihat troubleshooting di #26 jika paket tidak masuk.</p>
+<p>Sync word, frequency, dan spreading factor gateway <strong>harus identik</strong> dengan node sensor — lihat troubleshooting di <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a> jika paket tidak masuk.</p>
 
 <h2>Sketch Gateway — LoRa RX + MQTT Publish</h2>
 <pre><code class="language-cpp">#include &lt;WiFi.h&gt;
@@ -199,11 +240,11 @@ void loop() {
   <p><strong>Pro tip:</strong> Jangan publish setiap byte noise — cek <code>packetSize == sizeof(lora_packet_t)</code> dan validasi rentang suhu (mis. -40…85 °C) sebelum forward ke MQTT.</p>
 </blockquote>
 
-<h2>Integrasi Grafana (#19)</h2>
+<h2>Integrasi <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></h2>
 <ol>
-  <li>Pastikan Telegraf / subscriber #19 sudah subscribe <code>kodingindonesia/esp32/#</code></li>
+  <li>Pastikan Telegraf / subscriber <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a> sudah subscribe <code>kodingindonesia/esp32/#</code></li>
   <li>Tambah filter <code>source = lora</code> di panel Grafana untuk memisahkan node kebun</li>
-  <li>Panel suhu &amp; kelembaban — reuse dashboard dari #19, tambah legend "LoRa kebun"</li>
+  <li>Panel suhu &amp; kelembaban — reuse dashboard dari <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a>, tambah legend "LoRa kebun"</li>
   <li>Opsional: alert jika <code>rssi</code> &lt; -120 dBm (link radio melemah)</li>
 </ol>
 
@@ -232,12 +273,12 @@ void loop() {
   <li>Log RSSI (<code>LoRa.packetRssi()</code>) ke MQTT untuk diagnosa jarak di Grafana</li>
 </ul>
 
-<p>Jika gateway reboot, node sensor tetap kirim — data akan muncul lagi setelah WiFi + MQTT connected. Untuk alert gateway mati, konfigurasi <strong>LWT</strong> di #17 dengan topic status terpisah.</p>
+<p>Jika gateway reboot, node sensor tetap kirim — data akan muncul lagi setelah WiFi + MQTT connected. Untuk alert gateway mati, konfigurasi <strong>LWT</strong> di <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">#17</a> dengan topic status terpisah.</p>
 
 <h2>Multi-Node (Opsional)</h2>
 <p>Satu gateway bisa menerima beberapa sensor jika:</p>
 <ol>
-  <li>Setiap node punya <code>node_id</code> uint8 di struct (ubah di #26 &amp; gateway bersamaan)</li>
+  <li>Setiap node punya <code>node_id</code> uint8 di struct (ubah di <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a> &amp; gateway bersamaan)</li>
   <li>Interval kirim di-stagger — hindari tabrakan paket di udara</li>
   <li>MQTT topic bisa tetap satu dengan field <code>node_id</code>, atau pecah: <code>kodingindonesia/esp32/lora/kebun1/data</code></li>
 </ol>
@@ -253,17 +294,17 @@ void loop() {
     <tr><td>ESP32 + SX1278 (gateway)</td><td>Rp 80–120 rb</td></tr>
     <tr><td>ESP32 + SX1278 + DHT22 (sensor node)</td><td>Rp 100–150 rb</td></tr>
     <tr><td>Antena 433 MHz (opsional)</td><td>Rp 15–40 rb</td></tr>
-    <tr><td>Broker + Grafana (VPS/RPi #16+#19)</td><td>sudah ada dari artikel sebelumnya</td></tr>
+    <tr><td>Broker + Grafana (VPS/RPi <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a>+<a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a>)</td><td>sudah ada dari artikel sebelumnya</td></tr>
   </tbody>
 </table>
 
 <h2>Checklist: Kapan Pakai Gateway LoRa?</h2>
 <ol>
   <li>Sensor &gt;200 m dari router WiFi? → <strong>LoRa node + gateway</strong></li>
-  <li>Butuh grafik histori di Grafana? → <strong>Gateway publish MQTT (#19)</strong></li>
-  <li>Node dekat &lt;50 m tanpa LoRa? → <strong>ESP-NOW (#25)</strong> lebih sederhana</li>
-  <li>Butuh video kebun? → <strong>ESP32-CAM (#27)</strong> di titik ada WiFi</li>
-  <li>Greenhouse capstone? → <strong>#39</strong> gabung LoRa + pompa MQTT</li>
+  <li>Butuh grafik histori di Grafana? → <strong>Gateway publish MQTT (<a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a>)</strong></li>
+  <li>Node dekat &lt;50 m tanpa LoRa? → <strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a></strong> lebih sederhana</li>
+  <li>Butuh video kebun? → <strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM (#27)</a></strong> di titik ada WiFi</li>
+  <li>Greenhouse capstone? → <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">#39</a></strong> gabung LoRa + pompa MQTT</li>
 </ol>
 
 <h2>Uji Coba (Lab)</h2>
@@ -276,7 +317,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 
 # Buka Grafana (#19) — panel suhu harus update</code></pre>
 <ol>
-  <li>Verifikasi node sensor TX di Serial (artikel #26)</li>
+  <li>Verifikasi node sensor TX di Serial (<a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">artikel #26</a>)</li>
   <li>Gateway Serial menampilkan <code>MQTT &lt;- LoRa</code></li>
   <li><code>mosquitto_sub</code> menerima payload JSON</li>
   <li>Grafana panel update dalam ±1 menit (refresh Telegraf)</li>
@@ -292,7 +333,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <li><strong>Status gateway</strong> — topic <code>kodingindonesia/esp32/gateway/status</code> dengan LWT <code>offline</code></li>
 </ul>
 
-<p>Panel ini melengkapi grafik suhu dari #19 — kamu memantau <em>kesehatan link</em>, bukan hanya nilai sensor. Untuk notifikasi Telegram/WhatsApp, arahkan <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a> ke topic status gateway.</p>
+<p>Panel ini melengkapi grafik suhu dari <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a> — kamu memantau <em>kesehatan link</em>, bukan hanya nilai sensor. Untuk notifikasi Telegram/WhatsApp, arahkan <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a> ke topic status gateway.</p>
 
 <h2>FAQ Singkat</h2>
 <dl>
@@ -302,17 +343,17 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <dd>Ya, selama kamu mau data real-time. Node sensor bisa deep sleep; gateway butuh WiFi + power stabil.</dd>
   <dt><strong>Perlu LoRaWAN?</strong></dt>
   <dt><strong>Gateway bisa pakai Raspberry Pi?</strong></dt>
-  <dd>Bisa — RPi + LoRa hat + Python forwarder; artikel ini fokus ESP32 agar konsisten dengan #26 dan biaya murah.</dd>
-  <dt><strong>Harus sama persis board dengan #26?</strong></dt>
-  <dd>Pin LoRa disarankan sama; jika beda board, sesuaikan <code>SPI.begin</code> dan <code>LoRa.setPins</code> seperti tabel wiring #26.</dd>
+  <dd>Bisa — RPi + LoRa hat + Python forwarder; artikel ini fokus ESP32 agar konsisten dengan <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a> dan biaya murah.</dd>
+  <dt><strong>Harus sama persis board dengan <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a>?</strong></dt>
+  <dd>Pin LoRa disarankan sama; jika beda board, sesuaikan <code>SPI.begin</code> dan <code>LoRa.setPins</code> seperti tabel wiring <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a>.</dd>
 </dl>
 
 <h2>Tips &amp; Troubleshooting</h2>
 <ul>
   <li><strong>MQTT kosong tapi LoRa RX OK:</strong> Cek user/password broker, topic typo, firewall port 1883</li>
-  <li><strong>LoRa RX kosong:</strong> SF/sync word/frequency beda dengan sensor — ulang #26</li>
+  <li><strong>LoRa RX kosong:</strong> SF/sync word/frequency beda dengan sensor — ulang <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">#26</a></li>
   <li><strong>Grafana flat:</strong> Telegraf belum parse field baru — cek measurement &amp; JSON keys</li>
-  <li><strong>WiFi drop:</strong> Gateway dekat router atau pakai AP outdoor; LWT (#17) untuk alert offline</li>
+  <li><strong>WiFi drop:</strong> Gateway dekat router atau pakai AP outdoor; <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">LWT (#17)</a> untuk alert offline</li>
   <li><strong>Duplicate data:</strong> Sensor kirim terlalu cepat — naikkan interval TX ke 30–60 d</li>
 </ul>
 
@@ -331,7 +372,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 <ul>
   <li><strong><a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">Migrasi PlatformIO (#29)</a>:</strong> struktur project gateway + sensor lebih rapi</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python → MySQL (#18)</a></strong> — arsip SQL paralel Grafana</li>
-  <li><strong>Capstone greenhouse (#39)</strong> — LoRa kebun + pompa relay + dashboard</li>
+  <li><strong>Capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — LoRa kebun + pompa relay + dashboard</li>
   <li>Kembali ke <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a> jika perlu tuning SF/antena</li>
 </ul>
 
