@@ -80,16 +80,42 @@ class Article30Seeder extends Seeder
 <p>Firebase <strong>bukan pengganti</strong> MQTT untuk industri — latency dan biaya skala besar perlu dipertimbangkan. Tapi untuk belajar cloud IoT atau dashboard mobile cepat, Firebase sangat praktis.</p>
 
 <h2>Arsitektur Project</h2>
-<pre><code>┌─────────────┐     WiFi/HTTPS      ┌──────────────────────┐
-│  ESP32      │ ──────────────────► │ Firebase Realtime DB │
-│  + DHT22    │   JSON push         │  /kodingindonesia/... │
-└─────────────┘                     └──────────┬───────────┘
-                                               │
-                                    ┌──────────▼───────────┐
-                                    │ Console / App / Web    │
-                                    └────────────────────────┘</code></pre>
+<figure role="img" aria-label="Diagram arsitektur ESP32 Firebase: ESP32 push JSON lewat HTTPS ke Realtime Database, lalu terbaca di Console atau app" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 280" style="display:block;max-width:820px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="fbArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="820" height="280" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="24" y="48" width="220" height="96" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="134" y="80" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 + DHT22</text>
+  <text x="134" y="102" text-anchor="middle" fill="#4A5568" font-size="12">baca sensor · format JSON</text>
+  <text x="134" y="122" text-anchor="middle" fill="#718096" font-size="11">GPIO 4 · WiFi client</text>
+  <!-- Arrow ESP32 → Firebase -->
+  <line x1="244" y1="96" x2="336" y2="96" stroke="#2979FF" stroke-width="2.5" marker-end="url(#fbArrow)"/>
+  <rect x="248" y="64" width="100" height="22" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="298" y="80" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">HTTPS push →</text>
+  <!-- Firebase -->
+  <rect x="340" y="48" width="260" height="96" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="470" y="78" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Firebase Realtime DB</text>
+  <text x="470" y="100" text-anchor="middle" fill="#e3f2fd" font-size="12">cloud Google · JSON node</text>
+  <text x="470" y="120" text-anchor="middle" fill="#cfe4ff" font-size="11">/kodingindonesia/esp32/...</text>
+  <!-- Arrow Firebase → Console -->
+  <line x1="470" y1="144" x2="470" y2="188" stroke="#2979FF" stroke-width="2.5" marker-end="url(#fbArrow)"/>
+  <rect x="490" y="152" width="88" height="22" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="534" y="168" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">sync real-time</text>
+  <!-- Console / App -->
+  <rect x="300" y="196" width="340" height="56" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="470" y="220" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Console / App / Web</text>
+  <text x="470" y="240" text-anchor="middle" fill="#4A5568" font-size="11">lihat data · onValue() · dashboard mobile</text>
+  <text x="410" y="268" text-anchor="middle" fill="#718096" font-size="10">ESP32 push ke cloud — tanpa broker MQTT / VPS lokal</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram arsitektur Firebase — ESP32 push JSON lewat HTTPS ke Realtime Database; console/app membaca node secara real-time.</figcaption>
+</figure>
 
-<p>Node ESP32 membaca sensor, format JSON (dengan timestamp dari <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP #34</a> jika perlu), lalu <code>set()</code> ke path database.</p>
+<p>Node ESP32 membaca sensor, format JSON (dengan timestamp dari <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a> jika perlu), lalu <code>set()</code> ke path database.</p>
 
 <h2>Buat Project di Firebase Console</h2>
 <ol>
@@ -144,13 +170,13 @@ class Article30Seeder extends Seeder
 </blockquote>
 
 <h2>Memahami Struktur Payload JSON</h2>
-<p>Payload yang dikirim ESP32 ke path <code>/kodingindonesia/esp32/dht22/data</code> sebaiknya konsisten dengan format MQTT Seri 2 — memudahkan tim yang sudah punya subscriber Python (#18) atau dashboard Grafana (#19) untuk membandingkan sumber data.</p>
+<p>Payload yang dikirim ESP32 ke path <code>/kodingindonesia/esp32/dht22/data</code> sebaiknya konsisten dengan format MQTT Seri 2 — memudahkan tim yang sudah punya <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">subscriber Python (#18)</a> atau dashboard <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a> untuk membandingkan sumber data.</p>
 
 <p>Field minimal yang disarankan:</p>
 <ul>
   <li><code>temperature</code> — float °C, satu desimal cukup untuk DHT22</li>
   <li><code>humidity</code> — float % RH</li>
-  <li><code>unix</code> — epoch detik (contoh statis <code>1782977400</code> di artikel ini; produksi pakai NTP #34)</li>
+  <li><code>unix</code> — epoch detik (contoh statis <code>1782977400</code> di artikel ini; produksi pakai <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a>)</li>
   <li><code>iso</code> — string ISO 8601 untuk debug manusia (<code>2026-07-02T14:30:00</code>)</li>
   <li><code>source</code> — identitas device, mis. <code>esp32</code> atau <code>esp32-greenhouse-01</code></li>
 </ul>
@@ -244,7 +270,7 @@ void loop() {
 <h2>Hybrid: Firebase + MQTT (Konsep)</h2>
 <p>Di lapangan besar, banyak tim memakai <strong>keduanya</strong>:</p>
 <ul>
-  <li>MQTT lokal untuk automasi cepat (relay, PIR #24)</li>
+  <li>MQTT lokal untuk automasi cepat (relay, <a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR (#24)</a>)</li>
   <li>Firebase untuk app mobile penjaga kebun</li>
   <li>Gateway seperti <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">LoRa #28</a> tetap ke Mosquitto; cloud bridge terpisah</li>
 </ul>
@@ -253,7 +279,7 @@ void loop() {
 
 <h2>Keamanan &amp; Produksi</h2>
 <ul>
-  <li>Jangan commit <code>GANTI_FIREBASE_*</code> — pakai <code>build_flags</code> PlatformIO atau NVS (#12)</li>
+  <li>Jangan commit <code>GANTI_FIREBASE_*</code> — pakai <code>build_flags</code> PlatformIO atau <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a></li>
   <li>Aktifkan rules ketat; rotasi password device berkala</li>
   <li>Untuk TLS mendalam di ESP32, pelajari <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a> — Firebase client sudah HTTPS</li>
   <li>Pantau quota Spark (free tier) di console</li>
@@ -306,27 +332,27 @@ void loop() {
 <p>Jika kamu sudah punya node MQTT yang publish ke <code>kodingindonesia/esp32/dht22/data</code>, berikut peta konsepnya:</p>
 <table>
   <thead>
-    <tr><th>MQTT (#7)</th><th>Firebase (#30)</th></tr>
+    <tr><th><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a></th><th>Firebase (#30 — ini)</th></tr>
   </thead>
   <tbody>
     <tr><td>Broker <code>192.168.1.50</code></td><td>Database URL Google</td></tr>
     <tr><td>Topic path</td><td>Node path (sama: <code>/kodingindonesia/esp32/dht22/data</code>)</td></tr>
     <tr><td><code>mosquitto_pub</code> / subscriber</td><td>Console / SDK <code>onValue</code></td></tr>
     <tr><td>User <code>kindo_esp32</code> + <code>GANTI_PASSWORD_MQTT</code></td><td>Email device + rules auth</td></tr>
-    <tr><td>Retained / LWT (#17)</td><td>Last value tetap di node sampai overwrite</td></tr>
+    <tr><td><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">Retained / LWT (#17)</a></td><td>Last value tetap di node sampai overwrite</td></tr>
   </tbody>
 </table>
 
 <p>Node yang sudah jalan di MQTT <strong>tidak perlu dimatikan</strong> — Firebase bisa jadi saluran paralel untuk app mobile, sementara automasi relay tetap lewat broker lokal. Pola ini umum di smart home skala rumah sebelum tim memutuskan satu vendor cloud.</p>
 
-<p>Untuk timestamp live (bukan contoh statis <code>1782977400</code>), integrasikan <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP #34</a> di <code>setup()</code> sebelum loop publish — payload JSON jadi siap untuk grafik Grafana (#19) maupun audit trail.</p>
+<p>Untuk timestamp live (bukan contoh statis <code>1782977400</code>), integrasikan <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a> di <code>setup()</code> sebelum loop publish — payload JSON jadi siap untuk grafik <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a> maupun audit trail.</p>
 
 <h2>FAQ Singkat</h2>
 <dl>
   <dt><strong>Firebase menggantikan Grafana?</strong></dt>
-  <dd>Tidak — Grafana (#19) untuk grafik histori MQTT; Firebase untuk sync real-time ke app.</dd>
+  <dd>Tidak — <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a> untuk grafik histori MQTT; Firebase untuk sync real-time ke app.</dd>
   <dt><strong>Bisa pakai Arduino IDE tanpa PlatformIO?</strong></dt>
-  <dd>Ya — library sama; #29 opsional tapi disarankan untuk project besar.</dd>
+  <dd>Ya — library sama; <a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">PlatformIO (#29)</a> opsional tapi disarankan untuk project besar.</dd>
   <dt><strong>Perlu kartu kredit?</strong></dt>
   <dd>Spark plan gratis tanpa kartu untuk belajar; Blaze butuh billing untuk beberapa fitur.</dd>
 </dl>
@@ -335,7 +361,7 @@ void loop() {
 <ul>
   <li><strong>auth/network-request-failed:</strong> Cek SSID 2.4 GHz, bukan guest network terisolasi</li>
   <li><strong>Permission denied:</strong> Rules atau token auth salah — login ulang device user di Authentication tab</li>
-  <li><strong>DHT22 nan:</strong> Ulangi <code>delay(2000)</code> setelah <code>dht.begin()</code> seperti #5</li>
+  <li><strong>DHT22 nan:</strong> Ulangi <code>delay(2000)</code> setelah <code>dht.begin()</code> seperti <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">#5</a></li>
   <li><strong>Token expired:</strong> Panggil <code>Firebase.ready()</code> di loop atau refresh sesuai docs library</li>
   <li><strong>Heap low / crash:</strong> Kurangi buffer SSL — matikan fitur Firebase yang tidak dipakai; pertimbangkan partition Huge APP</li>
   <li><strong>Data tidak update:</strong> Pastikan path diawali <code>/</code> dan tidak ada typo <code>dht22</code> vs <code>dht-22</code></li>
@@ -350,7 +376,7 @@ void loop() {
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></strong> — timestamp live, bukan contoh statis</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python → MySQL (#18)</a></strong> — arsip SQL paralel cloud</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA (#15)</a></strong> — update firmware tanpa USB</li>
-  <li>Capstone <strong>greenhouse (#39)</strong></li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong></li>
 </ul>
 
 <p>Dengan Firebase, ESP32 kamu punya jalur cepat ke cloud — tanpa sewa VPS dulu. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
