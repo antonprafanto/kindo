@@ -69,6 +69,10 @@ $requiredLinks = [
     'esp32-cam-streaming-mjpeg-capture-foto-wifi'                   => 'Artikel #27 ESP32-CAM',
     'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32' => 'Artikel #16 Mosquitto',
     'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'        => 'Artikel #19 Grafana',
+    'blink-led-esp32-tutorial-pertama-embedded-system'            => 'Artikel #3 Blink',
+    'freertos-esp32-multi-task-sensor-wifi-mqtt'                  => 'Artikel #31 FreeRTOS',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'       => 'Artikel #39 Greenhouse',
+    'esp32-firebase-realtime-database-sensor-cloud'               => 'Artikel #30 Firebase',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -86,6 +90,8 @@ check(str_contains($body, 'language-yaml'), 'Blok YAML CI');
 check(str_contains($body, '.pio/'), 'Peringatan folder .pio');
 check(str_contains($body, 'pio run'), 'Perintah pio run');
 check(str_contains($body, 'Checklist'), 'Section checklist');
+check(str_contains($body, '<svg') && str_contains($body, 'platformio.ini'), 'Diagram struktur folder PlatformIO SVG');
+check(! str_contains($body, '├──'), 'Tidak ada tree ASCII folder');
 check(! str_contains($body, 'KindoMQTT'), 'Tidak ada password literal');
 check(str_contains($body, 'kodingindonesia/esp32/dht22/data'), 'Topic sensor konsisten');
 check(str_contains($body, '192.168.1.50'), 'IP broker contoh');

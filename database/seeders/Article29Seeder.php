@@ -60,12 +60,12 @@ class Article29Seeder extends Seeder
     {
         return <<<'HTML'
 <h2>Pendahuluan — Dari Sketch Tunggal ke Project Profesional</h2>
-<p>Seri 1 dan Seri 2 sejauh ini memakai <strong>Arduino IDE</strong> — cocok untuk belajar cepat. Tapi saat proyek bertambah (MQTT #7, gateway LoRa #28, multi-file), kamu butuh struktur folder, dependency terkelola, dan build yang konsisten.</p>
+<p>Seri 1 dan Seri 2 sejauh ini memakai <strong>Arduino IDE</strong> — cocok untuk belajar cepat. Tapi saat proyek bertambah (<a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>, <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">gateway LoRa (#28)</a>, multi-file), kamu butuh struktur folder, dependency terkelola, dan build yang konsisten.</p>
 
 <p><strong>PlatformIO</strong> adalah ekosistem development embedded berbasis VS Code (atau IDE lain) yang mengelola board ESP32, library, dan upload lewat file <code>platformio.ini</code>. Artikel <strong>Jalur E</strong> ini memandu migrasi dari <a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">Arduino IDE (#2)</a> ke workflow modern — tanpa mengubah logika sketch yang sudah kamu paham.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Sudah bisa flash ESP32 di Arduino IDE (#2), paham dasar <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>, dan pernah buat project multi-sketch seperti <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">gateway LoRa (#28)</a>.</p>
+  <p><strong>Prasyarat:</strong> Sudah bisa flash ESP32 di <a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">Arduino IDE (#2)</a>, paham dasar <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>, dan pernah buat project multi-sketch seperti <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">gateway LoRa (#28)</a>.</p>
 </blockquote>
 
 <h2>Mengapa PlatformIO?</h2>
@@ -89,7 +89,7 @@ class Article29Seeder extends Seeder
   <li>Download <strong>Visual Studio Code</strong> dari code.visualstudio.com</li>
   <li>Buka Extensions (<kbd>Ctrl+Shift+X</kbd>) → cari <strong>PlatformIO IDE</strong> → Install</li>
   <li>Restart VS Code — ikon alien PlatformIO muncul di sidebar kiri</li>
-  <li>Pastikan driver USB CH340/CP2102 sudah terpasang (sama seperti #2)</li>
+  <li>Pastikan driver USB CH340/CP2102 sudah terpasang (sama seperti <a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">#2</a>)</li>
 </ol>
 
 <p>Di Windows, PlatformIO mengunduh toolchain sendiri — pertama kali build bisa 5–15 menit. Sabar, ini sekali saja per versi board.</p>
@@ -104,12 +104,35 @@ class Article29Seeder extends Seeder
 </ol>
 
 <p>Struktur default:</p>
-<pre><code>kindo-esp32-mqtt/
-├── platformio.ini    ← konfigurasi board &amp; library
-├── src/
-│   └── main.cpp      ← setup() / loop() kamu
-├── lib/              ← library lokal (opsional)
-└── include/          ← header custom</code></pre>
+<figure role="img" aria-label="Struktur folder project PlatformIO: platformio.ini, src/main.cpp, lib, include" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" style="display:block;max-width:720px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <rect x="0" y="0" width="720" height="300" fill="#F5F5F0" rx="6"/>
+  <rect x="40" y="16" width="280" height="40" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="180" y="42" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">kindo-esp32-mqtt/</text>
+  <line x1="80" y1="56" x2="80" y2="270" stroke="#CBD5E0" stroke-width="2"/>
+  <line x1="80" y1="88" x2="120" y2="88" stroke="#CBD5E0" stroke-width="2"/>
+  <rect x="120" y="70" width="400" height="36" rx="4" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="136" y="93" fill="#1a1a1a" font-size="13" font-weight="700">platformio.ini</text>
+  <text x="280" y="93" fill="#4A5568" font-size="12">konfigurasi board &amp; library</text>
+  <line x1="80" y1="140" x2="120" y2="140" stroke="#CBD5E0" stroke-width="2"/>
+  <rect x="120" y="122" width="120" height="36" rx="4" fill="#E8F4FF" stroke="#000" stroke-width="2"/>
+  <text x="180" y="145" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">src/</text>
+  <line x1="180" y1="158" x2="180" y2="188" stroke="#CBD5E0" stroke-width="2"/>
+  <line x1="180" y1="188" x2="220" y2="188" stroke="#CBD5E0" stroke-width="2"/>
+  <rect x="220" y="170" width="360" height="36" rx="4" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="236" y="193" fill="#1a1a1a" font-size="13" font-weight="700">main.cpp</text>
+  <text x="340" y="193" fill="#4A5568" font-size="12">setup() / loop() kamu</text>
+  <line x1="80" y1="224" x2="120" y2="224" stroke="#CBD5E0" stroke-width="2"/>
+  <rect x="120" y="206" width="320" height="36" rx="4" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="136" y="229" fill="#1a1a1a" font-size="13" font-weight="700">lib/</text>
+  <text x="190" y="229" fill="#4A5568" font-size="12">library lokal (opsional)</text>
+  <line x1="80" y1="270" x2="120" y2="270" stroke="#CBD5E0" stroke-width="2"/>
+  <rect x="120" y="252" width="320" height="36" rx="4" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="136" y="275" fill="#1a1a1a" font-size="13" font-weight="700">include/</text>
+  <text x="220" y="275" fill="#4A5568" font-size="12">header custom</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Struktur project PlatformIO — konfigurasi di <code>platformio.ini</code>, kode di <code>src/main.cpp</code>, modul opsional di <code>lib/</code> dan <code>include/</code>.</figcaption>
+</figure>
 
 <h2>platformio.ini — Jantung Project</h2>
 <pre><code class="language-ini">[env:esp32dev]
@@ -129,7 +152,7 @@ build_flags =
 <p><strong>lib_deps</strong> menggantikan Library Manager Arduino — versi library terkunci di project, sehingga sketch MQTT kamu tidak rusak saat library global ter-update.</p>
 
 <h2>Migrasi Sketch MQTT dari Arduino IDE</h2>
-<p>Salin isi sketch <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT #7</a> ke <code>src/main.cpp</code>. Pastikan placeholder Seri 2 tetap:</p>
+<p>Salin isi sketch <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a> ke <code>src/main.cpp</code>. Pastikan placeholder Seri 2 tetap:</p>
 <ul>
   <li>SSID: <code>GANTI_NAMA_WIFI</code></li>
   <li>Password WiFi: <code>GANTI_PASSWORD_WIFI</code></li>
@@ -170,14 +193,14 @@ build_flags = -DBOARD_HAS_PSRAM</code></pre>
 <p>Upload ke environment tertentu: <code>pio run -e esp32cam --target upload</code> — berguna saat kamu punya <a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM (#27)</a> dan DevKit biasa dalam satu repo monorepo.</p>
 
 <h2>Memecah Kode — src vs lib</h2>
-<p>Project gateway #28 bisa dirapikan:</p>
+<p>Project <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">gateway (#28)</a> bisa dirapikan:</p>
 <ul>
   <li><code>src/main.cpp</code> — setup WiFi + MQTT + loop LoRa</li>
   <li><code>lib/lora_packet/packet.h</code> — struct <code>lora_packet_t</code> bersama</li>
   <li><code>lib/mqtt_publish/mqtt_publish.cpp</code> — fungsi publish JSON</li>
 </ul>
 
-<p>Pola ini memudahkan unit test dan review kode sebelum modul <strong>FreeRTOS (#31)</strong>.</p>
+<p>Pola ini memudahkan unit test dan review kode sebelum modul <strong><a href="/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt">FreeRTOS (#31)</a></strong>.</p>
 
 <h2>Serial Monitor &amp; Debug</h2>
 <pre><code class="language-bash"># Monitor dengan filter timestamp
@@ -196,7 +219,7 @@ pio run --target upload --target monitor</code></pre>
     <tr><th>Tool</th><th>Cocok untuk</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>Arduino IDE</strong></td><td>Belajar pertama, sketch kecil (#3 Blink)</td></tr>
+    <tr><td><strong>Arduino IDE</strong></td><td>Belajar pertama, sketch kecil (<a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">Blink (#3)</a>)</td></tr>
     <tr><td><strong>PlatformIO</strong></td><td>Project besar, tim, CI, multi-board</td></tr>
     <tr><td><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong></td><td>Smart home YAML tanpa C++</td></tr>
   </tbody>
@@ -223,11 +246,11 @@ pio run --target upload --target monitor</code></pre>
 
 <h2>Checklist: Siap Migrasi?</h2>
 <ol>
-  <li>Sketch MQTT #7 sudah jalan di Arduino IDE? → port ke <code>src/main.cpp</code></li>
+  <li>Sketch <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a> sudah jalan di Arduino IDE? → port ke <code>src/main.cpp</code></li>
   <li>Butuh dua board berbeda? → tambah <code>[env:...]</code></li>
   <li>Library bentrok versi? → pin di <code>lib_deps</code></li>
-  <li>Gateway LoRa #28 makin besar? → pecah ke <code>lib/</code></li>
-  <li>Butuh OTA dari PlatformIO? → plugin espota / artikel #15</li>
+  <li><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa (#28)</a> makin besar? → pecah ke <code>lib/</code></li>
+  <li>Butuh OTA dari PlatformIO? → plugin espota / <a href="/artikel/ota-update-firmware-esp32-via-wifi">artikel (#15)</a></li>
 </ol>
 
 <h2>Uji Coba</h2>
@@ -305,10 +328,10 @@ monitor_filters = time, esp32_exception_decoder</code></pre>
   <li>Pindahkan library dari Library Manager ke <code>lib_deps</code> di <code>platformio.ini</code> — contoh PubSubClient: <code>knolleary/PubSubClient @ ^2.8</code></li>
   <li>Jalankan <code>pio run</code> — perbaiki error include atau nama fungsi</li>
   <li>Upload dan bandingkan output Serial dengan versi Arduino IDE</li>
-  <li>Subscribe MQTT di broker #16 — pastikan topic dan JSON identik</li>
+  <li>Subscribe MQTT di <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker (#16)</a> — pastikan topic dan JSON identik</li>
 </ol>
 
-<p>Jika sketch memakai banyak file tab di Arduino IDE, buat file tambahan di <code>src/</code> (misalnya <code>wifi_connect.cpp</code> + header di <code>include/</code>) atau pindahkan ke <code>lib/nama_modul/</code> untuk reuse di project gateway #28.</p>
+<p>Jika sketch memakai banyak file tab di Arduino IDE, buat file tambahan di <code>src/</code> (misalnya <code>wifi_connect.cpp</code> + header di <code>include/</code>) atau pindahkan ke <code>lib/nama_modul/</code> untuk reuse di project <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">gateway (#28)</a>.</p>
 
 <p>Folder <code>.pio/libdeps/</code> dihasilkan otomatis — jangan edit manual; selalu ubah <code>lib_deps</code> lalu <code>pio run</code> ulang.</p>
 
@@ -321,14 +344,14 @@ monitor_filters = time, esp32_exception_decoder</code></pre>
 
 <p>Build di CI tidak menggantikan uji di hardware nyata, tapi menangkap error compile dini — terutama saat <code>lib_deps</code> di-update atau saat menambah environment <code>esp32cam</code> untuk modul kamera. Simpan firmware binary dari <code>.pio/build/</code> sebagai artefak release jika kamu mendistribusikan OTA ke banyak node lapangan.</p>
 
-<p>Untuk proyek pribadi, cukup build lokal; langkah CI ini opsional sampai kamu punya puluhan device seperti rencana capstone <strong>greenhouse (#39)</strong>.</p>
+<p>Untuk proyek pribadi, cukup build lokal; langkah CI ini opsional sampai kamu punya puluhan device seperti rencana capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong>.</p>
 
 <h2>Tips &amp; Troubleshooting</h2>
 <ul>
   <li><strong>Build gagal lib not found:</strong> Cek ejaan <code>lib_deps</code> di Registry PlatformIO</li>
-  <li><strong>Upload timeout:</strong> Tahan BOOT seperti di #2; turunkan <code>upload_speed</code></li>
+  <li><strong>Upload timeout:</strong> Tahan BOOT seperti di <a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">#2</a>; turunkan <code>upload_speed</code></li>
   <li><strong>IntelliSense merah tapi build OK:</strong> <code>pio run</code> sekali, lalu Reload Window VS Code</li>
-  <li><strong>Port tidak muncul:</strong> Driver CH340/CP2102 — ulangi langkah #2</li>
+  <li><strong>Port tidak muncul:</strong> Driver CH340/CP2102 — ulangi langkah <a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">#2</a></li>
 </ul>
 
 <h2>Langkah Selanjutnya (Jalur E)</h2>
@@ -336,8 +359,8 @@ monitor_filters = time, esp32_exception_decoder</code></pre>
   <li><strong><a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">ESP32 + Firebase Realtime Database (#30)</a>:</strong> backend cloud tanpa server sendiri</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA (#15)</a></strong> — update firmware dari PlatformIO</li>
   <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa (#28)</a></strong> — refactor ke struktur <code>lib/</code></li>
-  <li><strong>FreeRTOS (#31)</strong> — task terpisah sensor/WiFi/MQTT</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — monorepo sensor + gateway + dashboard</li>
+  <li><strong><a href="/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt">FreeRTOS (#31)</a></strong> — task terpisah sensor/WiFi/MQTT</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — monorepo sensor + gateway + dashboard</li>
 </ul>
 
 <p>PlatformIO membawa project ESP32 kamu ke level berikutnya — struktur rapi, dependency aman, siap kolaborasi. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
