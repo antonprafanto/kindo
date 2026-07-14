@@ -62,7 +62,7 @@ class Article27Seeder extends Seeder
     {
         return <<<'HTML'
 <h2>Pendahuluan — Dari Sensor ke Gambar</h2>
-<p>Seri 2 sudah mengajarkan telemetry: DHT22 (#5), MQTT (#7), bahkan <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa jarak jauh (#26)</a>. Tapi kadang kamu butuh <strong>visual</strong> — cek kondisi kebun, pantau gerbang, atau dokumentasi lapangan.</p>
+<p>Seri 2 sudah mengajarkan telemetry: <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>, bahkan <a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa jarak jauh (#26)</a>. Tapi kadang kamu butuh <strong>visual</strong> — cek kondisi kebun, pantau gerbang, atau dokumentasi lapangan.</p>
 
 <p><strong>ESP32-CAM</strong> menggabungkan ESP32 + kamera OV2640 dalam satu modul murah. Artikel <strong>Jalur D</strong> ini fokus pada <strong>streaming MJPEG</strong> ke browser dan <strong>capture foto JPEG</strong> via WiFi — pola mirip <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">web server ESP32 (#6)</a>, tapi payload-nya frame gambar, bukan angka sensor.</p>
 
@@ -86,7 +86,7 @@ class Article27Seeder extends Seeder
     <tr><th>Modul</th><th>Cocok untuk</th><th>Data</th><th>Catatan</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>ESP32 DevKit + DHT22</strong></td><td>Telemetry angka</td><td>Suhu, RH, MQTT</td><td>Hemat bandwidth (#5, #7)</td></tr>
+    <tr><td><strong>ESP32 DevKit + DHT22</strong></td><td>Telemetry angka</td><td>Suhu, RH, MQTT</td><td>Hemat bandwidth (<a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">#5</a>, <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">#7</a>)</td></tr>
     <tr><td><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a></strong></td><td>Node dekat, tanpa router</td><td>Paket kecil</td><td>Bukan video</td></tr>
     <tr><td><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a></strong></td><td>Sensor sangat jauh</td><td>Bytes jarang</td><td>Tidak untuk video</td></tr>
     <tr><td><strong>ESP32-CAM (artikel ini)</strong></td><td>Visual monitoring</td><td>MJPEG / JPEG</td><td>Butuh WiFi stabil</td></tr>
@@ -115,11 +115,45 @@ class Article27Seeder extends Seeder
   </tbody>
 </table>
 
-<pre><code>  [ OV2640 ] --&gt; JPEG frame --&gt; [ ESP32 WebServer :80 ]
-                                        |
-                                        |  WiFi LAN
-                                        v
-                              [ Browser / HP di jaringan sama ]</code></pre>
+<figure role="img" aria-label="Diagram streaming MJPEG ESP32-CAM: kamera OV2640 kirim frame JPEG ke ESP32 WebServer, lalu browser di WiFi LAN membuka stream" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" style="display:block;max-width:900px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="camArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
+    </marker>
+    <marker id="camArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="300" fill="#F5F5F0" rx="6"/>
+  <line x1="248" y1="90" x2="318" y2="90" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#camArrowOrange)"/>
+  <line x1="568" y1="90" x2="638" y2="90" stroke="#2979FF" stroke-width="2.5" marker-end="url(#camArrow)"/>
+  <line x1="760" y1="138" x2="760" y2="198" stroke="#2979FF" stroke-width="2.5" marker-end="url(#camArrow)"/>
+  <rect x="24" y="40" width="224" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="136" y="75" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Kamera OV2640</text>
+  <text x="136" y="98" text-anchor="middle" fill="#4A5568" font-size="12">Capture + kompres JPEG</text>
+  <text x="136" y="118" text-anchor="middle" fill="#718096" font-size="11">di chip kamera</text>
+  <rect x="258" y="48" width="72" height="24" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="294" y="65" text-anchor="middle" fill="#FF7A2F" font-size="12" font-weight="700">JPEG →</text>
+  <rect x="328" y="40" width="240" height="100" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="448" y="72" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 WebServer :80</text>
+  <text x="448" y="94" text-anchor="middle" fill="#4A5568" font-size="12">/stream · /capture</text>
+  <text x="448" y="116" text-anchor="middle" fill="#718096" font-size="11">multipart MJPEG</text>
+  <rect x="578" y="48" width="72" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="614" y="65" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">WiFi →</text>
+  <rect x="648" y="40" width="224" height="98" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="760" y="75" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Router / LAN</text>
+  <text x="760" y="97" text-anchor="middle" fill="#e3f2fd" font-size="12">2.4 GHz · IP lokal</text>
+  <text x="760" y="117" text-anchor="middle" fill="#cfe4ff" font-size="11">satu jaringan</text>
+  <rect x="780" y="156" width="100" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="830" y="173" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">HTTP ↓</text>
+  <rect x="548" y="208" width="320" height="60" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
+  <text x="708" y="235" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Browser / HP</text>
+  <text x="708" y="255" text-anchor="middle" fill="#4A5568" font-size="12">Live MJPEG + capture JPEG</text>
+  <text x="450" y="285" text-anchor="middle" fill="#4A5568" font-size="11">Alur: kamera → ESP32 WebServer → WiFi LAN → browser (bukan lewat MQTT)</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram streaming MJPEG ESP32-CAM — OV2640 kirim JPEG ke WebServer; klien di jaringan yang sama membuka <code>/stream</code> atau <code>/capture</code>.</figcaption>
+</figure>
 
 <p>Untuk telemetry paralel (suhu + gambar), kamu bisa gabungkan dengan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a> di board terpisah — jangan paksa video lewat broker MQTT.</p>
 
@@ -277,7 +311,7 @@ void loop() {
 
 <h2>Integrasi dengan Stack MQTT (Hybrid)</h2>
 <p>Polanya: <strong>ESP32-CAM</strong> untuk visual lokal, <strong>ESP32 DevKit</strong> terpisah untuk telemetry MQTT ke <code>kodingindonesia/esp32/dht22/data</code> via broker <code>192.168.1.50</code>. Jangan kirim frame video lewat MQTT — bandwidth broker tidak dirancang untuk itu.</p>
-<p>Event ringan yang masuk MQTT: <code>{"event":"motion","unix":1782977400}</code> atau trigger capture saat PIR (#23) terdeteksi — metadata saja, bukan binary JPEG.</p>
+<p>Event ringan yang masuk MQTT: <code>{"event":"motion","unix":1782977400}</code> atau trigger capture saat PIR terdeteksi lewat <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a> — metadata saja, bukan binary JPEG.</p>
 
 <h2>WiFiManager untuk Deploy Lapangan</h2>
 <p>Ganti hardcode SSID dengan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a> — portal konfigurasi saat pertama nyala, sama seperti node sensor produksi.</p>
@@ -288,16 +322,16 @@ void loop() {
   <li>Aktifkan LED sebelum <code>esp_camera_fb_get()</code> — matikan setelah capture untuk hemat arus</li>
   <li>Exposure otomatis OV2640 butuh ~100–300 ms setelah LED nyala</li>
   <li>Stream siang hari tanpa LED — hindari backlight langsung ke lensa</li>
-  <li>Gabungkan dengan sensor cahaya LDR di artikel ADC (#35) untuk auto-flash nanti</li>
+  <li>Gabungkan dengan sensor cahaya LDR di <a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">artikel ADC (#35)</a> untuk auto-flash nanti</li>
 </ul>
 
-<p>Untuk proyek greenhouse capstone (#39), kamera + suhu MQTT + pompa relay adalah tiga jalur terpisah yang saling melengkapi — visual tidak menggantikan angka sensor.</p>
+<p>Untuk proyek <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse capstone (#39)</a>, kamera + suhu MQTT + pompa relay adalah tiga jalur terpisah yang saling melengkapi — visual tidak menggantikan angka sensor.</p>
 
 <h2>Checklist: Kapan Pakai ESP32-CAM?</h2>
 <ol>
   <li>Butuh lihat kondisi visual real-time di LAN? → <strong>ESP32-CAM stream</strong></li>
   <li>Butuh foto sesekali (audit kebun, bukti lapangan)? → <strong>/capture</strong></li>
-  <li>Butuh angka sensor ke dashboard MQTT? → <strong>DHT22/BME280 + MQTT (#7)</strong></li>
+  <li>Butuh angka sensor ke dashboard MQTT? → <strong>DHT22/BME280 + <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a></strong></li>
   <li>Butuh jarak kilometer tanpa WiFi? → <strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a></strong>, bukan kamera</li>
   <li>Butuh akses dari internet publik? → <strong>VPN / reverse proxy</strong> — jangan port-forward mentah</li>
 </ol>
@@ -322,7 +356,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
 <h2>FAQ Singkat</h2>
 <dl>
   <dt><strong>Bisa streaming ke Grafana?</strong></dt>
-  <dd>Grafana untuk time-series angka (#19). Video butuh stack lain (RTSP/WebRTC) — di luar scope tutorial ini.</dd>
+  <dd><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana untuk time-series angka (#19)</a>. Video butuh stack lain (RTSP/WebRTC) — di luar scope tutorial ini.</dd>
   <dt><strong>Bisa kirim frame lewat MQTT?</strong></dt>
   <dd>Secara teknis bisa base64, tapi tidak efisien. MQTT untuk metadata/event; gambar simpan SD atau HTTP.</dd>
   <dt><strong>ESP32-CAM vs CCTV IP camera?</strong></dt>
@@ -335,7 +369,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <li><strong>Gambar hijau/pink:</strong> Kabel kamera longgar atau PSRAM tidak aktif</li>
   <li><strong>Stream putus-putus:</strong> Turunkan resolusi atau dekatkan ke router</li>
   <li><strong>Tidak bisa flash:</strong> GPIO 0 harus ke GND saat boot flash</li>
-  <li><strong>IP tidak muncul:</strong> SSID/password salah — uji dengan #4 dulu</li>
+  <li><strong>IP tidak muncul:</strong> SSID/password salah — uji dengan <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">#4</a> dulu</li>
 </ul>
 
 <h2>Keamanan &amp; Produksi</h2>
@@ -352,7 +386,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — dashboard angka sensor (bukan video)</li>
   <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA (#15)</a></strong> — update firmware kamera tanpa USB-TTL</li>
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — integrasi stream kamera (addon terpisah)</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — kamera + sensor MQTT + pompa</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — kamera + sensor MQTT + pompa</li>
 </ul>
 
 <p>ESP32-CAM menambah dimensi <em>visual</em> ke toolkit IoT kamu — tetap di LAN untuk lab, dan pisahkan dari pipeline telemetry MQTT. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

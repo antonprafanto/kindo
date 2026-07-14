@@ -63,6 +63,7 @@ foreach ($requiredTags as $tag) {
 
 $requiredLinks = [
     'menghubungkan-esp32-wifi-kirim-data-server'                     => 'Artikel #4 WiFi',
+    'membaca-sensor-dht22-suhu-kelembaban-esp32'                     => 'Artikel #5 DHT22',
     'membuat-web-server-esp32-monitoring-sensor-dht22'               => 'Artikel #6 WebServer',
     'memahami-mqtt-esp32-kirim-data-sensor-broker'                   => 'Artikel #7 MQTT',
     'lora-esp32-modul-sx1278-kirim-data-jarak-jauh'                  => 'Artikel #26 LoRa',
@@ -72,6 +73,13 @@ $requiredLinks = [
     'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                    => 'Artikel #17 TLS',
     'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'         => 'Artikel #19 Grafana',
     'ota-update-firmware-esp32-via-wifi'                             => 'Artikel #15 OTA',
+    'sd-card-spi-esp32-logging-data-sensor-offline'                  => 'Artikel #37 SD Card',
+    'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'               => 'Artikel #34 NTP',
+    'node-red-dashboard-otomasi-iot-mqtt-esp32'                    => 'Artikel #23 Node-RED',
+    'adc-esp32-sensor-analog-soil-moisture-ldr-mqtt'                 => 'Artikel #35 ADC',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 Greenhouse',
+    'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'            => 'Artikel #28 Gateway',
+    'home-assistant-integrasi-esp32-mqtt'                            => 'Artikel #21 Home Assistant',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -100,7 +108,11 @@ check(str_contains($body, 'Pro tip'), 'Pro tip');
 check(str_contains($body, 'Keamanan'), 'Section keamanan');
 check(str_contains($body, 'Estimasi biaya'), 'Estimasi biaya');
 check(str_contains($body, '#28'), 'Teaser gateway #28');
+check(str_contains($body, '<svg') && str_contains($body, 'ESP32 WebServer :80'), 'Diagram arsitektur MJPEG SVG');
+check(! str_contains($body, '[ OV2640 ]'), 'Tidak ada diagram ASCII arsitektur');
 check(str_contains($body, '/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a>'), 'Tabel hyperlink #26');
+check(str_contains($body, '/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>'), 'Hyperlink greenhouse #39');
+check(str_contains($body, '/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>'), 'Hyperlink DHT22 #5');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada typo shared hosting');
 check(! str_contains($body, 'Butuk '), 'Tidak ada typo Butuk');
 check(str_contains($body, 'OTA (#15)'), 'Referensi OTA artikel #15 benar');
