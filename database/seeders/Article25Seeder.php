@@ -87,8 +87,8 @@ class Article25Seeder extends Seeder
   </thead>
   <tbody>
     <tr><td><strong>ESP-NOW</strong></td><td>~200 m LOS (tergantung antena)</td><td>2+ ESP32, tanpa router</td><td>Sensor lokal → gateway dekat</td></tr>
-    <tr><td><strong>WiFi + MQTT (#7)</strong></td><td>Seluruh jaringan AP</td><td>Router + broker (#16)</td><td>Dashboard, multi-subscriber</td></tr>
-    <tr><td><strong>REST (#6)</strong></td><td>LAN AP</td><td>Router</td><td>Debug cepat, satu klien</td></tr>
+    <tr><td><strong><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">WiFi + MQTT (#7)</a></strong></td><td>Seluruh jaringan AP</td><td>Router + <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker (#16)</a></td><td>Dashboard, multi-subscriber</td></tr>
+    <tr><td><strong><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">REST (#6)</a></strong></td><td>LAN AP</td><td>Router</td><td>Debug cepat, satu klien</td></tr>
     <tr><td><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a></strong></td><td>Kilometer</td><td>2× ESP32 + modul SX1278</td><td>Sensor sangat jauh, data jarang</td></tr>
   </tbody>
 </table>
@@ -119,22 +119,58 @@ class Article25Seeder extends Seeder
 </table>
 
 <p>Alur data secara singkat:</p>
-<pre><code>  [ ESP32 Sensor — DHT22 ]
-      |
-      |  ESP-NOW (peer-to-peer, tanpa router)
-      |  struct: suhu, kelembaban, unix
-      |  deep sleep (#11) — hemat baterai
-      v
-  [ ESP32 Gateway ]
-      |
-      |  WiFi STA → router rumah/kantor
-      |  MQTT publish :1883
-      |  topic: kodingindonesia/esp32/dht22/data
-      v
-  [ Mosquitto @ 192.168.1.50 ]  (#16)
-      |
-      +-- mosquitto_sub / subscriber Python (#18)
-      +-- Grafana dashboard (#19)</code></pre>
+<figure role="img" aria-label="Diagram ESP-NOW sensor ke gateway: sensor kirim paket peer-to-peer ke gateway ESP32, gateway publish MQTT ke Mosquitto, lalu Grafana dan subscriber Python" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 360" style="display:block;max-width:900px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="enArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
+    </marker>
+    <marker id="enArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/>
+    </marker>
+    <marker id="enArrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="360" fill="#F5F5F0" rx="6"/>
+  <!-- Sensor → Gateway (sensor kirim ESP-NOW) -->
+  <line x1="248" y1="95" x2="318" y2="95" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#enArrowOrange)"/>
+  <!-- Gateway → Mosquitto (gateway publish MQTT) -->
+  <line x1="568" y1="95" x2="638" y2="95" stroke="#2979FF" stroke-width="2.5" marker-end="url(#enArrow)"/>
+  <!-- Mosquitto → Dashboard (broker push ke subscriber) -->
+  <line x1="760" y1="148" x2="760" y2="208" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#enArrowGreen)"/>
+  <!-- Sensor -->
+  <rect x="24" y="40" width="224" height="110" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="136" y="72" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 Sensor</text>
+  <text x="136" y="94" text-anchor="middle" fill="#4A5568" font-size="12">DHT22 · deep sleep</text>
+  <text x="136" y="114" text-anchor="middle" fill="#718096" font-size="11">tanpa router WiFi</text>
+  <text x="136" y="134" text-anchor="middle" fill="#718096" font-size="11">esp_now_send()</text>
+  <rect x="255" y="56" width="78" height="24" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="294" y="73" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">ESP-NOW →</text>
+  <!-- Gateway -->
+  <rect x="328" y="40" width="240" height="110" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="448" y="72" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 Gateway</text>
+  <text x="448" y="94" text-anchor="middle" fill="#4A5568" font-size="12">ESP-NOW RX + WiFi STA</text>
+  <text x="448" y="114" text-anchor="middle" fill="#718096" font-size="11">PubSubClient publish</text>
+  <text x="448" y="134" text-anchor="middle" fill="#718096" font-size="11">topic Seri 2</text>
+  <rect x="575" y="56" width="72" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="611" y="73" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">MQTT →</text>
+  <!-- Mosquitto -->
+  <rect x="648" y="40" width="224" height="108" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="760" y="72" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Broker Mosquitto</text>
+  <text x="760" y="94" text-anchor="middle" fill="#e3f2fd" font-size="12">192.168.1.50:1883</text>
+  <text x="760" y="114" text-anchor="middle" fill="#cfe4ff" font-size="11">user kindo_esp32</text>
+  <rect x="780" y="166" width="100" height="24" rx="4" fill="#fff" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="830" y="183" text-anchor="middle" fill="#2E7D32" font-size="12" font-weight="700">data ↓</text>
+  <!-- Dashboard -->
+  <rect x="548" y="218" width="320" height="90" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
+  <text x="708" y="248" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Subscriber / Dashboard</text>
+  <text x="708" y="270" text-anchor="middle" fill="#4A5568" font-size="12">mosquitto_sub · Python · Grafana</text>
+  <text x="708" y="290" text-anchor="middle" fill="#718096" font-size="11">histori + otomasi dari topic MQTT</text>
+  <text x="450" y="332" text-anchor="middle" fill="#4A5568" font-size="11">Alur: sensor kirim ESP-NOW → gateway publish MQTT → broker → dashboard subscribe</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram ESP-NOW sensor + gateway — sensor kirim paket ke gateway tanpa router; gateway forward JSON ke Mosquitto; <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python (#18)</a> / <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a> subscribe dari broker.</figcaption>
+</figure>
 
 <p>Sensor node hemat daya: bangun → baca sensor → kirim ESP-NOW → tidur (<a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep #11</a>). Gateway selalu hidup, terima paket, publish MQTT dengan timestamp <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a>.</p>
 
@@ -278,7 +314,7 @@ void loop() {
 </ul>
 <p>Contoh payload gateway dengan identitas node:</p>
 <pre><code>{"node":"greenhouse-1","suhu":28.5,"kelembaban":65.2,"unix":1782977400}</code></pre>
-<p>Topic MQTT bisa diperluas: <code>kodingindonesia/esp32/greenhouse-1/dht22/data</code> — pola hierarki sama dengan artikel <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">#7</a>. Subscriber Python (#18) atau Telegraf (#19) bisa filter per node.</p>
+<p>Topic MQTT bisa diperluas: <code>kodingindonesia/esp32/greenhouse-1/dht22/data</code> — pola hierarki sama dengan artikel <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">#7</a>. <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a> atau <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Telegraf/Grafana (#19)</a> bisa filter per node.</p>
 
 <blockquote>
   <p><strong>Pro tip:</strong> Batasi jumlah peer aktif (~20 pada ESP32) dan interval kirim agar gateway tidak kelebihan beban CPU saat WiFi + MQTT + ESP-NOW berjalan bersamaan.</p>
@@ -333,7 +369,7 @@ void loop() {
   <li>Sensor jauh dari router, tapi dekat ke ESP32 lain? → <strong>ESP-NOW</strong></li>
   <li>Butuh kirim &lt; 250 byte, interval pendek? → <strong>ESP-NOW</strong></li>
   <li>Butuh jangkau kilometer? → <strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa (#26)</a></strong>, bukan ESP-NOW</li>
-  <li>Butuh banyak subscriber langsung dari sensor? → <strong>MQTT (#7)</strong></li>
+  <li>Butuh banyak subscriber langsung dari sensor? → <strong><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a></strong></li>
   <li>Node baterai + gateway solar/USB? → <strong>ESP-NOW sensor + MQTT gateway</strong></li>
 </ol>
 
@@ -383,10 +419,11 @@ mosquitto_sub -h 192.168.1.50 -t "kodingindonesia/esp32/dht22/data" -v</code></p
 <h2>Langkah Selanjutnya (Jalur D)</h2>
 <ul>
   <li><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa SX1278 (#26)</a>:</strong> sensor jarak jauh (ratusan meter–km) menggantikan/perluas ESP-NOW</li>
+  <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT (#28)</a>:</strong> receiver LoRa + WiFi publish — pola gateway serupa untuk sensor kebun jauh</li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan hop gateway → broker</li>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep (#11)</a></strong> — optimalkan node sensor baterai</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — visualisasi data dari gateway MQTT</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — multi-node ESP-NOW + pompa MQTT</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — multi-node ESP-NOW + pompa MQTT</li>
 </ul>
 
 <p>Dengan ESP-NOW, kamu bisa menaruh sensor di sudut yang WiFi router tidak jangkau — asalkan ada <strong>gateway ESP32</strong> di tengah yang menjembatani ke MQTT. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

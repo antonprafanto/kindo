@@ -76,6 +76,9 @@ $requiredLinks = [
     'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'         => 'Artikel #19 Grafana',
     'home-assistant-integrasi-esp32-mqtt'                        => 'Artikel #21 HA',
     'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'               => 'Artikel #34 NTP',
+    'lora-esp32-modul-sx1278-kirim-data-jarak-jauh'                  => 'Artikel #26 LoRa',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 Greenhouse',
+    'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'            => 'Artikel #28 Gateway',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -95,6 +98,13 @@ check(str_contains($body, '1782977400'), 'Contoh unix konsisten #34');
 check(str_contains($body, '2026-07-02T14:30:00'), 'ISO timestamp konsisten #34');
 check(str_contains($body, 'kindo_esp32'), 'User MQTT publisher');
 check(str_contains($body, 'LoRa') && str_contains($body, '#26'), 'Teaser LoRa #26');
+check(str_contains($body, '<svg') && str_contains($body, 'ESP32 Gateway'), 'Diagram arsitektur ESP-NOW SVG');
+check(! str_contains($body, '[ ESP32 Sensor'), 'Tidak ada diagram ASCII arsitektur');
+check(str_contains($body, '/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">WiFi + MQTT (#7)</a>'), 'Tabel hyperlink MQTT #7');
+check(str_contains($body, '/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">REST (#6)</a>'), 'Tabel hyperlink REST #6');
+check(str_contains($body, '/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>'), 'Checklist hyperlink MQTT #7');
+check(str_contains($body, '/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>'), 'Hyperlink greenhouse #39');
+check(str_contains($body, '/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a>'), 'Hyperlink Python #18 multi-node');
 check(str_contains($body, 'language-cpp'), 'Blok C++');
 check(str_contains($body, 'language-bash'), 'Blok bash');
 check(str_contains($body, 'Pro tip'), 'Pro tip');
