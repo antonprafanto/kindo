@@ -72,6 +72,10 @@ $requiredLinks = [
     'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32' => 'Artikel #16 broker',
     'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'         => 'Artikel #19 Grafana',
     'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'               => 'Artikel #34 NTP',
+    'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                      => 'Artikel #13 BME280',
+    'gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard'            => 'Artikel #28 Gateway',
+    'esp32-cam-streaming-mjpeg-capture-foto-wifi'                    => 'Artikel #27 ESP32-CAM',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -99,6 +103,10 @@ check(str_contains($body, 'Pro tip'), 'Pro tip');
 check(str_contains($body, 'Keamanan'), 'Section keamanan');
 check(str_contains($body, 'Estimasi biaya'), 'Estimasi biaya');
 check(str_contains($body, '#28'), 'Teaser gateway #28');
+check(str_contains($body, '<svg') && str_contains($body, 'ESP32 Receiver'), 'Diagram arsitektur LoRa SVG');
+check(! str_contains($body, '[ ESP32 Sensor + DHT22 + SX1278 ]'), 'Tidak ada diagram ASCII arsitektur');
+check(str_contains($body, '/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">gateway LoRa (#28)</a>'), 'Hyperlink gateway #28 di checklist');
+check(str_contains($body, '/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>'), 'Hyperlink greenhouse #39');
 check(str_contains($body, '/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a>'), 'Tabel perbandingan hyperlink #25');
 check(str_contains($body, '/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">WiFi + MQTT (#7)</a>'), 'Tabel perbandingan hyperlink #7');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada typo shared hosting');

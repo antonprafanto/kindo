@@ -66,7 +66,7 @@ class Article26Seeder extends Seeder
 
 <p><strong>LoRa</strong> (Long Range) mengisi celah itu. Dengan modul radio <strong>SX1278</strong> di tiap ESP32, kamu bisa mengirim paket data kecil dengan konsumsi daya rendah — tanpa infrastruktur WiFi di titik sensor.</p>
 
-<p>Artikel <strong>Jalur D</strong> ini fokus pada link <strong>LoRa peer-to-peer</strong> (node sensor → node receiver). Menggabungkan LoRa ke MQTT/dashboard adalah langkah berikutnya di artikel gateway <strong>#28</strong>.</p>
+<p>Artikel <strong>Jalur D</strong> ini fokus pada link <strong>LoRa peer-to-peer</strong> (node sensor → node receiver). Menggabungkan LoRa ke MQTT/dashboard adalah langkah berikutnya di artikel gateway <strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">#28</a></strong>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Paham dasar <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">WiFi ESP32 (#4)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, dan idealnya sudah baca <a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a> untuk membandingkan jangkau radio.</p>
@@ -83,7 +83,7 @@ class Article26Seeder extends Seeder
 
 <p>Chip <strong>SX1278</strong> adalah transceiver LoRa populer di modul murah (433 MHz) yang dipasangkan ke ESP32 via <strong>SPI</strong> — bus serial cepat yang juga dipakai di sensor <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">I2C BME280 (#13)</a>, tapi wiring-nya berbeda (MOSI/MISO/SCK + chip select).</p>
 
-<p>Di Indonesia, pola ini sering dipakai untuk <strong>monitoring kebun/sawah</strong> (suhu tanah, kelembaban udara), <strong>level tangki air</strong> jauh dari rumah, atau node capstone <strong>greenhouse (#39)</strong> yang sensornya di ujung lahan.</p>
+<p>Di Indonesia, pola ini sering dipakai untuk <strong>monitoring kebun/sawah</strong> (suhu tanah, kelembaban udara), <strong>level tangki air</strong> jauh dari rumah, atau node capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt"><strong>greenhouse (#39)</strong></a> yang sensornya di ujung lahan.</p>
 
 <h2>LoRa vs ESP-NOW vs WiFi/MQTT</h2>
 <table>
@@ -135,22 +135,52 @@ class Article26Seeder extends Seeder
   </thead>
   <tbody>
     <tr><td><strong>ESP32 + SX1278 (sensor)</strong></td><td>Baca DHT22, kirim paket LoRa</td><td>SPI ke modul LoRa · tanpa WiFi</td></tr>
-    <tr><td><strong>ESP32 + SX1278 (receiver)</strong></td><td>Terima paket, tampilkan Serial / siap forward</td><td>SPI ke modul LoRa · opsional WiFi nanti (#28)</td></tr>
+    <tr><td><strong>ESP32 + SX1278 (receiver)</strong></td><td>Terima paket, tampilkan Serial / siap forward</td><td>SPI ke modul LoRa · opsional WiFi nanti (<a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">#28</a>)</td></tr>
   </tbody>
 </table>
 
 <p>Alur data secara singkat:</p>
-<pre><code>  [ ESP32 Sensor + DHT22 + SX1278 ]
-      |
-      |  LoRa 433 MHz (paket kecil, SF7–12)
-      |  struct: suhu, kelembaban, unix
-      v
-  [ ESP32 Receiver + SX1278 ]
-      |
-      |  Serial Monitor (lab)
-      |  nanti: WiFi + MQTT publish (#28 gateway)
-      v
-  [ Mosquitto / Grafana ]  — artikel #28 + #19</code></pre>
+<figure role="img" aria-label="Diagram LoRa peer-to-peer: ESP32 sensor kirim paket LoRa ke receiver, lalu lab Serial atau forward MQTT ke Mosquitto dan Grafana" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 340" style="display:block;max-width:900px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="loraArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
+    </marker>
+    <marker id="loraArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="900" height="340" fill="#F5F5F0" rx="6"/>
+  <line x1="248" y1="90" x2="318" y2="90" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#loraArrowOrange)"/>
+  <line x1="568" y1="90" x2="638" y2="90" stroke="#2979FF" stroke-width="2.5" marker-end="url(#loraArrow)"/>
+  <line x1="760" y1="148" x2="760" y2="208" stroke="#2979FF" stroke-width="2.5" marker-end="url(#loraArrow)"/>
+  <rect x="24" y="35" width="224" height="110" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="136" y="65" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 Sensor</text>
+  <text x="136" y="88" text-anchor="middle" fill="#4A5568" font-size="12">DHT22 + SX1278</text>
+  <text x="136" y="108" text-anchor="middle" fill="#718096" font-size="11">suhu · RH · unix</text>
+  <text x="136" y="128" text-anchor="middle" fill="#718096" font-size="11">tanpa WiFi</text>
+  <rect x="255" y="48" width="78" height="24" rx="4" fill="#fff" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="294" y="65" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">LoRa 433 →</text>
+  <rect x="328" y="35" width="240" height="110" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="448" y="65" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 Receiver</text>
+  <text x="448" y="88" text-anchor="middle" fill="#4A5568" font-size="12">SX1278 RX</text>
+  <text x="448" y="108" text-anchor="middle" fill="#718096" font-size="11">Serial Monitor (lab)</text>
+  <text x="448" y="128" text-anchor="middle" fill="#718096" font-size="11">siap forward gateway</text>
+  <rect x="575" y="48" width="78" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="614" y="65" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">MQTT →</text>
+  <rect x="648" y="35" width="224" height="110" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="760" y="72" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Gateway path</text>
+  <text x="760" y="94" text-anchor="middle" fill="#e3f2fd" font-size="12">WiFi + publish</text>
+  <text x="760" y="116" text-anchor="middle" fill="#cfe4ff" font-size="11">Jalur D gateway</text>
+  <rect x="780" y="166" width="100" height="24" rx="4" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="830" y="183" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">dash ↓</text>
+  <rect x="548" y="218" width="320" height="70" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
+  <text x="708" y="248" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Mosquitto / Grafana</text>
+  <text x="708" y="270" text-anchor="middle" fill="#4A5568" font-size="12">setelah gateway + dashboard Grafana</text>
+  <text x="450" y="318" text-anchor="middle" fill="#4A5568" font-size="11">Lab: sensor → LoRa → receiver Serial · Produksi: + WiFi/MQTT lalu dashboard</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram LoRa peer-to-peer — sensor kirim paket SX1278 ke receiver; lab berhenti di Serial; lanjut ke Mosquitto/Grafana lewat <a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">gateway #28</a>.</figcaption>
+</figure>
 
 <h2>Koneksi SX1278 ke ESP32 (SPI)</h2>
 <p>Pin umum untuk modul LoRa 433 MHz di ESP32 DevKit (sesuaikan dengan silkscreen modul kamu):</p>
@@ -324,7 +354,7 @@ void loop() {
   <li>Sensor &gt;200 m dari gateway dan tidak ada WiFi? → <strong>LoRa</strong></li>
   <li>Data kecil, interval menit/jam? → <strong>LoRa</strong></li>
   <li>Butuh latency &lt;1 detik di dalam ruangan? → <strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a></strong></li>
-  <li>Butuh dashboard MQTT langsung dari sensor? → <strong><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">WiFi + MQTT (#7)</a></strong> atau <strong>gateway LoRa (#28)</strong></li>
+  <li>Butuh dashboard MQTT langsung dari sensor? → <strong><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">WiFi + MQTT (#7)</a></strong> atau <strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">gateway LoRa (#28)</a></strong></li>
 </ol>
 
 <h2>Uji Coba (Lab)</h2>
@@ -346,7 +376,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <dt><strong>LoRa sama dengan LoRaWAN?</strong></dt>
   <dd>Tidak. Artikel ini pakai <strong>LoRa radio</strong> point-to-point. LoRaWAN butuh gateway &amp; server khusus — di luar scope tutorial ini.</dd>
   <dt><strong>Bisa kirim ke HP?</strong></dt>
-  <dd>Tidak langsung. Butuh receiver ESP32, lalu forward ke MQTT/app (#28).</dd>
+  <dd>Tidak langsung. Butuh receiver ESP32, lalu forward ke MQTT/app (<a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">#28</a>).</dd>
   <dt><strong>Modul 433 MHz bisa bicara dengan 868 MHz?</strong></dt>
   <dd>Tidak. Frekuensi hardware harus sama.</dd>
 </dl>
@@ -373,7 +403,7 @@ mosquitto_sub -h 192.168.1.50 -u kindo_esp32 -P GANTI_PASSWORD_MQTT \
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a></strong> — visualisasi setelah data masuk MQTT</li>
   <li><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a></strong> — bandingkan untuk node dekat gateway</li>
   <li><strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM (#27)</a>:</strong> streaming video — kebutuhan berbeda dari telemetry LoRa</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — sensor LoRa kebun + pompa MQTT</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — sensor LoRa kebun + pompa MQTT</li>
 </ul>
 
 <p>LoRa membuka sensor di ujung lahan yang WiFi dan ESP-NOW tidak jangkau. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
