@@ -73,6 +73,10 @@ $requiredLinks = [
     'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                    => 'Artikel #17 TLS',
     'sensor-gerak-pir-esp32-lampu-mqtt-debounce'                   => 'Artikel #24 PIR',
     'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                    => 'Artikel #13 BME280',
+    'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'           => 'Artikel #19 Grafana',
+    'rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32'                  => 'Artikel #20 REST vs MQTT',
+    'home-assistant-integrasi-esp32-mqtt'                           => 'Artikel #21 HA',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -96,6 +100,10 @@ check(str_contains($body, 'parse_waktu'), 'Fungsi parse_waktu');
 check(str_contains($body, 'systemd'), 'Layanan systemd');
 check(str_contains($body, 'tls_set'), 'Opsi TLS Python');
 check(str_contains($body, '/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'), 'Link/hyperlink InfluxDB #19');
+check(str_contains($body, '<svg') && str_contains($body, 'Python + paho-mqtt'), 'Diagram arsitektur MQTT→Python→MySQL SVG');
+check(! str_contains($body, '[ ESP32 + DHT22 ]'), 'Tidak ada diagram ASCII arsitektur');
+check(str_contains($body, '/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">'), 'Hyperlink greenhouse #39');
+check(str_contains($body, '/artikel/home-assistant-integrasi-esp32-mqtt">'), 'Hyperlink Home Assistant #21');
 check(str_contains($body, 'language-python'), 'Blok Python');
 check(str_contains($body, 'language-sql'), 'Blok SQL');
 check(str_contains($body, 'language-bash'), 'Blok bash');

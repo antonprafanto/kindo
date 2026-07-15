@@ -70,26 +70,55 @@ class Article18Seeder extends Seeder
 </blockquote>
 
 <h2>Arsitektur: MQTT → Python → MySQL</h2>
-<pre><code>  [ ESP32 + DHT22 ]
-        | publish JSON (suhu, kelembaban, timestamp, unix)
-        v
-  [ Mosquitto #16 ]  topic: kodingindonesia/esp32/dht22/data
-        |
-        | subscribe (user terpisah: kindo_subscriber)
-        v
-  [ Python + paho-mqtt ]  on_message → parse JSON → INSERT
-        v
-  [ MySQL ]  tabel sensor_readings
-        |
-        +-- Query SQL / phpMyAdmin
-        +-- Grafana (#19) / export CSV</code></pre>
+<figure role="img" aria-label="Diagram pipeline MQTT ke MySQL: ESP32 publish JSON ke Mosquitto, Python subscriber parse dan INSERT ke MySQL, lalu query SQL atau Grafana" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 520" style="display:block;max-width:540px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="pmArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="pmArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="pmArrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="540" height="520" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="160" y="20" width="220" height="70" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="270" y="50" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 + DHT22</text>
+  <text x="270" y="72" text-anchor="middle" fill="#4A5568" font-size="11">publish JSON (suhu · RH · unix)</text>
+  <line x1="270" y1="90" x2="270" y2="118" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#pmArrowOrange)"/>
+  <text x="310" y="110" fill="#FF7A2F" font-size="10" font-weight="700">MQTT ↓</text>
+  <!-- Mosquitto -->
+  <rect x="130" y="125" width="280" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="270" y="155" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Broker Mosquitto</text>
+  <text x="270" y="177" text-anchor="middle" fill="#e3f2fd" font-size="11">topic: kodingindonesia/esp32/dht22/data</text>
+  <line x1="270" y1="195" x2="270" y2="228" stroke="#2979FF" stroke-width="2.5" marker-end="url(#pmArrow)"/>
+  <text x="310" y="218" fill="#2979FF" font-size="10" font-weight="700">subscribe ↓</text>
+  <!-- Python -->
+  <rect x="130" y="235" width="280" height="70" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="270" y="265" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Python + paho-mqtt</text>
+  <text x="270" y="287" text-anchor="middle" fill="#4A5568" font-size="11">on_message → parse JSON → INSERT</text>
+  <line x1="270" y1="305" x2="270" y2="338" stroke="#2979FF" stroke-width="2.5" marker-end="url(#pmArrow)"/>
+  <text x="310" y="328" fill="#2979FF" font-size="10" font-weight="700">INSERT ↓</text>
+  <!-- MySQL -->
+  <rect x="160" y="345" width="220" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="270" y="375" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">MySQL</text>
+  <text x="270" y="397" text-anchor="middle" fill="#e3f2fd" font-size="11">tabel sensor_readings</text>
+  <!-- Output kiri: Query SQL -->
+  <line x1="200" y1="415" x2="200" y2="448" stroke="#2E7D32" stroke-width="2" marker-end="url(#pmArrowGreen)"/>
+  <rect x="100" y="455" width="180" height="40" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2"/>
+  <text x="190" y="480" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Query SQL / phpMyAdmin</text>
+  <!-- Output kanan: Grafana -->
+  <line x1="340" y1="415" x2="340" y2="448" stroke="#2E7D32" stroke-width="2" marker-end="url(#pmArrowGreen)"/>
+  <rect x="260" y="455" width="180" height="40" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2"/>
+  <text x="350" y="480" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Grafana (#19) / CSV</text>
+  <text x="270" y="512" text-anchor="middle" fill="#4A5568" font-size="11">Alur: ESP32 → MQTT → Python → MySQL → visualisasi</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Pipeline MQTT → Python → MySQL — ESP32 publish ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a>; script Python subscribe &amp; INSERT ke MySQL; output ke query SQL atau <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>.</figcaption>
+</figure>
 
-<p><strong>Payload contoh</strong> (dari ESP32 #34):</p>
+<p><strong>Payload contoh</strong> (dari ESP32 <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>):</p>
 <pre><code>{"suhu":28.5,"kelembaban":65.2,"timestamp":"2026-07-02T14:30:00","unix":1782977400}</code></pre>
 
 <h2>Yang Kamu Butuhkan</h2>
 <ul>
-  <li><strong>Raspberry Pi / VPS</strong> — tempat broker (#16) dan MySQL (bisa satu mesin)</li>
+  <li><strong>Raspberry Pi / VPS</strong> — tempat <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker (#16)</a> dan MySQL (bisa satu mesin)</li>
   <li><strong>MySQL 8</strong> atau MariaDB 10.6+</li>
   <li><strong>Python 3.10+</strong> dengan <code>venv</code></li>
   <li>Library: <strong>paho-mqtt</strong>, <strong>mysql-connector-python</strong></li>
@@ -125,7 +154,7 @@ CREATE TABLE IF NOT EXISTS sensor_readings (
 <p>Kolom <code>recorded_at</code> diisi dari field <code>unix</code> payload (UTC epoch) — lebih andal daripada string ISO tanpa timezone.</p>
 
 <h2>User MQTT Subscriber di Mosquitto</h2>
-<p>Pisahkan user subscriber dari publisher ESP32 (<code>kindo_esp32</code> / <code>GANTI_PASSWORD_MQTT</code> di #16):</p>
+<p>Pisahkan user subscriber dari publisher ESP32 (<code>kindo_esp32</code> / <code>GANTI_PASSWORD_MQTT</code> di <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a>):</p>
 <pre><code class="language-bash">sudo mosquitto_passwd /etc/mosquitto/passwd kindo_subscriber
 # masukkan password — jangan sama dengan kindo_esp32
 
@@ -272,12 +301,12 @@ if __name__ == "__main__":
 
 <h2>Penjelasan Bagian Kritis</h2>
 <ol>
-  <li><strong><code>parse_waktu()</code></strong> — pakai <code>unix</code> dari ESP32 (#34) agar urutan waktu konsisten di MySQL.</li>
+  <li><strong><code>parse_waktu()</code></strong> — pakai <code>unix</code> dari ESP32 (<a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>) agar urutan waktu konsisten di MySQL.</li>
   <li><strong>User terpisah</strong> — <code>kindo_subscriber</code> vs <code>kindo_esp32</code>; jangan pakai credential publisher untuk script server.</li>
   <li><strong>QoS 1 subscribe</strong> — pesan sensor tidak hilang saat subscriber offline sebentar (broker retain QoS1 queue).</li>
   <li><strong><code>mysql.connector</code></strong> — koneksi per INSERT sederhana untuk tutorial; production bisa pakai connection pool.</li>
   <li><strong>Topic</strong> — harus sama dengan ESP32: <code>kodingindonesia/esp32/dht22/data</code>.</li>
-  <li><strong>Tanpa timestamp di payload</strong> — script fallback ke <code>utcnow()</code>, tapi sebaiknya ESP32 sudah ikut #34.</li>
+  <li><strong>Tanpa timestamp di payload</strong> — script fallback ke <code>utcnow()</code>, tapi sebaiknya ESP32 sudah ikut <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>.</li>
 </ol>
 
 <h2>Jalankan sebagai Layanan (systemd)</h2>
@@ -348,7 +377,7 @@ LIMIT 24;</code></pre>
   <li>ESP32 publish (atau <code>mosquitto_pub</code> dengan JSON + unix) → log <code>OK INSERT ...</code></li>
   <li>Query SQL menampilkan baris baru dengan <code>recorded_at</code> masuk akal</li>
   <li>Restart Pi → systemd auto-start subscriber</li>
-  <li>Opsional: aktifkan TLS (#17) dan uji port 8883</li>
+  <li>Opsional: aktifkan <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS (#17)</a> dan uji port 8883</li>
 </ol>
 
 <h2>Tips &amp; Troubleshooting</h2>
@@ -356,7 +385,7 @@ LIMIT 24;</code></pre>
   <li><strong>rc=5 MQTT:</strong> User/password salah — cek <code>.env</code> vs <code>/etc/mosquitto/passwd</code></li>
   <li><strong>MySQL Access denied:</strong> Grant belum jalan atau password beda dengan <code>.env</code></li>
   <li><strong>JSON invalid:</strong> Payload bukan UTF-8 JSON — cek ESP32 <code>serializeJson</code></li>
-  <li><strong><code>recorded_at</code> tahun 1970:</strong> Field <code>unix</code> kosong — pastikan ESP32 sudah NTP (#34)</li>
+  <li><strong><code>recorded_at</code> tahun 1970:</strong> Field <code>unix</code> kosong — pastikan ESP32 sudah <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP (#34)</a></li>
   <li><strong>Duplikat banyak:</strong> Normal jika ESP32 publish tiap 10 detik; untuk dedup pakai UNIQUE key opsional</li>
   <li><strong>Connection refused MySQL:</strong> <code>bind-address</code> di <code>mysqld.cnf</code> — untuk lokal pakai 127.0.0.1</li>
   <li><strong>Script mati setelah logout:</strong> Pakai systemd, bukan terminal SSH saja</li>
@@ -379,6 +408,8 @@ LIMIT 24;</code></pre>
   <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto (#16)</a></strong> — fondasi infrastruktur</li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR (#24)</a></strong> — tambah tabel/event gerak dengan pola subscriber sama</li>
   <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a></strong> — perluas kolom tekanan udara di skema MySQL</li>
+  <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — alternatif dashboard smart home</li>
+  <li><strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Capstone greenhouse (#39)</a></strong> — sensor + pompa + subscriber Python</li>
 </ul>
 
 <p>Dengan pipeline MQTT → Python → MySQL, data sensor ESP32 akhirnya tersimpan sebagai histori — langkah berikutnya visualisasi di <strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong>. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
