@@ -70,10 +70,10 @@ class Article19Seeder extends Seeder
   <p><strong>Prasyarat:</strong> Broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto #16</a> jalan, payload JSON dengan <code>unix</code> (<a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>), paham <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>. Disarankan sudah baca <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python → MySQL (#18)</a> untuk membandingkan dua pendekatan penyimpanan.</p>
 </blockquote>
 
-<h2>MySQL (#18) vs InfluxDB — Kapan Pakai Apa?</h2>
+<h2><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">MySQL (#18)</a> vs InfluxDB — Kapan Pakai Apa?</h2>
 <table>
   <thead>
-    <tr><th>Aspek</th><th>MySQL (#18)</th><th>InfluxDB (artikel ini)</th></tr>
+    <tr><th>Aspek</th><th><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">MySQL (#18)</a></th><th>InfluxDB (artikel ini)</th></tr>
   </thead>
   <tbody>
     <tr><td><strong>Kekuatan</strong></td><td>Relasi, JOIN, laporan SQL</td><td>Grafik time-series, retensi otomatis, downsampling</td></tr>
@@ -84,21 +84,50 @@ class Article19Seeder extends Seeder
 </table>
 
 <h2>Arsitektur: MQTT → InfluxDB → Grafana</h2>
-<pre><code>  [ ESP32 + DHT22 ]
-        | publish JSON (suhu, kelembaban, unix)
-        v
-  [ Mosquitto #16 ]  topic: kodingindonesia/esp32/dht22/data
-        |
-        +-- Opsi A: Telegraf (mqtt_consumer) --+
-        |                                        v
-        +-- Opsi B: Python influxdb-client ----+--&gt; [ InfluxDB 2 ] bucket: iot_sensors
-                                                   |
-                                                   v
-                                            [ Grafana :3000 ]
-                                                   |
-                                                   +-- Panel suhu / kelembaban 24 jam</code></pre>
+<figure role="img" aria-label="Diagram pipeline MQTT ke Grafana: ESP32 publish ke Mosquitto, lalu Telegraf atau Python tulis ke InfluxDB, Grafana tampilkan panel suhu dan kelembaban" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" style="display:block;max-width:920px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="igArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="igArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="igArrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="920" height="380" fill="#F5F5F0" rx="6"/>
+  <rect x="24" y="40" width="180" height="90" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="114" y="72" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 + DHT22</text>
+  <text x="114" y="94" text-anchor="middle" fill="#4A5568" font-size="11">publish JSON</text>
+  <text x="114" y="114" text-anchor="middle" fill="#718096" font-size="11">suhu · RH · unix</text>
+  <line x1="204" y1="85" x2="268" y2="85" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#igArrowOrange)"/>
+  <text x="236" y="76" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">MQTT →</text>
+  <rect x="274" y="40" width="210" height="90" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="379" y="72" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Broker Mosquitto</text>
+  <text x="379" y="94" text-anchor="middle" fill="#e3f2fd" font-size="11">192.168.1.50:1883</text>
+  <text x="379" y="114" text-anchor="middle" fill="#cfe4ff" font-size="11">topic Seri 2</text>
+  <line x1="379" y1="130" x2="379" y2="168" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
+  <text x="404" y="156" fill="#2979FF" font-size="11" font-weight="700">subscribe ↓</text>
+  <rect x="24" y="178" width="220" height="70" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="134" y="208" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Opsi A · Telegraf</text>
+  <text x="134" y="228" text-anchor="middle" fill="#4A5568" font-size="11">mqtt_consumer → write</text>
+  <rect x="264" y="178" width="220" height="70" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="374" y="208" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Opsi B · Python</text>
+  <text x="374" y="228" text-anchor="middle" fill="#4A5568" font-size="11">influxdb-client</text>
+  <line x1="244" y1="200" x2="530" y2="200" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
+  <line x1="484" y1="226" x2="530" y2="226" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
+  <text x="508" y="192" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">write →</text>
+  <rect x="536" y="168" width="200" height="90" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="636" y="200" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">InfluxDB 2</text>
+  <text x="636" y="222" text-anchor="middle" fill="#e3f2fd" font-size="11">bucket iot_sensors</text>
+  <text x="636" y="242" text-anchor="middle" fill="#cfe4ff" font-size="11">measurement dht22</text>
+  <line x1="636" y1="258" x2="636" y2="292" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#igArrowGreen)"/>
+  <text x="660" y="280" fill="#2E7D32" font-size="11" font-weight="700">query ↓</text>
+  <rect x="500" y="300" width="272" height="50" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
+  <text x="636" y="322" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Grafana :3000</text>
+  <text x="636" y="340" text-anchor="middle" fill="#4A5568" font-size="11">panel suhu &amp; kelembaban 24 jam</text>
+  <text x="460" y="368" text-anchor="middle" fill="#4A5568" font-size="11">Alur: ESP32 publish MQTT → ingest Telegraf/Python → InfluxDB → Grafana</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram pipeline MQTT → InfluxDB → Grafana — ESP32 publish ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a>; pilih Telegraf atau Python (#18-style) untuk tulis ke InfluxDB; Grafana query bucket untuk grafik.</figcaption>
+</figure>
 
-<p><strong>Payload contoh</strong> (sama dengan #18 / #34):</p>
+<p><strong>Payload contoh</strong> (sama dengan <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a> / <a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>):</p>
 <pre><code>{"suhu":28.5,"kelembaban":65.2,"timestamp":"2026-07-02T14:30:00","unix":1782977400}</code></pre>
 
 <h2>Yang Kamu Butuhkan</h2>
@@ -106,7 +135,7 @@ class Article19Seeder extends Seeder
   <li><strong>Raspberry Pi 4 / VPS</strong> — minimal 2 GB RAM (InfluxDB + Grafana + Mosquitto bisa satu mesin)</li>
   <li><strong>Docker</strong> + Docker Compose</li>
   <li><strong>InfluxDB 2.7</strong>, <strong>Grafana</strong>, <strong>Telegraf</strong> (opsi A)</li>
-  <li>Atau <strong>Python 3.10+</strong> + <code>influxdb-client</code> (opsi B, mirip #18)</li>
+  <li>Atau <strong>Python 3.10+</strong> + <code>influxdb-client</code> (opsi B, mirip <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a>)</li>
   <li>Broker <code>192.168.1.50:1883</code>, user subscriber <code>kindo_subscriber</code> dari <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a></li>
 </ul>
 
@@ -189,7 +218,7 @@ docker compose ps</code></pre>
   json_time_format = "unix"
   name_override = "dht22"</code></pre>
 
-<p>Field <code>suhu</code> dan <code>kelembaban</code> dari JSON otomatis jadi field InfluxDB; timestamp dari <code>unix</code> (#34).</p>
+<p>Field <code>suhu</code> dan <code>kelembaban</code> dari JSON otomatis jadi field InfluxDB; timestamp dari <code>unix</code> (<a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>).</p>
 
 <pre><code class="language-bash">docker compose restart telegraf
 docker logs kindo-telegraf --tail 20</code></pre>
@@ -264,7 +293,7 @@ from(bucket: "iot_sensors")
 </table>
 
 <blockquote>
-  <p><strong>Pro tip:</strong> Set timezone dashboard ke <strong>Asia/Jakarta</strong> (Dashboard settings → General) agar sumbu waktu cocok dengan <code>timestamp</code> lokal ESP32 (#34).</p>
+  <p><strong>Pro tip:</strong> Set timezone dashboard ke <strong>Asia/Jakarta</strong> (Dashboard settings → General) agar sumbu waktu cocok dengan <code>timestamp</code> lokal ESP32 (<a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">#34</a>).</p>
 </blockquote>
 
 <p>Untuk variabel dashboard yang bisa dipakai ulang, simpan query Flux sebagai <strong>Dashboard variable</strong> (mis. <code>$measurement</code> = <code>dht22</code> atau <code>bme280</code> dari <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">#13</a>). Panel Stat bisa menampilkan <em>Last value</em> dengan unit <code>°C</code> dan <code>%</code> — cocok dipantau dari HP di jaringan LAN.</p>
@@ -287,13 +316,13 @@ from(bucket: "iot_sensors")
 <p>MySQL dari <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a> bisa tetap menyimpan arsip jangka panjang sementara InfluxDB fokus grafik operasional harian — kombinasi yang umum di proyek IoT skala kecil hingga menengah.</p>
 
 <h2>Alert Grafana (Opsional)</h2>
-<p>Grafana mendukung <strong>alert rules</strong> — misalnya notifikasi Telegram atau email jika suhu &gt; 35 °C lebih dari 10 menit. Buat rule dari panel Time series → <strong>Alert</strong> → New alert rule. Query Flux sama seperti panel; set threshold dan contact point di <strong>Alerting → Contact points</strong>. Fitur ini berguna untuk greenhouse (#39) atau cold storage tanpa coding tambahan — melengkapi otomasi visual <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a>.</p>
+<p>Grafana mendukung <strong>alert rules</strong> — misalnya notifikasi Telegram atau email jika suhu &gt; 35 °C lebih dari 10 menit. Buat rule dari panel Time series → <strong>Alert</strong> → New alert rule. Query Flux sama seperti panel; set threshold dan contact point di <strong>Alerting → Contact points</strong>. Fitur ini berguna untuk <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> atau cold storage tanpa coding tambahan — melengkapi otomasi visual <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a>.</p>
 
 <h2>Auto-start Setelah Reboot Raspberry Pi</h2>
 <p>Docker Compose dengan <code>restart: unless-stopped</code> sudah cukup jika daemon Docker aktif saat boot. Pastikan:</p>
 <pre><code class="language-bash">sudo systemctl enable docker
 cd ~/kindo-iot-stack && docker compose up -d</code></pre>
-<p>Setelah power cycle Pi, tunggu ~60 detik lalu buka Grafana — stack harus hidup otomatis. Telegraf akan reconnect ke MQTT broker #16 begitu jaringan siap; tidak perlu SSH manual setiap reboot kecuali ada perubahan <code>telegraf.conf</code>.</p>
+<p>Setelah power cycle Pi, tunggu ~60 detik lalu buka Grafana — stack harus hidup otomatis. Telegraf akan reconnect ke MQTT <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker #16</a> begitu jaringan siap; tidak perlu SSH manual setiap reboot kecuali ada perubahan <code>telegraf.conf</code>.</p>
 
 <h2>Opsi Bonus: Grafana + MySQL (Lanjutan #18)</h2>
 <p>Jika sudah punya data di tabel <code>sensor_readings</code> MySQL, Grafana juga bisa pakai <strong>MySQL datasource</strong> tanpa InfluxDB:</p>
@@ -311,7 +340,7 @@ ORDER BY recorded_at;</code></pre>
 <ol>
   <li><strong><code>json_time_key = "unix"</code></strong> — waktu titik data = waktu sensor, bukan waktu Telegraf menerima pesan.</li>
   <li><strong><code>name_override = "dht22"</code></strong> — measurement InfluxDB konsisten untuk query Flux.</li>
-  <li><strong>User <code>kindo_subscriber</code></strong> — sama dengan #18; jangan pakai credential publisher ESP32.</li>
+  <li><strong>User <code>kindo_subscriber</code></strong> — sama dengan <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a>; jangan pakai credential publisher ESP32.</li>
   <li><strong>Topic</strong> — harus <code>kodingindonesia/esp32/dht22/data</code> (konsisten Seri 2).</li>
   <li><strong>Retensi bucket</strong> — atur di InfluxDB (mis. 30 hari) agar disk Pi tidak penuh.</li>
   <li><strong>Grafana vs <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a></strong> — Grafana fokus histori/grafik; Node-RED fokus otomasi visual.</li>
@@ -337,7 +366,7 @@ ORDER BY recorded_at;</code></pre>
   <li><strong>Telegraf tidak reach Mosquitto:</strong> Dari container Docker, <code>localhost</code> bukan host Pi — pakai IP LAN host (<code>192.168.1.50</code>) atau tambahkan <code>extra_hosts: ["host.docker.internal:host-gateway"]</code> lalu <code>tcp://host.docker.internal:1883</code></li>
   <li><strong>Disk penuh:</strong> Kurangi retensi bucket atau turunkan frekuensi publish ESP32</li>
   <li><strong>Port 3000 bentrok:</strong> Ubah mapping <code>"3001:3000"</code> di compose</li>
-  <li><strong>Data dobel MySQL + Influx:</strong> Normal jika jalankan #18 dan Telegraf bersamaan — atau pilih satu penyimpanan utama</li>
+  <li><strong>Data dobel MySQL + Influx:</strong> Normal jika jalankan <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a> dan Telegraf bersamaan — atau pilih satu penyimpanan utama</li>
 </ul>
 
 <h2>Keamanan &amp; Produksi</h2>
@@ -356,7 +385,7 @@ ORDER BY recorded_at;</code></pre>
   <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a></strong> — tambah field tekanan di measurement <code>bme280</code></li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR (#24)</a></strong> — panel event gerak di Grafana</li>
   <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT (#28)</a></strong> — sensor kebun tanpa WiFi masuk panel Grafana ini</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — sensor + pompa + dashboard Grafana</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — sensor + pompa + dashboard Grafana</li>
 </ul>
 
 <p>Dengan InfluxDB dan Grafana, histori sensor ESP32 akhirnya <strong>terlihat</strong> — grafik interaktif siap dipantau dari browser. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
