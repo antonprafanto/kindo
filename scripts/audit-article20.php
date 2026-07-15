@@ -77,6 +77,11 @@ $requiredLinks = [
     'sensor-gerak-pir-esp32-lampu-mqtt-debounce'                   => 'Artikel #24 PIR',
     'deep-sleep-esp32-sensor-dht22-hemat-baterai'                  => 'Artikel #11 deep sleep',
     'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode' => 'Artikel #12 NVS',
+    'dashboard-esp32-web-server-mqtt-monitoring-dht22'               => 'Artikel #10 Capstone',
+    'esp-now-kirim-data-antar-esp32-tanpa-router-wifi'               => 'Artikel #25 ESP-NOW',
+    'lora-esp32-modul-sx1278-kirim-data-jarak-jauh'                  => 'Artikel #26 LoRa',
+    'esp32-cam-streaming-mjpeg-capture-foto-wifi'                    => 'Artikel #27 ESP32-CAM',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -99,6 +104,12 @@ check(str_contains($body, '2026-07-02T14:30:00'), 'ISO timestamp konsisten #34')
 check(str_contains($body, 'Arsitektur Hybrid'), 'Section hybrid');
 check(str_contains($body, 'Estimasi Biaya'), 'Estimasi biaya');
 check(str_contains($body, '/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi'), 'Link ESP-NOW #25');
+check(str_contains($body, '<svg') && str_contains($body, 'Pola A — ESP32 hybrid lokal'), 'Diagram hybrid REST/MQTT SVG');
+check(str_contains($body, 'REST (pull) — klien yang memulai'), 'Diagram perbandingan REST vs MQTT SVG');
+check(! str_contains($body, '[ ESP32 ]'), 'Tidak ada diagram ASCII hybrid');
+check(! str_contains($body, '[Browser]'), 'Tidak ada diagram ASCII REST pull');
+check(str_contains($body, '/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>'), 'Hyperlink greenhouse #39');
+check(str_contains($body, '#20 (ini)'), 'Self-ref #20 (ini) tanpa hyperlink');
 check(str_contains($body, 'language-cpp'), 'Blok C++');
 check(str_contains($body, 'Pro tip'), 'Pro tip');
 check(str_contains($body, 'Keamanan'), 'Section keamanan');
