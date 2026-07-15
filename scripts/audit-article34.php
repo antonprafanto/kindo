@@ -71,7 +71,11 @@ $requiredLinks = [
     'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode' => 'Artikel #12 NVS',
     'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32'  => 'Artikel #16 broker',
     'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                    => 'Artikel #17 TLS',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'          => 'Artikel #18 Python',
+    'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'           => 'Artikel #19 Grafana',
+    'home-assistant-integrasi-esp32-mqtt'                           => 'Artikel #21 HA',
     'sensor-gerak-pir-esp32-lampu-mqtt-debounce'                     => 'Artikel #24 PIR',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 Greenhouse',
     'membaca-sensor-dht22-suhu-kelembaban-esp32'                     => 'Artikel DHT22',
 ];
 
@@ -103,6 +107,9 @@ check(str_contains($body, 'sinkronisasiNTP'), 'Fungsi sinkronisasiNTP');
 check(str_contains($body, 'UDP'), 'Port/protokol UDP NTP');
 check(str_contains($body, '/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'), 'Link/hyperlink Python #18');
 check(str_contains($body, '/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'), 'Link/hyperlink InfluxDB #19');
+check(str_contains($body, '<svg') && str_contains($body, 'Broker Mosquitto'), 'Diagram arsitektur NTP SVG');
+check(! str_contains($body, '[ ESP32 ]'), 'Tidak ada diagram ASCII arsitektur');
+check(str_contains($body, '/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">'), 'Hyperlink greenhouse #39');
 check(str_contains($body, 'language-bash'), 'Blok bash mosquitto_sub');
 check(str_contains($body, 'language-arduino'), 'Blok Arduino');
 check(str_contains($body, 'Pro tip'), 'Pro tip');

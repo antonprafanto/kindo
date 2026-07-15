@@ -111,16 +111,58 @@ class Article34Seeder extends Seeder
 <p><strong>Estimasi biaya:</strong> Rp 0 (NTP publik gratis; tidak ada komponen baru jika sudah punya stack MQTT).</p>
 
 <h2>Arsitektur: WiFi → NTP → Sensor → MQTT</h2>
-<pre><code>  [ ESP32 ]
-      | 1) WiFi connect
-      | 2) configTime() → pool.ntp.org (UDP :123)
-      | 3) Baca DHT22
-      | 4) JSON + timestamp → MQTT publish
-      v
-  [ Mosquitto #16 ]
-      |
-      +-- Subscriber Python (#18) — INSERT dengan kolom waktu
-      +-- Home Assistant (#21) — entity dengan last_changed akurat</code></pre>
+<figure role="img" aria-label="Diagram arsitektur NTP: ESP32 sinkron waktu via NTP, baca DHT22, publish JSON+timestamp ke Mosquitto, lalu ke subscriber Python dan Home Assistant" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 520" style="display:block;max-width:600px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="ntpArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="ntpArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="ntpArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="600" height="520" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="170" y="15" width="260" height="95" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="300" y="42" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32</text>
+  <text x="300" y="62" text-anchor="middle" fill="#4A5568" font-size="10">1) WiFi connect</text>
+  <text x="300" y="76" text-anchor="middle" fill="#4A5568" font-size="10">2) configTime() → pool.ntp.org</text>
+  <text x="300" y="90" text-anchor="middle" fill="#4A5568" font-size="10">3) Baca DHT22 → 4) JSON + timestamp</text>
+  <text x="300" y="104" text-anchor="middle" fill="#FF7A2F" font-size="10" font-weight="700">↓ MQTT publish</text>
+  <!-- Arrow ESP32 → Mosquitto -->
+  <line x1="300" y1="110" x2="300" y2="148" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#ntpArrO)"/>
+  <!-- Mosquitto -->
+  <rect x="130" y="155" width="340" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="300" y="185" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Broker Mosquitto</text>
+  <text x="300" y="207" text-anchor="middle" fill="#e3f2fd" font-size="11">topic: kodingindonesia/esp32/dht22/data</text>
+  <!-- Arrows Mosquitto → outputs -->
+  <line x1="210" y1="225" x2="160" y2="278" stroke="#2E7D32" stroke-width="2" marker-end="url(#ntpArrG)"/>
+  <line x1="390" y1="225" x2="440" y2="278" stroke="#2E7D32" stroke-width="2" marker-end="url(#ntpArrG)"/>
+  <!-- Subscriber Python -->
+  <rect x="20" y="285" width="280" height="55" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="160" y="310" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Subscriber Python (#18)</text>
+  <text x="160" y="328" text-anchor="middle" fill="#4A5568" font-size="10">INSERT dengan kolom waktu → MySQL</text>
+  <!-- Home Assistant -->
+  <rect x="320" y="285" width="260" height="55" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="450" y="310" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Home Assistant (#21)</text>
+  <text x="450" y="328" text-anchor="middle" fill="#4A5568" font-size="10">entity dengan last_changed akurat</text>
+  <!-- NTP server (cloud icon kanan atas) -->
+  <rect x="460" y="20" width="120" height="50" rx="20" fill="#E3F2FD" stroke="#2979FF" stroke-width="2"/>
+  <text x="520" y="42" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">pool.ntp.org</text>
+  <text x="520" y="56" text-anchor="middle" fill="#4A5568" font-size="9">UDP :123</text>
+  <!-- Arrow NTP → ESP32 -->
+  <line x1="460" y1="50" x2="432" y2="55" stroke="#2979FF" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ntpArr)"/>
+  <!-- Payload contoh di bawah -->
+  <rect x="60" y="370" width="480" height="50" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="300" y="390" text-anchor="middle" fill="#4A5568" font-size="10">Payload JSON:</text>
+  <text x="300" y="408" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="600">{"suhu":28.5,"kelembaban":65.2,"timestamp":"2026-07-02T14:30:00","unix":1782977400}</text>
+  <!-- Summary -->
+  <text x="300" y="450" text-anchor="middle" fill="#4A5568" font-size="11">Alur: WiFi → NTP sync → baca sensor → JSON + timestamp → MQTT publish</text>
+  <!-- DHT22 kiri atas -->
+  <rect x="20" y="35" width="120" height="45" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="1.5"/>
+  <text x="80" y="55" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">DHT22</text>
+  <text x="80" y="70" text-anchor="middle" fill="#4A5568" font-size="9">suhu · kelembaban</text>
+  <line x1="140" y1="57" x2="168" y2="57" stroke="#1a1a1a" stroke-width="1.5" marker-end="url(#ntpArr)"/>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">ESP32 sinkron waktu via NTP, baca DHT22, publish JSON+timestamp ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> — data masuk <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python (#18)</a> → MySQL atau <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>.</figcaption>
+</figure>
 
 <p><strong>Topic</strong> (konsisten Seri 2): <code>kodingindonesia/esp32/dht22/data</code></p>
 <p><strong>Payload contoh:</strong></p>
@@ -315,8 +357,8 @@ void loop() {
   <li><strong><code>timestamp</code> + <code>unix</code></strong> — ISO lokal (tanpa suffix <code>+07:00</code>) untuk dashboard manusia; Unix UTC untuk query SQL/Grafana di <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">#18</a> / <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">#19</a>.</li>
   <li><strong>Max 5 percobaan MQTT</strong> — <code>koneksiMQTT()</code> tidak block <code>loop()</code> selamanya jika broker down (pola sama <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">#17</a>).</li>
   <li><strong><code>setBufferSize(512)</code></strong> — JSON lebih panjang setelah tambah field waktu.</li>
-  <li><strong>Broker #16</strong> — ganti ke port <code>8883</code> + TLS jika sudah ikut <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">artikel #17</a>.</li>
-  <li><strong>Deep sleep (#11):</strong> sinkronkan NTP <strong>tiap bangun</strong> — RTC tidak menyimpan zona waktu setelah reset penuh.</li>
+  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker #16</a></strong> — ganti ke port <code>8883</code> + TLS jika sudah ikut <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">artikel #17</a>.</li>
+  <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep (#11)</a>:</strong> sinkronkan NTP <strong>tiap bangun</strong> — RTC tidak menyimpan zona waktu setelah reset penuh.</li>
 </ol>
 
 <h2>Integrasi Deep Sleep &amp; Node Lapangan</h2>
@@ -367,6 +409,7 @@ void loop() {
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan transport sebelum subscriber cloud</li>
   <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep (#11)</a></strong> — gabung NTP tiap siklus bangun</li>
   <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a></strong> — simpan offset zona / host NTP opsional</li>
+  <li><strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Capstone greenhouse (#39)</a></strong> — setiap node kirim <code>unix</code> untuk log aktuator</li>
 </ul>
 
 <blockquote>
