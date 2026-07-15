@@ -71,44 +71,44 @@ class Article18Seeder extends Seeder
 
 <h2>Arsitektur: MQTT → Python → MySQL</h2>
 <figure role="img" aria-label="Diagram pipeline MQTT ke MySQL: ESP32 publish JSON ke Mosquitto, Python subscriber parse dan INSERT ke MySQL, lalu query SQL atau Grafana" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 520" style="display:block;max-width:540px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 530" style="display:block;max-width:640px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="pmArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
     <marker id="pmArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
     <marker id="pmArrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
   </defs>
-  <rect x="0" y="0" width="540" height="520" fill="#F5F5F0" rx="6"/>
+  <rect x="0" y="0" width="640" height="530" fill="#F5F5F0" rx="6"/>
   <!-- ESP32 -->
-  <rect x="160" y="20" width="220" height="70" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="270" y="50" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 + DHT22</text>
-  <text x="270" y="72" text-anchor="middle" fill="#4A5568" font-size="11">publish JSON (suhu · RH · unix)</text>
-  <line x1="270" y1="90" x2="270" y2="118" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#pmArrowOrange)"/>
-  <text x="310" y="110" fill="#FF7A2F" font-size="10" font-weight="700">MQTT ↓</text>
+  <rect x="200" y="20" width="240" height="70" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="320" y="50" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 + DHT22</text>
+  <text x="320" y="72" text-anchor="middle" fill="#4A5568" font-size="11">publish JSON (suhu · RH · unix)</text>
+  <line x1="320" y1="90" x2="320" y2="118" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#pmArrowOrange)"/>
+  <text x="362" y="110" fill="#FF7A2F" font-size="10" font-weight="700">MQTT ↓</text>
   <!-- Mosquitto -->
-  <rect x="130" y="125" width="280" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="270" y="155" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Broker Mosquitto</text>
-  <text x="270" y="177" text-anchor="middle" fill="#e3f2fd" font-size="11">topic: kodingindonesia/esp32/dht22/data</text>
-  <line x1="270" y1="195" x2="270" y2="228" stroke="#2979FF" stroke-width="2.5" marker-end="url(#pmArrow)"/>
-  <text x="310" y="218" fill="#2979FF" font-size="10" font-weight="700">subscribe ↓</text>
+  <rect x="150" y="125" width="340" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="320" y="155" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Broker Mosquitto</text>
+  <text x="320" y="177" text-anchor="middle" fill="#e3f2fd" font-size="11">topic: kodingindonesia/esp32/dht22/data</text>
+  <line x1="320" y1="195" x2="320" y2="228" stroke="#2979FF" stroke-width="2.5" marker-end="url(#pmArrow)"/>
+  <text x="362" y="218" fill="#2979FF" font-size="10" font-weight="700">subscribe ↓</text>
   <!-- Python -->
-  <rect x="130" y="235" width="280" height="70" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
-  <text x="270" y="265" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Python + paho-mqtt</text>
-  <text x="270" y="287" text-anchor="middle" fill="#4A5568" font-size="11">on_message → parse JSON → INSERT</text>
-  <line x1="270" y1="305" x2="270" y2="338" stroke="#2979FF" stroke-width="2.5" marker-end="url(#pmArrow)"/>
-  <text x="310" y="328" fill="#2979FF" font-size="10" font-weight="700">INSERT ↓</text>
+  <rect x="150" y="235" width="340" height="70" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="320" y="265" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Python + paho-mqtt</text>
+  <text x="320" y="287" text-anchor="middle" fill="#4A5568" font-size="11">on_message → parse JSON → INSERT</text>
+  <line x1="320" y1="305" x2="320" y2="338" stroke="#2979FF" stroke-width="2.5" marker-end="url(#pmArrow)"/>
+  <text x="362" y="328" fill="#2979FF" font-size="10" font-weight="700">INSERT ↓</text>
   <!-- MySQL -->
-  <rect x="160" y="345" width="220" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="270" y="375" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">MySQL</text>
-  <text x="270" y="397" text-anchor="middle" fill="#e3f2fd" font-size="11">tabel sensor_readings</text>
+  <rect x="200" y="345" width="240" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="320" y="375" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">MySQL</text>
+  <text x="320" y="397" text-anchor="middle" fill="#e3f2fd" font-size="11">tabel sensor_readings</text>
   <!-- Output kiri: Query SQL -->
-  <line x1="200" y1="415" x2="200" y2="448" stroke="#2E7D32" stroke-width="2" marker-end="url(#pmArrowGreen)"/>
-  <rect x="100" y="455" width="180" height="40" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2"/>
-  <text x="190" y="480" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Query SQL / phpMyAdmin</text>
+  <line x1="250" y1="415" x2="155" y2="453" stroke="#2E7D32" stroke-width="2" marker-end="url(#pmArrowGreen)"/>
+  <rect x="25" y="460" width="260" height="40" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2"/>
+  <text x="155" y="485" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Query SQL / phpMyAdmin</text>
   <!-- Output kanan: Grafana -->
-  <line x1="340" y1="415" x2="340" y2="448" stroke="#2E7D32" stroke-width="2" marker-end="url(#pmArrowGreen)"/>
-  <rect x="260" y="455" width="180" height="40" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2"/>
-  <text x="350" y="480" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Grafana (#19) / CSV</text>
-  <text x="270" y="512" text-anchor="middle" fill="#4A5568" font-size="11">Alur: ESP32 → MQTT → Python → MySQL → visualisasi</text>
+  <line x1="390" y1="415" x2="485" y2="453" stroke="#2E7D32" stroke-width="2" marker-end="url(#pmArrowGreen)"/>
+  <rect x="355" y="460" width="260" height="40" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2"/>
+  <text x="485" y="485" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Grafana (#19) / CSV</text>
+  <text x="320" y="522" text-anchor="middle" fill="#4A5568" font-size="11">Alur: ESP32 → MQTT → Python → MySQL → visualisasi</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Pipeline MQTT → Python → MySQL — ESP32 publish ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a>; script Python subscribe &amp; INSERT ke MySQL; output ke query SQL atau <a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">Grafana (#19)</a>.</figcaption>
 </figure>
