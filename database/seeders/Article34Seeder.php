@@ -150,9 +150,10 @@ class Article34Seeder extends Seeder
   <!-- Arrow NTP → ESP32 -->
   <line x1="460" y1="50" x2="432" y2="55" stroke="#2979FF" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ntpArr)"/>
   <!-- Payload contoh di bawah -->
-  <rect x="60" y="370" width="480" height="50" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
-  <text x="300" y="390" text-anchor="middle" fill="#4A5568" font-size="10">Payload JSON:</text>
-  <text x="300" y="408" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="600">{"suhu":28.5,"kelembaban":65.2,"timestamp":"2026-07-02T14:30:00","unix":1782977400}</text>
+  <rect x="15" y="365" width="570" height="60" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="300" y="385" text-anchor="middle" fill="#4A5568" font-size="10">Payload JSON:</text>
+  <text x="300" y="402" text-anchor="middle" fill="#1a1a1a" font-size="9.5" font-weight="600">{"suhu":28.5,"kelembaban":65.2,</text>
+  <text x="300" y="416" text-anchor="middle" fill="#1a1a1a" font-size="9.5" font-weight="600">"timestamp":"2026-07-02T14:30:00","unix":1782977400}</text>
   <!-- Summary -->
   <text x="300" y="450" text-anchor="middle" fill="#4A5568" font-size="11">Alur: WiFi → NTP sync → baca sensor → JSON + timestamp → MQTT publish</text>
   <!-- DHT22 kiri atas -->
