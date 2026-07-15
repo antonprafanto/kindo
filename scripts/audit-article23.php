@@ -75,12 +75,32 @@ $requiredLinks = [
     'home-assistant-integrasi-esp32-mqtt'                          => 'Artikel #21 Home Assistant',
     'esphome-flash-esp32-tanpa-coding-arduino'                       => 'Artikel #22 ESPHome',
     'kontrol-lampu-esp32-mqtt-relay'                                 => 'Artikel #8 relay',
+    'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                      => 'Artikel #13 BME280',
+    'sensor-gerak-pir-esp32-lampu-mqtt-debounce'                     => 'Artikel #24 PIR',
+    'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                      => 'Artikel #17 TLS',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'        => 'Artikel #18 Python',
+    'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'         => 'Artikel #19 Grafana',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'        => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
     check(str_contains($body, '/artikel/' . $linkSlug), "Link internal: {$label}");
     check(Article::where('slug', $linkSlug)->exists(), "Target exists: {$linkSlug}");
 }
+
+check(str_contains($body, '<svg'), 'SVG diagram alur data ada');
+check(str_contains($body, 'Mosquitto (#16)'), 'SVG: teks Mosquitto (#16)');
+check(str_contains($body, 'Node-RED :1880'), 'SVG: teks Node-RED :1880');
+check(str_contains($body, 'Automasi Suhu'), 'SVG: teks Automasi Suhu');
+check(! str_contains($body, '[ ESP32 — DHT22 + relay ]'), 'ASCII diagram sudah dihapus');
+check(! str_contains($body, '+-- dashboard: gauge'), 'ASCII diagram sudah dihapus (+-- dashboard)');
+
+check(str_contains($body, 'Mosquitto pribadi (#16)</a></strong>'), 'Hyperlink #16 di Pendahuluan');
+check(str_contains($body, '<th><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></th>'), 'Hyperlink #21 di header tabel');
+check(str_contains($body, '<th><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></th>'), 'Hyperlink #22 di header tabel');
+check(str_contains($body, 'di <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>, tapi'), 'Hyperlink #21 di paragraf automasi');
+check(str_contains($body, 'broker pribadi <a href'), 'Hyperlink #16 di Troubleshooting');
+check(str_contains($body, 'greenhouse (#39)</a>'), 'Hyperlink greenhouse #39 di Langkah Selanjutnya');
 
 check(str_contains($body, 'Node-RED'), 'Menyebut Node-RED');
 check(str_contains($body, 'Jalur C'), 'Menyebut Jalur C');
@@ -169,7 +189,7 @@ $a8 = Article::where('slug', 'kontrol-lampu-esp32-mqtt-relay')->first();
 check($a8 !== null, 'Artikel #8 ada');
 check(str_contains($a8?->body ?? '', 'node-red-dashboard-otomasi-iot-mqtt-esp32'), 'Artikel #8 backlink → #23');
 
-check(str_contains($a10?->body ?? '', 'dua puluh tiga artikel'), 'Artikel #10 teks dua puluh tiga artikel');
+check(str_contains($a10?->body ?? '', 'dua puluh empat artikel'), 'Artikel #10 teks dua puluh empat artikel');
 
 echo "\n=== Post-deploy (manual) ===\n";
 echo "○ Upload cover image via Filament (daftar artikel → Upload Cover)\n";
