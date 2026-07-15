@@ -73,12 +73,30 @@ $requiredLinks = [
     'home-assistant-integrasi-esp32-mqtt'                          => 'Artikel #21 Home Assistant',
     'node-red-dashboard-otomasi-iot-mqtt-esp32'                      => 'Artikel #23 Node-RED',
     'gabungkan-dht22-relay-mqtt-esp32-satu-proyek'                   => 'Artikel #9 gabungan',
+    'esphome-flash-esp32-tanpa-coding-arduino'                       => 'Artikel #22 ESPHome',
+    'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode' => 'Artikel #12 NVS',
+    'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                      => 'Artikel #17 TLS',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'        => 'Artikel #18 Python',
+    'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'         => 'Artikel #19 Grafana',
+    'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'             => 'Artikel #34 NTP',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'        => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
     check(str_contains($body, '/artikel/' . $linkSlug), "Link internal: {$label}");
     check(Article::where('slug', $linkSlug)->exists(), "Target exists: {$linkSlug}");
 }
+
+check(str_contains($body, '<svg'), 'SVG diagram arsitektur ada');
+check(str_contains($body, 'Mosquitto #16'), 'SVG: teks Mosquitto #16');
+check(str_contains($body, 'HC-SR501 PIR'), 'SVG: teks HC-SR501 PIR');
+check(str_contains($body, 'Home Assistant (#21)'), 'SVG: Home Assistant (#21)');
+check(str_contains($body, 'Node-RED (#23)'), 'SVG: Node-RED (#23)');
+check(! str_contains($body, '[ HC-SR501 PIR ]'), 'ASCII diagram sudah dihapus ([ HC-SR501 PIR ])');
+check(! str_contains($body, '+-- Home Assistant'), 'ASCII diagram sudah dihapus (+-- Home Assistant)');
+
+check(str_contains($body, 'broker pribadi <a href'), 'Hyperlink #16 di Troubleshooting');
+check(str_contains($body, 'greenhouse (#39)</a>'), 'Hyperlink greenhouse #39 di Langkah Selanjutnya');
 
 check(str_contains($body, 'Jalur C'), 'Menyebut Jalur C');
 check(str_contains($body, 'HC-SR501'), 'Modul PIR HC-SR501');

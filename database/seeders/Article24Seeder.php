@@ -93,18 +93,56 @@ class Article24Seeder extends Seeder
 </table>
 
 <h2>Arsitektur: PIR → ESP32 → Mosquitto → Smart Home</h2>
-<pre><code>  [ HC-SR501 PIR ]
-      |  GPIO interrupt (RISING)
-      v
-  [ ESP32 ]
-      |  relay GPIO 26 → lampu
-      |  publish: kodingindonesia/esp32/pir/gerak  (JSON)
-      |  subscribe: kodingindonesia/esp32/lampu/kontrol  (ON/OFF/AUTO)
-      v
-  [ Mosquitto #16 ]
-      |
-      +-- Home Assistant (#21) — binary_sensor + switch
-      +-- Node-RED (#23) — automasi visual</code></pre>
+<figure role="img" aria-label="Diagram arsitektur PIR: sensor HC-SR501 memicu interrupt di ESP32, ESP32 mengontrol relay lampu dan publish ke Mosquitto, lalu ke Home Assistant dan Node-RED" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 480" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="pirArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="pirArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="pirArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+    <marker id="pirArrR" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#C62828"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="480" fill="#F5F5F0" rx="6"/>
+  <!-- PIR sensor -->
+  <rect x="195" y="15" width="230" height="55" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="38" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">HC-SR501 PIR</text>
+  <text x="310" y="56" text-anchor="middle" fill="#4A5568" font-size="10">sensor gerak · output digital</text>
+  <!-- Arrow PIR → ESP32 -->
+  <line x1="310" y1="70" x2="310" y2="108" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#pirArrO)"/>
+  <text x="355" y="95" fill="#FF7A2F" font-size="10" font-weight="700">GPIO 27 interrupt ↓</text>
+  <!-- ESP32 -->
+  <rect x="130" y="115" width="360" height="90" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="142" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32</text>
+  <text x="310" y="162" text-anchor="middle" fill="#4A5568" font-size="10">debounce 50 ms · hold time 60 s · mode AUTO/ON/OFF</text>
+  <text x="310" y="178" text-anchor="middle" fill="#4A5568" font-size="10">publish: .../pir/gerak   subscribe: .../lampu/kontrol</text>
+  <text x="310" y="194" text-anchor="middle" fill="#4A5568" font-size="10">relay GPIO 26 → lampu</text>
+  <!-- Relay/lampu output (kiri) -->
+  <line x1="130" y1="160" x2="50" y2="160" stroke="#C62828" stroke-width="2.5" marker-end="url(#pirArrR)"/>
+  <rect x="10" y="140" width="45" height="40" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="32" y="157" text-anchor="middle" fill="#C62828" font-size="9" font-weight="700">Relay</text>
+  <text x="32" y="170" text-anchor="middle" fill="#C62828" font-size="8">Lampu</text>
+  <!-- Arrow ESP32 → Mosquitto -->
+  <line x1="310" y1="205" x2="310" y2="248" stroke="#2979FF" stroke-width="2.5" marker-end="url(#pirArr)"/>
+  <text x="355" y="232" fill="#2979FF" font-size="10" font-weight="700">MQTT publish ↓</text>
+  <!-- Mosquitto -->
+  <rect x="150" y="255" width="320" height="65" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="282" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Mosquitto #16</text>
+  <text x="310" y="302" text-anchor="middle" fill="#e3f2fd" font-size="10">broker pribadi · auth · port 1883</text>
+  <!-- 2 output arrows -->
+  <line x1="230" y1="320" x2="170" y2="373" stroke="#2E7D32" stroke-width="2" marker-end="url(#pirArrG)"/>
+  <line x1="390" y1="320" x2="450" y2="373" stroke="#2E7D32" stroke-width="2" marker-end="url(#pirArrG)"/>
+  <!-- Output 1: Home Assistant -->
+  <rect x="50" y="380" width="230" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="165" y="401" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Home Assistant (#21)</text>
+  <text x="165" y="418" text-anchor="middle" fill="#4A5568" font-size="9">binary_sensor motion + switch</text>
+  <!-- Output 2: Node-RED -->
+  <rect x="340" y="380" width="230" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="455" y="401" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Node-RED (#23)</text>
+  <text x="455" y="418" text-anchor="middle" fill="#4A5568" font-size="9">automasi visual · dashboard</text>
+  <!-- Summary -->
+  <text x="310" y="460" text-anchor="middle" fill="#4A5568" font-size="11">PIR → interrupt → ESP32 → MQTT → Mosquitto → HA / Node-RED</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Sensor PIR memicu interrupt di ESP32, relay menghidupkan lampu, status dipublish ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> — <a href="/artikel/home-assistant-integrasi-esp32-mqtt">HA (#21)</a> dan <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a> menerima event.</figcaption>
+</figure>
 
 <p><strong>Topic MQTT</strong> (konsisten Seri 1):</p>
 <ul>
@@ -368,7 +406,7 @@ return null;</code></pre>
   <li><strong>PIR selalu HIGH:</strong> Atur potensiometer sensitivitas &amp; delay di modul; jauhkan dari AC / angin panas langsung</li>
   <li><strong>Tidak ada interrupt:</strong> Cek wiring OUT ke GPIO 27; HC-SR501 butuh warm-up ~30–60 detik setelah power on</li>
   <li><strong>Lampu flicker:</strong> Naikkan <code>DEBOUNCE_MS</code> atau <code>HOLD_MS</code>; jangan publish di ISR</li>
-  <li><strong>MQTT tidak connect:</strong> ESP32 harus ke broker pribadi (#16) — bukan <code>test.mosquitto.org</code></li>
+  <li><strong>MQTT tidak connect:</strong> ESP32 harus ke broker pribadi <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">(#16)</a> — bukan <code>test.mosquitto.org</code></li>
   <li><strong>Relay tidak klik:</strong> Cek active LOW/HIGH — sama troubleshooting <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">#8</a></li>
   <li><strong>WiFi 2.4 GHz:</strong> ESP32 tidak support jaringan 5 GHz saja</li>
 </ul>
@@ -386,7 +424,7 @@ return null;</code></pre>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python (#18)</a></strong> — simpan histori event PIR ke <strong>MySQL</strong></li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — grafik event gerak PIR di dashboard</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — timestamp akurat di log gerak</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — PIR + sensor + pompa relay</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — PIR + sensor + pompa relay</li>
 </ul>
 
 <p>Sensor PIR melengkapi Jalur C smart home: dari dashboard HA/Node-RED hingga automasi gerak di firmware ESP32. Lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
