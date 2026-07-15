@@ -85,44 +85,56 @@ class Article19Seeder extends Seeder
 
 <h2>Arsitektur: MQTT → InfluxDB → Grafana</h2>
 <figure role="img" aria-label="Diagram pipeline MQTT ke Grafana: ESP32 publish ke Mosquitto, lalu Telegraf atau Python tulis ke InfluxDB, Grafana tampilkan panel suhu dan kelembaban" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 380" style="display:block;max-width:920px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 440" style="display:block;max-width:920px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="igArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
     <marker id="igArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
     <marker id="igArrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
   </defs>
-  <rect x="0" y="0" width="920" height="380" fill="#F5F5F0" rx="6"/>
+  <rect x="0" y="0" width="920" height="440" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
   <rect x="24" y="40" width="180" height="90" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
   <text x="114" y="72" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 + DHT22</text>
   <text x="114" y="94" text-anchor="middle" fill="#4A5568" font-size="11">publish JSON</text>
   <text x="114" y="114" text-anchor="middle" fill="#718096" font-size="11">suhu · RH · unix</text>
   <line x1="204" y1="85" x2="268" y2="85" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#igArrowOrange)"/>
   <text x="236" y="76" text-anchor="middle" fill="#FF7A2F" font-size="11" font-weight="700">MQTT →</text>
+  <!-- Mosquitto -->
   <rect x="274" y="40" width="210" height="90" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
   <text x="379" y="72" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Broker Mosquitto</text>
   <text x="379" y="94" text-anchor="middle" fill="#e3f2fd" font-size="11">192.168.1.50:1883</text>
   <text x="379" y="114" text-anchor="middle" fill="#cfe4ff" font-size="11">topic Seri 2</text>
-  <line x1="379" y1="130" x2="379" y2="168" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
-  <text x="404" y="156" fill="#2979FF" font-size="11" font-weight="700">subscribe ↓</text>
-  <rect x="24" y="178" width="220" height="70" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
-  <text x="134" y="208" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Opsi A · Telegraf</text>
-  <text x="134" y="228" text-anchor="middle" fill="#4A5568" font-size="11">mqtt_consumer → write</text>
-  <rect x="264" y="178" width="220" height="70" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
-  <text x="374" y="208" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Opsi B · Python</text>
-  <text x="374" y="228" text-anchor="middle" fill="#4A5568" font-size="11">influxdb-client</text>
-  <line x1="244" y1="200" x2="530" y2="200" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
-  <line x1="484" y1="226" x2="530" y2="226" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
-  <text x="508" y="192" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">write →</text>
-  <rect x="536" y="168" width="200" height="90" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="636" y="200" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">InfluxDB 2</text>
-  <text x="636" y="222" text-anchor="middle" fill="#e3f2fd" font-size="11">bucket iot_sensors</text>
-  <text x="636" y="242" text-anchor="middle" fill="#cfe4ff" font-size="11">measurement dht22</text>
-  <line x1="636" y1="258" x2="636" y2="292" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#igArrowGreen)"/>
-  <text x="660" y="280" fill="#2E7D32" font-size="11" font-weight="700">query ↓</text>
-  <rect x="500" y="300" width="272" height="50" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
-  <text x="636" y="322" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Grafana :3000</text>
-  <text x="636" y="340" text-anchor="middle" fill="#4A5568" font-size="11">panel suhu &amp; kelembaban 24 jam</text>
-  <text x="460" y="368" text-anchor="middle" fill="#4A5568" font-size="11">Alur: ESP32 publish MQTT → ingest Telegraf/Python → InfluxDB → Grafana</text>
+  <!-- Garis turun dari Mosquitto ke dua opsi -->
+  <line x1="320" y1="130" x2="160" y2="175" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
+  <line x1="430" y1="130" x2="430" y2="175" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
+  <text x="490" y="158" fill="#2979FF" font-size="11" font-weight="700">subscribe ↓</text>
+  <!-- Opsi A: Telegraf -->
+  <rect x="24" y="182" width="220" height="66" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="134" y="210" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Opsi A · Telegraf</text>
+  <text x="134" y="232" text-anchor="middle" fill="#4A5568" font-size="11">mqtt_consumer → write</text>
+  <!-- Opsi B: Python -->
+  <rect x="290" y="182" width="220" height="66" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="400" y="210" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Opsi B · Python</text>
+  <text x="400" y="232" text-anchor="middle" fill="#4A5568" font-size="11">influxdb-client</text>
+  <!-- Panah write dari Opsi A ke InfluxDB -->
+  <line x1="244" y1="215" x2="590" y2="215" stroke="#2979FF" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#igArrow)"/>
+  <!-- Panah write dari Opsi B ke InfluxDB -->
+  <line x1="510" y1="215" x2="590" y2="215" stroke="#2979FF" stroke-width="2.5" marker-end="url(#igArrow)"/>
+  <rect x="540" y="196" width="64" height="20" rx="3" fill="#F5F5F0"/>
+  <text x="572" y="211" text-anchor="middle" fill="#2979FF" font-size="11" font-weight="700">write →</text>
+  <!-- InfluxDB -->
+  <rect x="596" y="170" width="200" height="90" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="696" y="202" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">InfluxDB 2</text>
+  <text x="696" y="224" text-anchor="middle" fill="#e3f2fd" font-size="11">bucket iot_sensors</text>
+  <text x="696" y="244" text-anchor="middle" fill="#cfe4ff" font-size="11">measurement dht22</text>
+  <!-- InfluxDB → Grafana -->
+  <line x1="696" y1="260" x2="696" y2="310" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#igArrowGreen)"/>
+  <text x="724" y="294" fill="#2E7D32" font-size="11" font-weight="700">query ↓</text>
+  <!-- Grafana -->
+  <rect x="560" y="318" width="272" height="50" rx="6" fill="#F5F5F0" stroke="#000" stroke-width="2.5"/>
+  <text x="696" y="340" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Grafana :3000</text>
+  <text x="696" y="358" text-anchor="middle" fill="#4A5568" font-size="11">panel suhu &amp; kelembaban 24 jam</text>
+  <text x="460" y="420" text-anchor="middle" fill="#4A5568" font-size="11">Alur: ESP32 publish MQTT → ingest Telegraf/Python → InfluxDB → Grafana</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Diagram pipeline MQTT → InfluxDB → Grafana — ESP32 publish ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a>; pilih Telegraf atau Python (#18-style) untuk tulis ke InfluxDB; Grafana query bucket untuk grafik.</figcaption>
 </figure>
