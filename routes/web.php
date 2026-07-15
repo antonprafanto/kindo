@@ -206,6 +206,10 @@ Route::get('/deploy/patch-article-39-formatting', [DeployController::class, 'pat
     ->middleware('throttle:120,1')
     ->name('deploy.patch-article-39-formatting');
 
+Route::get('/deploy/remirror-article-images', [DeployController::class, 'remirrorArticleImages'])
+    ->middleware('throttle:5,1')
+    ->name('deploy.remirror-article-images');
+
 Route::get('/deploy/ensure-admin', [DeployController::class, 'ensureAdmin'])
     ->middleware('throttle:120,1')
     ->name('deploy.ensure-admin');

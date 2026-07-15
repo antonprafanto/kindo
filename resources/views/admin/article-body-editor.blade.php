@@ -175,13 +175,15 @@
             <div class="actions">
                 <button type="submit" class="btn btn-primary" id="save-btn">Simpan Isi Artikel</button>
                 <a href="{{ $backUrl }}" class="btn">Batal</a>
-                <span class="hint">Sorot teks untuk menu format mengambang · Toolbar atas tetap saat scroll · <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>⌘</kbd>+<kbd>S</kbd> simpan</span>
+                <span class="hint">Sorot teks untuk menu format · Sisipkan gambar lewat tombol Image · <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>⌘</kbd>+<kbd>S</kbd> simpan</span>
             </div>
         </form>
     </div>
 
     <script>
         const initialHtml = @json(old('body_raw', $article->body));
+        const imageUploadUrl = @json($uploadUrl);
+        const csrfToken = @json(csrf_token());
 
         tinymce.init({
             selector: '#body',
@@ -199,20 +201,63 @@
             toolbar_sticky: true,
             toolbar_sticky_offset: 0,
             plugins: [
-                'autolink', 'lists', 'link', 'table', 'code', 'codesample',
+                'autolink', 'lists', 'link', 'image', 'table', 'code', 'codesample',
                 'fullscreen', 'searchreplace', 'visualblocks', 'wordcount',
                 'charmap', 'anchor', 'insertdatetime', 'hr', 'quickbars', 'autoresize',
             ],
             autoresize_bottom_margin: 32,
             autoresize_overflow_padding: 16,
             max_height: 1200,
+            automatic_uploads: true,
+            images_reuse_filename: false,
+            file_picker_types: 'image',
+            images_upload_handler(blobInfo, progress) {
+                return new Promise((resolve, reject) => {
+                    const formData = new FormData();
+                    formData.append('file', blobInfo.blob(), blobInfo.filename());
+                    formData.append('_token', csrfToken);
+
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', imageUploadUrl);
+                    xhr.withCredentials = true;
+                    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+                    xhr.setRequestHeader('Accept', 'application/json');
+
+                    xhr.upload.onprogress = (e) => {
+                        if (e.lengthComputable) {
+                            progress(e.loaded / e.total * 100);
+                        }
+                    };
+
+                    xhr.onload = () => {
+                        if (xhr.status < 200 || xhr.status >= 300) {
+                            reject('Upload gagal (' + xhr.status + '). Coba JPG/PNG/WebP maks 4 MB.');
+                            return;
+                        }
+
+                        try {
+                            const json = JSON.parse(xhr.responseText);
+                            if (!json || !json.location) {
+                                reject('Respons upload tidak valid.');
+                                return;
+                            }
+                            resolve(json.location);
+                        } catch (err) {
+                            reject('Respons upload tidak valid.');
+                        }
+                    };
+
+                    xhr.onerror = () => reject('Gagal mengunggah gambar. Periksa koneksi lalu coba lagi.');
+                    xhr.send(formData);
+                });
+            },
             quickbars_selection_toolbar: [
                 'bold italic underline strikethrough',
                 '| quicklink',
                 '| h2 h3 h4',
                 '| blockquote',
             ].join(' '),
-            quickbars_insert_toolbar: false,
+            quickbars_insert_toolbar: 'quickimage | bullist numlist | table hr',
             mobile: {
                 toolbar_mode: 'scrolling',
                 toolbar_sticky: true,
@@ -221,7 +266,7 @@
                 'undo redo | blocks | bold italic underline strikethrough',
                 '| alignleft aligncenter alignright',
                 '| bullist numlist | blockquote codesample',
-                '| link table hr | code fullscreen',
+                '| link image table hr | code fullscreen',
             ].join(' '),
             block_formats: 'Paragraph=p; Heading 2=h2; Heading 3=h3; Heading 4=h4',
             codesample_languages: [
@@ -239,6 +284,7 @@
                 'code { background: #374151; padding: 2px 6px; border-radius: 4px; font-size: .9em; }',
                 'pre { background: #0f172a; padding: 1em; border-radius: 6px; overflow-x: auto; }',
                 'a { color: #60a5fa; }',
+                'img { max-width: 100%; height: auto; border-radius: 4px; }',
                 'table { border-collapse: collapse; width: 100%; }',
                 'td, th { border: 1px solid #4b5563; padding: 8px; }',
             ].join(' '),

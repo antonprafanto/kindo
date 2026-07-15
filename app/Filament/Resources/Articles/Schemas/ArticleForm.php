@@ -121,6 +121,9 @@ class ArticleForm
                             RichEditor::make('body')
                                 ->label('Isi Artikel')
                                 ->required()
+                                ->fileAttachmentsDisk('public')
+                                ->fileAttachmentsDirectory('articles/body')
+                                ->fileAttachmentsVisibility('public')
                                 ->toolbarButtons([
                                     ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
                                     ['h2', 'h3', 'h4'],

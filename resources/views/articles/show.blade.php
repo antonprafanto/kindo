@@ -76,8 +76,18 @@
 
                 {{-- Cover Image --}}
                 <div class="border-2 border-black mb-6 sm:mb-8 overflow-hidden aspect-video lg:aspect-[16/7]" style="box-shadow: 5px 5px 0 #000;">
-                    @if($article->cover_image && file_exists(storage_path('app/public/' . $article->cover_image)))
-                        <img src="{{ asset('storage/' . $article->cover_image) }}"
+                    @php
+                        $coverOnDisk = $article->cover_image
+                            && (
+                                file_exists(storage_path('app/public/' . $article->cover_image))
+                                || (
+                                    is_string(config('filesystems.public_html_storage'))
+                                    && file_exists(rtrim(config('filesystems.public_html_storage'), '/\\') . '/' . $article->cover_image)
+                                )
+                            );
+                    @endphp
+                    @if($coverOnDisk)
+                        <img src="{{ $article->cover_url }}"
                              alt="{{ $article->title }}"
                              class="w-full h-full object-cover">
                     @else

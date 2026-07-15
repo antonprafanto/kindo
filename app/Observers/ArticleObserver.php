@@ -6,6 +6,7 @@ use App\Jobs\NotifySubscribersOfNewArticle;
 use App\Models\Article;
 use App\Models\ArticleNewsletterLog;
 use App\Services\ImageService;
+use App\Services\PublicHtmlStorageMirror;
 use App\Services\RelatedArticlesService;
 use App\Services\SitemapService;
 use Illuminate\Support\Facades\Cache;
@@ -16,6 +17,8 @@ class ArticleObserver
 {
     public function saved(Article $article): void
     {
+        $mirror = app(PublicHtmlStorageMirror::class);
+
         // Auto-process cover image to WebP if a new one was uploaded
         if ($article->wasChanged('cover_image') && $article->cover_image) {
             $ext = strtolower(pathinfo($article->cover_image, PATHINFO_EXTENSION));
@@ -30,7 +33,13 @@ class ArticleObserver
                 }
             }
 
-            $this->mirrorCoverToPublicHtml($article->fresh()->cover_image);
+            $mirror->mirror($article->fresh()->cover_image);
+        }
+
+        // Body images (Filament attachFiles / TinyMCE) live under storage/app/public
+        // but must be mirrored into public_html/storage on Rumahweb.
+        if ($article->wasRecentlyCreated || $article->wasChanged('body')) {
+            $mirror->mirrorPathsFromHtml($article->body);
         }
 
         if ($this->wasJustPublished($article) && ! ArticleNewsletterLog::where('article_id', $article->id)->exists()) {
@@ -79,36 +88,6 @@ class ArticleObserver
         Cache::forget('home.categories');
 
         app(RelatedArticlesService::class)->bumpCacheVersion();
-    }
-
-    /**
-     * Rumahweb shared hosting: document root is public_html/, separate from the Laravel app.
-     * Mirror cover files so /storage/... URLs resolve without artisan storage:link.
-     */
-    private function mirrorCoverToPublicHtml(?string $relativePath): void
-    {
-        if (!$relativePath) {
-            return;
-        }
-
-        $destRoot = config('filesystems.public_html_storage');
-        if (!$destRoot) {
-            return;
-        }
-
-        $source = storage_path('app/public/' . $relativePath);
-        if (!is_file($source)) {
-            return;
-        }
-
-        $dest = rtrim($destRoot, '/') . '/' . $relativePath;
-        $destDir = dirname($dest);
-
-        if (!is_dir($destDir) && !mkdir($destDir, 0755, true) && !is_dir($destDir)) {
-            return;
-        }
-
-        copy($source, $dest);
     }
 
     private function regenerateSitemap(): void

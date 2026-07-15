@@ -2425,6 +2425,51 @@ class DeployController extends Controller
         return response('Article 39 formatting patched', 200);
     }
 
+    /**
+     * Mirror cover + body images from storage/app/public into PUBLIC_HTML_STORAGE.
+     * Fixes contributor uploads that exist on disk but 404 via /storage/... URLs.
+     */
+    public function remirrorArticleImages(): JsonResponse
+    {
+        $this->authorizeDeployHook();
+
+        if (! config('filesystems.public_html_storage')) {
+            return response()->json([
+                'ok' => false,
+                'error' => 'PUBLIC_HTML_STORAGE is not configured',
+            ], 500);
+        }
+
+        $mirror = app(\App\Services\PublicHtmlStorageMirror::class);
+        $covers = 0;
+        $bodyFiles = 0;
+        $articlesScanned = 0;
+
+        Article::query()
+            ->select(['id', 'slug', 'cover_image', 'body'])
+            ->orderBy('id')
+            ->chunkById(50, function ($articles) use ($mirror, &$covers, &$bodyFiles, &$articlesScanned) {
+                foreach ($articles as $article) {
+                    $articlesScanned++;
+
+                    if ($article->cover_image && $mirror->mirror($article->cover_image)) {
+                        $covers++;
+                    }
+
+                    $bodyFiles += $mirror->mirrorPathsFromHtml($article->body);
+                }
+            });
+
+        Artisan::call('view:clear');
+
+        return response()->json([
+            'ok' => true,
+            'articles_scanned' => $articlesScanned,
+            'covers_mirrored' => $covers,
+            'body_files_mirrored' => $bodyFiles,
+        ]);
+    }
+
     private function authorizeDeployHook(): void
     {
         $token = config('app.deploy_hook_token');

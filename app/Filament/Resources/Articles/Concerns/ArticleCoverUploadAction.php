@@ -59,6 +59,14 @@ class ArticleCoverUploadAction
                     ->success()
                     ->send();
             })
-            ->visible(fn (): bool => auth()->user()?->isAdmin() ?? false);
+            ->visible(function (Article $record): bool {
+                $user = auth()->user();
+
+                if ($user?->isAdmin()) {
+                    return true;
+                }
+
+                return (bool) ($user?->isAuthor() && $record->isOwnedBy($user));
+            });
     }
 }

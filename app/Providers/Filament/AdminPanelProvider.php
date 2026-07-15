@@ -88,6 +88,9 @@ class AdminPanelProvider extends PanelProvider
                 Route::post('articles/{article}/isi', [ArticleBodyEditorController::class, 'update'])
                     ->middleware('throttle:30,1')
                     ->name('articles.isi.update');
+                Route::post('articles/{article}/isi/upload', [ArticleBodyEditorController::class, 'uploadImage'])
+                    ->middleware('throttle:60,1')
+                    ->name('articles.isi.upload');
             });
     }
 }
