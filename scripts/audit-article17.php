@@ -77,12 +77,27 @@ $requiredLinks = [
     'home-assistant-integrasi-esp32-mqtt'                          => 'Artikel #21 HA',
     'node-red-dashboard-otomasi-iot-mqtt-esp32'                      => 'Artikel #23 Node-RED',
     'esphome-flash-esp32-tanpa-coding-arduino'                       => 'Artikel #22 ESPHome',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'        => 'Artikel #18 Python',
+    'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt'             => 'Artikel #34 NTP',
+    'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'         => 'Artikel #19 Grafana',
+    'https-sertifikat-esp32-wificlientsecure-api-rest'             => 'Artikel #38 HTTPS',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'         => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
     check(str_contains($body, '/artikel/' . $linkSlug), "Link internal: {$label}");
     check(Article::where('slug', $linkSlug)->exists(), "Target exists: {$linkSlug}");
 }
+
+check(str_contains($body, '<svg'), 'SVG diagram arsitektur ada');
+check(str_contains($body, 'Mosquitto #16 + TLS'), 'SVG: teks Mosquitto #16 + TLS');
+check(str_contains($body, 'TLS :8883'), 'SVG: label TLS :8883');
+check(str_contains($body, 'paho-mqtt tls_set()'), 'SVG: Python paho-mqtt tls_set()');
+check(! str_contains($body, '[ ESP32 ]'), 'ASCII diagram sudah dihapus ([ ESP32 ])');
+check(! str_contains($body, '+-- Subscriber CLI'), 'ASCII diagram sudah dihapus (+-- Subscriber)');
+
+check(str_contains($body, 'auth (#16)</a></td>'), 'Hyperlink auth #16 di tabel');
+check(str_contains($body, 'Capstone Greenhouse (#39)'), 'Hyperlink greenhouse #39 di Langkah Selanjutnya');
 
 check(str_contains($body, 'Jalur B'), 'Menyebut Jalur B');
 check(str_contains($body, '8883'), 'Port TLS 8883');

@@ -88,22 +88,62 @@ class Article17Seeder extends Seeder
     <tr><td>Enkripsi</td><td>Tidak ada</td><td>TLS — password &amp; payload terenkripsi</td></tr>
     <tr><td>Cocok untuk</td><td>LAN tepercaya, lab cepat</td><td>Internet, VPS, akses remote</td></tr>
     <tr><td>ESP32 client</td><td><code>WiFiClient</code></td><td><code>WiFiClientSecure</code> + CA</td></tr>
-    <tr><td>Setup broker</td><td>Listener 1883 + auth (#16)</td><td>Sertifikat + listener 8883</td></tr>
+    <tr><td>Setup broker</td><td>Listener 1883 + <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">auth (#16)</a></td><td>Sertifikat + listener 8883</td></tr>
   </tbody>
 </table>
 
 <p>QoS dan LWT sudah diperkenalkan singkat di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT (#7)</a> — di sini kita terapkan ke Mosquitto dan firmware ESP32.</p>
 
 <h2>Arsitektur: TLS + Fitur Production MQTT</h2>
-<pre><code>  [ ESP32 ]
-      |  WiFiClientSecure + CA root
-      |  MQTT TLS :8883  ·  user/pass  ·  LWT + retained (opsional)
-      v
-  [ Mosquitto #16 + TLS ]
-      |
-      +-- Subscriber CLI (mosquitto_sub --cafile)
-      +-- Home Assistant / ESPHome / Node-RED (#21/#22/#23) — set TLS di broker config
-      +-- Python subscriber (#18) — paho-mqtt tls_set()</code></pre>
+<figure role="img" aria-label="Diagram arsitektur MQTT TLS: ESP32 dengan WiFiClientSecure terhubung ke Mosquitto via TLS port 8883, lalu ke subscriber CLI, Home Assistant/ESPHome/Node-RED, dan Python subscriber" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 440" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="tlsArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="tlsArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="tlsArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="440" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="170" y="15" width="280" height="80" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="42" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32</text>
+  <text x="310" y="62" text-anchor="middle" fill="#4A5568" font-size="10">WiFiClientSecure + CA root</text>
+  <text x="310" y="78" text-anchor="middle" fill="#4A5568" font-size="10">LWT + retained (opsional)</text>
+  <!-- Lock icon label -->
+  <rect x="470" y="25" width="130" height="40" rx="14" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+  <text x="535" y="42" text-anchor="middle" fill="#2E7D32" font-size="11" font-weight="700">TLS :8883</text>
+  <text x="535" y="56" text-anchor="middle" fill="#4A5568" font-size="9">user/pass enkripsi</text>
+  <!-- Arrow ESP32 → Mosquitto -->
+  <line x1="310" y1="95" x2="310" y2="133" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#tlsArrO)"/>
+  <text x="350" y="120" fill="#FF7A2F" font-size="10" font-weight="700">MQTT TLS ↓</text>
+  <!-- Mosquitto -->
+  <rect x="130" y="140" width="360" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="170" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Mosquitto #16 + TLS</text>
+  <text x="310" y="192" text-anchor="middle" fill="#e3f2fd" font-size="11">listener 8883 · sertifikat CA · auth</text>
+  <!-- 3 output arrows -->
+  <line x1="160" y1="210" x2="100" y2="268" stroke="#2E7D32" stroke-width="2" marker-end="url(#tlsArrG)"/>
+  <line x1="310" y1="210" x2="310" y2="268" stroke="#2E7D32" stroke-width="2" marker-end="url(#tlsArrG)"/>
+  <line x1="460" y1="210" x2="520" y2="268" stroke="#2E7D32" stroke-width="2" marker-end="url(#tlsArrG)"/>
+  <!-- Output 1: Subscriber CLI -->
+  <rect x="10" y="275" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="105" y="296" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Subscriber CLI</text>
+  <text x="105" y="312" text-anchor="middle" fill="#4A5568" font-size="9">mosquitto_sub --cafile</text>
+  <!-- Output 2: HA / ESPHome / Node-RED -->
+  <rect x="215" y="275" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="310" y="296" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">HA / ESPHome / Node-RED</text>
+  <text x="310" y="312" text-anchor="middle" fill="#4A5568" font-size="9">#21 / #22 / #23 — TLS config</text>
+  <!-- Output 3: Python subscriber -->
+  <rect x="420" y="275" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="515" y="296" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Python subscriber (#18)</text>
+  <text x="515" y="312" text-anchor="middle" fill="#4A5568" font-size="9">paho-mqtt tls_set()</text>
+  <!-- Summary -->
+  <text x="310" y="360" text-anchor="middle" fill="#4A5568" font-size="11">ESP32 → MQTT TLS :8883 → Mosquitto → subscriber terenkripsi</text>
+  <!-- Topics -->
+  <rect x="100" y="380" width="420" height="45" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="310" y="398" text-anchor="middle" fill="#4A5568" font-size="9">Topics:</text>
+  <text x="310" y="414" text-anchor="middle" fill="#1a1a1a" font-size="9.5" font-weight="600">data · .../dht22/data   |   status · .../status (LWT)   |   relay · .../lampu/kontrol</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">ESP32 terhubung via TLS port 8883 ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> — subscriber <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python (#18)</a>, <a href="/artikel/home-assistant-integrasi-esp32-mqtt">HA (#21)</a>, <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a> terenkripsi.</figcaption>
+</figure>
 
 <p><strong>Topic contoh</strong> (konsisten Seri 1):</p>
 <ul>
@@ -377,6 +417,7 @@ void loop() {
   <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — aktifkan TLS di integration broker</li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — upgrade sketch ke TLS untuk deploy remote</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — dashboard histori sensor</li>
+  <li><strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Capstone Greenhouse (#39)</a></strong> — proyek akhir Seri 2 dengan TLS-ready</li>
 </ul>
 
 <p>Dengan TLS, QoS, LWT, dan retained, stack MQTT kamu siap naik level dari lab LAN ke deploy yang lebih aman. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
