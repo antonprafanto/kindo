@@ -100,21 +100,53 @@ class Article21Seeder extends Seeder
 </table>
 
 <p>Alur data secara singkat:</p>
-<pre><code>  [ ESP32 — DHT22 + relay ]
-      |
-      |  publish: kodingindonesia/esp32/dht22/data  (JSON suhu &amp; RH)
-      |  subscribe: kodingindonesia/esp32/lampu/kontrol  (ON / OFF)
-      |  WiFi/LAN · MQTT :1883 · auth
-      v
-  [ Mosquitto @ Raspberry Pi / VPS ]  (#16)
-      |
-      |  MQTT — topic sensor + switch
-      v
-  [ Home Assistant ]  (Jalur C)
-      |
-      +-- sensor: suhu &amp; kelembaban di dashboard
-      +-- switch: nyala/mati lampu relay
-      +-- automasi: rule (mis. suhu &gt; 30°C → matikan lampu)</code></pre>
+<figure role="img" aria-label="Diagram alur Home Assistant: ESP32 publish DHT22 dan subscribe relay via Mosquitto, Home Assistant menampilkan sensor switch dan automasi" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 460" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="haArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="haArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="haArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="460" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="155" y="15" width="310" height="80" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="40" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 — DHT22 + Relay</text>
+  <text x="310" y="58" text-anchor="middle" fill="#4A5568" font-size="10">publish: .../dht22/data (JSON)</text>
+  <text x="310" y="74" text-anchor="middle" fill="#4A5568" font-size="10">subscribe: .../lampu/kontrol (ON/OFF)</text>
+  <!-- Arrow ESP32 → Mosquitto -->
+  <line x1="310" y1="95" x2="310" y2="138" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#haArrO)"/>
+  <rect x="330" y="105" width="95" height="22" rx="11" fill="#fff" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="377" y="120" text-anchor="middle" fill="#FF7A2F" font-size="10" font-weight="700">MQTT :1883</text>
+  <!-- Mosquitto -->
+  <rect x="155" y="145" width="310" height="60" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="172" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Mosquitto (#16)</text>
+  <text x="310" y="190" text-anchor="middle" fill="#e3f2fd" font-size="10">broker pribadi · auth · topic Seri 1</text>
+  <!-- Arrow Mosquitto → HA -->
+  <line x1="310" y1="205" x2="310" y2="248" stroke="#2979FF" stroke-width="2.5" marker-end="url(#haArr)"/>
+  <rect x="330" y="215" width="70" height="22" rx="11" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="365" y="230" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">MQTT ↓</text>
+  <!-- Home Assistant -->
+  <rect x="130" y="255" width="360" height="55" rx="6" fill="#038FC7" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="280" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Home Assistant (Jalur C)</text>
+  <text x="310" y="298" text-anchor="middle" fill="#e0f4fc" font-size="10">dashboard · automasi · MQTT integration</text>
+  <!-- 3 outputs -->
+  <line x1="180" y1="310" x2="110" y2="358" stroke="#2E7D32" stroke-width="2" marker-end="url(#haArrG)"/>
+  <line x1="310" y1="310" x2="310" y2="358" stroke="#2E7D32" stroke-width="2" marker-end="url(#haArrG)"/>
+  <line x1="440" y1="310" x2="510" y2="358" stroke="#2E7D32" stroke-width="2" marker-end="url(#haArrG)"/>
+  <!-- Output cards -->
+  <rect x="15" y="365" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="110" y="386" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Sensor Dashboard</text>
+  <text x="110" y="402" text-anchor="middle" fill="#4A5568" font-size="9">suhu · kelembaban DHT22</text>
+  <rect x="215" y="365" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="310" y="386" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Switch Relay</text>
+  <text x="310" y="402" text-anchor="middle" fill="#4A5568" font-size="9">ON / OFF lampu MQTT</text>
+  <rect x="415" y="365" width="190" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="510" y="386" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Automasi HA</text>
+  <text x="510" y="402" text-anchor="middle" fill="#4A5568" font-size="9">suhu &gt; 30°C → turn_off</text>
+  <text x="310" y="440" text-anchor="middle" fill="#4A5568" font-size="11">ESP32 → MQTT → Mosquitto → Home Assistant → sensor + switch + automasi</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">ESP32 publish/subscribe lewat <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a>; Home Assistant jadi hub Jalur C — sensor, switch, dan automasi tanpa edit firmware.</figcaption>
+</figure>
 
 <p><strong>Topic MQTT</strong> (konsisten Seri 1):</p>
 <ul>
@@ -152,7 +184,7 @@ docker compose up -d
     <ul>
       <li>Broker: <code>192.168.1.50</code> (ganti IP broker kamu)</li>
       <li>Port: <code>1883</code></li>
-      <li>Username / Password: misalnya <code>kindo_esp32</code> / <code>KindoMQTT2026!</code></li>
+      <li>Username / Password: misalnya <code>kindo_esp32</code> / <code>GANTI_PASSWORD_MQTT</code></li>
     </ul>
   </li>
   <li>Klik <strong>Submit</strong> — status harus <em>Connected</em></li>
@@ -232,11 +264,11 @@ action:
 
 <h2>Uji Coba (Step-by-Step)</h2>
 <ol>
-  <li>Pastikan Mosquitto (#16) jalan — <code>sudo systemctl status mosquitto</code></li>
+  <li>Pastikan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> jalan — <code>sudo systemctl status mosquitto</code></li>
   <li>Upload sketch <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">DHT22 + relay (#9)</a> — arahkan broker ke IP Mosquitto pribadi (bukan <code>test.mosquitto.org</code>)</li>
   <li>Verifikasi publish dari laptop:
 <pre><code class="language-bash">mosquitto_sub -h 192.168.1.50 -p 1883 \
-  -u kindo_esp32 -P 'KindoMQTT2026!' \
+  -u kindo_esp32 -P 'GANTI_PASSWORD_MQTT' \
   -t "kodingindonesia/esp32/dht22/data" -v</code></pre>
   </li>
   <li>Setup MQTT integration + <code>configuration.yaml</code> di HA → restart</li>
@@ -244,7 +276,7 @@ action:
   <li>Toggle switch lampu di HA → relay ESP32 klik ON/OFF</li>
   <li>Opsional — uji relay tanpa HA dulu:
 <pre><code class="language-bash">mosquitto_pub -h 192.168.1.50 -p 1883 \
-  -u kindo_esp32 -P 'KindoMQTT2026!' \
+  -u kindo_esp32 -P 'GANTI_PASSWORD_MQTT' \
   -t "kodingindonesia/esp32/lampu/kontrol" -m "ON"</code></pre>
   </li>
 </ol>
@@ -282,7 +314,7 @@ action:
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — grafik histori sensor jangka panjang</li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — automasi gerak dengan debounce</li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan broker di internet</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — sensor + HA + pompa relay</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — sensor + HA + pompa relay</li>
 </ul>
 
 <p>Dengan Home Assistant, proyek ESP32-mu naik kelas dari sketch tunggal menjadi ekosistem smart home terpusat. Lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

@@ -74,12 +74,29 @@ $requiredLinks = [
     'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode'   => 'Artikel #12 NVS',
     'ota-update-firmware-esp32-via-wifi'                              => 'Artikel #15 OTA',
     'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                      => 'Artikel #13 BME280',
+    'esphome-flash-esp32-tanpa-coding-arduino'                       => 'Artikel #22 ESPHome',
+    'node-red-dashboard-otomasi-iot-mqtt-esp32'                      => 'Artikel #23 Node-RED',
+    'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'         => 'Artikel #19 Grafana',
+    'sensor-gerak-pir-esp32-lampu-mqtt-debounce'                     => 'Artikel #24 PIR',
+    'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                      => 'Artikel #17 TLS',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'        => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
     check(str_contains($body, '/artikel/' . $linkSlug), "Link internal: {$label}");
     check(Article::where('slug', $linkSlug)->exists(), "Target exists: {$linkSlug}");
 }
+
+check(str_contains($body, '<svg'), 'SVG diagram alur ada');
+check(str_contains($body, 'Mosquitto (#16)'), 'SVG: teks Mosquitto (#16)');
+check(str_contains($body, 'Home Assistant (Jalur C)'), 'SVG: teks Home Assistant (Jalur C)');
+check(str_contains($body, 'Automasi HA'), 'SVG: teks Automasi HA');
+check(! str_contains($body, '[ ESP32 — DHT22 + relay ]'), 'ASCII diagram sudah dihapus');
+check(! str_contains($body, '+-- sensor: suhu'), 'ASCII entity list sudah dihapus');
+check(str_contains($body, 'Mosquitto (#16)</a> jalan'), 'Hyperlink #16 di Uji Coba');
+check(str_contains($body, 'greenhouse (#39)</a>'), 'Hyperlink greenhouse #39');
+check(str_contains($body, 'GANTI_PASSWORD_MQTT'), 'Placeholder password MQTT');
+check(! str_contains($body, 'KindoMQTT2026!'), 'Tidak ada password literal');
 
 check(str_contains($body, 'Jalur C'), 'Menyebut Jalur C');
 check(str_contains($body, 'Home Assistant'), 'Menyebut Home Assistant');
@@ -92,7 +109,7 @@ check(str_contains($body, 'optimistic: false'), 'Menjelaskan kapan optimistic: f
 check(str_contains($body, 'mqttClient.publish(topicKontrol'), 'Tips publish state relay balik');
 check(str_contains($body, 'mqttClient.loop()'), 'Troubleshooting mqttClient.loop()');
 check(str_contains($body, 'mosquitto_pub'), 'Uji coba mosquitto_pub relay');
-check(str_contains($body, 'Artikel #17'), 'Teaser MQTT TLS #17');
+check(str_contains($body, 'mqtt-tls-qos-lwt-retained-mosquitto-esp32'), 'Teaser MQTT TLS #17');
 check(str_contains($body, 'numeric_state'), 'Automasi numeric_state');
 check(str_contains($body, 'device_class'), 'YAML device_class sensor');
 check(str_contains($body, '{"suhu"'), 'Contoh payload JSON suhu');
@@ -109,11 +126,16 @@ check(str_contains($body, 'Publisher sensor'), 'Tabel arsitektur komponen');
 check(str_contains($body, 'Keamanan &amp; Produksi'), 'Section Keamanan & Produksi');
 check(str_contains($body, 'Pro tip'), 'Pro tip unique_id');
 check(str_contains($body, 'esphome-flash-esp32-tanpa-coding-arduino'), 'Teaser link ESPHome #22');
-check(str_contains($body, 'Artikel #24'), 'Teaser PIR #24');
+check(str_contains($body, 'sensor-gerak-pir-esp32-lampu-mqtt-debounce'), 'Teaser PIR #24');
 check(str_contains($body, 'greenhouse'), 'Teaser capstone #39');
 check(str_contains($body, 'Seri 2'), 'Menyebut Seri 2');
 check(str_contains($body, '2.4 GHz'), 'Troubleshooting WiFi 2.4 GHz');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada typo shared hosting');
+
+// SVG harus lolos sanitizer
+$sanitized = app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($body);
+check(str_contains($sanitized, '<svg'), 'SVG bertahan setelah ArticleHtmlSanitizer');
+check(str_contains($article?->body ?? '', '<svg'), 'SVG ada di body database setelah seed');
 
 $seoLen = mb_strlen($article?->seo_description ?? '');
 check($seoLen >= 80 && $seoLen <= 160, "seo_description panjang OK ({$seoLen} char)");
@@ -132,6 +154,7 @@ $html = (string) $response->getContent();
 
 check($response->getStatusCode() === 200, 'GET artikel → 200');
 check(str_contains($html, 'Home Assistant'), 'Konten HA ter-render');
+check(str_contains($html, '<svg'), 'SVG ter-render di HTML');
 check(str_contains($html, 'application/ld+json'), 'JSON-LD schema ada');
 check(str_contains($html, 'og:title'), 'OG meta ada');
 check(str_contains($html, 'configuration.yaml'), 'YAML config ter-render');
