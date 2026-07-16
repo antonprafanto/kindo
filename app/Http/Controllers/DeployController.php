@@ -45,7 +45,13 @@ class DeployController extends Controller
     {
         $this->authorizeDeployHook();
 
-        Artisan::call('migrate', ['--force' => true]);
+        try {
+            Artisan::call('migrate', ['--force' => true]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Migrate failed: '.$e->getMessage(), 500);
+        }
 
         try {
             app(SitemapService::class)->writeToDisk();
@@ -53,7 +59,9 @@ class DeployController extends Controller
             report($e);
         }
 
-        return response(trim(Artisan::output()) ?: 'Migrated', 200);
+        $output = trim(Artisan::output()) ?: 'Migrated';
+
+        return response($output, 200);
     }
 
     /**

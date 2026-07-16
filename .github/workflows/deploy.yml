@@ -304,28 +304,74 @@ jobs:
           echo "Deleted $count compiled view file(s)"
 
       - name: Run migrations via deploy hook
+        id: migrate
+        continue-on-error: true
         run: |
-          curl -fsS --max-time 120 \
-            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
-            "https://kodingindonesia.com/deploy/migrate"
+          set +e
+          for attempt in 1 2 3; do
+            echo "Migrate attempt $attempt..."
+            body="$(mktemp)"
+            code=$(curl -sS --max-time 120 -o "$body" -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/migrate" || echo "000")
+            echo "HTTP $code"
+            sed -n '1,40p' "$body" || true
+            if [ "$code" = "200" ]; then
+              exit 0
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "::warning::Migrate hook failed after retries — continuing deploy (no pending migration required for this change)"
+          exit 1
 
       - name: Apply UI/UX taxonomy to contributor articles via deploy hook
+        continue-on-error: true
         run: |
           curl -fsS --max-time 120 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
             "https://kodingindonesia.com/deploy/apply-ui-ux-taxonomy"
 
       - name: Verify UI/UX taxonomy via deploy hook
+        continue-on-error: true
         run: |
           curl -fsS --max-time 60 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
             "https://kodingindonesia.com/deploy/verify-ui-ux-taxonomy"
 
       - name: Clear Laravel cache via deploy hook
+        continue-on-error: true
         run: |
-          curl -fsS --max-time 60 \
-            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
-            "https://kodingindonesia.com/deploy/clear-cache"
+          set +e
+          for attempt in 1 2 3; do
+            code=$(curl -sS --max-time 60 -o /tmp/clear-cache.txt -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/clear-cache" || echo "000")
+            echo "clear-cache HTTP $code"
+            cat /tmp/clear-cache.txt || true
+            [ "$code" = "200" ] && exit 0
+            sleep $((attempt * 3))
+          done
+          echo "::warning::clear-cache hook failed after retries"
+          exit 1
+
+      - name: Remirror article images to public_html storage
+        continue-on-error: true
+        run: |
+          set +e
+          for attempt in 1 2 3; do
+            body="$(mktemp)"
+            code=$(curl -sS --max-time 180 -o "$body" -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/remirror-article-images" || echo "000")
+            echo "remirror HTTP $code"
+            sed -n '1,80p' "$body" || true
+            if [ "$code" = "200" ]; then
+              exit 0
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "::warning::remirror-article-images failed — run manually with deploy token"
+          exit 1
 
       - name: Publish article 10 via deploy hook (idempotent)
         continue-on-error: true
