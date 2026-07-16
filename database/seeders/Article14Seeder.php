@@ -63,7 +63,7 @@ class Article14Seeder extends Seeder
 
 <p>Artikel ini menambahkan <strong>layar OLED SSD1306 0,96″</strong> (128×64 piksel) ke node yang sama. Pembaca sensor bisa melihat angka di lokasi tanpa membuka laptop. Karena OLED juga memakai <strong>I2C</strong>, BME280 dan OLED berbagi bus <strong>SDA/SCL</strong> — hanya alamat perangkat yang berbeda.</p>
 
-<p>Ini lanjutan <strong>Jalur A</strong> (hardware &amp; sensor) setelah deep sleep (#11), NVS (#12), dan BME280 (#13).</p>
+<p>Ini lanjutan <strong>Jalur A</strong> (hardware &amp; sensor) setelah <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a>, <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a>, dan <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Sudah paham <a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">GPIO dasar (#3)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>, dan <strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">I2C + BME280 (#13)</a></strong>. Untuk WiFi/NVS/broker auth, baca <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">#12</a> dan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a>.</p>
@@ -72,7 +72,7 @@ class Article14Seeder extends Seeder
 <h2>Yang Kamu Butuhkan</h2>
 <ul>
   <li>ESP32 DevKit</li>
-  <li>Modul sensor <strong>BME280</strong> (I2C) — dari artikel #13</li>
+  <li>Modul sensor <strong>BME280</strong> (I2C) — dari <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">artikel #13</a></li>
   <li>Modul <strong>OLED 0,96″ SSD1306</strong> (I2C, 128×64, 3.3V) — ±Rp 20.000–35.000</li>
   <li>Breadboard + kabel jumper</li>
   <li>Broker MQTT — disarankan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi (#16)</a> (boleh <code>test.mosquitto.org</code> hanya untuk uji hardware/OLED)</li>
@@ -103,14 +103,109 @@ class Article14Seeder extends Seeder
 </ul>
 <p>Karena alamat berbeda, BME280 dan OLED bisa dirakit <strong>paralel</strong> ke GPIO 21 (SDA) dan GPIO 22 (SCL) tanpa konflik.</p>
 
+<figure role="img" aria-label="Diagram arsitektur OLED + BME280: ESP32 berbagi bus I2C dengan BME280 dan OLED SSD1306, lalu publish MQTT ke Mosquitto" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 480" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="oledArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="oledArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="oledArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="480" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="130" y="15" width="360" height="70" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="42" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 — Wire + WiFiManager (#12)</text>
+  <text x="310" y="62" text-anchor="middle" fill="#4A5568" font-size="10">Wire.begin(21, 22) · PubSubClient · Preferences NVS</text>
+  <!-- I2C bus label -->
+  <line x1="310" y1="85" x2="310" y2="118" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oledArr)"/>
+  <rect x="220" y="95" width="180" height="26" rx="13" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="310" y="113" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">I2C bus · SDA 21 / SCL 22</text>
+  <!-- Split to two devices -->
+  <line x1="310" y1="121" x2="310" y2="150" stroke="#2979FF" stroke-width="2"/>
+  <line x1="160" y1="150" x2="460" y2="150" stroke="#2979FF" stroke-width="2"/>
+  <line x1="160" y1="150" x2="160" y2="175" stroke="#2979FF" stroke-width="2" marker-end="url(#oledArr)"/>
+  <line x1="460" y1="150" x2="460" y2="175" stroke="#2979FF" stroke-width="2" marker-end="url(#oledArr)"/>
+  <!-- BME280 -->
+  <rect x="55" y="180" width="210" height="70" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="160" y="208" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">BME280 (#13)</text>
+  <text x="160" y="228" text-anchor="middle" fill="#4A5568" font-size="10">alamat 0x76 / 0x77</text>
+  <text x="160" y="244" text-anchor="middle" fill="#4A5568" font-size="10">suhu · RH · tekanan</text>
+  <!-- OLED -->
+  <rect x="355" y="180" width="210" height="70" rx="6" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="460" y="208" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">OLED SSD1306</text>
+  <text x="460" y="228" text-anchor="middle" fill="#4A5568" font-size="10">alamat 0x3C / 0x3D</text>
+  <text x="460" y="244" text-anchor="middle" fill="#4A5568" font-size="10">128×64 · panel lokal</text>
+  <!-- Data flow to MQTT -->
+  <line x1="160" y1="250" x2="160" y2="278" stroke="#FF7A2F" stroke-width="2"/>
+  <line x1="160" y1="278" x2="310" y2="278" stroke="#FF7A2F" stroke-width="2"/>
+  <line x1="310" y1="278" x2="310" y2="318" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#oledArrO)"/>
+  <rect x="330" y="288" width="150" height="24" rx="12" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="405" y="305" text-anchor="middle" fill="#FF7A2F" font-size="10" font-weight="700">MQTT publish JSON</text>
+  <!-- Mosquitto -->
+  <rect x="130" y="325" width="360" height="55" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="350" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Mosquitto (#16)</text>
+  <text x="310" y="368" text-anchor="middle" fill="#e3f2fd" font-size="10">kodingindonesia/esp32/bme280/data</text>
+  <!-- Outcomes -->
+  <line x1="210" y1="380" x2="110" y2="412" stroke="#2E7D32" stroke-width="2" marker-end="url(#oledArrG)"/>
+  <line x1="310" y1="380" x2="310" y2="412" stroke="#2E7D32" stroke-width="2" marker-end="url(#oledArrG)"/>
+  <line x1="410" y1="380" x2="510" y2="412" stroke="#2E7D32" stroke-width="2" marker-end="url(#oledArrG)"/>
+  <rect x="15" y="418" width="190" height="42" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="110" y="436" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">OLED panel</text>
+  <text x="110" y="452" text-anchor="middle" fill="#4A5568" font-size="9">angka di lokasi fisik</text>
+  <rect x="215" y="418" width="190" height="42" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="310" y="436" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Serial Monitor</text>
+  <text x="310" y="452" text-anchor="middle" fill="#4A5568" font-size="9">debug development</text>
+  <rect x="415" y="418" width="190" height="42" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="510" y="436" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">MQTT Explorer</text>
+  <text x="510" y="452" text-anchor="middle" fill="#4A5568" font-size="9">subscriber laptop</text>
+  <text x="310" y="472" text-anchor="middle" fill="#4A5568" font-size="11">BME280 + OLED paralel di I2C → ESP32 tampilkan + publish MQTT</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Satu bus I2C: <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a> + OLED SSD1306 → publish ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a>.</figcaption>
+</figure>
+
 <h2>Komponen &amp; Wiring</h2>
 <p>Hubungkan <strong>kedua modul</strong> ke ESP32 (paralel di breadboard):</p>
-<pre><code>ESP32 DevKit          BME280 + OLED (paralel)
-─────────────         ─────────────────────
-3.3V          ─────── VCC (kedua modul)
-GND           ─────── GND (kedua modul)
-GPIO 21 (SDA) ─────── SDA (kedua modul)
-GPIO 22 (SCL) ─────── SCL (kedua modul)</code></pre>
+
+<figure role="img" aria-label="Diagram wiring ESP32 ke BME280 dan OLED SSD1306 paralel: 3.3V, GND, GPIO 21 SDA, GPIO 22 SCL" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 280" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="wArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="280" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="30" y="50" width="160" height="180" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="110" y="80" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 DevKit</text>
+  <text x="110" y="118" text-anchor="middle" fill="#4A5568" font-size="11">3.3V</text>
+  <text x="110" y="148" text-anchor="middle" fill="#4A5568" font-size="11">GND</text>
+  <text x="110" y="178" text-anchor="middle" fill="#4A5568" font-size="11">GPIO 21 (SDA)</text>
+  <text x="110" y="208" text-anchor="middle" fill="#4A5568" font-size="11">GPIO 22 (SCL)</text>
+  <!-- Lines -->
+  <line x1="190" y1="114" x2="280" y2="114" stroke="#C62828" stroke-width="2.5" marker-end="url(#wArr)"/>
+  <line x1="190" y1="144" x2="280" y2="144" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#wArr)"/>
+  <line x1="190" y1="174" x2="280" y2="174" stroke="#2979FF" stroke-width="2.5" marker-end="url(#wArr)"/>
+  <line x1="190" y1="204" x2="280" y2="204" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#wArr)"/>
+  <!-- Split bus -->
+  <line x1="280" y1="114" x2="320" y2="114" stroke="#C62828" stroke-width="2"/>
+  <line x1="280" y1="144" x2="320" y2="144" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="280" y1="174" x2="320" y2="174" stroke="#2979FF" stroke-width="2"/>
+  <line x1="280" y1="204" x2="320" y2="204" stroke="#2E7D32" stroke-width="2"/>
+  <line x1="320" y1="70" x2="320" y2="240" stroke="#718096" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <!-- BME280 -->
+  <rect x="360" y="30" width="220" height="100" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="470" y="58" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">BME280</text>
+  <text x="470" y="80" text-anchor="middle" fill="#4A5568" font-size="10">VCC · GND · SDA · SCL</text>
+  <text x="470" y="100" text-anchor="middle" fill="#4A5568" font-size="10">I2C 0x76 / 0x77 · 3.3V</text>
+  <text x="470" y="118" text-anchor="middle" fill="#4A5568" font-size="9">dari artikel #13</text>
+  <!-- OLED -->
+  <rect x="360" y="150" width="220" height="100" rx="6" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="470" y="178" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">OLED SSD1306</text>
+  <text x="470" y="200" text-anchor="middle" fill="#4A5568" font-size="10">VCC · GND · SDA · SCL</text>
+  <text x="470" y="220" text-anchor="middle" fill="#4A5568" font-size="10">I2C 0x3C · 128×64 · 3.3V</text>
+  <text x="470" y="238" text-anchor="middle" fill="#4A5568" font-size="9">paralel di breadboard</text>
+  <!-- Pin color legend -->
+  <text x="310" y="268" text-anchor="middle" fill="#4A5568" font-size="10">Merah 3.3V · Hitam GND · Biru SDA · Hijau SCL — kedua modul paralel</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Wiring paralel: 3.3V, GND, SDA (GPIO 21), SCL (GPIO 22) ke kedua modul I2C.</figcaption>
+</figure>
 
 <ul>
   <li>Pastikan modul OLED <strong>3.3V</strong> — beberapa modul punya jumper VCC/3V3</li>
@@ -130,7 +225,7 @@ GPIO 22 (SCL) ─────── SCL (kedua modul)</code></pre>
 </ul>
 <p>Board: <strong>esp32</strong> by Espressif (<strong>v3.x</strong>). Library <code>Wire</code>, <code>Preferences</code>, dan <code>WiFi</code> sudah built-in.</p>
 
-<p><strong>Topic MQTT</strong> (sama #13): <code>kodingindonesia/esp32/bme280/data</code></p>
+<p><strong>Topic MQTT</strong> (sama <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">#13</a>): <code>kodingindonesia/esp32/bme280/data</code></p>
 <p><strong>Payload JSON:</strong> <code>{"suhu":28.5,"kelembaban":65.2,"tekanan":1013.25}</code></p>
 
 <h2>Kode Lengkap: BME280 + OLED + WiFiManager + MQTT</h2>
@@ -322,13 +417,13 @@ void loop() {
 <ol>
   <li>Rakit BME280 + OLED paralel di breadboard, upload sketch, Serial Monitor <strong>115200</strong></li>
   <li>Pastikan OLED menampilkan teks <code>Menghubungkan...</code> lalu angka sensor</li>
-  <li>Portal <code>KindoESP32-Setup</code> — isi WiFi + kredensial broker (#16)</li>
+  <li>Portal <code>KindoESP32-Setup</code> — isi WiFi + kredensial <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker (#16)</a></li>
   <li>Verifikasi angka di OLED ≈ Serial Monitor / MQTT Explorer</li>
   <li>Subscribe topic di laptop:</li>
 </ol>
 
 <pre><code class="language-bash">mosquitto_sub -h 192.168.1.50 -p 1883 \
-  -u kindo_esp32 -P 'KindoMQTT2026!' \
+  -u kindo_esp32 -P 'GANTI_PASSWORD_MQTT' \
   -t "kodingindonesia/esp32/bme280/data" -v</code></pre>
 
 <blockquote>
@@ -362,11 +457,11 @@ void loop() {
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — update tanpa kabel USB (butuh #12 WiFiManager)</li>
+  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware (#15)</a></strong> — update tanpa kabel USB (butuh <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">#12 WiFiManager</a>)</li>
   <li>Gabung <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> + BME280 + OLED untuk node lapangan (matikan OLED saat tidur)</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python → MySQL (#18)</a></strong> untuk histori + OLED sebagai panel lokal</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — dashboard cloud selain layar OLED</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — sensor + layar + pompa relay</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — sensor + layar + pompa relay</li>
 </ul>
 
 <p>Dengan OLED di bus I2C yang sama, node sensormu punya <strong>antarmuka lokal</strong> selain MQTT cloud. Lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

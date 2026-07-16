@@ -71,12 +71,44 @@ $requiredLinks = [
     'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32'  => 'Artikel #16 broker',
     'deep-sleep-esp32-sensor-dht22-hemat-baterai'                    => 'Artikel #11 deep sleep',
     'cara-install-arduino-ide-setup-esp32-board-manager'             => 'Artikel #2 Arduino IDE',
+    'ota-update-firmware-esp32-via-wifi'                              => 'Artikel #15 OTA',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'          => 'Artikel #18 Python',
+    'influxdb-grafana-dashboard-histori-sensor-esp32-mqtt'           => 'Artikel #19 Grafana',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
     check(str_contains($body, '/artikel/' . $linkSlug), "Link internal: {$label}");
     check(Article::where('slug', $linkSlug)->exists(), "Target exists: {$linkSlug}");
 }
+
+check(str_contains($body, '<svg'), 'SVG diagram ada');
+check(substr_count($body, '<svg') >= 2, 'Minimal 2 SVG (arsitektur + wiring)');
+check(str_contains($body, 'I2C bus · SDA 21 / SCL 22'), 'SVG arsitektur: label I2C bus');
+check(str_contains($body, 'BME280 (#13)'), 'SVG arsitektur: BME280 (#13)');
+check(str_contains($body, 'OLED SSD1306'), 'SVG: OLED SSD1306');
+check(str_contains($body, 'Mosquitto (#16)'), 'SVG arsitektur: Mosquitto (#16)');
+check(str_contains($body, 'GPIO 21 (SDA)'), 'SVG wiring: GPIO 21 SDA');
+check(str_contains($body, 'GPIO 22 (SCL)'), 'SVG wiring: GPIO 22 SCL');
+check(! str_contains($body, 'ESP32 DevKit          BME280 + OLED'), 'ASCII wiring sudah dihapus');
+check(! str_contains($body, '─────── VCC'), 'ASCII wiring dashes sudah dihapus');
+
+check(str_contains($body, 'deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a>'), 'Hyperlink Jalur A #11');
+check(str_contains($body, 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a>'), 'Hyperlink Jalur A #12');
+check(str_contains($body, 'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a>'), 'Hyperlink Jalur A #13');
+check(str_contains($body, 'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">artikel #13</a>'), 'Hyperlink #13 di Yang Kamu Butuhkan');
+check(str_contains($body, 'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker (#16)</a>'), 'Hyperlink broker #16 di Uji Coba');
+check(str_contains($body, 'ota-update-firmware-esp32-via-wifi">OTA update firmware (#15)</a>'), 'Hyperlink OTA #15');
+check(str_contains($body, 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">#12 WiFiManager</a>'), 'Hyperlink #12 di Langkah Selanjutnya');
+check(str_contains($body, 'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>'), 'Hyperlink greenhouse #39');
+
+check(str_contains($body, 'GANTI_PASSWORD_MQTT'), 'Placeholder password MQTT');
+check(! str_contains($body, 'KindoMQTT2026!'), 'Tidak ada password literal');
+
+$sanitized = app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($body);
+check(str_contains($sanitized, '<svg'), 'SVG lolos sanitizer');
+check(substr_count($sanitized, '<svg') >= 2, 'Kedua SVG lolos sanitizer');
+check(str_contains($sanitized, 'I2C bus · SDA 21 / SCL 22'), 'Label I2C bus lolos sanitizer');
 
 check(str_contains($body, 'Jalur A'), 'Menyebut Jalur A hardware');
 check(str_contains($body, 'SSD1306'), 'Menyebut SSD1306');
@@ -145,6 +177,8 @@ $html = (string) $response->getContent();
 
 check($response->getStatusCode() === 200, 'GET artikel → 200');
 check(str_contains($html, 'SSD1306'), 'Judul/konten SSD1306 ter-render');
+check(str_contains($html, '<svg'), 'SVG diagram ter-render');
+check(str_contains($html, 'I2C bus · SDA 21 / SCL 22'), 'SVG I2C bus ter-render');
 check(str_contains($html, 'application/ld+json'), 'JSON-LD schema ada');
 check(str_contains($html, 'og:title'), 'OG meta ada');
 check(str_contains($html, 'tampilkanOLED'), 'Kode OLED ter-render');
