@@ -51,7 +51,7 @@ class Article6Seeder extends Seeder
     {
         return <<<'HTML'
 <h2>Pendahuluan</h2>
-<p>Di artikel sebelumnya kita sudah belajar menghubungkan ESP32 ke WiFi dan membaca data sensor DHT22. Kali ini kita akan menggabungkan keduanya menjadi satu proyek lengkap: <strong>Web Server di ESP32</strong> yang menampilkan suhu dan kelembaban langsung di browser HP atau laptop kamu — tanpa server eksternal!</p>
+<p>Di artikel sebelumnya kita sudah belajar <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">menghubungkan ESP32 ke WiFi (#4)</a> dan <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">membaca data sensor DHT22 (#5)</a>. Kali ini kita akan menggabungkan keduanya menjadi satu proyek lengkap: <strong>Web Server di ESP32</strong> yang menampilkan suhu dan kelembaban langsung di browser HP atau laptop kamu — tanpa server eksternal!</p>
 
 <p>Ini adalah langkah penting menuju smart home dan IoT dashboard. Kamu tidak perlu hosting cloud untuk monitoring sederhana; ESP32 sendiri bisa menjadi server mini.</p>
 
@@ -65,11 +65,11 @@ class Article6Seeder extends Seeder
 </ul>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Pastikan kamu sudah membaca artikel <em>Menghubungkan ESP32 ke WiFi</em> dan <em>Membaca Sensor DHT22</em>. Kode di bawah menggabungkan kedua konsep tersebut.</p>
+  <p><strong>Prasyarat:</strong> Pastikan kamu sudah membaca artikel <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server"><em>Menghubungkan ESP32 ke WiFi (#4)</em></a> dan <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32"><em>Membaca Sensor DHT22 (#5)</em></a>. Kode di bawah menggabungkan kedua konsep tersebut.</p>
 </blockquote>
 
 <h2>Wiring Hardware</h2>
-<p>Koneksi DHT22 ke ESP32 (sama seperti tutorial DHT22):</p>
+<p>Koneksi DHT22 ke ESP32 (sama seperti <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">tutorial DHT22 (#5)</a>):</p>
 <ul>
   <li><strong>VCC</strong> → 3.3V ESP32</li>
   <li><strong>DATA</strong> → GPIO 4 (+ resistor 10kΩ ke VCC)</li>
@@ -210,14 +210,53 @@ void loop() {
   "device": "ESP32-001"
 }</code></pre>
 
-<p>Endpoint ini bisa dipakai untuk membangun dashboard custom, mengirim data ke server cloud, atau diintegrasikan dengan <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a> di fase berikutnya.</p>
+<p>Endpoint ini bisa dipakai untuk membangun dashboard custom, mengirim data ke server cloud, atau diintegrasikan dengan <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a> di fase berikutnya.</p>
 
 <h2>Cara Kerja Web Server ESP32</h2>
 <p>Berikut alur singkat yang terjadi di balik layar:</p>
+<figure role="img" aria-label="Diagram alur web server ESP32: DHT22 dibaca ESP32, WebServer port 80 melayani browser HTML dan endpoint API JSON" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 420" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="wsArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="wsArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="wsArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="420" fill="#F5F5F0" rx="6"/>
+  <!-- DHT22 -->
+  <rect x="195" y="15" width="230" height="55" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="38" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">DHT22</text>
+  <text x="310" y="56" text-anchor="middle" fill="#4A5568" font-size="10">suhu · kelembaban · GPIO 4</text>
+  <!-- Arrow DHT → ESP32 -->
+  <line x1="310" y1="70" x2="310" y2="108" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#wsArrO)"/>
+  <text x="355" y="95" fill="#FF7A2F" font-size="10" font-weight="700">baca tiap 2s ↓</text>
+  <!-- ESP32 WebServer -->
+  <rect x="130" y="115" width="360" height="85" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="145" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 WebServer :80</text>
+  <text x="310" y="165" text-anchor="middle" fill="#4A5568" font-size="10">WiFi LAN · IP lokal (mis. 192.168.1.100)</text>
+  <text x="310" y="183" text-anchor="middle" fill="#4A5568" font-size="10">handleClient() · non-blocking di loop()</text>
+  <!-- Two outputs -->
+  <line x1="220" y1="200" x2="140" y2="268" stroke="#2979FF" stroke-width="2.5" marker-end="url(#wsArr)"/>
+  <line x1="400" y1="200" x2="480" y2="268" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#wsArrG)"/>
+  <text x="155" y="240" fill="#2979FF" font-size="10" font-weight="700">GET /</text>
+  <text x="445" y="240" fill="#2E7D32" font-size="10" font-weight="700">GET /api/data</text>
+  <!-- Browser -->
+  <rect x="30" y="280" width="220" height="60" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="140" y="305" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Browser HP / Laptop</text>
+  <text x="140" y="323" text-anchor="middle" fill="#4A5568" font-size="10">halaman HTML dashboard</text>
+  <!-- API client -->
+  <rect x="370" y="280" width="220" height="60" rx="6" fill="#E8F5E9" stroke="#000" stroke-width="2"/>
+  <text x="480" y="305" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Klien API / Integrasi</text>
+  <text x="480" y="323" text-anchor="middle" fill="#4A5568" font-size="10">JSON suhu · kelembaban</text>
+  <!-- Summary -->
+  <text x="310" y="375" text-anchor="middle" fill="#4A5568" font-size="11">DHT22 → ESP32 → WebServer :80 → browser HTML + /api/data JSON</text>
+  <text x="310" y="395" text-anchor="middle" fill="#4A5568" font-size="10">Hanya LAN — jangan expose ke internet tanpa autentikasi</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">ESP32 menjadi server mini di LAN: sensor <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> ditampilkan di browser, endpoint JSON siap untuk integrasi lanjut (mis. <a href="/artikel/home-assistant-integrasi-esp32-mqtt">HA #21</a>).</figcaption>
+</figure>
 <ol>
   <li>ESP32 terhubung ke WiFi dan mendapat alamat IP lokal (misalnya 192.168.1.100)</li>
   <li><code>WebServer</code> mendengarkan request HTTP di port 80</li>
-  <li>Saat browser membuka <code>/</code>, ESP32 membaca DHT22 lalu mengirim halaman HTML</li>
+  <li>Saat browser membuka <code>/</code>, ESP32 mengirim halaman HTML dashboard (data dari pembacaan berkala)</li>
   <li>Saat ada request ke <code>/api/data</code>, ESP32 mengirim data sensor dalam format JSON</li>
   <li>Di <code>loop()</code>, <code>server.handleClient()</code> memproses request secara non-blocking</li>
 </ol>
@@ -235,16 +274,18 @@ void loop() {
 <p>Proyek ini adalah fondasi untuk proyek IoT yang lebih kompleks. Beberapa ide pengembangan:</p>
 <ul>
   <li>Tambahkan <strong>auto-refresh</strong> di halaman HTML dengan JavaScript <code>setInterval</code></li>
-  <li>Kirim data ke <strong>server cloud</strong> secara berkala (kombinasi dengan artikel HTTP POST)</li>
-  <li>Pelajari protokol <strong>MQTT</strong> untuk komunikasi IoT yang lebih efisien</li>
+  <li>Kirim data ke <strong>server cloud</strong> secara berkala (kombinasi dengan artikel <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">WiFi + HTTP (#4)</a>)</li>
+  <li>Pelajari protokol <strong><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a></strong> untuk komunikasi IoT yang lebih efisien</li>
   <li>Pahami kapan pakai REST vs MQTT di <strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">panduan #20</a></strong> sebelum scale ke cloud</li>
-  <li>Tambahkan <strong>relay</strong> untuk kontrol lampu berdasarkan suhu</li>
-  <li>Integrasikan dengan <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> untuk smart home lengkap</li>
+  <li>Tambahkan <strong><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">relay (#8)</a></strong> untuk kontrol lampu berdasarkan suhu</li>
+  <li>Integrasikan dengan <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> untuk smart home lengkap</li>
+  <li>Upgrade dashboard hybrid: <strong><a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">Web Server + MQTT (#10)</a></strong></li>
   <li>Tambahkan visual: <strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM MJPEG streaming (#27)</a></strong> — live video di browser, melengkapi angka sensor di web server ini</li>
+  <li>Akses aman dari luar LAN → pelajari <a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">HTTPS di ESP32 (#38)</a></li>
 </ul>
 
 <blockquote>
-  <p><strong>Keamanan:</strong> Web server ini hanya bisa diakses di jaringan lokal. Jangan expose langsung ke internet tanpa autentikasi. Untuk akses remote, gunakan VPN atau tunneling yang aman.</p>
+  <p><strong>Keamanan:</strong> Web server ini hanya bisa diakses di jaringan lokal. Jangan expose langsung ke internet tanpa autentikasi. Untuk akses remote, gunakan VPN atau tunneling yang aman — atau naik level ke <a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">HTTPS (#38)</a> / <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a>.</p>
 </blockquote>
 HTML;
     }
