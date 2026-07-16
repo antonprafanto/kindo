@@ -81,13 +81,13 @@ class Article22Seeder extends Seeder
 <h2>Arduino Sketch vs ESPHome</h2>
 <table>
   <thead>
-    <tr><th>Aspek</th><th>Sketch Arduino (#9)</th><th>ESPHome (artikel ini)</th></tr>
+    <tr><th>Aspek</th><th><a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">Sketch Arduino (#9)</a></th><th>ESPHome (artikel ini)</th></tr>
   </thead>
   <tbody>
     <tr><td>Bahasa</td><td>C++ (<code>.ino</code>)</td><td><strong>YAML</strong> deklaratif</td></tr>
-    <tr><td>Integrasi HA</td><td>MQTT manual di <code>configuration.yaml</code> (#21)</td><td><strong>Native API</strong> — entitas otomatis</td></tr>
+    <tr><td>Integrasi HA</td><td>MQTT manual di <code>configuration.yaml</code> (<a href="/artikel/home-assistant-integrasi-esp32-mqtt">#21</a>)</td><td><strong>Native API</strong> — entitas otomatis</td></tr>
     <tr><td>OTA</td><td>ArduinoOTA / <a href="/artikel/ota-update-firmware-esp32-via-wifi">custom OTA (#15)</a></td><td>OTA bawaan ESPHome</td></tr>
-    <tr><td>Broker eksternal</td><td>Wajib Mosquitto (#16)</td><td>Opsional — bisa tetap pakai <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a></td></tr>
+    <tr><td>Broker eksternal</td><td>Wajib <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a></td><td>Opsional — bisa tetap pakai <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a></td></tr>
     <tr><td>Kapan pakai</td><td>Logika custom, protokol non-HA</td><td>Node sensor/aktuator cepat di smart home</td></tr>
   </tbody>
 </table>
@@ -106,16 +106,59 @@ class Article22Seeder extends Seeder
 </table>
 
 <p>Alur data secara singkat:</p>
-<pre><code>  [ YAML ESPHome ]  →  compile  →  firmware ESP32
-        |
-        |  WiFi · Native API (enkripsi) · OTA
-        v
-  [ Home Assistant ]  (#21)
-        |
-        +-- sensor.kindo_esp32_node_suhu_ruangan  (DHT22)
-        +-- sensor.kindo_esp32_node_kelembaban_ruangan
-        +-- switch.kindo_esp32_node_lampu_relay
-        +-- automasi: suhu &gt; 30°C → matikan lampu</code></pre>
+<figure role="img" aria-label="Diagram alur ESPHome: YAML dikompile ke firmware ESP32, lalu Native API ke Home Assistant dengan entitas sensor dan switch" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 460" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="ehArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="ehArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="ehArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="460" fill="#F5F5F0" rx="6"/>
+  <!-- YAML -->
+  <rect x="40" y="20" width="200" height="55" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="140" y="42" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">YAML ESPHome</text>
+  <text x="140" y="58" text-anchor="middle" fill="#4A5568" font-size="10">deklaratif · secrets.yaml</text>
+  <!-- Arrow YAML → compile -->
+  <line x1="240" y1="47" x2="288" y2="47" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#ehArrO)"/>
+  <text x="264" y="38" text-anchor="middle" fill="#FF7A2F" font-size="9" font-weight="700">compile</text>
+  <!-- Firmware ESP32 -->
+  <rect x="300" y="20" width="280" height="55" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="440" y="42" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Firmware ESP32</text>
+  <text x="440" y="58" text-anchor="middle" fill="#4A5568" font-size="10">DHT22 GPIO4 · Relay GPIO26</text>
+  <!-- Arrow ESP32 → HA -->
+  <line x1="440" y1="75" x2="440" y2="128" stroke="#2979FF" stroke-width="2.5" marker-end="url(#ehArr)"/>
+  <text x="490" y="108" fill="#2979FF" font-size="10" font-weight="700">WiFi · Native API · OTA ↓</text>
+  <!-- Home Assistant -->
+  <rect x="150" y="135" width="320" height="60" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="162" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Home Assistant (#21)</text>
+  <text x="310" y="180" text-anchor="middle" fill="#e3f2fd" font-size="10">dashboard · automasi · Native API</text>
+  <!-- 4 entity outputs -->
+  <line x1="200" y1="195" x2="110" y2="248" stroke="#2E7D32" stroke-width="2" marker-end="url(#ehArrG)"/>
+  <line x1="270" y1="195" x2="250" y2="248" stroke="#2E7D32" stroke-width="2" marker-end="url(#ehArrG)"/>
+  <line x1="350" y1="195" x2="390" y2="248" stroke="#2E7D32" stroke-width="2" marker-end="url(#ehArrG)"/>
+  <line x1="420" y1="195" x2="520" y2="248" stroke="#2E7D32" stroke-width="2" marker-end="url(#ehArrG)"/>
+  <!-- Entity 1 -->
+  <rect x="15" y="255" width="180" height="55" rx="6" fill="#E8F5E9" stroke="#000" stroke-width="2"/>
+  <text x="105" y="276" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">sensor … suhu</text>
+  <text x="105" y="292" text-anchor="middle" fill="#4A5568" font-size="9">DHT22 temperature</text>
+  <!-- Entity 2 -->
+  <rect x="210" y="255" width="180" height="55" rx="6" fill="#E8F5E9" stroke="#000" stroke-width="2"/>
+  <text x="300" y="276" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">sensor … kelembaban</text>
+  <text x="300" y="292" text-anchor="middle" fill="#4A5568" font-size="9">DHT22 humidity</text>
+  <!-- Entity 3 -->
+  <rect x="405" y="255" width="200" height="55" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="505" y="276" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">switch … lampu_relay</text>
+  <text x="505" y="292" text-anchor="middle" fill="#4A5568" font-size="9">GPIO26 active LOW</text>
+  <!-- Automasi box -->
+  <rect x="100" y="335" width="420" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="310" y="356" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Automasi HA</text>
+  <text x="310" y="372" text-anchor="middle" fill="#4A5568" font-size="10">suhu &gt; 30°C selama 5 menit → switch.turn_off</text>
+  <!-- Summary -->
+  <text x="310" y="420" text-anchor="middle" fill="#4A5568" font-size="11">YAML → compile → ESP32 → Native API → Home Assistant → entitas + automasi</text>
+  <text x="310" y="440" text-anchor="middle" fill="#4A5568" font-size="10">Mosquitto (#16) opsional — publish paralel ke topic Seri 1</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">YAML ESPHome dikompile ke firmware ESP32, entitas muncul otomatis di <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a> via Native API — <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> opsional.</figcaption>
+</figure>
 
 <h2>Wiring Hardware</h2>
 <p>Ikuti diagram di <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel #9</a> — pin konsisten di seluruh seri:</p>
@@ -265,7 +308,7 @@ action:
 <h2>OTA — Update Tanpa Kabel USB</h2>
 <p>Setelah flash pertama, edit YAML lalu klik <strong>Install → Wirelessly</strong> di ESPHome Dashboard. Ini menggantikan kebutuhan <a href="/artikel/ota-update-firmware-esp32-via-wifi">ArduinoOTA custom (#15)</a> untuk node ESPHome — meski sketch Arduino manual tetap relevan untuk proyek non-HA.</p>
 
-<h2>Opsional — Publish ke Mosquitto (#16)</h2>
+<h2>Opsional — Publish ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a></h2>
 <p>Jika kamu punya node Arduino lama (<a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">#9</a>) dan ingin ESPHome ikut ekosistem topic Seri 1, tambahkan blok <code>mqtt:</code>:</p>
 <pre><code class="language-yaml">mqtt:
   broker: 192.168.1.50
@@ -321,7 +364,7 @@ action:
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">Sensor PIR + lampu MQTT (#24)</a></strong> — automasi gerak dengan debounce</li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan broker Mosquitto di internet</li>
   <li>Kembali ke pendekatan manual: <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + MQTT (#21)</a> untuk node non-ESPHome</li>
-  <li>Capstone <strong>greenhouse (#39)</strong> — gabung sensor, relay, dan dashboard</li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — gabung sensor, relay, dan dashboard</li>
 </ul>
 
 <p>ESPHome mempercepat Jalur C smart home: dari YAML ke dashboard dalam hitungan menit. Lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

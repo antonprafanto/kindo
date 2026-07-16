@@ -74,6 +74,11 @@ $requiredLinks = [
     'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32'  => 'Artikel #16 broker',
     'ota-update-firmware-esp32-via-wifi'                              => 'Artikel #15 OTA',
     'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode'   => 'Artikel #12 WiFiManager',
+    'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                      => 'Artikel #13 BME280',
+    'node-red-dashboard-otomasi-iot-mqtt-esp32'                      => 'Artikel #23 Node-RED',
+    'sensor-gerak-pir-esp32-lampu-mqtt-debounce'                     => 'Artikel #24 PIR',
+    'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                      => 'Artikel #17 TLS',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'        => 'Artikel #39 Greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -81,11 +86,23 @@ foreach ($requiredLinks as $linkSlug => $label) {
     check(Article::where('slug', $linkSlug)->exists(), "Target exists: {$linkSlug}");
 }
 
+check(str_contains($body, '<svg'), 'SVG diagram alur data ada');
+check(str_contains($body, 'Home Assistant (#21)'), 'SVG: teks Home Assistant (#21)');
+check(str_contains($body, 'YAML ESPHome'), 'SVG: teks YAML ESPHome');
+check(str_contains($body, 'Native API'), 'SVG / prose: Native API');
+check(! str_contains($body, '[ YAML ESPHome ]'), 'ASCII diagram sudah dihapus');
+check(! str_contains($body, '+-- sensor.kindo_esp32_node_suhu_ruangan'), 'ASCII entity list sudah dihapus');
+
+check(str_contains($body, 'Sketch Arduino (#9)</a></th>'), 'Hyperlink #9 di header tabel');
+check(str_contains($body, 'configuration.yaml</code> (<a href="/artikel/home-assistant-integrasi-esp32-mqtt">#21</a>)'), 'Hyperlink #21 di tabel Integrasi HA');
+check(str_contains($body, 'Wajib <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a>'), 'Hyperlink #16 di tabel Broker eksternal');
+check(str_contains($body, 'Publish ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a></h2>'), 'Hyperlink #16 di H2 Opsional');
+check(str_contains($body, 'greenhouse (#39)</a>'), 'Hyperlink greenhouse #39 di Langkah Selanjutnya');
+
 check(str_contains($body, 'ESPHome'), 'Menyebut ESPHome');
 check(str_contains($body, 'Jalur C'), 'Menyebut Jalur C');
 check(str_contains($body, 'language-yaml'), 'Blok kode YAML');
 check(str_contains($body, 'secrets.yaml'), 'File secrets.yaml');
-check(str_contains($body, 'Native API'), 'Menjelaskan Native API');
 check(str_contains($body, 'GPIO4'), 'Pin DHT22 GPIO4');
 check(str_contains($body, 'GPIO26'), 'Pin relay GPIO26');
 check(str_contains($body, 'inverted: true'), 'Relay active LOW inverted');
@@ -101,14 +118,13 @@ check(str_contains($body, 'Dashboard di Home Assistant'), 'Section dashboard HA'
 check(str_contains($body, 'Estimasi biaya'), 'Estimasi harga komponen');
 check(str_contains($body, 'ap_password'), 'secrets.yaml ap_password');
 check(str_contains($body, '!secret ap_password'), 'YAML AP password via secret');
-check(str_contains($body, 'sensor.kindo_esp32_node_suhu_ruangan'), 'Diagram alur entity ID konsisten');
 check(str_contains($body, 'Gabung dengan Stack Seri 2'), 'Section gabung stack Seri 2');
 check(str_contains($body, 'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'), 'Link BME280 #13');
 check(str_contains($body, 'numeric_state'), 'Automasi numeric_state');
 check(str_contains($body, 'device_class'), 'device_class sensor');
 check(str_contains($body, 'node-red-dashboard-otomasi-iot-mqtt-esp32'), 'Teaser link Node-RED #23');
-check(str_contains($body, 'Artikel #24'), 'Teaser PIR #24');
-check(str_contains($body, 'Artikel #17'), 'Teaser MQTT TLS #17');
+check(str_contains($body, 'sensor-gerak-pir-esp32-lampu-mqtt-debounce'), 'Teaser PIR #24');
+check(str_contains($body, 'mqtt-tls-qos-lwt-retained-mosquitto-esp32'), 'Teaser MQTT TLS #17');
 check(str_contains($body, 'Keamanan &amp; Produksi'), 'Section Keamanan & Produksi');
 check(str_contains($body, 'Pro tip'), 'Pro tip friendly_name');
 check(str_contains($body, 'greenhouse'), 'Teaser capstone #39');
