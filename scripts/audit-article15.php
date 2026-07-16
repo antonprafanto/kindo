@@ -73,12 +73,40 @@ $requiredLinks = [
     'deep-sleep-esp32-sensor-dht22-hemat-baterai'                    => 'Artikel #11 deep sleep',
     'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32'  => 'Artikel #16 broker',
     'cara-install-arduino-ide-setup-esp32-board-manager'             => 'Artikel #2 Arduino IDE',
+    'home-assistant-integrasi-esp32-mqtt'                            => 'Artikel #21 Home Assistant',
+    'esphome-flash-esp32-tanpa-coding-arduino'                       => 'Artikel #22 ESPHome',
+    'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                      => 'Artikel #17 MQTT TLS',
+    'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt'          => 'Artikel #39 greenhouse',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
     check(str_contains($body, '/artikel/' . $linkSlug), "Link internal: {$label}");
     check(Article::where('slug', $linkSlug)->exists(), "Target exists: {$linkSlug}");
 }
+
+check(str_contains($body, '<svg'), 'SVG diagram arsitektur ada');
+check(str_contains($body, 'WiFiManager (#12) + ArduinoOTA'), 'SVG: teks WiFiManager + ArduinoOTA');
+check(str_contains($body, 'USB flash #1'), 'SVG: label USB flash pertama');
+check(str_contains($body, 'WiFi OTA UDP'), 'SVG: label WiFi OTA UDP');
+check(str_contains($body, 'Bootloader swap app0'), 'SVG: partition swap app0/app1');
+check(str_contains($body, 'MQTT metadata (#16)'), 'SVG: MQTT metadata #16');
+
+check(str_contains($body, 'deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a>'), 'Hyperlink Jalur A #11');
+check(str_contains($body, 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a>'), 'Hyperlink Jalur A #12');
+check(str_contains($body, 'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a>'), 'Hyperlink Jalur A #13');
+check(str_contains($body, 'oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED (#14)</a>'), 'Hyperlink Jalur A #14');
+check(str_contains($body, 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">artikel #12</a>'), 'Hyperlink #12 di Yang Kamu Butuhkan');
+check(str_contains($body, 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a></li>'), 'Hyperlink NVS #12 di Penjelasan');
+check(str_contains($body, 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">provisioning (#12)</a>'), 'Hyperlink provisioning #12');
+check(str_contains($body, 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (pola #12)</a>'), 'Hyperlink pola NVS #12 Keamanan');
+check(str_contains($body, 'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a>'), 'Hyperlink greenhouse #39');
+
+check(str_contains($body, 'GANTI_PASSWORD_OTA'), 'Placeholder password OTA');
+check(! str_contains($body, 'kindo_ota_2026'), 'Tidak ada password literal kindo_ota_2026');
+
+$sanitized = app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($body);
+check(str_contains($sanitized, '<svg'), 'SVG lolos sanitizer');
+check(str_contains($sanitized, 'Bootloader swap app0'), 'SVG swap partition lolos sanitizer');
 
 check(str_contains($body, 'Jalur A'), 'Menyebut Jalur A');
 check(str_contains($body, 'Over-The-Air') || str_contains($body, 'OTA'), 'Menjelaskan OTA');
@@ -101,7 +129,7 @@ check(str_contains($body, 'app1'), 'Menjelaskan partition app1');
 check(str_contains($body, 'v3.x'), 'Board esp32 v3.x disebut');
 check(str_contains($body, 'Compile error WiFiManager'), 'Troubleshooting WiFiManager compile');
 check(str_contains($body, '<table>'), 'Ada tabel perbandingan');
-check(str_contains($body, 'Artikel #17'), 'Teaser artikel #17 MQTT TLS');
+check(str_contains($body, 'mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a>'), 'Teaser MQTT TLS #17');
 check(str_contains($body, 'KindoESP32-Setup'), 'AP portal KindoESP32-Setup');
 check(str_contains($body, 'OTA_AUTH_ERROR'), 'Troubleshooting OTA_AUTH_ERROR');
 check(str_contains($body, 'Sketch too big'), 'Troubleshooting sketch size');
@@ -131,6 +159,8 @@ $html = (string) $response->getContent();
 
 check($response->getStatusCode() === 200, 'GET artikel → 200');
 check(str_contains($html, 'ArduinoOTA'), 'Konten OTA ter-render');
+check(str_contains($html, '<svg'), 'SVG diagram ter-render di halaman');
+check(str_contains($html, 'Bootloader swap app0'), 'SVG partition swap ter-render');
 check(str_contains($html, 'application/ld+json'), 'JSON-LD schema ada');
 check(str_contains($html, 'og:title'), 'OG meta ada');
 $kernel->terminate($request, $response);
