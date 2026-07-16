@@ -237,8 +237,12 @@ void loop() {
   <!-- Two outputs -->
   <line x1="220" y1="200" x2="140" y2="268" stroke="#2979FF" stroke-width="2.5" marker-end="url(#wsArr)"/>
   <line x1="400" y1="200" x2="480" y2="268" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#wsArrG)"/>
-  <text x="155" y="240" fill="#2979FF" font-size="10" font-weight="700">GET /</text>
-  <text x="445" y="240" fill="#2E7D32" font-size="10" font-weight="700">GET /api/data</text>
+  <!-- Label GET / — di kiri panah, tidak menimpa garis -->
+  <rect x="55" y="222" width="70" height="22" rx="11" fill="#fff" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="90" y="237" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">GET /</text>
+  <!-- Label GET /api/data — di kanan panah -->
+  <rect x="490" y="222" width="110" height="22" rx="11" fill="#fff" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="545" y="237" text-anchor="middle" fill="#2E7D32" font-size="10" font-weight="700">GET /api/data</text>
   <!-- Browser -->
   <rect x="30" y="280" width="220" height="60" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
   <text x="140" y="305" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Browser HP / Laptop</text>
