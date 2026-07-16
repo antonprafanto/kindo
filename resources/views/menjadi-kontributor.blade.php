@@ -100,7 +100,7 @@
             <p class="mb-8 theme-muted text-sm">Lengkapi data di bawah untuk mengajukan diri sebagai kontributor.</p>
 
             @if(session('success'))
-            <div class="mb-8 p-5 border-2 border-black font-semibold text-sm" style="background:#ECFDF5; color:#065F46; box-shadow: 4px 4px 0 #000;">
+            <div class="mb-8 p-5 border-2 border-black font-semibold text-sm theme-success" style="box-shadow: 4px 4px 0 #000;">
                 ✓ {{ session('success') }}
             </div>
             @endif

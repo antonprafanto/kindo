@@ -108,12 +108,20 @@ class ArticleForm
                             Placeholder::make('body_editor_link')
                                 ->label('Isi Artikel')
                                 ->content(new HtmlString(
-                                    'Isi artikel diedit di halaman terpisah agar tidak diblokir WAF hosting saat menyimpan.<br><br>'
+                                    '<div style="display:grid;gap:.75rem;font-size:.875rem;line-height:1.5;">'
+                                    . '<p style="margin:0;"><strong>Alur menyimpan (2 langkah):</strong></p>'
+                                    . '<ol style="margin:0;padding-left:1.25rem;">'
+                                    . '<li><strong>Isi / konten</strong> — buka editor terpisah (hindari blokir WAF hosting), lalu klik <em>Simpan Isi Artikel</em>.</li>'
+                                    . '<li><strong>Metadata</strong> — judul, ringkasan, kategori, tag &amp; status disimpan lewat tombol Simpan di form ini.</li>'
+                                    . '</ol>'
+                                    . '<p style="margin:0;">Cover diganti dari daftar artikel → tombol <strong>Upload Cover</strong>.</p>'
+                                    . '<p style="margin:.25rem 0 0;">'
                                     . '<a href="' . e($bodyEditorUrl ?? '#') . '" '
                                     . 'style="display:inline-block;padding:.5rem 1rem;font-weight:700;'
                                     . 'background:#2979FF;color:#fff;border:2px solid #000;text-decoration:none;">'
                                     . 'Buka Editor Isi Artikel →</a>'
-                                    . '<br><br><span style="color:#718096;">Judul, ringkasan, kategori, tag, dan status disimpan dari form ini.</span>'
+                                    . '</p>'
+                                    . '</div>'
                                 ))
                                 ->columnSpanFull(),
                         ]

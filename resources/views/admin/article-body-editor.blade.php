@@ -151,12 +151,15 @@
         <p class="meta">{{ $article->title }}</p>
 
         <div class="notice">
-            Editor visual seperti di Filament — judul, tag, kategori &amp; status tetap disimpan dari halaman edit utama.
-            Blok teks yang disorot menampilkan menu format mengambang (bold, link, heading, kutipan) tanpa perlu scroll ke toolbar atas.
+            <strong>Simpan isi di sini</strong> (Ctrl/⌘+S). Judul, kategori, tag &amp; status tetap di halaman Edit Artikel.
+            Sorot teks untuk menu format mengambang; sisipkan gambar lewat tombol Image.
         </div>
 
         @if (session('body_saved'))
-            <div class="success">Isi artikel berhasil disimpan.</div>
+            <div class="success">
+                Isi artikel berhasil disimpan.
+                <a href="{{ $backUrl }}" style="color:#bbf7d0;font-weight:700;margin-left:.5rem;">Lanjut ke metadata →</a>
+            </div>
         @endif
 
         @if ($errors->any())

@@ -40,8 +40,8 @@
 
         {{-- Results --}}
         @if(strlen($query) >= 2)
-            <div class="mb-4 text-sm font-semibold" style="color:#718096;">
-                Ditemukan <strong>{{ $results->total() }}</strong> artikel untuk "<strong>{{ $query }}</strong>"
+            <div class="mb-4 text-sm font-semibold theme-muted">
+                Ditemukan <strong class="theme-heading">{{ $results->total() }}</strong> artikel untuk "<strong class="theme-heading">{{ $query }}</strong>"
             </div>
 
             @if($results->count())
@@ -52,17 +52,17 @@
             </div>
             <div class="mt-8">{{ $results->links() }}</div>
             @else
-            <div class="py-20 text-center border-2 border-black" style="background:#F7F7F5; box-shadow: 4px 4px 0 #000;">
+            <div class="py-20 text-center border-2 border-black theme-paper" style="box-shadow: 4px 4px 0 #000;">
                 <div class="text-6xl mb-4">🔍</div>
-                <h2 class="text-xl font-bold mb-2">Tidak ditemukan</h2>
-                <p style="color:#718096;">Coba kata kunci lain seperti "ESP32", "WiFi", atau "Python"</p>
+                <h2 class="text-xl font-bold mb-2 theme-heading">Tidak ditemukan</h2>
+                <p class="theme-muted">Coba kata kunci lain seperti "ESP32", "WiFi", atau "Python"</p>
             </div>
             @endif
         @elseif(strlen($query) > 0)
-            <div class="py-10 text-center" style="color:#718096;">Ketik minimal 2 karakter untuk mulai mencari...</div>
+            <div class="py-10 text-center theme-muted">Ketik minimal 2 karakter untuk mulai mencari...</div>
         @else
             <div>
-                <h2 class="text-lg font-bold mb-6" style="color:#718096;">Artikel Terbaru</h2>
+                <h2 class="text-lg font-bold mb-6 theme-muted">Artikel Terbaru</h2>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     @foreach($results as $article)
                         <x-article-card :article="$article" />

@@ -51,11 +51,11 @@ class ArticleBodyEditorController extends Controller
                 ->withErrors(['body' => 'Isi artikel tidak boleh kosong.']);
         }
 
-        // saving() re-sanitizes idempotently when body is dirty.
         $article->update(['body' => $body]);
 
+        // Stay on the body editor so authors can keep writing; flash confirms save.
         return redirect()
-            ->to($this->filamentEditUrl($article))
+            ->route('filament.admin.articles.isi', ['article' => $article])
             ->with('body_saved', true);
     }
 

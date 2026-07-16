@@ -540,6 +540,16 @@ html.theme-animate footer {
     .theme-heading { color: var(--color-ink); }
     .theme-highlight { background-color: var(--color-highlight); color: var(--color-ink); }
 
+    /* Soft success callout — readable in light + dark */
+    .theme-success {
+        background-color: color-mix(in srgb, #166534 18%, var(--color-paper));
+        color: var(--color-ink);
+        border-color: #166534;
+    }
+    html.dark .theme-success {
+        background-color: color-mix(in srgb, #22c55e 16%, var(--color-paper));
+    }
+
     .toc-link {
         display: block;
         padding: 4px 0 4px 8px;

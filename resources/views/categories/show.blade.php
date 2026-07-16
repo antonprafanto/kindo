@@ -15,11 +15,11 @@
             <div class="w-16 h-16 rounded-full border-2 border-black flex-shrink-0" style="background: {{ $category->color }};"></div>
             <div>
                 <div class="flex items-center gap-3 mb-1">
-                    <h1 class="text-3xl font-black" style="letter-spacing:-0.02em;">{{ $category->name }}</h1>
-                    <span class="text-xs font-mono px-2 py-1 border-2 border-black" style="background:#f5f5f5;">{{ $articles->total() }} artikel</span>
+                    <h1 class="text-3xl font-black theme-heading" style="letter-spacing:-0.02em;">{{ $category->name }}</h1>
+                    <span class="text-xs font-mono px-2 py-1 border-2 border-black theme-surface">{{ $articles->total() }} artikel</span>
                 </div>
                 @if($category->description)
-                <p class="text-sm max-w-xl" style="color:#4A5568; font-family:'Inter',sans-serif;">{{ $category->description }}</p>
+                <p class="text-sm max-w-xl theme-muted" style="font-family:'Inter',sans-serif;">{{ $category->description }}</p>
                 @endif
             </div>
         </div>
@@ -34,8 +34,8 @@
         @else
         <div class="py-24 text-center">
             <div class="text-6xl mb-4">📭</div>
-            <h2 class="text-xl font-bold mb-2">Belum ada artikel</h2>
-            <p style="color:#718096;">Belum ada artikel yang dipublikasikan di kategori ini.</p>
+            <h2 class="text-xl font-bold mb-2 theme-heading">Belum ada artikel</h2>
+            <p class="theme-muted">Belum ada artikel yang dipublikasikan di kategori ini.</p>
         </div>
         @endif
     </div>
