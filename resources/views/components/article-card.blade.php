@@ -6,10 +6,11 @@
     <a href="{{ route('articles.show', $article->slug) }}" class="block overflow-hidden border-b-2 border-black" style="{{ $featured ? 'aspect-ratio:16/7' : 'aspect-ratio:16/9' }}">
         @if($article->cover_image)
             <img
-                src="{{ asset('storage/' . $article->cover_image) }}"
+                src="{{ $article->cover_url }}"
                 alt="{{ $article->title }}"
                 class="w-full h-full object-cover"
                 loading="lazy"
+                onerror="this.onerror=null;this.src='{{ asset('og-default.png') }}';"
             >
         @else
             <div class="w-full h-full flex items-center justify-center font-mono text-sm font-bold" style="background: #{{ substr(md5($article->title), 0, 2) . substr(md5($article->title), 6, 2) . substr(md5($article->title), 4, 2) }}20; color: #2979FF;">

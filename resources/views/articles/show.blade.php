@@ -153,6 +153,17 @@
                 </div>
                 @endif
 
+                {{-- Mobile TOC (desktop uses sidebar) --}}
+                <details id="toc-mobile-wrap" class="lg:hidden mb-8 border-2 border-black theme-paper" style="box-shadow: 4px 4px 0 #000;">
+                    <summary class="px-4 py-3 border-b-2 border-black cursor-pointer list-none flex items-center justify-between font-bold text-sm uppercase tracking-wider text-white" style="background:#2979FF;">
+                        <span>Daftar Isi</span>
+                        <span class="text-xs font-mono normal-case opacity-90" aria-hidden="true">▼</span>
+                    </summary>
+                    <nav id="toc-mobile" class="p-4 text-sm space-y-1.5 max-h-64 overflow-y-auto">
+                        <p class="text-xs italic theme-muted">Memuat...</p>
+                    </nav>
+                </details>
+
                 {{-- Article Body --}}
                 <div class="article-body prose max-w-none min-w-0" id="article-content">
                     {!! $article->body !!}
@@ -237,27 +248,36 @@
 // Build Table of Contents from headings
 document.addEventListener('DOMContentLoaded', () => {
     const content = document.getElementById('article-content');
-    const toc = document.getElementById('toc');
-    if (!content || !toc) return;
+    const tocTargets = [document.getElementById('toc'), document.getElementById('toc-mobile')].filter(Boolean);
+    if (!content || !tocTargets.length) return;
 
     const headings = content.querySelectorAll('h2, h3');
     if (!headings.length) {
-        toc.innerHTML = '<p class="text-xs italic theme-muted">Tidak ada daftar isi.</p>';
+        tocTargets.forEach(toc => {
+            toc.innerHTML = '<p class="text-xs italic theme-muted">Tidak ada daftar isi.</p>';
+        });
+        const mobileWrap = document.getElementById('toc-mobile-wrap');
+        if (mobileWrap) mobileWrap.hidden = true;
         return;
     }
 
-    toc.innerHTML = '';
+    tocTargets.forEach(toc => { toc.innerHTML = ''; });
+
     headings.forEach((h, i) => {
         h.id = 'heading-' + i;
-        const a = document.createElement('a');
-        a.href = '#heading-' + i;
-        a.textContent = h.textContent;
-        a.className = 'toc-link' + (h.tagName === 'H3' ? ' toc-link--h3' : '');
-        a.addEventListener('click', e => {
-            e.preventDefault();
-            document.getElementById('heading-' + i).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        tocTargets.forEach(toc => {
+            const a = document.createElement('a');
+            a.href = '#heading-' + i;
+            a.textContent = h.textContent;
+            a.className = 'toc-link' + (h.tagName === 'H3' ? ' toc-link--h3' : '');
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                document.getElementById('heading-' + i).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const mobileWrap = document.getElementById('toc-mobile-wrap');
+                if (mobileWrap && mobileWrap.open) mobileWrap.open = false;
+            });
+            toc.appendChild(a);
         });
-        toc.appendChild(a);
     });
 });
 </script>

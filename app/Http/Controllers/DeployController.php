@@ -2434,7 +2434,7 @@ class DeployController extends Controller
     }
 
     /**
-     * Mirror cover + body images from storage/app/public into PUBLIC_HTML_STORAGE.
+     * Sanitize + normalize body image URLs, then mirror cover/body files into PUBLIC_HTML_STORAGE.
      * Fixes contributor uploads that exist on disk but 404 via /storage/... URLs.
      */
     public function remirrorArticleImages(): JsonResponse
@@ -2449,14 +2449,16 @@ class DeployController extends Controller
         }
 
         $mirror = app(\App\Services\PublicHtmlStorageMirror::class);
+        $sanitizer = app(\App\Services\ArticleHtmlSanitizer::class);
         $covers = 0;
         $bodyFiles = 0;
+        $bodiesNormalized = 0;
         $articlesScanned = 0;
 
         Article::query()
             ->select(['id', 'slug', 'cover_image', 'body'])
             ->orderBy('id')
-            ->chunkById(50, function ($articles) use ($mirror, &$covers, &$bodyFiles, &$articlesScanned) {
+            ->chunkById(50, function ($articles) use ($mirror, $sanitizer, &$covers, &$bodyFiles, &$bodiesNormalized, &$articlesScanned) {
                 foreach ($articles as $article) {
                     $articlesScanned++;
 
@@ -2464,7 +2466,15 @@ class DeployController extends Controller
                         $covers++;
                     }
 
-                    $bodyFiles += $mirror->mirrorPathsFromHtml($article->body);
+                    $original = (string) ($article->body ?? '');
+                    $cleaned = $sanitizer->sanitize($original);
+
+                    if ($cleaned !== $original) {
+                        $article->updateQuietly(['body' => $cleaned]);
+                        $bodiesNormalized++;
+                    }
+
+                    $bodyFiles += $mirror->mirrorPathsFromHtml($cleaned);
                 }
             });
 
@@ -2474,6 +2484,7 @@ class DeployController extends Controller
             'ok' => true,
             'articles_scanned' => $articlesScanned,
             'covers_mirrored' => $covers,
+            'bodies_normalized' => $bodiesNormalized,
             'body_files_mirrored' => $bodyFiles,
         ]);
     }

@@ -45,6 +45,17 @@ class PublicHtmlStorageMirror
         return copy($source, $dest);
     }
 
+    public function existsOnPublicDisk(string $relativePath): bool
+    {
+        $relativePath = ltrim(str_replace('\\', '/', $relativePath), '/');
+
+        if ($relativePath === '' || str_contains($relativePath, '..')) {
+            return false;
+        }
+
+        return is_file(Storage::disk('public')->path($relativePath));
+    }
+
     /**
      * Extract public-disk relative paths from HTML img/src (and similar) URLs.
      *
@@ -71,7 +82,7 @@ class PublicHtmlStorageMirror
         if (preg_match_all('/data-id=["\']([^"\']+)["\']/i', $html, $idMatches)) {
             foreach ($idMatches[1] as $id) {
                 $id = ltrim(str_replace('\\', '/', $id), '/');
-                if ($id !== '' && ! str_contains($id, '..') && ! str_starts_with($id, 'http')) {
+                if ($id !== '' && ! str_contains($id, '..') && ! str_starts_with($id, 'http') && $this->existsOnPublicDisk($id)) {
                     $paths[] = $id;
                 }
             }
@@ -107,12 +118,22 @@ class PublicHtmlStorageMirror
         }
 
         $path = rawurldecode($path);
+        $path = ltrim(str_replace('\\', '/', $path), '/');
 
-        if (preg_match('#(?:^|/)storage/(.+)$#', $path, $m)) {
+        if (preg_match('#(?:^|/)storage/(.+)$#', '/'.$path, $m)) {
             $relative = ltrim($m[1], '/');
             if ($relative !== '' && ! str_contains($relative, '..')) {
                 return $relative;
             }
+        }
+
+        // Relative public-disk keys already (articles/body/..., livewire-tmp/...)
+        if (
+            ! str_contains($path, '..')
+            && preg_match('#^(articles/|livewire-tmp/)#', $path)
+            && $this->existsOnPublicDisk($path)
+        ) {
+            return $path;
         }
 
         return null;

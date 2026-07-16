@@ -30,6 +30,10 @@ class ArticleCoverUploadAction
                     ->disk('public')
                     ->directory('articles/covers')
                     ->image()
+                    ->imageEditor()
+                    ->imageCropAspectRatio('16:9')
+                    ->imageResizeTargetWidth(1200)
+                    ->imageResizeTargetHeight(630)
                     ->maxSize(4096)
                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                     ->required(),

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Filament\Resources\Articles\ArticleResource;
 use App\Models\Article;
+use App\Services\ArticleHtmlSanitizer;
 use App\Services\PublicHtmlStorageMirror;
 use Filament\Facades\Filament;
 use Illuminate\Http\JsonResponse;
@@ -42,15 +43,16 @@ class ArticleBodyEditorController extends Controller
                 ->withErrors(['body' => 'Data isi artikel tidak valid. Silakan coba lagi.']);
         }
 
+        $body = app(ArticleHtmlSanitizer::class)->sanitize($body);
+
         if (trim(strip_tags($body)) === '') {
             return back()
                 ->withInput()
                 ->withErrors(['body' => 'Isi artikel tidak boleh kosong.']);
         }
 
+        // saving() re-sanitizes idempotently when body is dirty.
         $article->update(['body' => $body]);
-
-        app(PublicHtmlStorageMirror::class)->mirrorPathsFromHtml($body);
 
         return redirect()
             ->to($this->filamentEditUrl($article))

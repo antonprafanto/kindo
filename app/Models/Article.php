@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\ArticleHtmlSanitizer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -31,6 +32,9 @@ class Article extends Model
     {
         parent::boot();
         static::saving(function (Article $article) {
+            if ($article->isDirty('body') && is_string($article->body)) {
+                $article->body = app(ArticleHtmlSanitizer::class)->sanitize($article->body);
+            }
             if ($article->body) {
                 $words = str_word_count(strip_tags($article->body));
                 $article->read_time_minutes = max(1, (int) ceil($words / 200));
