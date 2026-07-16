@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContributorController;
@@ -29,6 +30,9 @@ Route::get('/tentang', [PageController::class, 'about'])->name('about');
 
 Route::get('/menjadi-kontributor', [ContributorController::class, 'show'])->name('contributor.apply');
 Route::post('/menjadi-kontributor', [ContributorController::class, 'store'])->name('contributor.apply.store');
+
+Route::get('/penulis', [AuthorController::class, 'index'])->name('authors.index');
+Route::get('/penulis/{slug}', [AuthorController::class, 'show'])->name('authors.show');
 
 Route::get('/kontak', [ContactController::class, 'show'])->name('contact');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');

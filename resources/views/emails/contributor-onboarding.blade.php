@@ -43,6 +43,7 @@
             <ol>
                 <li>Buka email reset password → klik link → buat password baru</li>
                 <li>Login ke panel penulis melalui tombol di bawah</li>
+                <li>Lengkapi <strong>Profil Publik</strong> (bio, foto, link sosial) agar portofoliomu tampil di /penulis</li>
                 <li>Baca pedoman lengkap di <a href="{{ $guidelinesUrl }}">/menjadi-kontributor</a></li>
             </ol>
 

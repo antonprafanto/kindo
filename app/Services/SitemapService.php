@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\User;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 
@@ -20,6 +21,19 @@ class SitemapService
         $sitemap->add(Url::create(route('contributor.apply'))->setChangeFrequency('monthly')->setPriority(0.6));
         $sitemap->add(Url::create(route('contact'))->setChangeFrequency('monthly')->setPriority(0.4));
         $sitemap->add(Url::create(route('newsletter'))->setChangeFrequency('monthly')->setPriority(0.5));
+        $sitemap->add(Url::create(route('authors.index'))->setChangeFrequency('weekly')->setPriority(0.6));
+
+        User::query()
+            ->publicDirectory()
+            ->get()
+            ->each(function (User $author) use ($sitemap) {
+                $sitemap->add(
+                    Url::create(route('authors.show', $author->slug))
+                        ->setLastModificationDate($author->updated_at)
+                        ->setChangeFrequency('weekly')
+                        ->setPriority(0.6)
+                );
+            });
 
         Article::published()
             ->latest('published_at')

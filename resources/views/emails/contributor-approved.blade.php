@@ -22,12 +22,13 @@
             <p>Aplikasi kontributormu telah <strong>disetujui</strong>. Selamat bergabung dengan Koding Indonesia!</p>
             <p>Kami sudah mengirim email terpisah berisi link untuk <strong>membuat password</strong> akun panel penulis. Link tersebut berlaku <strong>24 jam</strong> — klik segera setelah email masuk. Setelah login:</p>
             <ol>
+                <li>Buka menu <strong>Profil Publik</strong> — lengkapi bio, foto, dan link sosial</li>
                 <li>Buka menu <strong>Artikel → Tulis Artikel Baru</strong></li>
                 <li>Tulis konten, pilih kategori & tag yang sudah tersedia</li>
                 <li>Simpan sebagai Draft, lalu ubah status ke <strong>Menunggu Review</strong> saat siap</li>
             </ol>
             @include('emails.partials.btn', ['href' => $loginUrl, 'label' => 'Login ke Panel Penulis →'])
-            <p>Baca pedoman lengkap di <a href="https://kodingindonesia.com/menjadi-kontributor">/menjadi-kontributor</a>.</p>
+            <p>Baca pedoman lengkap di <a href="https://kodingindonesia.com/menjadi-kontributor">/menjadi-kontributor</a>. Portofolio publikmu nanti ada di <a href="https://kodingindonesia.com/penulis">/penulis</a>.</p>
             <p>Salam,<br><strong>Tim Koding Indonesia</strong></p>
         </div>
         <div class="footer">© {{ date('Y') }} Koding Indonesia</div>

@@ -60,6 +60,11 @@
                     Tentang
                 </a>
 
+                <a href="{{ route('authors.index') }}"
+                   class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('authors.*') ? 'bg-black text-white' : '' }}">
+                    Penulis
+                </a>
+
                 <a href="{{ route('contact') }}"
                    class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('contact') ? 'bg-black text-white' : '' }}">
                     Kontak
@@ -111,6 +116,7 @@
                     @endforeach
                 </div>
                 <a href="{{ route('about') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Tentang</a>
+                <a href="{{ route('authors.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Penulis</a>
                 <a href="{{ route('contact') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm hover:bg-black hover:text-white">Kontak</a>
             </div>
         </div>

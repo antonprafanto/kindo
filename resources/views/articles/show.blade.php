@@ -43,7 +43,11 @@
     "image": "{{ $article->cover_url }}",
     "datePublished": "{{ $article->published_at?->toIso8601String() }}",
     "dateModified": "{{ $article->updated_at->toIso8601String() }}",
-    "author": {"@@type": "Person","name": "{{ $article->user->name ?? 'Koding Indonesia' }}"},
+    "author": {
+        "@@type": "Person",
+        "name": "{{ $article->user->name ?? 'Koding Indonesia' }}"@if($article->user?->hasPublicProfile()),
+        "url": "{{ route('authors.show', $article->user->slug) }}"@endif
+    },
     "publisher": {
         "@@type": "Organization",
         "name": "Koding Indonesia",
@@ -142,14 +146,33 @@
 
                 {{-- Author --}}
                 @if($article->user)
+                @php
+                    $author = $article->user;
+                    $authorUrl = $author->hasPublicProfile() ? route('authors.show', $author->slug) : null;
+                @endphp
                 <div class="flex items-center gap-3 p-4 border-2 border-black mb-8 theme-surface">
-                    <div class="w-10 h-10 rounded-full border-2 border-black flex-shrink-0 flex items-center justify-center font-bold text-white text-sm" style="background:#2979FF;">
-                        {{ strtoupper(substr($article->user->name, 0, 1)) }}
+                    @if($authorUrl)
+                    <a href="{{ $authorUrl }}" class="flex items-center gap-3 no-underline min-w-0 flex-1 group">
+                    @else
+                    <div class="flex items-center gap-3 min-w-0 flex-1">
+                    @endif
+                        @if($author->avatar_url)
+                            <img src="{{ $author->avatar_url }}" alt="{{ $author->name }}"
+                                 class="w-10 h-10 rounded-full border-2 border-black object-cover flex-shrink-0">
+                        @else
+                            <div class="w-10 h-10 rounded-full border-2 border-black flex-shrink-0 flex items-center justify-center font-bold text-white text-sm" style="background:#2979FF;">
+                                {{ $author->initial }}
+                            </div>
+                        @endif
+                        <div class="min-w-0">
+                            <div class="font-bold text-sm theme-heading {{ $authorUrl ? 'group-hover:text-[#2979FF] transition-colors' : '' }}">{{ $author->name }}</div>
+                            <div class="text-xs theme-muted">{{ $author->expertise ?: 'Penulis · Koding Indonesia' }}</div>
+                        </div>
+                    @if($authorUrl)
+                    </a>
+                    @else
                     </div>
-                    <div>
-                        <div class="font-bold text-sm theme-heading">{{ $article->user->name }}</div>
-                        <div class="text-xs theme-muted">Penulis · Koding Indonesia</div>
-                    </div>
+                    @endif
                 </div>
                 @endif
 

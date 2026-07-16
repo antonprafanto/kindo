@@ -36,13 +36,29 @@ class ContributorService
                     'email'             => $application->email,
                     'password'          => str()->password(16),
                     'role'              => 'author',
+                    'slug'              => User::generateUniqueSlug($application->name),
+                    'expertise'         => $application->topic_expertise,
                     'email_verified_at' => now(),
                 ]);
             } else {
                 $user = $existingUser;
 
+                $updates = [];
+
                 if (! $user->isAuthor()) {
-                    $user->update(['role' => 'author']);
+                    $updates['role'] = 'author';
+                }
+
+                if (blank($user->slug)) {
+                    $updates['slug'] = User::generateUniqueSlug($user->name, $user->id);
+                }
+
+                if (blank($user->expertise) && filled($application->topic_expertise)) {
+                    $updates['expertise'] = $application->topic_expertise;
+                }
+
+                if ($updates !== []) {
+                    $user->update($updates);
                 }
             }
 
