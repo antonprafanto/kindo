@@ -89,59 +89,59 @@ class Article15Seeder extends Seeder
 <p>ESP32 menyimpan firmware di dua slot partition: <strong>app0</strong> (jalan sekarang) dan <strong>app1</strong> (slot download). Saat OTA selesai, bootloader pindah ke firmware baru.</p>
 
 <figure role="img" aria-label="Diagram alur OTA ESP32: flash pertama via USB dari Arduino IDE, update berikutnya via WiFi OTA UDP ke ESP32 dengan partition app0 dan app1" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 510" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 540" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="otaArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
     <marker id="otaArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
     <marker id="otaArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
   </defs>
-  <rect x="0" y="0" width="620" height="510" fill="#F5F5F0" rx="6"/>
+  <rect x="0" y="0" width="620" height="540" fill="#F5F5F0" rx="6"/>
   <!-- Arduino IDE -->
-  <rect x="155" y="15" width="310" height="70" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
-  <text x="310" y="42" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">PC — Arduino IDE</text>
-  <text x="310" y="60" text-anchor="middle" fill="#4A5568" font-size="10">subnet WiFi sama · network port OTA</text>
-  <text x="310" y="76" text-anchor="middle" fill="#4A5568" font-size="10">FIRMWARE_VERSION naik tiap rilis</text>
+  <rect x="155" y="15" width="310" height="72" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="40" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">PC — Arduino IDE</text>
+  <text x="310" y="58" text-anchor="middle" fill="#4A5568" font-size="10">subnet WiFi sama · network port OTA</text>
+  <text x="310" y="74" text-anchor="middle" fill="#4A5568" font-size="10">FIRMWARE_VERSION naik tiap rilis</text>
   <!-- USB path (left) -->
-  <line x1="240" y1="85" x2="180" y2="138" stroke="#2979FF" stroke-width="2.5" marker-end="url(#otaArr)"/>
-  <rect x="95" y="108" width="118" height="28" rx="14" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
-  <text x="154" y="126" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">USB flash #1</text>
+  <line x1="240" y1="87" x2="180" y2="140" stroke="#2979FF" stroke-width="2.5" marker-end="url(#otaArr)"/>
+  <rect x="95" y="110" width="118" height="28" rx="14" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="154" y="128" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">USB flash #1</text>
   <!-- OTA path (right) -->
-  <line x1="380" y1="85" x2="440" y2="138" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#otaArrO)"/>
-  <rect x="407" y="108" width="138" height="28" rx="14" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
-  <text x="476" y="126" text-anchor="middle" fill="#FF7A2F" font-size="10" font-weight="700">WiFi OTA UDP</text>
+  <line x1="380" y1="87" x2="440" y2="140" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#otaArrO)"/>
+  <rect x="407" y="110" width="138" height="28" rx="14" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="476" y="128" text-anchor="middle" fill="#FF7A2F" font-size="10" font-weight="700">WiFi OTA UDP</text>
   <!-- ESP32 -->
-  <rect x="120" y="150" width="380" height="72" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <rect x="120" y="152" width="380" height="78" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
   <text x="310" y="178" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 — WiFiManager (#12) + ArduinoOTA</text>
   <text x="310" y="198" text-anchor="middle" fill="#4A5568" font-size="10">kindo-esp32-node.local · ArduinoOTA.handle() di loop()</text>
-  <text x="310" y="214" text-anchor="middle" fill="#4A5568" font-size="10">setPassword() · partition OTA wajib sebelum flash pertama</text>
-  <!-- Partition boxes -->
-  <rect x="155" y="235" width="145" height="38" rx="4" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="227" y="252" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">app0 — aktif</text>
-  <text x="227" y="266" text-anchor="middle" fill="#4A5568" font-size="9">firmware jalan</text>
-  <rect x="320" y="235" width="145" height="38" rx="4" fill="#FFE0B2" stroke="#FF7A2F" stroke-width="2"/>
-  <text x="392" y="252" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">app1 — download</text>
-  <text x="392" y="266" text-anchor="middle" fill="#4A5568" font-size="9">slot OTA baru</text>
+  <text x="310" y="216" text-anchor="middle" fill="#4A5568" font-size="10">setPassword() · partition OTA wajib sebelum flash pertama</text>
+  <!-- Partition boxes — gap ≥24px dari ESP32 -->
+  <rect x="155" y="254" width="145" height="40" rx="4" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2"/>
+  <text x="227" y="272" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">app0 — aktif</text>
+  <text x="227" y="286" text-anchor="middle" fill="#4A5568" font-size="9">firmware jalan</text>
+  <rect x="320" y="254" width="145" height="40" rx="4" fill="#FFE0B2" stroke="#FF7A2F" stroke-width="2"/>
+  <text x="392" y="272" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">app1 — download</text>
+  <text x="392" y="286" text-anchor="middle" fill="#4A5568" font-size="9">slot OTA baru</text>
   <!-- Arrow to reboot -->
-  <line x1="310" y1="273" x2="310" y2="308" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#otaArrG)"/>
-  <text x="355" y="295" fill="#2E7D32" font-size="10" font-weight="700">OTA selesai ↓</text>
+  <line x1="310" y1="294" x2="310" y2="328" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#otaArrG)"/>
+  <text x="355" y="316" fill="#2E7D32" font-size="10" font-weight="700">OTA selesai ↓</text>
   <!-- Reboot / swap -->
-  <rect x="155" y="315" width="310" height="55" rx="6" fill="#2E7D32" stroke="#000" stroke-width="2.5"/>
-  <text x="310" y="340" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Bootloader swap app0 ↔ app1</text>
-  <text x="310" y="358" text-anchor="middle" fill="#C8E6C9" font-size="10">reboot → firmware v1.0.1 aktif di node terpasang</text>
+  <rect x="155" y="335" width="310" height="55" rx="6" fill="#2E7D32" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="360" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Bootloader swap app0 ↔ app1</text>
+  <text x="310" y="378" text-anchor="middle" fill="#C8E6C9" font-size="10">reboot → firmware v1.0.1 aktif di node terpasang</text>
   <!-- 3 outcomes -->
-  <line x1="210" y1="370" x2="110" y2="418" stroke="#2E7D32" stroke-width="2" marker-end="url(#otaArrG)"/>
-  <line x1="310" y1="370" x2="310" y2="418" stroke="#2E7D32" stroke-width="2" marker-end="url(#otaArrG)"/>
-  <line x1="410" y1="370" x2="510" y2="418" stroke="#2E7D32" stroke-width="2" marker-end="url(#otaArrG)"/>
-  <rect x="15" y="425" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
-  <text x="110" y="446" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Node lapangan</text>
-  <text x="110" y="462" text-anchor="middle" fill="#4A5568" font-size="9">tanpa buka casing USB</text>
-  <rect x="215" y="425" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
-  <text x="310" y="446" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Serial Monitor</text>
-  <text x="310" y="462" text-anchor="middle" fill="#4A5568" font-size="9">versi FIRMWARE_VERSION baru</text>
-  <rect x="415" y="425" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
-  <text x="510" y="446" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">MQTT metadata (#16)</text>
-  <text x="510" y="462" text-anchor="middle" fill="#4A5568" font-size="9">publish versi setelah OTA</text>
-  <text x="310" y="492" text-anchor="middle" fill="#4A5568" font-size="11">USB flash pertama → WiFi OTA berikutnya → partition swap → node ter-update</text>
+  <line x1="210" y1="390" x2="110" y2="438" stroke="#2E7D32" stroke-width="2" marker-end="url(#otaArrG)"/>
+  <line x1="310" y1="390" x2="310" y2="438" stroke="#2E7D32" stroke-width="2" marker-end="url(#otaArrG)"/>
+  <line x1="410" y1="390" x2="510" y2="438" stroke="#2E7D32" stroke-width="2" marker-end="url(#otaArrG)"/>
+  <rect x="15" y="445" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="110" y="466" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Node lapangan</text>
+  <text x="110" y="482" text-anchor="middle" fill="#4A5568" font-size="9">tanpa buka casing USB</text>
+  <rect x="215" y="445" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="310" y="466" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Serial Monitor</text>
+  <text x="310" y="482" text-anchor="middle" fill="#4A5568" font-size="9">versi FIRMWARE_VERSION baru</text>
+  <rect x="415" y="445" width="190" height="50" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="510" y="466" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">MQTT metadata (#16)</text>
+  <text x="510" y="482" text-anchor="middle" fill="#4A5568" font-size="9">publish versi setelah OTA</text>
+  <text x="310" y="520" text-anchor="middle" fill="#4A5568" font-size="11">USB flash pertama → WiFi OTA berikutnya → partition swap → node ter-update</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Flash pertama via USB, update berikutnya lewat WiFi OTA — butuh <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager (#12)</a> dan partition <code>app0</code>/<code>app1</code>.</figcaption>
 </figure>
@@ -276,7 +276,7 @@ void loop() {
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
   <li>Gabungkan OTA + <a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED (#14)</a> + <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a> untuk node sensor lengkap</li>
-  <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — integrasi ESP32 via broker pribadi</li>
+  <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a></strong> — integrasi ESP32 via broker pribadi</li>
   <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — OTA bawaan ESPHome untuk node smart home</li>
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — amankan broker di internet</li>
   <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — stack lapangan dengan OTA maintenance</li>

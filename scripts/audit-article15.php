@@ -90,6 +90,9 @@ check(str_contains($body, 'USB flash #1'), 'SVG: label USB flash pertama');
 check(str_contains($body, 'WiFi OTA UDP'), 'SVG: label WiFi OTA UDP');
 check(str_contains($body, 'Bootloader swap app0'), 'SVG: partition swap app0/app1');
 check(str_contains($body, 'MQTT metadata (#16)'), 'SVG: MQTT metadata #16');
+check(str_contains($body, 'height="78"'), 'SVG: ESP32 box height=78 (padding bawah)');
+check(str_contains($body, 'y="254"'), 'SVG: partition y=254 (gap ≥24px dari ESP32)');
+check(str_contains($body, 'Home Assistant (#21)'), 'Hyperlink Home Assistant #21');
 
 check(str_contains($body, 'deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a>'), 'Hyperlink Jalur A #11');
 check(str_contains($body, 'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a>'), 'Hyperlink Jalur A #12');
