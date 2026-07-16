@@ -2454,6 +2454,7 @@ class DeployController extends Controller
         $bodyFiles = 0;
         $bodiesNormalized = 0;
         $articlesScanned = 0;
+        $avatars = 0;
 
         Article::query()
             ->select(['id', 'slug', 'cover_image', 'body'])
@@ -2478,6 +2479,19 @@ class DeployController extends Controller
                 }
             });
 
+        User::query()
+            ->whereNotNull('avatar')
+            ->where('avatar', '!=', '')
+            ->select(['id', 'avatar'])
+            ->orderBy('id')
+            ->chunkById(50, function ($users) use ($mirror, &$avatars) {
+                foreach ($users as $user) {
+                    if ($mirror->mirror($user->avatar)) {
+                        $avatars++;
+                    }
+                }
+            });
+
         Artisan::call('view:clear');
 
         return response()->json([
@@ -2486,6 +2500,7 @@ class DeployController extends Controller
             'covers_mirrored' => $covers,
             'bodies_normalized' => $bodiesNormalized,
             'body_files_mirrored' => $bodyFiles,
+            'avatars_mirrored' => $avatars,
         ]);
     }
 

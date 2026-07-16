@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\User;
+use App\Services\PublicHtmlStorageMirror;
 use App\Services\SitemapService;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -124,6 +125,7 @@ class EditPublicProfile extends Page
                         FileUpload::make('avatar')
                             ->label('Foto Profil')
                             ->disk('public')
+                            ->visibility('public')
                             ->image()
                             ->avatar()
                             ->imageEditor()
@@ -239,11 +241,16 @@ class EditPublicProfile extends Page
     {
         $data = $this->form->getState();
 
+        $avatar = $data['avatar'] ?? null;
+        if (is_array($avatar)) {
+            $avatar = $avatar[0] ?? null;
+        }
+
         $user = $this->getUser();
         $user->update([
             'name' => $data['name'],
             'slug' => $data['slug'],
-            'avatar' => $data['avatar'] ?? null,
+            'avatar' => $avatar,
             'bio' => $data['bio'] ?? null,
             'expertise' => $data['expertise'] ?? null,
             'github_url' => $data['github_url'] ?? null,
@@ -251,6 +258,15 @@ class EditPublicProfile extends Page
             'website_url' => $data['website_url'] ?? null,
             'external_works' => array_values($data['external_works'] ?? []),
         ]);
+
+        // Rumahweb: document root terpisah — mirror agar /storage/avatars/... bisa diakses publik
+        if (filled($avatar)) {
+            try {
+                app(PublicHtmlStorageMirror::class)->mirror($avatar);
+            } catch (\Throwable) {
+                // Best-effort; profile save must not fail.
+            }
+        }
 
         try {
             app(SitemapService::class)->writeToDisk();
