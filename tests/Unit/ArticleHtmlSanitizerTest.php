@@ -51,6 +51,62 @@ class ArticleHtmlSanitizerTest extends TestCase
         $this->assertStringNotContainsString('evil', $out);
     }
 
+    public function test_it_keeps_safe_svg_diagrams(): void
+    {
+        $mirror = Mockery::mock(PublicHtmlStorageMirror::class);
+        $mirror->shouldReceive('publicDiskPathFromUrl')->andReturn(null);
+        $mirror->shouldReceive('existsOnPublicDisk')->andReturn(false);
+
+        $sanitizer = new ArticleHtmlSanitizer($mirror);
+
+        $html = <<<'HTML'
+<figure role="img" aria-label="Diagram test" style="margin:1rem 0">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" style="display:block;max-width:200px">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
+    </marker>
+  </defs>
+  <rect x="10" y="10" width="80" height="40" fill="#E8F4FF" stroke="#000" stroke-width="2"/>
+  <text x="50" y="35" text-anchor="middle" fill="#1a1a1a" font-size="12">ESP32</text>
+  <line x1="90" y1="30" x2="150" y2="30" stroke="#2979FF" stroke-width="2" marker-end="url(#arr)"/>
+  <script>evil()</script>
+</svg>
+<figcaption style="text-align:center">Caption <a href="/artikel/x">#1</a></figcaption>
+</figure>
+HTML;
+
+        $out = $sanitizer->sanitize($html);
+
+        $this->assertStringContainsString('<svg', $out);
+        $this->assertStringContainsString('viewBox="0 0 200 100"', $out);
+        $this->assertStringContainsString('markerWidth="8"', $out);
+        $this->assertStringContainsString('<rect', $out);
+        $this->assertStringContainsString('<text', $out);
+        $this->assertStringContainsString('ESP32', $out);
+        $this->assertStringContainsString('role="img"', $out);
+        $this->assertStringContainsString('<figcaption', $out);
+        $this->assertStringNotContainsString('<script', $out);
+        $this->assertStringNotContainsString('evil()', $out);
+    }
+
+    public function test_it_strips_dangerous_svg_style(): void
+    {
+        $mirror = Mockery::mock(PublicHtmlStorageMirror::class);
+        $mirror->shouldReceive('publicDiskPathFromUrl')->andReturn(null);
+        $mirror->shouldReceive('existsOnPublicDisk')->andReturn(false);
+
+        $sanitizer = new ArticleHtmlSanitizer($mirror);
+
+        $out = $sanitizer->sanitize(
+            '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" style="background:url(javascript:alert(1))"><rect x="0" y="0" width="10" height="10"/></svg>'
+        );
+
+        $this->assertStringContainsString('<svg', $out);
+        $this->assertStringNotContainsString('javascript:', $out);
+        $this->assertStringNotContainsString('url(', $out);
+    }
+
     public function test_it_normalizes_storage_image_src(): void
     {
         $mirror = Mockery::mock(PublicHtmlStorageMirror::class);

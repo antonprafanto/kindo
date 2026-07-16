@@ -33,8 +33,8 @@ class ArticleHtmlSanitizer
         'li'         => [],
         'a'          => ['href', 'title', 'rel', 'target'],
         'img'        => ['src', 'alt', 'title', 'width', 'height', 'loading', 'data-id'],
-        'figure'     => [],
-        'figcaption' => [],
+        'figure'     => ['role', 'aria-label', 'style'],
+        'figcaption' => ['style'],
         'table'      => [],
         'thead'      => [],
         'tbody'      => [],
@@ -43,6 +43,33 @@ class ArticleHtmlSanitizer
         'td'         => ['colspan', 'rowspan'],
         'span'       => ['class'],
         'div'        => ['class'],
+        // Diagram arsitektur artikel (SVG aman — tanpa script/foreignObject/animate)
+        'svg'        => ['xmlns', 'viewbox', 'width', 'height', 'role', 'aria-label', 'style', 'fill', 'stroke'],
+        'defs'       => [],
+        'marker'     => ['id', 'markerwidth', 'markerheight', 'refx', 'refy', 'orient'],
+        'path'       => ['d', 'fill', 'stroke', 'stroke-width'],
+        'rect'       => ['x', 'y', 'width', 'height', 'rx', 'ry', 'fill', 'stroke', 'stroke-width'],
+        'line'       => ['x1', 'y1', 'x2', 'y2', 'stroke', 'stroke-width', 'marker-end'],
+        'circle'     => ['cx', 'cy', 'r', 'fill', 'stroke', 'stroke-width'],
+        'polyline'   => ['points', 'fill', 'stroke', 'stroke-width', 'marker-end'],
+        'polygon'    => ['points', 'fill', 'stroke', 'stroke-width'],
+        'text'       => ['x', 'y', 'dx', 'dy', 'fill', 'font-size', 'font-weight', 'font-family', 'text-anchor'],
+        'g'          => ['fill', 'stroke', 'stroke-width', 'transform'],
+        'title'      => [],
+        'desc'       => [],
+    ];
+
+    /**
+     * DOMDocument HTML mode lowercases attrs; restore SVG camelCase for browsers.
+     *
+     * @var array<string, string>
+     */
+    private const SVG_ATTR_CASE = [
+        'viewbox'      => 'viewBox',
+        'markerwidth'  => 'markerWidth',
+        'markerheight' => 'markerHeight',
+        'refx'         => 'refX',
+        'refy'         => 'refY',
     ];
 
     public function __construct(
@@ -127,7 +154,10 @@ class ArticleHtmlSanitizer
                 /** @var DOMElement $child */
                 $tag = strtolower($child->tagName);
 
-                if (in_array($tag, ['script', 'style', 'iframe', 'object', 'embed', 'form', 'input', 'button'], true)) {
+                if (in_array($tag, [
+                    'script', 'style', 'iframe', 'object', 'embed', 'form', 'input', 'button',
+                    'foreignobject', 'use', 'animate', 'animatetransform', 'set', 'handler',
+                ], true)) {
                     $child->parentNode?->removeChild($child);
 
                     continue;
@@ -218,7 +248,41 @@ class ArticleHtmlSanitizer
                     $el->setAttribute('class', implode(' ', $kept));
                 }
             }
+
+            if ($lower === 'style' && $this->isDangerousStyle($value)) {
+                $el->removeAttribute($name);
+
+                continue;
+            }
+
+            if ($lower === 'marker-end' && ! preg_match('/^url\(#[A-Za-z][\w-]*\)$/', $value)) {
+                $el->removeAttribute($name);
+
+                continue;
+            }
+
+            // Restore SVG camelCase after DOMDocument HTML lowercasing
+            if (isset(self::SVG_ATTR_CASE[$lower])) {
+                $proper = self::SVG_ATTR_CASE[$lower];
+                if ($proper !== $name) {
+                    $el->removeAttribute($name);
+                    $el->setAttribute($proper, $value);
+                }
+            }
         }
+    }
+
+    private function isDangerousStyle(string $style): bool
+    {
+        $lower = strtolower($style);
+
+        return str_contains($lower, 'expression')
+            || str_contains($lower, 'javascript:')
+            || str_contains($lower, 'vbscript:')
+            || str_contains($lower, 'behavior:')
+            || str_contains($lower, '-moz-binding')
+            || str_contains($lower, '@import')
+            || str_contains($lower, 'url(');
     }
 
     private function isDangerousUrl(string $url): bool
