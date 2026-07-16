@@ -165,46 +165,91 @@ class Article14Seeder extends Seeder
 <h2>Komponen &amp; Wiring</h2>
 <p>Hubungkan <strong>kedua modul</strong> ke ESP32 (paralel di breadboard):</p>
 
-<figure role="img" aria-label="Diagram wiring ESP32 ke BME280 dan OLED SSD1306 paralel: 3.3V, GND, GPIO 21 SDA, GPIO 22 SCL" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 280" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<figure role="img" aria-label="Diagram wiring ESP32 ke BME280 dan OLED SSD1306 paralel: 3.3V ke VCC, GND ke GND, GPIO 21 SDA, GPIO 22 SCL" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 440" style="display:block;max-width:640px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
-    <marker id="wArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/></marker>
+    <marker id="wArrR" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#C62828"/></marker>
+    <marker id="wArrK" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/></marker>
+    <marker id="wArrB" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#2979FF"/></marker>
+    <marker id="wArrG" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#2E7D32"/></marker>
   </defs>
-  <rect x="0" y="0" width="620" height="280" fill="#F5F5F0" rx="6"/>
+  <rect x="0" y="0" width="640" height="440" fill="#F5F5F0" rx="6"/>
+
   <!-- ESP32 -->
-  <rect x="30" y="50" width="160" height="180" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="110" y="80" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 DevKit</text>
-  <text x="110" y="118" text-anchor="middle" fill="#4A5568" font-size="11">3.3V</text>
-  <text x="110" y="148" text-anchor="middle" fill="#4A5568" font-size="11">GND</text>
-  <text x="110" y="178" text-anchor="middle" fill="#4A5568" font-size="11">GPIO 21 (SDA)</text>
-  <text x="110" y="208" text-anchor="middle" fill="#4A5568" font-size="11">GPIO 22 (SCL)</text>
-  <!-- Lines -->
-  <line x1="190" y1="114" x2="280" y2="114" stroke="#C62828" stroke-width="2.5" marker-end="url(#wArr)"/>
-  <line x1="190" y1="144" x2="280" y2="144" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#wArr)"/>
-  <line x1="190" y1="174" x2="280" y2="174" stroke="#2979FF" stroke-width="2.5" marker-end="url(#wArr)"/>
-  <line x1="190" y1="204" x2="280" y2="204" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#wArr)"/>
-  <!-- Split bus -->
-  <line x1="280" y1="114" x2="320" y2="114" stroke="#C62828" stroke-width="2"/>
-  <line x1="280" y1="144" x2="320" y2="144" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="280" y1="174" x2="320" y2="174" stroke="#2979FF" stroke-width="2"/>
-  <line x1="280" y1="204" x2="320" y2="204" stroke="#2E7D32" stroke-width="2"/>
-  <line x1="320" y1="70" x2="320" y2="240" stroke="#718096" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <rect x="20" y="80" width="155" height="270" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="97" y="110" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 DevKit</text>
+  <circle cx="160" cy="155" r="5" fill="#C62828"/>
+  <text x="145" y="160" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">3.3V</text>
+  <circle cx="160" cy="215" r="5" fill="#1a1a1a"/>
+  <text x="145" y="220" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="160" cy="275" r="5" fill="#2979FF"/>
+  <text x="145" y="272" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GPIO 21</text>
+  <text x="145" y="286" text-anchor="end" fill="#4A5568" font-size="9">SDA</text>
+  <circle cx="160" cy="335" r="5" fill="#2E7D32"/>
+  <text x="145" y="332" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GPIO 22</text>
+  <text x="145" y="346" text-anchor="end" fill="#4A5568" font-size="9">SCL</text>
+
   <!-- BME280 -->
-  <rect x="360" y="30" width="220" height="100" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="470" y="58" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">BME280</text>
-  <text x="470" y="80" text-anchor="middle" fill="#4A5568" font-size="10">VCC · GND · SDA · SCL</text>
-  <text x="470" y="100" text-anchor="middle" fill="#4A5568" font-size="10">I2C 0x76 / 0x77 · 3.3V</text>
-  <text x="470" y="118" text-anchor="middle" fill="#4A5568" font-size="9">dari artikel #13</text>
+  <rect x="430" y="25" width="185" height="170" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="522" y="52" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">BME280</text>
+  <text x="522" y="72" text-anchor="middle" fill="#4A5568" font-size="10">I2C 0x76 / 0x77 · 3.3V</text>
+  <circle cx="445" cy="100" r="5" fill="#C62828"/>
+  <text x="460" y="105" fill="#1a1a1a" font-size="12" font-weight="600">VCC</text>
+  <circle cx="445" cy="125" r="5" fill="#1a1a1a"/>
+  <text x="460" y="130" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="445" cy="150" r="5" fill="#2979FF"/>
+  <text x="460" y="155" fill="#1a1a1a" font-size="12" font-weight="600">SDA</text>
+  <circle cx="445" cy="175" r="5" fill="#2E7D32"/>
+  <text x="460" y="180" fill="#1a1a1a" font-size="12" font-weight="600">SCL</text>
+
   <!-- OLED -->
-  <rect x="360" y="150" width="220" height="100" rx="6" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="2.5"/>
-  <text x="470" y="178" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">OLED SSD1306</text>
-  <text x="470" y="200" text-anchor="middle" fill="#4A5568" font-size="10">VCC · GND · SDA · SCL</text>
-  <text x="470" y="220" text-anchor="middle" fill="#4A5568" font-size="10">I2C 0x3C · 128×64 · 3.3V</text>
-  <text x="470" y="238" text-anchor="middle" fill="#4A5568" font-size="9">paralel di breadboard</text>
-  <!-- Pin color legend -->
-  <text x="310" y="268" text-anchor="middle" fill="#4A5568" font-size="10">Merah 3.3V · Hitam GND · Biru SDA · Hijau SCL — kedua modul paralel</text>
+  <rect x="430" y="230" width="185" height="170" rx="6" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="522" y="257" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">OLED SSD1306</text>
+  <text x="522" y="277" text-anchor="middle" fill="#4A5568" font-size="10">I2C 0x3C · 128×64 · 3.3V</text>
+  <circle cx="445" cy="305" r="5" fill="#C62828"/>
+  <text x="460" y="310" fill="#1a1a1a" font-size="12" font-weight="600">VCC</text>
+  <circle cx="445" cy="330" r="5" fill="#1a1a1a"/>
+  <text x="460" y="335" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="445" cy="355" r="5" fill="#2979FF"/>
+  <text x="460" y="360" fill="#1a1a1a" font-size="12" font-weight="600">SDA</text>
+  <circle cx="445" cy="380" r="5" fill="#2E7D32"/>
+  <text x="460" y="385" fill="#1a1a1a" font-size="12" font-weight="600">SCL</text>
+
+  <!-- 3.3V → VCC (split to both) -->
+  <line x1="165" y1="155" x2="250" y2="155" stroke="#C62828" stroke-width="2.5"/>
+  <line x1="250" y1="100" x2="250" y2="305" stroke="#C62828" stroke-width="2.5"/>
+  <line x1="250" y1="100" x2="440" y2="100" stroke="#C62828" stroke-width="2.5" marker-end="url(#wArrR)"/>
+  <line x1="250" y1="305" x2="440" y2="305" stroke="#C62828" stroke-width="2.5" marker-end="url(#wArrR)"/>
+
+  <!-- GND → GND (split) -->
+  <line x1="165" y1="215" x2="290" y2="215" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="290" y1="125" x2="290" y2="330" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="290" y1="125" x2="440" y2="125" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#wArrK)"/>
+  <line x1="290" y1="330" x2="440" y2="330" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#wArrK)"/>
+
+  <!-- SDA GPIO21 → SDA (split) -->
+  <line x1="165" y1="275" x2="330" y2="275" stroke="#2979FF" stroke-width="2.5"/>
+  <line x1="330" y1="150" x2="330" y2="355" stroke="#2979FF" stroke-width="2.5"/>
+  <line x1="330" y1="150" x2="440" y2="150" stroke="#2979FF" stroke-width="2.5" marker-end="url(#wArrB)"/>
+  <line x1="330" y1="355" x2="440" y2="355" stroke="#2979FF" stroke-width="2.5" marker-end="url(#wArrB)"/>
+
+  <!-- SCL GPIO22 → SCL (split) -->
+  <line x1="165" y1="335" x2="370" y2="335" stroke="#2E7D32" stroke-width="2.5"/>
+  <line x1="370" y1="175" x2="370" y2="380" stroke="#2E7D32" stroke-width="2.5"/>
+  <line x1="370" y1="175" x2="440" y2="175" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#wArrG)"/>
+  <line x1="370" y1="380" x2="440" y2="380" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#wArrG)"/>
+
+  <!-- Legend -->
+  <rect x="20" y="415" width="14" height="10" rx="2" fill="#C62828"/>
+  <text x="40" y="424" fill="#4A5568" font-size="10">3.3V → VCC</text>
+  <rect x="130" y="415" width="14" height="10" rx="2" fill="#1a1a1a"/>
+  <text x="150" y="424" fill="#4A5568" font-size="10">GND → GND</text>
+  <rect x="240" y="415" width="14" height="10" rx="2" fill="#2979FF"/>
+  <text x="260" y="424" fill="#4A5568" font-size="10">GPIO 21 → SDA</text>
+  <rect x="380" y="415" width="14" height="10" rx="2" fill="#2E7D32"/>
+  <text x="400" y="424" fill="#4A5568" font-size="10">GPIO 22 → SCL (paralel kedua modul)</text>
 </svg>
-<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Wiring paralel: 3.3V, GND, SDA (GPIO 21), SCL (GPIO 22) ke kedua modul I2C.</figcaption>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Wiring paralel pin-ke-pin: 3.3V→VCC, GND→GND, GPIO 21→SDA, GPIO 22→SCL ke <a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">BME280 (#13)</a> dan OLED.</figcaption>
 </figure>
 
 <ul>

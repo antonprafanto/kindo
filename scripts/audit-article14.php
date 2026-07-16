@@ -90,6 +90,10 @@ check(str_contains($body, 'OLED SSD1306'), 'SVG: OLED SSD1306');
 check(str_contains($body, 'Mosquitto (#16)'), 'SVG arsitektur: Mosquitto (#16)');
 check(str_contains($body, 'GPIO 21 (SDA)'), 'SVG wiring: GPIO 21 SDA');
 check(str_contains($body, 'GPIO 22 (SCL)'), 'SVG wiring: GPIO 22 SCL');
+check(str_contains($body, '3.3V → VCC'), 'SVG wiring: legend 3.3V → VCC');
+check(str_contains($body, 'GPIO 21 → SDA'), 'SVG wiring: legend GPIO 21 → SDA');
+check(str_contains($body, 'GPIO 22 → SCL'), 'SVG wiring: legend GPIO 22 → SCL');
+check(str_contains($body, 'viewBox="0 0 640 440"'), 'SVG wiring viewBox pin-ke-pin');
 check(! str_contains($body, 'ESP32 DevKit          BME280 + OLED'), 'ASCII wiring sudah dihapus');
 check(! str_contains($body, '─────── VCC'), 'ASCII wiring dashes sudah dihapus');
 
