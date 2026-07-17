@@ -63,6 +63,14 @@ $requiredLinks = [
     'memahami-mqtt-esp32-kirim-data-sensor-broker'   => 'Artikel #7 MQTT',
     'gabungkan-dht22-relay-mqtt-esp32-satu-proyek'   => 'Artikel #9 gabungan',
     'dashboard-esp32-web-server-mqtt-monitoring-dht22' => 'Artikel #10 capstone',
+    'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode' => 'Artikel #12 NVS',
+    'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'      => 'Artikel #13 BME280',
+    'oled-ssd1306-esp32-tampilkan-data-sensor-i2c'   => 'Artikel #14 OLED',
+    'ota-update-firmware-esp32-via-wifi'             => 'Artikel #15 OTA',
+    'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32' => 'Artikel #16 Mosquitto',
+    'esp-now-kirim-data-antar-esp32-tanpa-router-wifi' => 'Artikel #25 ESP-NOW',
+    'lora-esp32-modul-sx1278-kirim-data-jarak-jauh'  => 'Artikel #26 LoRa',
+    'ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt' => 'Artikel #34 NTP',
 ];
 
 foreach ($requiredLinks as $slug => $label) {
@@ -97,6 +105,54 @@ check(str_contains($body, 'Light sleep'), 'Perbandingan light vs deep sleep');
 check(str_contains($body, 'language-arduino'), 'Blok kode Arduino');
 check(str_contains($body, 'language-bash'), 'Blok mosquitto_sub bash');
 check(str_contains($body, '<table>'), 'Ada tabel');
+check(substr_count($body, 'figure role="img"') >= 2, 'Ada 2 figure SVG (wiring + arsitektur)');
+check(str_contains($body, 'viewBox="0 0 620 320"'), 'SVG wiring viewBox');
+check(str_contains($body, 'viewBox="0 0 620 430"'), 'SVG arsitektur viewBox');
+check(str_contains($body, 'GPIO 4 → DATA'), 'SVG wiring: legend GPIO 4 → DATA');
+check(str_contains($body, 'esp_deep_sleep_start() → ulang'), 'SVG siklus: deep sleep ulang');
+check(str_contains($body, 'Deep sleep · ~10 µA') || str_contains($body, 'Deep sleep · ~10'), 'SVG: deep sleep microamp');
+check(str_contains($body, 'GANTI_SSID_WIFI'), 'Placeholder SSID WiFi');
+check(str_contains($body, 'GANTI_PASSWORD_WIFI'), 'Placeholder password WiFi');
+check(! str_contains($body, 'NamaWiFiKamu'), 'Placeholder lama NamaWiFiKamu dihapus');
+check(! str_contains($body, 'PasswordWiFiKamu'), 'Placeholder lama PasswordWiFiKamu dihapus');
+check(! str_contains($body, 'KindoMQTT2026!'), 'Tidak ada password MQTT literal');
+
+check(str_contains($body, 'WiFi ESP32 (#4)</a>'), 'Hyperlink prasyarat WiFi (#4)');
+check(str_contains($body, 'sensor DHT22 (#5)</a>'), 'Hyperlink prasyarat DHT22 (#5)');
+check(str_contains($body, 'publish MQTT (#7)</a>'), 'Hyperlink prasyarat MQTT (#7)');
+check(str_contains($body, 'proyek gabungan (#9)</a>'), 'Hyperlink proyek gabungan (#9)');
+check(str_contains($body, 'dashboard capstone (#10)</a>'), 'Hyperlink dashboard (#10)');
+check(str_contains($body, 'artikel MQTT (#7)</a>'), 'Hyperlink MQTT (#7)');
+check(str_contains($body, 'NVS + WiFiManager (#12)</a>'), 'Hyperlink NVS (#12)');
+check(str_contains($body, 'NVS + WiFiManager ESP32 (#12)</a>'), 'Hyperlink langkah #12');
+check(str_contains($body, 'Broker Mosquitto pribadi (#16)</a>'), 'Hyperlink Mosquitto (#16)');
+check(str_contains($body, 'Sensor BME280 via I2C (#13)</a>'), 'Hyperlink BME280 (#13)');
+check(str_contains($body, 'OLED SSD1306 (#14)</a>'), 'Hyperlink OLED (#14)');
+check(str_contains($body, 'OTA update firmware (#15)</a>'), 'Hyperlink OTA (#15)');
+check(str_contains($body, 'WiFiManager (#12)</a>'), 'Hyperlink OTA→#12');
+check(str_contains($body, 'dashboard capstone Seri 1 (#10)</a>'), 'Hyperlink capstone (#10)');
+check(! preg_match('/setelah #12 WiFiManager/', $body), 'Tidak ada plain #12 residual di OTA');
+
+$sanitized = app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($body);
+check(substr_count($sanitized, '<svg') >= 2, 'Kedua SVG lolos sanitizer');
+check(str_contains($sanitized, 'GPIO 4 → DATA'), 'Wiring legend lolos sanitizer');
+
+$plainBody = preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '';
+$plainBody = preg_replace('/<svg\b[^>]*>.*?<\/svg>/is', '', $plainBody) ?? '';
+preg_match_all('/#\d+(?![0-9a-fA-F])/', $plainBody, $plainRefs);
+$residualPlain = array_values(array_unique($plainRefs[0] ?? []));
+check($residualPlain === [], 'Tidak ada plain #N residual: ' . implode(', ', $residualPlain));
+
+// Anchor tanpa nomor (kecuali href="/artikel" indeks)
+preg_match_all('/href="\/artikel\/([^"]+)">([^<]*)<\/a>/', $body, $am, PREG_SET_ORDER);
+$bareAnchors = [];
+foreach ($am as $hit) {
+    if ($hit[1] !== '' && ! str_contains($hit[2], '#')) {
+        $bareAnchors[] = $hit[1] . '=>' . $hit[2];
+    }
+}
+check($bareAnchors === [], 'Tidak ada bare anchor: ' . implode('; ', $bareAnchors));
+
 check(str_contains($body, 'rel="noopener"'), 'Link eksternal noopener');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada typo shared hosting');
 

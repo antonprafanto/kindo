@@ -74,7 +74,7 @@ class Article11Seeder extends Seeder
 </ol>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Sudah paham <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">WiFi ESP32</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">sensor DHT22</a>, dan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish MQTT</a>. Familiar dengan JSON MQTT dari <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan</a> atau <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">dashboard capstone</a> akan membantu.</p>
+  <p><strong>Prasyarat:</strong> Sudah paham <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">WiFi ESP32 (#4)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">sensor DHT22 (#5)</a>, dan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish MQTT (#7)</a>. Familiar dengan JSON MQTT dari <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan (#9)</a> atau <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">dashboard capstone (#10)</a> akan membantu.</p>
 </blockquote>
 
 <h2>Light Sleep vs Deep Sleep</h2>
@@ -114,18 +114,88 @@ class Article11Seeder extends Seeder
 </blockquote>
 
 <h2>Wiring DHT22</h2>
-<p>Sama seperti Seri 1 — jangan ubah pin tanpa alasan:</p>
-<ul>
-  <li>VCC DHT22 → 3.3V</li>
-  <li>GND → GND</li>
-  <li>DATA → GPIO 4 + resistor pull-up 10kΩ ke 3.3V</li>
-</ul>
+<p>Sama seperti tutorial <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> Seri 1 — jangan ubah pin tanpa alasan:</p>
+<figure role="img" aria-label="Diagram wiring ESP32 ke DHT22: 3.3V ke VCC, GND ke GND, GPIO 4 ke DATA dengan pull-up 10k ohm" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 320" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="dht11R" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#C62828"/></marker>
+    <marker id="dht11K" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/></marker>
+    <marker id="dht11O" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#FF7A2F"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="320" fill="#F5F5F0" rx="6"/>
+  <rect x="30" y="35" width="170" height="210" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="115" y="68" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 DevKit</text>
+  <circle cx="185" cy="110" r="5" fill="#C62828"/>
+  <text x="170" y="115" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">3.3V</text>
+  <circle cx="185" cy="160" r="5" fill="#1a1a1a"/>
+  <text x="170" y="165" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="185" cy="210" r="5" fill="#FF7A2F"/>
+  <text x="170" y="207" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GPIO 4</text>
+  <text x="170" y="221" text-anchor="end" fill="#4A5568" font-size="9">DATA</text>
+  <rect x="400" y="50" width="190" height="180" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="495" y="82" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">DHT22</text>
+  <text x="495" y="102" text-anchor="middle" fill="#4A5568" font-size="10">1-wire · 3.3V</text>
+  <circle cx="415" cy="135" r="5" fill="#C62828"/>
+  <text x="430" y="140" fill="#1a1a1a" font-size="12" font-weight="600">VCC</text>
+  <circle cx="415" cy="175" r="5" fill="#1a1a1a"/>
+  <text x="430" y="180" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="415" cy="215" r="5" fill="#FF7A2F"/>
+  <text x="430" y="220" fill="#1a1a1a" font-size="12" font-weight="600">DATA</text>
+  <line x1="190" y1="110" x2="410" y2="135" stroke="#C62828" stroke-width="2.5" marker-end="url(#dht11R)"/>
+  <line x1="190" y1="160" x2="410" y2="175" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#dht11K)"/>
+  <line x1="190" y1="210" x2="410" y2="215" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#dht11O)"/>
+  <rect x="30" y="270" width="14" height="10" rx="2" fill="#C62828"/>
+  <text x="50" y="279" fill="#4A5568" font-size="10">3.3V → VCC</text>
+  <rect x="160" y="270" width="14" height="10" rx="2" fill="#1a1a1a"/>
+  <text x="180" y="279" fill="#4A5568" font-size="10">GND → GND</text>
+  <rect x="290" y="270" width="14" height="10" rx="2" fill="#FF7A2F"/>
+  <text x="310" y="279" fill="#4A5568" font-size="10">GPIO 4 → DATA</text>
+  <text x="310" y="302" text-anchor="middle" fill="#4A5568" font-size="10">Pull-up 10kΩ DATA→3.3V (modul breakout biasanya sudah ada)</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Wiring pin-ke-pin: 3.3V→VCC, GND→GND, GPIO 4→DATA. Modul wajib <strong>3.3V</strong>.</figcaption>
+</figure>
 
 <blockquote>
   <p><strong>Pin strapping:</strong> Hindari GPIO yang dipakai saat boot (mis. beberapa board sensitif di GPIO 0, 2, 12, 15). GPIO 4 aman untuk DHT22 di kebanyakan DevKit.</p>
 </blockquote>
 
 <h2>Arsitektur Node Sensor</h2>
+<figure role="img" aria-label="Diagram siklus deep sleep ESP32: tidur, bangun timer, baca DHT22, WiFi MQTT publish, matikan WiFi, lalu tidur lagi" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 430" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="ds11Arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="ds11ArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="ds11ArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="430" fill="#F5F5F0" rx="6"/>
+  <!-- Sleep -->
+  <rect x="150" y="14" width="320" height="56" rx="6" fill="#E8EAF6" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="38" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Deep sleep · ~10 µA</text>
+  <text x="310" y="56" text-anchor="middle" fill="#4A5568" font-size="11">RTC timer · DURASI_TIDUR_DETIK</text>
+  <line x1="310" y1="70" x2="310" y2="104" stroke="#2979FF" stroke-width="2.5" marker-end="url(#ds11Arr)"/>
+  <rect x="340" y="76" width="150" height="24" rx="12" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="415" y="92" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">timer wake-up</text>
+  <!-- Wake -->
+  <rect x="150" y="112" width="320" height="56" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="136" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Bangun · setup() dari awal</text>
+  <text x="310" y="154" text-anchor="middle" fill="#4A5568" font-size="11">reset penuh · setCpuFrequencyMhz(80)</text>
+  <line x1="310" y1="168" x2="310" y2="202" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#ds11ArrO)"/>
+  <!-- DHT -->
+  <rect x="150" y="210" width="320" height="50" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="310" y="232" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Baca DHT22 (GPIO 4)</text>
+  <text x="310" y="248" text-anchor="middle" fill="#4A5568" font-size="10">dht.begin() + delay(2000)</text>
+  <line x1="310" y1="260" x2="310" y2="292" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#ds11ArrO)"/>
+  <!-- MQTT -->
+  <rect x="150" y="300" width="320" height="50" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="322" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">WiFi + MQTT publish JSON</text>
+  <text x="310" y="338" text-anchor="middle" fill="#e3f2fd" font-size="10">sekali per siklus · lalu WIFI_OFF</text>
+  <line x1="310" y1="350" x2="310" y2="378" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#ds11ArrG)"/>
+  <rect x="180" y="386" width="260" height="32" rx="6" fill="#FFF8E7" stroke="#000" stroke-width="2"/>
+  <text x="310" y="407" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">esp_deep_sleep_start() → ulang</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Siklus hemat baterai — lanjut hilangkan hardcode WiFi lewat <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a>.</figcaption>
+</figure>
+
 <table>
   <thead>
     <tr><th>Tahap</th><th>Durasi tipikal</th><th>Catatan</th></tr>
@@ -142,7 +212,7 @@ class Article11Seeder extends Seeder
 <strong>Topic:</strong> <code>kodingindonesia/esp32/dht22/data</code> — payload JSON <code>{"suhu":28.5,"kelembaban":65.2}</code>.</p>
 
 <blockquote>
-  <p><strong>Broker bukan website:</strong> <code>test.mosquitto.org</code> tidak dibuka di browser. Pakai MQTT Explorer atau <code>mosquitto_sub</code>. Detail di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>.</p>
+  <p><strong>Broker bukan website:</strong> <code>test.mosquitto.org</code> tidak dibuka di browser. Pakai MQTT Explorer atau <code>mosquitto_sub</code>. Detail di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT (#7)</a>.</p>
 </blockquote>
 
 <blockquote>
@@ -150,7 +220,7 @@ class Article11Seeder extends Seeder
 </blockquote>
 
 <h2>Kode Lengkap: Deep Sleep + DHT22 + MQTT</h2>
-<p>Ganti <code>ssid</code> dan <code>password</code>, lalu upload. Setelah upload, buka Serial Monitor 115200 — kamu akan melihat satu siklus lalu ESP32 tidur (Serial berhenti sampai bangun lagi).</p>
+<p>Ganti placeholder <code>GANTI_SSID_WIFI</code> / <code>GANTI_PASSWORD_WIFI</code>, lalu upload. Setelah upload, buka Serial Monitor 115200 — kamu akan melihat satu siklus lalu ESP32 tidur (Serial berhenti sampai bangun lagi). Untuk produksi tanpa hardcode, lanjut <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a>.</p>
 
 <pre><code class="language-arduino">#include &lt;WiFi.h&gt;
 #include &lt;PubSubClient.h&gt;
@@ -160,8 +230,8 @@ class Article11Seeder extends Seeder
 // Durasi tidur (detik) — ubah sesuai kebutuhan
 const uint64_t DURASI_TIDUR_DETIK = 600; // 10 menit
 
-const char* ssid     = "NamaWiFiKamu";
-const char* password = "PasswordWiFiKamu";
+const char* ssid     = "GANTI_SSID_WIFI";
+const char* password = "GANTI_PASSWORD_WIFI";
 
 const char* mqttServer  = "test.mosquitto.org";
 const int   mqttPort    = 1883;
@@ -340,26 +410,26 @@ void loop() {
 <ul>
   <li><strong>DHT22 NaN setelah bangun:</strong> Perpanjang delay; cek wiring &amp; pull-up; hindari kabel panjang tanpa shield</li>
   <li><strong>Boot loop tanpa tidur:</strong> Pastikan tidak ada kode setelah <code>esp_deep_sleep_start()</code> yang mengharapkan lanjut; cek brownout jika pakai baterai lemah (gunakan supply stabil)</li>
-  <li><strong>Tidak ada pesan MQTT:</strong> Topic case-sensitive; cek <code>setBufferSize(512)</code>; lihat <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a></li>
+  <li><strong>Tidak ada pesan MQTT:</strong> Topic case-sensitive; cek <code>setBufferSize(512)</code>; lihat <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT (#7)</a></li>
   <li><strong>Baterai cepat habis:</strong> Kurangi frekuensi bangun; pastikan WiFi benar-benar off; ukur arus dengan multimeter untuk baseline</li>
   <li><strong>Upload gagal setelah sleep:</strong> Tekan tombol <strong>BOOT</strong> saat upload, atau colok USB lalu reset sebelum ESP32 sempat tidur</li>
 </ul>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager ESP32</a></strong> — simpan kredensial WiFi di flash, tanpa hardcode <code>ssid</code>/<code>password</code> di kode produksi</li>
-  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi</a></strong> — pindah dari <code>test.mosquitto.org</code> dengan autentikasi</li>
-  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C</a></strong> — upgrade akurasi + tekanan udara untuk node lapangan</li>
-  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — tampilkan suhu &amp; tekanan di layar lokal</li>
-  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — maintain node lapangan tanpa kabel USB (setelah #12 WiFiManager)</li>
+  <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager ESP32 (#12)</a></strong> — simpan kredensial WiFi di flash, tanpa hardcode <code>ssid</code>/<code>password</code> di kode produksi</li>
+  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi (#16)</a></strong> — pindah dari <code>test.mosquitto.org</code> dengan autentikasi</li>
+  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C (#13)</a></strong> — upgrade akurasi + tekanan udara untuk node lapangan</li>
+  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306 (#14)</a></strong> — tampilkan suhu &amp; tekanan di layar lokal</li>
+  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware (#15)</a></strong> — maintain node lapangan tanpa kabel USB (setelah <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager (#12)</a>)</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — log waktu akurat tiap publish dari node deep sleep</li>
   <li><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW (#25)</a></strong> — kirim data tanpa WiFi router; ideal untuk node baterai + gateway MQTT</li>
   <li><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa SX1278 (#26)</a></strong> — node baterai di ujung lahan; kirim telemetry jarak jauh</li>
-  <li>Kembali ke <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">dashboard capstone Seri 1</a> untuk membandingkan node always-on vs battery-powered</li>
+  <li>Kembali ke <a href="/artikel/dashboard-esp32-web-server-mqtt-monitoring-dht22">dashboard capstone Seri 1 (#10)</a> untuk membandingkan node always-on vs battery-powered</li>
 </ul>
 
 <blockquote>
-  <p><strong>Keamanan:</strong> Jangan hardcode password WiFi di repo publik. Untuk proyek lapangan, gunakan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a> atau simpan kredensial di file terpisah yang tidak di-commit.</p>
+  <p><strong>Keamanan:</strong> Jangan hardcode password WiFi di repo publik. Untuk proyek lapangan, gunakan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a> atau simpan kredensial di file terpisah yang tidak di-commit.</p>
 </blockquote>
 
 <p>Ini langkah pertama menuju node IoT yang benar-benar <em>wireless</em> — sensor di mana adaptor listrik tidak tersedia. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
