@@ -79,7 +79,7 @@ check(str_contains($body, 'self._stok'), 'Attribute internal _stok');
 check(str_contains($body, 'name-mangling') || str_contains($body, '_Buku__'), 'Bahas name-mangling');
 check(str_contains($body, 'RecursionError'), 'Bahas RecursionError property');
 check(str_contains($body, 'BukuSalah') && str_contains($body, 'BukuBenar'), 'Demo RecursionError SALAH/BENAR');
-check(str_contains($body, '4/10 artikel live'), 'Progress 4/10 live');
+check(str_contains($body, '5/10 artikel live'), 'Progress 5/10 live');
 check(str_contains($body, 'def pinjam(self)'), 'Method pinjam(self)');
 check(str_contains($body, 'self.stok -= 1') && (str_contains($body, 'lewat property') || str_contains($body, 'juga lewat property')), 'Jelaskan self.stok -= 1 lewat property');
 check(strpos($body, '@setter — validasi') < strpos($body, 'oop43Arrow'), 'Diagram SVG setelah section @setter');
@@ -104,7 +104,7 @@ check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
 check(! preg_match('/(?<![\w\/"#>])#(?:4[4-9]|[5-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #44+ di luar link');
 check(! preg_match('/#43(?!\s*\(ini\))/', $plain), 'Tidak ada plain #43 selain #43 (ini)');
-check(! str_contains($body, '/artikel/inheritance-pewarisan-class-python'), 'Tidak hardlink slug #44');
+check(str_contains($body, '/artikel/inheritance-pewarisan-class-python'), 'Hardlink #43→#44');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');

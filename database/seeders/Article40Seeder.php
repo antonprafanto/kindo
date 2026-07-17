@@ -265,7 +265,7 @@ print(buku_b.info())
   <li><a href="/artikel/class-dan-object-pertama-python">Class dan object pertama di Python (#41)</a></li>
   <li><a href="/artikel/attribute-method-constructor-init-python">Attribute, method, dan constructor <code>__init__</code> (#42)</a></li>
   <li><a href="/artikel/encapsulation-property-python-oop">Encapsulation &amp; <code>@property</code> (#43)</a></li>
-  <li>Inheritance</li>
+  <li><a href="/artikel/inheritance-pewarisan-class-python">Inheritance &amp; <code>super()</code> (#44)</a></li>
   <li>Polymorphism</li>
   <li>Abstraction &amp; ABC</li>
   <li>Composition vs inheritance</li>
@@ -291,7 +291,7 @@ print(buku_b.info())
 <p>Lanjut ke <a href="/artikel/class-dan-object-pertama-python">Class dan Object Pertama di Python (#41)</a>: kita menulis <code>class Buku</code> dari nol, membuat beberapa instance, dan melihat identitas tiap object.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 2/10 artikel live (#40–#41). Lanjut <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a>. Capstone: sistem perpustakaan mini.</p>
+  <p><strong>Seri 3 progress:</strong> 5/10 artikel live (#40–#44). Lanjut <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a>. Capstone: sistem perpustakaan mini.</p>
 </blockquote>
 HTML;
     }

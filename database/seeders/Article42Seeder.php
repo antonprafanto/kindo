@@ -365,7 +365,7 @@ print(a.kembalikan())
 <p>Lanjut ke <a href="/artikel/encapsulation-property-python-oop">Encapsulation &amp; <code>@property</code> (#43)</a>: kita rapikan akses data dengan konvensi <code>_</code> / <code>__</code> dan property/setter agar stok &amp; tahun tidak diubah sembarangan dari luar.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 4/10 artikel live. Kamu di langkah <strong>#42 (ini)</strong>. Prasyarat: <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · fondasi: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 5/10 artikel live. Kamu di langkah <strong>#42 (ini)</strong>. Prasyarat: <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · fondasi: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a>.</p>
 </blockquote>
 HTML;
     }

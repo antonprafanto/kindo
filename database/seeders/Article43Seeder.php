@@ -136,7 +136,7 @@ print(buku._stok)          # bisa, tapi “jangan” — sinyal internal
 print(buku._Buku__kode)    # bisa, tapi jelek — hindari
 </code></pre>
 
-<p>Gunakan <code>_</code> untuk state yang ingin kamu jaga. Cadangkan <code>__</code> jika benar-benar khawatir bentrok nama di subclass (nanti di Inheritance). Jangan mengira <code>__</code> = keamanan mutlak.</p>
+<p>Gunakan <code>_</code> untuk state yang ingin kamu jaga. Cadangkan <code>__</code> jika benar-benar khawatir bentrok nama di subclass (lihat <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a>). Jangan mengira <code>__</code> = keamanan mutlak.</p>
 
 <h2>@property — baca lewat API bersih</h2>
 <p><code>@property</code> membuat method terlihat seperti attribute saat dibaca. Dari luar: <code>buku.stok</code>. Di dalam: kamu yang tentukan dari mana nilai itu datang:</p>
@@ -433,10 +433,10 @@ print("set stok:", a.stok)
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Encapsulation di Python = konvensi nama + pintu resmi (<code>@property</code> / setter) supaya invariant tetap hidup. Kamu tidak mengunci dunia — kamu merapikan kontrak class.</p>
 <p>Artikel ini adalah <strong>#43 (ini)</strong> — langkah keempat Seri 3 setelah <a href="/artikel/attribute-method-constructor-init-python">Attribute &amp; <code>__init__</code> (#42)</a>.</p>
-<p>Lanjut ke artikel berikutnya — <strong>Inheritance</strong>: class <code>Ebook(Buku)</code>, <code>super()</code>, dan override method tanpa menduplikasi kode. (Belum di-hyperlink sampai artikel itu live.)</p>
+<p>Lanjut ke <a href="/artikel/inheritance-pewarisan-class-python">Inheritance &amp; <code>super()</code> (#44)</a>: class <code>Ebook(Buku)</code>, <code>super().__init__</code>, dan override method tanpa menduplikasi kode.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 4/10 artikel live. Kamu di langkah <strong>#43 (ini)</strong>. Prasyarat: <a href="/artikel/attribute-method-constructor-init-python">#42</a> · <a href="/artikel/class-dan-object-pertama-python">#41</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">#40</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 5/10 artikel live. Kamu di langkah <strong>#43 (ini)</strong>. Prasyarat: <a href="/artikel/attribute-method-constructor-init-python">#42</a> · <a href="/artikel/class-dan-object-pertama-python">#41</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">#40</a>.</p>
 </blockquote>
 HTML;
     }

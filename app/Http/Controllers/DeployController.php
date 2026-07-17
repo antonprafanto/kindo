@@ -2598,6 +2598,146 @@ class DeployController extends Controller
         return response('Article 43 published', 200);
     }
 
+    public function publishArticle44(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        $seederPath = base_path('database/seeders/Article44Seeder.php');
+        clearstatcache(true, $seederPath);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($seederPath, true);
+        }
+
+        if (! class_exists(\Database\Seeders\Article44Seeder::class)) {
+            return response('Article44Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 44 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article44Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 44 seed failed', 500);
+        }
+
+        $slug = 'inheritance-pewarisan-class-python';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 44 missing or not visible after Article44Seeder on deploy hook.'));
+
+            return response('Article 44 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop44Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'super().__init__') || ! str_contains($body, 'EbookSalah') || ! str_contains($body, 'Audiobook') || ! str_contains($body, 'menggantikan')) {
+            report(new \RuntimeException('Article 44 body missing expected content after seed.'));
+
+            return response('Article 44 body content checks failed', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 44 published', 200);
+    }
+
+    public function publishArticle45(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        $seederPath = base_path('database/seeders/Article45Seeder.php');
+        clearstatcache(true, $seederPath);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($seederPath, true);
+        }
+
+        if (! class_exists(\Database\Seeders\Article45Seeder::class)) {
+            return response('Article45Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 45 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article45Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 45 seed failed', 500);
+        }
+
+        $slug = 'polymorphism-python-oop';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 45 missing or not visible after Article45Seeder on deploy hook.'));
+
+            return response('Article 45 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop45Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'KatalogEntry') || ! str_contains($body, 'cetak_benar') || ! str_contains($body, 'for item in koleksi')) {
+            report(new \RuntimeException('Article 45 body missing expected content after seed.'));
+
+            return response('Article 45 body content checks failed', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 45 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

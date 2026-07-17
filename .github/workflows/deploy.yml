@@ -826,6 +826,31 @@ jobs:
           echo "Article 43 HTTP status: $code"
           test "$code" = "200"
 
+      - name: Publish article 44 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-44")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/inheritance-pewarisan-class-python")
+          echo "Article 44 HTTP status: $code"
+          test "$code" = "200"
+
+      - name: Publish article 45 via deploy hook (idempotent — seeder belum di-main / tunggu oke)
+        continue-on-error: true
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-45")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/polymorphism-python-oop")
+          echo "Article 45 HTTP status: $code"
+          if [ "$code" != "200" ]; then
+            echo "::warning::Article 45 belum 200 (status $code) — lanjut deploy lain"
+          fi
+
       - name: Patch article 39 formatting via deploy hook (idempotent)
         continue-on-error: true
         run: |

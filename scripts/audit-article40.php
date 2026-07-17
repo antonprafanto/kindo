@@ -86,6 +86,8 @@ check(str_contains($body, 'class-dan-object-pertama-python'), 'Forward link ke #
 check(str_contains($body, '(#41)'), 'Anchor ber-nomor (#41)');
 check(str_contains($body, 'attribute-method-constructor-init-python'), 'Forward link indeks ke #42');
 check(str_contains($body, '(#42)'), 'Anchor ber-nomor (#42)');
+check(str_contains($body, 'encapsulation-property-python-oop'), 'Forward link indeks ke #43');
+check(str_contains($body, 'inheritance-pewarisan-class-python'), 'Forward link indeks ke #44');
 check(! preg_match('/(?<![\w\/"#>])#(?:4[3-9]|[5-9]\d)(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak ada plain #43+ di luar link');
 check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(str_contains($body, '(#39)') && str_contains($body, '(#18)'), 'Anchor ber-nomor (#18)/(#39)');
