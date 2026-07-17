@@ -287,10 +287,10 @@ print("object yang sama?", buku_a is buku_b)
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Class adalah cetakan; object adalah hasil <code>NamaClass(...)</code>. Tiap instance punya attribute sendiri dan identitas sendiri (<code>id</code> / <code>is</code>). Method memberi perilaku yang melekat pada object lewat <code>self</code>.</p>
 <p>Artikel ini adalah <strong>#41 (ini)</strong> — langkah kedua Seri 3 setelah <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>. Kamu sudah bisa menulis class, membuat beberapa object, dan membedakan isi vs identitas.</p>
-<p>Lanjut ke artikel berikutnya — <strong>Attribute, Method, dan Constructor <code>__init__</code></strong>: kita bedah <code>self</code> lebih dalam, method yang mengubah state, dan kesalahan klasik saat parameter tertukar. (Belum di-hyperlink sampai artikel itu live.)</p>
+<p>Lanjut ke <a href="/artikel/attribute-method-constructor-init-python">Attribute, Method, dan Constructor <code>__init__</code> (#42)</a>: kita bedah <code>self</code> lebih dalam, method yang mengubah state, dan kesalahan klasik saat parameter tertukar.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 2/10 artikel (setelah #41 live). Prasyarat: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 2/10 artikel live di #41; lanjut <a href="/artikel/attribute-method-constructor-init-python">#42</a>. Prasyarat: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
 </blockquote>
 HTML;
     }

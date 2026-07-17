@@ -762,8 +762,7 @@ jobs:
           echo "Article 41 HTTP status: $code"
           test "$code" = "200"
 
-      - name: Publish article 42 via deploy hook (idempotent — seeder belum di-main / tunggu oke)
-        continue-on-error: true
+      - name: Publish article 42 via deploy hook (required)
         run: |
           resp=$(curl -fsS --max-time 120 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
@@ -772,10 +771,18 @@ jobs:
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
             "https://kodingindonesia.com/artikel/attribute-method-constructor-init-python")
           echo "Article 42 HTTP status: $code"
-          # Jangan fail seluruh deploy: #42 masih "siap deploy" (seeder belum di-main)
-          if [ "$code" != "200" ]; then
-            echo "::warning::Article 42 belum 200 (status $code) — lanjut deploy lain"
-          fi
+          test "$code" = "200"
+
+      - name: Publish article 43 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-43")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/encapsulation-property-python-oop")
+          echo "Article 43 HTTP status: $code"
+          test "$code" = "200"
 
       - name: Patch article 39 formatting via deploy hook (idempotent)
         continue-on-error: true

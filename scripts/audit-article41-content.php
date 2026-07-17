@@ -35,10 +35,9 @@ $plainBody = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')
 $plainBody = preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body);
 $plainNoLinks = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
 
-check(! preg_match('/(?<![\w\/"#>])#(?:4[2-9]|[5-9]\d)\b/', $plainNoLinks), 'Tidak ada plain #42+ di luar link/pre');
-check(substr_count($body, 'mengenal-oop-cara-berpikir-dengan-objek-python') >= 2, 'Minimal 2 tautan ke #40 (pendahuluan + progress)');
+check(! preg_match('/(?<![\w\/"#>])#(?:4[3-9]|[5-9]\d)\b/', $plainNoLinks), 'Tidak ada plain #43+ di luar link/pre');
+check(substr_count($body, 'mengenal-oop-cara-berpikir-dengan-objek-python') >= 1, 'Minimal 1 tautan ke #40');
 check(str_contains($body, '(#40)'), 'Ada anchor (#40)');
-
 check(str_contains($body, '#41 (ini)'), 'Self-ref #41 (ini)');
 
 // Checklist §2 no ASCII
@@ -68,12 +67,13 @@ check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
 check(str_contains($body, 'aria-label'), 'SVG figure punya aria-label');
 check(str_contains($body, 'figcaption'), 'Ada figcaption');
 
-// Jangan hardlink #42 sebelum live
-check(! str_contains($body, '/artikel/attribute-method-constructor-init-python'), 'Tidak hardlink slug #42 (belum live)');
-check(! preg_match('/\(#42\)/', $body), 'Tidak ada (#42) di body');
+// Forward link #42 siap
+check(str_contains($body, '/artikel/attribute-method-constructor-init-python'), 'Hardlink slug #42 ada');
+check(str_contains($body, '(#42)'), 'Ada (#42) di body');
+check(! str_contains($body, '/artikel/encapsulation-property-python-oop'), 'Tidak hardlink slug #43');
 
-// Teaser next tanpa nomor broken
-check(str_contains($body, 'Attribute, Method') || str_contains($body, '__init__'), 'Teaser artikel berikutnya tanpa slug mati');
+// Teaser / link #42
+check(str_contains($body, 'Attribute, Method') || str_contains($body, '__init__'), 'Teaser / link artikel #42');
 
 // Seeder meta
 check(str_contains($src, "'is_featured'     => false") || str_contains($src, "'is_featured' => false"), 'is_featured false');

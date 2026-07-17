@@ -2458,6 +2458,146 @@ class DeployController extends Controller
         return response('Article 41 published', 200);
     }
 
+    public function publishArticle42(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        $seederPath = base_path('database/seeders/Article42Seeder.php');
+        clearstatcache(true, $seederPath);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($seederPath, true);
+        }
+
+        if (! class_exists(\Database\Seeders\Article42Seeder::class)) {
+            return response('Article42Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 42 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article42Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 42 seed failed', 500);
+        }
+
+        $slug = 'attribute-method-constructor-init-python';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 42 missing or not visible after Article42Seeder on deploy hook.'));
+
+            return response('Article 42 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop42Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'def pinjam(self)')) {
+            report(new \RuntimeException('Article 42 body missing expected content after seed.'));
+
+            return response('Article 42 body content checks failed', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 42 published', 200);
+    }
+
+    public function publishArticle43(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        $seederPath = base_path('database/seeders/Article43Seeder.php');
+        clearstatcache(true, $seederPath);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($seederPath, true);
+        }
+
+        if (! class_exists(\Database\Seeders\Article43Seeder::class)) {
+            return response('Article43Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 43 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article43Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 43 seed failed', 500);
+        }
+
+        $slug = 'encapsulation-property-python-oop';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 43 missing or not visible after Article43Seeder on deploy hook.'));
+
+            return response('Article 43 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop43Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, '@property')) {
+            report(new \RuntimeException('Article 43 body missing expected content after seed.'));
+
+            return response('Article 43 body content checks failed', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 43 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

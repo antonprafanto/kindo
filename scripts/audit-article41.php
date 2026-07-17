@@ -91,8 +91,10 @@ check(str_contains($body, 'Seri 3'), 'Menyebut Seri 3');
 check(str_contains($body, 'language-python'), 'Blok language-python');
 check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
-check(! preg_match('/(?<![\w\/"#>])#(?:4[2-9]|[5-9]\d)(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak ada plain #42+ di luar link');
-check(! str_contains($body, '/artikel/attribute-method-constructor-init-python'), 'Tidak hardlink slug #42');
+check(! preg_match('/(?<![\w\/"#>])#(?:4[3-9]|[5-9]\d)(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak ada plain #43+ di luar link');
+check(str_contains($body, 'attribute-method-constructor-init-python'), 'Forward link ke #42');
+check(str_contains($body, '(#42)'), 'Anchor ber-nomor (#42)');
+check(! str_contains($body, '/artikel/encapsulation-property-python-oop'), 'Tidak hardlink slug #43');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');

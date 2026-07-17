@@ -263,8 +263,8 @@ print(buku_b.info())
 <ol>
   <li><strong>#40 (ini)</strong> — Mengenal OOP &amp; cara berpikir objek</li>
   <li><a href="/artikel/class-dan-object-pertama-python">Class dan object pertama di Python (#41)</a></li>
-  <li>Attribute, method, dan constructor <code>__init__</code></li>
-  <li>Encapsulation &amp; <code>@property</code></li>
+  <li><a href="/artikel/attribute-method-constructor-init-python">Attribute, method, dan constructor <code>__init__</code> (#42)</a></li>
+  <li><a href="/artikel/encapsulation-property-python-oop">Encapsulation &amp; <code>@property</code> (#43)</a></li>
   <li>Inheritance</li>
   <li>Polymorphism</li>
   <li>Abstraction &amp; ABC</li>
