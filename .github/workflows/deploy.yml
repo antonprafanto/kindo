@@ -373,6 +373,13 @@ jobs:
           echo "::warning::remirror-article-images failed — run manually with deploy token"
           exit 1
 
+      - name: Publish article 8 via deploy hook (idempotent)
+        continue-on-error: true
+        run: |
+          curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-8"
+
       - name: Publish article 9 via deploy hook (idempotent)
         continue-on-error: true
         run: |
@@ -735,6 +742,17 @@ jobs:
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
             "https://kodingindonesia.com/artikel/mengenal-oop-cara-berpikir-dengan-objek-python")
           echo "Article 40 HTTP status: $code"
+          test "$code" = "200"
+
+      - name: Publish article 41 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-41")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/class-dan-object-pertama-python")
+          echo "Article 41 HTTP status: $code"
           test "$code" = "200"
 
       - name: Patch article 39 formatting via deploy hook (idempotent)

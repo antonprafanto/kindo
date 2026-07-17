@@ -52,7 +52,7 @@ class Article8Seeder extends Seeder
     {
         return <<<'HTML'
 <h2>Pendahuluan</h2>
-<p>Di artikel sebelumnya kita sudah mengirim data sensor DHT22 ke broker MQTT. Kali ini kita naik level: <strong>mengontrol lampu secara nirkabel</strong> lewat MQTT — fondasi smart home yang paling sering dipraktikkan.</p>
+<p>Di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT (#7)</a> kita sudah <strong>publish</strong> data sensor ke broker. Kali ini kita naik level: <strong>mengontrol lampu secara nirkabel</strong> lewat MQTT — fondasi smart home yang paling sering dipraktikkan.</p>
 
 <p>ESP32 akan <strong>subscribe</strong> ke topic kontrol. Saat kamu kirim pesan <code>ON</code> atau <code>OFF</code> dari MQTT Explorer (atau HP), relay menyalakan atau mematikan lampu. Tanpa kabel tambahan ke komputer, tanpa buka web server manual.</p>
 
@@ -67,15 +67,96 @@ class Article8Seeder extends Seeder
 </ul>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Sudah paham dasar MQTT dan koneksi WiFi ESP32. Baca dulu <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker"><em>Memahami MQTT dengan ESP32</em></a> dan <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server"><em>Menghubungkan ESP32 ke WiFi</em></a>. Opsional: <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22"><em>Web Server ESP32 + DHT22</em></a>.</p>
+  <p><strong>Prasyarat:</strong> Sudah paham dasar MQTT dan koneksi WiFi ESP32. Baca dulu <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">Memahami MQTT dengan ESP32 (#7)</a> dan <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">Menghubungkan ESP32 ke WiFi (#4)</a>. Opsional: <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web Server ESP32 + DHT22 (#6)</a>.</p>
 </blockquote>
 
 <blockquote>
   <p><strong>Keamanan listrik:</strong> Tutorial ini memakai lampu LED kecil atau lampu desk 5V–12V yang aman untuk pemula. <strong>Jangan</strong> menyentuh kabel listrik AC 220V tanpa pengalaman. Untuk kontrol lampu rumah AC, gunakan relay khusus AC + pelindung dan aturan kelistrikan yang benar.</p>
 </blockquote>
 
+<h2>Topologi MQTT — Subscribe Kontrol</h2>
+<p>Alur kebalikan dari <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish sensor (#7)</a>: kamu yang publish perintah, ESP32 yang subscribe.</p>
+
+<figure role="img" aria-label="Diagram topologi MQTT: publish ON OFF dari Explorer ke broker, ESP32 subscribe lalu kontrol relay GPIO 26" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 360" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="g8ArrO" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 Z" fill="#FF7A2F"/></marker>
+    <marker id="g8ArrB" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 Z" fill="#2979FF"/></marker>
+    <marker id="g8ArrK" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 Z" fill="#1a1a1a"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="360" fill="#F5F5F0" rx="6"/>
+  <!-- MQTT Explorer -->
+  <rect x="30" y="30" width="170" height="60" rx="6" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="115" y="55" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">MQTT Explorer</text>
+  <text x="115" y="73" text-anchor="middle" fill="#4A5568" font-size="10">publish ON / OFF</text>
+  <!-- Broker -->
+  <rect x="300" y="30" width="260" height="60" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="430" y="55" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">Mosquitto · :1883</text>
+  <text x="430" y="73" text-anchor="middle" fill="#e3f2fd" font-size="10">test.mosquitto.org</text>
+  <line x1="200" y1="60" x2="298" y2="60" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#g8ArrO)"/>
+  <rect x="210" y="28" width="70" height="20" rx="10" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="245" y="42" text-anchor="middle" fill="#C45A11" font-size="9" font-weight="700">PUB</text>
+  <!-- ESP32 -->
+  <rect x="80" y="160" width="200" height="70" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="180" y="188" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 subscribe</text>
+  <text x="180" y="208" text-anchor="middle" fill="#4A5568" font-size="11">callbackMQTT()</text>
+  <line x1="360" y1="90" x2="220" y2="158" stroke="#2979FF" stroke-width="2.5" marker-end="url(#g8ArrB)"/>
+  <rect x="280" y="110" width="70" height="20" rx="10" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="315" y="124" text-anchor="middle" fill="#2979FF" font-size="9" font-weight="700">SUB</text>
+  <!-- Relay -->
+  <rect x="380" y="160" width="180" height="70" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="470" y="188" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Relay · GPIO 26</text>
+  <text x="470" y="208" text-anchor="middle" fill="#4A5568" font-size="11">active LOW</text>
+  <line x1="280" y1="195" x2="378" y2="195" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#g8ArrK)"/>
+  <!-- Topic pill -->
+  <rect x="150" y="270" width="320" height="28" rx="14" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="310" y="288" text-anchor="middle" fill="#C45A11" font-size="11" font-weight="700">topic · .../lampu/kontrol</text>
+  <text x="310" y="335" text-anchor="middle" fill="#4A5568" font-size="11">perintah masuk · aktuator keluar · satu broker</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Kamu publish dari Explorer → broker → ESP32 subscribe → relay. Pola kebalikan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT publish (#7)</a>.</figcaption>
+</figure>
+
 <h2>Wiring Modul Relay ke ESP32</h2>
-<p>Modul relay umum (misalnya HW-483 / SRD-05VDC) memiliki pin:</p>
+<p>Modul relay umum (misalnya HW-483 / SRD-05VDC). Pin konsisten dengan proyek gabungan <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">DHT22 + relay (#9)</a>:</p>
+
+<figure role="img" aria-label="Diagram wiring ESP32 ke modul relay: 5V, GND, dan GPIO 26 ke IN" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 340" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="w8V" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#E65100"/></marker>
+    <marker id="w8K" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#1a1a1a"/></marker>
+    <marker id="w8P" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7B1FA2"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="340" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="30" y="40" width="170" height="220" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="115" y="68" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">ESP32 DevKit</text>
+  <circle cx="185" cy="110" r="5" fill="#E65100"/>
+  <text x="170" y="115" text-anchor="end" fill="#1a1a1a" font-size="11" font-weight="600">5V</text>
+  <circle cx="185" cy="160" r="5" fill="#1a1a1a"/>
+  <text x="170" y="165" text-anchor="end" fill="#1a1a1a" font-size="11" font-weight="600">GND</text>
+  <circle cx="185" cy="210" r="5" fill="#7B1FA2"/>
+  <text x="170" y="207" text-anchor="end" fill="#1a1a1a" font-size="11" font-weight="600">GPIO 26</text>
+  <text x="170" y="221" text-anchor="end" fill="#4A5568" font-size="9">IN</text>
+  <!-- Relay -->
+  <rect x="400" y="70" width="190" height="180" rx="6" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="495" y="98" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Relay 1ch</text>
+  <text x="495" y="116" text-anchor="middle" fill="#4A5568" font-size="10">modul 5V · active LOW</text>
+  <circle cx="415" cy="150" r="5" fill="#E65100"/>
+  <text x="430" y="155" fill="#1a1a1a" font-size="11" font-weight="600">VCC</text>
+  <circle cx="415" cy="190" r="5" fill="#1a1a1a"/>
+  <text x="430" y="195" fill="#1a1a1a" font-size="11" font-weight="600">GND</text>
+  <circle cx="415" cy="230" r="5" fill="#7B1FA2"/>
+  <text x="430" y="235" fill="#1a1a1a" font-size="11" font-weight="600">IN</text>
+  <!-- Wires ortogonal pin-ke-pin -->
+  <polyline fill="none" points="190,110 300,110 300,150 410,150" stroke="#E65100" stroke-width="2.5" marker-end="url(#w8V)"/>
+  <polyline fill="none" points="190,160 320,160 320,190 410,190" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#w8K)"/>
+  <polyline fill="none" points="190,210 340,210 340,230 410,230" stroke="#7B1FA2" stroke-width="2.5" marker-end="url(#w8P)"/>
+  <text x="30" y="300" fill="#4A5568" font-size="10">5V→VCC · GND→GND · GPIO26→IN · COM/NO ke rangkaian lampu kecil</text>
+  <text x="30" y="320" fill="#4A5568" font-size="10">Relay boros arus: supply 5V terpisah + GND common jika ESP32 restart</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Wiring pin-ke-pin: VCC 5V, GND bersama, IN di GPIO 26.</figcaption>
+</figure>
+
 <ul>
   <li><strong>VCC</strong> → 5V ESP32 (atau VIN jika board menyediakan 5V)</li>
   <li><strong>GND</strong> → GND ESP32</li>
@@ -86,7 +167,7 @@ class Article8Seeder extends Seeder
 <p>Banyak modul relay <strong>active LOW</strong> — relay aktif saat pin IN menerima sinyal LOW. Kode di bawah sudah menyesuaikan logika ini.</p>
 
 <h2>Broker &amp; Topic MQTT</h2>
-<p>Kita pakai test server <a href="https://mosquitto.org/" target="_blank" rel="noopener">Eclipse Mosquitto</a> (sama seperti artikel MQTT sebelumnya):</p>
+<p>Kita pakai test server <a href="https://mosquitto.org/" target="_blank" rel="noopener">Eclipse Mosquitto</a> (sama seperti <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT (#7)</a>):</p>
 <ul>
   <li><strong>Broker:</strong> <code>test.mosquitto.org</code> port <code>1883</code></li>
   <li><strong>Topic kontrol:</strong> <code>kodingindonesia/esp32/lampu/kontrol</code></li>
@@ -98,17 +179,17 @@ class Article8Seeder extends Seeder
 </blockquote>
 
 <blockquote>
-  <p><strong>Keamanan broker publik:</strong> Siapa saja bisa publish ke topic yang sama di broker test. Pakai topic unik (lihat pro tip di bawah) dan jangan kontrol perangkat produksi lewat broker publik tanpa autentikasi.</p>
+  <p><strong>Keamanan broker publik:</strong> Siapa saja bisa publish ke topic yang sama di broker test. Pakai topic unik (lihat pro tip di bawah) dan jangan kontrol perangkat produksi lewat broker publik tanpa autentikasi. Untuk produksi, lanjut ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi (#16)</a> + <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS (#17)</a>.</p>
 </blockquote>
 
 <h2>Kode Program: ESP32 + Relay + MQTT Subscribe</h2>
-<p>Ganti <code>ssid</code> dan <code>password</code> WiFi, lalu upload:</p>
+<p>Ganti placeholder <code>GANTI_SSID_WIFI</code> / <code>GANTI_PASSWORD_WIFI</code>, lalu upload. Untuk produksi tanpa hardcode, lihat <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a>.</p>
 
 <pre><code class="language-arduino">#include &lt;WiFi.h&gt;
 #include &lt;PubSubClient.h&gt;
 
-const char* ssid     = "NamaWiFiKamu";
-const char* password = "PasswordWiFiKamu";
+const char* ssid     = "GANTI_SSID_WIFI";
+const char* password = "GANTI_PASSWORD_WIFI";
 
 const char* mqttServer   = "test.mosquitto.org";
 const int   mqttPort     = 1883;
@@ -223,7 +304,7 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
   <li>Fungsi <code>callbackMQTT()</code> dipanggil → relay di GPIO 26 berubah state</li>
 </ol>
 
-<p>Ini kebalikan dari artikel sensor sebelumnya (publish data). Di smart home, sering keduanya digabung — lihat <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan DHT22 + relay</a> di artikel berikutnya.</p>
+<p>Ini kebalikan dari <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel sensor MQTT (#7)</a> (publish data). Di smart home, sering keduanya digabung — lihat <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan DHT22 + relay (#9)</a>.</p>
 
 <h2>Tips &amp; Troubleshooting</h2>
 <ul>
@@ -239,19 +320,22 @@ mosquitto_pub -h test.mosquitto.org -t "kodingindonesia/esp32/lampu/kontrol" -m 
 
 <h2>Langkah Selanjutnya</h2>
 <ul>
-  <li><a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">Gabungkan publish DHT22 + subscribe relay</a> dalam satu sketch ESP32</li>
-  <li>Kontrol otomatis: matikan lampu jika suhu &gt; 30°C — sudah ada contoh di artikel gabungan</li>
-  <li>Integrasi <strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant</a></strong> — switch &amp; sensor MQTT native di dashboard smart home</li>
-  <li>Alternatif tanpa sketch Arduino: <strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — flash ESP32 dari YAML</li>
-  <li>Dashboard &amp; otomasi visual: <strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a></strong> — kontrol relay lewat flow MQTT</li>
-  <li>Automasi gerak: <strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a></strong> — interrupt &amp; debounce</li>
-  <li>Broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi</a> di Raspberry Pi dengan autentikasi</li>
-  <li>Deploy remote / internet: amankan MQTT dengan <strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS port 8883 (#17)</a></strong> — QoS, LWT &amp; retained</li>
+  <li><a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">Gabungkan publish DHT22 + subscribe relay (#9)</a> dalam satu sketch ESP32</li>
+  <li>Kontrol otomatis: matikan lampu jika suhu &gt; 30°C — sudah ada contoh di <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel gabungan (#9)</a></li>
+  <li>Integrasi <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a> — switch &amp; sensor MQTT native di dashboard smart home</li>
+  <li>Alternatif tanpa sketch Arduino: <a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a> — flash ESP32 dari YAML</li>
+  <li>Dashboard &amp; otomasi visual: <a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a> — kontrol relay lewat flow MQTT</li>
+  <li>Automasi gerak: <a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">PIR + lampu MQTT (#24)</a> — interrupt &amp; debounce</li>
+  <li>Broker <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi (#16)</a> di Raspberry Pi dengan autentikasi</li>
+  <li>Deploy remote / internet: amankan MQTT dengan <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS port 8883 (#17)</a> — QoS, LWT &amp; retained</li>
 </ul>
 
 <blockquote>
   <p><strong>Pro tip:</strong> Ubah topic menjadi unik, misalnya <code>kodingindonesia/anton/esp32/lampu/kontrol</code>, agar tidak ada orang lain yang tidak sengaja mengontrol lampu kamu di broker publik.</p>
 </blockquote>
+
+<h2>Langkah Selanjutnya — Gerakan Presisi (Seri 2)</h2>
+<p>Relay hanya on/off — untuk sudut presisi (flap, lengan robot), lanjut ke <a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">Kontrol Servo &amp; PWM via MQTT (#33)</a>: SG90 0–180° lewat topic <code>kodingindonesia/esp32/servo/sudut</code>.</p>
 HTML;
     }
 }
