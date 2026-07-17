@@ -101,6 +101,47 @@ class Article12Seeder extends Seeder
 <p><strong>WiFiManager</strong> sendiri sudah menyimpan kredensial WiFi ke NVS internal. Kita pakai Preferences tambahan untuk parameter aplikasi: topic MQTT, durasi deep sleep (opsional), nama perangkat.</p>
 
 <h2>WiFiManager: Alur Portal Captive</h2>
+<figure role="img" aria-label="Diagram alur WiFiManager: ESP32 buat AP KindoESP32-Setup, HP isi WiFi dan topic MQTT, simpan NVS, lalu connect WiFi rumah dan publish MQTT" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 390" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="wm12Arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="wm12ArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="wm12ArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="390" fill="#F5F5F0" rx="6"/>
+  <!-- Step 1 -->
+  <rect x="140" y="14" width="340" height="58" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="38" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 — belum ada WiFi tersimpan</text>
+  <text x="310" y="56" text-anchor="middle" fill="#4A5568" font-size="11">buat AP · KindoESP32-Setup</text>
+  <line x1="310" y1="72" x2="310" y2="108" stroke="#2979FF" stroke-width="2.5" marker-end="url(#wm12Arr)"/>
+  <!-- Step 2 -->
+  <rect x="140" y="116" width="340" height="58" rx="6" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="310" y="140" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">HP / laptop → portal captive</text>
+  <text x="310" y="158" text-anchor="middle" fill="#4A5568" font-size="11">SSID rumah · password · MQTT topic</text>
+  <line x1="310" y1="174" x2="310" y2="210" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#wm12ArrO)"/>
+  <rect x="340" y="180" width="130" height="24" rx="12" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="405" y="196" text-anchor="middle" fill="#C45A11" font-size="10" font-weight="700">simpan NVS</text>
+  <!-- Step 3 -->
+  <rect x="140" y="218" width="340" height="58" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="310" y="242" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Connect WiFi rumah + MQTT</text>
+  <text x="310" y="260" text-anchor="middle" fill="#4A5568" font-size="11">boot berikutnya · portal tidak muncul</text>
+  <!-- Fan to outcomes -->
+  <line x1="200" y1="276" x2="110" y2="318" stroke="#2E7D32" stroke-width="2" marker-end="url(#wm12ArrG)"/>
+  <line x1="310" y1="276" x2="310" y2="318" stroke="#2E7D32" stroke-width="2" marker-end="url(#wm12ArrG)"/>
+  <line x1="420" y1="276" x2="510" y2="318" stroke="#2E7D32" stroke-width="2" marker-end="url(#wm12ArrG)"/>
+  <rect x="15" y="325" width="190" height="42" rx="6" fill="#FFF8E7" stroke="#000" stroke-width="2"/>
+  <text x="110" y="343" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Preferences NVS</text>
+  <text x="110" y="359" text-anchor="middle" fill="#4A5568" font-size="9">mqtt_topic · wifi_ok</text>
+  <rect x="215" y="325" width="190" height="42" rx="6" fill="#FFF8E7" stroke="#000" stroke-width="2"/>
+  <text x="310" y="343" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Publish DHT22</text>
+  <text x="310" y="359" text-anchor="middle" fill="#4A5568" font-size="9">JSON suhu · kelembaban</text>
+  <rect x="415" y="325" width="190" height="42" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+  <text x="510" y="343" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Reset = BOOT GPIO 0</text>
+  <text x="510" y="359" text-anchor="middle" fill="#4A5568" font-size="9">wm.resetSettings()</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Portal sekali → kredensial di NVS — siap digabung <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> dan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker auth (#16)</a>.</figcaption>
+</figure>
+
 <ol>
   <li>ESP32 tidak menemukan WiFi tersimpan → buat AP <code>KindoESP32-Setup</code></li>
   <li>HP/laptop connect ke AP tersebut → browser terbuka halaman konfigurasi</li>
@@ -112,15 +153,50 @@ class Article12Seeder extends Seeder
 <p><strong>Reset konfigurasi:</strong> Tahan tombol <strong>BOOT</strong> (GPIO 0) saat boot, atau panggil <code>wm.resetSettings()</code> + <code>prefs.clear()</code> di kode maintenance.</p>
 
 <h2>Komponen &amp; Wiring</h2>
-<p>Sama seperti tutorial DHT22 Seri 1 — sensor digital di GPIO 4:</p>
-<pre><code>ESP32 DevKit          DHT22
-─────────────         ─────
-3.3V          ─────── VCC
-GND           ─────── GND
-GPIO 4        ─────── DATA
-                      │
-                   [10kΩ] pull-up ke 3.3V (modul breakout biasanya sudah ada)
-</code></pre>
+<p>Sama seperti tutorial <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22</a> Seri 1 — sensor digital di GPIO 4:</p>
+<figure role="img" aria-label="Diagram wiring ESP32 ke DHT22: 3.3V ke VCC, GND ke GND, GPIO 4 ke DATA dengan pull-up 10k ohm" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 320" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="dht12R" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#C62828"/></marker>
+    <marker id="dht12K" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/></marker>
+    <marker id="dht12O" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#FF7A2F"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="320" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="30" y="35" width="170" height="210" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="115" y="68" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 DevKit</text>
+  <circle cx="185" cy="110" r="5" fill="#C62828"/>
+  <text x="170" y="115" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">3.3V</text>
+  <circle cx="185" cy="160" r="5" fill="#1a1a1a"/>
+  <text x="170" y="165" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="185" cy="210" r="5" fill="#FF7A2F"/>
+  <text x="170" y="207" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GPIO 4</text>
+  <text x="170" y="221" text-anchor="end" fill="#4A5568" font-size="9">DATA</text>
+  <!-- DHT22 -->
+  <rect x="400" y="50" width="190" height="180" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="495" y="82" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">DHT22</text>
+  <text x="495" y="102" text-anchor="middle" fill="#4A5568" font-size="10">1-wire · 3.3V</text>
+  <circle cx="415" cy="135" r="5" fill="#C62828"/>
+  <text x="430" y="140" fill="#1a1a1a" font-size="12" font-weight="600">VCC</text>
+  <circle cx="415" cy="175" r="5" fill="#1a1a1a"/>
+  <text x="430" y="180" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="415" cy="215" r="5" fill="#FF7A2F"/>
+  <text x="430" y="220" fill="#1a1a1a" font-size="12" font-weight="600">DATA</text>
+  <!-- Wires -->
+  <line x1="190" y1="110" x2="410" y2="135" stroke="#C62828" stroke-width="2.5" marker-end="url(#dht12R)"/>
+  <line x1="190" y1="160" x2="410" y2="175" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#dht12K)"/>
+  <line x1="190" y1="210" x2="410" y2="215" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#dht12O)"/>
+  <!-- Legend -->
+  <rect x="30" y="270" width="14" height="10" rx="2" fill="#C62828"/>
+  <text x="50" y="279" fill="#4A5568" font-size="10">3.3V → VCC</text>
+  <rect x="160" y="270" width="14" height="10" rx="2" fill="#1a1a1a"/>
+  <text x="180" y="279" fill="#4A5568" font-size="10">GND → GND</text>
+  <rect x="290" y="270" width="14" height="10" rx="2" fill="#FF7A2F"/>
+  <text x="310" y="279" fill="#4A5568" font-size="10">GPIO 4 → DATA</text>
+  <text x="310" y="302" text-anchor="middle" fill="#4A5568" font-size="10">Pull-up 10kΩ DATA→3.3V (modul breakout biasanya sudah ada)</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Wiring pin-ke-pin: 3.3V→VCC, GND→GND, GPIO 4→DATA. Modul wajib <strong>3.3V</strong>.</figcaption>
+</figure>
 
 <ul>
   <li>ESP32 DevKit (USB untuk upload pertama)</li>
@@ -310,8 +386,8 @@ void loop() {
   <p><strong>Pro tip:</strong> Gunakan topic unik per perangkat, misalnya <code>kodingindonesia/anton/esp32/dht22/data</code>, agar tidak bentrok di broker publik.</p>
 </blockquote>
 
-<h2>Gabung dengan Deep Sleep (#11)</h2>
-<p>Sketch di atas cocok untuk node USB/adaptor. Untuk baterai, pindahkan logika <code>publishDHT()</code> ke dalam <code>setup()</code> seperti artikel <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep</a>, lalu tidur lagi. <strong>WiFiManager hanya perlu dijalankan saat pertama kali</strong> atau setelah reset — jangan buka portal tiap bangun (boros baterai).</p>
+<h2>Gabung dengan <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep Sleep (#11)</a></h2>
+<p>Sketch di atas cocok untuk node USB/adaptor. Untuk baterai, pindahkan logika <code>publishDHT()</code> ke dalam <code>setup()</code> seperti artikel <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a>, lalu tidur lagi. <strong>WiFiManager hanya perlu dijalankan saat pertama kali</strong> atau setelah reset — jangan buka portal tiap bangun (boros baterai).</p>
 
 <pre><code class="language-arduino">// Pola deep sleep + WiFiManager (pseudocode)
 prefs.begin("kindo", true);
@@ -343,17 +419,17 @@ if (!wifiConfigured || tombolResetDitekan()) {
 <h2>Keamanan &amp; Produksi</h2>
 <ul>
   <li>Jangan commit file <code>secrets.h</code> dengan password — WiFiManager menghilangkan kebutuhan itu untuk WiFi</li>
-  <li>Portal default <strong>tidak pakai password AP</strong> — untuk deploy komersial, set <code>wm.setAPStaticIPConfig</code> + password AP atau gunakan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">MQTT dengan auth di broker sendiri</a> (<strong>artikel #16</strong>)</li>
-  <li>Segera pindah dari <code>test.mosquitto.org</code> ke broker pribadi untuk data produksi</li>
+  <li>Portal default <strong>tidak pakai password AP</strong> — untuk deploy komersial, set <code>wm.setAPStaticIPConfig</code> + password AP atau gunakan MQTT dengan auth di <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker sendiri (artikel #16)</a></li>
+  <li>Segera pindah dari <code>test.mosquitto.org</code> ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker pribadi</a> untuk data produksi</li>
 </ul>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C</a></strong> — lebih akurat dari DHT22, plus tekanan udara</li>
-  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — tampilkan data sensor di layar I2C</li>
-  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — butuh WiFiManager (#12) agar firmware bisa di-update tanpa kabel setelah deploy</li>
-  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi</a></strong> + autentikasi — simpan host/user/pass di NVS dengan pola sama</li>
-  <li>Kembali ke <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep</a> untuk gabungkan hemat baterai + konfigurasi lapangan</li>
+  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C (#13)</a></strong> — lebih akurat dari DHT22, plus tekanan udara</li>
+  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306 (#14)</a></strong> — tampilkan data sensor di layar I2C</li>
+  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware (#15)</a></strong> — butuh <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager (#12)</a> agar firmware bisa di-update tanpa kabel setelah deploy</li>
+  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi (#16)</a></strong> + autentikasi — simpan host/user/pass di NVS dengan pola sama</li>
+  <li>Kembali ke <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep (#11)</a> untuk gabungkan hemat baterai + konfigurasi lapangan</li>
 </ul>
 
 <p>Dengan NVS dan WiFiManager, ESP32 kamu siap dipasang di lokasi pelanggan tanpa membawa laptop setiap kali jaringan berubah. Lanjutkan Seri 2 di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>

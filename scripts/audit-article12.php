@@ -63,6 +63,10 @@ $requiredLinks = [
     'membaca-sensor-dht22-suhu-kelembaban-esp32'              => 'Artikel #5 DHT22',
     'memahami-mqtt-esp32-kirim-data-sensor-broker'              => 'Artikel #7 MQTT',
     'deep-sleep-esp32-sensor-dht22-hemat-baterai'             => 'Artikel #11 deep sleep',
+    'broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32' => 'Artikel #16 Mosquitto',
+    'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'               => 'Artikel #13 BME280',
+    'oled-ssd1306-esp32-tampilkan-data-sensor-i2c'            => 'Artikel #14 OLED',
+    'ota-update-firmware-esp32-via-wifi'                      => 'Artikel #15 OTA',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -114,6 +118,28 @@ check(str_contains($body, 'wifi_ok'), 'Flag wifi_ok untuk gabung deep sleep');
 check(str_contains($body, 'language-arduino'), 'Blok kode Arduino');
 check(str_contains($body, 'language-bash'), 'Blok mosquitto_sub bash');
 check(str_contains($body, '<table>'), 'Ada tabel');
+check(substr_count($body, 'figure role="img"') >= 2, 'Ada 2 figure SVG (portal + wiring)');
+check(str_contains($body, 'viewBox="0 0 620 390"'), 'SVG portal viewBox');
+check(str_contains($body, 'viewBox="0 0 620 320"'), 'SVG wiring viewBox');
+check(str_contains($body, 'GPIO 4 → DATA'), 'SVG wiring: legend GPIO 4 → DATA');
+check(str_contains($body, 'KindoESP32-Setup'), 'SVG/teks AP portal');
+check(! str_contains($body, 'ESP32 DevKit          DHT22'), 'ASCII wiring sudah dihapus');
+check(! str_contains($body, '─────── VCC'), 'ASCII wiring dashes sudah dihapus');
+check(! str_contains($body, 'KindoMQTT2026!'), 'Tidak ada password MQTT literal');
+check(str_contains($body, 'Deep Sleep (#11)</a>'), 'Hyperlink Deep Sleep #11 di H2');
+check(str_contains($body, 'broker sendiri (artikel #16)</a>'), 'Hyperlink broker #16');
+check(str_contains($body, 'WiFiManager (#12)</a>'), 'Hyperlink self-ref #12 di OTA');
+
+$sanitized = app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($body);
+check(substr_count($sanitized, '<svg') >= 2, 'Kedua SVG lolos sanitizer');
+check(str_contains($sanitized, 'GPIO 4 → DATA'), 'Wiring legend lolos sanitizer');
+
+$plainBody = preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '';
+$plainBody = preg_replace('/<svg\b[^>]*>.*?<\/svg>/is', '', $plainBody) ?? '';
+preg_match_all('/#\d+(?![0-9a-fA-F])/', $plainBody, $plainRefs);
+$residualPlain = array_values(array_unique($plainRefs[0] ?? []));
+check($residualPlain === [], 'Tidak ada plain #N residual: ' . implode(', ', $residualPlain));
+
 check(str_contains($body, 'rel="noopener"') || ! str_contains($body, 'target="_blank"'), 'Link eksternal aman');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada typo shared hosting');
 
