@@ -89,6 +89,12 @@ check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(str_contains($body, '(#39)') && str_contains($body, '(#18)'), 'Anchor ber-nomor (#18)/(#39)');
 check(str_contains($body, 'oop40ArrowOrange') || str_contains($body, 'marker-end'), 'SVG marker panah');
 
+check(str_contains($body, '720 340') || str_contains($body, 'viewBox="0 0 720 340"'), 'SVG viewBox 720×340 (layout baru)');
+check(! str_contains($body, 'stroke-dasharray'), 'SVG tanpa stroke-dasharray L-path lama');
+check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar teks gelap (#1a1a1a)');
+check(str_contains($css = file_get_contents(__DIR__.'/../resources/css/app.css'), 'figure[style*="F5F5F0"]'), 'CSS figure F5F5F0 outside layer');
+check(str_contains($css, 'html.dark .article-body figure[style*="F5F5F0"]'), 'CSS html.dark figure override');
+
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php');
@@ -104,6 +110,9 @@ if ($checkProduction) {
     $html = @file_get_contents('https://kodingindonesia.com/artikel/'.$slug, false, $ctx);
     check(is_string($html) && str_contains($html, 'Mengenal OOP'), 'Prod page berisi judul');
     check(is_string($html) && str_contains($html, '<svg'), 'Prod page berisi SVG');
+    check(is_string($html) && str_contains($html, '720 340'), 'Prod SVG layout baru (720 340)');
+    check(is_string($html) && str_contains($html, 'color:#1a1a1a'), 'Prod Pola Dasar #1a1a1a');
+    check(is_string($html) && ! str_contains($html, 'stroke-dasharray'), 'Prod tanpa L-path dasharray');
 }
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";

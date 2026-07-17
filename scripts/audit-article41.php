@@ -104,7 +104,9 @@ check(str_contains($deploy, 'publishArticle41'), 'DeployController publishArticl
 check(str_contains($deploy, $slug), 'DeployController cek slug #41');
 
 $css = file_get_contents(__DIR__.'/../resources/css/app.css');
-check(str_contains($css, 'figure[style*="#F5F5F0"]'), 'CSS sumber: rule figure #F5F5F0 (dark-mode)');
+check(str_contains($css, 'figure[style*="F5F5F0"]') || str_contains($css, "figure[style*=\"F5F5F0\"]"), 'CSS sumber: rule figure F5F5F0 (dark-mode, outside layer)');
+check(str_contains($css, 'html.dark .article-body figure[style*="F5F5F0"]'), 'CSS sumber: html.dark figure override');
+
 check(str_contains($css, 'list-style:none'), 'CSS sumber: reset ol list-style:none di figure');
 
 if ($checkProduction) {

@@ -134,11 +134,11 @@ print(buku_b.tahun)  # 2023 — tidak ikut berubah
   <rect x="400" y="28" width="280" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
   <text x="540" y="58" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">buku_a</text>
   <text x="540" y="82" text-anchor="middle" fill="#4A5568" font-size="13">Belajar Python · Sari · 2024</text>
-  <text x="540" y="106" text-anchor="middle" fill="#718096" font-size="12">instance #1</text>
+  <text x="540" y="106" text-anchor="middle" fill="#4A5568" font-size="12">instance #1</text>
   <rect x="400" y="212" width="280" height="100" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
   <text x="540" y="242" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">buku_b</text>
   <text x="540" y="266" text-anchor="middle" fill="#4A5568" font-size="13">ESP32 Praktis · Budi · 2023</text>
-  <text x="540" y="290" text-anchor="middle" fill="#718096" font-size="12">instance #2</text>
+  <text x="540" y="290" text-anchor="middle" fill="#4A5568" font-size="12">instance #2</text>
   <line x1="280" y1="130" x2="400" y2="78" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oop41Arrow)"/>
   <text x="300" y="92" fill="#4A5568" font-size="11" font-weight="600">Buku(...)</text>
   <line x1="280" y1="210" x2="400" y2="262" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#oop41ArrowOrange)"/>
@@ -207,36 +207,36 @@ print("object yang sama?", buku_a is buku_b)
 <h2>Pola Dasar — langkah membuat class pertama</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Empat langkah membuat class dan object pertama">
 <ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Tulis class Nama</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem">Pakai PascalCase: <code>class Buku:</code></span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Pakai PascalCase: <code>class Buku:</code></span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Isi __init__ + self</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem">Terima data, simpan ke <code>self.atribut</code>.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Terima data, simpan ke <code>self.atribut</code>.</span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#FF7A2F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Buat instance</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem"><code>obj = Buku(...)</code> — boleh berkali-kali.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem"><code>obj = Buku(...)</code> — boleh berkali-kali.</span>
     </div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Pakai attribute / method</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem"><code>obj.judul</code>, <code>obj.info()</code> — data dan perilaku lewat object yang sama.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem"><code>obj.judul</code>, <code>obj.info()</code> — data dan perilaku lewat object yang sama.</span>
     </div>
   </li>
 </ol>
-<figcaption style="margin-top:1rem;color:#4A5568;font-size:.95rem">Ringkas: class → __init__ → instance → pakai.</figcaption>
+<figcaption style="margin-top:1rem;color:#2D3748;font-size:.95rem">Ringkas: class → __init__ → instance → pakai.</figcaption>
 </figure>
 
 <h2>Kesalahan umum pemula</h2>

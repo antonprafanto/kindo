@@ -2337,6 +2337,12 @@ class DeployController extends Controller
             opcache_reset();
         }
 
+        $seederPath = base_path('database/seeders/Article40Seeder.php');
+        clearstatcache(true, $seederPath);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($seederPath, true);
+        }
+
         if (! class_exists(\Database\Seeders\Article40Seeder::class)) {
             return response('Article40Seeder class not found on server', 500);
         }
@@ -2361,14 +2367,19 @@ class DeployController extends Controller
 
         $slug = 'mengenal-oop-cara-berpikir-dengan-objek-python';
 
-        $published = Article::published()
-            ->where('slug', $slug)
-            ->exists();
+        $article = Article::published()->where('slug', $slug)->first();
 
-        if (! $published) {
+        if (! $article) {
             report(new \RuntimeException('Article 40 missing or not visible after Article40Seeder on deploy hook.'));
 
             return response('Article 40 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, '720 340') || ! str_contains($body, 'color:#1a1a1a') || str_contains($body, 'stroke-dasharray')) {
+            report(new \RuntimeException('Article 40 body missing expected visual fixes after seed.'));
+
+            return response('Article 40 body visual fixes missing', 500);
         }
 
         try {

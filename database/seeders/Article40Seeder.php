@@ -134,12 +134,12 @@ pinjam(buku_b, "Rina")
   <rect x="400" y="28" width="280" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
   <text x="540" y="58" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">object buku_a</text>
   <text x="540" y="82" text-anchor="middle" fill="#4A5568" font-size="13">"Belajar Python" · Sari · 2024</text>
-  <text x="540" y="106" text-anchor="middle" fill="#718096" font-size="12">satu barang konkret</text>
+  <text x="540" y="106" text-anchor="middle" fill="#4A5568" font-size="12">satu barang konkret</text>
   <!-- Object bawah -->
   <rect x="400" y="212" width="280" height="100" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
   <text x="540" y="242" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">object buku_b</text>
   <text x="540" y="266" text-anchor="middle" fill="#4A5568" font-size="13">"ESP32 Praktis" · Budi · 2023</text>
-  <text x="540" y="290" text-anchor="middle" fill="#718096" font-size="12">cetakan sama, data beda</text>
+  <text x="540" y="290" text-anchor="middle" fill="#4A5568" font-size="12">cetakan sama, data beda</text>
   <!-- Panah diagonal bersih (bukan L putus-putus) -->
   <line x1="280" y1="130" x2="400" y2="78" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oop40Arrow)"/>
   <text x="300" y="92" fill="#4A5568" font-size="11" font-weight="600">buat</text>
@@ -219,43 +219,43 @@ print(buku_b.info())
 <h2>Pola Dasar — berpikir objek sebelum coding</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Lima langkah berpikir objek sebelum menulis class">
 <ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Sebut benda dunia nyata</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem">Buku, anggota perpustakaan, sensor, pompa — bukan “data1” dan “fungsi2”.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Buku, anggota perpustakaan, sensor, pompa — bukan “data1” dan “fungsi2”.</span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Catat data yang melekat</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem">Untuk Buku: judul, penulis, tahun. Itu calon <em>attribute</em>.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Untuk Buku: judul, penulis, tahun. Itu calon <em style="color:#2D3748">attribute</em>.</span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#FF7A2F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Catat aksi yang masuk akal</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem">info(), pinjam(), kembalikan() — calon <em>method</em>.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">info(), pinjam(), kembalikan() — calon <em style="color:#2D3748">method</em>.</span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#FF7A2F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Buat satu contoh konkret di kepala</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem">“buku_a = Belajar Python milik Sari, 2024” — itu object.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">“buku_a = Belajar Python milik Sari, 2024” — itu object.</span>
     </div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Baru tulis class</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem">Sintaks Python menyusul di <a href="/artikel/class-dan-object-pertama-python">#41</a>. Mental model dulu, keyboard kemudian.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Sintaks Python menyusul di <a href="/artikel/class-dan-object-pertama-python">#41</a>. Mental model dulu, keyboard kemudian.</span>
     </div>
   </li>
 </ol>
-<figcaption style="margin-top:1rem;color:#4A5568;font-size:.95rem">Ringkas: benda → data → aksi → contoh → class.</figcaption>
+<figcaption style="margin-top:1rem;color:#2D3748;font-size:.95rem">Ringkas: benda → data → aksi → contoh → class.</figcaption>
 </figure>
 
 <h2>Indeks rencana Seri 3 (OOP Python)</h2>
@@ -291,7 +291,7 @@ print(buku_b.info())
 <p>Lanjut ke <a href="/artikel/class-dan-object-pertama-python">Class dan Object Pertama di Python (#41)</a>: kita menulis <code>class Buku</code> dari nol, membuat beberapa instance, dan melihat identitas tiap object.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 1/10 artikel live di #40; lanjut <a href="/artikel/class-dan-object-pertama-python">#41</a>. Capstone di akhir seri: sistem perpustakaan mini.</p>
+  <p><strong>Seri 3 progress:</strong> 2/10 artikel live (#40–#41). Lanjut <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a>. Capstone: sistem perpustakaan mini.</p>
 </blockquote>
 HTML;
     }
