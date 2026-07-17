@@ -126,9 +126,27 @@ check(str_contains($body, 'KindoESP32-Setup'), 'SVG/teks AP portal');
 check(! str_contains($body, 'ESP32 DevKit          DHT22'), 'ASCII wiring sudah dihapus');
 check(! str_contains($body, '─────── VCC'), 'ASCII wiring dashes sudah dihapus');
 check(! str_contains($body, 'KindoMQTT2026!'), 'Tidak ada password MQTT literal');
+check(str_contains($body, 'artikel WiFi ESP32 (#4)</a>'), 'Hyperlink intro WiFi (#4)');
+check(str_contains($body, 'node deep sleep DHT22 (#11)</a>'), 'Hyperlink intro deep sleep (#11)');
+check(str_contains($body, 'koneksi WiFi (#4)</a>'), 'Hyperlink prasyarat WiFi (#4)');
+check(str_contains($body, 'DHT22 (#5)</a>'), 'Hyperlink DHT22 (#5)');
+check(str_contains($body, 'publish MQTT (#7)</a>'), 'Hyperlink prasyarat MQTT (#7)');
+check(str_contains($body, 'deep sleep (#11)</a>'), 'Hyperlink prasyarat/deep sleep (#11)');
+check(str_contains($body, 'artikel MQTT (#7)</a>'), 'Hyperlink broker note MQTT (#7)');
 check(str_contains($body, 'Deep Sleep (#11)</a>'), 'Hyperlink Deep Sleep #11 di H2');
-check(str_contains($body, 'broker sendiri (artikel #16)</a>'), 'Hyperlink broker #16');
+check(str_contains($body, 'broker sendiri (artikel #16)</a>'), 'Hyperlink broker #16 keamanan');
+check(str_contains($body, 'broker pribadi (#16)</a>'), 'Hyperlink broker pribadi (#16)');
 check(str_contains($body, 'WiFiManager (#12)</a>'), 'Hyperlink self-ref #12 di OTA');
+check(str_contains($body, 'Sensor BME280 via I2C (#13)</a>'), 'Hyperlink BME280 (#13)');
+check(str_contains($body, 'OLED SSD1306 (#14)</a>'), 'Hyperlink OLED (#14)');
+check(str_contains($body, 'OTA update firmware (#15)</a>'), 'Hyperlink OTA (#15)');
+check(str_contains($body, 'Broker Mosquitto pribadi (#16)</a>'), 'Hyperlink Mosquitto (#16)');
+
+// Anti-regression: label bare tanpa nomor
+check(! preg_match('#menghubungkan-esp32-wifi-kirim-data-server">artikel WiFi ESP32</a>#', $body), 'Intro WiFi tidak bare (tanpa #4)');
+check(! preg_match('#deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep DHT22</a>#', $body), 'Intro deep sleep tidak bare');
+check(! preg_match('#memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>#', $body), 'Broker note MQTT tidak bare');
+check(! preg_match('#broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker pribadi</a>#', $body), 'Broker pribadi tidak bare');
 
 $sanitized = app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($body);
 check(substr_count($sanitized, '<svg') >= 2, 'Kedua SVG lolos sanitizer');

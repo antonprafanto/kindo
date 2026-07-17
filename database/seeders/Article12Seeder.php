@@ -60,7 +60,7 @@ class Article12Seeder extends Seeder
     {
         return <<<'HTML'
 <h2>Pendahuluan</h2>
-<p>Di <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">artikel WiFi ESP32</a> dan <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep DHT22</a>, kita masih menulis <code>ssid</code> dan <code>password</code> langsung di sketch. Itu cepat untuk belajar, tapi <strong>tidak layak produksi</strong>: setiap ganti WiFi atau deploy ke pelanggan lain, kamu harus edit kode, compile ulang, dan upload via USB.</p>
+<p>Di <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">artikel WiFi ESP32 (#4)</a> dan <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep DHT22 (#11)</a>, kita masih menulis <code>ssid</code> dan <code>password</code> langsung di sketch. Itu cepat untuk belajar, tapi <strong>tidak layak produksi</strong>: setiap ganti WiFi atau deploy ke pelanggan lain, kamu harus edit kode, compile ulang, dan upload via USB.</p>
 
 <p>Artikel ini mengajarkan dua fondasi firmware ESP32 yang wajib untuk proyek lapangan:</p>
 <ol>
@@ -71,7 +71,7 @@ class Article12Seeder extends Seeder
 <p>Kita gabungkan keduanya dalam satu sketch: baca DHT22, publish MQTT JSON (topic Seri 1), tanpa satu pun kredensial WiFi di source code.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Paham <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">koneksi WiFi</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22</a>, dan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish MQTT</a>. Familiar dengan <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep</a> membantu untuk node baterai nanti.</p>
+  <p><strong>Prasyarat:</strong> Paham <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">koneksi WiFi (#4)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, dan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish MQTT (#7)</a>. Familiar dengan <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> membantu untuk node baterai nanti.</p>
 </blockquote>
 
 <h2>Masalah Hardcode WiFi</h2>
@@ -153,7 +153,7 @@ class Article12Seeder extends Seeder
 <p><strong>Reset konfigurasi:</strong> Tahan tombol <strong>BOOT</strong> (GPIO 0) saat boot, atau panggil <code>wm.resetSettings()</code> + <code>prefs.clear()</code> di kode maintenance.</p>
 
 <h2>Komponen &amp; Wiring</h2>
-<p>Sama seperti tutorial <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22</a> Seri 1 — sensor digital di GPIO 4:</p>
+<p>Sama seperti tutorial <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> Seri 1 — sensor digital di GPIO 4:</p>
 <figure role="img" aria-label="Diagram wiring ESP32 ke DHT22: 3.3V ke VCC, GND ke GND, GPIO 4 ke DATA dengan pull-up 10k ohm" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 320" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
@@ -217,7 +217,7 @@ class Article12Seeder extends Seeder
 <p><strong>Topic default:</strong> <code>kodingindonesia/esp32/dht22/data</code> — payload JSON <code>{"suhu":28.5,"kelembaban":65.2}</code> (bisa diubah lewat portal).</p>
 
 <blockquote>
-  <p><strong>Broker bukan website:</strong> <code>test.mosquitto.org</code> tidak dibuka di browser. Pakai MQTT Explorer atau <code>mosquitto_sub</code>. Detail di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>.</p>
+  <p><strong>Broker bukan website:</strong> <code>test.mosquitto.org</code> tidak dibuka di browser. Pakai MQTT Explorer atau <code>mosquitto_sub</code>. Detail di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT (#7)</a>.</p>
 </blockquote>
 
 <h2>Kode Lengkap: WiFiManager + NVS + DHT22 + MQTT</h2>
@@ -420,7 +420,7 @@ if (!wifiConfigured || tombolResetDitekan()) {
 <ul>
   <li>Jangan commit file <code>secrets.h</code> dengan password — WiFiManager menghilangkan kebutuhan itu untuk WiFi</li>
   <li>Portal default <strong>tidak pakai password AP</strong> — untuk deploy komersial, set <code>wm.setAPStaticIPConfig</code> + password AP atau gunakan MQTT dengan auth di <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker sendiri (artikel #16)</a></li>
-  <li>Segera pindah dari <code>test.mosquitto.org</code> ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker pribadi</a> untuk data produksi</li>
+  <li>Segera pindah dari <code>test.mosquitto.org</code> ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker pribadi (#16)</a> untuk data produksi</li>
 </ul>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
