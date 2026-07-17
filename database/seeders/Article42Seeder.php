@@ -185,6 +185,28 @@ print("sisa:", buku.kembalikan())  # 1
   <p><strong>Jebakan klasik:</strong> menulis <code>riwayat = []</code> di tubuh class (bukan di <code>__init__</code>) membuat <em>semua</em> instance berbagi list yang sama. Selalu inisialisasi data per-object lewat <code>self.riwayat = []</code> di dalam <code>__init__</code>.</p>
 </blockquote>
 
+<pre><code class="language-python"># SALAH — list di tubuh class = saling berbagi
+class BukuSalah:
+    riwayat = []
+    def catat(self, nama):
+        self.riwayat.append(nama)
+
+a = BukuSalah(); b = BukuSalah()
+a.catat("Rina")
+print(b.riwayat)  # ['Rina'] — b ikut berubah!
+
+# BENAR — list per instance
+class BukuBenar:
+    def __init__(self):
+        self.riwayat = []
+    def catat(self, nama):
+        self.riwayat.append(nama)
+
+a = BukuBenar(); b = BukuBenar()
+a.catat("Rina")
+print(b.riwayat)  # [] — aman
+</code></pre>
+
 <h2>Parameter method: self + argumen tambahan</h2>
 <p>Method boleh menerima argumen selain <code>self</code>. Contoh class lengkap dengan method <code>pinjam_untuk</code>:</p>
 
@@ -257,6 +279,8 @@ print("sisa stok:", buku.stok)  # 1
 
 <pre><code class="language-python">class Buku:
     def __init__(self, judul, penulis, tahun, stok=1):
+        if tahun &lt; 1900:
+            raise ValueError("tahun tidak masuk akal")
         self.judul = judul
         self.penulis = penulis
         self.tahun = tahun
@@ -341,7 +365,7 @@ print(a.kembalikan())
 <p>Lanjut ke <a href="/artikel/encapsulation-property-python-oop">Encapsulation &amp; <code>@property</code> (#43)</a>: kita rapikan akses data dengan konvensi <code>_</code> / <code>__</code> dan property/setter agar stok &amp; tahun tidak diubah sembarangan dari luar.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 3/10 artikel (setelah <strong>#42 (ini)</strong> live). Prasyarat: <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · fondasi: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 4/10 artikel live. Kamu di langkah <strong>#42 (ini)</strong>. Prasyarat: <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · fondasi: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a>.</p>
 </blockquote>
 HTML;
     }

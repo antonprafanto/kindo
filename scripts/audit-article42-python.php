@@ -30,7 +30,7 @@ $body = $method->invoke($ref->newInstanceWithoutConstructor());
 preg_match_all('/<pre><code class="language-python">(.*?)<\/code><\/pre>/s', $body, $blocks);
 $codes = $blocks[1] ?? [];
 
-check(count($codes) >= 5, 'Minimal 5 blok language-python');
+check(count($codes) >= 6, 'Minimal 6 blok language-python');
 
 $python = trim(shell_exec('where python 2>NUL') ?: '') !== '' ? 'python' : 'py';
 
@@ -53,6 +53,8 @@ check(str_contains($body, 'Di <a href="/artikel/class-dan-object-pertama-python"
 check(! str_contains($body, 'dipinjam'), 'Tidak ada dipinjam');
 check(str_contains($body, 'class Buku:') && str_contains($body, 'def pinjam_untuk(self'), 'pinjam_untuk utuh');
 check(str_contains($body, 'Contoh class lengkap dengan method'), 'Prose pinjam_untuk tidak menyesatkan');
+check(str_contains($body, 'BukuSalah') && str_contains($body, 'BukuBenar'), 'Demo list class bersama SALAH/BENAR');
+check(substr_count($body, 'if tahun') >= 2, 'Validasi tahun di __init__ dan Kode lengkap');
 
 echo "\n=== Python/pedagogi audit #42: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

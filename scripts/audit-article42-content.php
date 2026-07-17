@@ -50,9 +50,11 @@ check(str_contains($body, 'oop42Arrow'), 'Marker id unik oop42');
 check(! str_contains($body, 'dipinjam'), 'State konsisten: tidak pakai dipinjam yatim');
 check(str_contains($body, 'class Buku:') && str_contains($body, 'def pinjam_untuk(self'), 'pinjam_untuk lengkap dalam class');
 check(str_contains($body, 'self.riwayat = []') || str_contains($body, 'Jebakan klasik'), 'Peringatan list bersama di class');
+check(str_contains($body, 'BukuSalah') && str_contains($body, 'BukuBenar'), 'Demo SALAH/BENAR list class bersama');
+check(str_contains($body, '4/10 artikel live'), 'Progress 4/10 live');
 check(str_contains($body, '/artikel/encapsulation-property-python-oop'), 'Forward link #42→#43');
 check(str_contains($body, '(#43)'), 'Anchor (#43) di forward link');
-check(substr_count($body, '<pre') >= 5, 'Minimal 5 blok kode (termasuk pinjam_untuk utuh)');
+check(substr_count($body, '<pre') >= 6, 'Minimal 6 blok kode (termasuk demo list bersama)');
 check(str_contains($src, "'is_featured'     => false") || str_contains($src, "'is_featured' => false"), 'is_featured false');
 check(str_contains($src, 'cover_image tidak disentuh'), 'Cover tidak di-overwrite');
 
