@@ -387,6 +387,22 @@ html.theme-animate footer {
     .article-body a  { color: #2979FF; text-decoration: underline; font-weight: 600; }
     .article-body ul, .article-body ol { margin-bottom: 1.25rem; padding-left: 1.5rem; font-family: 'Inter', sans-serif; }
     .article-body li { margin-bottom: .4rem; line-height: 1.7; }
+    /* Kartu figure terang (#F5F5F0): paksa teks gelap agar kontras aman di dark mode */
+    .article-body figure[style*="#F5F5F0"],
+    .article-body figure[style*="background:#F5F5F0"] {
+        color: #1a1a1a;
+    }
+    .article-body figure[style*="#F5F5F0"] strong,
+    .article-body figure[style*="background:#F5F5F0"] strong,
+    .article-body figure[style*="#F5F5F0"] li,
+    .article-body figure[style*="background:#F5F5F0"] li {
+        color: #1a1a1a;
+    }
+    .article-body figure[style*="#F5F5F0"] ol[style*="list-style:none"],
+    .article-body figure[style*="background:#F5F5F0"] ol[style*="list-style:none"] {
+        padding-left: 0;
+        margin-bottom: 0;
+    }
     .article-body blockquote {
         border-left: 4px solid #2979FF;
         margin: 1.5rem 0;

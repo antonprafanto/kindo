@@ -100,11 +100,11 @@ HTML;
         $sanitizer = new ArticleHtmlSanitizer($mirror);
 
         $html = <<<'HTML'
-<figure style="background:#F5F5F0;border:2.5px solid #1a1a1a">
+<figure style="background:#F5F5F0;border:2.5px solid #1a1a1a;color:#1a1a1a">
 <ol style="list-style:none;padding:0;margin:0">
-  <li style="display:flex;gap:1rem">
+  <li style="display:flex;gap:1rem;color:#1a1a1a">
     <span style="flex-shrink:0;background:#2979FF;color:#fff">1</span>
-    <div style="color:#4A5568">Langkah</div>
+    <div style="color:#1a1a1a"><strong style="color:#1a1a1a">Langkah</strong></div>
   </li>
 </ol>
 </figure>
@@ -119,6 +119,7 @@ HTML;
         $this->assertStringContainsString('list-style:none', $out);
         $this->assertStringContainsString('display:flex', $out);
         $this->assertStringContainsString('stroke-dasharray="5 4"', $out);
+        $this->assertStringContainsString('color:#1a1a1a', $out);
     }
 
     public function test_it_strips_dangerous_svg_style(): void

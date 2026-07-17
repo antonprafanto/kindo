@@ -2388,6 +2388,65 @@ class DeployController extends Controller
         return response('Article 40 published', 200);
     }
 
+    public function publishArticle41(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! class_exists(\Database\Seeders\Article41Seeder::class)) {
+            return response('Article41Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 41 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article41Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 41 seed failed', 500);
+        }
+
+        $slug = 'class-dan-object-pertama-python';
+
+        $published = Article::published()
+            ->where('slug', $slug)
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 41 missing or not visible after Article41Seeder on deploy hook.'));
+
+            return response('Article 41 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 41 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

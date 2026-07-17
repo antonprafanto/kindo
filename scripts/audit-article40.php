@@ -62,6 +62,7 @@ foreach ($requiredTags as $tag) {
 $requiredLinks = [
     'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt' => 'Artikel #39 Capstone Seri 2',
     'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32' => 'Artikel #18 Python MQTT',
+    'class-dan-object-pertama-python' => 'Artikel #41 Class & Object',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -81,7 +82,9 @@ check(str_contains($body, 'Pola Dasar') || str_contains($body, 'berpikir objek')
 check(str_contains($body, 'Seri 3'), 'Menyebut Seri 3');
 check(str_contains($body, '#40 (ini)'), 'Self-ref #40 (ini)');
 check(str_contains($body, 'language-python'), 'Blok kode language-python');
-check(! preg_match('/(?<![\w\/"#>])#(?:4[1-9]|[5-9]\d)(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak ada plain #41+ di luar link');
+check(str_contains($body, 'class-dan-object-pertama-python'), 'Forward link ke #41');
+check(str_contains($body, '(#41)'), 'Anchor ber-nomor (#41)');
+check(! preg_match('/(?<![\w\/"#>])#(?:4[2-9]|[5-9]\d)(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak ada plain #42+ di luar link');
 check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(str_contains($body, '(#39)') && str_contains($body, '(#18)'), 'Anchor ber-nomor (#18)/(#39)');
 check(str_contains($body, 'oop40ArrowOrange') || str_contains($body, 'marker-end'), 'SVG marker panah');

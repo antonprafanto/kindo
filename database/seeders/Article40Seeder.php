@@ -118,34 +118,40 @@ pinjam(buku_b, "Rina")
 
 <h2>Class vs object — cetakan dan barangnya</h2>
 <figure role="img" aria-label="Diagram: class Buku sebagai cetakan, dua object buku_a dan buku_b sebagai instance dengan data berbeda" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" style="display:block;max-width:720px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" style="display:block;max-width:720px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="oop40Arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
     <marker id="oop40ArrowOrange" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
   </defs>
-  <rect x="0" y="0" width="720" height="320" fill="#F5F5F0" rx="6"/>
-  <rect x="40" y="40" width="240" height="120" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="160" y="78" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">class Buku</text>
-  <text x="160" y="104" text-anchor="middle" fill="#e3f2fd" font-size="13">Cetakan / blueprint</text>
-  <text x="160" y="128" text-anchor="middle" fill="#cfe4ff" font-size="12">judul · penulis · tahun</text>
-  <text x="160" y="148" text-anchor="middle" fill="#cfe4ff" font-size="12">+ info() · pinjam()</text>
-  <line x1="280" y1="100" x2="360" y2="100" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oop40Arrow)"/>
-  <text x="320" y="88" text-anchor="middle" fill="#4A5568" font-size="12" font-weight="600">buat instance</text>
-  <rect x="380" y="28" width="300" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="530" y="58" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">object buku_a</text>
-  <text x="530" y="82" text-anchor="middle" fill="#4A5568" font-size="13">"Belajar Python" · Sari · 2024</text>
-  <text x="530" y="106" text-anchor="middle" fill="#718096" font-size="12">satu barang konkret</text>
-  <rect x="380" y="160" width="300" height="100" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
-  <text x="530" y="190" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">object buku_b</text>
-  <text x="530" y="214" text-anchor="middle" fill="#4A5568" font-size="13">"ESP32 Praktis" · Budi · 2023</text>
-  <text x="530" y="238" text-anchor="middle" fill="#718096" font-size="12">cetakan sama, data beda</text>
-  <line x1="160" y1="160" x2="160" y2="210" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="5 4"/>
-  <line x1="160" y1="210" x2="380" y2="210" stroke="#FF7A2F" stroke-width="2" marker-end="url(#oop40ArrowOrange)"/>
+  <rect x="0" y="0" width="720" height="340" fill="#F5F5F0" rx="6"/>
+  <!-- Class: vertikal tengah -->
+  <rect x="40" y="100" width="240" height="140" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="160" y="138" text-anchor="middle" fill="#fff" font-size="16" font-weight="700">class Buku</text>
+  <text x="160" y="164" text-anchor="middle" fill="#e3f2fd" font-size="13">Cetakan / blueprint</text>
+  <text x="160" y="188" text-anchor="middle" fill="#cfe4ff" font-size="12">judul · penulis · tahun</text>
+  <text x="160" y="212" text-anchor="middle" fill="#cfe4ff" font-size="12">+ info() · pinjam()</text>
+  <!-- Object atas -->
+  <rect x="400" y="28" width="280" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="540" y="58" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">object buku_a</text>
+  <text x="540" y="82" text-anchor="middle" fill="#4A5568" font-size="13">"Belajar Python" · Sari · 2024</text>
+  <text x="540" y="106" text-anchor="middle" fill="#718096" font-size="12">satu barang konkret</text>
+  <!-- Object bawah -->
+  <rect x="400" y="212" width="280" height="100" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="540" y="242" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">object buku_b</text>
+  <text x="540" y="266" text-anchor="middle" fill="#4A5568" font-size="13">"ESP32 Praktis" · Budi · 2023</text>
+  <text x="540" y="290" text-anchor="middle" fill="#718096" font-size="12">cetakan sama, data beda</text>
+  <!-- Panah diagonal bersih (bukan L putus-putus) -->
+  <line x1="280" y1="130" x2="400" y2="78" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oop40Arrow)"/>
+  <text x="300" y="92" fill="#4A5568" font-size="11" font-weight="600">buat</text>
+  <text x="300" y="106" fill="#4A5568" font-size="11" font-weight="600">instance</text>
+  <line x1="280" y1="210" x2="400" y2="262" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#oop40ArrowOrange)"/>
+  <text x="300" y="248" fill="#4A5568" font-size="11" font-weight="600">buat</text>
+  <text x="300" y="262" fill="#4A5568" font-size="11" font-weight="600">instance</text>
 </svg>
 <figcaption style="margin-top:.75rem;color:#4A5568;font-size:.95rem">Satu class bisa menghasilkan banyak object — masing-masing punya state sendiri.</figcaption>
 </figure>
 
-<p>Cuplikan “rasa” OOP (detail sintaks <code>class</code> di artikel Class &amp; Object berikutnya):</p>
+<p>Cuplikan “rasa” OOP (detail sintaks <code>class</code> di <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a>):</p>
 
 <pre><code class="language-python">class Buku:
     def __init__(self, judul, penulis, tahun):
@@ -199,7 +205,7 @@ print(buku_b.info())
   </tbody>
 </table>
 
-<p>Jangan hafalkan definisi formal dulu. Yang penting: OOP bukan sekadar menulis kata <code>class</code> — melainkan <strong>mengatur tanggung jawab</strong> di kode. Detail sintaks <code>class</code> ada di artikel berikutnya (Class &amp; Object).</p>
+<p>Jangan hafalkan definisi formal dulu. Yang penting: OOP bukan sekadar menulis kata <code>class</code> — melainkan <strong>mengatur tanggung jawab</strong> di kode. Detail sintaks <code>class</code> ada di <a href="/artikel/class-dan-object-pertama-python">Class dan Object Pertama (#41)</a>.</p>
 
 <h2>Kapan kamu <em>tidak</em> perlu OOP?</h2>
 <p>OOP bukan agama. Untuk skrip 20 baris yang sekali jalan, dict + fungsi sering lebih jujur dan cepat. Pakai OOP saat:</p>
@@ -211,41 +217,41 @@ print(buku_b.info())
 <p>Kalau semua cukup dengan satu fungsi <code>main()</code> yang linear — tunggu sampai rasa “berantakan” muncul, baru refactor ke class. Itu juga bagian dari berpikir dewasa sebagai programmer.</p>
 
 <h2>Pola Dasar — berpikir objek sebelum coding</h2>
-<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem" aria-label="Lima langkah berpikir objek sebelum menulis class">
-<ol style="list-style:none;padding:0;margin:0">
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Lima langkah berpikir objek sebelum menulis class">
+<ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
-    <div>
-      <strong>Sebut benda dunia nyata</strong>
+    <div style="color:#1a1a1a">
+      <strong style="color:#1a1a1a">Sebut benda dunia nyata</strong>
       <span style="display:block;color:#4A5568;margin-top:.25rem">Buku, anggota perpustakaan, sensor, pompa — bukan “data1” dan “fungsi2”.</span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
-    <div>
-      <strong>Catat data yang melekat</strong>
+    <div style="color:#1a1a1a">
+      <strong style="color:#1a1a1a">Catat data yang melekat</strong>
       <span style="display:block;color:#4A5568;margin-top:.25rem">Untuk Buku: judul, penulis, tahun. Itu calon <em>attribute</em>.</span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#FF7A2F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
-    <div>
-      <strong>Catat aksi yang masuk akal</strong>
+    <div style="color:#1a1a1a">
+      <strong style="color:#1a1a1a">Catat aksi yang masuk akal</strong>
       <span style="display:block;color:#4A5568;margin-top:.25rem">info(), pinjam(), kembalikan() — calon <em>method</em>.</span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #CBD5E0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#FF7A2F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
-    <div>
-      <strong>Buat satu contoh konkret di kepala</strong>
+    <div style="color:#1a1a1a">
+      <strong style="color:#1a1a1a">Buat satu contoh konkret di kepala</strong>
       <span style="display:block;color:#4A5568;margin-top:.25rem">“buku_a = Belajar Python milik Sari, 2024” — itu object.</span>
     </div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0">
+  <li style="display:flex;gap:1rem;padding:.9rem 0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#1a1a1a;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
-    <div>
-      <strong>Baru tulis class</strong>
-      <span style="display:block;color:#4A5568;margin-top:.25rem">Sintaks Python menyusul di artikel berikutnya. Mental model dulu, keyboard kemudian.</span>
+    <div style="color:#1a1a1a">
+      <strong style="color:#1a1a1a">Baru tulis class</strong>
+      <span style="display:block;color:#4A5568;margin-top:.25rem">Sintaks Python menyusul di <a href="/artikel/class-dan-object-pertama-python">#41</a>. Mental model dulu, keyboard kemudian.</span>
     </div>
   </li>
 </ol>
@@ -256,7 +262,7 @@ print(buku_b.info())
 <p>Artikel ini adalah <strong>#40 (ini)</strong> — pembuka Seri 3. Jalur linear yang akan kita tempuh:</p>
 <ol>
   <li><strong>#40 (ini)</strong> — Mengenal OOP &amp; cara berpikir objek</li>
-  <li>Class dan object pertama di Python</li>
+  <li><a href="/artikel/class-dan-object-pertama-python">Class dan object pertama di Python (#41)</a></li>
   <li>Attribute, method, dan constructor <code>__init__</code></li>
   <li>Encapsulation &amp; <code>@property</code></li>
   <li>Inheritance</li>
@@ -282,10 +288,10 @@ print(buku_b.info())
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>OOP adalah cara mengelompokkan <strong>data + perilaku</strong> menjadi object dari sebuah class (cetakan). Empat pilar menunggu di artikel Encapsulation sampai Abstraction; hari ini cukup punya mental model dan Python yang siap jalan.</p>
-<p>Lanjut ke artikel berikutnya — <strong>Class dan Object Pertama di Python</strong>: kita akan menulis <code>class Buku</code> dari nol, membuat beberapa instance, dan melihat identitas tiap object.</p>
+<p>Lanjut ke <a href="/artikel/class-dan-object-pertama-python">Class dan Object Pertama di Python (#41)</a>: kita menulis <code>class Buku</code> dari nol, membuat beberapa instance, dan melihat identitas tiap object.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 1/10 artikel (setelah #40 live). Capstone di akhir seri: sistem perpustakaan mini. Roadmap: dasar OOP → perpustakaan mini.</p>
+  <p><strong>Seri 3 progress:</strong> 1/10 artikel live di #40; lanjut <a href="/artikel/class-dan-object-pertama-python">#41</a>. Capstone di akhir seri: sistem perpustakaan mini.</p>
 </blockquote>
 HTML;
     }
