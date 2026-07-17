@@ -64,7 +64,7 @@ class Article13Seeder extends Seeder
 
 <p>Artikel ini fokus pada <strong>sensor BME280</strong>: mengukur <strong>suhu</strong>, <strong>kelembaban</strong>, dan <strong>tekanan udara</strong> dalam satu modul kecil. Kita baca datanya lewat I2C, lalu publish JSON ke broker MQTT — mengikuti pola <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a> dan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker pribadi (#16)</a>.</p>
 
-<p>Ini lanjutan <strong>Jalur A</strong> (hardware &amp; sensor) setelah deep sleep (#11) dan konfigurasi lapangan (#12).</p>
+<p>Ini lanjutan <strong>Jalur A</strong> (hardware &amp; sensor) setelah <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> dan <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">konfigurasi lapangan (#12)</a>.</p>
 
 <blockquote>
   <p><strong>Prasyarat:</strong> Sudah paham <a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">GPIO dasar (#3)</a>, <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>, <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>. Untuk WiFi/NVS/broker auth, baca <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">#12</a> dan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">#16</a>.</p>
@@ -75,7 +75,7 @@ class Article13Seeder extends Seeder
   <li>ESP32 DevKit</li>
   <li>Modul sensor <strong>BME280</strong> (breakout I2C, 3.3V) — ±Rp 25.000–40.000 di marketplace lokal</li>
   <li>Kabel jumper female–female atau breadboard</li>
-  <li>Broker MQTT — disarankan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi</a> (boleh <code>test.mosquitto.org</code> hanya untuk uji hardware)</li>
+  <li>Broker MQTT — disarankan <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto pribadi (#16)</a> (boleh <code>test.mosquitto.org</code> hanya untuk uji hardware)</li>
 </ul>
 
 <h2>DHT22 vs BME280 — Kenapa Upgrade?</h2>
@@ -104,14 +104,106 @@ class Article13Seeder extends Seeder
   <p><strong>Analogi:</strong> I2C seperti lift apartemen — banyak penghuni (sensor), satu jalur (bus), setiap lantai punya nomor (alamat).</p>
 </blockquote>
 
+<figure role="img" aria-label="Diagram arsitektur BME280 I2C: ESP32 baca BME280 via SDA/SCL lalu publish MQTT ke Mosquitto" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 420" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="bmeArr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="bmeArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="bmeArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="420" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="140" y="15" width="340" height="65" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="42" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 — Wire + WiFiManager (#12)</text>
+  <text x="310" y="62" text-anchor="middle" fill="#4A5568" font-size="10">Wire.begin(21, 22) · PubSubClient · Preferences NVS</text>
+  <!-- I2C arrow -->
+  <line x1="310" y1="80" x2="310" y2="118" stroke="#2979FF" stroke-width="2.5" marker-end="url(#bmeArr)"/>
+  <rect x="215" y="90" width="190" height="26" rx="13" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="310" y="108" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">I2C · SDA 21 / SCL 22</text>
+  <!-- BME280 -->
+  <rect x="155" y="130" width="310" height="70" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="310" y="158" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">BME280</text>
+  <text x="310" y="178" text-anchor="middle" fill="#4A5568" font-size="10">alamat 0x76 / 0x77 · suhu · RH · tekanan (hPa)</text>
+  <!-- MQTT arrow -->
+  <line x1="310" y1="200" x2="310" y2="248" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#bmeArrO)"/>
+  <rect x="330" y="210" width="150" height="26" rx="13" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="405" y="228" text-anchor="middle" fill="#FF7A2F" font-size="10" font-weight="700">MQTT publish JSON</text>
+  <!-- Mosquitto -->
+  <rect x="130" y="255" width="360" height="55" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="280" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Mosquitto (#16)</text>
+  <text x="310" y="298" text-anchor="middle" fill="#e3f2fd" font-size="10">kodingindonesia/esp32/bme280/data</text>
+  <!-- Outcomes -->
+  <line x1="210" y1="310" x2="110" y2="348" stroke="#2E7D32" stroke-width="2" marker-end="url(#bmeArrG)"/>
+  <line x1="310" y1="310" x2="310" y2="348" stroke="#2E7D32" stroke-width="2" marker-end="url(#bmeArrG)"/>
+  <line x1="410" y1="310" x2="510" y2="348" stroke="#2E7D32" stroke-width="2" marker-end="url(#bmeArrG)"/>
+  <rect x="15" y="355" width="190" height="42" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="110" y="373" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Serial Monitor</text>
+  <text x="110" y="389" text-anchor="middle" fill="#4A5568" font-size="9">Publish OK + JSON</text>
+  <rect x="215" y="355" width="190" height="42" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="310" y="373" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">MQTT Explorer</text>
+  <text x="310" y="389" text-anchor="middle" fill="#4A5568" font-size="9">subscribe topic BME280</text>
+  <rect x="415" y="355" width="190" height="42" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2"/>
+  <text x="510" y="373" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">OLED (#14) next</text>
+  <text x="510" y="389" text-anchor="middle" fill="#4A5568" font-size="9">bus I2C sama, alamat beda</text>
+  <text x="310" y="412" text-anchor="middle" fill="#4A5568" font-size="11">ESP32 ← I2C → BME280 → MQTT → Mosquitto · siap gabung OLED</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">BME280 di bus I2C → publish JSON ke <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Mosquitto (#16)</a> — lanjut <a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED (#14)</a> di bus yang sama.</figcaption>
+</figure>
+
 <h2>Komponen &amp; Wiring I2C</h2>
 <p>Pin default I2C ESP32 DevKit (bisa diubah di kode):</p>
-<pre><code>ESP32 DevKit          BME280
-─────────────         ──────
-3.3V          ─────── VCC
-GND           ─────── GND
-GPIO 21 (SDA) ─────── SDA
-GPIO 22 (SCL) ─────── SCL</code></pre>
+
+<figure role="img" aria-label="Diagram wiring ESP32 ke BME280: 3.3V ke VCC, GND ke GND, GPIO 21 SDA, GPIO 22 SCL" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 340" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="bmeWR" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#C62828"/></marker>
+    <marker id="bmeWK" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/></marker>
+    <marker id="bmeWB" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#2979FF"/></marker>
+    <marker id="bmeWG" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="340" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="30" y="40" width="170" height="240" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="115" y="72" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 DevKit</text>
+  <circle cx="185" cy="110" r="5" fill="#C62828"/>
+  <text x="170" y="115" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">3.3V</text>
+  <circle cx="185" cy="155" r="5" fill="#1a1a1a"/>
+  <text x="170" y="160" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="185" cy="200" r="5" fill="#2979FF"/>
+  <text x="170" y="197" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GPIO 21</text>
+  <text x="170" y="211" text-anchor="end" fill="#4A5568" font-size="9">SDA</text>
+  <circle cx="185" cy="245" r="5" fill="#2E7D32"/>
+  <text x="170" y="242" text-anchor="end" fill="#1a1a1a" font-size="12" font-weight="600">GPIO 22</text>
+  <text x="170" y="256" text-anchor="end" fill="#4A5568" font-size="9">SCL</text>
+  <!-- BME280 -->
+  <rect x="400" y="55" width="190" height="210" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="495" y="85" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">BME280</text>
+  <text x="495" y="105" text-anchor="middle" fill="#4A5568" font-size="10">I2C 0x76 / 0x77 · 3.3V</text>
+  <circle cx="415" cy="140" r="5" fill="#C62828"/>
+  <text x="430" y="145" fill="#1a1a1a" font-size="12" font-weight="600">VCC</text>
+  <circle cx="415" cy="175" r="5" fill="#1a1a1a"/>
+  <text x="430" y="180" fill="#1a1a1a" font-size="12" font-weight="600">GND</text>
+  <circle cx="415" cy="210" r="5" fill="#2979FF"/>
+  <text x="430" y="215" fill="#1a1a1a" font-size="12" font-weight="600">SDA</text>
+  <circle cx="415" cy="245" r="5" fill="#2E7D32"/>
+  <text x="430" y="250" fill="#1a1a1a" font-size="12" font-weight="600">SCL</text>
+  <!-- Wires pin-to-pin -->
+  <line x1="190" y1="110" x2="410" y2="140" stroke="#C62828" stroke-width="2.5" marker-end="url(#bmeWR)"/>
+  <line x1="190" y1="155" x2="410" y2="175" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#bmeWK)"/>
+  <line x1="190" y1="200" x2="410" y2="210" stroke="#2979FF" stroke-width="2.5" marker-end="url(#bmeWB)"/>
+  <line x1="190" y1="245" x2="410" y2="245" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#bmeWG)"/>
+  <!-- Legend -->
+  <rect x="30" y="305" width="14" height="10" rx="2" fill="#C62828"/>
+  <text x="50" y="314" fill="#4A5568" font-size="10">3.3V → VCC</text>
+  <rect x="150" y="305" width="14" height="10" rx="2" fill="#1a1a1a"/>
+  <text x="170" y="314" fill="#4A5568" font-size="10">GND → GND</text>
+  <rect x="270" y="305" width="14" height="10" rx="2" fill="#2979FF"/>
+  <text x="290" y="314" fill="#4A5568" font-size="10">GPIO 21 → SDA</text>
+  <rect x="420" y="305" width="14" height="10" rx="2" fill="#2E7D32"/>
+  <text x="440" y="314" fill="#4A5568" font-size="10">GPIO 22 → SCL</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Wiring pin-ke-pin: 3.3V→VCC, GND→GND, GPIO 21→SDA, GPIO 22→SCL. Modul wajib <strong>3.3V</strong>.</figcaption>
+</figure>
 
 <ul>
   <li>Modul breakout BME280 biasanya sudah punya <strong>pull-up</strong> kecil di PCB</li>
@@ -281,13 +373,13 @@ void loop() {
 <ol>
   <li>Rakit wiring I2C, upload sketch, Serial Monitor <strong>115200</strong></li>
   <li>Pastikan tidak ada error <code>BME280 tidak ditemukan</code></li>
-  <li>Portal <code>KindoESP32-Setup</code> — isi WiFi + kredensial broker (#16)</li>
+  <li>Portal <code>KindoESP32-Setup</code> — isi WiFi + kredensial <a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">broker (#16)</a></li>
   <li>Serial: <code>Publish OK</code> dengan JSON suhu, kelembaban, tekanan</li>
   <li>Di laptop — <code>mosquitto_sub</code> atau <strong>MQTT Explorer</strong>:</li>
 </ol>
 
 <pre><code class="language-bash">mosquitto_sub -h 192.168.1.50 -p 1883 \
-  -u kindo_esp32 -P 'KindoMQTT2026!' \
+  -u kindo_esp32 -P 'GANTI_PASSWORD_MQTT' \
   -t "kodingindonesia/esp32/bme280/data" -v</code></pre>
 
 <blockquote>
@@ -332,14 +424,15 @@ void loop() {}</code></pre>
 
 <h2>Langkah Selanjutnya (Seri 2)</h2>
 <ul>
-  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — tampilkan suhu/tekanan di layar (<strong>bus I2C sama</strong>, alamat berbeda dari BME280)</li>
-  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — update tanpa kabel</li>
+  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306 (#14)</a></strong> — tampilkan suhu/tekanan di layar (<strong>bus I2C sama</strong>, alamat berbeda dari BME280)</li>
+  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware (#15)</a></strong> — update tanpa kabel</li>
   <li>Gabung dengan <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">deep sleep (#11)</a> untuk node sensor hemat baterai + BME280</li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python → MySQL (#18)</a></strong> untuk simpan histori tekanan &amp; suhu</li>
   <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — grafik histori measurement <code>bme280</code></li>
+  <li>Capstone <strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a></strong> — sensor BME280 + aktuator + dashboard</li>
 </ul>
 
-<p>Dengan I2C dan BME280, hardware stack kamu siap untuk dashboard OLED dan capstone greenhouse Seri 2. Lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
+<p>Dengan I2C dan BME280, hardware stack kamu siap untuk dashboard <a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED (#14)</a> dan capstone <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">greenhouse (#39)</a> Seri 2. Lanjutkan di <a href="/artikel">halaman artikel</a> Koding Indonesia.</p>
 HTML;
     }
 }
