@@ -110,12 +110,12 @@ class Article9Seeder extends Seeder
   <rect x="170" y="260" width="280" height="55" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
   <text x="310" y="282" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Mosquitto · :1883</text>
   <text x="310" y="300" text-anchor="middle" fill="#e3f2fd" font-size="10">test.mosquitto.org</text>
-  <!-- PUB: ESP32 → broker (polyline terus, gap ≥24px dari SUB) -->
-  <polyline fill="none" points="250,200 250,230 230,258" stroke="#2979FF" stroke-width="2.5" marker-end="url(#g9ArrB)"/>
+  <!-- PUB: ESP32 → broker (garis lurus, tanpa siku) -->
+  <line x1="255" y1="200" x2="235" y2="258" stroke="#2979FF" stroke-width="2.5" marker-end="url(#g9ArrB)"/>
   <rect x="40" y="210" width="160" height="24" rx="12" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
   <text x="120" y="226" text-anchor="middle" fill="#2979FF" font-size="9" font-weight="700">PUB · .../dht22/data</text>
-  <!-- SUB: broker → ESP32 (polyline terus, siku bertemu) -->
-  <polyline fill="none" points="390,260 390,230 370,202" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#g9ArrO)"/>
+  <!-- SUB: broker → ESP32 (garis lurus, tanpa siku) -->
+  <line x1="385" y1="260" x2="365" y2="202" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#g9ArrO)"/>
   <rect x="420" y="210" width="170" height="24" rx="12" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
   <text x="505" y="226" text-anchor="middle" fill="#C45A11" font-size="9" font-weight="700">SUB · .../lampu/kontrol</text>
   <text x="310" y="345" text-anchor="middle" fill="#4A5568" font-size="11">telemetri keluar · perintah masuk · satu broker</text>
