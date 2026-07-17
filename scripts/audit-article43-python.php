@@ -30,7 +30,7 @@ $body = $method->invoke($ref->newInstanceWithoutConstructor());
 preg_match_all('/<pre><code class="language-python">(.*?)<\/code><\/pre>/s', $body, $matches);
 $blocks = $matches[1] ?? [];
 
-check(count($blocks) >= 4, 'Minimal 4 blok language-python');
+check(count($blocks) >= 5, 'Minimal 5 blok language-python');
 
 $tmpDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a43_'.uniqid();
 mkdir($tmpDir);
@@ -51,11 +51,13 @@ check(! preg_match('/#43(?!\s*\(ini\))/', $plain), 'Tidak ada plain #43 selain b
 check(str_contains($body, '@tahun.setter') || str_contains($body, '@stok.setter'), 'Ada setter di kode');
 check(str_contains($body, 'self._stok'), 'Pakai _stok internal');
 check(str_contains($body, 'RecursionError'), 'Peringatan RecursionError');
+check(str_contains($body, 'BukuSalah') && str_contains($body, 'BukuBenar'), 'Demo RecursionError SALAH/BENAR');
 check(str_contains($body, 'ValueError("tahun tidak masuk akal")') || str_contains($body, 'tahun tidak masuk akal'), 'Validasi tahun');
 check(str_contains($body, 'stok tidak boleh negatif'), 'Validasi stok negatif');
 check(! str_contains($body, 'dipinjam'), 'Tidak ada dipinjam yatim');
 check(str_contains($body, 'def pinjam(self)'), 'pinjam utuh');
 check(str_contains($body, 'Inheritance'), 'Teaser Inheritance');
+check(str_contains($body, '4/10 artikel live'), 'Progress 4/10 live');
 
 foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
     @unlink($f);

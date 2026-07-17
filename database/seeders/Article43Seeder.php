@@ -163,31 +163,7 @@ print(buku.tahun)   # 2024
 # buku.stok = 9     # AttributeError: can't set attribute (belum ada setter)
 </code></pre>
 
-<p>Ini jembatan bagus dari <a href="/artikel/attribute-method-constructor-init-python">#42</a>: pembaca masih menulis <code>buku.stok</code>, tapi kamu sudah mengontrol implementasinya.</p>
-
-<figure role="img" aria-label="Diagram encapsulation: kode luar mengakses property, property menjaga attribute internal _stok" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" style="display:block;max-width:720px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
-  <defs>
-    <marker id="oop43Arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
-  </defs>
-  <rect x="0" y="0" width="720" height="320" fill="#F5F5F0" rx="6"/>
-  <rect x="30" y="100" width="180" height="100" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
-  <text x="120" y="140" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Kode luar</text>
-  <text x="120" y="168" text-anchor="middle" fill="#2D3748" font-size="13">buku.stok = 3</text>
-  <rect x="270" y="70" width="200" height="160" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="370" y="110" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">@property / setter</text>
-  <text x="370" y="140" text-anchor="middle" fill="#e3f2fd" font-size="13">validasi &amp; aturan</text>
-  <text x="370" y="168" text-anchor="middle" fill="#cfe4ff" font-size="12">pintu resmi</text>
-  <text x="370" y="196" text-anchor="middle" fill="#cfe4ff" font-size="12">tolak nilai aneh</text>
-  <rect x="530" y="100" width="160" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="610" y="140" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">_stok</text>
-  <text x="610" y="168" text-anchor="middle" fill="#2D3748" font-size="12">internal</text>
-  <line x1="210" y1="150" x2="270" y2="150" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oop43Arrow)"/>
-  <line x1="470" y1="150" x2="530" y2="150" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oop43Arrow)"/>
-  <text x="360" y="290" text-anchor="middle" fill="#2D3748" font-size="13">Luar tidak menulis _stok langsung — lewat setter.</text>
-</svg>
-<figcaption style="margin-top:.75rem;color:#2D3748;font-size:.95rem">Encapsulation = satu pintu resmi ke state internal.</figcaption>
-</figure>
+<p>Ini jembatan bagus dari <a href="/artikel/attribute-method-constructor-init-python">#42</a>: pembaca masih menulis <code>buku.stok</code>, tapi kamu sudah mengontrol implementasinya. Di contoh di atas kita isi <code>_tahun</code>/<code>_stok</code> langsung karena belum ada setter — setelah ada setter (bagian berikutnya), prefer <code>self.tahun = tahun</code> di <code>__init__</code> supaya validasi ikut jalan.</p>
 
 <h2>@setter — validasi saat menulis</h2>
 <p>Tambah setter agar penulisan juga lewat pintu yang sama. Di sini kita jaga <code>tahun</code> dan <code>stok</code>:</p>
@@ -234,10 +210,72 @@ print(buku.pinjam())      # 0
 </code></pre>
 
 <p>Perhatikan: di <code>__init__</code> kita menulis <code>self.tahun = tahun</code> dan <code>self.stok = stok</code> — itu memanggil setter, jadi validasi jalan sejak object lahir. Jangan assign langsung ke <code>self._tahun</code> di <code>__init__</code> kalau kamu ingin aturan yang sama berlaku di mana-mana (kecuali kasus khusus yang kamu sadari).</p>
+<p>Bonus kecil: di <code>pinjam()</code>, baris <code>self.stok -= 1</code> juga lewat property — Python membaca lewat getter, lalu menulis lewat setter. Aturan “stok tidak negatif” tetap dijaga.</p>
 
 <blockquote>
   <p><strong>Tip:</strong> Method seperti <code>pinjam()</code> tetap berguna untuk aksi bisnis (“pinjam satu salinan”). Property menjaga <em>invariant</em> data (stok ≥ 0, tahun wajar). Keduanya saling melengkapi — bukan saling mengganti.</p>
 </blockquote>
+
+<p>Jebakan paling sering di property: di dalam setter kamu menulis <code>self.stok = ...</code> lagi — itu memanggil setter yang sama, lalu <code>RecursionError</code>:</p>
+
+<pre><code class="language-python"># SALAH — setter memanggil dirinya sendiri
+class BukuSalah:
+    def __init__(self, stok=1):
+        self.stok = stok
+
+    @property
+    def stok(self):
+        return self._stok
+
+    @stok.setter
+    def stok(self, nilai):
+        self.stok = nilai  # memanggil setter lagi → RecursionError
+
+# BukuSalah(2)  # RecursionError: maximum recursion depth exceeded
+
+# BENAR — simpan ke attribute internal
+class BukuBenar:
+    def __init__(self, stok=1):
+        self.stok = stok
+
+    @property
+    def stok(self):
+        return self._stok
+
+    @stok.setter
+    def stok(self, nilai):
+        if nilai &lt; 0:
+            raise ValueError("stok tidak boleh negatif")
+        self._stok = nilai
+
+
+b = BukuBenar(2)
+print(b.stok)  # 2
+</code></pre>
+
+<figure role="img" aria-label="Diagram encapsulation: kode luar mengakses property, property menjaga attribute internal _stok" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" style="display:block;max-width:720px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="oop43Arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+  </defs>
+  <rect x="0" y="0" width="720" height="320" fill="#F5F5F0" rx="6"/>
+  <rect x="30" y="100" width="180" height="100" rx="6" fill="#FFF3E8" stroke="#000" stroke-width="2.5"/>
+  <text x="120" y="140" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Kode luar</text>
+  <text x="120" y="168" text-anchor="middle" fill="#2D3748" font-size="13">buku.stok = 3</text>
+  <rect x="270" y="70" width="200" height="160" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="370" y="110" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">@property / setter</text>
+  <text x="370" y="140" text-anchor="middle" fill="#e3f2fd" font-size="13">validasi &amp; aturan</text>
+  <text x="370" y="168" text-anchor="middle" fill="#cfe4ff" font-size="12">pintu resmi</text>
+  <text x="370" y="196" text-anchor="middle" fill="#cfe4ff" font-size="12">tolak nilai aneh</text>
+  <rect x="530" y="100" width="160" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="610" y="140" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">_stok</text>
+  <text x="610" y="168" text-anchor="middle" fill="#2D3748" font-size="12">internal</text>
+  <line x1="210" y1="150" x2="270" y2="150" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oop43Arrow)"/>
+  <line x1="470" y1="150" x2="530" y2="150" stroke="#2979FF" stroke-width="2.5" marker-end="url(#oop43Arrow)"/>
+  <text x="360" y="290" text-anchor="middle" fill="#2D3748" font-size="13">Luar tidak menulis _stok langsung — lewat setter.</text>
+</svg>
+<figcaption style="margin-top:.75rem;color:#2D3748;font-size:.95rem">Encapsulation = satu pintu resmi ke state internal.</figcaption>
+</figure>
 
 <h2>Kapan encapsulation terasa penting?</h2>
 <ul>
@@ -398,7 +436,7 @@ print("set stok:", a.stok)
 <p>Lanjut ke artikel berikutnya — <strong>Inheritance</strong>: class <code>Ebook(Buku)</code>, <code>super()</code>, dan override method tanpa menduplikasi kode. (Belum di-hyperlink sampai artikel itu live.)</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 4/10 artikel (setelah <strong>#43 (ini)</strong> live). Prasyarat: <a href="/artikel/attribute-method-constructor-init-python">#42</a> · <a href="/artikel/class-dan-object-pertama-python">#41</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">#40</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 4/10 artikel live. Kamu di langkah <strong>#43 (ini)</strong>. Prasyarat: <a href="/artikel/attribute-method-constructor-init-python">#42</a> · <a href="/artikel/class-dan-object-pertama-python">#41</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">#40</a>.</p>
 </blockquote>
 HTML;
     }
