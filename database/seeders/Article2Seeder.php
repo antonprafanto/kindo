@@ -65,33 +65,44 @@ class Article2Seeder extends Seeder
 <p>Urutan instalasi yang direkomendasikan:</p>
 
 <figure role="img" aria-label="Diagram alur setup ESP32: Download IDE, tambah Board URL, install via Boards Manager, driver USB, lalu upload Blink" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 200" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 220" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="a2B" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2979FF"/></marker>
   </defs>
-  <rect x="0" y="0" width="620" height="200" fill="#F5F5F0" rx="6"/>
-  <rect x="20" y="70" width="95" height="60" rx="6" fill="#E8F4FF" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="67" y="95" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">Download</text>
-  <text x="67" y="112" text-anchor="middle" fill="#4A5568" font-size="9">Arduino IDE</text>
-  <line x1="115" y1="100" x2="133" y2="100" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a2B)"/>
-  <rect x="139" y="70" width="95" height="60" rx="6" fill="#FFF8E7" stroke="#FF7A2F" stroke-width="2.5"/>
-  <text x="186" y="95" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">Board URL</text>
-  <text x="186" y="112" text-anchor="middle" fill="#4A5568" font-size="9">Preferences</text>
-  <line x1="234" y1="100" x2="252" y2="100" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a2B)"/>
-  <rect x="258" y="70" width="105" height="60" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="310" y="95" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">Boards Mgr</text>
-  <text x="310" y="112" text-anchor="middle" fill="#4A5568" font-size="9">esp32 install</text>
-  <line x1="363" y1="100" x2="381" y2="100" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a2B)"/>
-  <rect x="387" y="70" width="95" height="60" rx="6" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2.5"/>
-  <text x="434" y="95" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">USB Driver</text>
-  <text x="434" y="112" text-anchor="middle" fill="#4A5568" font-size="9">CH340/CP2102</text>
-  <line x1="482" y1="100" x2="500" y2="100" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a2B)"/>
-  <rect x="506" y="70" width="95" height="60" rx="6" fill="#2979FF" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="553" y="95" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">Upload Blink</text>
-  <text x="553" y="112" text-anchor="middle" fill="#e3f2fd" font-size="9">Hello World</text>
-  <text x="310" y="165" text-anchor="middle" fill="#4A5568" font-size="11">Ikuti langkah di bawah sesuai urutan panah — jeda antar kotak ≥ satu layar kecil</text>
+  <rect x="0" y="0" width="620" height="220" fill="#F5F5F0" rx="6"/>
+  <!-- 1 Download -->
+  <rect x="12" y="50" width="100" height="72" rx="6" fill="#E8F4FF" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="62" y="74" text-anchor="middle" fill="#2979FF" font-size="12" font-weight="700">1</text>
+  <text x="62" y="94" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Download</text>
+  <text x="62" y="110" text-anchor="middle" fill="#4A5568" font-size="9">Arduino IDE</text>
+  <line x1="112" y1="86" x2="132" y2="86" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a2B)"/>
+  <!-- 2 Board URL -->
+  <rect x="138" y="50" width="100" height="72" rx="6" fill="#FFF8E7" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="188" y="74" text-anchor="middle" fill="#FF7A2F" font-size="12" font-weight="700">2</text>
+  <text x="188" y="94" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Board URL</text>
+  <text x="188" y="110" text-anchor="middle" fill="#4A5568" font-size="9">Preferences</text>
+  <line x1="238" y1="86" x2="258" y2="86" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a2B)"/>
+  <!-- 3 Boards Manager -->
+  <rect x="264" y="50" width="100" height="72" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="314" y="74" text-anchor="middle" fill="#2E7D32" font-size="12" font-weight="700">3</text>
+  <text x="314" y="94" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Boards Mgr</text>
+  <text x="314" y="110" text-anchor="middle" fill="#4A5568" font-size="9">esp32 install</text>
+  <line x1="364" y1="86" x2="384" y2="86" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a2B)"/>
+  <!-- 4 USB Driver -->
+  <rect x="390" y="50" width="100" height="72" rx="6" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2.5"/>
+  <text x="440" y="74" text-anchor="middle" fill="#7B1FA2" font-size="12" font-weight="700">4</text>
+  <text x="440" y="94" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">USB Driver</text>
+  <text x="440" y="110" text-anchor="middle" fill="#4A5568" font-size="9">CH340/CP2102</text>
+  <line x1="490" y1="86" x2="510" y2="86" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a2B)"/>
+  <!-- 5 Upload Blink -->
+  <rect x="516" y="50" width="92" height="72" rx="6" fill="#2979FF" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="562" y="74" text-anchor="middle" fill="#BBDEFB" font-size="12" font-weight="700">5</text>
+  <text x="562" y="94" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">Upload</text>
+  <text x="562" y="110" text-anchor="middle" fill="#e3f2fd" font-size="9">Blink / Hello</text>
+  <text x="310" y="165" text-anchor="middle" fill="#4A5568" font-size="11">Ikuti lima langkah di bawah sesuai urutan panah.</text>
+  <text x="310" y="190" text-anchor="middle" fill="#4A5568" font-size="10">IDE → URL board → install ESP32 → driver USB → upload pertama</text>
 </svg>
-<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Alur setup: IDE → URL board → install ESP32 → driver USB → upload pertama.</figcaption>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Alur setup: IDE → URL board → install ESP32 → driver USB → upload pertama. Lanjut uji di <a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">Blink LED (#3)</a>.</figcaption>
 </figure>
 
 <h2>Langkah 1: Download Arduino IDE</h2>

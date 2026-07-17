@@ -50,12 +50,15 @@ foreach ($requiredLinks as $linkSlug => $label) {
 }
 
 check(substr_count($body, 'figure role="img"') >= 1, 'Ada 1 figure SVG');
-check(str_contains($body, 'viewBox="0 0 620 200"'), 'SVG alur viewBox 620');
+check(str_contains($body, 'viewBox="0 0 620 220"'), 'SVG alur viewBox 620x220');
 check(str_contains($body, 'id="a2B"'), 'Marker unik a2B');
 check(str_contains($body, 'markerUnits="userSpaceOnUse"'), 'markerUnits userSpaceOnUse');
 check(str_contains($body, 'background:#F5F5F0;border:2.5px solid #1a1a1a'), 'Figure style PRD');
-check(str_contains($body, 'Upload Blink'), 'SVG: Upload Blink');
+check(str_contains($body, 'Upload') && str_contains($body, 'Blink'), 'SVG: Upload Blink');
 check(str_contains($body, 'Boards Mgr'), 'SVG: Boards Manager');
+check(str_contains($body, 'Ikuti lima langkah'), 'SVG caption user-facing');
+check(! str_contains($body, 'jeda antar kotak'), 'Tidak ada catatan PRD bocor (jeda)');
+check(! str_contains($body, 'satu layar kecil'), 'Tidak ada catatan PRD bocor (layar)');
 check(str_contains($body, 'package_esp32_index.json'), 'Board manager URL di pre/code');
 check(str_contains($body, '<h2>Langkah 1: Download Arduino IDE</h2>'), 'Langkah 1 ada');
 check(str_contains($body, '<h2>Langkah 5: Test Koneksi ESP32</h2>'), 'Langkah 5 ada');
