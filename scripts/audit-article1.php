@@ -53,12 +53,15 @@ foreach ($requiredLinks as $linkSlug => $label) {
 }
 
 check(substr_count($body, 'figure role="img"') >= 1, 'Ada 1 figure SVG');
-check(str_contains($body, 'viewBox="0 0 620 360"'), 'SVG overview viewBox 620');
+check(str_contains($body, 'viewBox="0 0 620 380"'), 'SVG overview viewBox 620x380');
 check(str_contains($body, 'markerUnits="userSpaceOnUse"'), 'markerUnits userSpaceOnUse');
 check(str_contains($body, 'id="a1G"'), 'Marker unik a1G');
 check(str_contains($body, 'background:#F5F5F0;border:2.5px solid #1a1a1a'), 'Figure style PRD');
 check(str_contains($body, 'Dual-core'), 'Dual-core disebut');
 check(str_contains($body, '802.11 b/g/n'), 'WiFi spec disebut');
+check(str_contains($body, 'x1="310" y1="145" x2="310" y2="108"'), 'SVG: panah keluar ke WiFi');
+check(str_contains($body, 'x1="400" y1="190" x2="442" y2="190"'), 'SVG: panah keluar ke Bluetooth');
+check(str_contains($body, 'Arduino IDE (#2)</a>'), 'Figcaption link Arduino IDE (#2)');
 check(str_contains($body, 'Install Arduino IDE &amp; ESP32 Board Manager (#2)</a>') || str_contains($body, 'install Arduino IDE &amp; setup ESP32 Board Manager (#2)</a>'), 'Hyperlink Install (#2)');
 check(str_contains($body, 'Blink LED (#3)</a>'), 'Hyperlink Blink (#3)');
 check(str_contains($body, 'WiFi (#4)</a>'), 'Hyperlink WiFi (#4)');
@@ -114,9 +117,10 @@ if ($checkProduction) {
     echo "\n=== Pass 3: Production ===\n\n";
     $prodUrl = 'https://kodingindonesia.com/artikel/' . $slug;
     $html = (string) shell_exec('curl -sS --max-time 30 ' . escapeshellarg($prodUrl));
-    check(str_contains($html, 'viewBox') || str_contains($html, '620 360'), 'Prod SVG overview');
-    check(str_contains($html, 'Install Arduino IDE') || str_contains($html, 'Board Manager (#2)'), 'Prod link #2');
+    check(str_contains($html, 'viewBox') || str_contains($html, '620 380'), 'Prod SVG overview');
+    check(str_contains($html, 'Arduino IDE (#2)') || str_contains($html, 'Board Manager (#2)'), 'Prod link #2');
     check(str_contains($html, 'Bluetooth BLE ESP32 (#32)') || str_contains($html, 'BLE (#32)'), 'Prod link #32');
+    check(str_contains($html, 'x2="310" y2="108"') || str_contains($html, 'Xtensa LX6'), 'Prod panah keluar / dual-core');
 }
 
 echo "\n=== RESULT: {$passed} passed, {$failed} failed ===\n";
