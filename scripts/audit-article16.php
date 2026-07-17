@@ -64,6 +64,11 @@ $requiredLinks = [
     'nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode' => 'Artikel #12 NVS/WiFiManager',
     'deep-sleep-esp32-sensor-dht22-hemat-baterai'                  => 'Artikel #11 deep sleep',
     'membaca-sensor-dht22-suhu-kelembaban-esp32'                   => 'Artikel #5 DHT22',
+    'mqtt-tls-qos-lwt-retained-mosquitto-esp32'                    => 'Artikel #17 TLS',
+    'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32'        => 'Artikel #18 Python',
+    'i2c-esp32-sensor-bme280-suhu-tekanan-mqtt'                    => 'Artikel #13 BME280',
+    'oled-ssd1306-esp32-tampilkan-data-sensor-i2c'                 => 'Artikel #14 OLED',
+    'ota-update-firmware-esp32-via-wifi'                           => 'Artikel #15 OTA',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {
@@ -131,7 +136,31 @@ check(! preg_match('/const char\*\s+mqttServer\s*=\s*"test\.mosquitto/', $body),
 check(str_contains($body, 'language-bash'), 'Blok kode bash');
 check(str_contains($body, 'language-arduino'), 'Blok kode Arduino');
 check(str_contains($body, '<table>'), 'Ada tabel arsitektur');
-check(str_contains($body, 'Alur data secara singkat'), 'Diagram alur ASCII sederhana');
+check(str_contains($body, 'Alur data secara singkat'), 'Intro diagram alur');
+check(str_contains($body, 'figure role="img"'), 'Ada figure SVG arsitektur');
+check(str_contains($body, 'viewBox="0 0 620 400"'), 'SVG viewBox arsitektur');
+check(str_contains($body, 'Mosquitto @ Pi / VPS'), 'SVG: kotak Mosquitto');
+check(str_contains($body, 'MQTT :1883'), 'SVG: label MQTT :1883');
+check(str_contains($body, 'Python → MySQL (#18)'), 'SVG: teaser Python #18');
+check(! str_contains($body, '[ Mosquitto @ Pi / VPS ]'), 'ASCII arsitektur sudah dihapus');
+check(str_contains($body, 'GANTI_PASSWORD_MQTT'), 'Placeholder password MQTT');
+check(! str_contains($body, 'KindoMQTT2026!'), 'Tidak ada password literal');
+
+$sanitized = app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($body);
+check(str_contains($sanitized, '<svg'), 'SVG lolos sanitizer');
+check(str_contains($sanitized, 'Mosquitto @ Pi / VPS'), 'Teks SVG lolos sanitizer');
+
+$plainBody = preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '';
+$plainBody = preg_replace('/<svg\b[^>]*>.*?<\/svg>/is', '', $plainBody) ?? '';
+$plainBody = preg_replace('/<!--.*?-->/s', '', $plainBody) ?? '';
+// Hindari warna CSS (#1a1a1a, #4A5568) — hanya nomor artikel
+preg_match_all('/#\d+(?![0-9a-fA-F])/', $plainBody, $plainRefs);
+$plainRefs = array_values(array_unique($plainRefs[0] ?? []));
+// Rentang fase broker "#11–#15" sengaja plain (bukan satu artikel)
+$allowedPlain = str_contains($body, '#11–#15') ? ['#11', '#15'] : [];
+$residualPlain = array_values(array_diff($plainRefs, $allowedPlain));
+check($residualPlain === [], 'Tidak ada plain #N residual: ' . implode(', ', $residualPlain));
+
 check(str_contains($body, 'rel="noopener"') || ! str_contains($body, 'target="_blank"'), 'Link eksternal aman');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada typo shared hosting');
 

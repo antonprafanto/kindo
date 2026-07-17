@@ -113,15 +113,45 @@ class Article16Seeder extends Seeder
 </table>
 
 <p>Alur data secara singkat:</p>
-<pre><code>  [ ESP32 ]
-      |
-      |  WiFi/LAN  ·  MQTT :1883  ·  username + password
-      v
-  [ Mosquitto @ Pi / VPS ]
-      |
-      +-- mosquitto_sub  (laptop)
-      +-- MQTT Explorer  (HP)
-      +-- Python → MySQL (#18)</code></pre>
+<figure role="img" aria-label="Diagram arsitektur Mosquitto pribadi: ESP32 publish MQTT dengan auth ke broker di Pi/VPS, lalu subscriber CLI, MQTT Explorer, dan Python MySQL" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 400" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="m16ArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="m16ArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="400" fill="#F5F5F0" rx="6"/>
+  <!-- ESP32 -->
+  <rect x="150" y="16" width="320" height="70" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="42" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32 — PubSubClient + NVS (#12)</text>
+  <text x="310" y="64" text-anchor="middle" fill="#4A5568" font-size="11">WiFiManager · mqtt_host / user / pass</text>
+  <!-- Auth pill beside arrow -->
+  <line x1="310" y1="86" x2="310" y2="128" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#m16ArrO)"/>
+  <rect x="330" y="96" width="220" height="28" rx="14" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="440" y="114" text-anchor="middle" fill="#C45A11" font-size="10" font-weight="700">WiFi/LAN · MQTT :1883 · auth</text>
+  <!-- Mosquitto -->
+  <rect x="130" y="140" width="360" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="168" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Mosquitto @ Pi / VPS</text>
+  <text x="310" y="190" text-anchor="middle" fill="#e3f2fd" font-size="11">allow_anonymous false · password_file</text>
+  <!-- Fan-out arrows -->
+  <line x1="180" y1="210" x2="105" y2="268" stroke="#2E7D32" stroke-width="2" marker-end="url(#m16ArrG)"/>
+  <line x1="310" y1="210" x2="310" y2="268" stroke="#2E7D32" stroke-width="2" marker-end="url(#m16ArrG)"/>
+  <line x1="440" y1="210" x2="515" y2="268" stroke="#2E7D32" stroke-width="2" marker-end="url(#m16ArrG)"/>
+  <!-- Subscribers -->
+  <rect x="15" y="275" width="180" height="52" rx="6" fill="#FFF8E7" stroke="#000" stroke-width="2"/>
+  <text x="105" y="296" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">mosquitto_sub</text>
+  <text x="105" y="314" text-anchor="middle" fill="#4A5568" font-size="10">CLI · laptop</text>
+  <rect x="220" y="275" width="180" height="52" rx="6" fill="#FFF8E7" stroke="#000" stroke-width="2"/>
+  <text x="310" y="296" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">MQTT Explorer</text>
+  <text x="310" y="314" text-anchor="middle" fill="#4A5568" font-size="10">GUI · laptop / HP</text>
+  <rect x="425" y="275" width="180" height="52" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+  <text x="515" y="296" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Python → MySQL (#18)</text>
+  <text x="515" y="314" text-anchor="middle" fill="#4A5568" font-size="10">Jalur B · histori</text>
+  <!-- Footer -->
+  <text x="310" y="360" text-anchor="middle" fill="#4A5568" font-size="11">ESP32 → MQTT :1883 + auth → Mosquitto → subscriber</text>
+  <text x="310" y="382" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="600">topic · kodingindonesia/esp32/dht22/data</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">ESP32 publish ke broker pribadi — lanjut <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS (#17)</a> untuk internet, lalu <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Python → MySQL (#18)</a>.</figcaption>
+</figure>
 
 <p><strong>Topic sensor</strong> tetap mengikuti konvensi Seri 1: <code>kodingindonesia/esp32/dht22/data</code> dengan payload JSON <code>{"suhu":28.5,"kelembaban":65.2}</code>.</p>
 
@@ -157,7 +187,7 @@ sudo systemctl status mosquitto --no-pager</code></pre>
 <p>Buat file password untuk user MQTT (contoh user <code>kindo_esp32</code>):</p>
 
 <pre><code class="language-bash">sudo mosquitto_passwd -c /etc/mosquitto/passwd kindo_esp32
-# masukkan password kuat, misalnya: KindoMQTT2026!</code></pre>
+# masukkan password kuat, misalnya: GANTI_PASSWORD_MQTT</code></pre>
 
 <p>Edit konfigurasi utama:</p>
 
@@ -207,20 +237,20 @@ sudo ufw status</code></pre>
 
 <ul>
   <li>Pastikan ESP32 bisa <code>ping</code> IP broker (LAN) atau resolve hostname (VPS)</li>
-  <li>Router rumah: port forwarding 1883 hanya jika benar-benar perlu akses luar — prefer VPN atau TLS (#17)</li>
+  <li>Router rumah: port forwarding 1883 hanya jika benar-benar perlu akses luar — prefer VPN atau <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS (#17)</a></li>
 </ul>
 
 <h2>Uji Coba dari Laptop</h2>
 <p>Terminal 1 — subscribe (ganti IP, user, password):</p>
 
 <pre><code class="language-bash">mosquitto_sub -h 192.168.1.50 -p 1883 \
-  -u kindo_esp32 -P 'KindoMQTT2026!' \
+  -u kindo_esp32 -P 'GANTI_PASSWORD_MQTT' \
   -t "kodingindonesia/esp32/dht22/data" -v</code></pre>
 
 <p>Terminal 2 — publish manual:</p>
 
 <pre><code class="language-bash">mosquitto_pub -h 192.168.1.50 -p 1883 \
-  -u kindo_esp32 -P 'KindoMQTT2026!' \
+  -u kindo_esp32 -P 'GANTI_PASSWORD_MQTT' \
   -t "kodingindonesia/esp32/dht22/data" \
   -m '{"suhu":25.0,"kelembaban":60.0}'</code></pre>
 
@@ -233,7 +263,7 @@ sudo ufw status</code></pre>
 <h2>ESP32: Koneksi ke Broker + Auth (NVS)</h2>
 <p>Perluas pola <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">WiFiManager + NVS (#12)</a>: simpan <code>mqtt_host</code>, <code>mqtt_user</code>, <code>mqtt_pass</code> di flash — tidak di sketch. Field custom di portal WiFiManager mengisi nilai awal saat provisioning.</p>
 
-<p><strong>Library</strong> (sama #12): WiFiManager (tzapu), PubSubClient (Nick O'Leary), DHT Adafruit + Unified Sensor. Board <strong>esp32</strong> v3.x.</p>
+<p><strong>Library</strong> (sama <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">#12</a>): WiFiManager (tzapu), PubSubClient (Nick O'Leary), DHT Adafruit + Unified Sensor. Board <strong>esp32</strong> v3.x.</p>
 
 <p>Sketch ringkas (DHT22 GPIO 4, topic Seri 1, AP portal <code>KindoESP32-Setup</code>):</p>
 
@@ -360,7 +390,7 @@ void loop() {
   <li><strong><code>mqttClient.connect(..., user, pass)</code></strong> — overload PubSubClient dengan autentikasi</li>
   <li><strong><code>WiFiManagerParameter</code></strong> — provisioning host/user/pass lewat portal HP, lalu disimpan NVS</li>
   <li><strong><code>mqttClient.loop()</code></strong> — wajib sebelum <code>publish()</code> (konsisten Seri 1)</li>
-  <li><strong>Port 1883</strong> — plain MQTT; untuk internet publik gunakan TLS port 8883 di artikel #17</li>
+  <li><strong>Port 1883</strong> — plain MQTT; untuk internet publik gunakan TLS port 8883 di <a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">artikel #17</a></li>
 </ul>
 
 <h2>Tips &amp; Troubleshooting</h2>
@@ -378,7 +408,7 @@ void loop() {
 <h2>Keamanan &amp; Produksi</h2>
 <ul>
   <li>Jangan commit password MQTT ke GitHub — simpan di NVS / portal seperti WiFi</li>
-  <li>Plain MQTT (port 1883) di internet = password terkirim tanpa enkripsi → wajib <strong>TLS (#17)</strong> untuk deploy luar LAN</li>
+  <li>Plain MQTT (port 1883) di internet = password terkirim tanpa enkripsi → wajib <strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">TLS (#17)</a></strong> untuk deploy luar LAN</li>
   <li>Pertimbangkan ACL Mosquitto agar user ESP32 hanya bisa publish ke topic tertentu</li>
   <li>Backup file <code>/etc/mosquitto/passwd</code> secara aman</li>
 </ul>
@@ -388,13 +418,13 @@ void loop() {
   <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS (#17)</a></strong> — QoS, LWT &amp; retained messages — amankan broker di internet</li>
   <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp (#34)</a></strong> — waktu akurat sebelum <a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">subscriber Python (#18)</a></li>
   <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python → MySQL (#18)</a></strong> — simpan data MQTT ke database histori</li>
-  <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — integrasi ESP32 via broker pribadi</li>
+  <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT (#21)</a></strong> — integrasi ESP32 via broker pribadi</li>
   <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome (#22)</a></strong> — alternatif flash tanpa sketch Arduino</li>
   <li><strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED (#23)</a></strong> — dashboard MQTT visual</li>
   <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">Sensor PIR + lampu MQTT (#24)</a></strong> — automasi gerak dengan debounce &amp; hold time</li>
-  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C</a></strong> — publish suhu, kelembaban &amp; tekanan ke broker pribadi kamu</li>
-  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — panel lokal untuk data BME280 di bus I2C</li>
-  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware</a></strong> — patch bug node terpasang tanpa buka casing</li>
+  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">Sensor BME280 via I2C (#13)</a></strong> — publish suhu, kelembaban &amp; tekanan ke broker pribadi kamu</li>
+  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306 (#14)</a></strong> — panel lokal untuk data BME280 di bus I2C</li>
+  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware (#15)</a></strong> — patch bug node terpasang tanpa buka casing</li>
   <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT (#28)</a></strong> — forward paket sensor jauh ke broker ini</li>
   <li>Kembali ke <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">node deep sleep (#11)</a> + <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS (#12)</a> untuk stack lapangan lengkap</li>
 </ul>
