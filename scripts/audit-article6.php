@@ -93,7 +93,11 @@ check(str_contains($body, 'language-json'), 'Blok JSON API');
 check(str_contains($body, '/api/data'), 'Endpoint /api/data');
 check(str_contains($body, 'server.handleClient()'), 'server.handleClient()');
 check(str_contains($body, 'intervalBaca'), 'Interval baca DHT22');
-check(str_contains($body, 'NamaWiFiKamu'), 'Placeholder SSID');
+check(str_contains($body, 'GANTI_SSID_WIFI'), 'Placeholder SSID');
+check(str_contains($body, 'GANTI_PASSWORD_WIFI'), 'Placeholder password WiFi');
+check(! str_contains($body, 'NamaWiFiKamu'), 'NamaWiFiKamu dihapus');
+check(! str_contains($body, 'PasswordWiFiKamu'), 'PasswordWiFiKamu dihapus');
+check(str_contains($body, 'NVS + WiFiManager (#12)</a>'), 'Hyperlink NVS (#12)');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada typo shared hosting');
 
 $seoLen = mb_strlen($article?->seo_description ?? '');

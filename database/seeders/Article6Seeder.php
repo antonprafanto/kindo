@@ -85,15 +85,15 @@ class Article6Seeder extends Seeder
 <p>Library <code>WiFi</code> dan <code>WebServer</code> sudah built-in di ESP32 board package, tidak perlu install tambahan.</p>
 
 <h2>Kode Program: Web Server + DHT22</h2>
-<p>Buka Arduino IDE, buat sketch baru, lalu salin kode berikut. <strong>Ganti</strong> <code>ssid</code> dan <code>password</code> dengan kredensial WiFi kamu:</p>
+<p>Buka Arduino IDE, buat sketch baru, lalu salin kode berikut. Ganti placeholder <code>GANTI_SSID_WIFI</code> / <code>GANTI_PASSWORD_WIFI</code>. Untuk produksi tanpa hardcode, lihat <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a>.</p>
 
 <pre><code class="language-arduino">#include &lt;WiFi.h&gt;
 #include &lt;WebServer.h&gt;
 #include &lt;DHT.h&gt;
 
 // ── Konfigurasi WiFi ──────────────────────────────────
-const char* ssid     = "NamaWiFiKamu";
-const char* password = "PasswordWiFiKamu";
+const char* ssid     = "GANTI_SSID_WIFI";
+const char* password = "GANTI_PASSWORD_WIFI";
 
 // ── Konfigurasi DHT22 ───────────────────────────────────
 #define DHT_PIN  4
@@ -255,7 +255,7 @@ void loop() {
   <text x="310" y="375" text-anchor="middle" fill="#4A5568" font-size="11">DHT22 → ESP32 → WebServer :80 → browser HTML + /api/data JSON</text>
   <text x="310" y="395" text-anchor="middle" fill="#4A5568" font-size="10">Hanya LAN — jangan expose ke internet tanpa autentikasi</text>
 </svg>
-<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">ESP32 menjadi server mini di LAN: sensor <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> ditampilkan di browser, endpoint JSON siap untuk integrasi lanjut (mis. <a href="/artikel/home-assistant-integrasi-esp32-mqtt">HA #21</a>).</figcaption>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">ESP32 menjadi server mini di LAN: sensor <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> ditampilkan di browser, endpoint JSON siap untuk integrasi lanjut (mis. <a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant (#21)</a>).</figcaption>
 </figure>
 <ol>
   <li>ESP32 terhubung ke WiFi dan mendapat alamat IP lokal (misalnya 192.168.1.100)</li>

@@ -2631,6 +2631,26 @@ class DeployController extends Controller
         return $this->publishArticle('Article5Seeder', 'Article 5 published');
     }
 
+    public function publishArticle4(): Response
+    {
+        return $this->publishArticle('Article4Seeder', 'Article 4 published');
+    }
+
+    public function publishArticle3(): Response
+    {
+        return $this->publishArticle('Article3Seeder', 'Article 3 published');
+    }
+
+    public function publishArticle2(): Response
+    {
+        return $this->publishArticle('Article2Seeder', 'Article 2 published');
+    }
+
+    public function publishArticle1(): Response
+    {
+        return $this->publishArticle('Article1Seeder', 'Article 1 published');
+    }
+
     /**
      * Buat atau perbaiki akun admin dari ADMIN_* di .env (tanpa SSH).
      */
