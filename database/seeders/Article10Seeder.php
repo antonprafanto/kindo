@@ -55,10 +55,10 @@ class Article10Seeder extends Seeder
 <h2>Pendahuluan</h2>
 <p>Selamat datang di <strong>artikel penutup seri ESP32 IoT</strong> Koding Indonesia! Sejauh ini kamu sudah belajar:</p>
 <ul>
-  <li>Dashboard <strong>lokal</strong> lewat Web Server (<a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">artikel web server</a>)</li>
-  <li>Telemetri <strong>remote</strong> lewat MQTT (<a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a>)</li>
-  <li>Proyek gabungan sensor + aktuator (<a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel DHT22 + relay</a>)</li>
-  <li>Kontrol lampu via MQTT (<a href="/artikel/kontrol-lampu-esp32-mqtt-relay">artikel relay</a>)</li>
+  <li>Dashboard <strong>lokal</strong> lewat Web Server (<a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">artikel web server (#6)</a>)</li>
+  <li>Telemetri <strong>remote</strong> lewat MQTT (<a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT (#7)</a>)</li>
+  <li>Proyek gabungan sensor + aktuator (<a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel DHT22 + relay (#9)</a>)</li>
+  <li>Kontrol lampu via MQTT (<a href="/artikel/kontrol-lampu-esp32-mqtt-relay">artikel relay (#8)</a>)</li>
 </ul>
 <p>Kali ini kita satukan <strong>dua saluran monitoring</strong> dalam satu firmware:</p>
 <ul>
@@ -76,10 +76,55 @@ class Article10Seeder extends Seeder
 </ul>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> Sudah pernah membuat <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web Server ESP32</a> dan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish MQTT</a>. Paham juga <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">koneksi WiFi ESP32</a> dan wiring <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22</a>.</p>
+  <p><strong>Prasyarat:</strong> Sudah pernah membuat <a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web Server ESP32 (#6)</a> dan <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">publish MQTT (#7)</a>. Paham juga <a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">koneksi WiFi ESP32 (#4)</a> dan wiring <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a>.</p>
 </blockquote>
 
 <h2>Arsitektur Proyek</h2>
+<figure role="img" aria-label="Diagram arsitektur dashboard hybrid: DHT22 ke ESP32, lalu dua saluran Web Server lokal dan MQTT remote" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 380" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+  <defs>
+    <marker id="d10Arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="d10ArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
+    <marker id="d10ArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+  </defs>
+  <rect x="0" y="0" width="620" height="380" fill="#F5F5F0" rx="6"/>
+  <!-- DHT22 -->
+  <rect x="200" y="14" width="220" height="50" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="310" y="36" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">DHT22 · GPIO 4</text>
+  <text x="310" y="52" text-anchor="middle" fill="#4A5568" font-size="10">suhu · kelembaban · tiap 2 dtk</text>
+  <line x1="310" y1="64" x2="310" y2="98" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#d10ArrG)"/>
+  <!-- ESP32 -->
+  <rect x="150" y="106" width="320" height="58" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="130" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 — WebServer + PubSubClient</text>
+  <text x="310" y="148" text-anchor="middle" fill="#4A5568" font-size="11">satu variabel sensor · dua saluran</text>
+  <!-- Fan out -->
+  <line x1="220" y1="164" x2="120" y2="210" stroke="#2979FF" stroke-width="2.5" marker-end="url(#d10Arr)"/>
+  <line x1="400" y1="164" x2="500" y2="210" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#d10ArrO)"/>
+  <rect x="40" y="178" width="100" height="22" rx="11" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="90" y="193" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">lokal</text>
+  <rect x="480" y="178" width="100" height="22" rx="11" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
+  <text x="530" y="193" text-anchor="middle" fill="#C45A11" font-size="10" font-weight="700">remote</text>
+  <!-- Web -->
+  <rect x="20" y="220" width="200" height="70" rx="6" fill="#fff" stroke="#2979FF" stroke-width="2.5"/>
+  <text x="120" y="246" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Web Server :80</text>
+  <text x="120" y="266" text-anchor="middle" fill="#4A5568" font-size="10">/ · /api/data</text>
+  <text x="120" y="282" text-anchor="middle" fill="#4A5568" font-size="10">browser WiFi rumah</text>
+  <!-- MQTT -->
+  <rect x="400" y="220" width="200" height="70" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="500" y="246" text-anchor="middle" fill="#fff" font-size="13" font-weight="700">MQTT :1883</text>
+  <text x="500" y="266" text-anchor="middle" fill="#e3f2fd" font-size="10">.../dht22/data</text>
+  <text x="500" y="282" text-anchor="middle" fill="#e3f2fd" font-size="10">publish tiap 10 dtk</text>
+  <!-- Outcomes -->
+  <rect x="20" y="310" width="200" height="48" rx="6" fill="#FFF8E7" stroke="#000" stroke-width="2"/>
+  <text x="120" y="330" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Teknisi lapangan</text>
+  <text x="120" y="348" text-anchor="middle" fill="#4A5568" font-size="10">dashboard HTML cepat</text>
+  <rect x="400" y="310" width="200" height="48" rx="6" fill="#FFF8E7" stroke="#000" stroke-width="2"/>
+  <text x="500" y="330" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">MQTT Explorer</text>
+  <text x="500" y="348" text-anchor="middle" fill="#4A5568" font-size="10">pantau dari mana saja</text>
+</svg>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Capstone Seri 1: UI lokal (<a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">#6</a>) + telemetri MQTT (<a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">#7</a>) — lanjut hemat baterai di <a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep Sleep (#11)</a>.</figcaption>
+</figure>
+
 <table>
   <thead>
     <tr><th>Saluran</th><th>Cara akses</th><th>Fungsi</th></tr>
@@ -90,9 +135,9 @@ class Article10Seeder extends Seeder
   </tbody>
 </table>
 
-<p>Topic MQTT sama dengan <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan</a> agar konsisten di seluruh seri.</p>
+<p>Topic MQTT sama dengan <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">proyek gabungan (#9)</a> agar konsisten di seluruh seri.</p>
 
-<p><em>Catatan topik:</em> Di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT</a> kita pakai <code>kodingindonesia/esp32/dht22</code> (payload teks). Dari artikel gabungan ke dashboard ini kita pakai subtopic <code>.../dht22/data</code> dengan payload JSON — pola yang sama dengan <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel #9</a>.</p>
+<p><em>Catatan topik:</em> Di <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">artikel MQTT (#7)</a> kita pakai <code>kodingindonesia/esp32/dht22</code> (payload teks). Dari artikel gabungan ke dashboard ini kita pakai subtopic <code>.../dht22/data</code> dengan payload JSON — pola yang sama dengan <a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">artikel #9</a>.</p>
 
 <blockquote>
   <p><strong>Broker bukan website</strong> — <code>test.mosquitto.org</code> tidak dibuka di browser. Gunakan MQTT Explorer atau ESP32.</p>
@@ -103,15 +148,15 @@ class Article10Seeder extends Seeder
 </blockquote>
 
 <h2>Kode Lengkap: Web Server + MQTT Publish</h2>
-<p>Ganti <code>ssid</code> dan <code>password</code>, lalu upload:</p>
+<p>Ganti placeholder <code>GANTI_SSID_WIFI</code> / <code>GANTI_PASSWORD_WIFI</code>, lalu upload. Untuk produksi tanpa hardcode, lihat <a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a>.</p>
 
 <pre><code class="language-arduino">#include &lt;WiFi.h&gt;
 #include &lt;WebServer.h&gt;
 #include &lt;PubSubClient.h&gt;
 #include &lt;DHT.h&gt;
 
-const char* ssid     = "NamaWiFiKamu";
-const char* password = "PasswordWiFiKamu";
+const char* ssid     = "GANTI_SSID_WIFI";
+const char* password = "GANTI_PASSWORD_WIFI";
 
 const char* mqttServer  = "test.mosquitto.org";
 const int   mqttPort    = 1883;
@@ -286,50 +331,50 @@ void loop() {
 
 <h2>Indeks Seri ESP32 IoT (10 Artikel)</h2>
 <ol>
-  <li><a href="/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot">Mengenal ESP32</a></li>
-  <li><a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">Install Arduino IDE &amp; ESP32 Board</a></li>
-  <li><a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">Blink LED — Tutorial Pertama</a></li>
-  <li><a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">ESP32 ke WiFi &amp; Kirim Data</a></li>
-  <li><a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">Baca Sensor DHT22</a></li>
-  <li><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web Server Monitoring DHT22</a></li>
-  <li><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT — Kirim Data ke Broker</a></li>
-  <li><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Kontrol Lampu via MQTT &amp; Relay</a></li>
-  <li><a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">Gabungan DHT22 + Relay MQTT</a></li>
-  <li><strong>Dashboard Web Server + MQTT</strong> — artikel ini (capstone)</li>
+  <li><a href="/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot">Mengenal ESP32 (#1)</a></li>
+  <li><a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">Install Arduino IDE &amp; ESP32 Board (#2)</a></li>
+  <li><a href="/artikel/blink-led-esp32-tutorial-pertama-embedded-system">Blink LED — Tutorial Pertama (#3)</a></li>
+  <li><a href="/artikel/menghubungkan-esp32-wifi-kirim-data-server">ESP32 ke WiFi &amp; Kirim Data (#4)</a></li>
+  <li><a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">Baca Sensor DHT22 (#5)</a></li>
+  <li><a href="/artikel/membuat-web-server-esp32-monitoring-sensor-dht22">Web Server Monitoring DHT22 (#6)</a></li>
+  <li><a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT — Kirim Data ke Broker (#7)</a></li>
+  <li><a href="/artikel/kontrol-lampu-esp32-mqtt-relay">Kontrol Lampu via MQTT &amp; Relay (#8)</a></li>
+  <li><a href="/artikel/gabungkan-dht22-relay-mqtt-esp32-satu-proyek">Gabungan DHT22 + Relay MQTT (#9)</a></li>
+  <li><strong>Dashboard Web Server + MQTT (#10)</strong> — artikel ini (capstone)</li>
 </ol>
 
 <h2>Roadmap Belajar Selanjutnya — Seri 2</h2>
 <p>Seri 10 artikel ini adalah fondasi capstone. <strong>Seri 2 ESP32/IoT Lanjutan</strong> sudah lengkap — dua puluh sembilan artikel (urutan publish):</p>
 <ol>
-  <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32 + DHT22 hemat baterai</a></strong></li>
-  <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager</a></strong> — konfigurasi tanpa hardcode</li>
-  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi + autentikasi</a></strong></li>
-  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">I2C + sensor BME280</a></strong> — suhu, kelembaban &amp; tekanan</li>
-  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306</a></strong> — tampilkan data di layar I2C</li>
-  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware ESP32</a></strong> — update tanpa kabel USB</li>
-  <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT</a></strong> — dashboard smart home</li>
-  <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome flash ESP32 tanpa Arduino</a></strong> — YAML + OTA</li>
-  <li><strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED dashboard IoT MQTT</a></strong> — otomasi visual</li>
-  <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">Sensor gerak PIR + lampu MQTT</a></strong> — automasi koridor dengan debounce</li>
-  <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS + QoS + LWT</a></strong> — amankan broker Mosquitto</li>
-  <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp ESP32</a></strong> — waktu akurat untuk log sensor MQTT</li>
-  <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python → MySQL</a></strong> — histori sensor MQTT ke database</li>
-  <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana</a></strong> — dashboard grafik histori sensor</li>
-  <li><strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST API vs MQTT</a></strong> — kapan pakai HTTP vs push MQTT</li>
-  <li><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW antar ESP32 tanpa router WiFi</a></strong> — peer-to-peer tanpa router</li>
-  <li><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa ESP32 + SX1278 jarak jauh</a></strong> — sensor kilometer tanpa WiFi</li>
-  <li><strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM MJPEG streaming</a></strong> — live video &amp; capture foto via WiFi</li>
-  <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT</a></strong> — sensor jarak jauh ke dashboard Grafana</li>
-  <li><strong><a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">Migrasi ke PlatformIO di VS Code</a></strong> — project ESP32 lebih rapi dengan platformio.ini</li>
-  <li><strong><a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">ESP32 + Firebase Realtime Database</a></strong> — sensor ke cloud tanpa server sendiri</li>
-  <li><strong><a href="/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt">FreeRTOS multi-task Sensor + WiFi + MQTT</a></strong> — pecah firmware jadi task paralel</li>
-  <li><strong><a href="/artikel/bluetooth-esp32-ble-kirim-data-sensor-smartphone">Bluetooth BLE kirim data sensor ke smartphone</a></strong> — GATT server tanpa WiFi</li>
-  <li><strong><a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">Kontrol Servo &amp; PWM gerakan presisi via MQTT</a></strong> — SG90 sudut 0–180°</li>
-  <li><strong><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC ESP32: Soil Moisture &amp; LDR via MQTT</a></strong> — sensor analog tanah &amp; cahaya</li>
-  <li><strong><a href="/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade">ESP8266 / NodeMCU vs ESP32</a></strong> — kapan pakai board murah vs upgrade</li>
-  <li><strong><a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">SD Card &amp; SPI logging offline</a></strong> — backup data sensor di lapangan</li>
-  <li><strong><a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">HTTPS &amp; sertifikat ESP32 (WiFiClientSecure)</a></strong> — REST API aman ke cloud</li>
-  <li><strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Capstone Smart Greenhouse</a></strong> — multi-sensor + aktuator + dashboard MQTT</li>
+  <li><strong><a href="/artikel/deep-sleep-esp32-sensor-dht22-hemat-baterai">Deep sleep ESP32 + DHT22 hemat baterai (#11)</a></strong></li>
+  <li><strong><a href="/artikel/nvs-preferences-wifimanager-esp32-konfigurasi-tanpa-hardcode">NVS + WiFiManager (#12)</a></strong> — konfigurasi tanpa hardcode</li>
+  <li><strong><a href="/artikel/broker-mosquitto-pribadi-raspberry-pi-vps-autentikasi-esp32">Broker Mosquitto pribadi + autentikasi (#16)</a></strong></li>
+  <li><strong><a href="/artikel/i2c-esp32-sensor-bme280-suhu-tekanan-mqtt">I2C + sensor BME280 (#13)</a></strong> — suhu, kelembaban &amp; tekanan</li>
+  <li><strong><a href="/artikel/oled-ssd1306-esp32-tampilkan-data-sensor-i2c">OLED SSD1306 (#14)</a></strong> — tampilkan data di layar I2C</li>
+  <li><strong><a href="/artikel/ota-update-firmware-esp32-via-wifi">OTA update firmware ESP32 (#15)</a></strong> — update tanpa kabel USB</li>
+  <li><strong><a href="/artikel/home-assistant-integrasi-esp32-mqtt">Home Assistant + ESP32 MQTT (#21)</a></strong> — dashboard smart home</li>
+  <li><strong><a href="/artikel/esphome-flash-esp32-tanpa-coding-arduino">ESPHome flash ESP32 tanpa Arduino (#22)</a></strong> — YAML + OTA</li>
+  <li><strong><a href="/artikel/node-red-dashboard-otomasi-iot-mqtt-esp32">Node-RED dashboard IoT MQTT (#23)</a></strong> — otomasi visual</li>
+  <li><strong><a href="/artikel/sensor-gerak-pir-esp32-lampu-mqtt-debounce">Sensor gerak PIR + lampu MQTT (#24)</a></strong> — automasi koridor dengan debounce</li>
+  <li><strong><a href="/artikel/mqtt-tls-qos-lwt-retained-mosquitto-esp32">MQTT TLS + QoS + LWT (#17)</a></strong> — amankan broker Mosquitto</li>
+  <li><strong><a href="/artikel/ntp-timestamp-esp32-waktu-akurat-log-sensor-mqtt">NTP &amp; timestamp ESP32 (#34)</a></strong> — waktu akurat untuk log sensor MQTT</li>
+  <li><strong><a href="/artikel/python-subscriber-mqtt-mysql-simpan-data-sensor-esp32">Subscriber Python → MySQL (#18)</a></strong> — histori sensor MQTT ke database</li>
+  <li><strong><a href="/artikel/influxdb-grafana-dashboard-histori-sensor-esp32-mqtt">InfluxDB + Grafana (#19)</a></strong> — dashboard grafik histori sensor</li>
+  <li><strong><a href="/artikel/rest-api-vs-mqtt-kapan-pakai-proyek-iot-esp32">REST API vs MQTT (#20)</a></strong> — kapan pakai HTTP vs push MQTT</li>
+  <li><strong><a href="/artikel/esp-now-kirim-data-antar-esp32-tanpa-router-wifi">ESP-NOW antar ESP32 tanpa router WiFi (#25)</a></strong> — peer-to-peer tanpa router</li>
+  <li><strong><a href="/artikel/lora-esp32-modul-sx1278-kirim-data-jarak-jauh">LoRa ESP32 + SX1278 jarak jauh (#26)</a></strong> — sensor kilometer tanpa WiFi</li>
+  <li><strong><a href="/artikel/esp32-cam-streaming-mjpeg-capture-foto-wifi">ESP32-CAM MJPEG streaming (#27)</a></strong> — live video &amp; capture foto via WiFi</li>
+  <li><strong><a href="/artikel/gateway-lora-mqtt-esp32-sensor-jarak-jauh-dashboard">Gateway LoRa → MQTT (#28)</a></strong> — sensor jarak jauh ke dashboard Grafana</li>
+  <li><strong><a href="/artikel/migrasi-platformio-esp32-vscode-project-rapi">Migrasi ke PlatformIO di VS Code (#29)</a></strong> — project ESP32 lebih rapi dengan platformio.ini</li>
+  <li><strong><a href="/artikel/esp32-firebase-realtime-database-sensor-cloud">ESP32 + Firebase Realtime Database (#30)</a></strong> — sensor ke cloud tanpa server sendiri</li>
+  <li><strong><a href="/artikel/freertos-esp32-multi-task-sensor-wifi-mqtt">FreeRTOS multi-task Sensor + WiFi + MQTT (#31)</a></strong> — pecah firmware jadi task paralel</li>
+  <li><strong><a href="/artikel/bluetooth-esp32-ble-kirim-data-sensor-smartphone">Bluetooth BLE kirim data sensor ke smartphone (#32)</a></strong> — GATT server tanpa WiFi</li>
+  <li><strong><a href="/artikel/kontrol-servo-pwm-esp32-mqtt-gerakan-presisi">Kontrol Servo &amp; PWM gerakan presisi via MQTT (#33)</a></strong> — SG90 sudut 0–180°</li>
+  <li><strong><a href="/artikel/adc-esp32-sensor-analog-soil-moisture-ldr-mqtt">ADC ESP32: Soil Moisture &amp; LDR via MQTT (#35)</a></strong> — sensor analog tanah &amp; cahaya</li>
+  <li><strong><a href="/artikel/esp8266-nodemcu-vs-esp32-kapan-pakai-upgrade">ESP8266 / NodeMCU vs ESP32 (#36)</a></strong> — kapan pakai board murah vs upgrade</li>
+  <li><strong><a href="/artikel/sd-card-spi-esp32-logging-data-sensor-offline">SD Card &amp; SPI logging offline (#37)</a></strong> — backup data sensor di lapangan</li>
+  <li><strong><a href="/artikel/https-sertifikat-esp32-wificlientsecure-api-rest">HTTPS &amp; sertifikat ESP32 (WiFiClientSecure) (#38)</a></strong> — REST API aman ke cloud</li>
+  <li><strong><a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Capstone Smart Greenhouse (#39)</a></strong> — multi-sensor + aktuator + dashboard MQTT</li>
 </ol>
 <p>Seri 2 resmi <strong>selesai (29/29)</strong> — indeks lengkap juga ada di <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">capstone #39</a>.</p>
 

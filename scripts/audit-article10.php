@@ -117,6 +117,42 @@ check(str_contains($body, 'setBufferSize'), 'mqttClient.setBufferSize() diset');
 check(str_contains($body, 'language-arduino'), 'Blok kode Arduino dengan highlight class');
 check(str_contains($body, 'language-bash'), 'Blok kode bash (mosquitto_sub)');
 check(str_contains($body, '<table>'), 'Ada tabel arsitektur');
+check(str_contains($body, 'figure role="img"'), 'Ada figure SVG arsitektur');
+check(str_contains($body, 'viewBox="0 0 620 380"'), 'SVG arsitektur viewBox');
+check(str_contains($body, 'Web Server :80'), 'SVG: Web Server lokal');
+check(str_contains($body, 'MQTT :1883'), 'SVG: MQTT remote');
+check(str_contains($body, 'GANTI_SSID_WIFI'), 'Placeholder SSID WiFi');
+check(str_contains($body, 'GANTI_PASSWORD_WIFI'), 'Placeholder password WiFi');
+check(! str_contains($body, 'NamaWiFiKamu'), 'Placeholder lama NamaWiFiKamu dihapus');
+check(! str_contains($body, 'PasswordWiFiKamu'), 'Placeholder lama PasswordWiFiKamu dihapus');
+check(! str_contains($body, 'KindoMQTT2026!'), 'Tidak ada password MQTT literal');
+check(str_contains($body, 'artikel web server (#6)</a>'), 'Hyperlink intro web server (#6)');
+check(str_contains($body, 'Deep sleep ESP32 + DHT22 hemat baterai (#11)</a>'), 'Hyperlink roadmap Deep Sleep (#11)');
+check(str_contains($body, 'Capstone Smart Greenhouse (#39)</a>'), 'Hyperlink Capstone (#39)');
+check(str_contains($body, 'NVS + WiFiManager (#12)</a>'), 'Hyperlink NVS (#12)');
+
+$sanitized = app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($body);
+check(str_contains($sanitized, '<svg'), 'SVG lolos sanitizer');
+check(str_contains($sanitized, 'Web Server :80'), 'Teks SVG lolos sanitizer');
+
+$plainBody = preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '';
+$plainBody = preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $plainBody) ?? '';
+$plainBody = preg_replace('/<svg\b[^>]*>.*?<\/svg>/is', '', $plainBody) ?? '';
+preg_match_all('/#\d+(?![0-9a-fA-F])/', $plainBody, $plainRefs);
+$residualPlain = array_values(array_unique($plainRefs[0] ?? []));
+$allowedPlain = ['#10']; // self-ref di indeks
+$residualPlain = array_values(array_diff($residualPlain, $allowedPlain));
+check($residualPlain === [], 'Tidak ada plain #N residual: ' . implode(', ', $residualPlain));
+
+preg_match_all('/href="\/artikel\/([^"]+)">([^<]*)<\/a>/', $body, $am, PREG_SET_ORDER);
+$bareAnchors = [];
+foreach ($am as $hit) {
+    if ($hit[1] !== '' && ! str_contains($hit[2], '#')) {
+        $bareAnchors[] = $hit[1] . '=>' . $hit[2];
+    }
+}
+check($bareAnchors === [], 'Tidak ada bare anchor: ' . implode('; ', array_slice($bareAnchors, 0, 5)));
+
 check(str_contains($body, 'rel="noopener"'), 'Link eksternal pakai rel=noopener');
 check(! str_contains($body, 'shared hosting'), 'Tidak ada istilah salah "shared hosting" di konteks ESP32');
 
