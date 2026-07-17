@@ -66,6 +66,10 @@ Route::get('/deploy/clear-cache', [DeployController::class, 'clearCache'])
     ->middleware('throttle:120,1')
     ->name('deploy.clear-cache');
 
+Route::get('/deploy/publish-article-5', [DeployController::class, 'publishArticle5'])
+    ->middleware('throttle:120,1')
+    ->name('deploy.publish-article-5');
+
 Route::get('/deploy/publish-article-6', [DeployController::class, 'publishArticle6'])
     ->middleware('throttle:120,1')
     ->name('deploy.publish-article-6');
