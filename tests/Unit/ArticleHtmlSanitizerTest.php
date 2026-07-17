@@ -63,7 +63,7 @@ class ArticleHtmlSanitizerTest extends TestCase
 <figure role="img" aria-label="Diagram test" style="margin:1rem 0">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 100" style="display:block;max-width:200px">
   <defs>
-    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="userSpaceOnUse">
       <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
     </marker>
   </defs>
@@ -81,6 +81,7 @@ HTML;
         $this->assertStringContainsString('<svg', $out);
         $this->assertStringContainsString('viewBox="0 0 200 100"', $out);
         $this->assertStringContainsString('markerWidth="8"', $out);
+        $this->assertStringContainsString('markerUnits="userSpaceOnUse"', $out);
         $this->assertStringContainsString('<rect', $out);
         $this->assertStringContainsString('<text', $out);
         $this->assertStringContainsString('ESP32', $out);
@@ -88,6 +89,36 @@ HTML;
         $this->assertStringContainsString('<figcaption', $out);
         $this->assertStringNotContainsString('<script', $out);
         $this->assertStringNotContainsString('evil()', $out);
+    }
+
+    public function test_it_keeps_pola_dasar_styles_and_svg_dasharray(): void
+    {
+        $mirror = Mockery::mock(PublicHtmlStorageMirror::class);
+        $mirror->shouldReceive('publicDiskPathFromUrl')->andReturn(null);
+        $mirror->shouldReceive('existsOnPublicDisk')->andReturn(false);
+
+        $sanitizer = new ArticleHtmlSanitizer($mirror);
+
+        $html = <<<'HTML'
+<figure style="background:#F5F5F0;border:2.5px solid #1a1a1a">
+<ol style="list-style:none;padding:0;margin:0">
+  <li style="display:flex;gap:1rem">
+    <span style="flex-shrink:0;background:#2979FF;color:#fff">1</span>
+    <div style="color:#4A5568">Langkah</div>
+  </li>
+</ol>
+</figure>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 40">
+  <line x1="10" y1="20" x2="90" y2="20" stroke="#CBD5E0" stroke-width="1.5" stroke-dasharray="5 4"/>
+</svg>
+HTML;
+
+        $out = $sanitizer->sanitize($html);
+
+        $this->assertStringContainsString('flex-shrink:0', $out);
+        $this->assertStringContainsString('list-style:none', $out);
+        $this->assertStringContainsString('display:flex', $out);
+        $this->assertStringContainsString('stroke-dasharray="5 4"', $out);
     }
 
     public function test_it_strips_dangerous_svg_style(): void

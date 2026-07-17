@@ -87,38 +87,38 @@ class Article9Seeder extends Seeder
 <figure role="img" aria-label="Diagram topologi MQTT: ESP32 publish JSON DHT22 ke broker dan subscribe perintah ON OFF untuk relay" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 360" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
-    <marker id="g9ArrO" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#FF7A2F"/></marker>
-    <marker id="g9ArrB" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
-    <marker id="g9ArrG" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2E7D32"/></marker>
+    <marker id="g9ArrO" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 Z" fill="#FF7A2F"/></marker>
+    <marker id="g9ArrB" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 Z" fill="#2979FF"/></marker>
+    <marker id="g9ArrG" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 Z" fill="#2E7D32"/></marker>
   </defs>
   <rect x="0" y="0" width="620" height="360" fill="#F5F5F0" rx="6"/>
-  <!-- ESP32 -->
-  <rect x="200" y="130" width="220" height="70" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="310" y="158" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 — satu sketch</text>
-  <text x="310" y="178" text-anchor="middle" fill="#4A5568" font-size="11">publish + subscribe</text>
-  <!-- DHT -->
+  <!-- DHT22 → ESP32 (sensor in) -->
   <rect x="30" y="20" width="180" height="55" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
   <text x="120" y="42" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">DHT22 · GPIO 4</text>
   <text x="120" y="60" text-anchor="middle" fill="#4A5568" font-size="10">suhu · kelembaban</text>
-  <line x1="160" y1="75" x2="240" y2="130" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#g9ArrG)"/>
-  <!-- Relay -->
+  <line x1="150" y1="75" x2="250" y2="128" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#g9ArrG)"/>
+  <!-- ESP32 → Relay (kontrol out) -->
   <rect x="410" y="20" width="180" height="55" rx="6" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="2.5"/>
   <text x="500" y="42" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Relay · GPIO 26</text>
   <text x="500" y="60" text-anchor="middle" fill="#4A5568" font-size="10">lampu ON/OFF</text>
-  <line x1="460" y1="75" x2="380" y2="130" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#g9ArrO)"/>
+  <line x1="370" y1="130" x2="470" y2="77" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#g9ArrO)"/>
+  <!-- ESP32 hub -->
+  <rect x="200" y="130" width="220" height="70" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="158" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">ESP32 — satu sketch</text>
+  <text x="310" y="178" text-anchor="middle" fill="#4A5568" font-size="11">publish + subscribe</text>
   <!-- Broker -->
-  <rect x="170" y="250" width="280" height="55" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
-  <text x="310" y="272" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Mosquitto · :1883</text>
-  <text x="310" y="290" text-anchor="middle" fill="#e3f2fd" font-size="10">test.mosquitto.org</text>
-  <!-- Publish arrow ESP32 → broker -->
-  <line x1="260" y1="200" x2="240" y2="248" stroke="#2979FF" stroke-width="2.5" marker-end="url(#g9ArrB)"/>
+  <rect x="170" y="260" width="280" height="55" rx="6" fill="#2979FF" stroke="#000" stroke-width="2.5"/>
+  <text x="310" y="282" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Mosquitto · :1883</text>
+  <text x="310" y="300" text-anchor="middle" fill="#e3f2fd" font-size="10">test.mosquitto.org</text>
+  <!-- PUB: ESP32 → broker (polyline terus, gap ≥24px dari SUB) -->
+  <polyline fill="none" points="250,200 250,230 230,258" stroke="#2979FF" stroke-width="2.5" marker-end="url(#g9ArrB)"/>
   <rect x="40" y="210" width="160" height="24" rx="12" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
   <text x="120" y="226" text-anchor="middle" fill="#2979FF" font-size="9" font-weight="700">PUB · .../dht22/data</text>
-  <!-- Subscribe arrow broker → ESP32 -->
-  <line x1="400" y1="250" x2="380" y2="205" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#g9ArrO)"/>
+  <!-- SUB: broker → ESP32 (polyline terus, siku bertemu) -->
+  <polyline fill="none" points="390,260 390,230 370,202" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#g9ArrO)"/>
   <rect x="420" y="210" width="170" height="24" rx="12" fill="#FFF3E8" stroke="#FF7A2F" stroke-width="1.5"/>
   <text x="505" y="226" text-anchor="middle" fill="#C45A11" font-size="9" font-weight="700">SUB · .../lampu/kontrol</text>
-  <text x="310" y="340" text-anchor="middle" fill="#4A5568" font-size="11">telemetri keluar · perintah masuk · satu broker</text>
+  <text x="310" y="345" text-anchor="middle" fill="#4A5568" font-size="11">telemetri keluar · perintah masuk · satu broker</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Publish JSON dari <a href="/artikel/membaca-sensor-dht22-suhu-kelembaban-esp32">DHT22 (#5)</a> + subscribe kontrol dari <a href="/artikel/kontrol-lampu-esp32-mqtt-relay">relay (#8)</a> — pola <a href="/artikel/memahami-mqtt-esp32-kirim-data-sensor-broker">MQTT (#7)</a>.</figcaption>
 </figure>
@@ -148,11 +148,11 @@ class Article9Seeder extends Seeder
 <figure role="img" aria-label="Diagram wiring ESP32 ke DHT22 GPIO 4 dan relay GPIO 26" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 380" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
-    <marker id="w9R" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#C62828"/></marker>
-    <marker id="w9K" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#1a1a1a"/></marker>
-    <marker id="w9O" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#FF7A2F"/></marker>
-    <marker id="w9P" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#7B1FA2"/></marker>
-    <marker id="w9V" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#E65100"/></marker>
+    <marker id="w9R" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#C62828"/></marker>
+    <marker id="w9K" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#1a1a1a"/></marker>
+    <marker id="w9O" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#FF7A2F"/></marker>
+    <marker id="w9P" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7B1FA2"/></marker>
+    <marker id="w9V" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#E65100"/></marker>
   </defs>
   <rect x="0" y="0" width="620" height="380" fill="#F5F5F0" rx="6"/>
   <!-- ESP32 -->
@@ -190,16 +190,19 @@ class Article9Seeder extends Seeder
   <text x="430" y="310" fill="#1a1a1a" font-size="11" font-weight="600">GND</text>
   <circle cx="415" cy="330" r="5" fill="#7B1FA2"/>
   <text x="430" y="335" fill="#1a1a1a" font-size="11" font-weight="600">IN</text>
-  <!-- Wires DHT -->
-  <line x1="180" y1="95" x2="410" y2="110" stroke="#C62828" stroke-width="2.5" marker-end="url(#w9R)"/>
-  <line x1="180" y1="165" x2="410" y2="140" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#w9K)"/>
-  <line x1="180" y1="210" x2="410" y2="170" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#w9O)"/>
-  <!-- Wires Relay -->
-  <line x1="180" y1="130" x2="410" y2="280" stroke="#E65100" stroke-width="2.5" marker-end="url(#w9V)"/>
-  <line x1="180" y1="165" x2="250" y2="165" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="250" y1="165" x2="250" y2="305" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="250" y1="305" x2="410" y2="305" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#w9K)"/>
-  <line x1="180" y1="265" x2="410" y2="330" stroke="#7B1FA2" stroke-width="2.5" marker-end="url(#w9P)"/>
+  <!-- 3.3V → DHT VCC -->
+  <polyline fill="none" points="180,95 300,95 300,110 410,110" stroke="#C62828" stroke-width="2.5" marker-end="url(#w9R)"/>
+  <!-- 5V → Relay VCC (ortogonal, tidak silang GND) -->
+  <polyline fill="none" points="180,130 240,130 240,280 410,280" stroke="#E65100" stroke-width="2.5" marker-end="url(#w9V)"/>
+  <!-- GND common: bus + cabang ke DHT & Relay, junction bertemu -->
+  <polyline fill="none" points="180,165 320,165" stroke="#1a1a1a" stroke-width="2.5"/>
+  <circle cx="320" cy="165" r="4" fill="#1a1a1a"/>
+  <polyline fill="none" points="320,165 320,140 410,140" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#w9K)"/>
+  <polyline fill="none" points="320,165 320,305 410,305" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#w9K)"/>
+  <!-- GPIO 4 → DATA -->
+  <polyline fill="none" points="180,210 360,210 360,170 410,170" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#w9O)"/>
+  <!-- GPIO 26 → IN -->
+  <polyline fill="none" points="180,265 360,265 360,330 410,330" stroke="#7B1FA2" stroke-width="2.5" marker-end="url(#w9P)"/>
   <!-- Legend -->
   <text x="20" y="340" fill="#4A5568" font-size="10">3.3V→DHT VCC · 5V→Relay VCC · GPIO4→DATA · GPIO26→IN · GND common</text>
   <text x="20" y="360" fill="#4A5568" font-size="10">Pull-up 10kΩ DATA→3.3V (modul breakout biasanya sudah ada)</text>
