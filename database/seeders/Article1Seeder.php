@@ -72,42 +72,43 @@ class Article1Seeder extends Seeder
   <li><strong>Tegangan operasi:</strong> 2.2V – 3.6V</li>
 </ul>
 
-<figure role="img" aria-label="Diagram ringkasan ESP32: WiFi, Bluetooth, GPIO, dan dual-core mengelilingi chip ESP32 di tengah" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 360" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<figure role="img" aria-label="Diagram ringkasan ESP32: WiFi, Bluetooth, GPIO, dan dual-core terintegrasi di satu SoC" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 380" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="a1G" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2E7D32"/></marker>
     <marker id="a1B" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2979FF"/></marker>
     <marker id="a1O" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#FF7A2F"/></marker>
     <marker id="a1P" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#7B1FA2"/></marker>
   </defs>
-  <rect x="0" y="0" width="620" height="360" fill="#F5F5F0" rx="6"/>
-  <rect x="230" y="130" width="160" height="100" rx="8" fill="#E8F4FF" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="310" y="165" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">ESP32</text>
-  <text x="310" y="188" text-anchor="middle" fill="#4A5568" font-size="11">SoC · 240 MHz</text>
-  <text x="310" y="208" text-anchor="middle" fill="#4A5568" font-size="10">520 KB SRAM · 4 MB Flash</text>
-  <rect x="250" y="50" width="120" height="52" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="310" y="72" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">WiFi</text>
-  <text x="310" y="90" text-anchor="middle" fill="#4A5568" font-size="10">802.11 b/g/n</text>
-  <line x1="310" y1="102" x2="310" y2="128" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#a1G)"/>
-  <text x="338" y="118" fill="#2E7D32" font-size="10" font-weight="600">2.4 GHz</text>
-  <rect x="430" y="154" width="120" height="52" rx="6" fill="#E3F2FD" stroke="#2979FF" stroke-width="2.5"/>
-  <text x="490" y="176" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Bluetooth</text>
-  <text x="490" y="194" text-anchor="middle" fill="#4A5568" font-size="10">Classic + BLE</text>
-  <line x1="430" y1="180" x2="392" y2="180" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a1B)"/>
-  <text x="404" y="168" fill="#2979FF" font-size="10" font-weight="600">v4.2</text>
-  <rect x="250" y="258" width="120" height="52" rx="6" fill="#FFF3E0" stroke="#FF7A2F" stroke-width="2.5"/>
-  <text x="310" y="280" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">GPIO</text>
-  <text x="310" y="298" text-anchor="middle" fill="#4A5568" font-size="10">34 pin · ADC/DAC</text>
-  <line x1="310" y1="258" x2="310" y2="232" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#a1O)"/>
-  <text x="338" y="248" fill="#FF7A2F" font-size="10" font-weight="600">sensor/relay</text>
-  <rect x="70" y="154" width="120" height="52" rx="6" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2.5"/>
-  <text x="130" y="172" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Dual-core</text>
-  <text x="130" y="190" text-anchor="middle" fill="#4A5568" font-size="10">Xtensa LX6 ×2</text>
-  <line x1="190" y1="180" x2="228" y2="180" stroke="#7B1FA2" stroke-width="2.5" marker-end="url(#a1P)"/>
-  <text x="196" y="168" fill="#7B1FA2" font-size="10" font-weight="600">paralel</text>
-  <text x="310" y="340" text-anchor="middle" fill="#4A5568" font-size="11">Satu chip: konektivitas + I/O + pemrosesan — fondasi Seri 1 IoT</text>
+  <rect x="0" y="0" width="620" height="380" fill="#F5F5F0" rx="6"/>
+  <!-- Center SoC -->
+  <rect x="220" y="145" width="180" height="90" rx="8" fill="#E8F4FF" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="310" y="175" text-anchor="middle" fill="#1a1a1a" font-size="16" font-weight="700">ESP32</text>
+  <text x="310" y="198" text-anchor="middle" fill="#4A5568" font-size="11">SoC · 240 MHz</text>
+  <text x="310" y="216" text-anchor="middle" fill="#4A5568" font-size="10">520 KB SRAM · 4 MB Flash</text>
+  <!-- WiFi atas — panah keluar dari chip -->
+  <line x1="310" y1="145" x2="310" y2="108" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#a1G)"/>
+  <rect x="235" y="28" width="150" height="58" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="310" y="50" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">WiFi</text>
+  <text x="310" y="70" text-anchor="middle" fill="#4A5568" font-size="10">802.11 b/g/n · 2.4 GHz</text>
+  <!-- Bluetooth kanan -->
+  <line x1="400" y1="190" x2="442" y2="190" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a1B)"/>
+  <rect x="454" y="162" width="140" height="56" rx="6" fill="#E3F2FD" stroke="#2979FF" stroke-width="2.5"/>
+  <text x="524" y="186" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Bluetooth</text>
+  <text x="524" y="204" text-anchor="middle" fill="#4A5568" font-size="10">Classic + BLE · v4.2</text>
+  <!-- GPIO bawah -->
+  <line x1="310" y1="235" x2="310" y2="272" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#a1O)"/>
+  <rect x="235" y="284" width="150" height="56" rx="6" fill="#FFF3E0" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="310" y="308" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">GPIO</text>
+  <text x="310" y="326" text-anchor="middle" fill="#4A5568" font-size="10">34 pin · ADC/DAC · sensor</text>
+  <!-- Dual-core kiri -->
+  <line x1="220" y1="190" x2="178" y2="190" stroke="#7B1FA2" stroke-width="2.5" marker-end="url(#a1P)"/>
+  <rect x="26" y="162" width="140" height="56" rx="6" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2.5"/>
+  <text x="96" y="186" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">Dual-core</text>
+  <text x="96" y="204" text-anchor="middle" fill="#4A5568" font-size="10">Xtensa LX6 ×2 · paralel</text>
+  <text x="310" y="362" text-anchor="middle" fill="#4A5568" font-size="11">Satu chip: konektivitas + I/O + pemrosesan — fondasi Seri 1 IoT</text>
 </svg>
-<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Ringkasan kemampuan ESP32: WiFi, Bluetooth, GPIO, dan dual-core terintegrasi dalam satu SoC.</figcaption>
+<figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">ESP32 mengintegrasikan WiFi, Bluetooth, GPIO, dan dual-core dalam satu SoC — lanjut setup di <a href="/artikel/cara-install-arduino-ide-setup-esp32-board-manager">Arduino IDE (#2)</a>.</figcaption>
 </figure>
 
 <h2>Mengapa Memilih ESP32?</h2>
