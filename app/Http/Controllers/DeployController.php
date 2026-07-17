@@ -2329,6 +2329,65 @@ class DeployController extends Controller
         return response('Article 39 published', 200);
     }
 
+    public function publishArticle40(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! class_exists(\Database\Seeders\Article40Seeder::class)) {
+            return response('Article40Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 40 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article40Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 40 seed failed', 500);
+        }
+
+        $slug = 'mengenal-oop-cara-berpikir-dengan-objek-python';
+
+        $published = Article::published()
+            ->where('slug', $slug)
+            ->exists();
+
+        if (! $published) {
+            report(new \RuntimeException('Article 40 missing or not visible after Article40Seeder on deploy hook.'));
+
+            return response('Article 40 seed incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 40 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

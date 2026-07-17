@@ -726,6 +726,17 @@ jobs:
           echo "Article 39 HTTP status: $code"
           test "$code" = "200"
 
+      - name: Publish article 40 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-40")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/mengenal-oop-cara-berpikir-dengan-objek-python")
+          echo "Article 40 HTTP status: $code"
+          test "$code" = "200"
+
       - name: Patch article 39 formatting via deploy hook (idempotent)
         continue-on-error: true
         run: |
