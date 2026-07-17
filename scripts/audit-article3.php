@@ -53,7 +53,11 @@ foreach ($requiredLinks as $linkSlug => $label) {
 
 check(substr_count($body, 'figure role="img"') >= 2, 'Ada 2 figure SVG');
 check(str_contains($body, 'viewBox="0 0 620 300"'), 'SVG wiring viewBox');
-check(str_contains($body, 'viewBox="0 0 620 280"'), 'SVG alur viewBox');
+check(substr_count($body, 'viewBox="0 0 620 300"') >= 2, 'SVG alur viewBox 620x300');
+check(str_contains($body, 'kembali ke GND'), 'SVG wiring: return ke GND ESP32');
+check(! str_contains($body, 'rect x="490" y="60"'), 'SVG wiring: tanpa kotak GND mengambang');
+check(str_contains($body, 'points="403,80 403,105 90,105 90,125"'), 'SVG alur: masuk loop ke HIGH');
+check(str_contains($body, 'ulang loop() selamanya'), 'SVG alur: label ulang loop');
 check(str_contains($body, 'id="w3O"'), 'Marker wiring w3O');
 check(str_contains($body, 'id="a3B"'), 'Marker alur a3B');
 check(str_contains($body, 'markerUnits="userSpaceOnUse"'), 'markerUnits userSpaceOnUse');

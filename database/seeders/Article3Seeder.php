@@ -76,26 +76,29 @@ class Article3Seeder extends Seeder
     <marker id="w3K" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#1a1a1a"/></marker>
   </defs>
   <rect x="0" y="0" width="620" height="300" fill="#F5F5F0" rx="6"/>
-  <rect x="30" y="60" width="150" height="180" rx="6" fill="#E8F4FF" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="105" y="88" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">ESP32 DevKit</text>
-  <text x="105" y="108" text-anchor="middle" fill="#4A5568" font-size="10">built-in LED sering GPIO 2</text>
-  <circle cx="165" cy="150" r="5" fill="#FF7A2F"/>
-  <text x="150" y="145" text-anchor="end" fill="#1a1a1a" font-size="11" font-weight="600">GPIO 2</text>
-  <circle cx="165" cy="210" r="5" fill="#1a1a1a"/>
-  <text x="150" y="215" text-anchor="end" fill="#1a1a1a" font-size="11" font-weight="600">GND</text>
-  <rect x="280" y="120" width="50" height="60" rx="4" fill="#FFEB3B" stroke="#F9A825" stroke-width="2"/>
-  <text x="305" y="155" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">LED</text>
-  <rect x="380" y="135" width="70" height="30" rx="4" fill="#FFF8E7" stroke="#FF7A2F" stroke-width="2"/>
-  <text x="415" y="155" text-anchor="middle" fill="#1a1a1a" font-size="10" font-weight="700">220 Ω</text>
-  <rect x="490" y="60" width="100" height="40" rx="4" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="540" y="85" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">GND</text>
-  <polyline fill="none" points="170,150 240,150 240,150 275,150" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#w3O)"/>
-  <text x="218" y="140" fill="#FF7A2F" font-size="10" font-weight="600">anoda (+)</text>
-  <polyline fill="none" points="330,150 375,150 375,150 410,150" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#w3G)"/>
-  <text x="352" y="140" fill="#2E7D32" font-size="10" font-weight="600">220Ω</text>
-  <polyline fill="none" points="450,150 470,150 470,210 170,210" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#w3K)"/>
-  <text x="480" y="175" fill="#1a1a1a" font-size="10" font-weight="600">katoda → GND</text>
-  <text x="30" y="270" fill="#4A5568" font-size="10">GPIO2 → LED (+) → resistor 220Ω → GND · Hindari GPIO strapping saat boot (0, 12, 15)</text>
+  <!-- ESP32 -->
+  <rect x="30" y="50" width="160" height="190" rx="6" fill="#E8F4FF" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="110" y="78" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">ESP32 DevKit</text>
+  <text x="110" y="98" text-anchor="middle" fill="#4A5568" font-size="10">built-in LED sering GPIO 2</text>
+  <circle cx="175" cy="140" r="5" fill="#FF7A2F"/>
+  <text x="160" y="135" text-anchor="end" fill="#1a1a1a" font-size="11" font-weight="600">GPIO 2</text>
+  <circle cx="175" cy="200" r="5" fill="#1a1a1a"/>
+  <text x="160" y="205" text-anchor="end" fill="#1a1a1a" font-size="11" font-weight="600">GND</text>
+  <!-- LED -->
+  <rect x="280" y="110" width="70" height="70" rx="6" fill="#FFEB3B" stroke="#F9A825" stroke-width="2.5"/>
+  <text x="315" y="140" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">LED</text>
+  <text x="315" y="158" text-anchor="middle" fill="#4A5568" font-size="9">+ anoda / − katoda</text>
+  <!-- Resistor -->
+  <rect x="430" y="125" width="90" height="40" rx="6" fill="#FFF8E7" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="475" y="150" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">220 Ω</text>
+  <!-- Wires: GPIO2 → LED → 220Ω → kembali ke GND ESP32 -->
+  <polyline fill="none" points="180,140 250,140 250,145 275,145" stroke="#FF7A2F" stroke-width="2.5" marker-end="url(#w3O)"/>
+  <text x="210" y="128" fill="#FF7A2F" font-size="10" font-weight="600">anoda (+)</text>
+  <polyline fill="none" points="350,145 390,145 390,145 425,145" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#w3G)"/>
+  <text x="375" y="128" fill="#2E7D32" font-size="10" font-weight="600">katoda (−)</text>
+  <polyline fill="none" points="520,145 550,145 550,200 180,200" stroke="#1a1a1a" stroke-width="2.5" marker-end="url(#w3K)"/>
+  <text x="430" y="188" fill="#1a1a1a" font-size="10" font-weight="600">kembali ke GND</text>
+  <text x="30" y="270" fill="#4A5568" font-size="10">GPIO2 → LED (+) → resistor 220Ω → GND ESP32 · Hindari GPIO strapping boot (0, 12, 15)</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Wiring LED eksternal: GPIO 2 → anoda LED → resistor 220Ω → GND. Built-in LED DevKit sering sudah di GPIO 2.</figcaption>
 </figure>
@@ -131,37 +134,43 @@ void loop() {
 <p>Sketch Arduino ESP32 mengikuti pola <code>setup()</code> sekali, lalu <code>loop()</code> berulang:</p>
 
 <figure role="img" aria-label="Diagram alur setup dan loop: HIGH delay LOW delay berulang" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 280" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 300" style="display:block;max-width:620px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
   <defs>
     <marker id="a3B" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2979FF"/></marker>
     <marker id="a3G" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#2E7D32"/></marker>
     <marker id="a3R" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L9,4.5 L0,9 Z" fill="#C62828"/></marker>
   </defs>
-  <rect x="0" y="0" width="620" height="280" fill="#F5F5F0" rx="6"/>
-  <rect x="40" y="40" width="120" height="50" rx="6" fill="#E8F4FF" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="100" y="70" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">setup()</text>
-  <text x="100" y="82" text-anchor="middle" fill="#4A5568" font-size="9">sekali saat boot</text>
-  <line x1="160" y1="65" x2="188" y2="65" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a3B)"/>
-  <rect x="194" y="40" width="110" height="50" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="249" y="70" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">pinMode OUTPUT</text>
-  <line x1="304" y1="65" x2="332" y2="65" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a3B)"/>
-  <rect x="338" y="40" width="110" height="50" rx="6" fill="#FFF8E7" stroke="#FF7A2F" stroke-width="2.5"/>
-  <text x="393" y="70" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Serial.begin</text>
-  <line x1="448" y1="65" x2="476" y2="120" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a3B)"/>
-  <text x="458" y="95" fill="#2979FF" font-size="10" font-weight="600">masuk loop</text>
-  <rect x="40" y="130" width="100" height="44" rx="6" fill="#FFEB3B" stroke="#F9A825" stroke-width="2"/>
-  <text x="90" y="157" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">HIGH</text>
-  <line x1="140" y1="152" x2="168" y2="152" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#a3G)"/>
-  <rect x="174" y="130" width="90" height="44" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="219" y="157" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">delay(1000)</text>
-  <line x1="264" y1="152" x2="292" y2="152" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#a3G)"/>
-  <rect x="298" y="130" width="100" height="44" rx="6" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
-  <text x="348" y="157" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">LOW</text>
-  <line x1="398" y1="152" x2="426" y2="152" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#a3G)"/>
-  <rect x="432" y="130" width="90" height="44" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="477" y="157" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">delay(1000)</text>
-  <path fill="none" d="M 522 152 Q 560 152 560 200 Q 560 240 90 240 Q 40 240 40 178" stroke="#C62828" stroke-width="2.5" marker-end="url(#a3R)"/>
-  <text x="310" y="230" text-anchor="middle" fill="#C62828" font-size="10" font-weight="600">ulang loop() selamanya</text>
+  <rect x="0" y="0" width="620" height="300" fill="#F5F5F0" rx="6"/>
+  <!-- setup row -->
+  <rect x="40" y="30" width="120" height="50" rx="6" fill="#E8F4FF" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="100" y="52" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">setup()</text>
+  <text x="100" y="68" text-anchor="middle" fill="#4A5568" font-size="9">sekali saat boot</text>
+  <line x1="160" y1="55" x2="188" y2="55" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a3B)"/>
+  <rect x="194" y="30" width="120" height="50" rx="6" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="254" y="60" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">pinMode OUTPUT</text>
+  <line x1="314" y1="55" x2="342" y2="55" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a3B)"/>
+  <rect x="348" y="30" width="110" height="50" rx="6" fill="#FFF8E7" stroke="#FF7A2F" stroke-width="2.5"/>
+  <text x="403" y="60" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">Serial.begin</text>
+  <!-- masuk loop: turun lalu ke kiri ke HIGH -->
+  <polyline fill="none" points="403,80 403,105 90,105 90,125" stroke="#2979FF" stroke-width="2.5" marker-end="url(#a3B)"/>
+  <rect x="250" y="92" width="90" height="22" rx="11" fill="#E8F4FF" stroke="#2979FF" stroke-width="1.5"/>
+  <text x="295" y="107" text-anchor="middle" fill="#2979FF" font-size="10" font-weight="700">masuk loop</text>
+  <!-- loop row -->
+  <rect x="40" y="140" width="100" height="44" rx="6" fill="#FFEB3B" stroke="#F9A825" stroke-width="2.5"/>
+  <text x="90" y="167" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">HIGH</text>
+  <line x1="140" y1="162" x2="168" y2="162" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#a3G)"/>
+  <rect x="174" y="140" width="100" height="44" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="224" y="167" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">delay(1000)</text>
+  <line x1="274" y1="162" x2="302" y2="162" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#a3G)"/>
+  <rect x="308" y="140" width="100" height="44" rx="6" fill="#FFCDD2" stroke="#C62828" stroke-width="2.5"/>
+  <text x="358" y="167" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">LOW</text>
+  <line x1="408" y1="162" x2="436" y2="162" stroke="#2E7D32" stroke-width="2.5" marker-end="url(#a3G)"/>
+  <rect x="442" y="140" width="100" height="44" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="492" y="167" text-anchor="middle" fill="#1a1a1a" font-size="11" font-weight="700">delay(1000)</text>
+  <!-- ulang ke HIGH -->
+  <polyline fill="none" points="542,162 570,162 570,230 90,230 90,190" stroke="#C62828" stroke-width="2.5" marker-end="url(#a3R)"/>
+  <text x="330" y="250" text-anchor="middle" fill="#C62828" font-size="10" font-weight="600">ulang loop() selamanya</text>
+  <text x="310" y="285" text-anchor="middle" fill="#4A5568" font-size="10">setup() sekali → loop() HIGH → delay → LOW → delay → ulang</text>
 </svg>
 <figcaption style="margin-top:.75rem;font-size:.875rem;color:#4A5568;text-align:center">Alur: setup() sekali, lalu loop() HIGH → delay → LOW → delay berulang.</figcaption>
 </figure>
