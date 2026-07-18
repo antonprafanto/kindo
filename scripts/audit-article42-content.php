@@ -51,7 +51,7 @@ check(! str_contains($body, 'dipinjam'), 'State konsisten: tidak pakai dipinjam 
 check(str_contains($body, 'class Buku:') && str_contains($body, 'def pinjam_untuk(self'), 'pinjam_untuk lengkap dalam class');
 check(str_contains($body, 'self.riwayat = []') || str_contains($body, 'Jebakan klasik'), 'Peringatan list bersama di class');
 check(str_contains($body, 'BukuSalah') && str_contains($body, 'BukuBenar'), 'Demo SALAH/BENAR list class bersama');
-check(str_contains($body, '6/10 artikel live'), 'Progress 6/10 live');
+check(str_contains($body, '7/10 artikel live'), 'Progress 7/10 live');
 check(str_contains($body, '/artikel/encapsulation-property-python-oop'), 'Forward link #42→#43');
 check(str_contains($body, '(#43)'), 'Anchor (#43) di forward link');
 check(substr_count($body, '<pre') >= 6, 'Minimal 6 blok kode (termasuk demo list bersama)');

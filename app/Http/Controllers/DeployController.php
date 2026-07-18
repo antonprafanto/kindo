@@ -2738,6 +2738,76 @@ class DeployController extends Controller
         return response('Article 45 published', 200);
     }
 
+    public function publishArticle46(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        $seederPath = base_path('database/seeders/Article46Seeder.php');
+        clearstatcache(true, $seederPath);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($seederPath, true);
+        }
+
+        if (! class_exists(\Database\Seeders\Article46Seeder::class)) {
+            return response('Article46Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 46 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article46Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 46 seed failed', 500);
+        }
+
+        $slug = 'abstraction-abc-python-oop';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 46 missing or not visible after Article46Seeder on deploy hook.'));
+
+            return response('Article 46 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop46Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'class Pinjaman') || ! str_contains($body, 'BukuFisik') || ! str_contains($body, 'EbookLisensi') || ! str_contains($body, 'BukuBelumSiap') || ! str_contains($body, 'EntriDuck') || ! str_contains($body, 'kontrak_pinjaman.py') || ! str_contains($body, 'abstractmethod')) {
+            report(new \RuntimeException('Article 46 body missing expected content after seed.'));
+
+            return response('Article 46 body content checks failed', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 46 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

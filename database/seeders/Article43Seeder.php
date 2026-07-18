@@ -436,7 +436,7 @@ print("set stok:", a.stok)
 <p>Lanjut ke <a href="/artikel/inheritance-pewarisan-class-python">Inheritance &amp; <code>super()</code> (#44)</a>: class <code>Ebook(Buku)</code>, <code>super().__init__</code>, dan override method tanpa menduplikasi kode.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 6/10 artikel live. Kamu di langkah <strong>#43 (ini)</strong>. Prasyarat: <a href="/artikel/attribute-method-constructor-init-python">#42</a> · <a href="/artikel/class-dan-object-pertama-python">#41</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">#40</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 7/10 artikel live. Kamu di langkah <strong>#43 (ini)</strong>. Prasyarat: <a href="/artikel/attribute-method-constructor-init-python">#42</a> · <a href="/artikel/class-dan-object-pertama-python">#41</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">#40</a>.</p>
 </blockquote>
 HTML;
     }

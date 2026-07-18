@@ -243,7 +243,7 @@ print(koleksi[0].info())
 </code></pre>
 
 <blockquote>
-  <p><strong>Ingat:</strong> duck typing fleksibel, tapi error muncul saat runtime jika method hilang (<code>AttributeError</code>). Untuk kontrak ketat antar banyak class, nanti kita lihat Abstraction / ABC.</p>
+  <p><strong>Ingat:</strong> duck typing fleksibel, tapi error muncul saat runtime jika method hilang (<code>AttributeError</code>). Untuk kontrak ketat antar banyak class, lihat <a href="/artikel/abstraction-abc-python-oop">Abstraction &amp; ABC (#46)</a>.</p>
 </blockquote>
 
 <h2>isinstance — kapan boleh, kapan berlebihan</h2>
@@ -475,15 +475,15 @@ type(katalog) is Buku: False
 <p><strong>Kapan <code>isinstance</code> masih boleh?</strong><br>Saat ada aksi yang memang khas satu tipe dan belum layak digabung ke antarmuka bersama.</p>
 <p><strong>Apakah <code>type(x) is Buku</code> sama dengan <code>isinstance</code>?</strong><br>Tidak. <code>type(x) is Buku</code> menolak anak class. Untuk “adalah Buku atau turunannya”, pakai <code>isinstance</code> — detailnya sudah muncul di <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a>.</p>
 <p><strong>Kenapa <code>isinstance(ebook, Buku)</code> True?</strong><br>Karena pewarisan: ebook <em>adalah</em> Buku. Itu kekuatan polymorphism — dan sekaligus alasan hutan <code>isinstance</code> mudah salah urutan.</p>
-<p><strong>Bagaimana memaksa semua class punya method tertentu?</strong><br>Itu ranah Abstraction / ABC — artikel berikutnya.</p>
+<p><strong>Bagaimana memaksa semua class punya method tertentu?</strong><br>Itu ranah <a href="/artikel/abstraction-abc-python-oop">Abstraction &amp; ABC (#46)</a>.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Polymorphism membuat pemanggil tetap sederhana: panggil antarmuka bersama, biarkan tiap class menjawab dengan caranya. Hindari hutan <code>isinstance</code>; cadangkan untuk pengecualian yang benar-benar khas.</p>
 <p>Artikel ini adalah <strong>#45 (ini)</strong> — langkah keenam Seri 3 setelah <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a>.</p>
-<p>Lanjut ke artikel berikutnya — <strong>Abstraction &amp; ABC</strong>: kontrak class abstract supaya subclass wajib mengimplementasikan method tertentu. (Belum di-hyperlink sampai artikel itu live.)</p>
+<p>Lanjut ke <a href="/artikel/abstraction-abc-python-oop">Abstraction &amp; ABC (#46)</a>: kontrak class abstract supaya subclass wajib mengimplementasikan method tertentu.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 6/10 artikel live. Kamu di langkah <strong>#45 (ini)</strong>. Prasyarat: <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 7/10 artikel live. Kamu di langkah <strong>#45 (ini)</strong>. Prasyarat: <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/abstraction-abc-python-oop">Abstraction (#46)</a>.</p>
 </blockquote>
 HTML;
     }

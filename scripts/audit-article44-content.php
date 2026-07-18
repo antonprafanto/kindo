@@ -66,7 +66,7 @@ $svgPos = strpos($body, 'oop44Arrow');
 check($overridePos !== false && $svgPos !== false && $svgPos > $overridePos, 'SVG setelah override');
 check(str_contains($body, '/artikel/polymorphism-python-oop'), 'Hardlink #44→#45');
 check(str_contains($body, 'Polymorphism'), 'Teaser/link Polymorphism');
-check(str_contains($body, '6/10 artikel live'), 'Progress 6/10 live');
+check(str_contains($body, '7/10 artikel live'), 'Progress 7/10 live');
 check(substr_count($body, 'language-python') >= 5, 'Minimal 5 blok language-python');
 check(str_contains($src, "'is_featured'") && str_contains($src, 'false'), 'is_featured false');
 check(! preg_match("/'cover_image'\s*=>/", $src), 'Cover tidak di-overwrite');

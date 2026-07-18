@@ -79,7 +79,7 @@ check(str_contains($body, 'self._stok'), 'Attribute internal _stok');
 check(str_contains($body, 'name-mangling') || str_contains($body, '_Buku__'), 'Bahas name-mangling');
 check(str_contains($body, 'RecursionError'), 'Bahas RecursionError property');
 check(str_contains($body, 'BukuSalah') && str_contains($body, 'BukuBenar'), 'Demo RecursionError SALAH/BENAR');
-check(str_contains($body, '6/10 artikel live'), 'Progress 6/10 live');
+check(str_contains($body, '7/10 artikel live'), 'Progress 7/10 live');
 check(str_contains($body, 'def pinjam(self)'), 'Method pinjam(self)');
 check(str_contains($body, 'self.stok -= 1') && (str_contains($body, 'lewat property') || str_contains($body, 'juga lewat property')), 'Jelaskan self.stok -= 1 lewat property');
 check(strpos($body, '@setter — validasi') < strpos($body, 'oop43Arrow'), 'Diagram SVG setelah section @setter');

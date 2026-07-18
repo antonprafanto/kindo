@@ -101,7 +101,7 @@ check(str_contains($body, 'Seri 3'), 'Menyebut Seri 3');
 check(str_contains($body, 'language-python'), 'Blok language-python');
 check(str_contains($body, 'Polymorphism'), 'Teaser Polymorphism');
 check(str_contains($body, '/artikel/polymorphism-python-oop'), 'Hardlink slug #45');
-check(str_contains($body, '6/10 artikel live'), 'Progress 6/10 live');
+check(str_contains($body, '7/10 artikel live'), 'Progress 7/10 live');
 check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
 
