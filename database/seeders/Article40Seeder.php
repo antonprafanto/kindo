@@ -185,17 +185,17 @@ print(buku_b.info())
     <tr>
       <td><strong>Encapsulation</strong></td>
       <td>Sembunyikan detail; tampilkan antarmuka yang aman.</td>
-      <td>Artikel Encapsulation (menyusul)</td>
+      <td><a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a></td>
     </tr>
     <tr>
       <td><strong>Inheritance</strong></td>
       <td>Class anak mewarisi perilaku class induk.</td>
-      <td>Artikel Inheritance (menyusul)</td>
+      <td><a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a></td>
     </tr>
     <tr>
       <td><strong>Polymorphism</strong></td>
       <td>Satu cara panggil, banyak bentuk perilaku.</td>
-      <td>Artikel Polymorphism (menyusul)</td>
+      <td><a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a></td>
     </tr>
     <tr>
       <td><strong>Abstraction</strong></td>
@@ -266,7 +266,7 @@ print(buku_b.info())
   <li><a href="/artikel/attribute-method-constructor-init-python">Attribute, method, dan constructor <code>__init__</code> (#42)</a></li>
   <li><a href="/artikel/encapsulation-property-python-oop">Encapsulation &amp; <code>@property</code> (#43)</a></li>
   <li><a href="/artikel/inheritance-pewarisan-class-python">Inheritance &amp; <code>super()</code> (#44)</a></li>
-  <li>Polymorphism</li>
+  <li><a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a></li>
   <li>Abstraction &amp; ABC</li>
   <li>Composition vs inheritance</li>
   <li>Special methods &amp; dataclass</li>
@@ -291,7 +291,7 @@ print(buku_b.info())
 <p>Lanjut ke <a href="/artikel/class-dan-object-pertama-python">Class dan Object Pertama di Python (#41)</a>: kita menulis <code>class Buku</code> dari nol, membuat beberapa instance, dan melihat identitas tiap object.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 5/10 artikel live (#40–#44). Lanjut <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a>. Capstone: sistem perpustakaan mini.</p>
+  <p><strong>Seri 3 progress:</strong> 6/10 artikel live (#40–#45). Lanjut <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a>. Capstone: sistem perpustakaan mini.</p>
 </blockquote>
 HTML;
     }

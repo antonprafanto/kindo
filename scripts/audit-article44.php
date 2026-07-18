@@ -100,14 +100,14 @@ check(str_contains($body, 'Kesalahan umum'), 'Ada Kesalahan umum');
 check(str_contains($body, 'Seri 3'), 'Menyebut Seri 3');
 check(str_contains($body, 'language-python'), 'Blok language-python');
 check(str_contains($body, 'Polymorphism'), 'Teaser Polymorphism');
-check(str_contains($body, '5/10 artikel live'), 'Progress 5/10 live');
+check(str_contains($body, '/artikel/polymorphism-python-oop'), 'Hardlink slug #45');
+check(str_contains($body, '6/10 artikel live'), 'Progress 6/10 live');
 check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(! preg_match('/(?<![\w\/"#>])#(?:4[5-9]|[5-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #45+ di luar link');
+check(! preg_match('/(?<![\w\/"#>])#(?:4[6-9]|[5-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #46+ di luar link');
 check(! preg_match('/#44(?!\s*\(ini\))/', $plain), 'Tidak ada plain #44 selain #44 (ini)');
-check(! str_contains($body, '/artikel/polymorphism-python-oop'), 'Tidak hardlink slug #45');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');

@@ -2715,7 +2715,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'oop45Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'KatalogEntry') || ! str_contains($body, 'cetak_benar') || ! str_contains($body, 'for item in koleksi')) {
+        if (! str_contains($body, 'oop45Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'KatalogEntry') || ! str_contains($body, 'cetak_benar') || ! str_contains($body, 'for item in koleksi') || ! str_contains($body, 'cek tipe anak') || ! str_contains($body, 'tipe object yang sebenarnya')) {
             report(new \RuntimeException('Article 45 body missing expected content after seed.'));
 
             return response('Article 45 body content checks failed', 500);

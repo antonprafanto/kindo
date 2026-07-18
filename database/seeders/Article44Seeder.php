@@ -393,7 +393,7 @@ type(e) is Buku: False
 <ol>
   <li>Buat <code>class Audiobook(Buku)</code> dengan attribute <code>durasi_menit</code>. Override <code>info()</code> supaya menampilkan durasi.</li>
   <li>Di <code>Ebook.__init__</code>, sengaja hapus <code>super().__init__</code> sebentar — amati error, lalu kembalikan.</li>
-  <li>Buat list <code>[b, e]</code> dan cetak <code>item.info()</code> untuk tiap item. (Ini cuplikan Polymorphism — dibahas penuh di artikel berikutnya.)</li>
+  <li>Buat list <code>[b, e]</code> dan cetak <code>item.info()</code> untuk tiap item. (Cuplikan — lihat <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a>.)</li>
 </ol>
 
 <h2>FAQ singkat</h2>
@@ -407,10 +407,10 @@ type(e) is Buku: False
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Inheritance memakai hubungan “adalah-sejenis”: anak mewarisi induk, mengisi state lewat <code>super().__init__</code>, dan meng-override method bila perlu. Kamu menghindari copy-paste sekaligus menjaga satu tempat untuk aturan bersama.</p>
 <p>Artikel ini adalah <strong>#44 (ini)</strong> — langkah kelima Seri 3 setelah <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a>.</p>
-<p>Lanjut ke artikel berikutnya — <strong>Polymorphism</strong>: daftar campuran <code>Buku</code> / <code>Ebook</code> diproses lewat interface yang sama, plus kapan <code>isinstance</code> boleh dipakai. (Belum di-hyperlink sampai artikel itu live.)</p>
+<p>Lanjut ke <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a>: daftar campuran <code>Buku</code> / <code>Ebook</code> diproses lewat interface yang sama, plus kapan <code>isinstance</code> boleh dipakai.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 5/10 artikel live. Kamu di langkah <strong>#44 (ini)</strong>. Prasyarat: <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 6/10 artikel live. Kamu di langkah <strong>#44 (ini)</strong>. Prasyarat: <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
 </blockquote>
 HTML;
     }

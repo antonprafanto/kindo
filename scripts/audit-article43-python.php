@@ -57,7 +57,7 @@ check(str_contains($body, 'stok tidak boleh negatif'), 'Validasi stok negatif');
 check(! str_contains($body, 'dipinjam'), 'Tidak ada dipinjam yatim');
 check(str_contains($body, 'def pinjam(self)'), 'pinjam utuh');
 check(str_contains($body, 'Inheritance'), 'Teaser Inheritance');
-check(str_contains($body, '5/10 artikel live'), 'Progress 5/10 live');
+check(str_contains($body, '6/10 artikel live'), 'Progress 6/10 live');
 
 foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
     @unlink($f);
