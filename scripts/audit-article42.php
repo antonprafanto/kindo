@@ -79,7 +79,7 @@ check(str_contains($body, 'self.stok'), 'Attribute self.stok');
 check(! str_contains($body, 'dipinjam'), 'Tidak ada attribute dipinjam yang ditinggalkan');
 check(str_contains($body, 'BukuSalah') && str_contains($body, 'BukuBenar'), 'Demo kode jebakan list class bersama');
 check(str_contains($body, 'tahun tidak masuk akal') && substr_count($body, 'if tahun') >= 2, 'Validasi tahun juga di Kode lengkap');
-check(str_contains($body, '7/10 artikel live'), 'Progress Seri 3 mencerminkan 7/10 live');
+check(str_contains($body, '8/10 artikel live'), 'Progress Seri 3 mencerminkan 8/10 live');
 check(str_contains($body, 'lupa') || str_contains($body, 'missing 1 required positional argument: \'self\''), 'Bahas error lupa self');
 check(str_contains($body, 'Buku.__init__() missing') || str_contains($body, 'missing ... required positional argument'), 'Kesalahan umum: TypeError argumen __init__');
 check(str_contains($body, '<svg'), 'Diagram SVG');

@@ -29,6 +29,7 @@ class TagSeeder extends Seeder
             ['slug' => 'oop', 'name' => 'oop'],
             ['slug' => 'oop-class', 'name' => 'oop-class'],
             ['slug' => 'inheritance', 'name' => 'inheritance'],
+            ['slug' => 'composition', 'name' => 'composition'],
             ['slug' => 'encapsulation', 'name' => 'encapsulation'],
             ['slug' => 'polymorphism', 'name' => 'polymorphism'],
             ['slug' => 'abstraction', 'name' => 'abstraction'],

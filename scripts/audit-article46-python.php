@@ -60,7 +60,7 @@ check(str_contains($body, 'def label'), 'Method konkret label');
 check(str_contains($body, 'pinjam fisik ESP32 Praktis'), 'Output contoh loop');
 check(str_contains($body, 'Output yang diharapkan'), 'Ada output contoh');
 check(str_contains($body, 'Composition'), 'Teaser Composition');
-check(str_contains($body, '7/10 artikel live'), 'Progress 7/10 live');
+check(str_contains($body, '8/10 artikel live'), 'Progress 8/10 live');
 check(str_contains($body, 'kontrak_pinjaman.py'), 'File contoh');
 check(str_contains($body, 'tanpa mewarisi') || str_contains($body, 'harus mewarisi'), 'FAQ wajib warisi ABC');
 check(str_contains($body, 'except TypeError'), 'Demo runnable TypeError BukuBelumSiap');

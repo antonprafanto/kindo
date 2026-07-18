@@ -387,7 +387,7 @@ print(b.label(), "->", b.pinjam())
 <p>Output: <code>BukuFisik -> pinjam Cerita Sensor</code>.</p>
 
 <blockquote>
-  <p><strong>Ingat:</strong> method bersama di ABC berguna; kalau hampir semua logika pindah ke induk abstract, evaluasi ulang — mungkin inheritance biasa atau composition lebih jujur (artikel berikutnya).</p>
+  <p><strong>Ingat:</strong> method bersama di ABC berguna; kalau hampir semua logika pindah ke induk abstract, evaluasi ulang — mungkin inheritance biasa atau <a href="/artikel/composition-vs-inheritance-python">composition (#47)</a> lebih jujur.</p>
 </blockquote>
 
 <h2>Pola Dasar — merancang ABC</h2>
@@ -560,10 +560,10 @@ isinstance ebook->Pinjaman: True
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Abstraction lewat ABC mengubah janji lisan (“harusnya ada <code>pinjam</code>”) menjadi kontrak yang ditegakkan Python. Gabungkan dengan polymorphism: loop memanggil method kontrak; tiap class mengisi caranya sendiri.</p>
 <p>Artikel ini adalah <strong>#46 (ini)</strong> — langkah ketujuh Seri 3 setelah <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a>.</p>
-<p>Lanjut ke artikel berikutnya — <strong>Composition vs Inheritance</strong>: kapan “punya” (has-a) lebih jujur daripada “adalah” (is-a), dan anti-pattern inheritance hanya demi reuse. (Belum di-hyperlink sampai artikel itu live.)</p>
+<p>Lanjut ke <a href="/artikel/composition-vs-inheritance-python">Composition vs Inheritance (#47)</a>: kapan “punya” (has-a) lebih jujur daripada “adalah” (is-a), dan anti-pattern inheritance hanya demi reuse.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 7/10 artikel live. Kamu di langkah <strong>#46 (ini)</strong>. Prasyarat: <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a> · <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 8/10 artikel live. Kamu di langkah <strong>#46 (ini)</strong>. Prasyarat: <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a> · <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/composition-vs-inheritance-python">Composition (#47)</a>.</p>
 </blockquote>
 HTML;
     }

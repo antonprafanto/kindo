@@ -483,7 +483,7 @@ type(katalog) is Buku: False
 <p>Lanjut ke <a href="/artikel/abstraction-abc-python-oop">Abstraction &amp; ABC (#46)</a>: kontrak class abstract supaya subclass wajib mengimplementasikan method tertentu.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 7/10 artikel live. Kamu di langkah <strong>#45 (ini)</strong>. Prasyarat: <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/abstraction-abc-python-oop">Abstraction (#46)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 8/10 artikel live. Kamu di langkah <strong>#45 (ini)</strong>. Prasyarat: <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/abstraction-abc-python-oop">Abstraction (#46)</a>.</p>
 </blockquote>
 HTML;
     }

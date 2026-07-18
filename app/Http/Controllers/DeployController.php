@@ -2808,6 +2808,76 @@ class DeployController extends Controller
         return response('Article 46 published', 200);
     }
 
+    public function publishArticle47(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        $seederPath = base_path('database/seeders/Article47Seeder.php');
+        clearstatcache(true, $seederPath);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($seederPath, true);
+        }
+
+        if (! class_exists(\Database\Seeders\Article47Seeder::class)) {
+            return response('Article47Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 47 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article47Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 47 seed failed', 500);
+        }
+
+        $slug = 'composition-vs-inheritance-python';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 47 missing or not visible after Article47Seeder on deploy hook.'));
+
+            return response('Article 47 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop47Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'PerpustakaanSalah') || ! str_contains($body, 'self.koleksi') || ! str_contains($body, 'KatalogSalah') || ! str_contains($body, 'perpustakaan_komposisi.py') || ! str_contains($body, 'class Perpustakaan')) {
+            report(new \RuntimeException('Article 47 body missing expected content after seed.'));
+
+            return response('Article 47 body content checks failed', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 47 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [
