@@ -384,7 +384,7 @@ type(e) is Buku: False
     <tr>
       <td>Bingung <code>isinstance</code> vs tipe persis</td>
       <td>Mengira hanya <code>type(e) is Buku</code></td>
-      <td><code>isinstance(e, Buku)</code> True untuk anak; detail polimorfisme di artikel berikutnya</td>
+      <td><code>isinstance(e, Buku)</code> True untuk anak; detail di <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a></td>
     </tr>
   </tbody>
 </table>
@@ -410,7 +410,7 @@ type(e) is Buku: False
 <p>Lanjut ke <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a>: daftar campuran <code>Buku</code> / <code>Ebook</code> diproses lewat interface yang sama, plus kapan <code>isinstance</code> boleh dipakai.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 8/10 artikel live. Kamu di langkah <strong>#44 (ini)</strong>. Prasyarat: <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 9/10 artikel live. Kamu di langkah <strong>#44 (ini)</strong>. Prasyarat: <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
 </blockquote>
 HTML;
     }

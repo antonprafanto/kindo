@@ -53,7 +53,7 @@ check(str_contains($body, 'cetak_salah') && str_contains($body, 'cetak_benar'), 
 check(str_contains($body, 'unduh'), 'isinstance untuk unduh');
 check(str_contains($body, '/artikel/abstraction-abc-python-oop'), 'Hardlink #46 Abstraction');
 check(str_contains($body, 'Abstraction') || str_contains($body, 'ABC'), 'Teaser Abstraction tanpa slug mati');
-check(str_contains($body, '8/10 artikel live'), 'Progress 8/10 live');
+check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
 check(str_contains($body, 'tipe object yang sebenarnya'), 'Method lookup tipe aktual');
 check(str_contains($body, 'cek tipe anak'), 'Jebakan urutan isinstance');
 check(str_contains($body, 'AttributeError') && str_contains($body, 'dict'), 'Demo AttributeError dict');

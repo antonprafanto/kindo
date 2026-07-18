@@ -86,14 +86,14 @@ check(str_contains($body, 'Kesalahan umum'), 'Ada Kesalahan umum');
 check(str_contains($body, 'Seri 3'), 'Menyebut Seri 3');
 check(str_contains($body, 'language-python'), 'Blok language-python');
 check(str_contains($body, 'dataclass') || str_contains($body, 'Special Methods'), 'Teaser #48');
-check(str_contains($body, '8/10 artikel live'), 'Progress 8/10 live');
+check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
 check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(! preg_match('/(?<![\w\/"#>])#(?:4[8-9]|[5-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #48+ di luar link');
+check(! preg_match('/(?<![\w\/"#>])#(?:49|[5-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #49+ di luar link');
 check(! preg_match('/#47(?!\s*\(ini\))/', $plain), 'Tidak ada plain #47 selain #47 (ini)');
-check(! str_contains($body, '/artikel/special-methods-dataclass-python'), 'Tidak hardlink slug #48');
+check(str_contains($body, '/artikel/special-methods-dataclass-python'), 'Backlink live ke #48');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');

@@ -290,7 +290,7 @@ print("object yang sama?", buku_a is buku_b)
 <p>Lanjut ke <a href="/artikel/attribute-method-constructor-init-python">Attribute, Method, dan Constructor <code>__init__</code> (#42)</a>: kita bedah <code>self</code> lebih dalam, method yang mengubah state, dan kesalahan klasik saat parameter tertukar.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 8/10 artikel live; lanjut <a href="/artikel/attribute-method-constructor-init-python">#42</a>. Prasyarat: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 9/10 artikel live; lanjut <a href="/artikel/attribute-method-constructor-init-python">#42</a>. Prasyarat: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
 </blockquote>
 HTML;
     }

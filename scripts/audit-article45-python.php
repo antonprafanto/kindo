@@ -62,7 +62,7 @@ check(str_contains($body, 'isinstance(ebook, Buku)'), 'FAQ isinstance ebook→Bu
 check(str_contains($body, 'Audiobook'), 'Ada Audiobook');
 check(str_contains($body, 'Output yang diharapkan'), 'Ada output contoh');
 check(str_contains($body, 'Abstraction') || str_contains($body, 'ABC'), 'Teaser Abstraction');
-check(str_contains($body, '8/10 artikel live'), 'Progress 8/10 live');
+check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
 
 $loopPos = strpos($body, 'Satu loop untuk semua');
 $svgPos = strpos($body, 'oop45Arrow');

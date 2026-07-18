@@ -434,7 +434,7 @@ Perpustakaan adalah Buku? False
     <tr>
       <td>Copy-paste atribut antar class</td>
       <td>Menghindari inheritance tanpa alternatif</td>
-      <td>Composition, helper, atau dataclass (artikel berikutnya)</td>
+      <td>Composition, helper, atau <a href="/artikel/special-methods-dataclass-python">dataclass (#48)</a></td>
     </tr>
     <tr>
       <td>Bingung dengan Encapsulation</td>
@@ -461,10 +461,10 @@ Perpustakaan adalah Buku? False
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Tanya dulu: <em>adalah</em> atau <em>punya</em>? Is-a yang jujur → inheritance. Has-a / mengelola banyak object → composition. Hindari mewarisi hanya supaya atribut “ikut gratis”.</p>
 <p>Artikel ini adalah <strong>#47 (ini)</strong> — langkah kedelapan Seri 3 setelah <a href="/artikel/abstraction-abc-python-oop">Abstraction &amp; ABC (#46)</a>.</p>
-<p>Lanjut ke artikel berikutnya — <strong>Special Methods &amp; Dataclass</strong>: <code>__str__</code>, <code>__repr__</code>, <code>__eq__</code>, dan <code>@dataclass</code> agar object lebih nyaman dibaca dan dibandingkan. (Belum di-hyperlink sampai artikel itu live.)</p>
+<p>Lanjut ke <a href="/artikel/special-methods-dataclass-python">Special Methods &amp; Dataclass (#48)</a>: <code>__str__</code>, <code>__repr__</code>, <code>__eq__</code>, dan <code>@dataclass</code> agar object lebih nyaman dibaca dan dibandingkan.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 8/10 artikel live. Kamu di langkah <strong>#47 (ini)</strong>. Prasyarat: <a href="/artikel/abstraction-abc-python-oop">Abstraction (#46)</a> · <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 9/10 artikel live. Kamu di langkah <strong>#47 (ini)</strong>. Prasyarat: <a href="/artikel/abstraction-abc-python-oop">Abstraction (#46)</a> · <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/special-methods-dataclass-python">Special Methods (#48)</a>.</p>
 </blockquote>
 HTML;
     }

@@ -63,7 +63,7 @@ check(str_contains($body, 'type(e) is Buku'), 'Bedakan isinstance vs type is');
 check(str_contains($body, 'Output yang diharapkan') || str_contains($body, 'pinjam ebook: 0'), 'Ada output contoh / verifikasi');
 check(str_contains($body, 'pinjam()') && str_contains($body, 'harus ditulis ulang'), 'FAQ: pinjam tidak wajib override');
 check(str_contains($body, 'Polymorphism'), 'Teaser Polymorphism');
-check(str_contains($body, '8/10 artikel live'), 'Progress 8/10 live');
+check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
 
 // SVG harus setelah konsep override (bukan sebelum super)
 $overridePos = strpos($body, 'Override method info()');

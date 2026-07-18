@@ -563,7 +563,7 @@ isinstance ebook->Pinjaman: True
 <p>Lanjut ke <a href="/artikel/composition-vs-inheritance-python">Composition vs Inheritance (#47)</a>: kapan “punya” (has-a) lebih jujur daripada “adalah” (is-a), dan anti-pattern inheritance hanya demi reuse.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 8/10 artikel live. Kamu di langkah <strong>#46 (ini)</strong>. Prasyarat: <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a> · <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/composition-vs-inheritance-python">Composition (#47)</a>.</p>
+  <p><strong>Seri 3 progress:</strong> 9/10 artikel live. Kamu di langkah <strong>#46 (ini)</strong>. Prasyarat: <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a> · <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/attribute-method-constructor-init-python">Attribute (#42)</a> · <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a> · lanjut: <a href="/artikel/composition-vs-inheritance-python">Composition (#47)</a>.</p>
 </blockquote>
 HTML;
     }

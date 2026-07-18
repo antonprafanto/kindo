@@ -54,7 +54,7 @@ check(str_contains($body, 'BukuBelumSiap'), 'Demo subclass belum siap');
 check(str_contains($body, 'TypeError'), 'TypeError abstract');
 check(str_contains($body, '/artikel/composition-vs-inheritance-python'), 'Hardlink #47 Composition');
 check(str_contains($body, 'Composition'), 'Teaser Composition tanpa slug mati');
-check(str_contains($body, '8/10 artikel live'), 'Progress 8/10 live');
+check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
 check(str_contains($body, 'isinstance(item, Pinjaman)'), 'isinstance kontrak');
 check(str_contains($body, 'hutan'), 'Bedakan hutan isinstance #45');
 check(str_contains($body, 'except TypeError'), 'TypeError runnable try/except');
