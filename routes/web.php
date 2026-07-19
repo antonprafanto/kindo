@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContributorController;
 use App\Http\Controllers\DeployController;
+use App\Http\Controllers\FeedController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PageController;
@@ -41,6 +42,7 @@ Route::get('/kontak/buka/{contactMessage}', [ContactController::class, 'openInPa
     ->name('contact.open-panel');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+Route::get('/feed', [FeedController::class, 'index'])->name('feed');
 
 Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('privacy');
 

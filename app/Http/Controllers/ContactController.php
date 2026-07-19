@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
+use App\Filament\Resources\ContactMessages\ContactMessageResource;
 use App\Services\TurnstileService;
 use App\Support\MultipartMail;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class ContactController extends Controller
 
             if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
                 return back()->withErrors([
-                    'turnstile' => 'Verifikasi keamanan gagal. Silakan centang kotak verifikasi dan coba lagi.',
+                    'turnstile' => 'Verifikasi keamanan gagal. Silakan coba lagi.',
                 ])->withInput();
             }
 
@@ -74,6 +75,7 @@ class ContactController extends Controller
                     'contactSubject' => $validated['subject'],
                     'messageBody'    => $validated['message'],
                     'panelUrl'       => $panelUrl,
+                    'searchHint'     => 'Di panel, pencarian otomatis memakai email: '.$validated['email'],
                 ], function ($message) use ($contactEmail, $validated) {
                     $message->to($contactEmail)
                         ->replyTo($validated['email'])
@@ -124,6 +126,10 @@ class ContactController extends Controller
             $contactMessage->update(['status' => 'read']);
         }
 
-        return redirect('/admin/contact-messages');
+        // Filament ListRecords binds tableSearch to ?search= (#[Url(as: 'search')])
+        $url = ContactMessageResource::getUrl('index');
+        $query = http_build_query(['search' => $contactMessage->email]);
+
+        return redirect($url.(str_contains($url, '?') ? '&' : '?').$query);
     }
 }

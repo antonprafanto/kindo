@@ -7,10 +7,12 @@ use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Str;
 
 class CommentsTable
 {
@@ -41,6 +43,9 @@ class CommentsTable
                 TextColumn::make('parent.author_name')
                     ->label('Balasan ke')
                     ->placeholder('—')
+                    ->description(fn ($record) => $record->parent
+                        ? Str::limit(strip_tags($record->parent->body), 50)
+                        : null)
                     ->toggleable(),
 
                 TextColumn::make('status')
@@ -94,9 +99,18 @@ class CommentsTable
                     ->color('danger')
                     ->visible(fn ($record) => $record->status !== 'spam')
                     ->requiresConfirmation()
-                    ->action(fn ($record) => $record->update(['status' => 'spam'])),
+                    ->action(function ($record) {
+                        $record->update(['status' => 'spam']);
 
-                DeleteAction::make()->label('Hapus'),
+                        Notification::make()
+                            ->title('Komentar ditandai spam')
+                            ->success()
+                            ->send();
+                    }),
+
+                DeleteAction::make()
+                    ->label('Hapus')
+                    ->successNotificationTitle('Komentar dihapus'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -115,12 +129,20 @@ class CommentsTable
                         ->icon('heroicon-o-no-symbol')
                         ->color('danger')
                         ->requiresConfirmation()
-                        ->action(fn (Collection $records) => $records->each(
-                            fn ($r) => $r->update(['status' => 'spam'])
-                        ))
+                        ->action(function (Collection $records) {
+                            $records->each(fn ($r) => $r->update(['status' => 'spam']));
+
+                            Notification::make()
+                                ->title('Komentar ditandai spam')
+                                ->body($records->count().' komentar diperbarui.')
+                                ->success()
+                                ->send();
+                        })
                         ->deselectRecordsAfterCompletion(),
 
-                    DeleteBulkAction::make()->label('Hapus'),
+                    DeleteBulkAction::make()
+                        ->label('Hapus')
+                        ->successNotificationTitle('Komentar dihapus'),
                 ]),
             ]);
     }

@@ -31,7 +31,7 @@ class ContributorController extends Controller
 
         if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
             return back()->withErrors([
-                'turnstile' => 'Verifikasi keamanan gagal. Silakan centang kotak verifikasi dan coba lagi.',
+                'turnstile' => 'Verifikasi keamanan gagal. Silakan coba lagi.',
             ])->withInput();
         }
 

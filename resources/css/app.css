@@ -184,6 +184,19 @@ html.theme-animate footer {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
     ::view-transition-group(*),
     ::view-transition-old(*),
     ::view-transition-new(*) {
@@ -589,12 +602,18 @@ html.theme-animate footer {
         color: var(--color-dark);
         text-decoration: none;
         border-left: 2px solid transparent;
-        transition: color 0.15s, border-color 0.15s;
+        transition: color 0.15s, border-color 0.15s, background-color 0.15s;
     }
     .toc-link--h3 { padding-left: 20px; }
     .toc-link:hover {
         color: var(--color-primary);
         border-left-color: var(--color-primary);
+    }
+    .toc-link--active {
+        color: var(--color-primary);
+        border-left-color: var(--color-primary);
+        font-weight: 700;
+        background: color-mix(in srgb, var(--color-primary) 8%, transparent);
     }
     .hero-grid {
         background-image: radial-gradient(#00000010 1.5px, transparent 1.5px);
@@ -690,5 +709,18 @@ html.dark .article-body figure[style*="F5F5F0"] ol[style*="list-style:none"] {
 
     a {
         text-decoration: underline;
+    }
+}
+
+/* Safe area for fixed back-to-top on notched devices */
+#back-to-top {
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    right: max(1rem, env(safe-area-inset-right, 0px));
+}
+
+@media (min-width: 640px) {
+    #back-to-top {
+        bottom: max(1.5rem, env(safe-area-inset-bottom, 0px));
+        right: max(1.5rem, env(safe-area-inset-right, 0px));
     }
 }

@@ -155,6 +155,10 @@
             Sorot teks untuk menu format mengambang; sisipkan gambar lewat tombol Image.
         </div>
 
+        <div class="notice" style="background:#1a2e1a;border-color:#166534;color:#bbf7d0;">
+            Gambar diunggah lewat tombol Image; URL otomatis tersimpan di isi.
+        </div>
+
         @if (session('body_saved'))
             <div class="success">
                 Isi artikel berhasil disimpan.

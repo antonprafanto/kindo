@@ -34,22 +34,6 @@
                             Tentang Kami
                         </a>
                     </div>
-
-                    {{-- Stats --}}
-                    <div class="flex flex-wrap gap-4 sm:gap-6 mt-6 sm:mt-8 pt-6 sm:pt-8 border-t-2 border-black">
-                        <div>
-                            <div class="text-2xl font-black" style="color:#2979FF;">{{ \App\Models\Article::published()->count() }}+</div>
-                            <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Artikel</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-black" style="color:#FF7A2F;">{{ \App\Models\Category::count() }}</div>
-                            <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Kategori</div>
-                        </div>
-                        <div>
-                            <div class="text-2xl font-black">100%</div>
-                            <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Bahasa Indonesia</div>
-                        </div>
-                    </div>
                 </div>
 
                 {{-- Code Decoration --}}
@@ -88,6 +72,26 @@
                     </div>
                 </div>
 
+            </div>
+        </div>
+    </section>
+
+    {{-- Stats (below hero viewport) --}}
+    <section class="border-b-4 border-black theme-paper">
+        <div class="max-w-6xl mx-auto px-4 py-6 sm:py-8">
+            <div class="flex flex-wrap gap-6 sm:gap-10">
+                <div>
+                    <div class="text-2xl font-black" style="color:#2979FF;">{{ \App\Models\Article::published()->count() }}+</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Artikel</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-black" style="color:#FF7A2F;">{{ \App\Models\Category::count() }}</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Kategori</div>
+                </div>
+                <div>
+                    <div class="text-2xl font-black">100%</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Bahasa Indonesia</div>
+                </div>
             </div>
         </div>
     </section>

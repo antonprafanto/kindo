@@ -13,10 +13,10 @@
                 onerror="this.onerror=null;this.src='{{ asset('og-default.png') }}';"
             >
         @else
-            <div class="w-full h-full flex items-center justify-center font-mono text-sm font-bold" style="background: #{{ substr(md5($article->title), 0, 2) . substr(md5($article->title), 6, 2) . substr(md5($article->title), 4, 2) }}20; color: #2979FF;">
+            <div class="w-full h-full flex items-center justify-center theme-surface" style="background: #E8EEF7;">
                 <div class="text-center p-4">
-                    <div class="text-3xl mb-2">📝</div>
-                    <div class="text-xs opacity-60">{{ Str::limit($article->title, 30) }}</div>
+                    <div class="text-xs font-bold uppercase tracking-wider theme-muted mb-2">Koding Indonesia</div>
+                    <div class="text-xs font-mono font-semibold theme-heading opacity-70">{{ Str::limit($article->title, 40) }}</div>
                 </div>
             </div>
         @endif

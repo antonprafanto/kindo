@@ -24,6 +24,11 @@ class CommentResource extends Resource
     protected static ?string $pluralModelLabel = 'Komentar';
     protected static ?int    $navigationSort   = 5;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Moderasi';
+    }
+
     public static function getNavigationBadge(): ?string
     {
         $count = Comment::pending()->count();

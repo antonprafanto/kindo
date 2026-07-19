@@ -116,7 +116,17 @@ class EditPublicProfile extends Page
                             ->required()
                             ->maxLength(100)
                             ->prefix('/penulis/')
-                            ->helperText('Huruf kecil, angka, dan tanda hubung. Mengubah slug akan memutus link lama.')
+                            ->live(onBlur: true)
+                            ->helperText(function (Get $get): string {
+                                $saved = $this->getUser()->slug;
+                                $current = $get('slug');
+
+                                if (filled($current) && $current !== $saved) {
+                                    return 'Simpan dulu sebelum membuka pratinjau publik. Mengubah slug akan memutus link lama.';
+                                }
+
+                                return 'Huruf kecil, angka, dan tanda hubung. Mengubah slug akan memutus link lama.';
+                            })
                             ->rules([
                                 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
                                 Rule::unique('users', 'slug')->ignore($this->getUser()->id),
@@ -231,9 +241,13 @@ class EditPublicProfile extends Page
                 ->keyBindings(['mod+s']),
             Action::make('preview')
                 ->label('Lihat Halaman Publik')
-                ->url(fn (): ?string => $this->getPublicProfileUrl(), shouldOpenInNewTab: true)
+                ->url(fn (): ?string => $this->getSavedPublicProfileUrl(), shouldOpenInNewTab: true)
                 ->color('gray')
-                ->visible(fn (): bool => filled($this->getPublicProfileUrl())),
+                ->disabled(fn (): bool => ! $this->isSlugSaved())
+                ->tooltip(fn (): ?string => $this->isSlugSaved()
+                    ? null
+                    : 'Simpan dulu agar slug cocok dengan database')
+                ->visible(fn (): bool => filled($this->getUser()->slug)),
         ];
     }
 
@@ -258,6 +272,7 @@ class EditPublicProfile extends Page
             'website_url' => $data['website_url'] ?? null,
             'external_works' => array_values($data['external_works'] ?? []),
         ]);
+        $user->refresh();
 
         // Rumahweb: document root terpisah — mirror agar /storage/avatars/... bisa diakses publik
         if (filled($avatar)) {
@@ -278,6 +293,18 @@ class EditPublicProfile extends Page
             ->title('Profil publik berhasil disimpan')
             ->success()
             ->send();
+
+        $this->form->fill([
+            'name' => $user->name,
+            'slug' => $user->slug,
+            'avatar' => $user->avatar,
+            'bio' => $user->bio,
+            'expertise' => $user->expertise,
+            'github_url' => $user->github_url,
+            'linkedin_url' => $user->linkedin_url,
+            'website_url' => $user->website_url,
+            'external_works' => $user->external_works ?? [],
+        ]);
     }
 
     protected function getUser(): User
@@ -286,6 +313,25 @@ class EditPublicProfile extends Page
         $user = Auth::user();
 
         return $user;
+    }
+
+    protected function isSlugSaved(): bool
+    {
+        $saved = $this->getUser()->slug;
+        $current = $this->data['slug'] ?? null;
+
+        return filled($saved) && filled($current) && $current === $saved;
+    }
+
+    protected function getSavedPublicProfileUrl(): ?string
+    {
+        $slug = $this->getUser()->slug;
+
+        if (blank($slug)) {
+            return null;
+        }
+
+        return route('authors.show', $slug);
     }
 
     protected function getPublicProfileUrl(): ?string
@@ -301,10 +347,14 @@ class EditPublicProfile extends Page
 
     public function getSubheading(): ?string
     {
-        $url = $this->getPublicProfileUrl();
+        $url = $this->getSavedPublicProfileUrl();
 
         if (! $url) {
             return 'Lengkapi profilmu agar tampil di halaman publik kontributor.';
+        }
+
+        if (! $this->isSlugSaved()) {
+            return 'Simpan dulu slug baru sebelum membuka pratinjau. Halaman tersimpan: '.$url;
         }
 
         return 'Halaman publik: '.$url;

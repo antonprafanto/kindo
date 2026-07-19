@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Auth\Pages\Login;
 use App\Filament\Auth\Pages\RequestPasswordReset;
+use App\Filament\Widgets\PendingQueueWidget;
 use App\Http\Controllers\Admin\ArticleBodyEditorController;
 use App\Models\Article;
 use Filament\Http\Middleware\Authenticate;
@@ -52,6 +53,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
+                PendingQueueWidget::class,
                 AccountWidget::class,
             ])
             ->middleware([

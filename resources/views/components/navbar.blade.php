@@ -1,5 +1,13 @@
 <nav
-    x-data="{ open: false }"
+    x-data="{
+        open: false,
+        focusFirstLink() {
+            this.$nextTick(() => {
+                this.$refs.mobileMenu?.querySelector('a')?.focus();
+            });
+        },
+    }"
+    @keydown.escape.window="open = false"
     class="sticky top-0 z-50 theme-paper border-b-[3px] border-black"
     style="box-shadow: 0 3px 0 #000;"
 >
@@ -7,10 +15,13 @@
         <div class="flex items-center justify-between h-14 sm:h-16">
 
             {{-- Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3 no-underline">
-                <x-logo size="md" class="border-2 border-black" style="box-shadow: 2px 2px 0 #000;" />
-                <span class="font-bold theme-heading text-base sm:text-lg hidden sm:inline" style="letter-spacing:-0.02em;">Koding Indonesia</span>
-                <span class="w-2 h-2 rounded-full" style="background:#FF7A2F; border: 2px solid #000; display:inline-block;"></span>
+            <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3 no-underline min-w-0">
+                <x-logo size="md" class="border-2 border-black flex-shrink-0" style="box-shadow: 2px 2px 0 #000;" />
+                <span class="font-bold theme-heading text-base sm:text-lg truncate" style="letter-spacing:-0.02em;">
+                    <span class="sm:hidden">Koding</span>
+                    <span class="hidden sm:inline">Koding Indonesia</span>
+                </span>
+                <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:#FF7A2F; border: 2px solid #000; display:inline-block;"></span>
             </a>
 
             {{-- Desktop Nav --}}
@@ -94,7 +105,12 @@
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                     </svg>
                 </a>
-                <button @click="open = !open" class="p-2 border-2 border-black" aria-label="Menu" :aria-expanded="open.toString()">
+                <button
+                    @click="open = !open; if (open) focusFirstLink()"
+                    class="p-2 border-2 border-black"
+                    aria-label="Menu"
+                    :aria-expanded="open.toString()"
+                >
                     <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="square" d="M3 6h18M3 12h18M3 18h18"/>
                     </svg>
@@ -106,7 +122,7 @@
         </div>
 
         {{-- Mobile Menu --}}
-        <div x-show="open" x-transition class="md:hidden border-t-2 border-black pb-4">
+        <div x-ref="mobileMenu" x-show="open" x-transition class="md:hidden border-t-2 border-black pb-4">
             <div class="flex flex-col pt-2">
                 <a href="{{ route('articles.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Artikel</a>
                 <div class="border-b border-black/10 dark:border-white/10">

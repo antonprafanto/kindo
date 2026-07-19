@@ -30,6 +30,11 @@ class TagResource extends Resource
     protected static ?string $pluralModelLabel    = 'Tag';
     protected static ?int    $navigationSort      = 3;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Konten';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return TagForm::configure($schema);

@@ -24,6 +24,11 @@ class ContactMessageResource extends Resource
     protected static ?string $pluralModelLabel  = 'Pesan Kontak';
     protected static ?int    $navigationSort   = 7;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Moderasi';
+    }
+
     public static function getNavigationBadge(): ?string
     {
         $count = ContactMessage::unread()->count();

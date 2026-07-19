@@ -24,6 +24,11 @@ class NewsletterSubscriberResource extends Resource
     protected static ?string $pluralModelLabel = 'Subscriber Newsletter';
     protected static ?int    $navigationSort   = 4;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Growth';
+    }
+
     public static function table(Table $table): Table
     {
         return NewsletterSubscribersTable::configure($table);

@@ -27,6 +27,11 @@ class ArticleResource extends Resource
     protected static ?string $pluralModelLabel    = 'Artikel';
     protected static ?int    $navigationSort      = 1;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Konten';
+    }
+
     public static function getNavigationBadge(): ?string
     {
         if (! auth()->user()?->isAdmin()) {

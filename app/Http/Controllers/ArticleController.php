@@ -57,7 +57,26 @@ class ArticleController extends Controller
 
         $related = $this->relatedArticles->forArticle($article);
 
-        return view('articles.show', compact('article', 'related'));
+        $previousArticle = null;
+        $nextArticle = null;
+
+        if ($article->category_id && $article->published_at) {
+            $previousArticle = Article::published()
+                ->where('category_id', $article->category_id)
+                ->where('id', '!=', $article->id)
+                ->where('published_at', '<', $article->published_at)
+                ->orderByDesc('published_at')
+                ->first(['id', 'title', 'slug', 'published_at']);
+
+            $nextArticle = Article::published()
+                ->where('category_id', $article->category_id)
+                ->where('id', '!=', $article->id)
+                ->where('published_at', '>', $article->published_at)
+                ->orderBy('published_at')
+                ->first(['id', 'title', 'slug', 'published_at']);
+        }
+
+        return view('articles.show', compact('article', 'related', 'previousArticle', 'nextArticle'));
     }
 
     public function preview(string $slug)
@@ -77,10 +96,12 @@ class ArticleController extends Controller
         $related = $this->relatedArticles->forArticle($article);
 
         return view('articles.show', [
-            'article'        => $article,
-            'related'        => $related,
-            'isPreview'      => true,
-            'previewBackUrl' => url('/admin/articles/' . $article->id . '/edit'),
+            'article'         => $article,
+            'related'         => $related,
+            'previousArticle' => null,
+            'nextArticle'     => null,
+            'isPreview'       => true,
+            'previewBackUrl'  => url('/admin/articles/' . $article->id . '/edit'),
         ]);
     }
 }

@@ -21,9 +21,13 @@ class EditArticle extends EditRecord
 
     protected ?string $statusBeforeSave = null;
 
+    protected ?string $originalUpdatedAt = null;
+
     public function mount(int | string $record): void
     {
         parent::mount($record);
+
+        $this->originalUpdatedAt = $this->record->updated_at?->toJSON();
 
         if (session()->pull('body_saved')) {
             Notification::make()
@@ -61,8 +65,30 @@ class EditArticle extends EditRecord
         return $data;
     }
 
+    protected function afterFill(): void
+    {
+        $this->rememberArticleFormBaseline();
+    }
+
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        $freshUpdatedAt = $this->record->fresh()?->updated_at?->toJSON();
+
+        if (
+            $this->originalUpdatedAt !== null
+            && $freshUpdatedAt !== null
+            && $freshUpdatedAt !== $this->originalUpdatedAt
+        ) {
+            Notification::make()
+                ->title('Konflik penyimpanan')
+                ->body('Artikel diubah di tempat lain sejak kamu membuka halaman ini. Muat ulang, lalu simpan lagi.')
+                ->danger()
+                ->persistent()
+                ->send();
+
+            $this->halt();
+        }
+
         // Cover dikelola lewat tombol Upload Cover di daftar artikel, bukan form edit.
         unset($data['cover_image']);
         $data['body'] = $this->record->body;
@@ -103,7 +129,22 @@ class EditArticle extends EditRecord
 
     protected function afterSave(): void
     {
+        $this->rememberArticleFormBaseline();
+        $this->originalUpdatedAt = $this->record->fresh()?->updated_at?->toJSON();
+
         $article = $this->record->fresh(['user']);
+
+        if (
+            auth()->user()?->isAuthor()
+            && $this->statusBeforeSave !== 'pending_review'
+            && $article?->status === 'pending_review'
+        ) {
+            Notification::make()
+                ->title('Artikel dikirim ke review')
+                ->body('Tim editorial akan meninjau dalam 3–5 hari kerja. Kamu akan mendapat notifikasi setelah review selesai.')
+                ->success()
+                ->send();
+        }
 
         if (
             auth()->user()?->isAdmin()
@@ -154,7 +195,10 @@ class EditArticle extends EditRecord
             $editBody,
             $this->makePreviewAction(),
             DeleteAction::make()->label('Hapus'),
-            ForceDeleteAction::make()->label('Hapus Permanen'),
+            ForceDeleteAction::make()
+                ->label('Hapus Permanen')
+                ->modalHeading('Hapus artikel secara permanen?')
+                ->modalDescription('Tindakan ini tidak bisa dibatalkan. Artikel, cover, dan slug akan hilang permanen — slug bisa dipakai ulang oleh artikel lain. Soft-delete (Hapus) lebih aman jika masih mungkin dipulihkan.'),
             RestoreAction::make()->label('Pulihkan'),
         ];
     }

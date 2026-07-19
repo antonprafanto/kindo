@@ -25,6 +25,11 @@ class ContactMessagesTable
                     ->sortable()
                     ->description(fn (ContactMessage $record) => $record->email),
 
+                TextColumn::make('email')
+                    ->label('Email')
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('subject')
                     ->label('Subjek')
                     ->searchable()

@@ -27,6 +27,11 @@ class ContributorApplicationResource extends Resource
     protected static ?string $pluralModelLabel  = 'Aplikasi Kontributor';
     protected static ?int    $navigationSort   = 6;
 
+    public static function getNavigationGroup(): ?string
+    {
+        return 'Moderasi';
+    }
+
     public static function getNavigationBadge(): ?string
     {
         $count = ContributorApplication::pending()->count();

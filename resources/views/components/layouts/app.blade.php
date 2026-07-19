@@ -80,6 +80,7 @@
     {{-- Canonical (hidden on noindex preview pages) --}}
     @if (empty($noindex))
     <link rel="canonical" href="{{ $canonical ?? url()->current() }}">
+    <link rel="alternate" type="application/rss+xml" title="Koding Indonesia RSS" href="{{ route('feed') }}">
     @endif
 
     {{-- Fonts (self-hosted, no external requests) --}}
@@ -117,48 +118,24 @@
     {{-- Back to Top --}}
     <button
         id="back-to-top"
+        type="button"
         onclick="window.scrollTo({top:0,behavior:'smooth'})"
         class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-11 h-11 sm:w-12 sm:h-12 bg-black text-white border-2 border-black font-bold hidden transition-all"
         style="box-shadow: 3px 3px 0 #2979FF"
         title="Kembali ke atas"
+        aria-label="Kembali ke atas"
     >↑</button>
 
     @livewireScripts
 
-    {{-- Highlight.js --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/arduino.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    {{-- Highlight.js — only when a page pushes to this stack (e.g. articles/show) --}}
+    @stack('highlight')
 
     <script>
-        hljs.highlightAll();
-
         // Back to Top visibility
         const btn = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
             btn.classList.toggle('hidden', window.scrollY < 400);
-        });
-
-        // Copy button for code blocks
-        document.querySelectorAll('.article-body pre, #article-content pre').forEach(pre => {
-            const wrap = document.createElement('div');
-            wrap.className = 'code-block-wrap';
-            pre.parentNode.insertBefore(wrap, pre);
-            wrap.appendChild(pre);
-
-            const btn = document.createElement('button');
-            btn.textContent = 'Salin';
-            btn.className = 'copy-code-btn';
-            btn.type = 'button';
-            btn.setAttribute('aria-label', 'Salin kode');
-            btn.addEventListener('click', () => {
-                navigator.clipboard.writeText(pre.querySelector('code')?.textContent || pre.textContent);
-                btn.textContent = 'Tersalin!';
-                setTimeout(() => btn.textContent = 'Salin', 2000);
-            });
-            wrap.appendChild(btn);
         });
     </script>
 

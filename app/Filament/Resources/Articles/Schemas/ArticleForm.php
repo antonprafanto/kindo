@@ -76,8 +76,64 @@ class ArticleForm
             $tagsSelect->helperText('Pilih tag yang sudah ada — hindari duplikat atau variasi nama serupa.');
         }
 
-        $components = [
-            Section::make('Konten Artikel')
+        $components = [];
+
+        if ($excludeBodyFromForm) {
+            $components[] = Section::make('Checklist Penulisan')
+                ->description('Centang mental sebelum kirim review — metadata, isi, cover, status')
+                ->schema([
+                    Placeholder::make('authoring_checklist')
+                        ->label('')
+                        ->content(function ($record) use ($bodyEditorUrl): HtmlString {
+                            if (! $record) {
+                                return new HtmlString('—');
+                            }
+
+                            $hasMeta = filled($record->title)
+                                && filled($record->slug)
+                                && filled($record->excerpt)
+                                && filled($record->category_id);
+                            $hasBody = filled(trim(strip_tags((string) $record->body)));
+                            $hasCover = filled($record->cover_image);
+                            $statusReady = in_array($record->status, ['pending_review', 'published'], true);
+
+                            $item = function (bool $done, string $label, ?string $hint = null): string {
+                                $mark = $done ? '✅' : '☐';
+                                $style = $done
+                                    ? 'color:#166534;'
+                                    : 'color:#4A5568;';
+                                $hintHtml = $hint
+                                    ? ' <span style="font-weight:400;opacity:.85;">— ' . $hint . '</span>'
+                                    : '';
+
+                                return '<li style="margin:0 0 .4rem;' . $style . '">'
+                                    . '<strong>' . $mark . ' ' . e($label) . '</strong>'
+                                    . $hintHtml
+                                    . '</li>';
+                            };
+
+                            $isiHint = $hasBody
+                                ? '<a href="' . e($bodyEditorUrl ?? '#') . '">Edit isi</a>'
+                                : '<a href="' . e($bodyEditorUrl ?? '#') . '">Buka editor isi</a>';
+
+                            $html = '<ul style="margin:0;padding:0;list-style:none;font-size:.875rem;line-height:1.45;">'
+                                . $item($hasMeta, 'Metadata', 'judul, slug, ringkasan, kategori')
+                                . $item($hasBody, 'Isi artikel', $isiHint)
+                                . $item($hasCover, 'Cover', 'upload dari daftar artikel → Upload Cover')
+                                . $item($statusReady, 'Status', $record->status === 'draft'
+                                    ? 'masih draft — pilih Menunggu Review saat siap'
+                                    : e($record->previewStatusLabel()))
+                                . '</ul>';
+
+                            return new HtmlString($html);
+                        })
+                        ->columnSpanFull(),
+                ])
+                ->columnSpanFull()
+                ->compact();
+        }
+
+        $components[] = Section::make('Konten Artikel')
                 ->description('Tulis judul, ringkasan, dan isi artikel di sini')
                 ->schema([
                     TextInput::make('title')
@@ -161,8 +217,7 @@ class ArticleForm
                                 ->columnSpanFull(),
                         ]),
                 ])
-                ->columnSpanFull(),
-        ];
+                ->columnSpanFull();
 
         if ($includeCoverSection) {
             $components[] = Section::make('Gambar Sampul')
@@ -177,6 +232,9 @@ class ArticleForm
                         ->imageResizeTargetWidth('1200')
                         ->imageResizeTargetHeight('630')
                         ->directory('articles/covers')
+                        ->maxSize(4096)
+                        ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                        ->helperText('Ideal 1200×630px (16:9), maks. 4 MB. JPG/PNG/WebP — server otomatis konversi ke WebP.')
                         ->columnSpanFull(),
                 ])
                 ->columnSpanFull()

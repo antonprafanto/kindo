@@ -16,10 +16,11 @@
 
 {{-- Reading Progress Bar --}}
 <div id="reading-progress"
+     aria-hidden="true"
      style="position:fixed; top:0; left:0; height:3px; width:0%; background:#2979FF; z-index:9999; transition:width .1s linear; box-shadow: 0 0 6px rgba(41,121,255,0.6);"></div>
 
 @if($isPreview ?? false)
-<div class="border-b-2 border-black px-4 py-3 text-center text-white" style="background:#FF7A2F;">
+<div class="sticky top-14 sm:top-16 z-40 border-b-2 border-black px-4 py-3 text-center text-white" style="background:#FF7A2F;">
     <p class="font-black text-sm sm:text-base uppercase tracking-wide">Pratinjau — Belum Dipublikasikan</p>
     <p class="text-xs sm:text-sm mt-1 opacity-95">
         Status: <strong>{{ $article->previewStatusLabel() }}</strong>
@@ -202,7 +203,7 @@
                 {{-- Tags --}}
                 @if($article->tags->count())
                 <div class="mt-10 pt-6 border-t-2 border-black">
-                    <span class="text-xs font-bold uppercase tracking-wider mr-3 theme-muted">Tags:</span>
+                    <span class="text-xs font-bold uppercase tracking-wider mr-3 theme-muted">Tag:</span>
                     @foreach($article->tags as $tag)
                     <a href="{{ route('tags.show', $tag->slug) }}"
                        class="inline-block mr-2 mb-2 text-xs font-bold px-3 py-1.5 border-2 border-black hover:bg-black hover:text-white transition-colors"
@@ -218,11 +219,11 @@
                 <div id="article-share" class="mt-8 p-6 border-2 border-black theme-highlight" style="box-shadow: 4px 4px 0 #000;">
                     <p class="font-bold text-sm mb-3">Bagikan artikel ini:</p>
                     <div class="flex flex-wrap gap-2">
-                        <a href="https://wa.me/?text={{ urlencode($article->title . ' — ' . route('articles.show', $article->slug)) }}" target="_blank"
+                        <a href="https://wa.me/?text={{ urlencode($article->title . ' — ' . route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
                            class="btn-brutal px-4 py-2 text-xs text-white" style="background:#25D366; border-color:#000;">WhatsApp</a>
-                        <a href="https://twitter.com/intent/tweet?text={{ urlencode($article->title) }}&url={{ urlencode(route('articles.show', $article->slug)) }}" target="_blank"
-                           class="btn-brutal px-4 py-2 text-xs text-white" style="background:#1DA1F2; border-color:#000;">Twitter / X</a>
-                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('articles.show', $article->slug)) }}" target="_blank"
+                        <a href="https://twitter.com/intent/tweet?text={{ urlencode($article->title) }}&url={{ urlencode(route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
+                           class="btn-brutal px-4 py-2 text-xs text-white" style="background:#1DA1F2; border-color:#000;">X</a>
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
                            class="btn-brutal px-4 py-2 text-xs text-white" style="background:#0077B5; border-color:#000;">LinkedIn</a>
                         <button type="button"
                                 id="copy-article-link"
@@ -242,6 +243,45 @@
                 <div class="mt-8 p-4 border-2 border-dashed border-black theme-muted text-sm text-center">
                     Bagikan dan komentar akan tersedia setelah artikel dipublikasikan.
                 </div>
+                @endunless
+
+                {{-- Series nav: same-category prev/next --}}
+                @unless($isPreview ?? false)
+                @if(($previousArticle ?? null) || ($nextArticle ?? null))
+                <div class="mt-10 theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+                    <div class="px-4 py-3 border-b-2 border-black" style="background:#2D3748;">
+                        <h2 class="text-sm font-bold text-white uppercase tracking-wider">
+                            @if($article->category)
+                                Di {{ $article->category->name }}
+                            @else
+                                Artikel terkait kategori
+                            @endif
+                        </h2>
+                    </div>
+                    <div class="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-black/10 dark:divide-white/10">
+                        <div class="p-4">
+                            @if($previousArticle ?? null)
+                            <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">← Sebelumnya</p>
+                            <a href="{{ route('articles.show', $previousArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
+                                {{ $previousArticle->title }}
+                            </a>
+                            @else
+                            <p class="text-xs theme-muted italic">Tidak ada artikel sebelumnya</p>
+                            @endif
+                        </div>
+                        <div class="p-4 sm:text-right">
+                            @if($nextArticle ?? null)
+                            <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">Berikutnya →</p>
+                            <a href="{{ route('articles.show', $nextArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
+                                {{ $nextArticle->title }}
+                            </a>
+                            @else
+                            <p class="text-xs theme-muted italic">Tidak ada artikel berikutnya</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                @endif
                 @endunless
 
                 {{-- Related (mobile / tablet — sidebar shows on lg+) --}}
@@ -277,6 +317,35 @@
                         </nav>
                     </div>
 
+                    {{-- Series nav (desktop sidebar) --}}
+                    @unless($isPreview ?? false)
+                    @if(($previousArticle ?? null) || ($nextArticle ?? null))
+                    <div class="theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+                        <div class="px-4 py-3 border-b-2 border-black" style="background:#2D3748;">
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Sebelumnya / Berikutnya</h3>
+                        </div>
+                        <div class="p-4 space-y-4">
+                            @if($previousArticle ?? null)
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">← Sebelumnya</p>
+                                <a href="{{ route('articles.show', $previousArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
+                                    {{ $previousArticle->title }}
+                                </a>
+                            </div>
+                            @endif
+                            @if($nextArticle ?? null)
+                            <div>
+                                <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">Berikutnya →</p>
+                                <a href="{{ route('articles.show', $nextArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
+                                    {{ $nextArticle->title }}
+                                </a>
+                            </div>
+                            @endif
+                        </div>
+                    </div>
+                    @endif
+                    @endunless
+
                     {{-- Related Articles --}}
                     @if($related->count())
                     <div class="theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
@@ -299,6 +368,36 @@
 
         </div>
     </div>
+
+@push('highlight')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/arduino.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+<script>
+    hljs.highlightAll();
+
+    document.querySelectorAll('.article-body pre, #article-content pre').forEach(pre => {
+        const wrap = document.createElement('div');
+        wrap.className = 'code-block-wrap';
+        pre.parentNode.insertBefore(wrap, pre);
+        wrap.appendChild(pre);
+
+        const copyBtn = document.createElement('button');
+        copyBtn.textContent = 'Salin';
+        copyBtn.className = 'copy-code-btn';
+        copyBtn.type = 'button';
+        copyBtn.setAttribute('aria-label', 'Salin kode');
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(pre.querySelector('code')?.textContent || pre.textContent);
+            copyBtn.textContent = 'Tersalin!';
+            setTimeout(() => copyBtn.textContent = 'Salin', 2000);
+        });
+        wrap.appendChild(copyBtn);
+    });
+</script>
+@endpush
 
 @push('scripts')
 <script>
@@ -327,6 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
             a.href = '#heading-' + i;
             a.textContent = h.textContent;
             a.className = 'toc-link' + (h.tagName === 'H3' ? ' toc-link--h3' : '');
+            a.dataset.headingId = 'heading-' + i;
             a.addEventListener('click', e => {
                 e.preventDefault();
                 document.getElementById('heading-' + i).scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -336,6 +436,28 @@ document.addEventListener('DOMContentLoaded', () => {
             toc.appendChild(a);
         });
     });
+
+    // Scroll-spy: highlight TOC link for the heading in view
+    const setActiveToc = (id) => {
+        document.querySelectorAll('.toc-link').forEach(link => {
+            link.classList.toggle('toc-link--active', link.dataset.headingId === id);
+        });
+    };
+
+    const spyObserver = new IntersectionObserver((entries) => {
+        const visible = entries
+            .filter(e => e.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible.length) {
+            setActiveToc(visible[0].target.id);
+        }
+    }, {
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: 0,
+    });
+
+    headings.forEach(h => spyObserver.observe(h));
+    if (headings[0]) setActiveToc(headings[0].id);
 });
 </script>
 @endpush

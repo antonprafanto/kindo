@@ -4,8 +4,11 @@ namespace App\Filament\Resources\ContributorApplications\Pages;
 
 use App\Filament\Resources\ContributorApplications\ContributorApplicationResource;
 use App\Models\ContributorApplication;
+use App\Services\ContributorService;
 use Filament\Actions\CreateAction;
+use Filament\Notifications\Notification;
 use Filament\Resources\Pages\ListRecords;
+use Livewire\Attributes\On;
 
 class ListContributorApplications extends ListRecords
 {
@@ -32,5 +35,43 @@ class ListContributorApplications extends ListRecords
                 ->label('Tambah Manual')
                 ->icon('heroicon-o-plus'),
         ];
+    }
+
+    #[On('contributor-send-onboarding')]
+    public function sendOnboardingFromNotification(int $applicationId): void
+    {
+        $application = ContributorApplication::find($applicationId);
+
+        if (! $application || $application->status !== 'approved') {
+            Notification::make()
+                ->title('Tidak bisa mengirim onboarding')
+                ->body('Aplikasi tidak ditemukan atau belum disetujui.')
+                ->danger()
+                ->send();
+
+            return;
+        }
+
+        try {
+            $service = app(ContributorService::class);
+            $service->sendOnboardingEmail(
+                $application,
+                $service->defaultOnboardingSubject(),
+                null,
+                true,
+            );
+
+            Notification::make()
+                ->title('Email onboarding terkirim')
+                ->body('Dikirim ke '.$application->email)
+                ->success()
+                ->send();
+        } catch (\Throwable $e) {
+            Notification::make()
+                ->title('Gagal mengirim email onboarding')
+                ->body($e->getMessage())
+                ->danger()
+                ->send();
+        }
     }
 }

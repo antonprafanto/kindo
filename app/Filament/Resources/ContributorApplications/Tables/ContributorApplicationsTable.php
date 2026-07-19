@@ -107,6 +107,14 @@ class ContributorApplicationsTable
                                         . '. Minta pelamar request reset password di /admin/password-reset/request.'
                                     )
                                     ->warning()
+                                    ->actions([
+                                        Action::make('sendOnboarding')
+                                            ->label('Kirim email onboarding')
+                                            ->button()
+                                            ->dispatch('contributor-send-onboarding', [
+                                                'applicationId' => $record->id,
+                                            ]),
+                                    ])
                                     ->send();
 
                                 return;
@@ -114,8 +122,16 @@ class ContributorApplicationsTable
 
                             Notification::make()
                                 ->title('Kontributor disetujui')
-                                ->body('Akun penulis dibuat. Email reset password dan pemberitahuan terkirim.')
+                                ->body('Akun penulis dibuat. Email reset password dan pemberitahuan terkirim. Kirim juga email onboarding?')
                                 ->success()
+                                ->actions([
+                                    Action::make('sendOnboarding')
+                                        ->label('Kirim email onboarding')
+                                        ->button()
+                                        ->dispatch('contributor-send-onboarding', [
+                                            'applicationId' => $record->id,
+                                        ]),
+                                ])
                                 ->send();
                         } catch (\Throwable $e) {
                             Notification::make()

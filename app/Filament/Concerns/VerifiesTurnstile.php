@@ -26,7 +26,7 @@ trait VerifiesTurnstile
 
         Notification::make()
             ->title('Verifikasi keamanan gagal')
-            ->body('Silakan centang kotak verifikasi Cloudflare dan coba lagi.')
+            ->body('Verifikasi keamanan gagal. Silakan coba lagi.')
             ->danger()
             ->send();
 

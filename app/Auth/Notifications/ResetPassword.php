@@ -21,11 +21,16 @@ class ResetPassword extends BaseResetPassword
             ? ($expireMinutes / 60).' jam'
             : $expireMinutes.' menit';
 
+        $userName = method_exists($notifiable, 'getAttribute')
+            ? ($notifiable->name ?? null)
+            : null;
+
         return (new MailMessage)
             ->subject('Buat Password Akun Panel Penulis — Koding Indonesia')
-            ->line('Kami mengirim email ini karena akun panel penulis kamu di Koding Indonesia perlu dibuat atau diatur ulang password-nya.')
-            ->action('Buat Password', $this->url)
-            ->line("Link ini berlaku selama {$expireText}.")
-            ->line('Kalau kamu tidak meminta ini, abaikan email ini.');
+            ->view('emails.reset-password', [
+                'url' => $this->url,
+                'expireText' => $expireText,
+                'userName' => $userName,
+            ]);
     }
 }
