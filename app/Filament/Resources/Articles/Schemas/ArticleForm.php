@@ -206,8 +206,27 @@ class ArticleForm
                             ->default('draft')
                             ->required()
                             ->native(false)
+                            ->live()
                             ->helperText($isAuthor ? 'Pilih "Menunggu Review" setelah artikel siap ditinjau admin.' : null),
                     ]),
+
+                Textarea::make('review_notes')
+                    ->label('Catatan Review')
+                    ->rows(3)
+                    ->maxLength(2000)
+                    ->visible(fn () => ! $isAuthor)
+                    ->helperText('Wajib diisi saat menolak (pending → draft). Penulis akan melihat catatan ini.')
+                    ->columnSpanFull(),
+
+                Placeholder::make('review_notes_author')
+                    ->label('Catatan dari Admin')
+                    ->content(fn ($record) => filled($record?->review_notes)
+                        ? new HtmlString('<div style="padding:.75rem;border:2px solid #000;background:#fff3cd;font-size:.875rem;white-space:pre-wrap;">'
+                            . e($record->review_notes)
+                            . '</div>')
+                        : '—')
+                    ->visible(fn ($record) => $isAuthor && filled($record?->review_notes))
+                    ->columnSpanFull(),
 
                 DateTimePicker::make('published_at')
                     ->label('Tanggal Terbit')
@@ -217,12 +236,45 @@ class ArticleForm
 
                 Toggle::make('is_featured')
                     ->label('Artikel Unggulan')
-                    ->helperText('Tampilkan di bagian featured homepage')
+                    ->helperText(function ($record) {
+                        $featuredCount = \App\Models\Article::query()
+                            ->featured()
+                            ->when($record?->id, fn ($q) => $q->where('id', '!=', $record->id))
+                            ->count();
+
+                        $base = 'Homepage menampilkan maks. 3 unggulan (terbaru).';
+
+                        if ($featuredCount >= 3) {
+                            return $base." Sudah ada {$featuredCount} artikel unggulan lain — yang lebih lama tidak tampil di home.";
+                        }
+
+                        return $base." Saat ini {$featuredCount}/3 slot terisi.";
+                    })
                     ->visible(fn () => ! $isAuthor)
                     ->columnSpanFull(),
             ])
             ->columns(2)
             ->columnSpanFull();
+
+        $components[] = Section::make('SEO (opsional)')
+            ->description('Kosongkan untuk memakai judul & ringkasan artikel secara otomatis')
+            ->schema([
+                TextInput::make('seo_title')
+                    ->label('Judul SEO')
+                    ->maxLength(70)
+                    ->helperText('Maks. 70 karakter — tampil di tab browser & hasil pencarian')
+                    ->columnSpanFull(),
+
+                Textarea::make('seo_description')
+                    ->label('Meta Description')
+                    ->rows(3)
+                    ->maxLength(160)
+                    ->helperText('Maks. 160 karakter — cuplikan di Google/sosial')
+                    ->columnSpanFull(),
+            ])
+            ->columns(1)
+            ->columnSpanFull()
+            ->collapsed();
 
         return $schema->components($components);
     }

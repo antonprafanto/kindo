@@ -1,5 +1,39 @@
 @props(['items' => []])
-{{-- items: [['label' => 'Beranda', 'url' => '/'], ['label' => 'Artikel', 'url' => '/artikel'], ['label' => 'Judul Artikel']] --}}
+{{-- items: [['label' => 'Artikel', 'url' => '/artikel'], ['label' => 'Judul Artikel']] --}}
+
+@php
+    $crumbList = [
+        ['label' => 'Beranda', 'url' => route('home')],
+    ];
+    foreach ($items as $i => $item) {
+        $isLast = $i === count($items) - 1;
+        $crumbList[] = [
+            'label' => $item['label'],
+            'url'   => (! $isLast && ! empty($item['url'])) ? $item['url'] : null,
+        ];
+    }
+@endphp
+
+@push('schema')
+<script type="application/ld+json">
+{!! json_encode([
+    '@context' => 'https://schema.org',
+    '@type' => 'BreadcrumbList',
+    'itemListElement' => collect($crumbList)->values()->map(function ($crumb, $index) {
+        $entry = [
+            '@type' => 'ListItem',
+            'position' => $index + 1,
+            'name' => $crumb['label'],
+        ];
+        if (! empty($crumb['url'])) {
+            $entry['item'] = $crumb['url'];
+        }
+
+        return $entry;
+    })->all(),
+], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) !!}
+</script>
+@endpush
 
 <nav aria-label="breadcrumb" class="py-3 border-b-2 border-black theme-paper">
     <div class="max-w-6xl mx-auto px-4">

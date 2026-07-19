@@ -34,7 +34,10 @@ class SearchPage extends Component
         if (RateLimiter::tooManyAttempts($key, 30)) {
             $seconds = RateLimiter::availableIn($key);
             $this->rateLimitError = "Terlalu banyak pencarian. Coba lagi dalam {$seconds} detik.";
-            return view('livewire.search-page', ['results' => collect()]);
+
+            return view('livewire.search-page', [
+                'results' => Article::published()->whereRaw('0 = 1')->paginate(12),
+            ]);
         }
         RateLimiter::hit($key, 60);
 

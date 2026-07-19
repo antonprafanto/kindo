@@ -38,18 +38,13 @@ class RequestPasswordReset extends BaseRequestPasswordReset
         $data['email'] = EmailNormalizer::normalize($data['email']);
         $user = User::where('email', $data['email'])->first();
 
-        if (! $user) {
-            $this->getFailureNotification(Password::INVALID_USER)?->send();
-
-            return;
-        }
-
-        try {
-            app(FilamentPasswordResetService::class)->sendResetLink($user);
-        } catch (\RuntimeException $exception) {
-            $this->getFailureNotification($exception->getMessage())?->send();
-
-            return;
+        // Always show the same success copy — never reveal whether the email exists.
+        if ($user) {
+            try {
+                app(FilamentPasswordResetService::class)->sendResetLink($user);
+            } catch (\RuntimeException $exception) {
+                report($exception);
+            }
         }
 
         $this->getSentNotification(Password::RESET_LINK_SENT)?->send();

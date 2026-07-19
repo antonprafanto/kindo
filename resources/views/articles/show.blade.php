@@ -6,6 +6,10 @@
         ? $article->seo_title . ' — Tutorial ESP32 & IoT di Koding Indonesia'
         : null"
     ogType="article"
+    :ogPublished="$article->published_at?->toIso8601String()"
+    :ogModified="$article->updated_at?->toIso8601String()"
+    :ogAuthor="$article->user?->name"
+    :ogSection="$article->category?->name"
     :canonical="($isPreview ?? false) ? null : route('articles.show', $article->slug)"
     :noindex="$isPreview ?? false"
 >
@@ -118,8 +122,8 @@
                 <div class="flex flex-wrap items-center gap-3 mb-5">
                     @if($article->category)
                     <a href="{{ route('categories.show', $article->category->slug) }}"
-                       class="text-xs font-bold uppercase tracking-wider px-3 py-1 border-2 border-black text-white"
-                       style="background: {{ $article->category->color }}; box-shadow: 2px 2px 0 #000;">
+                       class="text-xs font-bold uppercase tracking-wider px-3 py-1 border-2 border-black"
+                       style="background: {{ $article->category->color }}; color: {{ \App\Support\Contrast::textOn($article->category->color) }}; box-shadow: 2px 2px 0 #000;">
                         {{ $article->category->name }}
                     </a>
                     @endif
@@ -128,6 +132,9 @@
                             Belum dipublikasikan
                         @else
                             {{ $article->published_at?->translatedFormat('d F Y') }}
+                            @if($article->updated_at && $article->published_at && $article->updated_at->gt($article->published_at->copy()->addMinute()))
+                                · Terakhir diperbarui {{ $article->updated_at->translatedFormat('d F Y') }}
+                            @endif
                         @endif
                     </span>
                     <span class="text-sm font-mono theme-muted">{{ $article->read_time_minutes }} menit baca</span>
@@ -208,7 +215,7 @@
 
                 {{-- Share --}}
                 @unless($isPreview ?? false)
-                <div class="mt-8 p-6 border-2 border-black theme-highlight" style="box-shadow: 4px 4px 0 #000;">
+                <div id="article-share" class="mt-8 p-6 border-2 border-black theme-highlight" style="box-shadow: 4px 4px 0 #000;">
                     <p class="font-bold text-sm mb-3">Bagikan artikel ini:</p>
                     <div class="flex flex-wrap gap-2">
                         <a href="https://wa.me/?text={{ urlencode($article->title . ' — ' . route('articles.show', $article->slug)) }}" target="_blank"
@@ -217,15 +224,42 @@
                            class="btn-brutal px-4 py-2 text-xs text-white" style="background:#1DA1F2; border-color:#000;">Twitter / X</a>
                         <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('articles.show', $article->slug)) }}" target="_blank"
                            class="btn-brutal px-4 py-2 text-xs text-white" style="background:#0077B5; border-color:#000;">LinkedIn</a>
+                        <button type="button"
+                                id="copy-article-link"
+                                data-url="{{ route('articles.show', $article->slug) }}"
+                                class="btn-brutal px-4 py-2 text-xs theme-heading"
+                                style="background:#FFD600; border-color:#000;">
+                            Salin tautan
+                        </button>
                     </div>
+                    <p id="copy-article-link-feedback" class="mt-2 text-xs font-bold theme-muted hidden" aria-live="polite">Tautan disalin!</p>
                 </div>
 
+                <div class="print:hidden">
                 <livewire:article-comments :article="$article" />
+                </div>
                 @else
                 <div class="mt-8 p-4 border-2 border-dashed border-black theme-muted text-sm text-center">
                     Bagikan dan komentar akan tersedia setelah artikel dipublikasikan.
                 </div>
                 @endunless
+
+                {{-- Related (mobile / tablet — sidebar shows on lg+) --}}
+                @if($related->count())
+                <div class="lg:hidden mt-10 theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+                    <div class="px-4 py-3 border-b-2 border-black" style="background:#FF7A2F;">
+                        <h2 class="text-sm font-bold text-white uppercase tracking-wider">Artikel Terkait</h2>
+                    </div>
+                    <div class="p-4 space-y-4">
+                        @foreach($related as $rel)
+                        <a href="{{ route('articles.show', $rel->slug) }}" class="block group">
+                            <div class="text-sm font-semibold theme-heading group-hover:text-[#2979FF] leading-snug mb-1">{{ $rel->title }}</div>
+                            <div class="text-xs font-mono theme-muted">{{ $rel->published_at?->translatedFormat('d M Y') }}</div>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
 
             </div>
 
@@ -320,6 +354,45 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.addEventListener('scroll', updateProgress, { passive: true });
     updateProgress();
+})();
+
+// Salin tautan
+(function() {
+    const btn = document.getElementById('copy-article-link');
+    const feedback = document.getElementById('copy-article-link-feedback');
+    if (!btn) return;
+
+    btn.addEventListener('click', async () => {
+        const url = btn.dataset.url || window.location.href;
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(url);
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = url;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'absolute';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+            if (feedback) {
+                feedback.classList.remove('hidden');
+                btn.textContent = 'Disalin!';
+                setTimeout(() => {
+                    feedback.classList.add('hidden');
+                    btn.textContent = 'Salin tautan';
+                }, 2000);
+            }
+        } catch (err) {
+            if (feedback) {
+                feedback.textContent = 'Gagal menyalin — salin manual dari bilah alamat.';
+                feedback.classList.remove('hidden');
+            }
+        }
+    });
 })();
 </script>
 @endpush

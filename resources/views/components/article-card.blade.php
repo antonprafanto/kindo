@@ -28,7 +28,7 @@
             @if($article->category)
             <a href="{{ route('categories.show', $article->category->slug) }}"
                class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 border-2 border-black"
-               style="background: {{ $article->category->color }}; color: #fff; box-shadow: 2px 2px 0 #000;">
+               style="background: {{ $article->category->color }}; color: {{ \App\Support\Contrast::textOn($article->category->color) }}; box-shadow: 2px 2px 0 #000;">
                 {{ $article->category->name }}
             </a>
             @endif

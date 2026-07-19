@@ -9,9 +9,9 @@ use App\Services\ImageService;
 use App\Services\PublicHtmlStorageMirror;
 use App\Services\RelatedArticlesService;
 use App\Services\SitemapService;
+use App\Support\MultipartMail;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class ArticleObserver
 {
@@ -129,7 +129,7 @@ class ArticleObserver
         try {
             $contactEmail = config('mail.contact_email', config('mail.from.address'));
 
-            Mail::send('emails.article-pending-review', [
+            MultipartMail::send('emails.article-pending-review', [
                 'article'    => $article->loadMissing('category', 'user'),
                 'authorName' => $article->user?->name ?? 'Kontributor',
                 'adminUrl'   => url('/admin/articles/' . $article->id . '/edit'),

@@ -4,9 +4,9 @@ namespace App\Services;
 
 use App\Models\ContributorApplication;
 use App\Models\User;
+use App\Support\MultipartMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class ContributorService
 {
@@ -85,7 +85,7 @@ class ContributorService
         }
 
         try {
-            Mail::send('emails.contributor-approved', [
+            MultipartMail::send('emails.contributor-approved', [
                 'applicantName' => $application->name,
                 'loginUrl'      => url('/admin/login'),
             ], function ($message) use ($application) {
@@ -119,7 +119,7 @@ class ContributorService
         ]);
 
         try {
-            Mail::send('emails.contributor-rejected', [
+            MultipartMail::send('emails.contributor-rejected', [
                 'applicantName'   => $application->name,
                 'rejectionReason' => $reason,
                 'reapplyUrl'      => route('contributor.apply'),
@@ -154,7 +154,7 @@ class ContributorService
             ? $this->topicIdeasFor($application->topic_expertise)
             : [];
 
-        Mail::send('emails.contributor-onboarding', [
+        MultipartMail::send('emails.contributor-onboarding', [
             'applicantName'  => $application->name,
             'firstName'      => $this->firstName($application->name),
             'topicExpertise' => $application->topic_expertise,

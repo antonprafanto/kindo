@@ -292,11 +292,29 @@
                 'td, th { border: 1px solid #4b5563; padding: 8px; }',
             ].join(' '),
             setup(editor) {
+                let isDirty = false;
+
                 editor.on('init', () => {
                     if (initialHtml) {
                         editor.setContent(initialHtml);
                     }
+                    isDirty = false;
                 });
+
+                editor.on('change input undo redo SetContent', () => {
+                    isDirty = editor.isDirty();
+                });
+
+                window.addEventListener('beforeunload', (e) => {
+                    if (!isDirty) {
+                        return;
+                    }
+                    e.preventDefault();
+                    e.returnValue = '';
+                });
+
+                // Expose clear for submit handler
+                editor._kindoClearDirty = () => { isDirty = false; editor.setDirty(false); };
             },
         });
 
@@ -324,6 +342,10 @@
             if (!raw.replace(/<[^>]*>/g, '').trim()) {
                 alert('Isi artikel tidak boleh kosong.');
                 return;
+            }
+
+            if (typeof editor._kindoClearDirty === 'function') {
+                editor._kindoClearDirty();
             }
 
             const bytes = new TextEncoder().encode(raw);

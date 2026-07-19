@@ -27,7 +27,11 @@
         @else
         <div class="py-24 text-center">
             <div class="text-6xl mb-4">🏷️</div>
-            <p class="text-lg font-bold">Belum ada artikel dengan tag ini</p>
+            <p class="text-lg font-bold theme-heading mb-2">Belum ada artikel dengan tag ini</p>
+            <div class="flex flex-wrap justify-center gap-3 mt-6">
+                <a href="{{ route('articles.index') }}" class="btn-brutal btn-primary px-5 py-2 text-sm">Semua Artikel</a>
+                <a href="{{ route('search') }}" class="btn-brutal btn-outline px-5 py-2 text-sm">Cari Artikel</a>
+            </div>
         </div>
         @endif
     </div>

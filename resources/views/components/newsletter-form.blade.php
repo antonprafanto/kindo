@@ -1,18 +1,20 @@
 <form method="POST" action="{{ route('newsletter.subscribe') }}" class="space-y-4">
     @csrf
     <div style="display:none;" aria-hidden="true">
-        <input type="text" name="website" tabindex="-1" autocomplete="off">
+        <input type="text" name="hp_fax" tabindex="-1" autocomplete="off">
     </div>
 
     <div>
-        <label class="block text-sm font-bold mb-2 uppercase tracking-wider theme-heading">Email</label>
+        <label for="newsletter-email" class="block text-sm font-bold mb-2 uppercase tracking-wider theme-heading">Email</label>
         <input
             type="email"
+            id="newsletter-email"
             name="email"
             value="{{ old('email') }}"
             placeholder="email@kamu.com"
             required
             class="input-brutal w-full @error('email') border-red-500 @enderror"
+            @error('email') aria-invalid="true" @enderror
         >
         @error('email')
         <p class="text-red-400 text-xs mt-1 font-semibold">{{ $message }}</p>

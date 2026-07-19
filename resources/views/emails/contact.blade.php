@@ -45,6 +45,11 @@
                 <div class="message-box">{{ $messageBody }}</div>
             </div>
             <hr class="divider">
+            @if(!empty($panelUrl))
+            <p style="margin: 0 0 16px;">
+                @include('emails.partials.btn', ['href' => $panelUrl, 'label' => 'Buka di Panel'])
+            </p>
+            @endif
             <p style="font-size: 13px; color: #718096;">
                 Balas email ini untuk langsung merespons ke <strong>{{ $senderEmail }}</strong>.
             </p>

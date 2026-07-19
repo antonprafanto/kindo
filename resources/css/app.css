@@ -8,6 +8,30 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/* Screen-reader / skip-link */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+.focus\:not-sr-only:focus,
+.focus\:not-sr-only:focus-visible {
+    position: static;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
+
 /* ── Self-hosted fonts ─────────────────────────────────── */
 @font-face {
     font-family: 'Space Grotesk';
@@ -341,8 +365,17 @@ html.theme-animate footer {
         transition: box-shadow 0.1s ease;
     }
 
-    .input-brutal:focus {
+    .input-brutal:focus-visible {
         box-shadow: var(--shadow-brutal-blue);
+    }
+
+    /* Focus ring — keyboard only */
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible,
+    [role="button"]:focus-visible {
+        outline: 3px solid var(--color-primary, #2979FF);
+        outline-offset: 2px;
     }
 
     /* Section headings */
@@ -627,4 +660,35 @@ html.dark .article-body figure[style*="F5F5F0"] :is(strong, b, li, div, p, figca
 html.dark .article-body figure[style*="F5F5F0"] ol[style*="list-style:none"] {
     padding-left: 0;
     margin-bottom: 0;
+}
+
+/* Print — article reading */
+@media print {
+    nav,
+    footer,
+    #reading-progress,
+    #back-to-top,
+    #article-share,
+    #ga-consent-bar,
+    aside,
+    #toc-mobile-wrap,
+    .livewire-article-comments,
+    [wire\:id] {
+        display: none !important;
+    }
+
+    body {
+        background: #fff !important;
+        color: #000 !important;
+    }
+
+    .article-body a[href]::after {
+        content: ' (' attr(href) ')';
+        font-size: 0.75em;
+        word-break: break-all;
+    }
+
+    a {
+        text-decoration: underline;
+    }
 }

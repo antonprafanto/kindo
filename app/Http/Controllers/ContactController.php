@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactMessage;
 use App\Services\TurnstileService;
+use App\Support\MultipartMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\URL;
 
 class ContactController extends Controller
 {
@@ -19,8 +20,8 @@ class ContactController extends Controller
     public function store(Request $request, TurnstileService $turnstile)
     {
         try {
-            if ($request->filled('website')) {
-                return back()->with('success', 'Pesan kamu sudah terkirim! Kami akan merespons dalam 1–2 hari kerja.');
+            if ($request->filled('hp_fax')) {
+                return back();
             }
 
             if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
@@ -60,12 +61,19 @@ class ContactController extends Controller
 
             $contactEmail = config('mail.contact_email', config('mail.from.address'));
 
+            $panelUrl = URL::temporarySignedRoute(
+                'contact.open-panel',
+                now()->addDays(14),
+                ['contactMessage' => $contactMessage->id],
+            );
+
             try {
-                Mail::send('emails.contact', [
+                MultipartMail::send('emails.contact', [
                     'senderName'     => $validated['name'],
                     'senderEmail'    => $validated['email'],
                     'contactSubject' => $validated['subject'],
                     'messageBody'    => $validated['message'],
+                    'panelUrl'       => $panelUrl,
                 ], function ($message) use ($contactEmail, $validated) {
                     $message->to($contactEmail)
                         ->replyTo($validated['email'])
@@ -80,8 +88,8 @@ class ContactController extends Controller
 
             if ($isContributorInquiry) {
                 try {
-                    Mail::send('emails.contact-contributor-redirect', [
-                        'senderName'    => $validated['name'],
+                    MultipartMail::send('emails.contact-contributor-redirect', [
+                        'senderName'     => $validated['name'],
                         'contributorUrl' => route('contributor.apply'),
                     ], function ($message) use ($validated) {
                         $message->to($validated['email'])
@@ -108,5 +116,14 @@ class ContactController extends Controller
                 'email' => 'Gagal mengirim pesan. Silakan coba lagi beberapa saat atau hubungi kami langsung via email.',
             ])->withInput();
         }
+    }
+
+    public function openInPanel(ContactMessage $contactMessage)
+    {
+        if ($contactMessage->status === 'unread') {
+            $contactMessage->update(['status' => 'read']);
+        }
+
+        return redirect('/admin/contact-messages');
     }
 }

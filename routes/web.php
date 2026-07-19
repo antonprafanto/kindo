@@ -36,6 +36,9 @@ Route::get('/penulis/{slug}', [AuthorController::class, 'show'])->name('authors.
 
 Route::get('/kontak', [ContactController::class, 'show'])->name('contact');
 Route::post('/kontak', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/kontak/buka/{contactMessage}', [ContactController::class, 'openInPanel'])
+    ->middleware('signed')
+    ->name('contact.open-panel');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
@@ -44,7 +47,8 @@ Route::get('/kebijakan-privasi', [PageController::class, 'privacy'])->name('priv
 Route::get('/newsletter', [NewsletterController::class, 'show'])->name('newsletter');
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 Route::get('/newsletter/konfirmasi/{token}', [NewsletterController::class, 'confirm'])->name('newsletter.confirm');
-Route::get('/newsletter/berhenti/{token}', [NewsletterController::class, 'unsubscribe'])->name('newsletter.unsubscribe');
+Route::match(['get', 'post'], '/newsletter/berhenti/{token}', [NewsletterController::class, 'unsubscribe'])
+    ->name('newsletter.unsubscribe');
 
 Route::get('/deploy/migrate', [DeployController::class, 'migrate'])
     ->middleware('throttle:120,1')

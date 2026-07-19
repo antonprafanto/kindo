@@ -23,26 +23,46 @@ class NotifySubscribersOfNewArticle
 
         $this->article->loadMissing(['category', 'user']);
 
-        $count = 0;
+        $sent = 0;
+        $failed = 0;
+        $total = 0;
 
         NewsletterSubscriber::active()
             ->orderBy('id')
-            ->chunk(50, function ($subscribers) use ($newsletter, &$count) {
+            ->chunk(50, function ($subscribers) use ($newsletter, &$sent, &$failed, &$total) {
                 foreach ($subscribers as $subscriber) {
-                    $newsletter->sendNewArticleEmail($subscriber, $this->article);
-                    $count++;
+                    $total++;
+                    if ($newsletter->sendNewArticleEmail($subscriber, $this->article)) {
+                        $sent++;
+                    } else {
+                        $failed++;
+                    }
                 }
             });
 
-        ArticleNewsletterLog::create([
-            'article_id'        => $this->article->id,
-            'recipients_count'  => $count,
-            'sent_at'           => now(),
+        Log::info('Newsletter send finished for article', [
+            'article_id' => $this->article->id,
+            'sent'       => $sent,
+            'failed'     => $failed,
+            'total'      => $total,
         ]);
 
-        Log::info('Newsletter sent for article', [
-            'article_id' => $this->article->id,
-            'recipients' => $count,
-        ]);
+        if ($sent === 0 && $failed > 0) {
+            Log::error('Newsletter send failed for all subscribers', [
+                'article_id' => $this->article->id,
+                'sent'       => $sent,
+                'failed'     => $failed,
+            ]);
+
+            return;
+        }
+
+        if ($sent > 0 || $total === 0) {
+            ArticleNewsletterLog::create([
+                'article_id'       => $this->article->id,
+                'recipients_count' => $sent,
+                'sent_at'          => now(),
+            ]);
+        }
     }
 }

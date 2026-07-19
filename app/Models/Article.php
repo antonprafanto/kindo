@@ -19,6 +19,7 @@ class Article extends Model
         'user_id', 'category_id', 'title', 'slug', 'excerpt', 'body',
         'cover_image', 'status', 'is_featured', 'views_count',
         'read_time_minutes', 'seo_title', 'seo_description', 'published_at',
+        'review_notes',
     ];
 
     protected $casts = [
@@ -104,7 +105,7 @@ class Article extends Model
 
     public function incrementViews(): void
     {
-        $this->increment('views_count');
+        static::withoutTimestamps(fn () => $this->increment('views_count'));
     }
 
     public function isPubliclyVisible(): bool

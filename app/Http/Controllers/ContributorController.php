@@ -8,9 +8,9 @@ use App\Models\Tag;
 use App\Models\User;
 use App\Services\TurnstileService;
 use App\Support\EmailNormalizer;
+use App\Support\MultipartMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\RateLimiter;
 
 class ContributorController extends Controller
@@ -25,8 +25,8 @@ class ContributorController extends Controller
 
     public function store(Request $request, TurnstileService $turnstile)
     {
-        if ($request->filled('website')) {
-            return back()->with('success', 'Aplikasi kamu sudah terkirim! Kami akan meninjau dalam 3–5 hari kerja.');
+        if ($request->filled('hp_fax')) {
+            return back();
         }
 
         if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
@@ -80,7 +80,7 @@ class ContributorController extends Controller
             $contactEmail = config('mail.contact_email', config('mail.from.address'));
 
             try {
-                Mail::send('emails.contributor-application-admin', [
+                MultipartMail::send('emails.contributor-application-admin', [
                     'application' => $application,
                     'adminUrl'    => url('/admin/contributor-applications'),
                 ], function ($message) use ($contactEmail, $application) {
@@ -89,7 +89,7 @@ class ContributorController extends Controller
                         ->subject('[Koding Indonesia] Aplikasi Kontributor Baru — ' . $application->name);
                 });
 
-                Mail::send('emails.contributor-application-received', [
+                MultipartMail::send('emails.contributor-application-received', [
                     'applicantName' => $application->name,
                 ], function ($message) use ($application) {
                     $message->to($application->email)

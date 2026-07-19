@@ -429,7 +429,7 @@ if (isset($category) && $adminUser) {
 echo "\n=== UAT Contributor — Honeypot POST ===\n";
 
 $request = Illuminate\Http\Request::create('/menjadi-kontributor', 'POST', [
-    'website' => 'http://spam.bot',
+    'hp_fax' => 'http://spam.bot',
     '_token'  => csrf_token(),
 ]);
 $request->headers->set('Referer', config('app.url'));

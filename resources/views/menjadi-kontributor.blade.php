@@ -108,7 +108,7 @@
             <form method="POST" action="{{ route('contributor.apply.store') }}" class="space-y-5">
                 @csrf
                 <div style="display:none;" aria-hidden="true">
-                    <input type="text" name="website" tabindex="-1" autocomplete="off">
+                    <input type="text" name="hp_fax" tabindex="-1" autocomplete="off">
                 </div>
 
                 <div>

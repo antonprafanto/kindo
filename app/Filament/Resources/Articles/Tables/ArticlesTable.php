@@ -99,7 +99,7 @@ class ArticlesTable
                     ->label('Kategori')
                     ->relationship('category', 'name'),
 
-                $isAdmin ? TrashedFilter::make() : null,
+                TrashedFilter::make(),
             ]))
             ->recordActions([
                 ArticleCoverUploadAction::make(),
@@ -124,13 +124,27 @@ class ArticlesTable
                         ->color('success')
                         ->requiresConfirmation()
                         ->modalHeading('Publish Artikel Terpilih?')
-                        ->modalDescription('Semua artikel yang dipilih akan dipublish sekarang.')
-                        ->action(fn (Collection $records) => $records->each(
-                            fn ($r) => $r->update([
-                                'status'       => 'published',
-                                'published_at' => $r->published_at ?? now(),
-                            ])
-                        ))
+                        ->modalDescription('Artikel yang baru pertama kali dipublish akan memicu blast newsletter ke semua subscriber aktif. Pastikan konten sudah final.')
+                        ->action(function (Collection $records) {
+                            $published = 0;
+                            $records->each(function ($r) use (&$published) {
+                                $wasPublished = $r->status === 'published';
+                                $r->update([
+                                    'status'       => 'published',
+                                    'published_at' => $r->published_at ?? now(),
+                                ]);
+                                if (! $wasPublished) {
+                                    $published++;
+                                }
+                            });
+
+                            \Filament\Notifications\Notification::make()
+                                ->title($published > 0
+                                    ? "{$published} artikel dipublish — newsletter akan dikirim untuk artikel baru"
+                                    : 'Artikel terpilih sudah berstatus published')
+                                ->success()
+                                ->send();
+                        })
                         ->deselectRecordsAfterCompletion(),
 
                     BulkAction::make('unpublish')

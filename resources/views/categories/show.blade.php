@@ -35,7 +35,11 @@
         <div class="py-24 text-center">
             <div class="text-6xl mb-4">📭</div>
             <h2 class="text-xl font-bold mb-2 theme-heading">Belum ada artikel</h2>
-            <p class="theme-muted">Belum ada artikel yang dipublikasikan di kategori ini.</p>
+            <p class="theme-muted mb-6">Belum ada artikel yang dipublikasikan di kategori ini.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="{{ route('articles.index') }}" class="btn-brutal btn-primary px-5 py-2 text-sm">Semua Artikel</a>
+                <a href="{{ route('search') }}" class="btn-brutal btn-outline px-5 py-2 text-sm">Cari Artikel</a>
+            </div>
         </div>
         @endif
     </div>

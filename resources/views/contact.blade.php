@@ -25,34 +25,35 @@
             @csrf
             {{-- Honeypot: hidden field, bots fill it, humans don't --}}
             <div style="display:none;" aria-hidden="true">
-                <input type="text" name="website" tabindex="-1" autocomplete="off">
+                <input type="text" name="hp_fax" tabindex="-1" autocomplete="off">
             </div>
 
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase tracking-wider">Nama <span class="text-red-500">*</span></label>
-                <input type="text" name="name" value="{{ old('name') }}" placeholder="Nama lengkap kamu"
-                       class="input-brutal @error('name') border-red-500 @enderror">
+                <label for="contact-name" class="block text-sm font-bold mb-2 uppercase tracking-wider">Nama <span class="text-red-500">*</span></label>
+                <input type="text" id="contact-name" name="name" value="{{ old('name') }}" placeholder="Nama lengkap kamu"
+                       class="input-brutal @error('name') border-red-500 @enderror" @error('name') aria-invalid="true" @enderror>
                 @error('name')<p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p>@enderror
             </div>
 
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase tracking-wider">Email <span class="text-red-500">*</span></label>
-                <input type="email" name="email" value="{{ old('email') }}" placeholder="email@kamu.com"
-                       class="input-brutal @error('email') border-red-500 @enderror">
+                <label for="contact-email" class="block text-sm font-bold mb-2 uppercase tracking-wider">Email <span class="text-red-500">*</span></label>
+                <input type="email" id="contact-email" name="email" value="{{ old('email') }}" placeholder="email@kamu.com"
+                       class="input-brutal @error('email') border-red-500 @enderror" @error('email') aria-invalid="true" @enderror>
                 @error('email')<p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p>@enderror
             </div>
 
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase tracking-wider">Subjek <span class="text-red-500">*</span></label>
-                <input type="text" name="subject" value="{{ old('subject') }}" placeholder="Topik pesan kamu"
-                       class="input-brutal @error('subject') border-red-500 @enderror">
+                <label for="contact-subject" class="block text-sm font-bold mb-2 uppercase tracking-wider">Subjek <span class="text-red-500">*</span></label>
+                <input type="text" id="contact-subject" name="subject" value="{{ old('subject') }}" placeholder="Topik pesan kamu"
+                       class="input-brutal @error('subject') border-red-500 @enderror" @error('subject') aria-invalid="true" @enderror>
                 @error('subject')<p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p>@enderror
             </div>
 
             <div>
-                <label class="block text-sm font-bold mb-2 uppercase tracking-wider">Pesan <span class="text-red-500">*</span></label>
-                <textarea name="message" rows="6" placeholder="Tulis pesanmu di sini... (min. 20 karakter)"
-                          class="input-brutal resize-none @error('message') border-red-500 @enderror">{{ old('message') }}</textarea>
+                <label for="contact-message" class="block text-sm font-bold mb-2 uppercase tracking-wider">Pesan <span class="text-red-500">*</span></label>
+                <textarea id="contact-message" name="message" rows="6" placeholder="Tulis pesanmu di sini... (min. 20 karakter)"
+                          class="input-brutal resize-none @error('message') border-red-500 @enderror"
+                          @error('message') aria-invalid="true" @enderror>{{ old('message') }}</textarea>
                 @error('message')<p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p>@enderror
             </div>
 

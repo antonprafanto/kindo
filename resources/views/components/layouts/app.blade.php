@@ -17,7 +17,7 @@
     @php
         $pageTitle = $title ?? 'Koding Indonesia — Tutorial ESP32 & IoT';
         $metaDescription = $description ?? 'Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir.';
-        $shareTitle = $ogTitle ?? 'Koding Indonesia';
+        $shareTitle = $ogTitle ?? $pageTitle;
         $defaultShareDescription = 'Belajar ESP32, Arduino, dan IoT dengan tutorial praktis berbahasa Indonesia. Gratis untuk pemula hingga mahir.';
         $pageDescription = $description ?? null;
         $shareDescription = $ogDescription ?? ($pageDescription
@@ -46,6 +46,20 @@
     <meta property="og:url" content="{{ $canonical ?? url()->current() }}">
     <meta property="og:site_name" content="Koding Indonesia">
     <meta property="og:locale" content="id_ID">
+    @if (($ogType ?? 'website') === 'article')
+        @if (!empty($ogPublished))
+        <meta property="article:published_time" content="{{ $ogPublished }}">
+        @endif
+        @if (!empty($ogModified))
+        <meta property="article:modified_time" content="{{ $ogModified }}">
+        @endif
+        @if (!empty($ogAuthor))
+        <meta property="article:author" content="{{ $ogAuthor }}">
+        @endif
+        @if (!empty($ogSection))
+        <meta property="article:section" content="{{ $ogSection }}">
+        @endif
+    @endif
 
     {{-- Twitter Cards --}}
     <meta name="twitter:card" content="summary_large_image">
@@ -90,9 +104,13 @@
 </head>
 <body class="antialiased" style="background-color: var(--color-surface); color: var(--color-dark); font-family: var(--font-sans);">
 
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:px-4 focus:py-2 focus:bg-black focus:text-white focus:border-2 focus:border-[#FFD600] focus:font-bold">
+        Langsung ke konten
+    </a>
+
     <x-navbar />
 
-    <main>{{ $slot }}</main>
+    <main id="main-content">{{ $slot }}</main>
 
     <x-footer />
 

@@ -61,31 +61,34 @@
 
         <form wire:submit="submit" class="space-y-4">
             <div style="display:none;" aria-hidden="true">
-                <input type="text" wire:model="website" tabindex="-1" autocomplete="off">
+                <input type="text" wire:model="hp_fax" tabindex="-1" autocomplete="off">
             </div>
 
             <div class="grid sm:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider mb-2 theme-heading">Nama</label>
-                    <input type="text" wire:model="author_name" required maxlength="100"
+                    <label for="comment-author-name" class="block text-xs font-bold uppercase tracking-wider mb-2 theme-heading">Nama</label>
+                    <input type="text" id="comment-author-name" wire:model="author_name" required maxlength="100"
                            class="input-brutal w-full @error('author_name') border-red-500 @enderror"
-                           placeholder="Nama kamu">
+                           placeholder="Nama kamu"
+                           @error('author_name') aria-invalid="true" @enderror>
                     @error('author_name') <p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p> @enderror
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider mb-2 theme-heading">Email</label>
-                    <input type="email" wire:model="author_email" required maxlength="200"
+                    <label for="comment-author-email" class="block text-xs font-bold uppercase tracking-wider mb-2 theme-heading">Email</label>
+                    <input type="email" id="comment-author-email" wire:model="author_email" required maxlength="200"
                            class="input-brutal w-full @error('author_email') border-red-500 @enderror"
-                           placeholder="email@kamu.com">
+                           placeholder="email@kamu.com"
+                           @error('author_email') aria-invalid="true" @enderror>
                     @error('author_email') <p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p> @enderror
                 </div>
             </div>
 
             <div>
-                <label class="block text-xs font-bold uppercase tracking-wider mb-2 theme-heading">Komentar</label>
-                <textarea wire:model="body" required rows="4" maxlength="2000"
+                <label for="comment-body" class="block text-xs font-bold uppercase tracking-wider mb-2 theme-heading">Komentar</label>
+                <textarea id="comment-body" wire:model="body" required rows="4" maxlength="2000"
                           class="input-brutal w-full resize-y @error('body') border-red-500 @enderror"
-                          placeholder="Tulis pertanyaan atau pengalaman kamu..."></textarea>
+                          placeholder="Tulis pertanyaan atau pengalaman kamu..."
+                          @error('body') aria-invalid="true" @enderror></textarea>
                 @error('body') <p class="text-red-500 text-xs mt-1 font-semibold">{{ $message }}</p> @enderror
             </div>
 

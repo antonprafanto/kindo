@@ -25,6 +25,8 @@
                     <button
                         @click="catOpen = !catOpen"
                         @keydown.escape="catOpen = false"
+                        :aria-expanded="catOpen.toString()"
+                        aria-haspopup="true"
                         class="px-4 py-2 font-semibold text-sm flex items-center gap-1 hover:bg-black hover:text-white transition-colors"
                     >
                         Kategori
@@ -73,6 +75,7 @@
                 <a href="{{ route('search') }}"
                    class="ml-2 px-3 py-2 border-2 border-black hover:bg-black hover:text-white transition-colors"
                    style="box-shadow: 2px 2px 0 #000;"
+                   aria-label="Cari artikel"
                    title="Cari artikel"
                 >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -86,12 +89,12 @@
             {{-- Mobile: Search + Theme + Hamburger --}}
             <div class="flex items-center gap-2 md:hidden">
                 <x-theme-toggle />
-                <a href="{{ route('search') }}" class="p-2 border-2 border-black">
+                <a href="{{ route('search') }}" class="p-2 border-2 border-black" aria-label="Cari artikel">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                     </svg>
                 </a>
-                <button @click="open = !open" class="p-2 border-2 border-black" aria-label="Menu">
+                <button @click="open = !open" class="p-2 border-2 border-black" aria-label="Menu" :aria-expanded="open.toString()">
                     <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <path stroke-linecap="square" d="M3 6h18M3 12h18M3 18h18"/>
                     </svg>

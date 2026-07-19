@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Models\NewsletterSubscriber;
+use App\Support\MultipartMail;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class NewsletterService
@@ -77,7 +77,7 @@ class NewsletterService
     {
         $url = route('newsletter.confirm', $subscriber->confirmation_token);
 
-        Mail::send('emails.newsletter.confirm', [
+        MultipartMail::send('emails.newsletter.confirm', [
             'confirmUrl' => $url,
             'email'      => $subscriber->email,
         ], function ($message) use ($subscriber) {
@@ -88,30 +88,44 @@ class NewsletterService
 
     public function sendWelcomeEmail(NewsletterSubscriber $subscriber): void
     {
-        Mail::send('emails.newsletter.welcome', [
-            'unsubscribeUrl' => route('newsletter.unsubscribe', $subscriber->unsubscribe_token),
-        ], function ($message) use ($subscriber) {
+        $unsubscribeUrl = route('newsletter.unsubscribe', $subscriber->unsubscribe_token);
+
+        MultipartMail::send('emails.newsletter.welcome', [
+            'unsubscribeUrl' => $unsubscribeUrl,
+        ], function ($message) use ($subscriber, $unsubscribeUrl) {
             $message->to($subscriber->email)
                 ->subject('Selamat datang di newsletter Koding Indonesia! 🎉');
+
+            $message->getHeaders()->addTextHeader('List-Unsubscribe', '<' . $unsubscribeUrl . '>');
+            $message->getHeaders()->addTextHeader('List-Unsubscribe-Post', 'List-Unsubscribe=One-Click');
         });
     }
 
-    public function sendNewArticleEmail(NewsletterSubscriber $subscriber, $article): void
+    public function sendNewArticleEmail(NewsletterSubscriber $subscriber, $article): bool
     {
         try {
-            Mail::send('emails.newsletter.new-article', [
+            $unsubscribeUrl = route('newsletter.unsubscribe', $subscriber->unsubscribe_token);
+
+            MultipartMail::send('emails.newsletter.new-article', [
                 'article'        => $article,
-                'unsubscribeUrl' => route('newsletter.unsubscribe', $subscriber->unsubscribe_token),
-            ], function ($message) use ($subscriber, $article) {
+                'unsubscribeUrl' => $unsubscribeUrl,
+            ], function ($message) use ($subscriber, $article, $unsubscribeUrl) {
                 $message->to($subscriber->email)
                     ->subject('Artikel baru: ' . $article->title);
+
+                $message->getHeaders()->addTextHeader('List-Unsubscribe', '<' . $unsubscribeUrl . '>');
+                $message->getHeaders()->addTextHeader('List-Unsubscribe-Post', 'List-Unsubscribe=One-Click');
             });
+
+            return true;
         } catch (\Throwable $e) {
             Log::warning('Newsletter send failed', [
                 'email'      => $subscriber->email,
                 'article_id' => $article->id,
                 'error'      => $e->getMessage(),
             ]);
+
+            return false;
         }
     }
 

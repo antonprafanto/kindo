@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\Article;
 use App\Models\Comment;
 use App\Services\TurnstileService;
+use App\Support\MultipartMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\RateLimiter;
 use Livewire\Component;
 
@@ -18,7 +20,7 @@ class ArticleComments extends Component
 
     public string $body = '';
 
-    public string $website = '';
+    public string $hp_fax = '';
 
     public string $turnstileToken = '';
 
@@ -56,10 +58,7 @@ class ArticleComments extends Component
 
         $this->successMessage = null;
 
-        if ($this->website !== '') {
-            $this->successMessage = 'Komentar kamu menunggu moderasi. Terima kasih!';
-            $this->resetForm();
-
+        if ($this->hp_fax !== '') {
             return;
         }
 
@@ -127,6 +126,26 @@ class ArticleComments extends Component
             'ip_address'   => request()->ip(),
         ]);
 
+        try {
+            $contactEmail = config('mail.contact_email', config('mail.from.address'));
+
+            MultipartMail::send('emails.comment-pending', [
+                'articleTitle' => $this->article->title,
+                'authorName'   => $validated['author_name'],
+                'authorEmail'  => $validated['author_email'],
+                'commentBody'  => $validated['body'],
+                'adminUrl'     => url('/admin/comments'),
+            ], function ($message) use ($contactEmail) {
+                $message->to($contactEmail)
+                    ->subject('[Koding Indonesia] Komentar baru menunggu moderasi');
+            });
+        } catch (\Throwable $e) {
+            Log::warning('Comment pending admin email failed', [
+                'article_id' => $this->article->id,
+                'error'      => $e->getMessage(),
+            ]);
+        }
+
         $this->successMessage = 'Komentar kamu menunggu moderasi. Terima kasih!';
         $this->resetForm();
         $this->dispatch('reset-turnstile');
@@ -134,7 +153,7 @@ class ArticleComments extends Component
 
     private function resetForm(): void
     {
-        $this->reset(['body', 'turnstileToken', 'replyingTo', 'website', 'turnstileRequested']);
+        $this->reset(['body', 'turnstileToken', 'replyingTo', 'hp_fax', 'turnstileRequested']);
         $this->resetValidation();
     }
 

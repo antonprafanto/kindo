@@ -20,8 +20,8 @@ class NewsletterController extends Controller
     public function subscribe(Request $request, TurnstileService $turnstile)
     {
         try {
-            if ($request->filled('website')) {
-                return $this->successResponse($request, 'Cek email kamu untuk konfirmasi langganan newsletter.');
+            if ($request->filled('hp_fax')) {
+                return back();
             }
 
             if ($turnstile->isConfigured() && ! $turnstile->verify($request->input('cf-turnstile-response'), $request->ip())) {
@@ -81,9 +81,14 @@ class NewsletterController extends Controller
         ]);
     }
 
-    public function unsubscribe(string $token)
+    public function unsubscribe(Request $request, string $token)
     {
         $subscriber = $this->newsletter->unsubscribe($token);
+
+        // RFC 8058 one-click unsubscribe (List-Unsubscribe-Post)
+        if ($request->isMethod('post')) {
+            return response('', 200);
+        }
 
         if (!$subscriber) {
             return view('newsletter-status', [

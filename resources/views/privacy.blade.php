@@ -8,12 +8,12 @@
 
 <div class="max-w-3xl mx-auto px-4 py-12">
 
-    <h1 class="text-4xl font-black mb-2" style="letter-spacing:-0.02em;">Kebijakan Privasi</h1>
-    <p class="text-sm mb-10" style="color:#718096; font-family:'Inter',sans-serif;">
+    <h1 class="text-4xl font-black mb-2 theme-heading" style="letter-spacing:-0.02em;">Kebijakan Privasi</h1>
+    <p class="text-sm mb-10 theme-muted">
         Terakhir diperbarui: {{ date('d F Y') }}
     </p>
 
-    <div class="prose max-w-none space-y-8" style="font-family:'Inter',sans-serif; color:#2D3748; line-height:1.8;">
+    <div class="prose max-w-none space-y-8 theme-body">
 
         <section>
             <h2 class="text-xl font-black mb-3 border-b-2 border-black pb-2">1. Informasi yang Kami Kumpulkan</h2>
@@ -58,7 +58,7 @@
 
         <section>
             <h2 class="text-xl font-black mb-3 border-b-2 border-black pb-2">6. Hak Anda</h2>
-            <p>Anda berhak untuk meminta penghapusan data yang telah Anda kirimkan kepada kami. Hubungi kami melalui halaman <a href="{{ route('contact') }}" class="font-bold underline" style="color:#2979FF;">Kontak</a>.</p>
+            <p>Anda berhak untuk meminta penghapusan data yang telah Anda kirimkan kepada kami. Hubungi kami melalui halaman <a href="{{ route('contact') }}" class="font-bold underline text-[#2979FF]">Kontak</a>.</p>
         </section>
 
         <section>
@@ -68,7 +68,7 @@
 
         <section>
             <h2 class="text-xl font-black mb-3 border-b-2 border-black pb-2">8. Kontak</h2>
-            <p>Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, silakan hubungi kami melalui halaman <a href="{{ route('contact') }}" class="font-bold underline" style="color:#2979FF;">Kontak</a>.</p>
+            <p>Jika Anda memiliki pertanyaan tentang kebijakan privasi ini, silakan hubungi kami melalui halaman <a href="{{ route('contact') }}" class="font-bold underline text-[#2979FF]">Kontak</a>.</p>
         </section>
 
     </div>
