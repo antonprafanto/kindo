@@ -270,7 +270,7 @@ print(buku_b.info())
   <li><a href="/artikel/abstraction-abc-python-oop">Abstraction &amp; ABC (#46)</a></li>
   <li><a href="/artikel/composition-vs-inheritance-python">Composition vs Inheritance (#47)</a></li>
   <li><a href="/artikel/special-methods-dataclass-python">Special methods &amp; dataclass (#48)</a></li>
-  <li>Capstone: sistem perpustakaan mini</li>
+  <li><a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone: sistem perpustakaan mini (#49)</a></li>
 </ol>
 <p>Domain contoh sepanjang seri: <strong>perpustakaan / inventaris buku</strong> — sederhana, mudah divisualisasikan, dan bisa dihubungkan ke IoT di jalur opsional nanti (MicroPython).</p>
 
@@ -291,7 +291,7 @@ print(buku_b.info())
 <p>Lanjut ke <a href="/artikel/class-dan-object-pertama-python">Class dan Object Pertama di Python (#41)</a>: kita menulis <code>class Buku</code> dari nol, membuat beberapa instance, dan melihat identitas tiap object.</p>
 
 <blockquote>
-  <p><strong>Seri 3 progress:</strong> 9/10 artikel live (#40–#48). Lanjut <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a>. Capstone: sistem perpustakaan mini.</p>
+  <p><strong>Seri 3 progress:</strong> 10/10 artikel live. Lanjut <a href="/artikel/class-dan-object-pertama-python">Class &amp; Object (#41)</a>. <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone: sistem perpustakaan mini (#49)</a>.</p>
 </blockquote>
 HTML;
     }

@@ -51,7 +51,7 @@ check(str_contains($body, '@property'), 'Bahas @property');
 check(str_contains($body, '@tahun.setter') || str_contains($body, '@stok.setter'), 'Bahas setter');
 check(str_contains($body, 'RecursionError'), 'Bahas RecursionError');
 check(str_contains($body, 'BukuSalah') && str_contains($body, 'BukuBenar'), 'Demo RecursionError SALAH/BENAR');
-check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
+check(str_contains($body, '10/10 artikel live'), 'Progress 10/10 live');
 check(str_contains($body, '/artikel/inheritance-pewarisan-class-python'), 'Hardlink #43→#44');
 check(str_contains($body, 'Inheritance'), 'Teaser/link Inheritance');
 check(str_contains($body, 'juga lewat property') || str_contains($body, 'lewat property'), 'Jelaskan stok -= 1 lewat property');

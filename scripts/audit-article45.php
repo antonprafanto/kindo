@@ -94,7 +94,7 @@ check(str_contains($body, 'Kesalahan umum'), 'Ada Kesalahan umum');
 check(str_contains($body, 'Seri 3'), 'Menyebut Seri 3');
 check(str_contains($body, 'language-python'), 'Blok language-python');
 check(str_contains($body, 'Abstraction') || str_contains($body, 'ABC'), 'Teaser Abstraction/ABC');
-check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
+check(str_contains($body, '10/10 artikel live'), 'Progress 10/10 live');
 check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
 

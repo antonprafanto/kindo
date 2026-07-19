@@ -59,14 +59,14 @@ check(str_contains($body, 'NotImplemented'), 'NotImplemented di __eq__');
 check(str_contains($body, '@dataclass') || str_contains($body, 'dataclass'), 'Ada dataclass');
 check(str_contains($body, 'buku_special_methods.py'), 'File contoh');
 check(str_contains($body, 'class Katalog'), 'Katalog composition di kode lengkap');
-check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
+check(str_contains($body, '10/10 artikel live'), 'Progress 10/10 live');
 check(str_contains($body, 'Capstone') || str_contains($body, 'Perpustakaan Mini'), 'Teaser #49');
 check(str_contains($body, '/artikel/composition-vs-inheritance-python'), 'Link #47');
 check(str_contains($body, '/artikel/attribute-method-constructor-init-python'), 'Link #42');
 check(str_contains($body, 'oop48Arrow'), 'SVG marker oop48');
 check(str_contains($body, 'unhashable') || str_contains($body, '__hash__'), 'Bahas unhashable setelah __eq__');
 check(str_contains($body, 'tanpa __eq__, a == b?'), 'Demo default equality False');
-check(! str_contains($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python'), 'Tidak hardlink #49');
+check(str_contains($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python'), 'Hardlink #49');
 
 echo "\n=== Python/pedagogi audit #48: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

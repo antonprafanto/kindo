@@ -53,7 +53,7 @@ check(str_contains($body, 'PerpustakaanBenar') || str_contains($body, 'SALAH'), 
 check(str_contains($body, '/artikel/special-methods-dataclass-python'), 'Backlink live ke #48');
 check(str_contains($body, 'dataclass') || str_contains($body, 'Special Methods'), 'Teaser/link #48');
 check(! str_contains($body, 'dataclass (artikel berikutnya)'), 'Tanpa residual “dataclass (artikel berikutnya)”');
-check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
+check(str_contains($body, '10/10 artikel live'), 'Progress 10/10 live');
 check(str_contains($body, 'sering berpasangan'), 'Jembatan composition + ABC');
 check(substr_count($body, '/artikel/abstraction-abc-python-oop') >= 3, 'Minimal 3 tautan ke #46 (termasuk jembatan)');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article46Seeder.php'), 'composition-vs-inheritance-python'), 'Backlink #46→#47');

@@ -57,7 +57,7 @@ check(str_contains($body, 'KatalogSalah') && str_contains($body, 'KatalogBenar')
 check(str_contains($body, 'perpustakaan_komposisi.py'), 'File contoh');
 check(str_contains($body, 'Output yang diharapkan'), 'Ada output contoh lengkap');
 check(str_contains($body, 'dataclass') || str_contains($body, 'Special Methods'), 'Teaser/link #48');
-check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
+check(str_contains($body, '10/10 artikel live'), 'Progress 10/10 live');
 check(str_contains($body, '/artikel/special-methods-dataclass-python'), 'Backlink live ke #48');
 check(str_contains($body, 'sering berpasangan'), 'Jembatan composition + ABC');
 check(str_contains($body, '/artikel/attribute-method-constructor-init-python') && str_contains($body, '/artikel/class-dan-object-pertama-python'), 'Footer/prasyarat #42+#41');

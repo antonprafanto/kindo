@@ -2948,6 +2948,117 @@ class DeployController extends Controller
         return response('Article 48 published', 200);
     }
 
+    /**
+     * Publish artikel ke-49 via seeder (shared hosting tanpa SSH).
+     * Juga re-seed #48 + #40 agar backlink/indeks Capstone ikut terbarui.
+     */
+    public function publishArticle49(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article49Seeder.php',
+            'database/seeders/Article48Seeder.php',
+            'database/seeders/Article40Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article49Seeder::class)) {
+            return response('Article49Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 49 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article49Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 49 seed failed', 500);
+        }
+
+        // Backlink Capstone: teaser #48 + indeks #40
+        foreach ([
+            'Database\\Seeders\\Article48Seeder' => 'Article 49 backlink #48 seed failed',
+            'Database\\Seeders\\Article40Seeder' => 'Article 49 backlink #40 seed failed',
+        ] as $class => $failMsg) {
+            if (! class_exists($class)) {
+                return response($failMsg.' (class missing)', 500);
+            }
+            $backExit = Artisan::call('db:seed', [
+                '--class' => $class,
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response($failMsg, 500);
+            }
+        }
+
+        $slug = 'capstone-sistem-perpustakaan-mini-oop-python';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 49 missing or not visible after Article49Seeder on deploy hook.'));
+
+            return response('Article 49 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop49Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'perpustakaan_mini.py') || ! str_contains($body, 'dataclass') || ! str_contains($body, 'class Perpustakaan') || ! str_contains($body, 'demo(') || ! str_contains($body, '__str__') || ! str_contains($body, '10/10')) {
+            report(new \RuntimeException('Article 49 body missing expected content after seed.'));
+
+            return response('Article 49 body content checks failed', 500);
+        }
+
+        $capstoneSlug = 'capstone-sistem-perpustakaan-mini-oop-python';
+        $a48 = Article::published()->where('slug', 'special-methods-dataclass-python')->first();
+        if (! $a48 || ! str_contains((string) $a48->body, $capstoneSlug)) {
+            report(new \RuntimeException('Article 49 backlink missing on #48 after reseed.'));
+
+            return response('Article 49 backlink #48 incomplete', 500);
+        }
+        $a40 = Article::published()->where('slug', 'mengenal-oop-cara-berpikir-dengan-objek-python')->first();
+        if (! $a40 || ! str_contains((string) $a40->body, $capstoneSlug)) {
+            report(new \RuntimeException('Article 49 backlink missing on #40 after reseed.'));
+
+            return response('Article 49 backlink #40 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 49 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

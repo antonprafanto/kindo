@@ -86,14 +86,14 @@ check(str_contains($body, 'Kesalahan umum'), 'Ada Kesalahan umum');
 check(str_contains($body, 'Seri 3'), 'Menyebut Seri 3');
 check(str_contains($body, 'language-python'), 'Blok language-python');
 check(str_contains($body, 'Capstone') || str_contains($body, 'Perpustakaan Mini'), 'Teaser #49');
-check(str_contains($body, '9/10 artikel live'), 'Progress 9/10 live');
+check(str_contains($body, '10/10 artikel live'), 'Progress 10/10 live');
 check(substr_count($body, '<h2') >= 8, 'Minimal 8 H2');
 check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(! preg_match('/(?<![\w\/"#>])#(?:49|[5-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #49+ di luar link');
+check(! preg_match('/(?<![\w\/"#>])#(?:5[0-9]|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #50+ di luar link');
 check(! preg_match('/#48(?!\s*\(ini\))/', $plain), 'Tidak ada plain #48 selain #48 (ini)');
-check(! str_contains($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python'), 'Tidak hardlink slug #49');
+check(str_contains($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python'), 'Hardlink slug #49');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
