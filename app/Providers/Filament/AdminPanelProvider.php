@@ -74,6 +74,10 @@ class AdminPanelProvider extends PanelProvider
                 PanelsRenderHook::HEAD_END,
                 fn () => view('filament.hooks.admin-editor-styles'),
             )
+            ->renderHook(
+                PanelsRenderHook::BODY_END,
+                fn () => view('filament.hooks.session-idle-warn'),
+            )
             ->routes(function () {
                 Route::bind('article', function (string $value): Article {
                     $query = Article::query();

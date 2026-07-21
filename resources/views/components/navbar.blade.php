@@ -3,11 +3,28 @@
         open: false,
         focusFirstLink() {
             this.$nextTick(() => {
-                this.$refs.mobileMenu?.querySelector('a')?.focus();
+                this.$refs.mobileMenu?.querySelector('a,button')?.focus();
             });
+        },
+        trapTab(e) {
+            if (!this.open || e.key !== 'Tab') return;
+            const root = this.$refs.mobileMenu;
+            if (!root) return;
+            const focusable = [...root.querySelectorAll('a,button')].filter((el) => !el.disabled && el.offsetParent !== null);
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
         },
     }"
     @keydown.escape.window="open = false"
+    @keydown.tab.window="trapTab($event)"
     class="sticky top-0 z-50 theme-paper border-b-[3px] border-black"
     style="box-shadow: 0 3px 0 #000;"
 >

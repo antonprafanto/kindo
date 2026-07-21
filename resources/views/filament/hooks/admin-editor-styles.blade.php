@@ -31,4 +31,19 @@
             min-width: 2.5rem;
         }
     }
+
+    /* Light neo-brutal accents — closer to public brand (P1-07) */
+    .fi-btn {
+        border-radius: 0 !important;
+        border-width: 2px !important;
+    }
+    .fi-sidebar-header,
+    .fi-topbar {
+        border-bottom: 2px solid #000 !important;
+    }
+    .fi-wi-stats-overview-stat {
+        border: 2px solid #000 !important;
+        border-radius: 0 !important;
+        box-shadow: 3px 3px 0 #000 !important;
+    }
 </style>
