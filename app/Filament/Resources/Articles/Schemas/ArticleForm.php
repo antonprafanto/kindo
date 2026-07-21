@@ -320,14 +320,22 @@ class ArticleForm
                 TextInput::make('seo_title')
                     ->label('Judul SEO')
                     ->maxLength(70)
-                    ->helperText('Maks. 70 karakter — tampil di tab browser & hasil pencarian')
+                    ->live(onBlur: true)
+                    ->helperText(fn (?string $state): string => mb_strlen($state ?? '').'/70 karakter — tampil di tab browser & hasil pencarian')
+                    ->validationMessages([
+                        'max' => 'Judul SEO maksimal 70 karakter.',
+                    ])
                     ->columnSpanFull(),
 
                 Textarea::make('seo_description')
                     ->label('Meta Description')
                     ->rows(3)
                     ->maxLength(160)
-                    ->helperText('Maks. 160 karakter — cuplikan di Google/sosial')
+                    ->live(debounce: 300)
+                    ->helperText(fn (?string $state): string => mb_strlen($state ?? '').'/160 karakter — cuplikan di Google/sosial')
+                    ->validationMessages([
+                        'max' => 'Meta Description maksimal 160 karakter.',
+                    ])
                     ->columnSpanFull(),
             ])
             ->columns(1)
