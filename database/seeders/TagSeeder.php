@@ -35,6 +35,8 @@ class TagSeeder extends Seeder
             ['slug' => 'abstraction', 'name' => 'abstraction'],
             ['slug' => 'dataclass', 'name' => 'dataclass'],
             ['slug' => 'design-pattern', 'name' => 'design-pattern'],
+            ['slug' => 'flask', 'name' => 'flask'],
+            ['slug' => 'fastapi', 'name' => 'fastapi'],
             ['slug' => 'html', 'name' => 'html'],
             ['slug' => 'css', 'name' => 'css'],
             ['slug' => 'mysql', 'name' => 'mysql'],

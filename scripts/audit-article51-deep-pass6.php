@@ -40,7 +40,7 @@ check(str_contains($deploy, 'Article 51 backlink #40') && str_contains($deploy, 
 check(! str_contains($a40, 'jalur opsional nanti (MicroPython)'), 'Tanpa residual #40');
 check(! preg_match('/Ide berikutnya \(belum live\): MicroPython/', $a49), 'Tanpa residual #49 MicroPython');
 check(! preg_match('/→/u', $body) && ! str_contains($body, 'input('), 'ASCII + no input()');
-check(! preg_match('/\/artikel\/[a-z0-9-]*(flask|fastapi)/', $body), 'Tanpa #52 hardlink');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink #52');
 check(file_exists(__DIR__.'/audit-article51-deep-pass5.php'), 'Pass-5 suite ada');
 
 echo "\n=== Deep-audit pass-6 #51: {$passed} passed, {$failed} failed ===\n";

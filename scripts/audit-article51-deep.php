@@ -46,7 +46,7 @@ check(str_contains($deploy, 'Article 51 backlink #49 incomplete'), 'Hook verifik
 check(str_contains($deploy, 'Article49Seeder'), 'Hook reseed Article49Seeder');
 check(preg_match('/Publish article 51 via deploy hook \(required\)/u', $yml) === 1, 'CI #51 required');
 check(! preg_match('/Publish article 51 via deploy hook \(required\)\s+continue-on-error:\s*true/u', $yml), 'CI #51 tidak continue-on-error');
-check(! preg_match('/\/artikel\/[a-z0-9-]*(flask|fastapi)/', $body), 'Tidak hardlink #52');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink Tier 2 #52');
 check(str_contains($body, 'encapsulation-property-python-oop'), 'Link #43 encapsulation');
 check(str_contains($body, 'polymorphism-python-oop'), 'Link #45 polymorphism');
 check(str_contains($body, 'composition-vs-inheritance-python'), 'Link #47 composition');

@@ -3288,6 +3288,133 @@ class DeployController extends Controller
         return response('Article 51 published', 200);
     }
 
+    /**
+     * Publish artikel ke-52 via seeder (shared hosting tanpa SSH).
+     * Juga re-seed #51, #50, dan #49 agar teaser/backlink Flask/FastAPI ikut terbarui saat di-ship.
+     */
+    public function publishArticle52(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article52Seeder.php',
+            'database/seeders/Article51Seeder.php',
+            'database/seeders/Article50Seeder.php',
+            'database/seeders/Article49Seeder.php',
+            'database/seeders/Article40Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article52Seeder::class)) {
+            return response('Article52Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 52 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article52Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 52 seed failed', 500);
+        }
+
+        foreach ([
+            'Database\\Seeders\\Article51Seeder' => 'Article 52 backlink #51 seed failed',
+            'Database\\Seeders\\Article50Seeder' => 'Article 52 backlink #50 seed failed',
+            'Database\\Seeders\\Article49Seeder' => 'Article 52 backlink #49 seed failed',
+            'Database\\Seeders\\Article40Seeder' => 'Article 52 backlink #40 seed failed',
+        ] as $class => $failMsg) {
+            if (class_exists($class)) {
+                $backExit = Artisan::call('db:seed', [
+                    '--class' => $class,
+                    '--force' => true,
+                ]);
+                if ($backExit !== 0) {
+                    return response($failMsg, 500);
+                }
+            }
+        }
+
+        $slug = 'oop-flask-fastapi-class-api';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 52 missing or not visible after Article52Seeder on deploy hook.'));
+
+            return response('Article 52 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop52Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'perpustakaan_api_oop.py') || ! str_contains($body, 'PerpustakaanService') || ! str_contains($body, 'HttpResponse') || ! str_contains($body, 'AppShell') || ! str_contains($body, 'handle_create') || ! str_contains($body, 'JSONResponse') || ! str_contains($body, 'inheritance-pewarisan-class-python') || ! str_contains($body, 'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt') || ! str_contains($body, 'Status selalu 200') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Tier 2') || ! str_contains($body, 'Flask') || ! str_contains($body, 'FastAPI')) {
+            report(new \RuntimeException('Article 52 body missing expected content after seed.'));
+
+            return response('Article 52 body content checks failed', 500);
+        }
+
+        $a51 = Article::published()->where('slug', 'oop-micropython-esp32-class-sensor')->first();
+        if (! $a51 || ! str_contains((string) $a51->body, $slug)) {
+            report(new \RuntimeException('Article 52 backlink missing on #51 after reseed.'));
+
+            return response('Article 52 backlink #51 incomplete', 500);
+        }
+
+        $a50 = Article::published()->where('slug', 'design-pattern-factory-strategy-python')->first();
+        if (! $a50 || ! str_contains((string) $a50->body, $slug)) {
+            report(new \RuntimeException('Article 52 backlink missing on #50 after reseed.'));
+
+            return response('Article 52 backlink #50 incomplete', 500);
+        }
+
+        $a49 = Article::published()->where('slug', 'capstone-sistem-perpustakaan-mini-oop-python')->first();
+        if (! $a49 || ! str_contains((string) $a49->body, $slug)) {
+            report(new \RuntimeException('Article 52 backlink missing on #49 after reseed.'));
+
+            return response('Article 52 backlink #49 incomplete', 500);
+        }
+
+        $a40 = Article::published()->where('slug', 'mengenal-oop-cara-berpikir-dengan-objek-python')->first();
+        if (! $a40 || ! str_contains((string) $a40->body, $slug)) {
+            report(new \RuntimeException('Article 52 backlink missing on #40 after reseed.'));
+
+            return response('Article 52 backlink #40 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 52 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

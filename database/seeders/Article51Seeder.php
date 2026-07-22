@@ -508,14 +508,14 @@ Kebun-A | DHT22: 29.0 C | LED OFF
 <p><strong>Apakah <a href="/artikel/design-pattern-factory-strategy-python">Factory/Strategy (#50)</a> dipakai di MCU?</strong><br>Boleh jika cabang jenis sensor mulai liar. Untuk satu DHT + satu LED, composition sederhana lebih dulu.</p>
 <p><strong>Type hint <code>float | None</code> aman di ESP32?</strong><br>Blok lengkap memakai <code>from __future__ import annotations</code> untuk latihan di PC (CPython 3.10+). Saat flash MicroPython, type hint boleh dihapus — perilaku runtime tidak bergantung padanya.</p>
 <p><strong>Di mana WiFi/MQTT?</strong><br>Di luar scope singkat ini. Sambungkan ke alur <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Greenhouse (#39)</a> setelah struktur class rapi.</p>
-<p><strong>Lanjut ke mana?</strong><br>Ide Tier 2 berikutnya: class di Flask/FastAPI (pintu Web Dev) — belum live, belum ada slug hardlink.</p>
+<p><strong>Lanjut ke mana?</strong><br>Lanjut Tier 2: <a href="/artikel/oop-flask-fastapi-class-api">Dari OOP ke Web — Class di Flask / FastAPI (#52)</a> — service + handler tipis sebagai pintu Web Dev.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>OOP Seri 3 tidak hilang di MicroPython — yang berubah adalah anggaran memori dan akses hardware. Bungkus GPIO, susun Node dengan composition, uji di PC dengan stub, lalu flash ke ESP32.</p>
-<p>Artikel ini adalah <strong>#51 (ini)</strong> — jembatan Tier 2 setelah <a href="/artikel/design-pattern-factory-strategy-python">Factory &amp; Strategy (#50)</a>, mengarah ke Seri IoT.</p>
+<p>Artikel ini adalah <strong>#51 (ini)</strong> — jembatan Tier 2 setelah <a href="/artikel/design-pattern-factory-strategy-python">Factory &amp; Strategy (#50)</a>, mengarah ke Seri IoT. Lanjut web: <a href="/artikel/oop-flask-fastapi-class-api">Flask / FastAPI (#52)</a>.</p>
 
 <blockquote>
-  <p><strong>Tier 2 progress:</strong> langkah <strong>#51 (ini)</strong> · <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a> LIVE · Seri 3 tetap 10/10. Prasyarat: <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a> · <a href="/artikel/composition-vs-inheritance-python">Composition (#47)</a> · <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone (#49)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP (#40)</a> · <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Greenhouse (#39)</a> · <a href="/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot">ESP32 (#1)</a>.</p>
+  <p><strong>Tier 2 progress:</strong> langkah <strong>#51 (ini)</strong> · <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a> LIVE · <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a> · Seri 3 tetap 10/10. Prasyarat: <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a> · <a href="/artikel/composition-vs-inheritance-python">Composition (#47)</a> · <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone (#49)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP (#40)</a> · <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">Greenhouse (#39)</a> · <a href="/artikel/mengenal-esp32-mikrokontroler-wifi-bluetooth-iot">ESP32 (#1)</a>.</p>
 </blockquote>
 HTML;
     }

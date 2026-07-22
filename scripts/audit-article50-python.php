@@ -69,7 +69,7 @@ check(str_contains($body, '/artikel/encapsulation-property-python-oop'), 'Link #
 check(str_contains($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python'), 'Link #49');
 check(str_contains($body, '/artikel/polymorphism-python-oop'), 'Link #45');
 check(str_contains($body, 'oop50Arrow'), 'SVG marker oop50');
-check(! preg_match('/\/artikel\/[a-z0-9-]*(flask-fastapi)/', $body), 'Tidak hardlink slug #52 unpublished');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink Tier 2 #52');
 check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Hardlink #51');
 check(str_contains($body, 'Factory di level Tier 2') || str_contains($body, 'level Tier 2'), 'Wording Factory Tier 2 (bukan “level Seri 3”)');
 

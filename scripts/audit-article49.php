@@ -100,7 +100,8 @@ check(! preg_match('/#49(?!\s*\(ini\))/', $plain), 'Tidak ada plain #49 selain #
 check(! preg_match('/(?<![\w\/"#>])#(?:5\d|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #50+ di luar link');
 check(str_contains($body, '/artikel/design-pattern-factory-strategy-python'), 'Hardlink Tier 2 #50 Factory');
 check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Hardlink Tier 2 #51 MicroPython');
-check(! preg_match('/\/artikel\/[^"\'>\s]*(?:tier-2|artikel-5[2-9]|flask|fastapi|seri-4)/', $body), 'Tidak hardlink slug #52+ unpublished');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink Tier 2 #52 Flask/FastAPI');
+check(! preg_match('/\/artikel\/[^"\'>\s]*(?:tier-2|artikel-5[3-9]|seri-4)/', $body), 'Tidak hardlink slug #53+ unpublished');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');

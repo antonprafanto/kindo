@@ -33,6 +33,7 @@ echo "=== Content / checklist audit #50 ===\n\n";
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
 check(! preg_match('/(?<![\w\/"#>])#(?:5[2-9]|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #52+ di luar link/pre');
 check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Hardlink Tier 2 #51');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink Tier 2 #52');
 check(str_contains($body, '#50 (ini)'), 'Self-ref #50 (ini)');
 check(substr_count($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python') >= 2, 'Minimal 2 tautan ke #49');
 check(str_contains($body, '/artikel/polymorphism-python-oop'), 'Tautan ke #45');

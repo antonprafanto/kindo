@@ -64,6 +64,7 @@ $requiredLinks = [
     'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32' => 'Artikel #18 Python MQTT',
     'class-dan-object-pertama-python' => 'Artikel #41 Class & Object',
     'oop-micropython-esp32-class-sensor' => 'Tier 2 #51 MicroPython',
+    'oop-flask-fastapi-class-api' => 'Tier 2 #52 Flask/FastAPI',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {

@@ -272,7 +272,7 @@ print(buku_b.info())
   <li><a href="/artikel/special-methods-dataclass-python">Special methods &amp; dataclass (#48)</a></li>
   <li><a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone: sistem perpustakaan mini (#49)</a></li>
 </ol>
-<p>Domain contoh sepanjang seri: <strong>perpustakaan / inventaris buku</strong> — sederhana, mudah divisualisasikan, dan bisa dihubungkan ke IoT lewat <a href="/artikel/oop-micropython-esp32-class-sensor">OOP MicroPython / ESP32 (#51)</a> (Tier 2, setelah Capstone).</p>
+<p>Domain contoh sepanjang seri: <strong>perpustakaan / inventaris buku</strong> — sederhana, mudah divisualisasikan, dan bisa dihubungkan ke IoT lewat <a href="/artikel/oop-micropython-esp32-class-sensor">OOP MicroPython / ESP32 (#51)</a> serta pintu web <a href="/artikel/oop-flask-fastapi-class-api">Class di Flask / FastAPI (#52)</a> (Tier 2, setelah Capstone).</p>
 
 <h2>Latihan singkat</h2>
 <ol>

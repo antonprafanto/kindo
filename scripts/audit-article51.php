@@ -105,6 +105,8 @@ check(str_contains($deploy, 'publishArticle51'), 'DeployController publishArticl
 check(str_contains($deploy, $slug), 'DeployController cek slug #51');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article50Seeder.php'), $slug), 'Backlink #50→#51 di seeder');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article49Seeder.php'), $slug), 'Backlink Capstone #49→#51 di seeder');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink teaser #52 Flask/FastAPI');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article51Seeder.php'), 'oop-flask-fastapi-class-api'), 'Seeder #51 memuat slug #52');
 check(str_contains($deploy, 'Article49Seeder') && str_contains($deploy, 'Article 51 backlink #49'), 'Hook #51 reseed+verifikasi Capstone #49');
 check(str_contains($body, 'label(suhu)'), 'tick teruskan suhu ke label(suhu)');
 

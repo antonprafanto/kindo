@@ -1,8 +1,8 @@
 <?php
 
 /**
- * Compile-check blok language-python Article51Seeder + pedagogi.
- * Usage: php scripts/audit-article51-python.php
+ * Compile-check blok language-python Article52Seeder + pedagogi.
+ * Usage: php scripts/audit-article52-python.php
  */
 
 require __DIR__.'/../vendor/autoload.php';
@@ -10,7 +10,7 @@ require __DIR__.'/../vendor/autoload.php';
 $app = require __DIR__.'/../bootstrap/app.php';
 $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
-use Database\Seeders\Article51Seeder;
+use Database\Seeders\Article52Seeder;
 
 $passed = 0;
 $failed = 0;
@@ -22,7 +22,7 @@ function check(bool $ok, string $label): void
     $ok ? $passed++ : $failed++;
 }
 
-$ref = new ReflectionClass(Article51Seeder::class);
+$ref = new ReflectionClass(Article52Seeder::class);
 $method = $ref->getMethod('body');
 $method->setAccessible(true);
 $body = $method->invoke($ref->newInstanceWithoutConstructor());
@@ -32,7 +32,7 @@ $blocks = $matches[1] ?? [];
 
 check(count($blocks) >= 5, 'Minimal 5 blok language-python');
 
-$tmpDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a51_'.uniqid();
+$tmpDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a52_'.uniqid();
 mkdir($tmpDir);
 
 foreach ($blocks as $i => $raw) {
@@ -45,31 +45,47 @@ foreach ($blocks as $i => $raw) {
     check($rc === 0, 'py_compile block #'.($i + 1).(empty($out) ? '' : ' — '.implode(' ', $out)));
 }
 
+// Progressive self-contained: tiap blok harus runnable sendiri (exit 0) + output inti
+$expectedSnippets = [
+    0 => 'service terpasang, jumlah= 0',
+    1 => 'OOP Python',
+    2 => 'Flask Ringkas',
+    3 => 'jenis tidak dikenal: majalah',
+    4 => 'judul wajib',
+];
+foreach ($blocks as $i => $raw) {
+    $code = html_entity_decode($raw, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $file = $tmpDir.DIRECTORY_SEPARATOR.'run_'.($i + 1).'.py';
+    file_put_contents($file, $code);
+    $out = [];
+    $rc = 0;
+    exec('python '.escapeshellarg($file).' 2>&1', $out, $rc);
+    $joined = implode("\n", $out);
+    check($rc === 0, 'run block #'.($i + 1).' exit 0'.($rc === 0 ? '' : ' — '.$joined));
+    if (isset($expectedSnippets[$i])) {
+        check(str_contains($joined, $expectedSnippets[$i]), 'run block #'.($i + 1).' output: '.$expectedSnippets[$i]);
+    }
+}
+
 foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
     @unlink($f);
 }
 @rmdir($tmpDir);
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(! preg_match('/#51(?!\s*\(ini\))/', $plain), 'Tidak ada plain #51 selain bentuk #51 (ini)');
-check(str_contains($body, 'FakePin'), 'Ada FakePin');
-check(str_contains($body, 'class Node'), 'Ada Node');
+check(! preg_match('/#52(?!\s*\(ini\))/', $plain), 'Tidak ada plain #52 selain bentuk #52 (ini)');
+check(str_contains($body, 'PerpustakaanService'), 'Ada PerpustakaanService');
+check(str_contains($body, 'HttpResponse'), 'Ada HttpResponse');
 check(str_contains($body, 'def demo('), 'Ada demo()');
 check(! str_contains($body, 'input('), 'Tidak ada input()');
-check(str_contains($body, 'node_micropython_oop.py'), 'File contoh');
+check(str_contains($body, 'perpustakaan_api_oop.py'), 'File contoh');
 check(str_contains($body, 'Tier 2'), 'Framing Tier 2');
-check(str_contains($body, '/artikel/design-pattern-factory-strategy-python'), 'Link #50');
-check(str_contains($body, 'oop51Arrow'), 'SVG marker oop51');
-check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink Tier 2 #52 Flask/FastAPI');
-check(str_contains($body, 'label(suhu)'), 'tick() teruskan suhu ke label (hindari double baca)');
-check(str_contains($body, 'Satu bacaan per tick') || str_contains($body, 'label(suhu)'), 'Pedagogi satu bacaan per tick');
+check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Link #51');
+check(str_contains($body, 'oop52Arrow'), 'SVG marker oop52');
+check(str_contains($body, 'Flask') && str_contains($body, 'FastAPI'), 'Sebut Flask + FastAPI');
 
-// Runnable: blok kode lengkap (yang punya demo) harus cocok output artikel
 $fullIdx = null;
 foreach ($blocks as $i => $raw) {
-    if (str_contains($raw, 'def demo(') && str_contains($raw, 'node_micropython_oop') === false) {
-        // docstring may mention filename outside; look for demo in decoded
-    }
     $decoded = html_entity_decode($raw, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     if (str_contains($decoded, 'def demo(') && str_contains($decoded, 'if __name__')) {
         $fullIdx = $i;
@@ -77,9 +93,8 @@ foreach ($blocks as $i => $raw) {
     }
 }
 check($fullIdx !== null, 'Ada blok kode lengkap dengan demo()');
-
 if ($fullIdx !== null) {
-    $tmp = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a51_run_'.uniqid().'.py';
+    $tmp = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a52_run_'.uniqid().'.py';
     $code = html_entity_decode($blocks[$fullIdx], ENT_QUOTES | ENT_HTML5, 'UTF-8');
     file_put_contents($tmp, $code);
     $out = [];
@@ -88,13 +103,10 @@ if ($fullIdx !== null) {
     @unlink($tmp);
     $joined = implode("\n", $out);
     check($rc === 0, 'demo() runnable exit 0'.($rc === 0 ? '' : ' — '.$joined));
-    check(str_contains($joined, 'DHT22: 28.0 C | LED OFF'), 'demo output tick 1 (28.0 OFF)');
-    check(str_contains($joined, 'DHT22: 31.5 C | LED ON'), 'demo output tick 2 (31.5 ON)');
-    check(str_contains($joined, 'DHT22: 29.0 C | LED OFF'), 'demo output tick 3 (29.0 OFF)');
-    check(str_contains($body, 'Kebun-A | DHT22: 28.0 C | LED OFF')
-        && str_contains($body, 'Kebun-A | DHT22: 31.5 C | LED ON')
-        && str_contains($body, 'Kebun-A | DHT22: 29.0 C | LED OFF'), 'Artikel menyimpan output yang cocok demo');
+    check(str_contains($joined, '201') && str_contains($joined, 'OOP Python'), 'demo output create 201');
+    check(str_contains($joined, '400') && str_contains($joined, 'judul wajib'), 'demo output 400 judul wajib');
+    check(str_contains($joined, "'items'") || str_contains($joined, 'items'), 'demo output list items');
 }
 
-echo "\n=== Python/pedagogi audit #51: {$passed} passed, {$failed} failed ===\n";
+echo "\n=== Python/pedagogi audit #52: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

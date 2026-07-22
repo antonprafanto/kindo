@@ -64,7 +64,7 @@ check(str_contains($seoT[1] ?? '', 'MicroPython') && str_contains($seoD[1] ?? ''
 
 // Sibling #50
 check(str_contains($a50, 'oop-micropython-esp32-class-sensor'), '#50 hardlink #51');
-check(! preg_match('/\/artikel\/[a-z0-9-]*(flask|fastapi)/', $a50), '#50 tidak hardlink #52');
+check(str_contains($a50, '/artikel/oop-flask-fastapi-class-api'), '#50 hardlink #52');
 
 // Deploy package
 check(str_contains($deploy, 'Article 51 backlink #49 incomplete'), 'Hook verifikasi #49');

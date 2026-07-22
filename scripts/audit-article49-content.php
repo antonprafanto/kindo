@@ -34,7 +34,8 @@ $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<p
 check(! preg_match('/(?<![\w\/"#>])#(?:5\d|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #50+ di luar link/pre');
 check(str_contains($body, '/artikel/design-pattern-factory-strategy-python'), 'Hardlink Tier 2 #50');
 check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Hardlink Tier 2 #51 MicroPython');
-check(substr_count($body, 'oop-micropython-esp32-class-sensor') >= 2, 'Capstone ≥2 hardlink #51');
+check(substr_count($body, '/artikel/oop-micropython-esp32-class-sensor') >= 2, 'Capstone ≥2 hardlink #51');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink Tier 2 #52 Flask/FastAPI');
 check(! str_contains($body, 'Ide berikutnya (belum live): MicroPython'), 'Tanpa residual MicroPython belum live');
 check(! str_contains($body, 'belum jadi artikel live'), 'Tidak residual “belum jadi artikel live” untuk Tier 2');
 check(str_contains($body, '#49 (ini)'), 'Self-ref #49 (ini)');

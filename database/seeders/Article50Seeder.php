@@ -542,7 +542,7 @@ denda 0 hari: 0
 <p><strong>Haruskah Strategy selalu pakai ABC?</strong><br>Tidak wajib. Duck typing + method <code>hitung</code> sudah polymorphism (<a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a>). ABC membantu IDE/kontrak saat tim membesar — pola yang sama di <a href="/artikel/abstraction-abc-python-oop">ABC (#46)</a>.</p>
 <p><strong>Apakah ini menggantikan Capstone?</strong><br>Tidak. <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone (#49)</a> adalah sistem utuh. Artikel ini menambahkan dua resep agar Capstone lebih mudah dikembangkan tanpa hutan <code>if</code>.</p>
 <p><strong>Kapan tidak perlu pattern?</strong><br>Satu jenis object dan satu rumus denda selamanya -&gt; class biasa cukup. Pattern dibayar dengan indirection; pakai saat cabang mulai menyebar.</p>
-<p><strong>Lanjut ke mana?</strong><br>Lanjut Tier 2: <a href="/artikel/oop-micropython-esp32-class-sensor">OOP di MicroPython / ESP32 (#51)</a> — class Sensor &amp; Node sebagai jembatan ke Seri IoT. Ide berikutnya (belum live): class di Flask/FastAPI.</p>
+<p><strong>Lanjut ke mana?</strong><br>Lanjut Tier 2: <a href="/artikel/oop-micropython-esp32-class-sensor">OOP di MicroPython / ESP32 (#51)</a> — class Sensor &amp; Node sebagai jembatan ke Seri IoT. Lanjut web: <a href="/artikel/oop-flask-fastapi-class-api">Class di Flask / FastAPI (#52)</a>.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p><strong>Factory</strong> memusatkan pembuatan object; <strong>Strategy</strong> memusatkan perilaku yang bisa diganti. Keduanya memakai polymorphism + composition — bukan hierarchy baru yang rumit.</p>

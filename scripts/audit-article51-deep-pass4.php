@@ -64,7 +64,7 @@ check(substr_count($body, 'id="oop51Arrow"') === 1, 'Marker unik');
 check(str_contains($body, 'role="img"'), 'role=img');
 check(str_contains($body, '10/10') && str_contains($body, 'Tier 2'), 'Framing Seri 3 + Tier 2');
 check(! str_contains($body, 'input('), 'Tanpa input()');
-check(! preg_match('/\/artikel\/[a-z0-9-]*(flask|fastapi)/', $body), 'Tanpa #52 hardlink');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink #52');
 
 // CI
 check(preg_match('/Publish article 51 via deploy hook \(required\)/u', $yml) === 1, 'CI #51 required');

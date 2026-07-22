@@ -76,7 +76,7 @@ check(strlen($seoD[1] ?? '') >= 70 && strlen($seoD[1] ?? '') <= 170, 'seo_desc 7
 check(! str_contains($body, 'TODO') && ! str_contains($body, 'FIXME'), 'Tanpa TODO/FIXME');
 check(! preg_match('/→/u', $body), 'Tanpa panah Unicode');
 check(! str_contains($body, 'input('), 'Tanpa input()');
-check(! preg_match('/\/artikel\/[a-z0-9-]*(flask|fastapi)/', $body), 'Tanpa hardlink #52');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink #52 Flask/FastAPI');
 
 // Hook / CI
 check(str_contains($deploy, 'from machine import Pin'), 'Hook body check porting Pin');

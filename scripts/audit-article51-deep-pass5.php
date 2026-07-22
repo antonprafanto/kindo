@@ -74,7 +74,7 @@ check(! str_contains($a40, 'jalur opsional nanti (MicroPython)'), 'Tanpa residua
 check(! preg_match('/Ide berikutnya \(belum live\): MicroPython/', file_get_contents(__DIR__.'/../database/seeders/Article49Seeder.php')), 'Tanpa residual Capstone MicroPython');
 check(! preg_match('/→/u', $body), 'Tanpa panah Unicode');
 check(! str_contains($body, 'input('), 'Tanpa input()');
-check(! preg_match('/\/artikel\/[a-z0-9-]*(flask|fastapi)/', $body), 'Tanpa hardlink #52');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink #52');
 check(str_contains($body, 'label(suhu)') && str_contains($body, 'Porting singkat'), 'Pedagogi inti tetap');
 
 // CI package

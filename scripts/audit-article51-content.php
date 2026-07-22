@@ -66,6 +66,7 @@ check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article40Seed
 $deploySrc = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php');
 check(str_contains($deploySrc, 'Article 51 backlink #49'), 'Hook #51 reseed+verifikasi #49');
 check(str_contains($deploySrc, 'Article 51 backlink #40'), 'Hook #51 reseed+verifikasi #40');
+check(str_contains($body, '/artikel/oop-flask-fastapi-class-api'), 'Hardlink teaser #52');
 check(str_contains($body, 'label(suhu)'), 'Hindari double baca: label(suhu)');
 check(str_contains($body, 'Satu bacaan per tick') || str_contains($body, 'label(suhu)'), 'Pedagogi satu bacaan');
 check(str_contains($body, 'machine'), 'Sebut machine.Pin / porting');
