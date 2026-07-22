@@ -112,6 +112,7 @@ echo sapa("Anton"), PHP_EOL;
 <pre><code>Halo, Anton!
 </code></pre>
 
+<p>Catatan singkat: <code>string $nama): string</code> adalah <strong>type hint</strong> — petunjuk tipe data (di sini: teks). Belum wajib dihafal; cukup tahu artinya “fungsi ini menerima dan mengembalikan string”. <code>PHP_EOL</code> = baris baru di terminal.</p>
 <p>Simpan berkas <code>.php</code> lalu jalankan: <code>php nama_file.php</code>. Editor: VS Code + ekstensi PHP sudah cukup.</p>
 
 <h2>Masalah yang OOP coba selesaikan</h2>
@@ -209,23 +210,23 @@ Laravel Praktis oleh Budi
   </thead>
   <tbody>
     <tr>
-      <td>Array “liar” di route</td>
+      <td>Array “liar” di route (URL handler)</td>
       <td>Controller jadi gudang logika</td>
       <td>Class <code>Buku</code> / service memegang aturan</td>
     </tr>
     <tr>
       <td>Copy-paste validasi</td>
-      <td>Bug beda di tiap endpoint</td>
+      <td>Bug beda di tiap endpoint (alamat API)</td>
       <td>Satu tempat ubah, banyak pemakai</td>
     </tr>
     <tr>
-      <td>Langsung Eloquent “aja”</td>
-      <td>Bingung apa domain vs framework</td>
+      <td>Langsung model database “aja”</td>
+      <td>Bingung mana aturan bisnis vs framework</td>
       <td>Dulu paham object, baru map ke model</td>
     </tr>
   </tbody>
 </table>
-<p>Laravel nanti menyediakan route, request, Eloquent. Yang tidak diganti framework: <strong>cara kamu memotong masalah jadi objek</strong>.</p>
+<p>Laravel nanti menyediakan route, request, dan akses data. Yang tidak diganti framework: <strong>cara kamu memotong masalah jadi objek</strong>.</p>
 
 <h2>Pola Dasar — berpikir objek di PHP</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Lima langkah mengenal OOP PHP">
@@ -269,7 +270,7 @@ Laravel Praktis oleh Budi
 </figure>
 
 <h2>Kode lengkap — <code>oop_php_dasar.php</code></h2>
-<p>Simpan dan jalankan: <code>php oop_php_dasar.php</code>.</p>
+<p>Simpan dan jalankan: <code>php oop_php_dasar.php</code>. Baris <code>declare(strict_types=1);</code> membuat PHP lebih ketat soal tipe — aman diabaikan dulu; yang penting pola <code>class</code> + <code>new</code> + method.</p>
 
 <pre><code class="language-php">&lt;?php
 /**
@@ -369,15 +370,15 @@ jumlah=2
 <h2>FAQ singkat</h2>
 <p><strong>Harus hapus pengetahuan Python OOP?</strong><br>Tidak. Konsep class/object sama. Seri 4 melatih sintaks PHP agar jalan ke Laravel mulus.</p>
 <p><strong>Apakah ini sudah encapsulation lengkap?</strong><br>Belum. Visibility <code>private</code>/<code>protected</code> dibahas di artikel jembatan berikutnya.</p>
-<p><strong>Kapan mulai Laravel?</strong><br>Setelah jembatan OOP PHP selesai (pengantar -&gt; property/constructor -&gt; visibility). Jangan hardlink dulu sampai artikel itu live.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: property, method, dan constructor lebih dalam di PHP (belum hardlink sampai live).</p>
+<p><strong>Kapan mulai Laravel?</strong><br>Setelah jembatan OOP PHP selesai (pengantar -&gt; property/constructor -&gt; visibility). Sabar dulu — fondasi objek lebih dulu, framework belakangan.</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: property, method, dan constructor lebih dalam di PHP (artikel berikutnya di Seri 4).</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>OOP bukan soal “pakai class biar keren”. Ia cara merapikan data + perilaku supaya siap dibawa ke web framework tanpa controller jadi tempat sampah.</p>
 <p>Artikel ini adalah <strong>#53 (ini)</strong> — pembuka Seri 4 setelah pintu OOP web Python di <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a>.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#53 (ini)</strong> · 0/8 menuju Capstone Laravel · jembatan OOP PHP 1/3 · prasyarat konsep: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP Python (#40)</a> opsional · <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a> LIVE. Berikutnya: property &amp; constructor PHP (tanpa hardlink sampai live).</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#53 (ini)</strong> · 1/8 menuju Capstone Laravel · jembatan OOP PHP 1/3 · prasyarat konsep: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP Python (#40)</a> opsional · <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a> LIVE. Berikutnya: property &amp; constructor PHP.</p>
 </blockquote>
 HTML;
     }

@@ -61,6 +61,10 @@ foreach ($anchors[1] as $text) {
         $thin++;
     }
 }
+check(str_contains($body, '1/8 menuju Capstone Laravel'), 'Progress LIVE 1/8');
+check(! str_contains($body, '0/8 menuju Capstone Laravel'), 'Tidak stale 0/8');
+check(str_contains($body, 'type hint'), 'Catatan type hint untuk awam');
+check(! str_contains($body, 'tanpa hardlink sampai live'), 'Tanpa suara editor hardlink');
 check(file_exists(__DIR__.'/audit-article53-deep.php'), 'Deep pass-1 ada');
 check(file_exists(__DIR__.'/audit-article53-deep-pass2.php'), 'Deep pass-2 ada');
 check(file_exists(__DIR__.'/audit-article53-deep-pass3.php'), 'Deep pass-3 ada');
