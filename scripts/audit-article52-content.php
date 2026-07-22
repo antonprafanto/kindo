@@ -31,7 +31,8 @@ $src = file_get_contents(__DIR__.'/../database/seeders/Article52Seeder.php');
 echo "=== Content / checklist audit #52 ===\n\n";
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(str_contains($body, '/artikel/http-rest-kontrak-stub-flask-oop'), 'Hardlink teaser Seri 4 #53');
+check(! str_contains($body, '/artikel/http-rest-kontrak-stub-flask-oop'), 'Tidak hardlink slug #53 yang dihapus');
+check(str_contains($body, 'Laravel') || str_contains($body, 'Seri 4'), 'Teaser Seri 4 tanpa hardlink mati');
 check(! preg_match('/(?<![\w\/"#>])#(?:5[4-9]|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #54+ di luar link/pre');
 check(str_contains($body, '#52 (ini)'), 'Self-ref #52 (ini)');
 check(substr_count($body, '/artikel/oop-micropython-esp32-class-sensor') >= 2, 'Minimal 2 tautan ke #51');

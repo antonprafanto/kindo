@@ -925,7 +925,7 @@ jobs:
           echo "Article 52 HTTP status: $code"
           test "$code" = "200"
 
-      - name: Publish article 53 via deploy hook (required)
+      - name: Ensure article 53 stays unpublished (cleanup after user delete)
         run: |
           resp=$(curl -fsS --max-time 120 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
@@ -933,8 +933,8 @@ jobs:
           echo "Hook response: $resp"
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
             "https://kodingindonesia.com/artikel/http-rest-kontrak-stub-flask-oop")
-          echo "Article 53 HTTP status: $code"
-          test "$code" = "200"
+          echo "Article 53 HTTP status (expect 404): $code"
+          test "$code" = "404"
 
       - name: Patch article 39 formatting via deploy hook (idempotent)
         continue-on-error: true

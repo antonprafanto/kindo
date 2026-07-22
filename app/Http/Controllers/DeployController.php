@@ -3416,8 +3416,8 @@ class DeployController extends Controller
     }
 
     /**
-     * Publish artikel ke-53 via seeder (Seri 4 Web Lanjut — HTTP & REST).
-     * Re-seed #52 agar teaser/backlink #53 ikut terbarui saat di-ship.
+     * Pastikan #53 slug lama tetap tidak published (user hapus 22 Jul 2026).
+     * Re-seed #52 agar hardlink mati ke #53 dihapus.
      */
     public function publishArticle53(): Response
     {
@@ -3442,22 +3442,13 @@ class DeployController extends Controller
             return response('Article53Seeder class not found on server', 500);
         }
 
-        $tagExit = Artisan::call('db:seed', [
-            '--class' => 'Database\\Seeders\\TagSeeder',
-            '--force' => true,
-        ]);
-
-        if ($tagExit !== 0) {
-            return response('Article 53 tag seed failed', 500);
-        }
-
         $exitCode = Artisan::call('db:seed', [
             '--class' => 'Database\\Seeders\\Article53Seeder',
             '--force' => true,
         ]);
 
         if ($exitCode !== 0) {
-            return response('Article 53 seed failed', 500);
+            return response('Article 53 unpublish seed failed', 500);
         }
 
         if (class_exists(\Database\Seeders\Article52Seeder::class)) {
@@ -3466,32 +3457,24 @@ class DeployController extends Controller
                 '--force' => true,
             ]);
             if ($backExit !== 0) {
-                return response('Article 53 backlink #52 seed failed', 500);
+                return response('Article 53 cleanup backlink #52 seed failed', 500);
             }
         }
 
         $slug = 'http-rest-kontrak-stub-flask-oop';
 
-        $article = Article::published()->where('slug', $slug)->first();
+        $published = Article::published()->where('slug', $slug)->first();
+        if ($published) {
+            report(new \RuntimeException('Article 53 still published after unpublish seeder.'));
 
-        if (! $article) {
-            report(new \RuntimeException('Article 53 missing or not visible after Article53Seeder on deploy hook.'));
-
-            return response('Article 53 seed incomplete', 500);
-        }
-
-        $body = (string) $article->body;
-        if (! str_contains($body, 'oop53Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'http_rest_kontrak.py') || ! str_contains($body, 'HttpRequest') || ! str_contains($body, 'dispatch') || ! str_contains($body, 'HttpResponse') || ! str_contains($body, 'PerpustakaanService') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '/api/buku') || ! str_contains($body, '405') || ! str_contains($body, 'Method Not Allowed')) {
-            report(new \RuntimeException('Article 53 body missing expected content after seed.'));
-
-            return response('Article 53 body content checks failed', 500);
+            return response('Article 53 still published', 500);
         }
 
         $a52 = Article::published()->where('slug', 'oop-flask-fastapi-class-api')->first();
-        if (! $a52 || ! str_contains((string) $a52->body, $slug)) {
-            report(new \RuntimeException('Article 53 backlink missing on #52 after reseed.'));
+        if (! $a52 || str_contains((string) $a52->body, $slug)) {
+            report(new \RuntimeException('Article 52 still hardlinks removed #53 slug after cleanup.'));
 
-            return response('Article 53 backlink #52 incomplete', 500);
+            return response('Article 52 hardlink cleanup incomplete', 500);
         }
 
         try {
@@ -3508,7 +3491,7 @@ class DeployController extends Controller
             opcache_reset();
         }
 
-        return response('Article 53 published', 200);
+        return response('Article 53 unpublished (cleanup)', 200);
     }
 
     private function runDuplicateBme280Cleanup(): void
