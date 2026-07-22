@@ -24,6 +24,7 @@ class TagSeeder extends Seeder
             ['slug' => 'servo', 'name' => 'servo'],
             ['slug' => 'php', 'name' => 'php'],
             ['slug' => 'laravel', 'name' => 'laravel'],
+            ['slug' => 'eloquent', 'name' => 'eloquent'],
             ['slug' => 'javascript', 'name' => 'javascript'],
             ['slug' => 'python', 'name' => 'python'],
             ['slug' => 'oop', 'name' => 'oop'],

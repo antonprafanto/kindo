@@ -925,16 +925,20 @@ jobs:
           echo "Article 52 HTTP status: $code"
           test "$code" = "200"
 
-      - name: Ensure article 53 stays unpublished (cleanup after user delete)
+      - name: Publish article 53 via deploy hook (required)
         run: |
           resp=$(curl -fsS --max-time 120 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
             "https://kodingindonesia.com/deploy/publish-article-53")
           echo "Hook response: $resp"
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/mengenal-oop-cara-berpikir-dengan-objek-php")
+          echo "Article 53 HTTP status: $code"
+          test "$code" = "200"
+          old=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
             "https://kodingindonesia.com/artikel/http-rest-kontrak-stub-flask-oop")
-          echo "Article 53 HTTP status (expect 404): $code"
-          test "$code" = "404"
+          echo "Old Article 53 slug HTTP status (expect 404): $old"
+          test "$old" = "404"
 
       - name: Patch article 39 formatting via deploy hook (idempotent)
         continue-on-error: true

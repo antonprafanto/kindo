@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Deep-audit pass-1 #53 — residual konten/SEO/hook/CI.
+ * Deep-audit pass-1 #53 OOP PHP.
  * Usage: php scripts/audit-article53-deep.php
  */
 
@@ -16,7 +16,7 @@ $passed = 0;
 $failed = 0;
 $findings = [];
 
-function check(bool $ok, string $label, ?string $gapHint = null): void
+function check(bool $ok, string $label, ?string $gap = null): void
 {
     global $passed, $failed, $findings;
     echo ($ok ? '✓' : '✗')." {$label}\n";
@@ -24,8 +24,8 @@ function check(bool $ok, string $label, ?string $gapHint = null): void
         $passed++;
     } else {
         $failed++;
-        if ($gapHint) {
-            $findings[] = $gapHint;
+        if ($gap) {
+            $findings[] = $gap;
         }
     }
 }
@@ -38,46 +38,35 @@ $src = file_get_contents(__DIR__.'/../database/seeders/Article53Seeder.php');
 $a52 = file_get_contents(__DIR__.'/../database/seeders/Article52Seeder.php');
 $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
-$routes = file_get_contents(__DIR__.'/../routes/web.php');
 $tags = file_get_contents(__DIR__.'/../database/seeders/TagSeeder.php');
 
-echo "=== Deep-audit pass-1 #53 ===\n\n";
+echo "=== Deep-audit pass-1 #53 (OOP PHP) ===\n\n";
 
 $plainAll = strip_tags(preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '');
 $words = preg_split('/\s+/u', trim($plainAll)) ?: [];
-$wordCount = count($words);
-check($wordCount >= 550, 'Prosa ≥550 kata ('.$wordCount.')', 'Prosa terlalu pendek');
+check(count($words) >= 550, 'Prosa ≥550 kata ('.count($words).')', 'Prosa pendek');
 check(substr_count($body, '<h2') >= 11, '≥11 H2 ('.substr_count($body, '<h2').')', 'H2 kurang');
-check(substr_count($body, '<figure') >= 2, '≥2 figure');
-check(substr_count($body, 'language-python') >= 6, '≥6 blok python progresif');
+check(substr_count($body, 'language-php') >= 4, '≥4 blok PHP');
 
 preg_match("/'seo_title'\\s*=>\\s*'([^']+)'/", $src, $seoT);
 preg_match("/'seo_description'\\s*=>\\s*'([^']+)'/", $src, $seoD);
-$seoTitle = $seoT[1] ?? '';
-$seoDesc = $seoD[1] ?? '';
-check(strlen($seoTitle) <= 70, 'seo_title ≤70 ('.strlen($seoTitle).')', 'seo_title terlalu panjang');
-check(strlen($seoDesc) >= 70 && strlen($seoDesc) <= 170, 'seo_desc 70–170 ('.strlen($seoDesc).')', 'seo_description di luar 70–170');
+check(strlen($seoT[1] ?? '') <= 70, 'seo_title ≤70 ('.strlen($seoT[1] ?? '').')', 'seo_title panjang');
+check(strlen($seoD[1] ?? '') >= 70 && strlen($seoD[1] ?? '') <= 170, 'seo_desc 70–170 ('.strlen($seoD[1] ?? '').')', 'seo_desc range');
 
-check(str_contains($body, 'HttpRequest') && str_contains($body, 'dispatch'), 'HttpRequest + dispatch');
-check(str_contains($body, 'PerpustakaanService'), 'PerpustakaanService domain');
-check(str_contains($body, '405') && str_contains($body, '404'), '404 vs 405 diajarkan');
-check(str_contains($body, 'idempot') || str_contains($body, 'jumlah tetap'), 'Idempotensi GET');
-check(str_contains($body, 'Seri 4'), 'Framing Seri 4');
-check(str_contains($body, '#53 (ini)'), 'Self-ref #53 (ini)');
-check(substr_count($body, '/artikel/oop-flask-fastapi-class-api') >= 4, '≥4 tautan ke #52 ('.substr_count($body, '/artikel/oop-flask-fastapi-class-api').')');
-check(str_contains($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python'), 'Link #49');
-check(str_contains($body, '/artikel/composition-vs-inheritance-python'), 'Link #47');
+check(str_contains($body, 'class Buku') && str_contains($body, '__construct'), 'Buku + constructor');
+check(str_contains($body, 'new Buku'), 'new Buku');
+check(str_contains($body, 'Seri 4') && str_contains($body, '#53 (ini)'), 'Framing Seri 4 + self-ref');
+check(str_contains($body, 'Laravel'), 'Sebut Laravel sebagai tujuan');
 check(str_contains($body, '/artikel/mengenal-oop-cara-berpikir-dengan-objek-python'), 'Link #40');
+check(substr_count($body, '/artikel/oop-flask-fastapi-class-api') >= 2, '≥2 link #52');
 
-$plainNoLink = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(! preg_match('/#(?:4[0-9]|5[0-2]|5[4-9]|[6-9]\d)(?!\s*\(ini\))/', $plainNoLink), 'Tidak bare #40–#52/#54+ di prosa');
-check(! preg_match('/#53(?!\s*\(ini\))/', $plainNoLink), 'Tidak bare #53 selain (ini)');
-check(! preg_match('/→/u', $body), 'Tanpa panah Unicode');
-check(! str_contains($body, 'input('), 'Tanpa input()');
-check(! str_contains($body, 'TODO') && ! str_contains($body, 'FIXME'), 'Tanpa TODO/FIXME');
+$plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
+check(! preg_match('/#54/', $plain), 'Tidak bare #54');
+check(! preg_match('/#53(?!\s*\(ini\))/', $plain), 'Tidak bare #53 selain (ini)');
+check(! preg_match('/→/u', $body), 'Tanpa Unicode arrow');
+check(! str_contains($body, 'TODO') && ! str_contains($body, 'FIXME'), 'Tanpa TODO');
 check(! preg_match('/[┌┐└┘│─]/u', $body), 'Tanpa ASCII box');
 
-// Thin anchors: only "#52" without word context — checklist prefers "Label (#N)"
 preg_match_all('/<a href="[^"]+">([^<]*)<\/a>/', $body, $anchors);
 $thin = [];
 foreach ($anchors[1] as $text) {
@@ -85,43 +74,33 @@ foreach ($anchors[1] as $text) {
         $thin[] = trim($text);
     }
 }
-check(count($thin) === 0, 'Tidak ada thin anchor hanya #N ('.implode(',', $thin).')', 'Thin anchor #N tanpa label');
+check(count($thin) === 0, 'Thin anchor = 0 ('.implode(',', $thin).')', 'Thin anchor');
 
-check(str_contains($body, 'oop53Arrow'), 'SVG marker unik');
-check(str_contains($body, 'background:#F5F5F0'), 'Figure bg');
-check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar dark-safe');
-check(str_contains($body, 'http_rest_kontrak.py'), 'File contoh');
-check(str_contains($body, 'def demo('), 'demo()');
-check(str_contains($body, 'Pola Dasar'), 'Pola Dasar');
-check(str_contains($body, 'Kesalahan umum'), 'Kesalahan umum');
-check(str_contains($body, 'Latihan'), 'Latihan');
-check(str_contains($body, 'FAQ'), 'FAQ');
-check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
+check(str_contains($body, 'oop53phpArrow') && str_contains($body, 'aria-label'), 'SVG a11y');
+check(str_contains($body, 'oop_php_dasar.php') && str_contains($body, 'demo();'), 'File + demo');
+check(str_contains($body, 'Pola Dasar') && str_contains($body, 'color:#1a1a1a'), 'Pola Dasar');
+check(str_contains($body, 'Kesalahan umum') && str_contains($body, 'Latihan') && str_contains($body, 'FAQ'), 'KU/Latihan/FAQ');
+check(! str_contains($body, 'http-rest-kontrak-stub-flask-oop'), 'Body tidak hardlink slug lama');
+check(str_contains($src, 'http-rest-kontrak-stub-flask-oop') && (str_contains($src, "status = 'draft'") || str_contains($src, "'status'          => 'draft'")), 'Tombstone di run()', 'Tombstone draft missing');
+check(str_contains($src, 'mengenal-oop-cara-berpikir-dengan-objek-php'), 'Slug baru');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
+check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, 'web-development'), 'Kategori web-development');
 
-check(str_contains($a52, 'http-rest-kontrak-stub-flask-oop'), 'Backlink #52→#53 di seeder');
-check(substr_count($a52, 'http-rest-kontrak-stub-flask-oop') >= 2, 'Backlink #52 ≥2 mentions');
-check(str_contains($tags, "'slug' => 'http'") && str_contains($tags, "'slug' => 'rest'"), 'TagSeeder http+rest');
-check(str_contains($routes, 'publish-article-53'), 'Route hook');
-check(str_contains($deploy, 'publishArticle53'), 'DeployController method');
-check(str_contains($deploy, 'Article 53 backlink #52 incomplete'), 'Hook verifikasi backlink #52');
-check(str_contains($deploy, 'HttpRequest') && str_contains($deploy, 'dispatch') && str_contains($deploy, '405'), 'Hook body checks inti');
-check(str_contains($yml, 'publish-article-53'), 'CI step #53');
+check(str_contains($a52, 'mengenal-oop-cara-berpikir-dengan-objek-php'), '#52→#53 baru');
+check(! str_contains($a52, 'http-rest-kontrak-stub-flask-oop'), '#52 tanpa slug lama');
+check(str_contains($tags, "'slug' => 'eloquent'"), 'TagSeeder eloquent');
+check(str_contains($deploy, 'mengenal-oop-cara-berpikir-dengan-objek-php'), 'Hook slug baru');
+check(str_contains($deploy, 'oop53phpArrow') && str_contains($deploy, 'oop_php_dasar.php'), 'Hook body locks');
+check(str_contains($deploy, 'old slug still published') || str_contains($deploy, 'Old Article 53'), 'Hook cek slug lama unpublished');
 check(preg_match('/Publish article 53 via deploy hook \(required\)/u', $yml) === 1, 'CI #53 required');
 check(! preg_match('/Publish article 53 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml), 'CI #53 tidak continue-on-error');
+check(str_contains($yml, 'mengenal-oop-cara-berpikir-dengan-objek-php') && str_contains($yml, 'http-rest-kontrak-stub-flask-oop'), 'CI cek slug baru + 404 lama');
 
-// Output labels vs expected progressive story
-check(str_contains($body, 'method tidak diizinkan'), 'Pesan 405 di body/demo');
-check(str_contains($body, 'judul wajib'), 'Validasi judul wajib');
-check(str_contains($body, 'ringkas_status') || str_contains($body, 'Created'), 'Kamus status di progressive');
-
-// Soft pedagogi: 405 mentioned in early status helper?
-check(
-    str_contains($body, 'if code == 405') && str_contains($body, 'Method Not Allowed'),
-    'Helper status menyebut 405 eksplisit',
-    'Helper ringkas_status belum cover 405'
-);
+// Pedagogi: soft-landing + prosedural vs class
+check(str_contains($body, 'Soft-landing PHP') || str_contains($body, 'php --version'), 'Soft-landing PHP');
+check(str_contains($body, 'prosedural') || str_contains($body, 'Prosedural'), 'Kontras prosedural');
+check(str_contains($body, '-&gt;') || str_contains($body, '->'), 'Operator object PHP');
 
 echo "\n=== Deep-audit pass-1 #53: {$passed} passed, {$failed} failed ===\n";
 if ($findings) {
