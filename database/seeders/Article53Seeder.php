@@ -263,7 +263,7 @@ Laravel Praktis oleh Budi
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Baru bawa ke framework</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Artikel berikutnya: property/method lebih dalam — lalu Laravel.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: <a href="/artikel/oop-php-property-method-constructor">property/method/constructor (#54)</a> — lalu Laravel.</span>
     </div>
   </li>
 </ol>
@@ -369,16 +369,16 @@ jumlah=2
 
 <h2>FAQ singkat</h2>
 <p><strong>Harus hapus pengetahuan Python OOP?</strong><br>Tidak. Konsep class/object sama. Seri 4 melatih sintaks PHP agar jalan ke Laravel mulus.</p>
-<p><strong>Apakah ini sudah encapsulation lengkap?</strong><br>Belum. Visibility <code>private</code>/<code>protected</code> dibahas di artikel jembatan berikutnya.</p>
+<p><strong>Apakah ini sudah encapsulation lengkap?</strong><br>Belum. Visibility <code>private</code>/<code>protected</code> dibahas setelah property &amp; constructor.</p>
 <p><strong>Kapan mulai Laravel?</strong><br>Setelah jembatan OOP PHP selesai (pengantar -&gt; property/constructor -&gt; visibility). Sabar dulu — fondasi objek lebih dulu, framework belakangan.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: property, method, dan constructor lebih dalam di PHP (artikel berikutnya di Seri 4).</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/oop-php-property-method-constructor">property, method, dan constructor lebih dalam di PHP (#54)</a>.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>OOP bukan soal “pakai class biar keren”. Ia cara merapikan data + perilaku supaya siap dibawa ke web framework tanpa controller jadi tempat sampah.</p>
-<p>Artikel ini adalah <strong>#53 (ini)</strong> — pembuka Seri 4 setelah pintu OOP web Python di <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a>.</p>
+<p>Artikel ini adalah <strong>#53 (ini)</strong> — pembuka Seri 4 setelah pintu OOP web Python di <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a>. Lanjut: <a href="/artikel/oop-php-property-method-constructor">property &amp; constructor PHP (#54)</a>.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#53 (ini)</strong> · 1/8 menuju Capstone Laravel · jembatan OOP PHP 1/3 · prasyarat konsep: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP Python (#40)</a> opsional · <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a> LIVE. Berikutnya: property &amp; constructor PHP.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#53 (ini)</strong> · 2/8 menuju Capstone Laravel · jembatan OOP PHP 1/3 · prasyarat konsep: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP Python (#40)</a> opsional · <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a> LIVE · lanjut <a href="/artikel/oop-php-property-method-constructor">property &amp; constructor (#54)</a>.</p>
 </blockquote>
 HTML;
     }

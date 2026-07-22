@@ -3482,7 +3482,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'oop53phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_dasar.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#53 (ini)') || ! str_contains($body, '1/8 menuju Capstone Laravel') || ! str_contains($body, 'type hint')) {
+        if (! str_contains($body, 'oop53phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_dasar.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#53 (ini)') || ! str_contains($body, '2/8 menuju Capstone Laravel') || ! str_contains($body, 'type hint') || ! str_contains($body, 'oop-php-property-method-constructor')) {
             report(new \RuntimeException('Article 53 body missing expected content after seed.'));
 
             return response('Article 53 body content checks failed', 500);
@@ -3516,6 +3516,99 @@ class DeployController extends Controller
         }
 
         return response('Article 53 published', 200);
+    }
+
+    public function publishArticle54(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article54Seeder.php',
+            'database/seeders/Article53Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article54Seeder::class)) {
+            return response('Article54Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 54 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article54Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 54 seed failed', 500);
+        }
+
+        if (class_exists(\Database\Seeders\Article53Seeder::class)) {
+            $backExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article53Seeder',
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response('Article 54 backlink #53 seed failed', 500);
+            }
+        }
+
+        $slug = 'oop-php-property-method-constructor';
+        $prevSlug = 'mengenal-oop-cara-berpikir-dengan-objek-php';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 54 missing or not visible after Article54Seeder on deploy hook.'));
+
+            return response('Article 54 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop54phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_property.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, '__construct') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#54 (ini)') || ! str_contains($body, '2/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug)) {
+            report(new \RuntimeException('Article 54 body missing expected content after seed.'));
+
+            return response('Article 54 body content checks failed', 500);
+        }
+
+        $a53 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a53 || ! str_contains((string) $a53->body, $slug)) {
+            report(new \RuntimeException('Article 54 backlink missing on #53 after reseed.'));
+
+            return response('Article 54 backlink #53 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 54 published', 200);
     }
 
     private function runDuplicateBme280Cleanup(): void
