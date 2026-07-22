@@ -34,7 +34,7 @@ echo "=== Deep-audit #50 ===\n\n";
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
 check(! preg_match('/#50(?!\s*\(ini\))/', $plain), 'Bare #50 hanya bentuk (ini)');
-check(! preg_match('/#(?:4[0-9]|5[1-9])(?!\s*\(ini\))/', $plain), 'Tidak bare #40–#49/#51+ di prosa');
+check(! preg_match('/#(?:4[0-9]|5[2-9])(?!\s*\(ini\))/', $plain), 'Tidak bare #40–#49/#52+ di prosa');
 check(! preg_match('/[┌┐└┘│─╔╗╚╝║═]/u', $body), 'Tanpa ASCII box');
 check(str_contains($body, 'langkah <strong>#50 (ini)</strong>'), 'Footer langkah #50 (ini)');
 check(! str_contains($body, 'draft <strong>#50'), 'Tidak residual draft #50 di footer');
@@ -54,8 +54,9 @@ check(str_contains($deploy, 'lib.items') && str_contains($deploy, 'encapsulation
 check(str_contains($deploy, 'Article 50 backlink #49 incomplete'), 'Hook verifikasi backlink #49');
 check(str_contains($src, "'composition'") && str_contains($src, "'design-pattern'"), 'Seeder sync tag composition');
 check(str_contains($body, '10/10'), 'Sebut Seri 3 10/10');
-check(str_contains($body, 'MicroPython') && str_contains($body, 'Flask'), 'Teaser #51/#52 tanpa hardlink');
-check(! preg_match('/\/artikel\/[a-z0-9-]*micropython/', $body), 'Tidak hardlink MicroPython slug');
+check(str_contains($body, 'MicroPython') || str_contains($body, 'oop-micropython-esp32-class-sensor'), 'Teaser/hardlink #51');
+check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Hardlink MicroPython #51');
+check(! preg_match('/\/artikel\/[a-z0-9-]*flask/', $body), 'Tidak hardlink Flask #52');
 check(substr_count($body, 'language-python') >= 5, '≥5 blok python');
 check(str_contains($body, 'oop50Arrow'), 'Marker oop50');
 check(str_contains($body, 'background:#F5F5F0'), 'Figure bg');

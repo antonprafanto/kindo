@@ -99,7 +99,8 @@ $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<p
 check(! preg_match('/#49(?!\s*\(ini\))/', $plain), 'Tidak ada plain #49 selain #49 (ini)');
 check(! preg_match('/(?<![\w\/"#>])#(?:5\d|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #50+ di luar link');
 check(str_contains($body, '/artikel/design-pattern-factory-strategy-python'), 'Hardlink Tier 2 #50 Factory');
-check(! preg_match('/\/artikel\/[^"\'>\s]*(?:tier-2|artikel-5[1-9]|seri-4)/', $body), 'Tidak hardlink slug #51+ unpublished');
+check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Hardlink Tier 2 #51 MicroPython');
+check(! preg_match('/\/artikel\/[^"\'>\s]*(?:tier-2|artikel-5[2-9]|flask|fastapi|seri-4)/', $body), 'Tidak hardlink slug #52+ unpublished');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');

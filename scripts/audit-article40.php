@@ -63,6 +63,7 @@ $requiredLinks = [
     'smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt' => 'Artikel #39 Capstone Seri 2',
     'python-subscriber-mqtt-mysql-simpan-data-sensor-esp32' => 'Artikel #18 Python MQTT',
     'class-dan-object-pertama-python' => 'Artikel #41 Class & Object',
+    'oop-micropython-esp32-class-sensor' => 'Tier 2 #51 MicroPython',
 ];
 
 foreach ($requiredLinks as $linkSlug => $label) {

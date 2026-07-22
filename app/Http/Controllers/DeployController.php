@@ -3156,6 +3156,138 @@ class DeployController extends Controller
         return response('Article 50 published', 200);
     }
 
+    /**
+     * Publish artikel ke-51 via seeder (shared hosting tanpa SSH).
+     * Juga re-seed #50, #49, dan #40 agar teaser/backlink MicroPython ikut terbarui saat di-ship.
+     */
+    public function publishArticle51(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article51Seeder.php',
+            'database/seeders/Article50Seeder.php',
+            'database/seeders/Article49Seeder.php',
+            'database/seeders/Article40Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article51Seeder::class)) {
+            return response('Article51Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 51 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article51Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 51 seed failed', 500);
+        }
+
+        if (class_exists(\Database\Seeders\Article50Seeder::class)) {
+            $backExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article50Seeder',
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response('Article 51 backlink #50 seed failed', 500);
+            }
+        }
+
+        if (class_exists(\Database\Seeders\Article49Seeder::class)) {
+            $capExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article49Seeder',
+                '--force' => true,
+            ]);
+            if ($capExit !== 0) {
+                return response('Article 51 backlink #49 seed failed', 500);
+            }
+        }
+
+        if (class_exists(\Database\Seeders\Article40Seeder::class)) {
+            $idxExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article40Seeder',
+                '--force' => true,
+            ]);
+            if ($idxExit !== 0) {
+                return response('Article 51 backlink #40 seed failed', 500);
+            }
+        }
+
+        $slug = 'oop-micropython-esp32-class-sensor';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 51 missing or not visible after Article51Seeder on deploy hook.'));
+
+            return response('Article 51 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop51Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'node_micropython_oop.py') || ! str_contains($body, 'FakePin') || ! str_contains($body, 'class Node') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Tier 2') || ! str_contains($body, 'MicroPython') || ! str_contains($body, 'label(suhu)') || ! str_contains($body, 'from machine import Pin')) {
+            report(new \RuntimeException('Article 51 body missing expected content after seed.'));
+
+            return response('Article 51 body content checks failed', 500);
+        }
+
+        $a50 = Article::published()->where('slug', 'design-pattern-factory-strategy-python')->first();
+        if (! $a50 || ! str_contains((string) $a50->body, $slug)) {
+            report(new \RuntimeException('Article 51 backlink missing on #50 after reseed.'));
+
+            return response('Article 51 backlink #50 incomplete', 500);
+        }
+
+        $a49 = Article::published()->where('slug', 'capstone-sistem-perpustakaan-mini-oop-python')->first();
+        if (! $a49 || ! str_contains((string) $a49->body, $slug)) {
+            report(new \RuntimeException('Article 51 backlink missing on #49 after reseed.'));
+
+            return response('Article 51 backlink #49 incomplete', 500);
+        }
+
+        $a40 = Article::published()->where('slug', 'mengenal-oop-cara-berpikir-dengan-objek-python')->first();
+        if (! $a40 || ! str_contains((string) $a40->body, $slug)) {
+            report(new \RuntimeException('Article 51 backlink missing on #40 after reseed.'));
+
+            return response('Article 51 backlink #40 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 51 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

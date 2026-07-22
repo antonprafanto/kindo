@@ -542,12 +542,12 @@ denda 0 hari: 0
 <p><strong>Haruskah Strategy selalu pakai ABC?</strong><br>Tidak wajib. Duck typing + method <code>hitung</code> sudah polymorphism (<a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a>). ABC membantu IDE/kontrak saat tim membesar — pola yang sama di <a href="/artikel/abstraction-abc-python-oop">ABC (#46)</a>.</p>
 <p><strong>Apakah ini menggantikan Capstone?</strong><br>Tidak. <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone (#49)</a> adalah sistem utuh. Artikel ini menambahkan dua resep agar Capstone lebih mudah dikembangkan tanpa hutan <code>if</code>.</p>
 <p><strong>Kapan tidak perlu pattern?</strong><br>Satu jenis object dan satu rumus denda selamanya -&gt; class biasa cukup. Pattern dibayar dengan indirection; pakai saat cabang mulai menyebar.</p>
-<p><strong>Lanjut ke mana?</strong><br>Ide Tier 2 berikutnya: OOP di MicroPython / ESP32 (jembatan ke Seri IoT) — belum live, jadi belum ada slug hardlink. Setelah itu: class di Flask/FastAPI sebagai pintu Web Dev.</p>
+<p><strong>Lanjut ke mana?</strong><br>Lanjut Tier 2: <a href="/artikel/oop-micropython-esp32-class-sensor">OOP di MicroPython / ESP32 (#51)</a> — class Sensor &amp; Node sebagai jembatan ke Seri IoT. Ide berikutnya (belum live): class di Flask/FastAPI.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p><strong>Factory</strong> memusatkan pembuatan object; <strong>Strategy</strong> memusatkan perilaku yang bisa diganti. Keduanya memakai polymorphism + composition — bukan hierarchy baru yang rumit.</p>
 <p>Artikel ini adalah <strong>#50 (ini)</strong> — pembuka Tier 2 setelah Seri 3 selesai di <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone (#49)</a>.</p>
-<p>Berikutnya (backlog): OOP di MicroPython untuk node IoT, lalu class di Flask/FastAPI. Seri 3 tetap fondasi yang sudah lengkap (sepuluh artikel inti sampai Capstone).</p>
+<p>Lanjut: <a href="/artikel/oop-micropython-esp32-class-sensor">OOP di MicroPython / ESP32 (#51)</a>. Seri 3 tetap fondasi yang sudah lengkap (sepuluh artikel inti sampai Capstone).</p>
 
 <blockquote>
   <p><strong>Tier 2 progress:</strong> langkah <strong>#50 (ini)</strong> · Seri 3 tetap 10/10 live. Prasyarat: <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone (#49)</a> · <a href="/artikel/polymorphism-python-oop">Polymorphism (#45)</a> · <a href="/artikel/abstraction-abc-python-oop">ABC (#46)</a> · <a href="/artikel/composition-vs-inheritance-python">Composition (#47)</a> · <a href="/artikel/special-methods-dataclass-python">Special Methods (#48)</a> · <a href="/artikel/encapsulation-property-python-oop">Encapsulation (#43)</a> · <a href="/artikel/inheritance-pewarisan-class-python">Inheritance (#44)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">Mengenal OOP (#40)</a>.</p>

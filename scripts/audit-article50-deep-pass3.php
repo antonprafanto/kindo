@@ -118,7 +118,8 @@ check(! preg_match('/#50(?!\s*\(ini\))/', $plain), 'Bare #50 hanya (ini)');
 check(! preg_match('/#(?:4[0-9]|5[1-9])(?!\s*\(ini\))/', $plain), 'Tidak bare sibling numbers');
 
 // Unpublished hardlinks
-check(! preg_match('/\/artikel\/[a-z0-9-]*(micropython|flask|fastapi)/', $body), 'Tidak hardlink #51/#52 slug');
+check(! preg_match('/\/artikel\/[a-z0-9-]*(flask|fastapi)/', $body), 'Tidak hardlink #52 slug');
+check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Hardlink #51 MicroPython');
 
 // cover / featured
 check(preg_match("/'is_featured'\s*=>\s*false/", $src) === 1, 'is_featured false');

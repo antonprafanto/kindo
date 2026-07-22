@@ -903,6 +903,17 @@ jobs:
           echo "Article 50 HTTP status: $code"
           test "$code" = "200"
 
+      - name: Publish article 51 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-51")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/oop-micropython-esp32-class-sensor")
+          echo "Article 51 HTTP status: $code"
+          test "$code" = "200"
+
       - name: Patch article 39 formatting via deploy hook (idempotent)
         continue-on-error: true
         run: |

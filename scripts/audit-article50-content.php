@@ -31,7 +31,8 @@ $src = file_get_contents(__DIR__.'/../database/seeders/Article50Seeder.php');
 echo "=== Content / checklist audit #50 ===\n\n";
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(! preg_match('/(?<![\w\/"#>])#(?:5[1-9]|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #51+ di luar link/pre');
+check(! preg_match('/(?<![\w\/"#>])#(?:5[2-9]|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #52+ di luar link/pre');
+check(str_contains($body, '/artikel/oop-micropython-esp32-class-sensor'), 'Hardlink Tier 2 #51');
 check(str_contains($body, '#50 (ini)'), 'Self-ref #50 (ini)');
 check(substr_count($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python') >= 2, 'Minimal 2 tautan ke #49');
 check(str_contains($body, '/artikel/polymorphism-python-oop'), 'Tautan ke #45');
@@ -63,7 +64,7 @@ check(str_contains($body, '10/10'), 'Sebut Seri 3 10/10');
 check(substr_count($body, 'language-python') >= 5, 'Minimal 5 blok language-python');
 check(str_contains($body, 'class Perpustakaan') && str_contains($body, 'ganti_strategi'), 'Full code Perpustakaan + ganti strategi');
 $plainCheck = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(! preg_match('/#(?:4[0-9]|5[1-9])(?!\s*\(ini\))/', $plainCheck), 'Tidak ada bare #40–#49/#51+ di prosa');
+check(! preg_match('/#(?:4[0-9]|5[2-9])(?!\s*\(ini\))/', $plainCheck), 'Tidak ada bare #40–#49/#52+ di prosa');
 $factoryPos = strpos($body, 'Factory — satu pintu');
 $svgPos = strpos($body, 'oop50Arrow');
 check($factoryPos !== false && $svgPos !== false && $svgPos < $factoryPos, 'SVG sebelum section Factory detail');
