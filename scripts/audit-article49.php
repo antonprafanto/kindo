@@ -98,7 +98,8 @@ check(substr_count($body, '<pre') >= 4, 'Minimal 4 blok kode');
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
 check(! preg_match('/#49(?!\s*\(ini\))/', $plain), 'Tidak ada plain #49 selain #49 (ini)');
 check(! preg_match('/(?<![\w\/"#>])#(?:5\d|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #50+ di luar link');
-check(! preg_match('/\/artikel\/[^"\'>\s]*(?:tier-2|artikel-5[0-9]|seri-4)/', $body), 'Tidak hardlink slug #50+ unpublished');
+check(str_contains($body, '/artikel/design-pattern-factory-strategy-python'), 'Hardlink Tier 2 #50 Factory');
+check(! preg_match('/\/artikel\/[^"\'>\s]*(?:tier-2|artikel-5[1-9]|seri-4)/', $body), 'Tidak hardlink slug #51+ unpublished');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');

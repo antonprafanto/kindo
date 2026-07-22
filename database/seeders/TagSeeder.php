@@ -34,6 +34,7 @@ class TagSeeder extends Seeder
             ['slug' => 'polymorphism', 'name' => 'polymorphism'],
             ['slug' => 'abstraction', 'name' => 'abstraction'],
             ['slug' => 'dataclass', 'name' => 'dataclass'],
+            ['slug' => 'design-pattern', 'name' => 'design-pattern'],
             ['slug' => 'html', 'name' => 'html'],
             ['slug' => 'css', 'name' => 'css'],
             ['slug' => 'mysql', 'name' => 'mysql'],

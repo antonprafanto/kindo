@@ -32,6 +32,8 @@ echo "=== Content / checklist audit #49 ===\n\n";
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
 check(! preg_match('/(?<![\w\/"#>])#(?:5\d|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #50+ di luar link/pre');
+check(str_contains($body, '/artikel/design-pattern-factory-strategy-python'), 'Hardlink Tier 2 #50');
+check(! str_contains($body, 'belum jadi artikel live'), 'Tidak residual “belum jadi artikel live” untuk Tier 2');
 check(str_contains($body, '#49 (ini)'), 'Self-ref #49 (ini)');
 check(! preg_match('/#49(?!\s*\(ini\))/', $plain), 'Tidak ada plain #49 selain #49 (ini)');
 

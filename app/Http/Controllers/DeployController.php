@@ -3059,6 +3059,103 @@ class DeployController extends Controller
         return response('Article 49 published', 200);
     }
 
+    /**
+     * Publish artikel ke-50 via seeder (shared hosting tanpa SSH).
+     * Juga re-seed #49 agar teaser Tier 2 / backlink Factory ikut terbarui saat di-ship.
+     */
+    public function publishArticle50(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article50Seeder.php',
+            'database/seeders/Article49Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article50Seeder::class)) {
+            return response('Article50Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 50 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article50Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 50 seed failed', 500);
+        }
+
+        // Backlink Tier 2: teaser #49 → #50 (setelah Article49Seeder memuat hardlink)
+        if (class_exists(\Database\Seeders\Article49Seeder::class)) {
+            $backExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article49Seeder',
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response('Article 50 backlink #49 seed failed', 500);
+            }
+        }
+
+        $slug = 'design-pattern-factory-strategy-python';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 50 missing or not visible after Article50Seeder on deploy hook.'));
+
+            return response('Article 50 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'oop50Arrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'factory_strategy_perpustakaan.py') || ! str_contains($body, 'buat_item') || ! str_contains($body, 'DendaFlat') || ! str_contains($body, 'DendaPerHari') || ! str_contains($body, 'StrategiDenda') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Tier 2') || ! str_contains($body, 'lib.items') || ! str_contains($body, 'encapsulation-property-python-oop')) {
+            report(new \RuntimeException('Article 50 body missing expected content after seed.'));
+
+            return response('Article 50 body content checks failed', 500);
+        }
+
+        $a49 = Article::published()->where('slug', 'capstone-sistem-perpustakaan-mini-oop-python')->first();
+        if (! $a49 || ! str_contains((string) $a49->body, $slug)) {
+            report(new \RuntimeException('Article 50 backlink missing on #49 after reseed.'));
+
+            return response('Article 50 backlink #49 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 50 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [
