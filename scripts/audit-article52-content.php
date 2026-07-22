@@ -31,7 +31,8 @@ $src = file_get_contents(__DIR__.'/../database/seeders/Article52Seeder.php');
 echo "=== Content / checklist audit #52 ===\n\n";
 
 $plain = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
-check(! preg_match('/(?<![\w\/"#>])#(?:5[3-9]|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #53+ di luar link/pre');
+check(str_contains($body, '/artikel/http-rest-kontrak-stub-flask-oop'), 'Hardlink teaser Seri 4 #53');
+check(! preg_match('/(?<![\w\/"#>])#(?:5[4-9]|[6-9]\d)(?!\s*\(ini\))/', $plain), 'Tidak ada plain #54+ di luar link/pre');
 check(str_contains($body, '#52 (ini)'), 'Self-ref #52 (ini)');
 check(substr_count($body, '/artikel/oop-micropython-esp32-class-sensor') >= 2, 'Minimal 2 tautan ke #51');
 check(str_contains($body, '/artikel/capstone-sistem-perpustakaan-mini-oop-python'), 'Tautan ke #49');
@@ -57,7 +58,7 @@ check(str_contains($body, '10/10'), 'Sebut Seri 3 10/10');
 check(substr_count($body, 'language-python') >= 5, 'Minimal 5 blok language-python');
 check(str_contains($body, 'language-text'), 'Ada blok porting language-text');
 check(str_contains($body, 'Flask') && str_contains($body, 'FastAPI'), 'Sebut Flask + FastAPI');
-check(! preg_match('/#(?:4[0-9]|5[0-1]|5[3-9])(?!\s*\(ini\))/', $plain), 'Tidak ada bare #40–#51/#53+ di prosa');
+check(! preg_match('/#(?:4[0-9]|5[0-1]|5[4-9])(?!\s*\(ini\))/', $plain), 'Tidak ada bare #40–#51/#54+ di prosa');
 check(str_contains($src, "'is_featured'") && str_contains($src, 'false'), 'is_featured false');
 check(! preg_match("/'cover_image'\s*=>/", $src), 'Cover tidak di-overwrite');
 check(file_exists(__DIR__.'/audit-article52.php'), 'audit-article52.php ada');

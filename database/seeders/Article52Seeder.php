@@ -489,14 +489,14 @@ if __name__ == "__main__":
 <p><strong>Apakah perlu instal package untuk latihan?</strong><br>Tidak untuk stub. Install Flask/FastAPI saat kamu siap menjalankan sketsa porting.</p>
 <p><strong>Type hint di kode lengkap wajib?</strong><br>Tidak. Type hint membantu FastAPI/IDE; di stub PC cukup untuk kejelasan. Jangan biarkan anotasi menunda <code>demo()</code> hijau.</p>
 <p><strong>Dari jalur IoT, mulai di mana?</strong><br>Kalau kamu baru dari perangkat, selesaikan dulu <a href="/artikel/oop-micropython-esp32-class-sensor">MicroPython (#51)</a> (pola service punya sensor). Pola yang sama dipakai di <a href="/artikel/smart-greenhouse-esp32-sensor-aktuator-dashboard-mqtt">capstone greenhouse (#39)</a> — di sini pintu HTTP-nya.</p>
-<p><strong>Lanjut ke mana?</strong><br>Ide berikutnya: seri Web Dev penuh (routing, auth, DB) — belum live sebagai slug hardlink di Kindo. Fondasi OOP-mu sudah siap.</p>
+<p><strong>Lanjut ke mana?</strong><br>Lanjut Seri 4: <a href="/artikel/http-rest-kontrak-stub-flask-oop">HTTP &amp; REST — Kontrak di Balik Stub (#53)</a> — method, status, resource, mini-router tanpa wajib install Flask.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Web tidak membatalkan OOP — ia meminta batas yang lebih jelas: domain di class, HTTP di adapter. Stub dulu, framework belakangan. Kalau route sudah “tuhan”, pecah lagi: item, service, handler, baru pintu Flask/FastAPI.</p>
-<p>Artikel ini adalah <strong>#52 (ini)</strong> — pintu web setelah <a href="/artikel/oop-micropython-esp32-class-sensor">MicroPython (#51)</a> dan <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a>. Tier 2 menutup jembatan perangkat + web; seri Web Dev penuh menunggu sebagai backlog terpisah.</p>
+<p>Artikel ini adalah <strong>#52 (ini)</strong> — pintu web setelah <a href="/artikel/oop-micropython-esp32-class-sensor">MicroPython (#51)</a> dan <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a>. Lanjut Seri 4: <a href="/artikel/http-rest-kontrak-stub-flask-oop">HTTP &amp; REST (#53)</a>.</p>
 
 <blockquote>
-  <p><strong>Tier 2 progress:</strong> langkah <strong>#52 (ini)</strong> · <a href="/artikel/oop-micropython-esp32-class-sensor">MicroPython (#51)</a> LIVE · <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a> LIVE · Seri 3 tetap 10/10. Prasyarat: <a href="/artikel/oop-micropython-esp32-class-sensor">#51</a> · <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone (#49)</a> · <a href="/artikel/composition-vs-inheritance-python">Composition (#47)</a> · <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP (#40)</a>.</p>
+  <p><strong>Tier 2 progress:</strong> langkah <strong>#52 (ini)</strong> · <a href="/artikel/oop-micropython-esp32-class-sensor">MicroPython (#51)</a> LIVE · <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a> LIVE · Seri 3 tetap 10/10 · Seri 4: <a href="/artikel/http-rest-kontrak-stub-flask-oop">HTTP &amp; REST (#53)</a>. Prasyarat: <a href="/artikel/oop-micropython-esp32-class-sensor">MicroPython (#51)</a> · <a href="/artikel/capstone-sistem-perpustakaan-mini-oop-python">Capstone (#49)</a> · <a href="/artikel/composition-vs-inheritance-python">Composition (#47)</a> · <a href="/artikel/design-pattern-factory-strategy-python">Factory (#50)</a> · <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP (#40)</a>.</p>
 </blockquote>
 HTML;
     }
