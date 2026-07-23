@@ -60,10 +60,10 @@ check(str_contains($deploy, $slug), 'Hook cek slug');
 check(file_exists(__DIR__.'/audit-article55-php.php'), 'audit-article55-php.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');
-check(str_contains($body, '3/8 menuju Capstone Laravel'), 'Progress 3/8');
+check(str_contains($body, '4/8 menuju Capstone Laravel'), 'Progress 4/8');
 check(str_contains($body, 'Composition') || str_contains($body, 'composition'), 'Composition');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
-check(! str_contains($body, '/artikel/laravel-'), 'Belum hardlink Laravel #56');
+check(str_contains($body, '/artikel/laravel-routing-json-perpustakaan-api'), 'Hardlink Laravel #56');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

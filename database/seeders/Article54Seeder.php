@@ -378,7 +378,7 @@ jumlah=2
 <p>Artikel ini adalah <strong>#54 (ini)</strong> — lanjut dari <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">OOP PHP pengantar (#53)</a>.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#54 (ini)</strong> · 3/8 menuju Capstone Laravel · jembatan OOP PHP 2/3 · prasyarat: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">OOP PHP pengantar (#53)</a> LIVE. Berikutnya: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a>.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#54 (ini)</strong> · 4/8 menuju Capstone Laravel · jembatan OOP PHP 2/3 · prasyarat: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">OOP PHP pengantar (#53)</a> LIVE. Berikutnya: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a>.</p>
 </blockquote>
 HTML;
     }

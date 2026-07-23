@@ -59,7 +59,7 @@ check(str_contains(file_get_contents(__DIR__.'/../app/Http/Controllers/DeployCon
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'Publish article 55 via deploy hook (required)'), 'CI #55 required');
 check(! preg_match('/Publish article 55 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', file_get_contents(__DIR__.'/../.github/workflows/deploy.yml')), 'CI #55 tidak continue-on-error');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article54Seeder.php'), 'oop-php-visibility-composition'), '#54 hardlink #55');
-check(str_contains($body, '3/8 menuju Capstone Laravel'), 'Progress 3/8');
+check(str_contains($body, '4/8 menuju Capstone Laravel'), 'Progress 4/8');
 check(str_contains($body, '3/3 selesai') || str_contains($body, 'jembatan OOP PHP'), 'Jembatan OOP selesai framing');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'laci'), 'Gloss awam');
 check(str_contains($body, 'inheritance') || str_contains($body, 'warisan'), 'Kontras inheritance vs composition');

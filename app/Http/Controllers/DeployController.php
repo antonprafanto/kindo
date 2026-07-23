@@ -3482,7 +3482,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'oop53phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_dasar.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#53 (ini)') || ! str_contains($body, '3/8 menuju Capstone Laravel') || ! str_contains($body, 'type hint') || ! str_contains($body, 'oop-php-property-method-constructor')) {
+        if (! str_contains($body, 'oop53phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_dasar.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#53 (ini)') || ! str_contains($body, '4/8 menuju Capstone Laravel') || ! str_contains($body, 'type hint') || ! str_contains($body, 'oop-php-property-method-constructor')) {
             report(new \RuntimeException('Article 53 body missing expected content after seed.'));
 
             return response('Article 53 body content checks failed', 500);
@@ -3581,7 +3581,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'oop54phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_property.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, '__construct') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#54 (ini)') || ! str_contains($body, '3/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'oop-php-visibility-composition')) {
+        if (! str_contains($body, 'oop54phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_property.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, '__construct') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#54 (ini)') || ! str_contains($body, '4/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'oop-php-visibility-composition')) {
             report(new \RuntimeException('Article 54 body missing expected content after seed.'));
 
             return response('Article 54 body content checks failed', 500);
@@ -3664,7 +3664,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'oop55phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_visibility.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, 'class Katalog') || ! str_contains($body, 'private') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#55 (ini)') || ! str_contains($body, '3/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug)) {
+        if (! str_contains($body, 'oop55phpArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'oop_php_visibility.php') || ! str_contains($body, 'class Buku') || ! str_contains($body, 'class Katalog') || ! str_contains($body, 'private') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#55 (ini)') || ! str_contains($body, '4/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'laravel-routing-json-perpustakaan-api')) {
             report(new \RuntimeException('Article 55 body missing expected content after seed.'));
 
             return response('Article 55 body content checks failed', 500);
@@ -3709,6 +3709,106 @@ class DeployController extends Controller
         }
 
         return response('Article 55 published', 200);
+    }
+
+    public function publishArticle56(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article56Seeder.php',
+            'database/seeders/Article55Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article56Seeder::class)) {
+            return response('Article56Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 56 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article56Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 56 seed failed', 500);
+        }
+
+        $slug = 'laravel-routing-json-perpustakaan-api';
+        $prevSlug = 'oop-php-visibility-composition';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 56 missing or not visible after Article56Seeder on deploy hook.'));
+
+            return response('Article 56 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'laravel56jsonArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_routing_json_demo.php') || ! str_contains($body, 'response()-&gt;json') || ! str_contains($body, 'json_encode') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#56 (ini)') || ! str_contains($body, '4/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug)) {
+            report(new \RuntimeException('Article 56 body missing expected content after seed.'));
+
+            return response('Article 56 body content checks failed', 500);
+        }
+
+        $a55 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a55) {
+            report(new \RuntimeException('Article 55 missing while publishing #56.'));
+
+            return response('Article 56 prerequisite #55 missing', 500);
+        }
+
+        if (class_exists(\Database\Seeders\Article55Seeder::class)) {
+            $backExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article55Seeder',
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response('Article 56 backlink #55 seed failed', 500);
+            }
+        }
+
+        $a55 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a55 || ! str_contains((string) $a55->body, $slug)) {
+            report(new \RuntimeException('Article 56 backlink missing on #55 after reseed.'));
+
+            return response('Article 56 backlink #55 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 56 published', 200);
     }
 
     private function runDuplicateBme280Cleanup(): void

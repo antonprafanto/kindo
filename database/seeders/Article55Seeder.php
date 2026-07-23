@@ -287,7 +287,7 @@ echo $katalog-&gt;daftar(), PHP_EOL;
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Baru bawa ke Laravel</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: routing &amp; JSON — pintu HTTP nyata di framework.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel routing &amp; JSON (#56)</a> — pintu HTTP nyata di framework.</span>
     </div>
   </li>
 </ol>
@@ -424,14 +424,14 @@ jumlah=2
 <p><strong>Harus selalu private?</strong><br>Untuk data yang punya aturan (tahun, stok, status): ya, lebih aman. Method yang memang untuk dipanggil pemakai: biarkan <code>public</code>.</p>
 <p><strong>Apa bedanya composition dan inheritance?</strong><br>Composition = “memakai” (katalog punya buku). Inheritance = “menjadi jenis khusus dari”. Di Seri 4 kita prioritaskan composition karena lebih mudah dibawa ke service Laravel.</p>
 <p><strong>Apakah ini sudah cukup untuk Laravel?</strong><br>Untuk fondasi object: ya. Berikutnya kita pakai framework untuk route HTTP &amp; JSON — ide object-nya tetap sama.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: Laravel routing &amp; JSON (pintu HTTP nyata) — artikel pertama stack Laravel di Seri 4.</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> — pintu HTTP nyata, artikel pertama stack Laravel di Seri 4.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p><code>private</code> melindungi data. Method <code>public</code> menjadi pintu. Composition membagi kerja antar object. Tiga kebiasaan ini yang membuat controller Laravel tidak jadi tempat sampah.</p>
 <p>Artikel ini adalah <strong>#55 (ini)</strong> — penutup jembatan OOP PHP setelah <a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a> dan <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">Mengenal OOP PHP (#53)</a>.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#55 (ini)</strong> · 3/8 menuju Capstone Laravel · jembatan OOP PHP <strong>3/3 selesai</strong> · prasyarat: <a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a> LIVE. Berikutnya: Laravel routing &amp; JSON.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#55 (ini)</strong> · 4/8 menuju Capstone Laravel · jembatan OOP PHP <strong>3/3 selesai</strong> · prasyarat: <a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a> LIVE. Berikutnya: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a>.</p>
 </blockquote>
 HTML;
     }

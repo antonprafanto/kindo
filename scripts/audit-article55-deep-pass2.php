@@ -56,8 +56,8 @@ check(substr_count($body, '/artikel/mengenal-oop-cara-berpikir-dengan-objek-php'
 check(substr_count($body, '/artikel/oop-php-property-method-constructor') >= 3, '≥3 link #54');
 
 check(str_contains($body54, 'oop-php-visibility-composition'), '#54 hardlink #55 LIVE');
-check(str_contains($body54, '3/8 menuju Capstone Laravel'), '#54 progress 3/8');
-check(! str_contains($body54, '2/8 menuju Capstone Laravel'), '#54 tidak stale 2/8');
+check(str_contains($body54, '4/8 menuju Capstone Laravel'), '#54 progress 4/8');
+check(! str_contains($body54, '3/8 menuju Capstone Laravel'), '#54 tidak stale 3/8');
 
 preg_match_all('/<pre><code class="language-php">(.*?)<\/code><\/pre>\s*<p>Output(?: yang diharapkan)?:<\/p>\s*<pre><code>(.*?)<\/code><\/pre>/s', $body, $pairs, PREG_SET_ORDER);
 check(count($pairs) >= 3, '≥3 pasangan kode+output ('.count($pairs).')');
@@ -92,7 +92,8 @@ foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
 $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 check(str_contains($deploy, 'publishArticle55'), 'Hook ada');
-check(str_contains($deploy, 'oop55phpArrow') && str_contains($deploy, '3/8 menuju Capstone Laravel'), 'Hook body locks');
+check(str_contains($deploy, 'oop55phpArrow') && str_contains($deploy, '4/8 menuju Capstone Laravel'), 'Hook body locks');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article55Seeder.php'), 'laravel-routing-json-perpustakaan-api'), '#55 hardlink #56');
 check(str_contains($deploy, 'Article 55 backlink #54') || str_contains($deploy, 'backlink missing on #54'), 'Hook reseed/verifikasi #54');
 check(preg_match('/Publish article 55 via deploy hook \(required\)/u', $yml) === 1, 'CI #55 required');
 check(! preg_match('/Publish article 55 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml), 'CI #55 tidak continue-on-error');
@@ -106,7 +107,7 @@ check(str_contains($body, 'Property, Method &amp; Constructor (#54)'), 'Anchor #
 check(str_contains($body, 'declare(strict_types=1)'), 'strict_types di kode lengkap');
 check(! str_contains($body, '→'), 'ASCII only (no unicode arrow)');
 check(! str_contains($body, 'tanpa hardlink') && ! str_contains($body, 'STOP AUDIT'), 'Tanpa suara editor');
-check(! str_contains($body, 'laravel-routing-json'), 'Tanpa hardlink slug Laravel #56');
+check(str_contains($body, 'laravel-routing-json-perpustakaan-api'), 'Hardlink slug Laravel #56');
 check(file_exists(__DIR__.'/audit-article55-deep.php'), 'Pass-1 ada');
 
 echo "\n=== Deep-audit pass-2 #55: {$passed} passed, {$failed} failed ===\n";
