@@ -54,8 +54,8 @@ check(substr_count($body, '/artikel/oop-php-visibility-composition') >= 2, '≥2
 check(str_contains($body, 'Visibility &amp; Composition (#55)'), 'Anchor #55 berjudul penuh');
 
 check(str_contains($body55, 'laravel-routing-json-perpustakaan-api'), '#55 hardlink #56 LIVE');
-check(str_contains($body55, '4/8 menuju Capstone Laravel'), '#55 progress 4/8');
-check(! str_contains($body55, '3/8 menuju Capstone Laravel'), '#55 tidak stale 3/8');
+check(str_contains($body55, '5/8 menuju Capstone Laravel'), '#55 Progress 5/8');
+check(! str_contains($body55, '4/8 menuju Capstone Laravel'), '#55 tidak stale 4/8');
 
 preg_match_all('/<pre><code class="language-php">(.*?)<\/code><\/pre>/s', $body, $blocks, PREG_OFFSET_CAPTURE);
 $pairs = [];
@@ -102,7 +102,7 @@ foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
 $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 check(str_contains($deploy, 'publishArticle56'), 'Hook ada');
-check(str_contains($deploy, 'laravel56jsonArrow') && str_contains($deploy, '4/8 menuju Capstone Laravel') && str_contains($deploy, 'Developer Tools') && str_contains($deploy, 'merapikan daftar'), 'Hook body locks');
+check(str_contains($deploy, 'laravel56jsonArrow') && str_contains($deploy, '5/8 menuju Capstone Laravel') && str_contains($deploy, 'Developer Tools') && str_contains($deploy, 'merapikan daftar'), 'Hook body locks');
 check(str_contains($deploy, 'Article 56 backlink #55') || str_contains($deploy, 'backlink missing on #55'), 'Hook reseed/verifikasi #55');
 check(preg_match('/Publish article 56 via deploy hook \(required\)/u', $yml) === 1, 'CI #56 required');
 check(! preg_match('/Publish article 56 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml), 'CI #56 tidak continue-on-error');
@@ -121,7 +121,7 @@ check(str_contains($body, 'Developer Tools') && str_contains($body, 'terminal'),
 check(str_contains($body, 'merapikan daftar'), 'Gloss array_values');
 check(! str_contains($body, '→'), 'ASCII only (no unicode arrow)');
 check(! str_contains($body, 'tanpa hardlink') && ! str_contains($body, 'STOP AUDIT'), 'Tanpa suara editor');
-check(! str_contains($body, 'laravel-request-validasi'), 'Tanpa hardlink slug #57');
+check(str_contains($body, 'laravel-request-validasi-api'), '#56 hardlink slug #57');
 check(file_exists(__DIR__.'/audit-article56-deep.php'), 'Pass-1 ada');
 
 echo "\n=== Deep-audit pass-2 #56: {$passed} passed, {$failed} failed ===\n";

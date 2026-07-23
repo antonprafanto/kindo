@@ -61,7 +61,7 @@ foreach ($anchors[1] as $text) {
         $thin++;
     }
 }
-check(str_contains($body, '4/8 menuju Capstone Laravel'), 'Progress LIVE 4/8');
+check(str_contains($body, '5/8 menuju Capstone Laravel'), 'Progress LIVE 5/8');
 check(! str_contains($body, '0/8 menuju Capstone Laravel'), 'Tidak stale 0/8');
 check(! str_contains($body, '1/8 menuju Capstone Laravel'), 'Tidak stale 1/8');
 check(str_contains($body, 'type hint'), 'Catatan type hint untuk awam');

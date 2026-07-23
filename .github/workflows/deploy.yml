@@ -925,6 +925,17 @@ jobs:
           echo "Article 52 HTTP status: $code"
           test "$code" = "200"
 
+      - name: Publish article 57 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-57")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/laravel-request-validasi-api")
+          echo "Article 57 HTTP status: $code"
+          test "$code" = "200"
+
       - name: Publish article 56 via deploy hook (required)
         run: |
           resp=$(curl -fsS --max-time 120 \

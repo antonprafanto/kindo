@@ -258,7 +258,7 @@ Route::get('/api/buku/{id}', function (int $id) {
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Baru pikir validasi request</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: Form Request — penjaga di pintu masuk supaya data kotor tidak masuk sembarangan.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — penjaga di pintu masuk supaya data kotor tidak masuk sembarangan.</span>
     </div>
   </li>
 </ol>
@@ -369,14 +369,14 @@ demo();
 <p><strong>Harus install Laravel dulu?</strong><br>Untuk memahami ide: demo PHP di atas sudah cukup. Untuk latihan framework: buat project Laravel 11+ lalu tempel cuplikan route.</p>
 <p><strong>Kenapa JSON, bukan HTML?</strong><br>API biasanya dilayani ke aplikasi lain (mobile, frontend, IoT). JSON lebih mudah diparse program daripada halaman penuh.</p>
 <p><strong>Apa bedanya <code>routes/web.php</code> dan <code>routes/api.php</code>?</strong><br>Secara awam: <code>web</code> sering untuk halaman + login/sesi di browser; <code>api</code> untuk JSON ke aplikasi lain. Lapisan pengaman tambahan (sering disebut middleware) menyusul — fokus dulu: ada pintu, ada jawaban JSON.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: Request &amp; Form Request — penjaga di pintu masuk supaya data kotor tidak masuk sembarangan.</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — penjaga di pintu masuk supaya data kotor tidak masuk sembarangan.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Route = pintu. JSON = isi jawaban. Status = kejujuran sukses/gagal. Tiga ide ini yang membuat API perpustakaan bisa diajak bicara dari luar.</p>
 <p>Artikel ini adalah <strong>#56 (ini)</strong> — pembuka Laravel setelah <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> menutup jembatan OOP PHP.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · 4/8 menuju Capstone Laravel · stack Laravel <strong>1/5</strong> · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: Request &amp; Form Request — penjaga input di pintu HTTP.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · 5/8 menuju Capstone Laravel · stack Laravel <strong>1/5</strong> · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — penjaga input di pintu HTTP.</p>
 </blockquote>
 HTML;
     }
