@@ -3964,7 +3964,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel58ctrlArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_controller_service_demo.php') || ! str_contains($body, 'BukuService') || ! str_contains($body, 'BukuController') || ! str_contains($body, 'Eloquent') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#58 (ini)') || ! str_contains($body, '6/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'pengatur kode') || ! str_contains($body, 'otentikasi') || ! str_contains($body, 'langkah kerja') || ! str_contains($body, 'validated()')) {
+        if (! str_contains($body, 'laravel58ctrlArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_controller_service_demo.php') || ! str_contains($body, 'BukuService') || ! str_contains($body, 'BukuController') || ! str_contains($body, 'Eloquent') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#58 (ini)') || ! str_contains($body, '6/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'pengatur kode') || ! str_contains($body, 'otentikasi') || ! str_contains($body, 'langkah kerja') || ! str_contains($body, 'validated()') || ! str_contains($body, 'JsonResponse') || ! str_contains($body, 'callable') || ! str_contains($body, 'Perintah database tersebar')) {
             report(new \RuntimeException('Article 58 body missing expected content after seed.'));
 
             return response('Article 58 body content checks failed', 500);

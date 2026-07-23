@@ -77,9 +77,16 @@ check(str_contains($body, '/artikel/laravel-routing-json-perpustakaan-api'), 'Li
 check(str_contains($body, 'orderBy') && str_contains($body, 'urutkan'), 'Gloss query orderBy');
 check(str_contains($body, 'skrip pembuat tabel') || str_contains($body, 'migrasi'), 'Gloss migrasi awam');
 check(str_contains($body, 'Buku::create'), 'Eloquent create cuplikan');
+check(str_contains($body, 'JsonResponse') && str_contains($body, 'tipe jawaban'), 'Gloss JsonResponse');
+check(str_contains($body, 'callable') && str_contains($body, 'bisa dipanggil'), 'Gloss callable');
+check(str_contains($body, 'Perintah database tersebar'), 'KU tanpa SQL mentah');
+check(! str_contains($body, 'Logika bisnis ditulis') && ! str_contains($body, 'pekerjaan bisnis'), 'Tanpa logika/pekerjaan bisnis mentah');
+check(str_contains($body, 'Isian tidak tersimpan') || str_contains($body, 'isian yang sudah lolos'), 'Gloss isian (bukan field mentah)');
+check(str_contains($body, 'Pindahkan langkah kerja ke service'), 'Pola Dasar langkah kerja');
+check(str_contains($body, 'strict_types') && str_contains($body, 'tipe data lebih ketat'), 'Gloss strict_types');
 
 echo "\n=== Deep-audit pass-1 #58: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: JENUH LIVE — hardlink #57 terkunci. STOP AUDIT → oke deploy hanya untuk resync/bug.\n";
+    echo "Verdict: JENUH post-live ramah-awam — STOP AUDIT → oke deploy (resync prod #58).\n";
 }
 exit($failed > 0 ? 1 : 0);

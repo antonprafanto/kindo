@@ -268,9 +268,10 @@ class BukuController extends Controller
 <p><strong>Awam:</strong></p>
 <ul>
   <li><code>StoreBukuRequest</code> = penjaga dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — data sudah dicek</li>
-  <li><code>validated()</code> = ambil hanya field yang sudah lolos penjaga</li>
+  <li><code>validated()</code> = ambil hanya isian yang sudah lolos penjaga</li>
   <li><code>BukuService</code> = layanan yang tahu cara menambah buku</li>
   <li><code>private BukuService $layanan</code> di konstruktor = Laravel menyiapkan layanan otomatis (kamu tidak perlu <code>new</code> manual di sini)</li>
+  <li><code>JsonResponse</code> = tipe jawaban “ini JSON” (boleh diabaikan dulu kalau masih asing)</li>
   <li>Controller hanya mengatur: terima -&gt; panggil layanan -&gt; JSON</li>
 </ul>
 <p>Route biasanya mengarah ke method controller, misalnya <code>POST /api/buku</code> -&gt; <code>BukuController::store</code>. Pintu HTTP tetap seperti di <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> — yang berubah: isi pintu sekarang memanggil pengatur kode, bukan menumpuk semua logika di satu file route.</p>
@@ -335,7 +336,7 @@ class BukuService
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
     <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Pindahkan logika ke service</strong>
+      <strong style="color:#1a1a1a">Pindahkan langkah kerja ke service</strong>
       <span style="display:block;color:#2D3748;margin-top:.25rem">“Tambah buku”, “cari buku”, “daftar buku” tinggal di satu tempat.</span>
     </div>
   </li>
@@ -420,7 +421,7 @@ demo("GET daftar -&gt; 200", function () use ($layanan) {
 });
 </code></pre>
 
-<p><strong>Awam:</strong> <code>demo(...)</code> hanya membungkus output agar mudah dibaca di terminal — bukan fitur Laravel.</p>
+<p><strong>Awam:</strong> <code>demo(...)</code> hanya membungkus output agar mudah dibaca di terminal — bukan fitur Laravel. <code>callable</code> artinya “sesuatu yang bisa dipanggil seperti fungsi”. Baris <code>declare(strict_types=1);</code> membuat tipe data lebih ketat — boleh diikuti, tidak wajib dihafal dulu.</p>
 
 <h2>Kesalahan umum</h2>
 <table>
@@ -434,12 +435,12 @@ demo("GET daftar -&gt; 200", function () use ($layanan) {
   <tbody>
     <tr>
       <td>Controller membengkak</td>
-      <td>Logika bisnis ditulis di controller</td>
+      <td>Langkah kerja ditulis di controller</td>
       <td>Pindahkan ke service</td>
     </tr>
     <tr>
-      <td>SQL / query di mana-mana</td>
-      <td>Eloquent dipanggil dari banyak tempat</td>
+      <td>Perintah database tersebar di banyak file</td>
+      <td>Eloquent/query dipanggil dari mana-mana</td>
       <td>Satukan lewat service</td>
     </tr>
     <tr>
@@ -448,7 +449,7 @@ demo("GET daftar -&gt; 200", function () use ($layanan) {
       <td>Pakai Form Request dulu (<a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request</a>)</td>
     </tr>
     <tr>
-      <td>Field tidak tersimpan / error “kolom tidak boleh diisi massal”</td>
+      <td>Isian tidak tersimpan / error “kolom tidak boleh diisi massal”</td>
       <td>Kolom belum ada di <code>$fillable</code></td>
       <td>Tambahkan nama kolom ke <code>$fillable</code></td>
     </tr>
@@ -463,7 +464,7 @@ demo("GET daftar -&gt; 200", function () use ($layanan) {
 </ol>
 
 <h2>FAQ singkat</h2>
-<p><strong>Apa bedanya controller dan service?</strong><br>Controller mengatur alur (siapa dipanggil, apa yang dikembalikan). Service mengerjakan pekerjaan bisnis. Awam: manajer loket vs staf yang menyusun rak.</p>
+<p><strong>Apa bedanya controller dan service?</strong><br>Controller mengatur alur (siapa dipanggil, apa yang dikembalikan). Service mengerjakan langkah kerja. Awam: manajer loket vs staf yang menyusun rak.</p>
 <p><strong>Haruskah selalu pakai service?</strong><br>Untuk API kecil, kadang controller langsung ke Eloquent masih oke. Begitu aturan bertambah (cek stok, hitung denda, kirim notifikasi), service membantu tetap rapi.</p>
 <p><strong>Eloquent wajib dari awal?</strong><br>Ide penyimpanan bisa dilatih dengan array dulu. Eloquent dipakai saat data perlu bertahan di database sungguhan.</p>
 <p><strong>Lanjut ke mana?</strong><br>Berikutnya: otentikasi — siapa yang boleh memanggil API (login / “bukti masuk”). Setelah alur simpan rapi, baru kunci pintu.</p>

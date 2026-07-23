@@ -77,6 +77,10 @@ check(! str_contains($body, 'MassAssignmentException'), 'Tanpa MassAssignmentExc
 check(str_contains($body, 'langkah kerja'), 'Gloss langkah kerja');
 check(! str_contains($body, 'BukuController@store'), 'Tanpa @store');
 check(str_contains($body, 'bukti masuk') || ! str_contains($body, 'token'), 'Tanpa token mentah / ada bukti masuk');
+check(str_contains($body, 'JsonResponse') && str_contains($body, 'tipe jawaban'), 'Gloss JsonResponse');
+check(str_contains($body, 'callable') && str_contains($body, 'bisa dipanggil'), 'Gloss callable');
+check(! str_contains($body, 'Logika bisnis ditulis') && ! str_contains($body, 'pekerjaan bisnis'), 'Tanpa bisnis-jargon mentah di KU/FAQ');
+check(str_contains($body, 'Perintah database tersebar'), 'KU perintah database awam');
 
 preg_match_all('/<a href="[^"]+">([^<]*)<\/a>/', $body, $anchors);
 $thin = 0;
