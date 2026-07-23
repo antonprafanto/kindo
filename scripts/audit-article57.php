@@ -64,10 +64,10 @@ check(str_contains($deploy, $slug), 'Hook cek slug');
 check(file_exists(__DIR__.'/audit-article57-php.php'), 'audit-article57-php.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');
-check(str_contains($body, '5/8 menuju Capstone Laravel'), 'Progress 5/8');
+check(str_contains($body, '6/8 menuju Capstone Laravel'), 'Progress 5/8');
 check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
-check(! str_contains($body, '/artikel/laravel-controller'), 'Belum hardlink #58');
+check(str_contains($body, '/artikel/laravel-controller-service-eloquent'), 'Hardlink #58');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article56Seeder.php'), $slug), '#56 hardlink #57');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
 

@@ -376,7 +376,7 @@ demo();
 <p>Artikel ini adalah <strong>#56 (ini)</strong> — pembuka Laravel setelah <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> menutup jembatan OOP PHP.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · 5/8 menuju Capstone Laravel · stack Laravel <strong>1/5</strong> · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — penjaga input di pintu HTTP.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · 6/8 menuju Capstone Laravel · stack Laravel <strong>1/5</strong> · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — penjaga input di pintu HTTP.</p>
 </blockquote>
 HTML;
     }

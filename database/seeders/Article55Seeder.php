@@ -431,7 +431,7 @@ jumlah=2
 <p>Artikel ini adalah <strong>#55 (ini)</strong> — penutup jembatan OOP PHP setelah <a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a> dan <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">Mengenal OOP PHP (#53)</a>.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#55 (ini)</strong> · 5/8 menuju Capstone Laravel · jembatan OOP PHP <strong>3/3 selesai</strong> · prasyarat: <a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a> LIVE. Berikutnya: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a>.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#55 (ini)</strong> · 6/8 menuju Capstone Laravel · jembatan OOP PHP <strong>3/3 selesai</strong> · prasyarat: <a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a> LIVE. Berikutnya: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a>.</p>
 </blockquote>
 HTML;
     }

@@ -53,7 +53,7 @@ check(! preg_match('/(?<![\w\/"#>])#53(?!\s*\(ini\))/', $plain), 'Tidak bare #53
 check(str_contains($body, '/artikel/mengenal-oop-cara-berpikir-dengan-objek-php'), 'Body link #53');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article53Seeder.php'), 'mengenal-oop-cara-berpikir-dengan-objek-php'), 'Slug resolve seeder #53');
 check(! str_contains($body53, '1/8 menuju Capstone Laravel'), '#53 tidak stale 1/8');
-check(str_contains($body53, '5/8 menuju Capstone Laravel'), '#53 Progress 5/8 setelah oke');
+check(str_contains($body53, '6/8 menuju Capstone Laravel'), '#53 Progress 5/8 setelah oke');
 check(! str_contains($body53, '3/8 menuju Capstone Laravel'), '#53 tidak stale 3/8');
 check(str_contains($body53, '/artikel/oop-php-property-method-constructor'), '#53 hardlink #54 LIVE');
 
@@ -91,7 +91,7 @@ foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
 $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 check(str_contains($deploy, 'publishArticle54'), 'Hook ada');
-check(str_contains($deploy, 'oop54phpArrow') && str_contains($deploy, '5/8 menuju Capstone Laravel'), 'Hook body locks');
+check(str_contains($deploy, 'oop54phpArrow') && str_contains($deploy, '6/8 menuju Capstone Laravel'), 'Hook body locks');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article54Seeder.php'), 'oop-php-visibility-composition'), '#54 hardlink #55');
 check(preg_match('/Publish article 54 via deploy hook \(required\)/u', $yml) === 1, 'CI #54 required');
 check(! preg_match('/Publish article 54 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml), 'CI #54 tidak continue-on-error');

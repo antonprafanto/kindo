@@ -51,7 +51,7 @@ check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, 'laravel-request-validasi-api'), 'Slug');
 check(str_contains(file_get_contents(__DIR__.'/../routes/web.php'), 'publish-article-57'), 'Route hook');
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'laravel-request-validasi-api'), 'CI slug');
-check(str_contains($body, '5/8 menuju Capstone Laravel'), 'Progress 5/8');
+check(str_contains($body, '6/8 menuju Capstone Laravel'), 'Progress 6/8');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat awam');
 check(str_contains($body, 'Arti awam'), 'Gloss awam');
 check(str_contains($body, '422'), 'Status 422');
@@ -74,7 +74,8 @@ check(str_contains($body, '<td>POST</td>') || str_contains($body, '>POST</td>'),
 check(! str_contains($body, '@param') && ! str_contains($body, '@return'), 'Tanpa PHPDoc @param di demo');
 check(! str_contains($body, 'JSON body'), 'Tanpa jargon JSON body');
 check(str_contains($body, 'tampilan di browser') || str_contains($body, 'sering disebut frontend'), 'Gloss frontend awam');
-check(str_contains($body, 'pengatur kode (controller)') && str_contains($body, 'layanan (service)'), 'Gloss controller/service soft');
+check(str_contains($body, '/artikel/laravel-controller-service-eloquent'), 'Hardlink #58');
+check(str_contains($body, 'pengatur kode') && str_contains($body, 'layanan'), 'Gloss controller/service');
 
 preg_match_all('/<a href="[^"]+">([^<]*)<\/a>/', $body, $anchors);
 $thin = 0;

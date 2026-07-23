@@ -51,7 +51,7 @@ check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, 'oop-php-visibility-composition'), 'Slug');
 check(str_contains(file_get_contents(__DIR__.'/../routes/web.php'), 'publish-article-55'), 'Route hook');
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'oop-php-visibility-composition'), 'CI slug');
-check(str_contains($body, '5/8 menuju Capstone Laravel'), 'Progress 5/8');
+check(str_contains($body, '6/8 menuju Capstone Laravel'), 'Progress 5/8');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat awam');
 check(str_contains($body, 'private') && str_contains($body, 'public'), 'Visibility public/private');
 check(str_contains($body, 'Composition') || str_contains($body, 'composition'), 'Composition');

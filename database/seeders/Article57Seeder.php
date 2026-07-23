@@ -316,7 +316,7 @@ Route::post('/api/buku', function (StoreBukuRequest $request) {
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Baru pikir penyimpanan &amp; struktur kode</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: pengatur kode (controller), layanan (service), dan penyimpanan data — setelah penjaga berdiri.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> — pengatur kode, layanan, dan penyimpanan data setelah penjaga berdiri.</span>
     </div>
   </li>
 </ol>
@@ -445,14 +445,14 @@ demo();
 <p><strong>Harus install Laravel dulu?</strong><br>Untuk memahami ide: demo PHP di atas sudah cukup. Untuk latihan framework: buat project Laravel 11+ lalu tempel cuplikan route / Form Request.</p>
 <p><strong>Kenapa tidak cukup cek di tampilan browser saja?</strong><br>Tampilan di browser (sering disebut frontend) bisa dilewati. Penjaga di server (API) tetap wajib — itu tempat keputusan yang bisa dipercaya.</p>
 <p><strong>Apa bedanya <code>$request-&gt;validate</code> dan Form Request?</strong><br>Secara awam: sama-sama penjaga. Form Request memindahkan aturan ke kelas sendiri supaya file route / pengatur kode tetap tipis dan rapi.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: pengatur kode (controller), layanan (service), dan penyimpanan data — setelah penjaga berdiri, baru rapikan tempat menyimpan buku.</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> — pengatur kode, layanan, dan penyimpanan data setelah penjaga berdiri.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Request = paket masuk. Validasi = cek kelayakan. Form Request = rumah aturan penjaga. Status 422 = “isian ditolak dengan jujur”.</p>
 <p>Artikel ini adalah <strong>#57 (ini)</strong> — penjaga input setelah <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> membuka pintu HTTP.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#57 (ini)</strong> · 5/8 menuju Capstone Laravel · stack Laravel <strong>2/5</strong> · prasyarat: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> LIVE. Berikutnya: pengatur kode (controller), layanan (service), dan penyimpanan data.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#57 (ini)</strong> · 6/8 menuju Capstone Laravel · stack Laravel <strong>2/5</strong> · prasyarat: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> LIVE. Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a>.</p>
 </blockquote>
 HTML;
     }

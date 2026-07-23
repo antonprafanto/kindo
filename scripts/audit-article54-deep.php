@@ -63,7 +63,7 @@ check(str_contains($body, 'Property') && str_contains($body, 'Method') && str_co
 check(str_contains($body, '$this'), 'Jelaskan $this');
 check(str_contains($body, 'type hint') || str_contains($body, 'Type hint'), 'Type hint awam');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat');
-check(str_contains($body, '5/8 menuju Capstone Laravel'), 'Progress 5/8');
+check(str_contains($body, '6/8 menuju Capstone Laravel'), 'Progress 5/8');
 check(str_contains($body, 'ringkas'), 'Method kedua ringkas');
 check(str_contains($body, 'isbn') || str_contains($body, 'ISBN'), 'Property isbn di demo lengkap');
 

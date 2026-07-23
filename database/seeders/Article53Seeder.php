@@ -378,7 +378,7 @@ jumlah=2
 <p>Artikel ini adalah <strong>#53 (ini)</strong> — pembuka Seri 4 setelah pintu OOP web Python di <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a>. Lanjut: <a href="/artikel/oop-php-property-method-constructor">property &amp; constructor PHP (#54)</a>.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#53 (ini)</strong> · 5/8 menuju Capstone Laravel · jembatan OOP PHP 1/3 · prasyarat konsep: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP Python (#40)</a> opsional · <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a> LIVE · lanjut <a href="/artikel/oop-php-property-method-constructor">property &amp; constructor (#54)</a>.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#53 (ini)</strong> · 6/8 menuju Capstone Laravel · jembatan OOP PHP 1/3 · prasyarat konsep: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-python">OOP Python (#40)</a> opsional · <a href="/artikel/oop-flask-fastapi-class-api">Flask/FastAPI (#52)</a> LIVE · lanjut <a href="/artikel/oop-php-property-method-constructor">property &amp; constructor (#54)</a>.</p>
 </blockquote>
 HTML;
     }
