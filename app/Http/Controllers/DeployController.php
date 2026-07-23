@@ -3764,7 +3764,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel56jsonArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_routing_json_demo.php') || ! str_contains($body, 'response()-&gt;json') || ! str_contains($body, 'json_encode') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#56 (ini)') || ! str_contains($body, '4/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug)) {
+        if (! str_contains($body, 'laravel56jsonArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_routing_json_demo.php') || ! str_contains($body, 'response()-&gt;json') || ! str_contains($body, 'json_encode') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#56 (ini)') || ! str_contains($body, '4/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Developer Tools') || ! str_contains($body, 'merapikan daftar') || ! str_contains($body, 'Pakai')) {
             report(new \RuntimeException('Article 56 body missing expected content after seed.'));
 
             return response('Article 56 body content checks failed', 500);

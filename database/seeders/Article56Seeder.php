@@ -72,7 +72,7 @@ class Article56Seeder extends Seeder
 <p><strong>Awam:</strong> bayangkan loket perpustakaan. Pengunjung bilang “saya mau daftar buku” — itu URL. Petugas memilih loket yang tepat — itu route. Jawaban tertulis rapi di kertas data — itu JSON.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> — paham class/object ringan. Domain tetap <strong>perpustakaan mini</strong>. Pin framework: <strong>Laravel 11+</strong> (sintaks route &amp; JSON di sini sama di major modern).</p>
+  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> — paham class/object ringan. Domain tetap <strong>perpustakaan mini</strong>. Pakai <strong>Laravel 11+</strong> — sintaks route &amp; JSON di sini berlaku di versi modern.</p>
 </blockquote>
 
 <h2>Route — pintu yang dipilih dari URL</h2>
@@ -158,7 +158,7 @@ echo json_encode($koleksi[$id], JSON_UNESCAPED_UNICODE), PHP_EOL;
 <pre><code>{"pesan":"Buku tidak ditemukan"}
 </code></pre>
 
-<p>(Status HTTP-nya <code>404</code> — di browser/DevTools atau <code>curl -i</code> kamu bisa lihat angka itu, bukan hanya teks JSON.)</p>
+<p>(Status HTTP-nya <code>404</code> — di browser, buka panel Developer Tools; atau di terminal jalankan <code>curl -i</code>. Angka status itu yang dicari, bukan hanya teks JSON.)</p>
 
 <figure role="img" aria-label="Diagram browser memanggil route Laravel lalu menerima JSON" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" style="display:block;max-width:720px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
@@ -229,7 +229,7 @@ Route::get('/api/buku/{id}', function (int $id) {
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
     <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Tentukan pintu (URL + method)</strong>
+      <strong style="color:#1a1a1a">Tentukan pintu (URL + cara ketuk)</strong>
       <span style="display:block;color:#2D3748;margin-top:.25rem"><code>GET /api/buku</code> untuk daftar; <code>GET /api/buku/{id}</code> untuk satu item.</span>
     </div>
   </li>
@@ -244,7 +244,7 @@ Route::get('/api/buku/{id}', function (int $id) {
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Kirim JSON, bukan HTML</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem"><code>response()-&gt;json(...)</code> mengurus header Content-Type.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem"><code>response()-&gt;json(...)</code> mengurus header yang bilang “ini JSON” (sering disebut Content-Type).</span>
     </div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
@@ -258,7 +258,7 @@ Route::get('/api/buku/{id}', function (int $id) {
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Baru pikir validasi request</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: Form Request — menjaga input kotor di pintu masuk.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: Form Request — penjaga di pintu masuk supaya data kotor tidak masuk sembarangan.</span>
     </div>
   </li>
 </ol>
@@ -266,7 +266,7 @@ Route::get('/api/buku/{id}', function (int $id) {
 
 <h2>Kode lengkap — <code>laravel_routing_json_demo.php</code></h2>
 <p>Simpan dan jalankan: <code>php laravel_routing_json_demo.php</code>. Ini meniru jawaban API (JSON + status) tanpa server Laravel — supaya ide-nya terasa dulu.</p>
-<p><strong>Awam:</strong> baris <code>mixed $data</code> artinya “data bisa bermacam bentuk (array, teks, dll.)”. Tidak perlu dihafal; fokus ke <code>kirimJson()</code> yang mengurus status + JSON.</p>
+<p><strong>Awam:</strong> baris <code>mixed $data</code> artinya “data bisa bermacam bentuk (array, teks, dll.)”. Tidak perlu dihafal; fokus ke <code>kirimJson()</code> yang mengurus status + JSON. <code>array_values(...)</code> hanya merapikan daftar jadi nomor urut 0, 1, 2… supaya JSON-nya berbentuk array daftar, bukan objek ber-id.</p>
 
 <pre><code class="language-php">&lt;?php
 /**
@@ -332,7 +332,7 @@ demo();
   <tbody>
     <tr>
       <td>Jawaban terlihat seperti HTML</td>
-      <td>Return view / string biasa</td>
+      <td>Mengembalikan halaman HTML / teks biasa</td>
       <td>Pakai <code>response()-&gt;json(...)</code></td>
     </tr>
     <tr>
@@ -342,18 +342,18 @@ demo();
     </tr>
     <tr>
       <td>Route tidak ketemu</td>
-      <td>URL/method salah, atau cache route</td>
+      <td>URL atau cara ketuk (GET/POST) salah, atau daftar route masih tersimpan lama</td>
       <td>Cek path; <code>php artisan route:list</code></td>
     </tr>
     <tr>
       <td>Langsung loncat database</td>
-      <td>Mau Eloquent terlalu dini</td>
-      <td>Rapatkan pintu JSON dulu (<strong>#56 (ini)</strong>), baru persistensi nanti</td>
+      <td>Mau model database terlalu dini</td>
+      <td>Rapatkan pintu JSON dulu (<strong>#56 (ini)</strong>), baru penyimpanan data nanti</td>
     </tr>
     <tr>
-      <td>Controller jadi gudang besar</td>
-      <td>Semua logika di closure/route</td>
-      <td>Nanti pecah ke controller/service — mulai dari pintu yang tipis</td>
+      <td>Satu file route jadi gudang besar</td>
+      <td>Semua logika ditumpuk di dalam file route</td>
+      <td>Nanti pecah ke controller — mulai dari pintu yang tipis</td>
     </tr>
   </tbody>
 </table>
@@ -368,15 +368,15 @@ demo();
 <h2>FAQ singkat</h2>
 <p><strong>Harus install Laravel dulu?</strong><br>Untuk memahami ide: demo PHP di atas sudah cukup. Untuk latihan framework: buat project Laravel 11+ lalu tempel cuplikan route.</p>
 <p><strong>Kenapa JSON, bukan HTML?</strong><br>API biasanya dilayani ke aplikasi lain (mobile, frontend, IoT). JSON lebih mudah diparse program daripada halaman penuh.</p>
-<p><strong>Apa bedanya <code>routes/web.php</code> dan <code>routes/api.php</code>?</strong><br>Secara awam: <code>web</code> sering untuk halaman + session browser; <code>api</code> untuk JSON ke aplikasi lain. Lapisan pengaman tambahan (sering disebut middleware) menyusul — fokus dulu: ada pintu, ada jawaban JSON.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: Request &amp; Form Request — menjaga data kotor yang masuk lewat pintu HTTP.</p>
+<p><strong>Apa bedanya <code>routes/web.php</code> dan <code>routes/api.php</code>?</strong><br>Secara awam: <code>web</code> sering untuk halaman + login/sesi di browser; <code>api</code> untuk JSON ke aplikasi lain. Lapisan pengaman tambahan (sering disebut middleware) menyusul — fokus dulu: ada pintu, ada jawaban JSON.</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: Request &amp; Form Request — penjaga di pintu masuk supaya data kotor tidak masuk sembarangan.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Route = pintu. JSON = isi jawaban. Status = kejujuran sukses/gagal. Tiga ide ini yang membuat API perpustakaan bisa diajak bicara dari luar.</p>
 <p>Artikel ini adalah <strong>#56 (ini)</strong> — pembuka Laravel setelah <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> menutup jembatan OOP PHP.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · 4/8 menuju Capstone Laravel · stack Laravel <strong>1/5</strong> · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: Request &amp; Form Request.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · 4/8 menuju Capstone Laravel · stack Laravel <strong>1/5</strong> · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: Request &amp; Form Request — penjaga input di pintu HTTP.</p>
 </blockquote>
 HTML;
     }

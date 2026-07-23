@@ -53,10 +53,19 @@ check(
 );
 check(! str_contains($body, '→') && ! str_contains($body, 'tanpa hardlink'), 'ASCII + tanpa suara editor');
 check(str_contains($body, 'Arti awam') && str_contains($body, 'GET'), 'Ramah awam residual');
+check(
+    ! str_contains($body, 'Pin framework')
+    && ! str_contains($body, 'closure')
+    && str_contains($body, 'Developer Tools')
+    && str_contains($body, 'merapikan daftar')
+    && str_contains($body, 'header yang bilang')
+    && str_contains($body, 'penjaga'),
+    'Ramah awam jargon polish'
+);
 check(str_contains($body, '4/8 menuju Capstone Laravel'), 'Progress box 4/8');
 
 echo "\n=== Deep-audit pass-3 #56: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: JENUH — 0 gap material baru. STOP AUDIT → oke deploy #56.\n";
+    echo "Verdict: JENUH — ramah awam polish terkunci. STOP AUDIT → oke deploy (resync prod #56).\n";
 }
 exit($failed > 0 ? 1 : 0);

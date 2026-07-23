@@ -65,6 +65,18 @@ check(str_contains($body, 'Kenapa belum langsung buka Laravel'), 'Narasi PHP dul
 check(str_contains($body, 'loket'), 'Analogi loket');
 check(str_contains($body, '<td>GET</td>'), 'Gloss GET');
 check(str_contains($body, 'bermacam bentuk'), 'Gloss mixed');
+check(str_contains($body, 'Pakai') && str_contains($body, 'Laravel 11+'), 'Versi Laravel awam (bukan Pin)');
+check(! str_contains($body, 'Pin framework'), 'Tanpa jargon Pin');
+check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
+check(str_contains($body, 'Developer Tools') && str_contains($body, 'curl -i'), 'Gloss DevTools/curl');
+check(str_contains($body, 'array_values') && str_contains($body, 'merapikan daftar'), 'Gloss array_values');
+check(str_contains($body, 'Mengembalikan halaman HTML'), 'KU tanpa jargon view');
+check(! str_contains($body, 'Eloquent'), 'KU tanpa Eloquent dini');
+
+check(str_contains($body, 'header yang bilang') && str_contains($body, 'Content-Type'), 'Gloss Content-Type di Pola Dasar');
+check(str_contains($body, 'penjaga di pintu masuk') || str_contains($body, 'penjaga input'), 'Form Request soft gloss konsisten');
+check(str_contains($body, 'URL + cara ketuk'), 'Pola Dasar tanpa jargon method mentah');
+check(str_contains($body, 'cara ketuk (GET/POST)'), 'KU tanpa jargon method mentah');
 
 preg_match_all('/<a href="[^"]+">([^<]*)<\/a>/', $body, $anchors);
 $thin = 0;

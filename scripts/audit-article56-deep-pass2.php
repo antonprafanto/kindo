@@ -102,7 +102,7 @@ foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
 $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 check(str_contains($deploy, 'publishArticle56'), 'Hook ada');
-check(str_contains($deploy, 'laravel56jsonArrow') && str_contains($deploy, '4/8 menuju Capstone Laravel'), 'Hook body locks');
+check(str_contains($deploy, 'laravel56jsonArrow') && str_contains($deploy, '4/8 menuju Capstone Laravel') && str_contains($deploy, 'Developer Tools') && str_contains($deploy, 'merapikan daftar'), 'Hook body locks');
 check(str_contains($deploy, 'Article 56 backlink #55') || str_contains($deploy, 'backlink missing on #55'), 'Hook reseed/verifikasi #55');
 check(preg_match('/Publish article 56 via deploy hook \(required\)/u', $yml) === 1, 'CI #56 required');
 check(! preg_match('/Publish article 56 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml), 'CI #56 tidak continue-on-error');
@@ -115,6 +115,10 @@ check(str_contains($body, 'mixed $data') && str_contains($body, 'bermacam bentuk
 check(str_contains($body, 'menulis pintu JSON'), 'H2 Laravel ramah awam');
 check(str_contains($body, 'declare(strict_types=1)'), 'strict_types di kode lengkap');
 check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
+check(str_contains($body, 'Pakai') && str_contains($body, 'Laravel 11+'), 'Frasa Pakai Laravel (bukan Pin)');
+check(! str_contains($body, 'Pin framework') && ! str_contains($body, 'closure') && ! str_contains($body, 'Eloquent'), 'Tanpa Pin/closure/Eloquent');
+check(str_contains($body, 'Developer Tools') && str_contains($body, 'terminal'), 'Gloss status via DevTools/curl');
+check(str_contains($body, 'merapikan daftar'), 'Gloss array_values');
 check(! str_contains($body, '→'), 'ASCII only (no unicode arrow)');
 check(! str_contains($body, 'tanpa hardlink') && ! str_contains($body, 'STOP AUDIT'), 'Tanpa suara editor');
 check(! str_contains($body, 'laravel-request-validasi'), 'Tanpa hardlink slug #57');

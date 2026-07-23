@@ -66,6 +66,9 @@ check(str_contains($body, 'Form Request') || str_contains($body, 'validasi'), 'J
 check(str_contains($body, 'Kenapa belum langsung buka Laravel'), 'Narasi progresif awam');
 check(str_contains($body, 'loket'), 'Analogi loket');
 check(str_contains($body, '<td>GET</td>'), 'Gloss GET');
+check(! str_contains($body, 'Pin framework') && ! str_contains($body, 'closure'), 'Tanpa Pin/closure');
+check(str_contains($body, 'Developer Tools'), 'Gloss Developer Tools');
+check(str_contains($body, 'array_values') && str_contains($body, 'merapikan daftar'), 'Gloss array_values');
 check(file_exists(__DIR__.'/audit-article56-deep-pass2.php'), 'Deep pass-2 ada');
 check(file_exists(__DIR__.'/audit-article56-deep-pass3.php'), 'Deep pass-3 ada');
 
