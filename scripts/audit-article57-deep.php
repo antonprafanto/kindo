@@ -62,7 +62,7 @@ check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article56Seed
 check(str_contains($body, '5/8 menuju Capstone Laravel'), 'Progress 5/8');
 check(str_contains($body, 'stack Laravel') || str_contains($body, '2/5'), 'Framing stack Laravel');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'penjaga'), 'Gloss awam');
-check(str_contains($body, 'Controller') || str_contains($body, 'penyimpanan'), 'Jembatan soft ke #58');
+check(str_contains($body, 'pengatur kode (controller)') || str_contains($body, 'penyimpanan'), 'Jembatan soft ke #58');
 check(str_contains($body, 'loket') || str_contains($body, 'penjaga'), 'Analogi loket/penjaga');
 check(str_contains($body, '<td>Request</td>') || str_contains($body, 'Request</td>'), 'Gloss Request');
 check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
@@ -70,11 +70,13 @@ check(! str_contains($body, 'Unprocessable Entity') && ! str_contains($body, 'Cl
 check(str_contains($body, 'required') && str_contains($body, 'wajib'), 'Gloss pipe required');
 check(str_contains($body, '<td>POST</td>') || str_contains($body, '>POST</td>'), 'Gloss POST');
 check(! str_contains($body, '@param'), 'Tanpa @param di body');
+check(! str_contains($body, 'JSON body'), 'Tanpa JSON body');
+check(str_contains($body, 'sering disebut frontend') || str_contains($body, 'tampilan di browser'), 'Gloss frontend');
 $plainLinked = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '');
 check(! preg_match('/(?<![\w\/"#>])#56(?!\d)(?!\s*\(ini\))/', $plainLinked), 'Tidak bare #56');
 
 echo "\n=== Deep-audit pass-1 #57: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: deep ramah-awam hijau · STOP AUDIT → tunggu oke deploy.\n";
+    echo "Verdict: JENUH — post-live ramah-awam polish terkunci. STOP AUDIT → oke deploy (resync prod #57).\n";
 }
 exit($failed > 0 ? 1 : 0);

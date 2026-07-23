@@ -72,6 +72,9 @@ check(! str_contains($body, 'Client /'), 'SVG Browser bukan Client');
 check(str_contains($body, 'required') && str_contains($body, 'wajib'), 'Gloss aturan required');
 check(str_contains($body, '<td>POST</td>') || str_contains($body, '>POST</td>'), 'Gloss POST');
 check(! str_contains($body, '@param') && ! str_contains($body, '@return'), 'Tanpa PHPDoc @param di demo');
+check(! str_contains($body, 'JSON body'), 'Tanpa jargon JSON body');
+check(str_contains($body, 'tampilan di browser') || str_contains($body, 'sering disebut frontend'), 'Gloss frontend awam');
+check(str_contains($body, 'pengatur kode (controller)') && str_contains($body, 'layanan (service)'), 'Gloss controller/service soft');
 
 preg_match_all('/<a href="[^"]+">([^<]*)<\/a>/', $body, $anchors);
 $thin = 0;

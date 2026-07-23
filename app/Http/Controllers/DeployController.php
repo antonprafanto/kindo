@@ -3864,7 +3864,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel57reqArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_request_validasi_demo.php') || ! str_contains($body, 'validasiBuku') || ! str_contains($body, 'FormRequest') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#57 (ini)') || ! str_contains($body, '5/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, '422')) {
+        if (! str_contains($body, 'laravel57reqArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_request_validasi_demo.php') || ! str_contains($body, 'validasiBuku') || ! str_contains($body, 'FormRequest') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#57 (ini)') || ! str_contains($body, '5/8 menuju Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, '422') || ! str_contains($body, 'pengatur kode (controller)') || ! str_contains($body, 'sering disebut frontend')) {
             report(new \RuntimeException('Article 57 body missing expected content after seed.'));
 
             return response('Article 57 body content checks failed', 500);
