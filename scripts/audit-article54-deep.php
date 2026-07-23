@@ -43,7 +43,9 @@ check(str_contains($body, 'new Buku'), 'new Buku');
 check(str_contains($body, 'Seri 4') && str_contains($body, '#54 (ini)'), 'Framing + self-ref');
 check(str_contains($body, 'Laravel'), 'Sebut Laravel sebagai tujuan');
 check(substr_count($body, '/artikel/mengenal-oop-cara-berpikir-dengan-objek-php') >= 2, '≥2 link #53');
-check(! preg_match('/(?<![\w\/"#>])#55(?!\s*\(ini\))/', $plain), 'Tidak bare #55');
+$plainNoLinks = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '') ?? '');
+check(! preg_match('/(?<![\w\/"#>])#55(?!\s*\(ini\))/', $plainNoLinks), 'Tidak bare #55');
+check(str_contains($body, 'oop-php-visibility-composition'), 'Hardlink #55');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 check(! str_contains($body, 'TODO'), 'Tanpa TODO');
 check(str_contains($body, 'role="img"') || str_contains($body, 'aria-label'), 'SVG a11y');
@@ -61,7 +63,7 @@ check(str_contains($body, 'Property') && str_contains($body, 'Method') && str_co
 check(str_contains($body, '$this'), 'Jelaskan $this');
 check(str_contains($body, 'type hint') || str_contains($body, 'Type hint'), 'Type hint awam');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat');
-check(str_contains($body, '2/8 menuju Capstone Laravel'), 'Progress 2/8');
+check(str_contains($body, '3/8 menuju Capstone Laravel'), 'Progress 3/8');
 check(str_contains($body, 'ringkas'), 'Method kedua ringkas');
 check(str_contains($body, 'isbn') || str_contains($body, 'ISBN'), 'Property isbn di demo lengkap');
 

@@ -925,6 +925,17 @@ jobs:
           echo "Article 52 HTTP status: $code"
           test "$code" = "200"
 
+      - name: Publish article 55 via deploy hook (required)
+        run: |
+          resp=$(curl -fsS --max-time 120 \
+            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+            "https://kodingindonesia.com/deploy/publish-article-55")
+          echo "Hook response: $resp"
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/oop-php-visibility-composition")
+          echo "Article 55 HTTP status: $code"
+          test "$code" = "200"
+
       - name: Publish article 54 via deploy hook (required)
         run: |
           resp=$(curl -fsS --max-time 120 \

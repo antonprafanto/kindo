@@ -370,15 +370,15 @@ jumlah=2
 <h2>FAQ singkat</h2>
 <p><strong>Harus selalu pakai constructor?</strong><br>Untuk object yang “wajib punya data”, ya — lebih aman. Object kosong lalu diisi manual mudah terlupakan.</p>
 <p><strong>Apa bedanya property dan variabel biasa?</strong><br>Variabel biasa hidup di satu tempat (fungsi/skrip). Property hidup <strong>bersama object</strong> selama object itu ada.</p>
-<p><strong>Kapan belajar <code>private</code>?</strong><br>Artikel jembatan berikutnya (visibility &amp; composition). Di sini kita sengaja pakai <code>public</code> agar pola kelihatan dulu.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: visibility &amp; composition ringan di PHP — pintu terakhir sebelum Laravel.</p>
+<p><strong>Kapan belajar <code>private</code>?</strong><br>Lihat <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a>. Di sini kita sengaja pakai <code>public</code> agar pola kelihatan dulu.</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition Ringan di PHP (#55)</a> — pintu terakhir sebelum Laravel.</p>
 
 <h2>Kesimpulan &amp; langkah berikutnya</h2>
 <p>Property = data. Method = perilaku. Constructor = lahir lengkap. Tiga ide ini yang akan kamu bawa ke Form Request, service, dan model di Laravel nanti — bedanya nanti kebanyakan “di mana file-nya”, bukan “apa ide-nya”.</p>
 <p>Artikel ini adalah <strong>#54 (ini)</strong> — lanjut dari <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">OOP PHP pengantar (#53)</a>.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#54 (ini)</strong> · 2/8 menuju Capstone Laravel · jembatan OOP PHP 2/3 · prasyarat: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">OOP PHP pengantar (#53)</a> LIVE. Berikutnya: visibility &amp; composition PHP.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#54 (ini)</strong> · 3/8 menuju Capstone Laravel · jembatan OOP PHP 2/3 · prasyarat: <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">OOP PHP pengantar (#53)</a> LIVE. Berikutnya: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a>.</p>
 </blockquote>
 HTML;
     }
