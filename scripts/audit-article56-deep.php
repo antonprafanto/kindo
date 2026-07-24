@@ -58,7 +58,7 @@ check(str_contains(file_get_contents(__DIR__.'/../app/Http/Controllers/DeployCon
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'Publish article 56 via deploy hook (required)'), 'CI #56 required');
 check(! preg_match('/Publish article 56 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', file_get_contents(__DIR__.'/../.github/workflows/deploy.yml')), 'CI #56 tidak continue-on-error');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article55Seeder.php'), 'laravel-routing-json-perpustakaan-api'), '#55 hardlink #56');
-check(str_contains($body, '6/8 menuju Capstone Laravel'), 'Progress 5/8');
+check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress 5/8');
 check(str_contains($body, 'stack Laravel') || str_contains($body, '1/5'), 'Framing stack Laravel');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'pintu'), 'Gloss awam');
 check(str_contains($body, '404'), 'Status 404');

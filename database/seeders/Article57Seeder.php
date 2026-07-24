@@ -452,7 +452,7 @@ demo();
 <p>Artikel ini adalah <strong>#57 (ini)</strong> — penjaga input setelah <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> membuka pintu HTTP.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#57 (ini)</strong> · 6/8 menuju Capstone Laravel · stack Laravel <strong>2/5</strong> · prasyarat: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> LIVE. Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a>.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#57 (ini)</strong> · 7/8 menuju Capstone Laravel · stack Laravel <strong>2/5</strong> · prasyarat: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> LIVE. Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a>.</p>
 </blockquote>
 HTML;
     }

@@ -351,7 +351,7 @@ class BukuService
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Baru pikir siapa yang boleh masuk</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: otentikasi (siapa yang login) — setelah alur simpan sudah rapi.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a> — otentikasi (siapa yang login) setelah alur simpan sudah rapi.</span>
     </div>
   </li>
 </ol>
@@ -467,13 +467,13 @@ demo("GET daftar -&gt; 200", function () use ($layanan) {
 <p><strong>Apa bedanya controller dan service?</strong><br>Controller mengatur alur (siapa dipanggil, apa yang dikembalikan). Service mengerjakan langkah kerja. Awam: manajer loket vs staf yang menyusun rak.</p>
 <p><strong>Haruskah selalu pakai service?</strong><br>Untuk API kecil, kadang controller langsung ke Eloquent masih oke. Begitu aturan bertambah (cek stok, hitung denda, kirim notifikasi), service membantu tetap rapi.</p>
 <p><strong>Eloquent wajib dari awal?</strong><br>Ide penyimpanan bisa dilatih dengan array dulu. Eloquent dipakai saat data perlu bertahan di database sungguhan.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: otentikasi — siapa yang boleh memanggil API (login / “bukti masuk”). Setelah alur simpan rapi, baru kunci pintu.</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a> — siapa yang boleh memanggil API (login / “bukti masuk”). Setelah alur simpan rapi, baru kunci pintu.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah memisahkan peran: <strong>controller</strong> mengatur, <strong>service</strong> mengerjakan, <strong>Eloquent</strong> menyimpan/membaca. Penjaga dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> tetap di depan — baru data bersih masuk alur ini.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#58 (ini)</strong> · 6/8 menuju Capstone Laravel · stack Laravel <strong>3/5</strong> · prasyarat: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> LIVE. Berikutnya: otentikasi API (siapa yang boleh masuk).</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#58 (ini)</strong> · 7/8 menuju Capstone Laravel · stack Laravel <strong>3/5</strong> · prasyarat: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> LIVE. Berikutnya: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>.</p>
 </blockquote>
 HTML;
     }

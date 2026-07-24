@@ -62,13 +62,13 @@ check(str_contains($deploy, $slug), 'Hook cek slug');
 check(file_exists(__DIR__.'/audit-article58-php.php'), 'audit-article58-php.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');
-check(str_contains($body, '6/8 menuju Capstone Laravel'), 'Progress 6/8');
+check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress 7/8');
 check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
-check(! str_contains($body, '/artikel/laravel-auth'), 'Belum hardlink #59');
+check(str_contains($body, '/artikel/laravel-auth-api-dasar'), 'Hardlink #59');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article57Seeder.php'), $slug), '#57 hardlink #58');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
-check(str_contains($body, 'otentikasi'), 'Soft bridge auth');
+check(str_contains($body, 'otentikasi'), 'Auth framing');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);
