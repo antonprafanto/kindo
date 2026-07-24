@@ -58,7 +58,7 @@ check(str_contains(file_get_contents(__DIR__.'/../app/Http/Controllers/DeployCon
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'Publish article 58 via deploy hook (required)'), 'CI #58 required');
 check(! preg_match('/Publish article 58 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', file_get_contents(__DIR__.'/../.github/workflows/deploy.yml')), 'CI #58 tidak continue-on-error');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article57Seeder.php'), 'laravel-controller-service-eloquent'), '#57 hardlink #58');
-check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress 7/8');
+check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress 8/8');
 check(str_contains($body, '/artikel/laravel-auth-api-dasar'), 'Hardlink #59');
 check(str_contains($body, 'stack Laravel') || str_contains($body, '3/5'), 'Framing stack Laravel');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'pengatur kode'), 'Gloss awam');

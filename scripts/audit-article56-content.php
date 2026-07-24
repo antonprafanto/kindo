@@ -49,7 +49,7 @@ check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, 'laravel-routing-json-perpustakaan-api'), 'Slug');
 check(str_contains(file_get_contents(__DIR__.'/../routes/web.php'), 'publish-article-56'), 'Route hook');
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'laravel-routing-json-perpustakaan-api'), 'CI slug');
-check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress 5/8');
+check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress 5/8');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat awam');
 check(str_contains($body, 'Arti awam'), 'Gloss awam');
 check(str_contains($body, '404'), 'Status 404');

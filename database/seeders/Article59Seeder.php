@@ -326,7 +326,7 @@ Route::post('/api/buku', [BukuController::class, 'store'])
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
     <div style="color:#1a1a1a">
       <strong style="color:#1a1a1a">Baru satukan jadi proyek utuh</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: Capstone — merangkai routing, validasi, controller/service, dan auth jadi API perpustakaan lengkap.</span>
+      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone API Perpustakaan (#60)</a> — merangkai routing, validasi, controller/service, dan auth jadi API perpustakaan lengkap.</span>
     </div>
   </li>
 </ol>
@@ -441,13 +441,13 @@ demo("Dengan bukti -&gt; 201", function () use (&amp;$buktiAktif) {
 <p><strong>Apa bedanya auth dan validasi?</strong><br>Validasi cek “apakah isian masuk akal”. Auth cek “apakah kamu yang berhak”. Keduanya sering berurutan (bukti dulu, baru isian). Urutannya boleh beda, tapi perannya tetap beda.</p>
 <p><strong>Haruskah semua API pakai bukti masuk?</strong><br>Tidak. Baca katalog boleh publik. Menambah/mengubah data biasanya dikunci.</p>
 <p><strong>Token / bukti masuk aman digeser ke orang lain?</strong><br>Tidak. Siapa yang punya bukti = dianggap kamu. Jaga seperti kunci.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: Capstone — merangkai routing, validasi, controller/service/Eloquent, dan auth jadi API perpustakaan yang utuh.</p>
+<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone API Perpustakaan (#60)</a> — merangkai routing, validasi, controller/service/Eloquent, dan auth jadi API perpustakaan yang utuh.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah menambah kunci di depan alur: <strong>login</strong> mengeluarkan <strong>bukti masuk</strong>, pintu sensitif memeriksa bukti, tanpa bukti = <strong>401</strong>. Alur dari <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> tetap dipakai — hanya pintunya yang dikunci.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#59 (ini)</strong> · 7/8 menuju Capstone Laravel · stack Laravel <strong>4/5</strong> · prasyarat: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> LIVE. Berikutnya: Capstone API perpustakaan (merangkai semua langkah).</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#59 (ini)</strong> · 8/8 Capstone Laravel selesai · stack Laravel <strong>4/5</strong> · prasyarat: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> LIVE. Berikutnya: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone API Perpustakaan (#60)</a>.</p>
 </blockquote>
 HTML;
     }

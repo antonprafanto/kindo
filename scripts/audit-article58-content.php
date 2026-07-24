@@ -51,7 +51,7 @@ check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, 'laravel-controller-service-eloquent'), 'Slug');
 check(str_contains(file_get_contents(__DIR__.'/../routes/web.php'), 'publish-article-58'), 'Route hook');
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'laravel-controller-service-eloquent'), 'CI slug');
-check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress 7/8');
+check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress 8/8');
 check(str_contains($body, '/artikel/laravel-auth-api-dasar'), 'Hardlink #59');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat awam');
 check(str_contains($body, 'Arti awam'), 'Gloss awam');

@@ -50,7 +50,7 @@ check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, 'oop-php-property-method-constructor'), 'Slug');
 check(str_contains(file_get_contents(__DIR__.'/../routes/web.php'), 'publish-article-54'), 'Route hook');
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'oop-php-property-method-constructor'), 'CI slug');
-check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress 5/8');
+check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress 5/8');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat awam');
 check(str_contains($body, '$this'), 'Jelaskan $this');
 check(str_contains($body, 'public string'), 'Property typed');

@@ -59,7 +59,7 @@ check(str_contains($deploy, $slug), 'Hook cek slug');
 check(file_exists(__DIR__.'/audit-article54-php.php'), 'audit-article54-php.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');
-check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress 5/8');
+check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress 5/8');
 check(str_contains($body, 'type hint') || str_contains($body, 'Type hint'), 'Type hint awam');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 

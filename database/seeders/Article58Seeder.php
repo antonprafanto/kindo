@@ -473,7 +473,7 @@ demo("GET daftar -&gt; 200", function () use ($layanan) {
 <p>Kamu sudah memisahkan peran: <strong>controller</strong> mengatur, <strong>service</strong> mengerjakan, <strong>Eloquent</strong> menyimpan/membaca. Penjaga dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> tetap di depan — baru data bersih masuk alur ini.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#58 (ini)</strong> · 7/8 menuju Capstone Laravel · stack Laravel <strong>3/5</strong> · prasyarat: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> LIVE. Berikutnya: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#58 (ini)</strong> · 8/8 Capstone Laravel selesai · stack Laravel <strong>3/5</strong> · prasyarat: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> LIVE. Berikutnya: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>.</p>
 </blockquote>
 HTML;
     }

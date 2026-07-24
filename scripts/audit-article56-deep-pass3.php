@@ -62,7 +62,7 @@ check(
     && str_contains($body, 'penjaga'),
     'Ramah awam jargon polish'
 );
-check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress box 5/8');
+check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress box 5/8');
 
 echo "\n=== Deep-audit pass-3 #56: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {

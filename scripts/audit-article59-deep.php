@@ -58,10 +58,11 @@ check(str_contains(file_get_contents(__DIR__.'/../app/Http/Controllers/DeployCon
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'Publish article 59 via deploy hook (required)'), 'CI #59 required');
 check(! preg_match('/Publish article 59 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', file_get_contents(__DIR__.'/../.github/workflows/deploy.yml')), 'CI #59 tidak continue-on-error');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article58Seeder.php'), 'laravel-auth-api-dasar'), '#58 hardlink #59');
-check(str_contains($body, '7/8 menuju Capstone Laravel'), 'Progress 7/8');
+check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress 8/8');
 check(str_contains($body, 'stack Laravel') || str_contains($body, '4/5'), 'Framing stack Laravel');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'bukti masuk'), 'Gloss awam');
-check(str_contains($body, 'Capstone'), 'Jembatan soft ke Capstone');
+check(str_contains($body, '/artikel/capstone-api-perpustakaan-laravel'), 'Hardlink #60');
+check(str_contains($body, 'Capstone'), 'Capstone framing');
 check(str_contains($body, 'loket') || str_contains($body, 'perpustakaan'), 'Analogi loket/perpustakaan');
 check(str_contains($body, 'Belum diizinkan'), 'Gloss Belum diizinkan');
 check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
