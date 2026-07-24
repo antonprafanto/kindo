@@ -99,7 +99,7 @@ class Article59Seeder extends Seeder
     <tr>
       <td>Bukti masuk (token)</td>
       <td>Kartu sementara setelah login — dibawa di permintaan berikutnya</td>
-      <td>String acak di header</td>
+      <td>Teks acak di header permintaan</td>
     </tr>
     <tr>
       <td>Status 401</td>
@@ -109,7 +109,7 @@ class Article59Seeder extends Seeder
     <tr>
       <td>Pemeriksa pintu</td>
       <td>Lapisan yang cek bukti masuk sebelum controller jalan (sering disebut middleware)</td>
-      <td>Cek header dulu, baru <code>store</code></td>
+      <td>Cek header dulu, baru fungsi tambah (<code>store</code>)</td>
     </tr>
   </tbody>
 </table>
@@ -177,7 +177,7 @@ echo json_encode(["ok" =&gt; true, "bukti_masuk" =&gt; $bukti], JSON_UNESCAPED_U
 </figure>
 
 <h2>Login bersih — dapat bukti masuk</h2>
-<p>Kalau email dan sandi cocok, sistem mengeluarkan bukti:</p>
+<p>Cuplikan di bawah hampir sama dengan yang gagal — bedanya hanya <strong>sandi benar</strong>. Kalau email dan sandi cocok, sistem mengeluarkan bukti:</p>
 
 <pre><code class="language-php">&lt;?php
 $anggota = [
@@ -210,7 +210,7 @@ echo json_encode(["ok" =&gt; true, "bukti_masuk" =&gt; $bukti], JSON_UNESCAPED_U
 }
 </code></pre>
 
-<p><strong>Awam:</strong> simpan bukti ini di sisi pemanggil (aplikasi / alat uji), lalu kirim lagi saat menambah buku.</p>
+<p><strong>Awam:</strong> simpan bukti ini di sisi <strong>pemanggil</strong> — aplikasi atau alat yang memanggil API (bukan di server). Lalu kirim lagi saat menambah buku.</p>
 
 <h2>Pintu terlindungi — cek bukti dulu</h2>
 <p>Sebelum controller menyimpan buku, pemeriksa pintu membaca bukti masuk:</p>
@@ -238,7 +238,7 @@ echo json_encode(["ok" =&gt; true, "buku" =&gt; ["judul" =&gt; "Belajar PHP"]], 
 <p><strong>Awam:</strong> ini “pemeriksa pintu” — ide yang sama dengan middleware di Laravel: cek dulu, baru lanjut ke pengatur kode.</p>
 
 <h2>Laravel — login &amp; bukti masuk (cuplikan)</h2>
-<p>Di project Laravel, cuplikan tipikal memakai penjaga Form Request + layanan auth. File ini <strong>bukan</strong> dijalankan dengan <code>php file.php</code>:</p>
+<p>Di proyek Laravel, cuplikan tipikal memakai penjaga Form Request + controller login. File ini <strong>bukan</strong> dijalankan dengan <code>php file.php</code>:</p>
 
 <pre><code class="language-php">&lt;?php
 // Cuplikan Laravel (bukan file mandiri) — login mengeluarkan bukti masuk.
@@ -271,7 +271,7 @@ class AuthController extends Controller
 <ul>
   <li><code>LoginRequest</code> = penjaga isian login (ide Form Request dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a>)</li>
   <li><code>JsonResponse</code> = tipe jawaban “ini JSON” (boleh diabaikan dulu kalau masih asing)</li>
-  <li><code>Hash::check</code> = bandingkan sandi input dengan sandi tersimpan (yang sudah dienkripsi)</li>
+  <li><code>Hash::check</code> = bandingkan sandi input dengan sandi tersimpan (yang sudah dienkripsi). Di request kita pakai nama isian <code>sandi</code> supaya mudah dibaca; di database Laravel kolomnya biasanya <code>password</code> — isinya sama, namanya saja beda.</li>
   <li><code>createToken(...)</code> = buat bukti masuk; <code>plainTextToken</code> = teks bukti yang dikirim ke pemanggil (hanya tampil sekali)</li>
   <li>Sanctum = paket Laravel yang biasa dipakai untuk bukti masuk API — detail pasang-pasangnya bisa dipelajari nanti; di sini cukup paham alurnya</li>
 </ul>
@@ -286,8 +286,10 @@ Route::post('/api/buku', [BukuController::class, 'store'])
     -&gt;middleware('auth:sanctum');
 </code></pre>
 
-<p><strong>Awam:</strong> pemanggil biasanya mengirim header <code>Authorization: Bearer &lt;bukti&gt;</code>. <code>Authorization</code> = kotak di header untuk “siapa yang meminta”. <code>Bearer</code> artinya “ini bukti yang saya bawa”. Tanpa itu (atau salah): Laravel menjawab <code>401</code>.</p>
-<p>Controller <code>store</code> tetap tipis seperti di <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> — yang baru: pintu di depannya sudah dikunci.</p>
+<p><strong>Awam:</strong> pemanggil biasanya mengirim header seperti ini:</p>
+<pre><code>Authorization: Bearer kartu-ab12cd34...</code></pre>
+<p><code>Authorization</code> = kotak di header untuk “siapa yang meminta”. <code>Bearer</code> artinya “ini bukti yang saya bawa”. Tanpa itu (atau salah): Laravel menjawab <code>401</code>.</p>
+<p>Controller fungsi tambah (<code>store</code>) tetap tipis seperti di <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> — yang baru: pintu di depannya sudah dikunci.</p>
 
 <h2>Pola Dasar — Auth API</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Lima langkah auth API dasar">
@@ -417,8 +419,8 @@ demo("Dengan bukti -&gt; 201", function () use (&amp;$buktiAktif) {
     </tr>
     <tr>
       <td>Sandi tersimpan polos</td>
-      <td>Tidak memakai Hash (pembanding sandi terenkripsi)</td>
-      <td>Simpan sandi terenkripsi lewat Hash</td>
+      <td>Tidak memakai Hash (alat banding sandi terenkripsi di Laravel)</td>
+      <td>Simpan sandi terenkripsi; bandingkan lewat <code>Hash::check</code></td>
     </tr>
     <tr>
       <td>Semua route dikunci</td>
@@ -430,13 +432,13 @@ demo("Dengan bukti -&gt; 201", function () use (&amp;$buktiAktif) {
 
 <h2>Latihan singkat</h2>
 <ol>
-  <li>Ubah demo: tambah kasus “bukti palsu” (string acak) dan pastikan status tetap 401.</li>
+  <li>Ubah demo: tambah kasus “bukti palsu” (teks acak) dan pastikan status tetap 401.</li>
   <li>Jelaskan ke teman (tanpa jargon): beda 401 dan 422 dengan analogi loket perpustakaan.</li>
   <li>Tulis satu kalimat: apa yang terjadi dari login sukses sampai <code>POST /api/buku</code> dengan bukti masuk.</li>
 </ol>
 
 <h2>FAQ singkat</h2>
-<p><strong>Apa bedanya auth dan validasi?</strong><br>Validasi cek “apakah isian masuk akal”. Auth cek “apakah kamu yang berhak”. Keduanya sering berurutan: bukti dulu, baru isian — atau sebaliknya tergantung desain, tapi perannya beda.</p>
+<p><strong>Apa bedanya auth dan validasi?</strong><br>Validasi cek “apakah isian masuk akal”. Auth cek “apakah kamu yang berhak”. Keduanya sering berurutan (bukti dulu, baru isian). Urutannya boleh beda, tapi perannya tetap beda.</p>
 <p><strong>Haruskah semua API pakai bukti masuk?</strong><br>Tidak. Baca katalog boleh publik. Menambah/mengubah data biasanya dikunci.</p>
 <p><strong>Token / bukti masuk aman digeser ke orang lain?</strong><br>Tidak. Siapa yang punya bukti = dianggap kamu. Jaga seperti kunci.</p>
 <p><strong>Lanjut ke mana?</strong><br>Berikutnya: Capstone — merangkai routing, validasi, controller/service/Eloquent, dan auth jadi API perpustakaan yang utuh.</p>

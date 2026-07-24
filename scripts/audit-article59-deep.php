@@ -80,9 +80,19 @@ check(str_contains($body, 'bin2hex') && str_contains($body, 'teks acak'), 'Gloss
 check(str_contains($body, 'strict_types') && str_contains($body, 'tipe data lebih ketat'), 'Gloss strict_types');
 check(str_contains($body, 'pemeriksa pintu (middleware)'), 'KU middleware digloss');
 check(str_contains($body, '/artikel/laravel-request-validasi-api'), 'Link #57 untuk Form Request');
+check(str_contains($body, 'Teks acak di header') && ! str_contains($body, 'String acak'), 'Istilah teks acak (bukan String)');
+check(str_contains($body, 'proyek Laravel') && ! str_contains($body, 'project Laravel'), 'Proyek (bukan project)');
+check(str_contains($body, 'controller login') && ! str_contains($body, 'layanan auth'), 'Controller login (bukan layanan auth)');
+check(str_contains($body, 'pemanggil') && str_contains($body, 'yang memanggil API'), 'Gloss pemanggil');
+check(str_contains($body, 'Authorization: Bearer kartu-'), 'Contoh header Authorization terpisah');
+check(str_contains($body, 'bedanya hanya') && str_contains($body, 'sandi benar'), 'Narasi beda cuplikan login');
+check(! str_contains($body, 'tergantung desain'), 'FAQ tanpa hedge desain');
+check(str_contains($body, 'fungsi tambah') && str_contains($body, 'store'), 'Gloss store di istilah');
+check(str_contains($body, 'nama isian') && str_contains($body, 'password'), 'Gloss sandi vs password');
+check(str_contains($body, 'Controller fungsi tambah'), 'Gloss store di prosa Laravel');
 
 echo "\n=== Deep-audit pass-1 #59: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: JENUH LIVE — hardlink #58 terkunci. STOP AUDIT → oke deploy hanya untuk resync/bug.\n";
+    echo "Verdict: JENUH post-live ramah-awam — STOP AUDIT → oke deploy (resync prod #59).\n";
 }
 exit($failed > 0 ? 1 : 0);

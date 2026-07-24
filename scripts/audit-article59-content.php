@@ -78,6 +78,10 @@ check(str_contains($body, 'JsonResponse') && str_contains($body, 'tipe jawaban')
 check(str_contains($body, 'Authorization') && str_contains($body, 'kotak di header'), 'Gloss Authorization');
 check(str_contains($body, 'Cek login'), 'SVG Cek login');
 check(str_contains($body, 'pemeriksa pintu (middleware)'), 'KU middleware awam');
+check(str_contains($body, 'Teks acak di header'), 'Istilah teks acak');
+check(str_contains($body, 'proyek Laravel'), 'Proyek Laravel');
+check(str_contains($body, 'yang memanggil API'), 'Gloss pemanggil');
+check(str_contains($body, 'Authorization: Bearer kartu-'), 'Contoh header Bearer');
 
 preg_match_all('/<a href="[^"]+">([^<]*)<\/a>/', $body, $anchors);
 $thin = 0;
