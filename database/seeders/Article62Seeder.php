@@ -98,7 +98,7 @@ class Article62Seeder extends Seeder
   <tbody>
     <tr>
       <td>Relasi</td>
-      <td>Hubungan antar baris data (anggota ↔ pinjam ↔ buku)</td>
+      <td>Hubungan antar baris data (anggota -&gt; pinjam -&gt; buku)</td>
       <td>Bukan “teman di media sosial”</td>
     </tr>
     <tr>
@@ -118,7 +118,7 @@ class Article62Seeder extends Seeder
     </tr>
     <tr>
       <td>Eloquent</td>
-      <td>Cara Laravel membaca/menulis tabel lewat model</td>
+      <td>Cara Laravel membaca/menulis tabel lewat model (kelas yang mewakili satu tabel)</td>
       <td>Sudah muncul di Capstone &amp; service</td>
     </tr>
   </tbody>
@@ -249,7 +249,7 @@ echo json_encode($r["body"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EO
 <p><strong>Awam:</strong> filter <code>status === "aktif"</code> = hanya slip yang belum dikembalikan. Kalau anggota tidak ada = <code>404</code> — sama seperti “buku tidak ketemu” di <a href="/artikel/laravel-crud-api-buku-ubah-hapus">#61</a>.</p>
 
 <h2>Laravel — cuplikan relasi Eloquent (bukan file mandiri)</h2>
-<p>Di proyek Laravel, ide yang sama ditulis di model. Cuplikan di bawah <strong>bukan</strong> dijalankan dengan <code>php file.php</code>:</p>
+<p>Di proyek Laravel, ide yang sama ditulis di <strong>model</strong> (kelas yang mewakili satu tabel). Cuplikan di bawah <strong>bukan</strong> dijalankan dengan <code>php file.php</code>:</p>
 
 <pre><code class="language-php">&lt;?php
 // Cuplikan Laravel (bukan file mandiri) — model Anggota.
@@ -290,7 +290,7 @@ class Peminjaman extends Model
 }
 </code></pre>
 
-<p><strong>Awam:</strong> <code>belongsTo</code> = “baris ini milik satu anggota / satu buku”. Setelah itu, di controller/service kamu bisa menulis gaya: <code>$anggota-&gt;peminjaman</code> atau <code>$pinjam-&gt;buku</code> — Eloquent yang mengisi dari kunci asing.</p>
+<p><strong>Awam:</strong> <code>belongsTo</code> = “baris ini milik satu anggota / satu buku”. Setelah itu, di pengatur kode (<code>controller</code>) / pekerja (<code>service</code>) kamu bisa menulis gaya: <code>$anggota-&gt;peminjaman</code> atau <code>$pinjam-&gt;buku</code> — Eloquent yang mengisi dari kunci asing.</p>
 
 <h2>Pola Dasar — anggota &amp; peminjaman</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah relasi Eloquent anggota peminjaman">

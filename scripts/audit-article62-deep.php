@@ -81,6 +81,9 @@ check(str_contains($body, 'belongsTo') && (str_contains($body, 'milik satu') || 
 check(str_contains($body, 'N+1') || str_contains($body, 'pagination'), 'Soft N+1 / pagination');
 check(str_contains($body, 'satu-satu di dalam loop') || str_contains($body, 'satu per satu'), 'KU N+1 digloss');
 check(str_contains($body, 'Migrasi (skrip') || str_contains($body, 'skrip buat'), 'Gloss migrasi');
+check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
+check(str_contains($body, 'model') && str_contains($body, 'mewakili satu tabel'), 'Gloss model');
+check(str_contains($body, 'pengatur kode') && str_contains($body, 'pekerja'), 'Gloss controller/service');
 check(! str_contains($body, '/artikel/laravel-pagination'), 'Tanpa hardlink #63 unpublished');
 
 echo "\n=== Deep-audit pass-1 #62: {$passed} passed, {$failed} failed ===\n";
