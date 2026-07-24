@@ -87,10 +87,10 @@ check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains($body, 'belum dihapus di service') && str_contains($body, 'unset'), 'KU unset digloss');
 check(str_contains($body, 'PUT') && str_contains($body, 'DELETE'), 'PUT + DELETE');
 check(str_contains($body, 'Buku tidak ketemu'), 'Gloss 404');
-check(! str_contains($body, '/artikel/laravel-eloquent-relasi'), 'Tanpa hardlink #62 unpublished');
+check(str_contains($body, '/artikel/laravel-eloquent-relasi-peminjaman'), 'Hardlink #62');
 
 echo "\n=== Deep-audit pass-1 #61: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: JENUH LIVE #61 — hardlink #60 terkunci. STOP AUDIT → oke deploy hanya untuk resync/bug.\n";
+    echo "Verdict: JENUH LIVE #61 — hardlink #62 terkunci. STOP AUDIT → oke deploy hanya untuk resync/bug.\n";
 }
 exit($failed > 0 ? 1 : 0);

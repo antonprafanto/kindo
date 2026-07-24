@@ -4311,6 +4311,106 @@ class DeployController extends Controller
         return response('Article 61 published', 200);
     }
 
+    public function publishArticle62(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article62Seeder.php',
+            'database/seeders/Article61Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article62Seeder::class)) {
+            return response('Article62Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 62 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article62Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 62 seed failed', 500);
+        }
+
+        $slug = 'laravel-eloquent-relasi-peminjaman';
+        $prevSlug = 'laravel-crud-api-buku-ubah-hapus';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 62 missing or not visible after Article62Seeder on deploy hook.'));
+
+            return response('Article 62 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'laravel62relasiArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_eloquent_relasi_peminjaman_demo.php') || ! str_contains($body, 'hasMany') || ! str_contains($body, 'belongsTo') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#62 (ini)') || ! str_contains($body, '2/8 Laravel Lanjutan') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Anggota tidak ketemu') || ! str_contains($body, 'Pagination') || ! str_contains($body, 'anggota_id') || ! str_contains($body, 'Pola Dasar')) {
+            report(new \RuntimeException('Article 62 body missing expected content after seed.'));
+
+            return response('Article 62 body content checks failed', 500);
+        }
+
+        $a61 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a61) {
+            report(new \RuntimeException('Article 61 missing while publishing #62.'));
+
+            return response('Article 62 prerequisite #61 missing', 500);
+        }
+
+        if (class_exists(\Database\Seeders\Article61Seeder::class)) {
+            $backExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article61Seeder',
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response('Article 62 backlink #61 seed failed', 500);
+            }
+        }
+
+        $a61 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a61 || ! str_contains((string) $a61->body, $slug)) {
+            report(new \RuntimeException('Article 62 backlink missing on #61 after reseed.'));
+
+            return response('Article 62 backlink #61 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 62 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

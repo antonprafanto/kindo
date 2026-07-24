@@ -454,13 +454,13 @@ demo("Hapus bersih -&gt; 204", function () use ($buktiAktif, &amp;$katalog) {
 <h2>FAQ singkat</h2>
 <p><strong>Haruskah pakai <code>PUT</code> atau <code>PATCH</code>?</strong><br>Untuk belajar, <code>PUT</code> (ganti data buku yang dikirim) sudah cukup. <code>PATCH</code> biasanya untuk ubah sebagian — boleh dipelajari setelah alur ini jelas.</p>
 <p><strong>Kenapa <code>204</code> tubuhnya kosong?</strong><br>Artinya “sukses, tidak ada JSON yang perlu dibaca”. Kalau kamu lebih nyaman <code>200</code> + <code>{"ok": true}</code>, itu juga valid — pilih satu gaya dan konsisten.</p>
-<p><strong>Ke mana setelah ini?</strong><br>Berikutnya alami: <strong>relasi Eloquent</strong> (anggota &amp; peminjaman) — masih Laravel lanjutan, belum Capstone pinjam-kembali. Belum perlu hardlink; tunggu artikel berikutnya LIVE.</p>
+<p><strong>Ke mana setelah ini?</strong><br>Berikutnya: <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent: Anggota &amp; Peminjaman (#62)</a> — menghubungkan anggota dan peminjaman, masih Laravel lanjutan.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah melengkapi CRUD buku: Capstone memberi baca + tambah; <strong>#61 (ini)</strong> menambah <strong>ubah</strong> dan <strong>hapus</strong> dengan urutan bukti -&gt; cari ID -&gt; validasi -&gt; kerja service. Status baru yang penting: <code>404</code> dan <code>204</code>.</p>
 
 <blockquote>
-  <p><strong>Seri 5 progress:</strong> langkah <strong>#61 (ini)</strong> · 1/8 Laravel Lanjutan · prasyarat: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone (#60)</a> LIVE. Berikutnya: Relasi Eloquent (anggota &amp; peminjaman) — soft, belum hardlink.</p>
+  <p><strong>Seri 5 progress:</strong> langkah <strong>#61 (ini)</strong> · 1/8 Laravel Lanjutan · prasyarat: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone (#60)</a> LIVE. Berikutnya: <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent: Anggota &amp; Peminjaman (#62)</a>.</p>
 </blockquote>
 HTML;
     }
