@@ -299,6 +299,7 @@ class BukuController extends Controller
 </code></pre>
 <p><strong>Awam:</strong> <code>UpdateBookRequest</code> = penjaga isian untuk ubah. <code>validated()</code> = ambil isian yang sudah lolos. <code>BukuService</code> = pekerja yang menyimpan/menghapus (Eloquent di dalamnya). <code>JsonResponse</code> = tipe jawaban “ini JSON” — boleh diabaikan dulu. Baris <code>private BukuService $bukuService</code> = Laravel menyiapkan layanan otomatis (tidak perlu <code>new</code> manual).</p>
 
+<h2>Pola Dasar — ubah &amp; hapus buku</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah CRUD ubah hapus API buku">
 <ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
@@ -432,7 +433,7 @@ demo("Hapus bersih -&gt; 204", function () use ($buktiAktif, &amp;$katalog) {
     </tr>
     <tr>
       <td>Hapus sukses tapi data masih ada</td>
-      <td>Salah ID atau belum <code>unset</code>/hapus di service</td>
+      <td>Salah ID atau belum dihapus di service (di PHP demo: <code>unset</code> = buang dari daftar)</td>
       <td>Uji ulang dengan demo; cek ID yang sama</td>
     </tr>
     <tr>

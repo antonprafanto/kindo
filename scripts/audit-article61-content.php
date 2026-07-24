@@ -84,7 +84,8 @@ check(! str_contains($body, 'endpoint'), 'Tanpa endpoint');
 $thin = preg_match_all('/<a[^>]*>\s*#\d+\s*<\/a>/', $body);
 check($thin === 0, 'Thin anchor = 0');
 check(str_contains($body, 'destroy') && str_contains($body, 'buang data'), 'Gloss destroy');
-check(str_contains($body, 'PUT') && str_contains($body, 'DELETE'), 'PUT + DELETE');
+check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
+check(str_contains($body, 'belum dihapus di service') && str_contains($body, 'unset'), 'KU unset digloss');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

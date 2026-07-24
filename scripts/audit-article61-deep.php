@@ -83,6 +83,8 @@ check(str_contains($body, 'validated()') && str_contains($body, 'sudah lolos'), 
 check(str_contains($body, 'menyiapkan layanan otomatis') || str_contains($body, 'tidak perlu'), 'Gloss DI konstruktor');
 check(str_contains($body, 'pemeriksa pintu') && str_contains($body, 'middleware'), 'KU middleware digloss');
 check(str_contains($body, 'destroy') && str_contains($body, 'buang'), 'Gloss destroy');
+check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
+check(str_contains($body, 'belum dihapus di service') && str_contains($body, 'unset'), 'KU unset digloss');
 check(str_contains($body, 'PUT') && str_contains($body, 'DELETE'), 'PUT + DELETE');
 check(str_contains($body, 'Buku tidak ketemu'), 'Gloss 404');
 check(! str_contains($body, '/artikel/laravel-eloquent-relasi'), 'Tanpa hardlink #62 unpublished');
