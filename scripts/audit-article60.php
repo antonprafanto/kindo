@@ -68,7 +68,8 @@ check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article59Seeder.php'), $slug), '#59 hardlink #60');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
-check(str_contains($body, 'Laravel lanjutan'), 'Soft bridge Laravel lanjutan');
+check(str_contains($body, 'Laravel lanjutan') || str_contains($body, 'laravel-crud-api-buku-ubah-hapus'), 'Bridge Laravel lanjutan / #61');
+check(str_contains($body, 'laravel-crud-api-buku-ubah-hapus'), 'Hardlink #61');
 check(str_contains($body, 'Indeks Seri 4'), 'Indeks Seri 4');
 check(str_contains($body, 'bukti masuk'), 'Gloss bukti masuk');
 

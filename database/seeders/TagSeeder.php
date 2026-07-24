@@ -43,6 +43,7 @@ class TagSeeder extends Seeder
             ['slug' => 'rest', 'name' => 'rest'],
             ['slug' => 'sqlite', 'name' => 'sqlite'],
             ['slug' => 'auth', 'name' => 'auth'],
+            ['slug' => 'crud', 'name' => 'crud'],
             ['slug' => 'html', 'name' => 'html'],
             ['slug' => 'css', 'name' => 'css'],
             ['slug' => 'mysql', 'name' => 'mysql'],

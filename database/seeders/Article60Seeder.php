@@ -444,7 +444,7 @@ demo("Tambah bersih -&gt; 201", function () use (&amp;$buktiAktif, &amp;$katalog
 <h2>FAQ singkat</h2>
 <p><strong>Apakah Capstone harus satu folder proyek Laravel lengkap di laptop?</strong><br>Idealnya ya, tapi artikel ini menekankan <strong>alur</strong>. Demo PHP mandiri sudah cukup untuk “merasakan” satunya pintu. Cuplikan Laravel menunjukkan tempat masing-masing potongan.</p>
 <p><strong>Haruskah pakai Sanctum sekarang?</strong><br><strong>Sanctum</strong> = paket Laravel untuk mengeluarkan dan memeriksa bukti masuk API. Untuk alur Capstone, itu pilihan umum di Laravel modern. Detail pasang-pasangnya bisa dipelajari setelah alurnya sudah jelas (lihat juga <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>).</p>
-<p><strong>Ke mana setelah Seri 4?</strong><br>Berikutnya alami: <strong>Laravel lanjutan</strong> (sering disebut Framework-based di roadmap) — memperdalam pola yang sama di aplikasi lebih besar. Belum perlu loncat ke stack baru dulu.</p>
+<p><strong>Ke mana setelah Seri 4?</strong><br>Berikutnya: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#61)</a> — pembuka Seri 5 Laravel Lanjutan. Memperdalam pola yang sama: ubah dan hapus buku lewat API.</p>
 
 <h2>Indeks Seri 4 lengkap</h2>
 <ol>
@@ -462,7 +462,7 @@ demo("Tambah bersih -&gt; 201", function () use (&amp;$buktiAktif, &amp;$katalog
 <p>Kamu sudah menutup Seri 4 dengan Capstone: <strong>route</strong>, <strong>auth</strong>, <strong>validasi</strong>, dan <strong>controller/service/Eloquent</strong> digabung jadi API perpustakaan mini. Publik boleh baca; staf membawa bukti masuk untuk menambah buku. Alur dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a> tetap dipakai — sekarang dalam satu cerita utuh.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#60 (ini)</strong> · 8/8 Capstone Laravel selesai · stack Laravel <strong>5/5</strong> · prasyarat: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a> LIVE. Berikutnya: Laravel lanjutan (sering disebut Framework-based di roadmap) — memperdalam pola yang sama.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#60 (ini)</strong> · 8/8 Capstone Laravel selesai · stack Laravel <strong>5/5</strong> · prasyarat: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a> LIVE. Berikutnya: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#61)</a> — Seri 5 Laravel Lanjutan.</p>
 </blockquote>
 HTML;
     }

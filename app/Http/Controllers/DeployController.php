@@ -4164,7 +4164,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel60capArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_capstone_perpustakaan_demo.php') || ! str_contains($body, 'bukti_masuk') || ! str_contains($body, '401') || ! str_contains($body, '422') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#60 (ini)') || ! str_contains($body, '8/8 Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Capstone') || ! str_contains($body, 'Belum diizinkan') || ! str_contains($body, 'Isian belum rapi') || ! str_contains($body, 'Laravel lanjutan') || ! str_contains($body, 'Indeks Seri 4') || ! str_contains($body, 'Cek login') || ! str_contains($body, 'validated()')) {
+        if (! str_contains($body, 'laravel60capArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_capstone_perpustakaan_demo.php') || ! str_contains($body, 'bukti_masuk') || ! str_contains($body, '401') || ! str_contains($body, '422') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#60 (ini)') || ! str_contains($body, '8/8 Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Capstone') || ! str_contains($body, 'Belum diizinkan') || ! str_contains($body, 'Isian belum rapi') || ! str_contains($body, 'laravel-crud-api-buku-ubah-hapus') || ! str_contains($body, 'Indeks Seri 4') || ! str_contains($body, 'Cek login') || ! str_contains($body, 'validated()')) {
             report(new \RuntimeException('Article 60 body missing expected content after seed.'));
 
             return response('Article 60 body content checks failed', 500);
@@ -4209,6 +4209,106 @@ class DeployController extends Controller
         }
 
         return response('Article 60 published', 200);
+    }
+
+    public function publishArticle61(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article61Seeder.php',
+            'database/seeders/Article60Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article61Seeder::class)) {
+            return response('Article61Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 61 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article61Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 61 seed failed', 500);
+        }
+
+        $slug = 'laravel-crud-api-buku-ubah-hapus';
+        $prevSlug = 'capstone-api-perpustakaan-laravel';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 61 missing or not visible after Article61Seeder on deploy hook.'));
+
+            return response('Article 61 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'laravel61crudArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_crud_buku_ubah_hapus_demo.php') || ! str_contains($body, '404') || ! str_contains($body, '204') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#61 (ini)') || ! str_contains($body, '1/8 Laravel Lanjutan') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Belum diizinkan') || ! str_contains($body, 'Buku tidak ketemu') || ! str_contains($body, 'Isian belum rapi') || ! str_contains($body, 'Cek login') || ! str_contains($body, 'validated()') || ! str_contains($body, 'destroy') || ! str_contains($body, 'Relasi Eloquent')) {
+            report(new \RuntimeException('Article 61 body missing expected content after seed.'));
+
+            return response('Article 61 body content checks failed', 500);
+        }
+
+        $a60 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a60) {
+            report(new \RuntimeException('Article 60 missing while publishing #61.'));
+
+            return response('Article 61 prerequisite #60 missing', 500);
+        }
+
+        if (class_exists(\Database\Seeders\Article60Seeder::class)) {
+            $backExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article60Seeder',
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response('Article 61 backlink #60 seed failed', 500);
+            }
+        }
+
+        $a60 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a60 || ! str_contains((string) $a60->body, $slug)) {
+            report(new \RuntimeException('Article 61 backlink missing on #60 after reseed.'));
+
+            return response('Article 61 backlink #60 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 61 published', 200);
     }
 
     private function runDuplicateBme280Cleanup(): void

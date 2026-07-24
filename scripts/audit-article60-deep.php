@@ -62,7 +62,8 @@ check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article59Seed
 check(str_contains($body, '8/8 Capstone Laravel'), 'Progress 8/8');
 check(str_contains($body, 'stack Laravel') || str_contains($body, '5/5'), 'Framing stack Laravel');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'bukti masuk'), 'Gloss awam');
-check(str_contains($body, 'Laravel lanjutan'), 'Jembatan soft ke Laravel lanjutan');
+check(str_contains($body, 'Laravel lanjutan') || str_contains($body, 'laravel-crud-api-buku-ubah-hapus'), 'Jembatan Laravel lanjutan / #61');
+check(str_contains($body, 'laravel-crud-api-buku-ubah-hapus'), 'Hardlink #61');
 check(str_contains($body, 'loket') || str_contains($body, 'perpustakaan'), 'Analogi loket/perpustakaan');
 check(str_contains($body, 'Belum diizinkan'), 'Gloss Belum diizinkan');
 check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
