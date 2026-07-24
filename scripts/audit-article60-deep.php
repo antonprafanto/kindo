@@ -88,6 +88,8 @@ check(! str_contains($body, 'repo Laravel') && str_contains($body, 'folder proye
 check(str_contains($body, 'validated()') && str_contains($body, 'sudah lolos'), 'Gloss validated()');
 check(str_contains($body, 'menyiapkan layanan otomatis') || str_contains($body, 'tidak perlu'), 'Gloss DI konstruktor');
 check(str_contains($body, 'pemeriksa pintu (middleware)'), 'KU middleware digloss');
+check(str_contains($body, 'dijaga pemeriksa pintu') && str_contains($body, 'middleware'), 'Awam store: pemeriksa pintu dulu');
+check(str_contains($body, 'Sanctum') && str_contains($body, 'paket Laravel') && str_contains($body, 'bukti masuk API'), 'FAQ Sanctum digloss');
 check(str_contains($body, 'bukti masuk API') || ! str_contains($body, 'API token'), 'FAQ tanpa API token mentah');
 
 echo "\n=== Deep-audit pass-1 #60: {$passed} passed, {$failed} failed ===\n";

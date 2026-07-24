@@ -70,6 +70,8 @@ check(str_contains($body, 'Laravel lanjutan'), 'Soft bridge Laravel lanjutan');
 check(str_contains($body, 'Spesifikasi fitur'), 'Spesifikasi Capstone');
 check(str_contains($body, 'Indeks Seri 4'), 'Indeks lengkap');
 check(str_contains($body, 'middleware') && str_contains($body, 'pemeriksa'), 'Gloss middleware');
+check(str_contains($body, 'dijaga pemeriksa pintu'), 'Awam store awam-first');
+check(str_contains($body, 'paket Laravel') && str_contains($body, 'Sanctum'), 'FAQ Sanctum digloss');
 check(! str_contains($body, '@param') && ! str_contains($body, '@return'), 'Tanpa PHPDoc @param di demo');
 check(! str_contains($body, 'Unauthorized'), 'Tanpa jargon Unauthorized');
 check(! str_contains($body, 'JWT'), 'Tanpa JWT');

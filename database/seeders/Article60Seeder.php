@@ -234,7 +234,7 @@ Route::post('/api/buku', [BukuController::class, 'store'])
 <ul>
   <li><code>index</code> = baca daftar (katalog publik)</li>
   <li><code>login</code> = keluarkan bukti masuk (dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>)</li>
-  <li><code>store</code> = fungsi tambah; dijaga middleware <code>auth:sanctum</code> (pemeriksa pintu)</li>
+  <li><code>store</code> = fungsi tambah; dijaga pemeriksa pintu (<code>middleware</code> <code>auth:sanctum</code>)</li>
   <li>Isian <code>store</code> biasanya lewat Form Request (dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a>), lalu Service + Eloquent (dari <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a>)</li>
 </ul>
 
@@ -443,7 +443,7 @@ demo("Tambah bersih -&gt; 201", function () use (&amp;$buktiAktif, &amp;$katalog
 
 <h2>FAQ singkat</h2>
 <p><strong>Apakah Capstone harus satu folder proyek Laravel lengkap di laptop?</strong><br>Idealnya ya, tapi artikel ini menekankan <strong>alur</strong>. Demo PHP mandiri sudah cukup untuk “merasakan” satunya pintu. Cuplikan Laravel menunjukkan tempat masing-masing potongan.</p>
-<p><strong>Haruskah pakai Sanctum sekarang?</strong><br>Untuk bukti masuk API, Sanctum adalah pilihan umum di Laravel modern. Detail pasang-pasangnya bisa dipelajari setelah alur Capstone sudah jelas (lihat juga <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>).</p>
+<p><strong>Haruskah pakai Sanctum sekarang?</strong><br><strong>Sanctum</strong> = paket Laravel untuk mengeluarkan dan memeriksa bukti masuk API. Untuk alur Capstone, itu pilihan umum di Laravel modern. Detail pasang-pasangnya bisa dipelajari setelah alurnya sudah jelas (lihat juga <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>).</p>
 <p><strong>Ke mana setelah Seri 4?</strong><br>Berikutnya alami: <strong>Laravel lanjutan</strong> (sering disebut Framework-based di roadmap) — memperdalam pola yang sama di aplikasi lebih besar. Belum perlu loncat ke stack baru dulu.</p>
 
 <h2>Indeks Seri 4 lengkap</h2>
