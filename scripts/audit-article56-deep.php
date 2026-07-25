@@ -41,7 +41,10 @@ check(str_contains($body, 'create-project') && str_contains($body, 'composer cre
 check(str_contains($body, 'artisan serve') && str_contains($body, 'php artisan --version'), 'artisan serve + version');
 check(str_contains($body, 'Kenapa instal') || str_contains($body, 'install-dari-nol'), 'Fondasi instal dulu');
 check(str_contains($body, 'Seri 4') && str_contains($body, '#56 (ini)'), 'Framing + self-ref');
-check(str_contains($body, 'Laravel 11+'), 'Pin Laravel');
+check(str_contains($body, 'Laravel 13+'), 'Pin Laravel');
+check(str_contains($body, 'PHP 8.3'), 'Syarat PHP 8.3');
+check(! str_contains($body, 'Laravel 11+'), 'Tanpa pin 11+ usang');
+check(! str_contains($body, 'PHP 8.2+'), 'Tanpa PHP 8.2+ usang');
 check(substr_count($body, '/artikel/oop-php-visibility-composition') >= 2, '≥2 link #55');
 check(str_contains($body, '/artikel/oop-php-property-method-constructor'), 'Soft mention #54');
 check(! preg_match('/(?<![\w\/"#>])#56(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #56 (kecuali ini)');

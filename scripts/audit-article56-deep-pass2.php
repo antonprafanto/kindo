@@ -114,8 +114,10 @@ check(str_contains($body, '>GET</td>') || str_contains($body, '<td>GET</td>'), '
 check(str_contains($body, 'mixed $data') && str_contains($body, 'bermacam bentuk'), 'Gloss mixed awam');
 check(str_contains($body, 'menulis pintu JSON'), 'H2 Laravel ramah awam');
 check(str_contains($body, 'declare(strict_types=1)'), 'strict_types di kode lengkap');
-check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
-check(str_contains($body, 'Pakai') && str_contains($body, 'Laravel 11+'), 'Frasa Pakai Laravel (bukan Pin)');
+check(str_contains($body, 'Laravel 13+'), 'Pin Laravel 13+');
+check(str_contains($body, 'Pakai') && str_contains($body, 'Laravel 13+'), 'Frasa Pakai Laravel (bukan Pin)');
+check(str_contains($body, 'PHP 8.3+'), 'Syarat PHP 8.3+');
+check(! str_contains($body, 'Laravel 11+'), 'Tanpa pin 11+ usang');
 check(! str_contains($body, 'Pin framework') && ! str_contains($body, 'closure') && ! str_contains($body, 'Eloquent'), 'Tanpa Pin/closure/Eloquent');
 check(str_contains($body, 'Developer Tools') && str_contains($body, 'terminal'), 'Gloss status via DevTools/curl');
 check(str_contains($body, 'merapikan daftar'), 'Gloss array_values');

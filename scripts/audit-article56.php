@@ -64,7 +64,10 @@ check(file_exists(__DIR__.'/audit-article56-php.php'), 'audit-article56-php.php'
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');
 check(str_contains($body, '1/8'), 'Progress 1/8');
-check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
+check(str_contains($body, 'Laravel 13+'), 'Pin Laravel 13+');
+check(str_contains($body, 'PHP 8.3+'), 'Syarat PHP 8.3+');
+check(! str_contains($body, 'Laravel 11+'), 'Tanpa pin Laravel 11+ usang');
+check(! str_contains($body, 'PHP 8.2+'), 'Tanpa syarat PHP 8.2+ usang');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');

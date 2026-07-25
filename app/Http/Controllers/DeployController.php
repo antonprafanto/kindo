@@ -3764,7 +3764,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel56installArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_instalasi_proyek_pertama_demo.php') || ! str_contains($body, 'create-project') || ! str_contains($body, 'composer create-project') || ! str_contains($body, 'artisan serve') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#56 (ini)') || ! str_contains($body, '1/8') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Composer') || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Laravel 11+')) {
+        if (! str_contains($body, 'laravel56installArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_instalasi_proyek_pertama_demo.php') || ! str_contains($body, 'create-project') || ! str_contains($body, 'composer create-project') || ! str_contains($body, 'artisan serve') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#56 (ini)') || ! str_contains($body, '1/8') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Composer') || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Laravel 13+')) {
             report(new \RuntimeException('Article 56 body missing expected content after seed.'));
 
             return response('Article 56 body content checks failed', 500);

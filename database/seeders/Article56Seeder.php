@@ -47,7 +47,7 @@ class Article56Seeder extends Seeder
                 'status'          => 'published',
                 'is_featured'     => false,
                 'seo_title'       => 'Instal PHP, Composer & Proyek Laravel Pertama',
-                'seo_description' => 'Seri 4 #56: dari nol pasang PHP dan Composer di Windows, buat proyek Laravel perpustakaan-api, cek versi, dan jalankan halaman welcome — ramah awam.',
+                'seo_description' => 'Seri 4 #56: dari nol pasang PHP 8.3+ dan Composer di Windows, buat proyek Laravel 13 perpustakaan-api, cek versi, dan jalankan halaman welcome — ramah awam.',
             ]
         );
         // cover_image tidak disentuh — upload manual via Filament
@@ -73,13 +73,13 @@ class Article56Seeder extends Seeder
 <p>Jika class/object masih baru, singgah sebentar ke <a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a> — fondasi OOP ringan sebelum masuk framework.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> — paham class/object ringan. Domain tetap <strong>perpustakaan mini</strong>. Pakai <strong>Laravel 11+</strong> — langkah instal di sini cocok untuk versi modern.</p>
+  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> — paham class/object ringan. Domain tetap <strong>perpustakaan mini</strong>. Pakai <strong>Laravel 13+</strong> (versi terbaru resmi) — butuh <strong>PHP 8.3+</strong>.</p>
 </blockquote>
 
 <h2>Spesifikasi fitur — apa yang kita pasang?</h2>
 <p>Daftar singkat yang bisa kamu centang di akhir artikel:</p>
 <ol>
-  <li><strong>PHP 8.2+</strong> jalan di terminal (<code>php -v</code>).</li>
+  <li><strong>PHP 8.3+</strong> jalan di terminal (<code>php -v</code>) — syarat Laravel 13.</li>
   <li><strong>Composer</strong> terpasang (<code>composer -V</code>).</li>
   <li><strong>Proyek Laravel baru</strong> lewat <code>composer create-project</code> — folder <code>perpustakaan-api</code>.</li>
   <li><strong>Artisan hidup</strong> (<code>php artisan --version</code>) dan server lokal (<code>php artisan serve</code>) menampilkan halaman welcome.</li>
@@ -173,7 +173,7 @@ class Article56Seeder extends Seeder
 </ol>
 <pre><code class="language-bash">php -v
 </code></pre>
-<p>Output yang sehat menampilkan <strong>PHP 8.2</strong> atau lebih baru. Contoh bentuknya:</p>
+<p>Output yang sehat menampilkan <strong>PHP 8.3</strong> atau lebih baru (Laravel 13 tidak menerima PHP 8.2). Contoh bentuknya:</p>
 <pre><code class="language-php">&lt;?php
 // Simulasi output php -v (bukan perintah sungguhan — hanya bentuk teks).
 echo "PHP 8.3.12 (cli) (built: Oct 24 2024 00:00:00)", PHP_EOL;
@@ -196,7 +196,7 @@ echo "Composer version 2.8.3 2024-11-12 15:00:00", PHP_EOL;
 <p>Pilih folder kerja (misalnya <code>C:\laragon\www</code> di Laragon). Lalu jalankan:</p>
 <pre><code class="language-bash">composer create-project laravel/laravel perpustakaan-api
 </code></pre>
-<p>Perintah ini membuat folder <code>perpustakaan-api</code> berisi kerangka Laravel 11+. Proses bisa beberapa menit — normal. Nama <code>perpustakaan-api</code> mengingatkan bahwa proyek ini nanti dipakai untuk <strong>API perpustakaan mini</strong>.</p>
+<p>Perintah ini membuat folder <code>perpustakaan-api</code> berisi kerangka <strong>Laravel 13+</strong> (yang diunduh Composer saat ini). Proses bisa beberapa menit — normal. Nama <code>perpustakaan-api</code> mengingatkan bahwa proyek ini nanti dipakai untuk <strong>API perpustakaan mini</strong>.</p>
 <p>Masuk ke folder proyek:</p>
 <pre><code class="language-bash">cd perpustakaan-api
 </code></pre>
@@ -211,7 +211,7 @@ php artisan --version
 <p>Contoh output Artisan (bentuk mirip):</p>
 <pre><code class="language-php">&lt;?php
 // Simulasi output php artisan --version.
-echo "Laravel Framework 11.31.0", PHP_EOL;
+echo "Laravel Framework 13.0.0", PHP_EOL;
 </code></pre>
 <p>Hidupkan server pengembangan bawaan:</p>
 <pre><code class="language-bash">php artisan serve
@@ -227,7 +227,7 @@ echo "Laravel Framework 11.31.0", PHP_EOL;
 <ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
-    <div><strong style="color:#1a1a1a">Pasang PHP</strong><br><span style="color:#1a1a1a">Laragon/XAMPP atau PHP manual — pastikan <code>php -v</code> menampilkan 8.2+.</span></div>
+    <div><strong style="color:#1a1a1a">Pasang PHP</strong><br><span style="color:#1a1a1a">Laragon/XAMPP atau PHP manual — pastikan <code>php -v</code> menampilkan 8.3+.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
@@ -277,7 +277,7 @@ function demo(): void
     $cek = [
         cekVersi("PHP", "php -v", "PHP 8.3.12 (cli)", true),
         cekVersi("Composer", "composer -V", "Composer version 2.8.3", true),
-        cekVersi("Artisan", "php artisan --version", "Laravel Framework 11.31.0", true),
+        cekVersi("Artisan", "php artisan --version", "Laravel Framework 13.0.0", true),
         cekVersi("Server", "php artisan serve", "Server running on http://127.0.0.1:8000", true),
     ];
 
@@ -341,7 +341,9 @@ demo();
 
 <h2>FAQ</h2>
 <p><strong>Harus pakai Laragon?</strong><br>
-Tidak wajib. Laragon/XAMPP hanya jalur paling nyaman di Windows. Yang wajib: PHP 8.2+ dan Composer jalan di terminal yang sama.</p>
+Tidak wajib. Laragon/XAMPP hanya jalur paling nyaman di Windows. Yang wajib: <strong>PHP 8.3+</strong> dan Composer jalan di terminal yang sama (syarat Laravel 13).</p>
+<p><strong>Kenapa bukan Laravel 11 lagi?</strong><br>
+Versi terbaru resmi saat artikel ini ditulis adalah <strong>Laravel 13</strong> — butuh PHP 8.3 sampai 8.5. Kalau <code>php -v</code> masih 8.2, upgrade PHP di Laragon dulu sebelum <code>create-project</code>.</p>
 <p><strong>Boleh pakai nama folder selain perpustakaan-api?</strong><br>
 Boleh. Nama itu hanya pengingat domain perpustakaan — yang penting kamu tahu lokasi foldernya.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
