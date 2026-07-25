@@ -925,11 +925,6 @@ jobs:
           echo "Article 52 HTTP status: $code"
           test "$code" = "200"
 
-      # Seri 4 Laravel restart: jangan re-publish #57–#65 konten lama
-      # sampai artikel baru (#57 struktur/env, dst.) siap oke deploy.
-      - name: Skip legacy Laravel hooks #57–#65 (restart)
-        run: echo "Skip publish #57–#65 — Seri 4 restart; only #56 instalasi + #53–#55 bridge"
-
       - name: Publish article 56 via deploy hook (required)
         run: |
           resp=$(curl -fsS --max-time 120 \
