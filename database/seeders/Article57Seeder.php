@@ -131,22 +131,25 @@ class Article57Seeder extends Seeder
 
 <h2>Alur — dari denah sampai database siap</h2>
 <figure role="img" aria-label="Alur kenali struktur Laravel: folder, .env, database, Artisan" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
-<svg id="laravel57structArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" aria-hidden="true">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Alur denah folder ke Artisan">
+  <defs>
+    <marker id="laravel57structArrow" orient="auto" markerWidth="8" markerHeight="8" refX="7" refY="4" viewBox="0 0 8 8">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
   <rect x="16" y="28" width="140" height="64" rx="10" fill="#2979FF"/>
   <text x="86" y="56" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Folder</text>
   <text x="86" y="76" text-anchor="middle" fill="#fff" font-size="12">denah proyek</text>
-  <path d="M164 60 H210" stroke="#1a1a1a" stroke-width="3" fill="none"/>
-  <polygon points="210,52 226,60 210,68" fill="#1a1a1a"/>
+  <line x1="156" y1="60" x2="226" y2="60" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
   <rect x="234" y="28" width="140" height="64" rx="10" fill="#00897B"/>
   <text x="304" y="56" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">.env</text>
   <text x="304" y="76" text-anchor="middle" fill="#fff" font-size="12">pengaturan</text>
-  <path d="M382 60 H428" stroke="#1a1a1a" stroke-width="3" fill="none"/>
-  <polygon points="428,52 444,60 428,68" fill="#1a1a1a"/>
+  <line x1="374" y1="60" x2="444" y2="60" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
   <rect x="452" y="28" width="140" height="64" rx="10" fill="#F9A825"/>
   <text x="522" y="56" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">SQLite</text>
   <text x="522" y="76" text-anchor="middle" fill="#1a1a1a" font-size="12">+ migrate</text>
-  <path d="M600 60 H640" stroke="#1a1a1a" stroke-width="3" fill="none"/>
-  <polygon points="640,52 656,60 640,68" fill="#1a1a1a"/>
+  <line x1="592" y1="60" x2="630" y2="60" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
+  <line x1="630" y1="92" x2="630" y2="120" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
   <rect x="560" y="120" width="140" height="64" rx="10" fill="#1a1a1a"/>
   <text x="630" y="148" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Artisan</text>
   <text x="630" y="168" text-anchor="middle" fill="#fff" font-size="12">serve / list</text>
