@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP/pedagogi audit #56 — runnable demo JSON (skip cuplikan Route Laravel).
+ * PHP/pedagogi audit #56 — runnable demo cek versi (simulasi string).
  * Usage: php scripts/audit-article56-php.php
  */
 
@@ -36,39 +36,59 @@ mkdir($tmpDir);
 $runnable = 0;
 foreach ($blocks[1] as $i => $raw) {
     $code = html_entity_decode($raw, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-    if (str_contains($code, 'Route::') || str_contains($code, 'Cuplikan Laravel')) {
-        check(true, 'skip Laravel cuplikan block #'.($i + 1));
+    if (
+        str_contains($code, 'Simulasi output')
+        && ! str_contains($code, 'function demo')
+    ) {
+        $runnable++;
+        $file = $tmpDir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
+        file_put_contents($file, $code);
+        $lint = [];
+        $lrc = 0;
+        exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lrc);
+        check($lrc === 0, 'php -l block #'.($i + 1).' — '.trim(implode(' ', $lint)));
+        $out = [];
+        $rc = 0;
+        exec('php '.escapeshellarg($file).' 2>&1', $out, $rc);
+        $joined = implode("\n", $out);
+        check($rc === 0, 'run block #'.($i + 1).' exit 0');
+        if (str_contains($code, 'PHP 8.')) {
+            check(str_contains($joined, 'PHP 8.'), 'run block #'.($i + 1).' output: PHP version');
+        }
+        if (str_contains($code, 'Composer version')) {
+            check(str_contains($joined, 'Composer version'), 'run block #'.($i + 1).' output: Composer');
+        }
+        if (str_contains($code, 'Laravel Framework')) {
+            check(str_contains($joined, 'Laravel Framework'), 'run block #'.($i + 1).' output: Laravel');
+        }
         continue;
     }
-    $runnable++;
-    $file = $tmpDir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
-    file_put_contents($file, $code);
-    $lint = [];
-    $lrc = 0;
-    exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lrc);
-    check($lrc === 0, 'php -l block #'.($i + 1).' — '.trim(implode(' ', $lint)));
-    $out = [];
-    $rc = 0;
-    exec('php '.escapeshellarg($file).' 2>&1', $out, $rc);
-    $joined = implode("\n", $out);
-    check($rc === 0, 'run block #'.($i + 1).' exit 0');
-    if ($runnable === 1) {
-        check(str_contains($joined, 'Belajar PHP'), 'run block #'.($i + 1).' output: Belajar PHP');
-    }
-    if ($runnable === 2) {
-        check(str_contains($joined, 'tidak ditemukan'), 'run block #'.($i + 1).' output: tidak ditemukan');
-    }
     if (str_contains($code, 'function demo')) {
-        check(str_contains($joined, 'GET /api/buku'), 'run demo output framing');
-        check(str_contains($joined, 'jumlah') || str_contains($joined, 'Laravel Praktis') || str_contains($joined, 'pesan'), 'run demo has JSON body');
+        $runnable++;
+        $file = $tmpDir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
+        file_put_contents($file, $code);
+        $lint = [];
+        $lrc = 0;
+        exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lrc);
+        check($lrc === 0, 'php -l demo block — '.trim(implode(' ', $lint)));
+        $out = [];
+        $rc = 0;
+        exec('php '.escapeshellarg($file).' 2>&1', $out, $rc);
+        $joined = implode("\n", $out);
+        check($rc === 0, 'run demo block exit 0');
+        check(str_contains($joined, 'php -v') || str_contains($joined, 'PHP 8.'), 'run demo output: PHP');
+        check(str_contains($joined, 'composer -V') || str_contains($joined, 'Composer version'), 'run demo output: Composer');
+        check(str_contains($joined, 'artisan --version') || str_contains($joined, 'Laravel Framework'), 'run demo output: Artisan');
+        check(str_contains($joined, 'artisan serve') || str_contains($joined, '127.0.0.1:8000'), 'run demo output: serve');
+        continue;
     }
+    check(true, 'skip non-runnable block #'.($i + 1));
 }
 
-check($runnable >= 3, '≥3 blok runnable PHP ('.$runnable.')');
+check($runnable >= 4, '≥4 blok runnable PHP ('.$runnable.')');
 check(str_contains($body, 'demo('), 'Ada demo()');
-check(str_contains($body, 'laravel_routing_json_demo.php'), 'File contoh');
-check(str_contains($body, 'kirimJson') || str_contains($body, 'json_encode'), 'Ada kirimJson/json_encode');
-check(str_contains($body, 'laravel56jsonArrow'), 'SVG marker');
+check(str_contains($body, 'laravel_instalasi_proyek_pertama_demo.php'), 'File contoh');
+check(str_contains($body, 'laravel56installArrow'), 'SVG marker');
 check(str_contains($body, 'Seri 4'), 'Framing Seri 4');
 check(str_contains($body, '#56 (ini)'), 'Self-ref');
 

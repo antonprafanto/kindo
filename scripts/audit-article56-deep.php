@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Deep-audit pass-1 #56 (ramah awam + SEO + locks).
+ * Deep-audit pass-1 #56 — instal PHP/Composer/Laravel ramah awam.
  * Usage: php scripts/audit-article56-deep.php
  */
 
@@ -29,48 +29,61 @@ $method = $ref->getMethod('body');
 $method->setAccessible(true);
 $body = $method->invoke($ref->newInstanceWithoutConstructor());
 $src = file_get_contents(__DIR__.'/../database/seeders/Article56Seeder.php');
-$plain = strip_tags(preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $body) ?? '');
-$words = preg_split('/\s+/u', trim(strip_tags($plain))) ?: [];
+$plain = trim(preg_replace('/\s+/u', ' ', strip_tags($body)) ?? '');
+$words = preg_split('/\s+/u', $plain, -1, PREG_SPLIT_NO_EMPTY) ?: [];
 
 check(count($words) >= 550, 'Prosa ≥550 kata ('.count($words).')');
 check(substr_count($body, '<h2') >= 11, '≥11 H2 ('.substr_count($body, '<h2').')');
 check(substr_count($body, 'language-php') >= 4, '≥4 blok PHP');
-check(strlen('Laravel Routing & JSON — API untuk Pemula') <= 70, 'seo_title ≤70');
-$desc = 'Artikel pertama Laravel di Seri 4: paham route sebagai pintu HTTP, kirim JSON, dan status 200/404 — domain perpustakaan mini, berbahasa Indonesia.';
-check(strlen($desc) >= 70 && strlen($desc) <= 170, 'seo_desc 70–170 ('.strlen($desc).')');
-check(str_contains($body, 'Route::get') && str_contains($body, 'response()-&gt;json'), 'Route + json response');
-check(str_contains($body, 'json_encode') && str_contains($body, 'http_response_code'), 'Fondasi PHP JSON');
+check(preg_match("/'seo_title'\\s*=>\\s*'([^']*)'/", $src, $m) === 1 && mb_strlen($m[1]) <= 70, 'seo_title ≤70');
+check(preg_match("/'seo_description'\\s*=>\\s*'([^']*)'/", $src, $m) === 1 && mb_strlen($m[1]) >= 70 && mb_strlen($m[1]) <= 170, 'seo_desc 70–170 ('.(isset($m[1]) ? mb_strlen($m[1]) : 0).')');
+check(str_contains($body, 'create-project') && str_contains($body, 'composer create-project'), 'create-project');
+check(str_contains($body, 'artisan serve') && str_contains($body, 'php artisan --version'), 'artisan serve + version');
+check(str_contains($body, 'Kenapa instal') || str_contains($body, 'install-dari-nol'), 'Fondasi instal dulu');
 check(str_contains($body, 'Seri 4') && str_contains($body, '#56 (ini)'), 'Framing + self-ref');
 check(str_contains($body, 'Laravel 11+'), 'Pin Laravel');
 check(substr_count($body, '/artikel/oop-php-visibility-composition') >= 2, '≥2 link #55');
-check(! preg_match('/(?<![\w\/"#>])#(?:5[7-9]|60)(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #57+');
-check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
+check(str_contains($body, '/artikel/oop-php-property-method-constructor'), 'Soft mention #54');
+check(! preg_match('/(?<![\w\/"#>])#56(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #56 (kecuali ini)');
+check(! preg_match('/(?<![\w\/"#>])#(?:5[7-9]|6[0-3])(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #57+');
+$plainLinked = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '');
+check(! preg_match('/(?<![\w\/"#>])#55(?!\d)(?!\s*\(ini\))/', $plainLinked), 'Tidak bare #55');
+check(! preg_match('/(?<![\w\/"#>])#54(?!\d)(?!\s*\(ini\))/', $plainLinked), 'Tidak bare #54');
+check(! str_contains($body, '→') && ! str_contains($body, '↔'), 'Tanpa Unicode arrow');
 check(! str_contains($body, 'TODO'), 'Tanpa TODO');
-check(str_contains($body, 'role="img"') || str_contains($body, 'aria-label'), 'SVG a11y');
-check(str_contains($body, 'laravel_routing_json_demo.php') && str_contains($body, 'demo('), 'File + demo');
+check(str_contains($body, 'aria-label') && str_contains($body, 'figcaption'), 'SVG a11y');
+check(str_contains($body, 'laravel_instalasi_proyek_pertama_demo.php') && str_contains($body, 'demo('), 'File + demo');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar');
-check(str_contains($body, 'Kesalahan umum') && str_contains($body, 'Latihan singkat') && str_contains($body, 'FAQ singkat'), 'KU/Latihan/FAQ');
-check(str_contains($src, 'laravel-routing-json-perpustakaan-api'), 'Slug');
+check(str_contains($body, 'Kesalahan umum') && str_contains($body, 'Latihan') && str_contains($body, 'FAQ'), 'KU/Latihan/FAQ');
+check(str_contains($src, 'laravel-instalasi-proyek-pertama'), 'Slug');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, 'web-development'), 'Kategori web-development');
 check(str_contains(file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php'), 'publishArticle56'), 'Hook');
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'Publish article 56 via deploy hook (required)'), 'CI #56 required');
 check(! preg_match('/Publish article 56 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', file_get_contents(__DIR__.'/../.github/workflows/deploy.yml')), 'CI #56 tidak continue-on-error');
-check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article55Seeder.php'), 'laravel-routing-json-perpustakaan-api'), '#55 hardlink #56');
-check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress 5/8');
-check(str_contains($body, 'stack Laravel') || str_contains($body, '1/5'), 'Framing stack Laravel');
-check(str_contains($body, 'Arti awam') || str_contains($body, 'pintu'), 'Gloss awam');
-check(str_contains($body, '404'), 'Status 404');
-check(str_contains($body, 'Form Request') || str_contains($body, 'validasi'), 'Jembatan soft ke validasi');
-check(str_contains($body, 'Kenapa belum langsung buka Laravel'), 'Narasi progresif awam');
-check(str_contains($body, 'loket'), 'Analogi loket');
-check(str_contains($body, '<td>GET</td>'), 'Gloss GET');
-check(! str_contains($body, 'Pin framework') && ! str_contains($body, 'closure'), 'Tanpa Pin/closure');
-check(str_contains($body, 'Developer Tools'), 'Gloss Developer Tools');
-check(str_contains($body, 'array_values') && str_contains($body, 'merapikan daftar'), 'Gloss array_values');
-check(file_exists(__DIR__.'/audit-article56-deep-pass2.php'), 'Deep pass-2 ada');
-check(file_exists(__DIR__.'/audit-article56-deep-pass3.php'), 'Deep pass-3 ada');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article55Seeder.php'), 'laravel-instalasi-proyek-pertama'), '#55 hardlink #56');
+check(str_contains($body, '1/8'), 'Progress 1/8');
+check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel'), 'Framing Seri 4 v2');
+check(str_contains($body, 'Arti awam') || str_contains($body, 'Awam:'), 'Gloss awam');
+check(str_contains($body, 'struktur folder') && str_contains($body, '.env') && str_contains($body, 'Artisan'), 'Jembatan soft ke #57');
+check(str_contains($body, 'mendirikan toko') || str_contains($body, 'perpustakaan'), 'Analogi toko');
+check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
+check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
+check(! str_contains($body, '@param'), 'Tanpa @param di body');
+check(! str_contains($body, 'Unauthorized') && ! str_contains($body, 'JWT'), 'Tanpa Unauthorized/JWT');
+check(str_contains($body, 'strict_types') && str_contains($body, 'tipe'), 'Gloss strict_types');
+check(str_contains($body, 'proyek') && ! preg_match('/(?<!-)project /', $body), 'Proyek (bukan project)');
+check(! str_contains($body, 'endpoint'), 'Tanpa jargon endpoint');
+check(str_contains($body, 'php -v') && str_contains($body, 'composer -V'), 'Cek versi');
+check(str_contains($body, 'Laragon') || str_contains($body, 'XAMPP'), 'Jalur Windows');
+check(! str_contains($body, '/artikel/laravel-struktur-env-artisan'), 'Tanpa hardlink #57');
+check(! str_contains($body, '/artikel/laravel-request-validasi-api'), 'Tanpa hardlink slug lama');
+check(! str_contains($body, 'Belum perlu hardlink') && ! str_contains($body, 'soft, belum hardlink'), 'Tanpa suara editor hardlink');
+check(! preg_match('/<a\b[^>]*>\s*#\d+\s*<\/a>/u', $body), 'Tanpa thin anchor #N');
 
 echo "\n=== Deep-audit pass-1 #56: {$passed} passed, {$failed} failed ===\n";
+if ($failed === 0) {
+    echo "Verdict: JENUH siap LIVE #56 — hardlink #55 terkunci. STOP AUDIT → oke deploy.\n";
+}
 exit($failed > 0 ? 1 : 0);

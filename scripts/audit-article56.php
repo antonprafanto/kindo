@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Audit utama #56 — Laravel routing & JSON (Seri 4).
+ * Audit utama #56 — Instal PHP, Composer & Proyek Laravel (Seri 4).
  * Usage: php scripts/audit-article56.php
  */
 
@@ -22,9 +22,9 @@ function check(bool $ok, string $label): void
     $ok ? $passed++ : $failed++;
 }
 
-$slug = 'laravel-routing-json-perpustakaan-api';
+$slug = 'laravel-instalasi-proyek-pertama';
 
-echo "=== Audit Artikel #56 — Laravel Routing & JSON ===\n\n";
+echo "=== Audit Artikel #56 — Instal PHP, Composer & Proyek Laravel ===\n\n";
 
 $ref = new ReflectionClass(Article56Seeder::class);
 $method = $ref->getMethod('body');
@@ -33,18 +33,22 @@ $body = $method->invoke($ref->newInstanceWithoutConstructor());
 $src = file_get_contents(__DIR__.'/../database/seeders/Article56Seeder.php');
 
 check(str_contains($body, '#56 (ini)'), 'Self-ref');
-check(str_contains($body, 'json_encode') && str_contains($body, 'response()-&gt;json'), 'JSON + response json');
-check(str_contains($body, 'Route::get'), 'Route::get');
-check(str_contains($body, 'laravel56jsonArrow'), 'SVG marker');
+check(str_contains($body, 'create-project') && str_contains($body, 'composer create-project'), 'create-project');
+check(str_contains($body, 'artisan serve') && str_contains($body, 'php artisan --version'), 'artisan serve + version');
+check(str_contains($body, 'Composer') && str_contains($body, 'Laragon'), 'Composer + Laragon');
+check(str_contains($body, 'laravel56installArrow'), 'SVG marker');
 check(str_contains($body, 'background:#F5F5F0'), 'Figure bg');
 check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar');
-check(str_contains($body, 'laravel_routing_json_demo.php'), 'File contoh');
+check(str_contains($body, 'laravel_instalasi_proyek_pertama_demo.php'), 'File contoh');
 check(str_contains($body, 'Seri 4'), 'Seri 4');
 check(str_contains($body, 'language-php'), 'language-php');
 check(substr_count($body, '<h2') >= 8, '≥8 H2');
 check(str_contains($src, $slug), 'Slug di seeder');
 check(str_contains($body, '/artikel/oop-php-visibility-composition'), 'Link #55');
-check(! preg_match('/(?<![\w\/"#>])#(?:5[7-9]|60)(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #57+');
+check(str_contains($body, '/artikel/oop-php-property-method-constructor'), 'Link #54');
+check(! preg_match('/(?<![\w\/"#>])#(?:5[7-9]|6[0-3])(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #57+');
+check(str_contains($body, 'mendirikan toko'), 'Analogi toko');
+check(str_contains($body, 'install-dari-nol'), 'Marker install-dari-nol');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
@@ -59,10 +63,15 @@ check(str_contains($deploy, $slug), 'Hook cek slug');
 check(file_exists(__DIR__.'/audit-article56-php.php'), 'audit-article56-php.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');
-check(str_contains($body, '8/8 Capstone Laravel selesai'), 'Progress 5/8');
+check(str_contains($body, '1/8'), 'Progress 1/8');
 check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
-check(str_contains($body, '/artikel/laravel-request-validasi-api'), '#56 hardlink #57');
+check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
+check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
+check(str_contains($body, 'struktur folder') && str_contains($body, '.env') && str_contains($body, 'Artisan'), 'Soft bridge #57');
+check(! str_contains($body, '/artikel/laravel-struktur-env-artisan'), 'Tanpa hardlink #57');
+check(! str_contains($body, '/artikel/laravel-request-validasi-api'), 'Tanpa hardlink slug lama #57');
+check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article55Seeder.php'), $slug), '#55 hardlink #56');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";

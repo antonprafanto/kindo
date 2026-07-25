@@ -20,7 +20,7 @@ class Article56Seeder extends Seeder
             throw new \RuntimeException('User atau kategori web-development/programming tidak ditemukan. Jalankan DatabaseSeeder dulu.');
         }
 
-        $slug = 'laravel-routing-json-perpustakaan-api';
+        $slug = 'laravel-instalasi-proyek-pertama';
 
         $existing = Article::withTrashed()->where('slug', $slug)->first();
         if ($existing?->trashed()) {
@@ -42,12 +42,12 @@ class Article56Seeder extends Seeder
             [
                 'user_id'         => $admin->id,
                 'category_id'     => $webCat->id,
-                'title'           => 'Laravel Routing & JSON: Pintu HTTP Perpustakaan',
+                'title'           => 'Instal PHP, Composer & Proyek Laravel Pertama',
                 'body'            => $this->body(),
                 'status'          => 'published',
                 'is_featured'     => false,
-                'seo_title'       => 'Laravel Routing & JSON — API untuk Pemula',
-                'seo_description' => 'Artikel pertama Laravel di Seri 4: paham route sebagai pintu HTTP, kirim JSON, dan status 200/404 — domain perpustakaan mini, berbahasa Indonesia.',
+                'seo_title'       => 'Instal PHP, Composer & Proyek Laravel Pertama',
+                'seo_description' => 'Seri 4 #56: dari nol pasang PHP dan Composer di Windows, buat proyek Laravel perpustakaan-api, cek versi, dan jalankan halaman welcome — ramah awam.',
             ]
         );
         // cover_image tidak disentuh — upload manual via Filament
@@ -66,16 +66,27 @@ class Article56Seeder extends Seeder
     private function body(): string
     {
         return <<<'HTML'
-<h2>Pendahuluan — dari object PHP ke pintu HTTP</h2>
-<p>Di <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> kamu sudah punya object <code>Buku</code> dan <code>Katalog</code>. Artikel ini adalah <strong>#56 (ini)</strong> — langkah pertama stack <strong>Laravel</strong> di Seri 4.</p>
-<p>Ide barunya sederhana: orang (atau aplikasi) mengetuk alamat URL, Laravel memilih <strong>route</strong> (pintu), lalu menjawab dengan <strong>JSON</strong> (data rapi untuk komputer).</p>
-<p><strong>Awam:</strong> bayangkan loket perpustakaan. Pengunjung bilang “saya mau daftar buku” — itu URL. Petugas memilih loket yang tepat — itu route. Jawaban tertulis rapi di kertas data — itu JSON.</p>
+<h2>Pendahuluan — mendirikan toko sebelum jual buku</h2>
+<p>Artikel ini adalah <strong>#56 (ini)</strong> di <strong>Seri 4: Pemrograman Web Lanjut v2</strong>. Setelah jembatan OOP PHP dari <a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">Mengenal OOP (#53)</a> hingga <a href="/artikel/oop-php-visibility-composition">Visibility (#55)</a>, kamu mulai jalur <strong>Laravel</strong> — langkah <strong>1/8</strong>.</p>
+<p>Di <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> kamu sudah punya object <code>Buku</code> dan <code>Katalog</code> di PHP biasa. Sekarang kita siapkan <strong>rumah kerja Laravel</strong>: PHP, Composer, lalu proyek baru bernama <code>perpustakaan-api</code> (nama awam — nanti dipakai untuk API perpustakaan mini).</p>
+<p><strong>Awam:</strong> bayangkan mau jual buku di pasar. Sebelum display buku, kamu butuh <strong>mendirikan toko dulu</strong> — atap, meja, kasir. PHP + Composer + proyek Laravel = toko itu. Baru setelahnya kita isi rak buku (routing, data, API).</p>
+<p>Jika class/object masih baru, singgah sebentar ke <a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a> — fondasi OOP ringan sebelum masuk framework.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> — paham class/object ringan. Domain tetap <strong>perpustakaan mini</strong>. Pakai <strong>Laravel 11+</strong> — sintaks route &amp; JSON di sini berlaku di versi modern.</p>
+  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> — paham class/object ringan. Domain tetap <strong>perpustakaan mini</strong>. Pakai <strong>Laravel 11+</strong> — langkah instal di sini cocok untuk versi modern.</p>
 </blockquote>
 
-<h2>Route — pintu yang dipilih dari URL</h2>
+<h2>Spesifikasi fitur — apa yang kita pasang?</h2>
+<p>Daftar singkat yang bisa kamu centang di akhir artikel:</p>
+<ol>
+  <li><strong>PHP 8.2+</strong> jalan di terminal (<code>php -v</code>).</li>
+  <li><strong>Composer</strong> terpasang (<code>composer -V</code>).</li>
+  <li><strong>Proyek Laravel baru</strong> lewat <code>composer create-project</code> — folder <code>perpustakaan-api</code>.</li>
+  <li><strong>Artisan hidup</strong> (<code>php artisan --version</code>) dan server lokal (<code>php artisan serve</code>) menampilkan halaman welcome.</li>
+</ol>
+<p><strong>Awam:</strong> urutan nyaman: <strong>PHP dulu -&gt; Composer -&gt; buat proyek -&gt; cek -&gt; jalankan server</strong>. Jangan loncat ke kode API sebelum toko berdiri.</p>
+
+<h2>Istilah — ringkas untuk instalasi</h2>
 <table>
   <thead>
     <tr>
@@ -86,239 +97,202 @@ class Article56Seeder extends Seeder
   </thead>
   <tbody>
     <tr>
-      <td>Route</td>
-      <td>Aturan: “kalau URL ini dikunjungi, jalankan kode ini”</td>
-      <td><code>GET /api/buku</code> -&gt; daftar buku</td>
+      <td>PHP</td>
+      <td>Bahasa yang menjalankan kode di server/komputermu</td>
+      <td><code>php -v</code></td>
     </tr>
     <tr>
-      <td>JSON</td>
-      <td>Format teks yang mudah dibaca program (bukan halaman HTML)</td>
-      <td><code>{"judul":"Belajar PHP"}</code></td>
+      <td>Composer</td>
+      <td>Pengelola paket — seperti aplikasi pasar untuk library PHP</td>
+      <td><code>composer -V</code></td>
     </tr>
     <tr>
-      <td>Status HTTP</td>
-      <td>Kode singkat: sukses, tidak ketemu, salah, dll.</td>
-      <td><code>200</code> OK · <code>404</code> tidak ketemu</td>
+      <td>create-project</td>
+      <td>Perintah Composer untuk mengunduh kerangka proyek siap pakai</td>
+      <td><code>laravel/laravel</code></td>
     </tr>
     <tr>
-      <td>GET</td>
-      <td>Cara mengetuk pintu: “minta data” (baca), bukan kirim form</td>
-      <td><code>GET /api/buku</code></td>
+      <td>Artisan</td>
+      <td>Asisten perintah bawaan Laravel di dalam proyek</td>
+      <td><code>php artisan serve</code></td>
+    </tr>
+    <tr>
+      <td>Proyek</td>
+      <td>Folder kerja berisi kode Laravel kamu</td>
+      <td><code>perpustakaan-api</code></td>
     </tr>
   </tbody>
 </table>
-<p>Jangan hafal semua status dulu. Cukup dua: <strong>200</strong> (berhasil) dan <strong>404</strong> (pintu/data tidak ada).</p>
+<p>Urutan belajar: <strong>pasang alat -&gt; buat folder proyek -&gt; cek versi -&gt; hidupkan server lokal</strong>.</p>
 
-<h2>JSON dulu — tanpa framework</h2>
-<p>Kenapa belum langsung buka Laravel? Karena ide JSON + status HTTP bisa dirasakan dulu di PHP biasa. Kalau ide-nya sudah “klik”, cuplikan Laravel nanti terasa seperti bungkus yang sama — bukan sihir baru.</p>
-<p>Sebelum Laravel, lihat ide JSON di PHP biasa:</p>
+<h2>Kenapa instal dulu?</h2>
+<p>Laravel bukan satu file yang bisa disalin sembarang. Ia butuh PHP versi cukup baru, banyak file pendukung, dan Composer untuk mengunduhnya rapi. Kalau kamu langsung membuka tutorial routing tanpa PHP/Composer, error-nya sering membingungkan: “command not found”, “Class not found”, atau versi PHP terlalu tua.</p>
+<p><strong>Awam:</strong> sama seperti perpustakaan — sebelum menerima peminjaman, pastikan loket, buku besar, dan stempel sudah ada. Instalasi = menyiapkan loket. API perpustakaan datang setelah fondasi ini.</p>
+<p>Artikel ini sengaja <strong>install-dari-nol</strong>: setiap langkah bisa diikuti di komputer Windows awam (Laragon/XAMPP) tanpa asumsi Laravel sudah terpasang.</p>
 
-<pre><code class="language-php">&lt;?php
-$buku = [
-    "judul" => "Belajar PHP",
-    "tahun" => 2024,
-];
-
-header("Content-Type: application/json; charset=utf-8");
-http_response_code(200);
-echo json_encode($buku, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
-</code></pre>
-
-<p>Output:</p>
-<pre><code>{
-    "judul": "Belajar PHP",
-    "tahun": 2024
-}
-</code></pre>
-
-<p><strong>Awam:</strong> <code>json_encode</code> mengubah array PHP menjadi teks JSON. Header bilang “ini JSON, bukan HTML”.</p>
-
-<h2>Kalau data tidak ada — status 404</h2>
-<p>Pintu yang benar tetap bisa menjawab “tidak ketemu” dengan jujur:</p>
-
-<pre><code class="language-php">&lt;?php
-$id = 99;
-$koleksi = [
-    1 => ["judul" => "Belajar PHP", "tahun" => 2024],
-];
-
-header("Content-Type: application/json; charset=utf-8");
-
-if (! isset($koleksi[$id])) {
-    http_response_code(404);
-    echo json_encode(["pesan" => "Buku tidak ditemukan"], JSON_UNESCAPED_UNICODE), PHP_EOL;
-    exit;
-}
-
-http_response_code(200);
-echo json_encode($koleksi[$id], JSON_UNESCAPED_UNICODE), PHP_EOL;
-</code></pre>
-
-<p>Output:</p>
-<pre><code>{"pesan":"Buku tidak ditemukan"}
-</code></pre>
-
-<p>(Status HTTP-nya <code>404</code> — di browser, buka panel Developer Tools; atau di terminal jalankan <code>curl -i</code>. Angka status itu yang dicari, bukan hanya teks JSON.)</p>
-
-<figure role="img" aria-label="Diagram browser memanggil route Laravel lalu menerima JSON" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" style="display:block;max-width:720px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<h2>Alur instal — dari nol sampai proyek hidup</h2>
+<figure role="img" aria-label="Diagram alur instal PHP Composer dan proyek Laravel" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:760px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif" viewBox="0 0 760 260">
   <defs>
-    <marker id="laravel56jsonArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="laravel56installArrow" orient="auto" markerWidth="8" markerHeight="8" refX="7" refY="4" viewBox="0 0 8 8">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
+    </marker>
   </defs>
-  <rect x="0" y="0" width="720" height="240" fill="#F5F5F0" rx="6"/>
-  <text x="360" y="28" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">URL diketuk -&gt; route dipilih -&gt; JSON dikirim</text>
-  <rect x="40" y="70" width="160" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="120" y="115" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Browser / curl</text>
-  <text x="120" y="140" text-anchor="middle" fill="#2D3748" font-size="12">GET /api/buku</text>
-  <rect x="280" y="70" width="160" height="100" rx="6" fill="#1a1a1a" stroke="#000" stroke-width="2.5"/>
-  <text x="360" y="115" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Laravel Route</text>
-  <text x="360" y="140" text-anchor="middle" fill="#90CDF4" font-size="12">pintu HTTP</text>
-  <rect x="520" y="70" width="160" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="600" y="115" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">JSON + status</text>
-  <text x="600" y="140" text-anchor="middle" fill="#2D3748" font-size="12">200 atau 404</text>
-  <line x1="200" y1="120" x2="280" y2="120" stroke="#2979FF" stroke-width="2.5" marker-end="url(#laravel56jsonArrow)"/>
-  <line x1="440" y1="120" x2="520" y2="120" stroke="#2979FF" stroke-width="2.5" marker-end="url(#laravel56jsonArrow)"/>
+  <rect width="760" height="260" fill="#F5F5F0"/>
+  <text x="24" y="36" fill="#1a1a1a" font-size="16" font-weight="700">Instal: PHP -&gt; Composer -&gt; create-project -&gt; cek -&gt; artisan serve</text>
+  <rect x="24" y="70" width="120" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="84" y="105" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">PHP</text>
+  <text x="84" y="128" text-anchor="middle" fill="#1a1a1a" font-size="12">php -v</text>
+  <line x1="144" y1="110" x2="184" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel56installArrow)"/>
+  <rect x="188" y="70" width="130" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="253" y="105" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Composer</text>
+  <text x="253" y="128" text-anchor="middle" fill="#1a1a1a" font-size="12">composer -V</text>
+  <line x1="318" y1="110" x2="358" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel56installArrow)"/>
+  <rect x="362" y="70" width="150" height="80" rx="8" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="437" y="105" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">create-project</text>
+  <text x="437" y="128" text-anchor="middle" fill="#fff" font-size="12">perpustakaan-api</text>
+  <line x1="512" y1="110" x2="552" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel56installArrow)"/>
+  <rect x="556" y="70" width="90" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="601" y="105" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Cek</text>
+  <text x="601" y="128" text-anchor="middle" fill="#1a1a1a" font-size="12">artisan -V</text>
+  <line x1="646" y1="110" x2="686" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel56installArrow)"/>
+  <rect x="690" y="70" width="50" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="715" y="115" text-anchor="middle" fill="#1a1a1a" font-size="13" font-weight="700">serve</text>
+  <text x="24" y="190" fill="#1a1a1a" font-size="13">Jalur utama Windows: Laragon atau XAMPP sudah menyertakan PHP — tinggal pasang Composer.</text>
+  <text x="24" y="220" fill="#1a1a1a" font-size="13">Proyek perpustakaan-api akan dipakai untuk API perpustakaan mini di artikel berikutnya.</text>
 </svg>
-<figcaption style="margin-top:.75rem;color:#2D3748;font-size:.95rem">Route bukan “halaman web”. Ia adalah pintu yang menjawab data — sering berupa JSON.</figcaption>
+<figcaption>Alur <strong>#56 (ini)</strong>: siapkan alat, lahirkan proyek, cek versi, hidupkan server lokal.</figcaption>
 </figure>
 
-<h2>Laravel — menulis pintu JSON</h2>
-<p>Di project Laravel, cuplikan tipikal (misalnya <code>routes/api.php</code>). File ini <strong>bukan</strong> dijalankan dengan <code>php file.php</code> — ia hidup di dalam project Laravel:</p>
-
-<pre><code class="language-php">&lt;?php
-// Cuplikan Laravel (bukan file mandiri) — ide sama dengan demo JSON di atas.
-use Illuminate\Support\Facades\Route;
-
-Route::get('/api/buku', function () {
-    return response()-&gt;json([
-        ["judul" =&gt; "Belajar PHP", "tahun" =&gt; 2024],
-        ["judul" =&gt; "Laravel Praktis", "tahun" =&gt; 2025],
-    ]);
-});
+<h2>Laragon (atau XAMPP) — PHP di Windows</h2>
+<p><strong>Jalur utama Windows:</strong> pasang <strong>Laragon</strong> (disarankan) atau <strong>XAMPP</strong>. Keduanya sudah menyertakan PHP — kamu tidak perlu mengunduh PHP terpisah untuk langkah awal.</p>
+<ol>
+  <li>Unduh Laragon dari situs resminya, instal seperti aplikasi biasa.</li>
+  <li>Buka Laragon, klik <strong>Start All</strong> (Apache/MySQL boleh hidup — untuk Laravel kita fokus PHP dulu).</li>
+  <li>Buka terminal Laragon (menu <em>Terminal</em>) lalu ketik:</li>
+</ol>
+<pre><code class="language-bash">php -v
 </code></pre>
-
-<p><strong>Awam:</strong></p>
-<ul>
-  <li><code>Route::get(...)</code> = “kalau ada yang GET ke URL ini…”</li>
-  <li><code>response()-&gt;json(...)</code> = “jawab dengan JSON + header yang benar”</li>
-  <li>Default sukses biasanya status <code>200</code></li>
-</ul>
-
+<p>Output yang sehat menampilkan <strong>PHP 8.2</strong> atau lebih baru. Contoh bentuknya:</p>
 <pre><code class="language-php">&lt;?php
-// Cuplikan Laravel — satu buku atau 404.
-use Illuminate\Support\Facades\Route;
-
-Route::get('/api/buku/{id}', function (int $id) {
-    $koleksi = [
-        1 =&gt; ["judul" =&gt; "Belajar PHP", "tahun" =&gt; 2024],
-    ];
-
-    if (! isset($koleksi[$id])) {
-        return response()-&gt;json(["pesan" =&gt; "Buku tidak ditemukan"], 404);
-    }
-
-    return response()-&gt;json($koleksi[$id]);
-});
+// Simulasi output php -v (bukan perintah sungguhan — hanya bentuk teks).
+echo "PHP 8.3.12 (cli) (built: Oct 24 2024 00:00:00)", PHP_EOL;
+echo "Copyright (c) The PHP Group", PHP_EOL;
 </code></pre>
+<p><strong>Awam:</strong> kalau terminal bilang <code>php</code> tidak dikenali, PHP belum masuk PATH — restart Laragon atau buka terminal dari menu Laragon, bukan CMD acak.</p>
 
-<p>Argumen kedua <code>404</code> di <code>response()-&gt;json(..., 404)</code> mengatur status HTTP — sama ide-nya dengan <code>http_response_code(404)</code> di PHP biasa.</p>
+<h2>Composer — pengelola paket PHP</h2>
+<p>Setelah PHP hidup, pasang <strong>Composer</strong> dari <a href="https://getcomposer.org/download/" rel="noopener noreferrer">getcomposer.org</a> (installer Windows). Composer mengunduh Laravel dan dependensinya ke folder proyek.</p>
+<pre><code class="language-bash">composer -V
+</code></pre>
+<p>Contoh output yang kamu harapkan:</p>
+<pre><code class="language-php">&lt;?php
+// Simulasi output composer -V.
+echo "Composer version 2.8.3 2024-11-12 15:00:00", PHP_EOL;
+</code></pre>
+<p><strong>Awam:</strong> Composer seperti kurir yang mengantar rak, label, dan perlengkapan toko Laravel — kamu tidak mengunduh ribuan file manual.</p>
 
-<h2>Pola Dasar — routing &amp; JSON</h2>
-<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Lima langkah Laravel routing dan JSON">
+<h2>create-project — lahirkan proyek Laravel</h2>
+<p>Pilih folder kerja (misalnya <code>C:\laragon\www</code> di Laragon). Lalu jalankan:</p>
+<pre><code class="language-bash">composer create-project laravel/laravel perpustakaan-api
+</code></pre>
+<p>Perintah ini membuat folder <code>perpustakaan-api</code> berisi kerangka Laravel 11+. Proses bisa beberapa menit — normal. Nama <code>perpustakaan-api</code> mengingatkan bahwa proyek ini nanti dipakai untuk <strong>API perpustakaan mini</strong>.</p>
+<p>Masuk ke folder proyek:</p>
+<pre><code class="language-bash">cd perpustakaan-api
+</code></pre>
+<p><strong>Awam:</strong> <code>create-project</code> = paket “toko siap bangun”. Isi rak buku (route, model) kita tambah di artikel berikutnya.</p>
+
+<h2>Cek versi &amp; artisan serve</h2>
+<p>Tiga cek cepat sebelum lanjut:</p>
+<pre><code class="language-bash">php -v
+composer -V
+php artisan --version
+</code></pre>
+<p>Contoh output Artisan (bentuk mirip):</p>
+<pre><code class="language-php">&lt;?php
+// Simulasi output php artisan --version.
+echo "Laravel Framework 11.31.0", PHP_EOL;
+</code></pre>
+<p>Hidupkan server pengembangan bawaan:</p>
+<pre><code class="language-bash">php artisan serve
+</code></pre>
+<p>Buka browser ke alamat yang muncul (biasanya <code>http://127.0.0.1:8000</code>). Kamu harus melihat <strong>halaman welcome Laravel</strong> — artinya proyek hidup.</p>
+<p><strong>Awam:</strong> <code>artisan serve</code> = menyalakan lampu toko sementara di komputermu. Matikan dengan <code>Ctrl+C</code> di terminal.</p>
+
+<h2>Alternatif singkat — PHP di PATH + Composer resmi</h2>
+<p>Jika tidak memakai Laragon/XAMPP: unduh PHP zip dari php.net, ekstrak, tambahkan folder PHP ke <strong>PATH</strong> Windows, lalu pasang Composer installer. Setelah <code>php -v</code> dan <code>composer -V</code> sama-sama jalan, langkah <code>create-project</code> dan <code>artisan serve</code> identik dengan atas.</p>
+
+<h2>Pola Dasar — enam langkah instal bersih</h2>
+<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah instal PHP Composer Laravel">
 <ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Tentukan pintu (URL + cara ketuk)</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem"><code>GET /api/buku</code> untuk daftar; <code>GET /api/buku/{id}</code> untuk satu item.</span>
-    </div>
+    <div><strong style="color:#1a1a1a">Pasang PHP</strong><br><span style="color:#1a1a1a">Laragon/XAMPP atau PHP manual — pastikan <code>php -v</code> menampilkan 8.2+.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Siapkan data sebagai array/object</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Sama seperti array PHP di jembatan OOP — belum perlu database di artikel ini.</span>
-    </div>
+    <div><strong style="color:#1a1a1a">Pasang Composer</strong><br><span style="color:#1a1a1a">Installer resmi — cek <code>composer -V</code> di terminal yang sama dengan PHP.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Kirim JSON, bukan HTML</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem"><code>response()-&gt;json(...)</code> mengurus header yang bilang “ini JSON” (sering disebut Content-Type).</span>
-    </div>
+    <div><strong style="color:#1a1a1a">Buat proyek</strong><br><span style="color:#1a1a1a"><code>composer create-project laravel/laravel perpustakaan-api</code> di folder kerja.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Pakai status yang jujur</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Ketemu -&gt; 200. Tidak ketemu -&gt; 404. Jangan selalu 200 dengan pesan bohong.</span>
-    </div>
+    <div><strong style="color:#1a1a1a">Masuk folder &amp; cek Artisan</strong><br><span style="color:#1a1a1a"><code>cd perpustakaan-api</code> lalu <code>php artisan --version</code>.</span></div>
+  </li>
+  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
+    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
+    <div><strong style="color:#1a1a1a">Jalankan server</strong><br><span style="color:#1a1a1a"><code>php artisan serve</code> — buka halaman welcome di browser.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Baru pikir validasi request</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — penjaga di pintu masuk supaya data kotor tidak masuk sembarangan.</span>
-    </div>
+    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">6</span>
+    <div><strong style="color:#1a1a1a">Catat lokasi proyek</strong><br><span style="color:#1a1a1a">Folder ini dipakai lagi untuk struktur folder, file <code>.env</code>, dan perintah Artisan di langkah berikutnya.</span></div>
   </li>
 </ol>
 </figure>
 
-<h2>Kode lengkap — <code>laravel_routing_json_demo.php</code></h2>
-<p>Simpan dan jalankan: <code>php laravel_routing_json_demo.php</code>. Ini meniru jawaban API (JSON + status) tanpa server Laravel — supaya ide-nya terasa dulu.</p>
-<p><strong>Awam:</strong> baris <code>mixed $data</code> artinya “data bisa bermacam bentuk (array, teks, dll.)”. Tidak perlu dihafal; fokus ke <code>kirimJson()</code> yang mengurus status + JSON. <code>array_values(...)</code> hanya merapikan daftar jadi nomor urut 0, 1, 2… supaya JSON-nya berbentuk array daftar, bukan objek ber-id.</p>
+<h2>Demo cek versi — file mandiri</h2>
+<p>Simpan sebagai <code>laravel_instalasi_proyek_pertama_demo.php</code>, lalu jalankan <code>php laravel_instalasi_proyek_pertama_demo.php</code>. File ini <strong>mensimulasikan</strong> output cek versi — tidak butuh Laravel terpasang:</p>
 
 <pre><code class="language-php">&lt;?php
-/**
- * Demo ide routing &amp; JSON (Seri 4 #56).
- * Di Laravel, ide yang sama hidup di Route + response()-&gt;json.
- */
-
 declare(strict_types=1);
 
-function kirimJson(mixed $data, int $status = 200): void
+/**
+ * Demo cek versi instalasi — simulasi string output.
+ */
+
+function cekVersi(string $label, string $perintah, string $outputSimulasi, bool $lulus): array
 {
-    http_response_code($status);
-    header("Content-Type: application/json; charset=utf-8");
-    echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
+    return [
+        "label" =&gt; $label,
+        "perintah" =&gt; $perintah,
+        "output" =&gt; $outputSimulasi,
+        "lulus" =&gt; $lulus,
+    ];
 }
 
 function demo(): void
 {
-    $koleksi = [
-        1 =&gt; ["judul" =&gt; "Belajar PHP", "tahun" =&gt; 2024],
-        2 =&gt; ["judul" =&gt; "Laravel Praktis", "tahun" =&gt; 2025],
+    $cek = [
+        cekVersi("PHP", "php -v", "PHP 8.3.12 (cli)", true),
+        cekVersi("Composer", "composer -V", "Composer version 2.8.3", true),
+        cekVersi("Artisan", "php artisan --version", "Laravel Framework 11.31.0", true),
+        cekVersi("Server", "php artisan serve", "Server running on http://127.0.0.1:8000", true),
     ];
 
-    // Simulasi: daftar buku (200)
-    echo "=== GET /api/buku ===", PHP_EOL;
-    kirimJson(array_values($koleksi), 200);
-
-    // Simulasi: tidak ketemu (404)
-    echo "=== GET /api/buku/99 ===", PHP_EOL;
-    kirimJson(["pesan" =&gt; "Buku tidak ditemukan"], 404);
+    echo "=== Demo cek instal Laravel ===", PHP_EOL;
+    foreach ($cek as $baris) {
+        $status = $baris["lulus"] ? "OK" : "GAGAL";
+        echo "[{$status}] {$baris["label"]}: {$baris["perintah"]}", PHP_EOL;
+        echo "  -&gt; {$baris["output"]}", PHP_EOL;
+    }
+    echo PHP_EOL, "Semua cek simulasi lulus — siap lanjut ke struktur proyek.", PHP_EOL;
 }
 
 demo();
 </code></pre>
-
-<p>Output yang diharapkan:</p>
-<pre><code>=== GET /api/buku ===
-[
-    {
-        "judul": "Belajar PHP",
-        "tahun": 2024
-    },
-    {
-        "judul": "Laravel Praktis",
-        "tahun": 2025
-    }
-]
-=== GET /api/buku/99 ===
-{
-    "pesan": "Buku tidak ditemukan"
-}
-</code></pre>
+<p><strong>Awam:</strong> <code>demo()</code> hanya menampilkan contoh teks yang kamu harapkan dari terminal sungguhan. <code>declare(strict_types=1);</code> membuat tipe lebih ketat — boleh diikuti, tidak wajib dihafal. Setelah instal nyata, bandingkan output-mu dengan baris di atas.</p>
 
 <h2>Kesalahan umum</h2>
 <table>
@@ -326,57 +300,57 @@ demo();
     <tr>
       <th>Gejala</th>
       <th>Penyebab tipikal</th>
-      <th>Perbaikan</th>
+      <th>Perbaikan awam</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Jawaban terlihat seperti HTML</td>
-      <td>Mengembalikan halaman HTML / teks biasa</td>
-      <td>Pakai <code>response()-&gt;json(...)</code></td>
+      <td><code>php</code> tidak dikenali</td>
+      <td>PHP belum di PATH atau terminal salah</td>
+      <td>Buka terminal dari Laragon; restart setelah instal</td>
     </tr>
     <tr>
-      <td>Selalu status 200 padahal gagal</td>
-      <td>Lupa argumen status</td>
-      <td><code>response()-&gt;json(..., 404)</code></td>
+      <td><code>composer</code> tidak dikenali</td>
+      <td>Composer belum terpasang / PATH belum refresh</td>
+      <td>Instal ulang Composer; tutup-buka terminal</td>
     </tr>
     <tr>
-      <td>Route tidak ketemu</td>
-      <td>URL atau cara ketuk (GET/POST) salah, atau daftar route masih tersimpan lama</td>
-      <td>Cek path; <code>php artisan route:list</code></td>
+      <td><code>create-project</code> gagal / lambat</td>
+      <td>Jaringan atau folder tanpa izin tulis</td>
+      <td>Coba folder lain (mis. <code>www</code> Laragon); cek internet</td>
     </tr>
     <tr>
-      <td>Langsung loncat database</td>
-      <td>Mau model database terlalu dini</td>
-      <td>Rapatkan pintu JSON dulu (<strong>#56 (ini)</strong>), baru penyimpanan data nanti</td>
+      <td><code>artisan</code> error “could not open input file”</td>
+      <td>Belum <code>cd</code> ke folder proyek</td>
+      <td>Masuk ke <code>perpustakaan-api</code> dulu</td>
     </tr>
     <tr>
-      <td>Satu file route jadi gudang besar</td>
-      <td>Semua logika ditumpuk di dalam file route</td>
-      <td>Nanti pecah ke controller — mulai dari pintu yang tipis</td>
+      <td>Browser kosong / tidak bisa buka</td>
+      <td>Server belum jalan atau port bentrok</td>
+      <td>Pastikan <code>php artisan serve</code> masih aktif; coba port lain</td>
     </tr>
   </tbody>
 </table>
 
-<h2>Latihan singkat</h2>
+<h2>Latihan</h2>
 <ol>
-  <li>Di demo PHP, tambah buku id <code>3</code> dan pastikan daftar memuat 3 item.</li>
-  <li>Ubah simulasi id <code>99</code> menjadi id <code>1</code> dan pastikan output menampilkan judul buku (bukan pesan 404).</li>
-  <li>Di cuplikan Laravel, tulis route <code>GET /api/ping</code> yang mengembalikan <code>{"ok":true}</code>.</li>
+  <li>Jalankan demo PHP di atas, lalu jalankan <code>php -v</code> sungguhan — bandingkan baris versinya.</li>
+  <li>Buat proyek dengan nama lain (mis. <code>perpustakaan-coba</code>) dan pastikan halaman welcome muncul.</li>
+  <li>Jelaskan ke teman analogi “mendirikan toko sebelum jual buku” untuk instal Laravel.</li>
 </ol>
 
-<h2>FAQ singkat</h2>
-<p><strong>Harus install Laravel dulu?</strong><br>Untuk memahami ide: demo PHP di atas sudah cukup. Untuk latihan framework: buat project Laravel 11+ lalu tempel cuplikan route.</p>
-<p><strong>Kenapa JSON, bukan HTML?</strong><br>API biasanya dilayani ke aplikasi lain (mobile, frontend, IoT). JSON lebih mudah diparse program daripada halaman penuh.</p>
-<p><strong>Apa bedanya <code>routes/web.php</code> dan <code>routes/api.php</code>?</strong><br>Secara awam: <code>web</code> sering untuk halaman + login/sesi di browser; <code>api</code> untuk JSON ke aplikasi lain. Lapisan pengaman tambahan (sering disebut middleware) menyusul — fokus dulu: ada pintu, ada jawaban JSON.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — penjaga di pintu masuk supaya data kotor tidak masuk sembarangan.</p>
+<h2>FAQ</h2>
+<p><strong>Harus pakai Laragon?</strong><br>
+Tidak wajib. Laragon/XAMPP hanya jalur paling nyaman di Windows. Yang wajib: PHP 8.2+ dan Composer jalan di terminal yang sama.</p>
+<p><strong>Boleh pakai nama folder selain perpustakaan-api?</strong><br>
+Boleh. Nama itu hanya pengingat domain perpustakaan — yang penting kamu tahu lokasi foldernya.</p>
+<p><strong>Ke mana setelah ini?</strong><br>
+Berikutnya kamu akan kenali <strong>struktur folder</strong> proyek, file <strong><code>.env</code></strong> untuk pengaturan, dan perintah <strong>Artisan</strong> sehari-hari — fondasi sebelum routing JSON dan API perpustakaan.</p>
 
-<h2>Kesimpulan &amp; langkah berikutnya</h2>
-<p>Route = pintu. JSON = isi jawaban. Status = kejujuran sukses/gagal. Tiga ide ini yang membuat API perpustakaan bisa diajak bicara dari luar.</p>
-<p>Artikel ini adalah <strong>#56 (ini)</strong> — pembuka Laravel setelah <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> menutup jembatan OOP PHP.</p>
-
+<h2>Kesimpulan</h2>
+<p>Kamu sudah menyiapkan fondasi Laravel dari nol: <strong>PHP</strong>, <strong>Composer</strong>, proyek <code>perpustakaan-api</code> lewat <code>create-project</code>, cek <code>artisan --version</code>, dan <code>php artisan serve</code> dengan halaman welcome. Ini langkah <strong>1/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · 8/8 Capstone Laravel selesai · stack Laravel <strong>1/5</strong> · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — penjaga input di pintu HTTP.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · <strong>1/8</strong> jalur Laravel · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: struktur folder, file <code>.env</code>, database, dan Artisan.</p>
 </blockquote>
 HTML;
     }
