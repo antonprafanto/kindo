@@ -165,9 +165,9 @@ class Article56Seeder extends Seeder
 </figure>
 
 <h2>Laragon (atau XAMPP) — PHP di Windows</h2>
-<p><strong>Jalur utama Windows:</strong> pasang <strong>Laragon</strong> (disarankan) atau <strong>XAMPP</strong>. Keduanya sudah menyertakan PHP — kamu tidak perlu mengunduh PHP terpisah untuk langkah awal.</p>
+<p><strong>Jalur utama Windows:</strong> pasang <strong>Laragon</strong> (disarankan) atau <strong>XAMPP</strong>. Keduanya sudah menyertakan PHP — kamu tidak perlu mengunduh PHP terpisah untuk langkah awal. Tautan unduh ada di langkah 1 di bawah.</p>
 <ol>
-  <li>Unduh Laragon dari situs resminya, instal seperti aplikasi biasa.</li>
+  <li>Unduh <a href="https://laragon.org/download/" rel="noopener noreferrer">Laragon</a> (disarankan) atau <a href="https://www.apachefriends.org/" rel="noopener noreferrer">XAMPP</a> dari situs resmi, lalu instal seperti aplikasi biasa.</li>
   <li>Buka Laragon, klik <strong>Start All</strong> (Apache/MySQL boleh hidup — untuk Laravel kita fokus PHP dulu).</li>
   <li>Buka terminal Laragon (menu <em>Terminal</em>) lalu ketik:</li>
 </ol>
@@ -220,7 +220,7 @@ echo "Laravel Framework 13.0.0", PHP_EOL;
 <p><strong>Awam:</strong> <code>artisan serve</code> = menyalakan lampu toko sementara di komputermu. Matikan dengan <code>Ctrl+C</code> di terminal.</p>
 
 <h2>Alternatif singkat — PHP di PATH + Composer resmi</h2>
-<p>Jika tidak memakai Laragon/XAMPP: unduh PHP zip dari php.net, ekstrak, tambahkan folder PHP ke <strong>PATH</strong> Windows, lalu pasang Composer installer. Setelah <code>php -v</code> dan <code>composer -V</code> sama-sama jalan, langkah <code>create-project</code> dan <code>artisan serve</code> identik dengan atas.</p>
+<p>Jika tidak memakai Laragon/XAMPP: unduh PHP zip dari <a href="https://windows.php.net/download/" rel="noopener noreferrer">windows.php.net</a>, ekstrak, tambahkan folder PHP ke <strong>PATH</strong> Windows, lalu pasang Composer installer. Setelah <code>php -v</code> dan <code>composer -V</code> sama-sama jalan, langkah <code>create-project</code> dan <code>artisan serve</code> identik dengan atas.</p>
 
 <h2>Pola Dasar — enam langkah instal bersih</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah instal PHP Composer Laravel">
