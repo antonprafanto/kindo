@@ -258,7 +258,7 @@ $r = daftarBuku($katalog, 1, 2, "aktif", "PHP");
 http_response_code($r["status"]);
 echo json_encode($r["body"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
 </code></pre>
-<p><strong>Awam:</strong> <code>stripos</code> = cari kata di judul tanpa peduli huruf besar/kecil. <code>array_slice</code> = potong lembar. <code>422</code> = isian halaman kotor (sama ide dengan isian belum rapi di <a href="/artikel/laravel-crud-api-buku-ubah-hapus">#61</a>).</p>
+<p><strong>Awam:</strong> <code>stripos</code> = cari kata di judul tanpa peduli huruf besar/kecil. <code>array_slice</code> = potong lembar. <code>422</code> = isian halaman kotor (sama ide dengan isian belum rapi di <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD ubah &amp; hapus (#61)</a>).</p>
 
 <h2>Laravel — cuplikan pagination &amp; filter (bukan file mandiri)</h2>
 <p>Di proyek Laravel, ide yang sama sering ditulis di pengatur kode (<code>controller</code>) / pekerja (<code>service</code>). Cuplikan di bawah <strong>bukan</strong> dijalankan dengan <code>php file.php</code>:</p>
@@ -311,7 +311,7 @@ public function index(Request $request)
 <ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
-    <div><strong style="color:#1a1a1a">Pastikan relasi sudah klik</strong><br><span style="color:#1a1a1a">Fondasi di <a href="/artikel/laravel-eloquent-relasi-peminjaman" style="color:#1a1a1a;text-decoration:underline">#62</a> membantu daftar pinjam tetap bermakna.</span></div>
+    <div><strong style="color:#1a1a1a">Pastikan relasi sudah klik</strong><br><span style="color:#1a1a1a">Fondasi di <a href="/artikel/laravel-eloquent-relasi-peminjaman" style="color:#1a1a1a;text-decoration:underline">Relasi Eloquent (#62)</a> membantu daftar pinjam tetap bermakna.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
@@ -452,12 +452,12 @@ Untuk belajar, 5–10 sudah nyaman. Di produksi, batasi maksimum supaya pemanggi
 <p><strong>Apakah wajib pakai <code>paginate()</code> Laravel?</strong><br>
 Tidak wajib memahami setiap opsi dulu. Yang penting: potong + kirim total. <code>paginate()</code> tinggal membungkus ide yang sama.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya alami: <strong>aturan izin</strong> (<em>policy</em>) — siapa boleh ubah/hapus data. Belum perlu hardlink; tunggu artikel berikutnya LIVE.</p>
+Berikutnya: <a href="/artikel/laravel-policy-otorisasi-api">Authorization Policy: Siapa Boleh Ubah (#64)</a> — aturan izin siapa boleh ubah/hapus data.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah merapikan daftar panjang: <strong>filter</strong> menyaring aturan, <strong>pencarian</strong> menyempitkan teks, <strong>pagination</strong> memotong lembar. PHP array dulu; Laravel <code>paginate()</code> / <code>where</code> / <code>like</code> adalah bungkus yang sama.</p>
 <blockquote>
-  <p><strong>Seri 5 progress:</strong> langkah <strong>#63 (ini)</strong> · 3/8 Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent (#62)</a> LIVE. Berikutnya: aturan izin / Policy (siapa boleh ubah) — soft, belum hardlink.</p>
+  <p><strong>Seri 5 progress:</strong> langkah <strong>#63 (ini)</strong> · 3/8 Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent (#62)</a> LIVE. Berikutnya: <a href="/artikel/laravel-policy-otorisasi-api">Authorization Policy: Siapa Boleh Ubah (#64)</a>.</p>
 </blockquote>
 HTML;
     }

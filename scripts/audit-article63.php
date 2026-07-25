@@ -70,8 +70,7 @@ check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
-check(str_contains($body, 'Policy') || str_contains($body, 'policy'), 'Soft bridge #64');
-check(! str_contains($body, '/artikel/laravel-policy'), 'Tanpa hardlink #64');
+check(str_contains($body, '/artikel/laravel-policy-otorisasi-api'), 'Hardlink #64');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article62Seeder.php'), $slug), '#62 hardlink #63');
 

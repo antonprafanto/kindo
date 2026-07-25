@@ -4511,6 +4511,106 @@ class DeployController extends Controller
         return response('Article 63 published', 200);
     }
 
+    public function publishArticle64(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article64Seeder.php',
+            'database/seeders/Article63Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article64Seeder::class)) {
+            return response('Article64Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 64 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article64Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 64 seed failed', 500);
+        }
+
+        $slug = 'laravel-policy-otorisasi-api';
+        $prevSlug = 'laravel-pagination-filter-pencarian';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 64 missing or not visible after Article64Seeder on deploy hook.'));
+
+            return response('Article 64 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'laravel64policyArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_policy_otorisasi_api_demo.php') || ! str_contains($body, 'authorize') || ! str_contains($body, 'aturan izin') || ! str_contains($body, 'Policy') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#64 (ini)') || ! str_contains($body, '4/8 Laravel Lanjutan') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Tidak punya izin') || ! str_contains($body, 'Pola Dasar')) {
+            report(new \RuntimeException('Article 64 body missing expected content after seed.'));
+
+            return response('Article 64 body content checks failed', 500);
+        }
+
+        $a63 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a63) {
+            report(new \RuntimeException('Article 63 missing while publishing #64.'));
+
+            return response('Article 64 prerequisite #63 missing', 500);
+        }
+
+        if (class_exists(\Database\Seeders\Article63Seeder::class)) {
+            $backExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article63Seeder',
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response('Article 64 backlink #63 seed failed', 500);
+            }
+        }
+
+        $a63 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a63 || ! str_contains((string) $a63->body, $slug)) {
+            report(new \RuntimeException('Article 64 backlink missing on #63 after reseed.'));
+
+            return response('Article 64 backlink #63 incomplete', 500);
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 64 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [
