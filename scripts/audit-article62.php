@@ -69,8 +69,7 @@ check(str_contains($body, '2/8 Laravel Lanjutan'), 'Progress 2/8');
 check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
-check(str_contains($body, 'Pagination') || str_contains($body, 'pagination'), 'Soft bridge #63');
-check(! str_contains($body, '/artikel/laravel-pagination'), 'Tanpa hardlink #63');
+check(str_contains($body, '/artikel/laravel-pagination-filter-pencarian'), 'Hardlink #63');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article61Seeder.php'), $slug), '#61 hardlink #62');
 

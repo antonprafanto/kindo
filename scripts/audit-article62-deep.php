@@ -65,7 +65,7 @@ check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article61Seed
 check(str_contains($body, '2/8 Laravel Lanjutan'), 'Progress 2/8');
 check(str_contains($body, 'Laravel Lanjutan') || str_contains($body, 'Framework-based'), 'Framing Seri 5');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'Awam:'), 'Gloss awam');
-check(str_contains($body, 'Pagination') || str_contains($body, 'pagination'), 'Jembatan soft ke #63');
+check(str_contains($body, '/artikel/laravel-pagination-filter-pencarian'), 'Hardlink #63');
 check(str_contains($body, 'loket') || str_contains($body, 'rak') || str_contains($body, 'perpustakaan'), 'Analogi rak/loket');
 check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
 check(str_contains($body, 'Spesifikasi fitur'), 'Spesifikasi');
@@ -84,10 +84,9 @@ check(str_contains($body, 'Migrasi (skrip') || str_contains($body, 'skrip buat')
 check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(str_contains($body, 'model') && str_contains($body, 'mewakili satu tabel'), 'Gloss model');
 check(str_contains($body, 'pengatur kode') && str_contains($body, 'pekerja'), 'Gloss controller/service');
-check(! str_contains($body, '/artikel/laravel-pagination'), 'Tanpa hardlink #63 unpublished');
 
 echo "\n=== Deep-audit pass-1 #62: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: JENUH LIVE #62 — hardlink #61 terkunci. STOP AUDIT → oke deploy hanya untuk resync/bug.\n";
+    echo "Verdict: JENUH LIVE #62 — hardlink #61+#63 terkunci. STOP AUDIT → oke deploy hanya untuk resync/bug.\n";
 }
 exit($failed > 0 ? 1 : 0);

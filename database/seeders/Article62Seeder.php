@@ -435,12 +435,12 @@ Belum. Untuk perpustakaan mini, <code>hasMany</code> dan <code>belongsTo</code> 
 <p><strong>Kenapa belum Capstone pinjam-kembali?</strong><br>
 Karena fondasi hubungan data harus jelas dulu. Alur pinjam + kembali penuh ada di akhir Seri 5.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya alami: <strong>pagination, filter &amp; pencarian</strong> — daftar pinjaman/buku yang panjang tetap nyaman dibaca. Belum perlu hardlink; tunggu artikel berikutnya LIVE.</p>
+Berikutnya: <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#63)</a> — daftar pinjaman/buku yang panjang tetap nyaman dibaca.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah melangkah dari CRUD buku ke <strong>relasi</strong>: anggota dan peminjaman terhubung lewat nomor (<code>anggota_id</code>, <code>buku_id</code>). PHP array dulu; Eloquent <code>hasMany</code> / <code>belongsTo</code> adalah bungkus yang sama.</p>
 <blockquote>
-  <p><strong>Seri 5 progress:</strong> langkah <strong>#62 (ini)</strong> · 2/8 Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD ubah &amp; hapus (#61)</a> LIVE. Berikutnya: Pagination, filter &amp; pencarian — soft, belum hardlink.</p>
+  <p><strong>Seri 5 progress:</strong> langkah <strong>#62 (ini)</strong> · 2/8 Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD ubah &amp; hapus (#61)</a> LIVE. Berikutnya: <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#63)</a>.</p>
 </blockquote>
 HTML;
     }
