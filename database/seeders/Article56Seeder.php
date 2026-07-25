@@ -347,12 +347,12 @@ Versi terbaru resmi saat artikel ini ditulis adalah <strong>Laravel 13</strong> 
 <p><strong>Boleh pakai nama folder selain perpustakaan-api?</strong><br>
 Boleh. Nama itu hanya pengingat domain perpustakaan — yang penting kamu tahu lokasi foldernya.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya kamu akan kenali <strong>struktur folder</strong> proyek, file <strong><code>.env</code></strong> untuk pengaturan, dan perintah <strong>Artisan</strong> sehari-hari — fondasi sebelum routing JSON dan API perpustakaan.</p>
+Berikutnya: <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> — kenali denah folder, pengaturan, dan perintah Artisan sehari-hari sebelum routing JSON.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah menyiapkan fondasi Laravel dari nol: <strong>PHP</strong>, <strong>Composer</strong>, proyek <code>perpustakaan-api</code> lewat <code>create-project</code>, cek <code>artisan --version</code>, dan <code>php artisan serve</code> dengan halaman welcome. Ini langkah <strong>1/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · <strong>1/8</strong> jalur Laravel · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: struktur folder, file <code>.env</code>, database, dan Artisan.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#56 (ini)</strong> · <strong>1/8</strong> jalur Laravel · prasyarat: <a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a> LIVE. Berikutnya: <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a>.</p>
 </blockquote>
 HTML;
     }

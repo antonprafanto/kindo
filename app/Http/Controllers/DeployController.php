@@ -3852,8 +3852,8 @@ class DeployController extends Controller
             return response('Article 57 seed failed', 500);
         }
 
-        $slug = 'laravel-request-validasi-api';
-        $prevSlug = 'laravel-routing-json-perpustakaan-api';
+        $slug = 'laravel-struktur-env-artisan';
+        $prevSlug = 'laravel-instalasi-proyek-pertama';
 
         $article = Article::published()->where('slug', $slug)->first();
 
@@ -3864,7 +3864,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel57reqArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_request_validasi_demo.php') || ! str_contains($body, 'validasiBuku') || ! str_contains($body, 'FormRequest') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#57 (ini)') || ! str_contains($body, '8/8 Capstone Laravel selesai') || ! str_contains($body, $prevSlug) || ! str_contains($body, '422') || ! str_contains($body, 'pengatur kode') || ! str_contains($body, 'laravel-controller-service-eloquent') || ! str_contains($body, 'sering disebut frontend')) {
+        if (! str_contains($body, 'laravel57structArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_struktur_env_artisan_demo.php') || ! str_contains($body, 'key:generate') || ! str_contains($body, 'DB_CONNECTION') || ! str_contains($body, 'sqlite') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#57 (ini)') || ! str_contains($body, '2/8') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Laravel 13+') || ! str_contains($body, 'Artisan')) {
             report(new \RuntimeException('Article 57 body missing expected content after seed.'));
 
             return response('Article 57 body content checks failed', 500);

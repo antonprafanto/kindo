@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP/pedagogi audit #57 — runnable validasi demo (skip cuplikan Laravel).
+ * PHP / pedagogi audit #57 — extract & run language-php blocks.
  * Usage: php scripts/audit-article57-php.php
  */
 
@@ -27,55 +27,47 @@ $method = $ref->getMethod('body');
 $method->setAccessible(true);
 $body = $method->invoke($ref->newInstanceWithoutConstructor());
 
-preg_match_all('/<pre><code class="language-php">(.*?)<\/code><\/pre>/s', $body, $blocks);
-check(count($blocks[1]) >= 4, 'Minimal 4 blok language-php ('.count($blocks[1]).')');
+preg_match_all('/<pre><code class="language-php">(.*?)<\/code><\/pre>/s', $body, $matches);
+$blocks = $matches[1] ?? [];
+check(count($blocks) >= 3, 'Minimal 3 blok language-php ('.count($blocks).')');
 
-$tmpDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a57php_'.uniqid();
-mkdir($tmpDir);
+$dir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a57php_'.bin2hex(random_bytes(4));
+mkdir($dir);
 
 $runnable = 0;
-foreach ($blocks[1] as $i => $raw) {
+foreach ($blocks as $i => $raw) {
     $code = html_entity_decode($raw, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-    if (str_contains($code, 'Route::') || str_contains($code, 'Cuplikan Laravel') || str_contains($code, 'FormRequest') || str_contains($code, 'namespace App\\Http\\Requests')) {
-        check(true, 'skip Laravel cuplikan block #'.($i + 1));
+    $code = str_replace(['&lt;', '&gt;', '&amp;'], ['<', '>', '&'], $code);
+    if (! str_starts_with(ltrim($code), '<?php')) {
         continue;
     }
     $runnable++;
-    $file = $tmpDir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
+    $file = $dir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
     file_put_contents($file, $code);
     $lint = [];
-    $lrc = 0;
-    exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lrc);
-    check($lrc === 0, 'php -l block #'.($i + 1).' — '.trim(implode(' ', $lint)));
+    exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lintCode);
+    check($lintCode === 0, 'php -l block #'.($i + 1).' — '.implode(' ', $lint));
     $out = [];
-    $rc = 0;
-    exec('php '.escapeshellarg($file).' 2>&1', $out, $rc);
+    exec('php '.escapeshellarg($file).' 2>&1', $out, $runCode);
+    check($runCode === 0, 'run block #'.($i + 1).' exit 0');
     $joined = implode("\n", $out);
-    check($rc === 0, 'run block #'.($i + 1).' exit 0');
-    if ($runnable === 1) {
-        check(str_contains($joined, 'Judul wajib') || str_contains($joined, 'tidak valid'), 'run block #'.($i + 1).' output: error judul');
-    }
-    if ($runnable === 2) {
-        check(str_contains($joined, 'Belajar PHP') || str_contains($joined, '"ok"'), 'run block #'.($i + 1).' output: sukses');
-    }
-    if (str_contains($code, 'function demo')) {
-        check(str_contains($joined, 'POST kotor') || str_contains($joined, 'POST bersih'), 'run demo output framing');
-        check(str_contains($joined, 'Judul wajib') && str_contains($joined, 'Belajar PHP'), 'run demo has error + sukses');
+    if (str_contains($code, 'demo(')) {
+        check(str_contains($joined, 'app') || str_contains($joined, 'Demo'), 'run demo output: peta');
+        check(str_contains($joined, 'APP_NAME') || str_contains($joined, 'sqlite'), 'run demo output: env');
     }
 }
 
 check($runnable >= 3, '≥3 blok runnable PHP ('.$runnable.')');
-check(str_contains($body, 'demo('), 'Ada demo()');
-check(str_contains($body, 'laravel_request_validasi_demo.php'), 'File contoh');
-check(str_contains($body, 'validasiBuku'), 'Ada validasiBuku');
-check(str_contains($body, 'laravel57reqArrow'), 'SVG marker');
+check(str_contains($body, 'demo()'), 'Ada demo()');
+check(str_contains($body, 'laravel_struktur_env_artisan_demo.php'), 'File contoh');
+check(str_contains($body, 'laravel57structArrow'), 'SVG marker');
 check(str_contains($body, 'Seri 4'), 'Framing Seri 4');
 check(str_contains($body, '#57 (ini)'), 'Self-ref');
 
-foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
+foreach (glob($dir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
     @unlink($f);
 }
-@rmdir($tmpDir);
+@rmdir($dir);
 
 echo "\n=== PHP/pedagogi audit #57: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

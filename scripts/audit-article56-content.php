@@ -73,7 +73,7 @@ check(! str_contains($body, '11.31.0'), 'Tanpa nomor 11.31 usang');
 check(str_contains($body, 'laragon.org'), 'Link Laragon klikable');
 check(str_contains($body, 'windows.php.net'), 'Link PHP Windows klikable');
 check(str_contains($body, 'getcomposer.org'), 'Link Composer klikable');
-check(str_contains($body, 'struktur folder') && str_contains($body, '.env') && ! str_contains($body, '/artikel/laravel-struktur-env-artisan'), 'Soft bridge #57 tanpa hardlink');
+check(str_contains($body, '/artikel/laravel-struktur-env-artisan'), 'Hardlink #57');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa PHPDoc @param di demo');
 check(! str_contains($body, 'Unauthorized') && ! str_contains($body, 'JWT'), 'Tanpa Unauthorized/JWT');

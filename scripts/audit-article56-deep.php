@@ -72,7 +72,7 @@ check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article55Seed
 check(str_contains($body, '1/8'), 'Progress 1/8');
 check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel'), 'Framing Seri 4 v2');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'Awam:'), 'Gloss awam');
-check(str_contains($body, 'struktur folder') && str_contains($body, '.env') && str_contains($body, 'Artisan'), 'Jembatan soft ke #57');
+check(str_contains($body, '/artikel/laravel-struktur-env-artisan'), 'Hardlink #57');
 check(str_contains($body, 'mendirikan toko') || str_contains($body, 'perpustakaan'), 'Analogi toko');
 check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
@@ -83,13 +83,12 @@ check(str_contains($body, 'proyek') && ! preg_match('/(?<!-)project /', $body), 
 check(! str_contains($body, 'endpoint'), 'Tanpa jargon endpoint');
 check(str_contains($body, 'php -v') && str_contains($body, 'composer -V'), 'Cek versi');
 check(str_contains($body, 'Laragon') || str_contains($body, 'XAMPP'), 'Jalur Windows');
-check(! str_contains($body, '/artikel/laravel-struktur-env-artisan'), 'Tanpa hardlink #57');
 check(! str_contains($body, '/artikel/laravel-request-validasi-api'), 'Tanpa hardlink slug lama');
 check(! str_contains($body, 'Belum perlu hardlink') && ! str_contains($body, 'soft, belum hardlink'), 'Tanpa suara editor hardlink');
 check(! preg_match('/<a\b[^>]*>\s*#\d+\s*<\/a>/u', $body), 'Tanpa thin anchor #N');
 
 echo "\n=== Deep-audit pass-1 #56: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: JENUH siap LIVE #56 — hardlink #55 terkunci. STOP AUDIT → oke deploy.\n";
+    echo "Verdict: LIVE #56 — hardlink #55 + #57 terkunci.\n";
 }
 exit($failed > 0 ? 1 : 0);

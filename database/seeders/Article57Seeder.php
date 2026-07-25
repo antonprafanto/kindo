@@ -20,7 +20,7 @@ class Article57Seeder extends Seeder
             throw new \RuntimeException('User atau kategori web-development/programming tidak ditemukan. Jalankan DatabaseSeeder dulu.');
         }
 
-        $slug = 'laravel-request-validasi-api';
+        $slug = 'laravel-struktur-env-artisan';
 
         $existing = Article::withTrashed()->where('slug', $slug)->first();
         if ($existing?->trashed()) {
@@ -42,12 +42,12 @@ class Article57Seeder extends Seeder
             [
                 'user_id'         => $admin->id,
                 'category_id'     => $webCat->id,
-                'title'           => 'Request & Form Request: Penjaga Input API',
+                'title'           => 'Struktur Folder, .env & Artisan Laravel',
                 'body'            => $this->body(),
                 'status'          => 'published',
                 'is_featured'     => false,
-                'seo_title'       => 'Laravel Request & Form Request untuk Pemula',
-                'seo_description' => 'Seri 4 #57: validasi input API perpustakaan — dari cek PHP sederhana ke Request & Form Request Laravel, status 422, berbahasa Indonesia.',
+                'seo_title'       => 'Struktur Folder, .env & Artisan Laravel untuk Pemula',
+                'seo_description' => 'Seri 4 #57: kenali denah folder Laravel, file .env, database SQLite dari nol, dan perintah Artisan sehari-hari — ramah awam.',
             ]
         );
         // cover_image tidak disentuh — upload manual via Filament
@@ -66,16 +66,26 @@ class Article57Seeder extends Seeder
     private function body(): string
     {
         return <<<'HTML'
-<h2>Pendahuluan — pintu sudah ada, siapa yang menjaga?</h2>
-<p>Di <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> kamu sudah punya pintu HTTP yang menjawab JSON. Artikel ini adalah <strong>#57 (ini)</strong> — langkah kedua stack <strong>Laravel</strong> di Seri 4.</p>
-<p>Ide barunya: data yang masuk lewat pintu bisa kotor (kosong, salah tipe, tidak masuk akal). Kita butuh <strong>penjaga</strong> yang memeriksa dulu — baru boleh diproses.</p>
-<p><strong>Awam:</strong> bayangkan loket perpustakaan. Pengunjung membawa formulir pinjam. Petugas (penjaga) cek: nama terisi? tahun masuk akal? Kalau tidak, formulir dikembalikan dengan catatan — bukan langsung masuk ke rak.</p>
+<h2>Pendahuluan — kenali denah toko</h2>
+<p>Artikel ini adalah <strong>#57 (ini)</strong> di <strong>Seri 4: Pemrograman Web Lanjut v2</strong>. Di <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> kamu sudah mendirikan toko: proyek <code>perpustakaan-api</code> hidup dan halaman welcome muncul. Sekarang langkah <strong>2/8</strong>: kenali <strong>denah folder</strong>, buku pengaturan <strong><code>.env</code></strong>, dan asisten perintah <strong>Artisan</strong>.</p>
+<p><strong>Awam:</strong> toko sudah berdiri. Sebelum jual buku (routing/API), kamu harus tahu mana gudang, mana kasir, mana buku catatan pengaturan. Tanpa denah, kamu mudah tersesat membuka file salah.</p>
+<p>Domain tetap <strong>perpustakaan mini</strong>. Kita pakai database sederhana dulu (<strong>SQLite</strong>) supaya instal dari nol tetap ringan di Windows.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> — paham route, JSON, dan status 200/404. Domain tetap <strong>perpustakaan mini</strong>. Pakai <strong>Laravel 11+</strong> — sintaks validasi di sini berlaku di versi modern.</p>
+  <p><strong>Prasyarat:</strong> sudah selesai <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> — folder <code>perpustakaan-api</code> ada, <code>php artisan serve</code> pernah jalan. Pakai <strong>Laravel 13+</strong> — butuh <strong>PHP 8.3+</strong>.</p>
 </blockquote>
 
-<h2>Istilah — Request, validasi, Form Request</h2>
+<h2>Spesifikasi fitur — apa yang kita kuasai?</h2>
+<p>Daftar singkat yang bisa kamu centang di akhir artikel:</p>
+<ol>
+  <li>Mengenal folder penting: <code>app</code>, <code>routes</code>, <code>database</code>, <code>config</code>, <code>public</code>, <code>.env</code>.</li>
+  <li>Menyalin <code>.env.example</code> ke <code>.env</code> (jika belum ada) dan menjalankan <code>php artisan key:generate</code>.</li>
+  <li>Menyiapkan database <strong>SQLite dari nol</strong> lalu <code>php artisan migrate</code>.</li>
+  <li>Memakai Artisan sehari-hari: <code>list</code>, <code>migrate</code>, <code>serve</code>.</li>
+</ol>
+<p><strong>Awam:</strong> urutan nyaman: <strong>denah folder -&gt; .env -&gt; database -&gt; Artisan</strong>. Belum perlu menulis route API di sini.</p>
+
+<h2>Istilah — ringkas untuk denah &amp; pengaturan</h2>
 <table>
   <thead>
     <tr>
@@ -86,315 +96,219 @@ class Article57Seeder extends Seeder
   </thead>
   <tbody>
     <tr>
-      <td>Request</td>
-      <td>Paket data yang masuk lewat pintu (judul, tahun, dll.)</td>
-      <td><code>{"judul":"...","tahun":2024}</code></td>
+      <td>Struktur folder</td>
+      <td>Denah ruangan di dalam proyek</td>
+      <td><code>app/</code>, <code>routes/</code>, <code>database/</code></td>
     </tr>
     <tr>
-      <td>Validasi</td>
-      <td>Cek: data wajib ada, tipe benar, rentang masuk akal</td>
-      <td>Judul tidak kosong; tahun 1900-2100</td>
+      <td><code>.env</code></td>
+      <td>Buku catatan pengaturan rahasia mesinmu</td>
+      <td><code>APP_NAME</code>, <code>DB_CONNECTION</code></td>
     </tr>
     <tr>
-      <td>Form Request</td>
-      <td>Kelas Laravel khusus yang menyimpan aturan penjaga</td>
-      <td><code>StoreBukuRequest</code></td>
+      <td>Artisan</td>
+      <td>Asisten perintah di terminal dalam proyek</td>
+      <td><code>php artisan migrate</code></td>
     </tr>
     <tr>
-      <td>POST</td>
-      <td>Cara mengetuk pintu: “kirim data baru/ubah” (bukan hanya minta baca)</td>
-      <td><code>POST /api/buku</code> + JSON isi buku</td>
+      <td>Migrasi</td>
+      <td>Cetak biru tabel database yang dijalankan Artisan</td>
+      <td><code>php artisan migrate</code></td>
     </tr>
     <tr>
-      <td>Status 422</td>
-      <td>“Data kamu tidak diterima” (bukan “pintu tidak ada”)</td>
-      <td><code>422</code> — isian ditolak</td>
+      <td>SQLite</td>
+      <td>Database satu file — cocok belajar di laptop</td>
+      <td><code>database/database.sqlite</code></td>
     </tr>
   </tbody>
 </table>
-<p>Jangan hafal semua status dulu. Cukup tiga: <strong>200/201</strong> (sukses), <strong>404</strong> (tidak ketemu), <strong>422</strong> (data kotor).</p>
+<p>Urutan belajar: <strong>baca denah -&gt; isi pengaturan -&gt; siapkan database -&gt; coba perintah Artisan</strong>.</p>
 
-<h2>Validasi dulu — tanpa framework</h2>
-<p>Kenapa belum langsung Form Request? Karena ide “cek dulu, baru proses” bisa dirasakan di PHP biasa. Kalau ide-nya sudah “klik”, cuplikan Laravel nanti terasa seperti bungkus yang sama.</p>
+<h2>Kenapa denah dulu?</h2>
+<p>Laravel punya banyak folder. Kalau kamu langsung ubah sembarang file, error-nya sulit dilacak. Dengan denah, kamu tahu: kode aplikasi di <code>app</code>, pintu HTTP di <code>routes</code>, pengaturan di <code>.env</code>, dan data di <code>database</code>.</p>
+<p><strong>Awam:</strong> sama seperti perpustakaan — sebelum menata buku, petugas harus tahu mana ruang katalog, mana gudang, mana loket. Denah = peta kerja.</p>
+<p>Artikel ini tetap <strong>install-dari-nol</strong> untuk bagian database: kita pakai SQLite bawaan supaya tidak wajib pasang MySQL dulu. Fondasi PHP/Composer/Laravel sudah di <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>.</p>
 
-<pre><code class="language-php">&lt;?php
-$input = [
-    "judul" =&gt; "",
-    "tahun" =&gt; 2024,
-];
-
-$errors = [];
-
-if (! isset($input["judul"]) || trim((string) $input["judul"]) === "") {
-    $errors["judul"] = "Judul wajib diisi";
-}
-
-if (! isset($input["tahun"]) || ! is_numeric($input["tahun"])) {
-    $errors["tahun"] = "Tahun harus angka";
-} elseif ((int) $input["tahun"] &lt; 1900 || (int) $input["tahun"] &gt; 2100) {
-    $errors["tahun"] = "Tahun di luar rentang";
-}
-
-header("Content-Type: application/json; charset=utf-8");
-
-if ($errors !== []) {
-    http_response_code(422);
-    echo json_encode(["pesan" =&gt; "Data tidak valid", "errors" =&gt; $errors], JSON_UNESCAPED_UNICODE), PHP_EOL;
-    exit;
-}
-
-http_response_code(201);
-echo json_encode(["ok" =&gt; true, "buku" =&gt; $input], JSON_UNESCAPED_UNICODE), PHP_EOL;
-</code></pre>
-
-<p>Output:</p>
-<pre><code>{"pesan":"Data tidak valid","errors":{"judul":"Judul wajib diisi"}}
-</code></pre>
-
-<p><strong>Awam:</strong> status <code>422</code> artinya “pintu ketemu, tapi isian ditolak”. Bedakan dari <code>404</code> (pintu/data tidak ada) di <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a>.</p>
-
-<h2>Kalau data bersih — status 201</h2>
-<p>Isian lengkap dan masuk akal boleh “diterima”:</p>
-
-<pre><code class="language-php">&lt;?php
-$input = [
-    "judul" =&gt; "Belajar PHP",
-    "tahun" =&gt; 2024,
-];
-
-$errors = [];
-
-if (! isset($input["judul"]) || trim((string) $input["judul"]) === "") {
-    $errors["judul"] = "Judul wajib diisi";
-}
-
-if (! isset($input["tahun"]) || ! is_numeric($input["tahun"])) {
-    $errors["tahun"] = "Tahun harus angka";
-} elseif ((int) $input["tahun"] &lt; 1900 || (int) $input["tahun"] &gt; 2100) {
-    $errors["tahun"] = "Tahun di luar rentang";
-}
-
-header("Content-Type: application/json; charset=utf-8");
-
-if ($errors !== []) {
-    http_response_code(422);
-    echo json_encode(["pesan" =&gt; "Data tidak valid", "errors" =&gt; $errors], JSON_UNESCAPED_UNICODE), PHP_EOL;
-    exit;
-}
-
-http_response_code(201);
-echo json_encode(["ok" =&gt; true, "buku" =&gt; $input], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
-</code></pre>
-
-<p>Output:</p>
-<pre><code>{
-    "ok": true,
-    "buku": {
-        "judul": "Belajar PHP",
-        "tahun": 2024
-    }
-}
-</code></pre>
-
-<p><strong>Awam:</strong> <code>201</code> sering dipakai untuk “berhasil membuat sesuatu baru” (misalnya buku baru). Kalau bingung, anggap dulu “sukses” — angka pastinya bisa dirapikan nanti.</p>
-
-<figure role="img" aria-label="Diagram request masuk, penjaga validasi, lalu JSON sukses atau 422" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" style="display:block;max-width:720px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
-  <defs>
-    <marker id="laravel57reqArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
-  </defs>
-  <rect x="0" y="0" width="720" height="240" fill="#F5F5F0" rx="6"/>
-  <text x="360" y="28" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Request masuk -&gt; penjaga cek -&gt; JSON jawaban</text>
-  <rect x="40" y="70" width="160" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="120" y="115" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">Browser / curl</text>
-  <text x="120" y="140" text-anchor="middle" fill="#2D3748" font-size="12">POST + JSON</text>
-  <rect x="280" y="70" width="160" height="100" rx="6" fill="#1a1a1a" stroke="#000" stroke-width="2.5"/>
-  <text x="360" y="115" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Penjaga</text>
-  <text x="360" y="140" text-anchor="middle" fill="#90CDF4" font-size="12">validasi aturan</text>
-  <rect x="520" y="70" width="160" height="100" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="600" y="115" text-anchor="middle" fill="#1a1a1a" font-size="14" font-weight="700">JSON + status</text>
-  <text x="600" y="140" text-anchor="middle" fill="#2D3748" font-size="12">201 atau 422</text>
-  <line x1="200" y1="120" x2="280" y2="120" stroke="#2979FF" stroke-width="2.5" marker-end="url(#laravel57reqArrow)"/>
-  <line x1="440" y1="120" x2="520" y2="120" stroke="#2979FF" stroke-width="2.5" marker-end="url(#laravel57reqArrow)"/>
+<h2>Alur — dari denah sampai database siap</h2>
+<figure role="img" aria-label="Alur kenali struktur Laravel: folder, .env, database, Artisan" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
+<svg id="laravel57structArrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" aria-hidden="true">
+  <rect x="16" y="28" width="140" height="64" rx="10" fill="#2979FF"/>
+  <text x="86" y="56" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Folder</text>
+  <text x="86" y="76" text-anchor="middle" fill="#fff" font-size="12">denah proyek</text>
+  <path d="M164 60 H210" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <polygon points="210,52 226,60 210,68" fill="#1a1a1a"/>
+  <rect x="234" y="28" width="140" height="64" rx="10" fill="#00897B"/>
+  <text x="304" y="56" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">.env</text>
+  <text x="304" y="76" text-anchor="middle" fill="#fff" font-size="12">pengaturan</text>
+  <path d="M382 60 H428" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <polygon points="428,52 444,60 428,68" fill="#1a1a1a"/>
+  <rect x="452" y="28" width="140" height="64" rx="10" fill="#F9A825"/>
+  <text x="522" y="56" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">SQLite</text>
+  <text x="522" y="76" text-anchor="middle" fill="#1a1a1a" font-size="12">+ migrate</text>
+  <path d="M600 60 H640" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+  <polygon points="640,52 656,60 640,68" fill="#1a1a1a"/>
+  <rect x="560" y="120" width="140" height="64" rx="10" fill="#1a1a1a"/>
+  <text x="630" y="148" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Artisan</text>
+  <text x="630" y="168" text-anchor="middle" fill="#fff" font-size="12">serve / list</text>
+  <text x="24" y="150" fill="#1a1a1a" font-size="13">Setelah instalasi: masuk folder perpustakaan-api, kenali denah, isi .env, buat file sqlite, migrate.</text>
+  <text x="24" y="172" fill="#1a1a1a" font-size="13">Baru setelah ini nyaman lanjut ke routing &amp; JSON.</text>
 </svg>
-<figcaption style="margin-top:.75rem;color:#2D3748;font-size:.95rem">Penjaga bukan “menolak orang”. Ia menolak data yang tidak layak — supaya sistem tetap rapi.</figcaption>
+<figcaption style="color:#1a1a1a;margin-top:.5rem"><strong>#57 (ini)</strong>: denah folder -&gt; <code>.env</code> -&gt; database SQLite -&gt; Artisan.</figcaption>
 </figure>
 
-<h2>Laravel — Request di route</h2>
-<p>Di project Laravel, cuplikan tipikal memakai <code>$request-&gt;validate(...)</code>. File ini <strong>bukan</strong> dijalankan dengan <code>php file.php</code> — ia hidup di dalam project Laravel:</p>
+<h2>Struktur folder — denah singkat</h2>
+<p>Buka folder <code>perpustakaan-api</code>. Fokus dulu ke yang sering dipakai:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Folder / file</th>
+      <th>Peran awam</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>app/</code></td>
+      <td>Isi otak aplikasi — kode inti (class) nanti dikumpulkan di sini</td>
+    </tr>
+    <tr>
+      <td><code>routes/</code></td>
+      <td>Daftar pintu lalu-lintas web (HTTP) — web &amp; API</td>
+    </tr>
+    <tr>
+      <td><code>database/</code></td>
+      <td>Migrasi, seeder, dan file SQLite</td>
+    </tr>
+    <tr>
+      <td><code>config/</code></td>
+      <td>Pengaturan kerangka (jarang disentuh awam di awal)</td>
+    </tr>
+    <tr>
+      <td><code>public/</code></td>
+      <td>Pintu depan yang dilayani saat kamu buka situs di browser</td>
+    </tr>
+    <tr>
+      <td><code>.env</code></td>
+      <td>Pengaturan lokal mesinmu (jangan diunggah sembarangan)</td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Awam:</strong> belum hafal semua folder? Tidak apa-apa. Yang wajib diingat sekarang: <code>app</code>, <code>routes</code>, <code>database</code>, <code>.env</code>.</p>
 
-<pre><code class="language-php">&lt;?php
-// Cuplikan Laravel (bukan file mandiri) — ide sama dengan validasi PHP di atas.
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
-Route::post('/api/buku', function (Request $request) {
-    $data = $request-&gt;validate([
-        'judul' =&gt; 'required|string|max:120',
-        'tahun' =&gt; 'required|integer|min:1900|max:2100',
-    ]);
-
-    return response()-&gt;json(['ok' =&gt; true, 'buku' =&gt; $data], 201);
-});
+<h2>File .env — buku pengaturan</h2>
+<p>Kalau belum ada <code>.env</code>, salin dari contoh:</p>
+<pre><code class="language-bash">copy .env.example .env
+php artisan key:generate
 </code></pre>
-
-<p><strong>Awam:</strong></p>
-<ul>
-  <li><code>Request $request</code> = paket data masuk (isi formulir / isi JSON)</li>
-  <li><code>validate([...])</code> = daftar aturan penjaga</li>
-  <li>Teks aturan dipisah <code>|</code>: <code>required</code> = wajib, <code>string</code> = teks, <code>integer</code> = bilangan bulat, <code>max:120</code> / <code>min:1900</code> = batas panjang/nilai</li>
-  <li>Kalau gagal, Laravel biasanya menjawab status <code>422</code> + daftar error (tanpa kamu tulis manual)</li>
-</ul>
-
-<h2>Form Request — aturan pindah ke kelas</h2>
-<p>Kalau aturan makin panjang, jangan biarkan semuanya menumpuk di file route. Pindahkan ke kelas Form Request:</p>
-
+<p>Di macOS/Linux: <code>cp .env.example .env</code> lalu <code>php artisan key:generate</code>.</p>
+<p>Beberapa baris yang sering dilihat awam:</p>
 <pre><code class="language-php">&lt;?php
-// Cuplikan Laravel — kelas penjaga (bukan file mandiri).
-namespace App\Http\Requests;
-
-use Illuminate\Foundation\Http\FormRequest;
-
-class StoreBukuRequest extends FormRequest
-{
-    public function rules(): array
-    {
-        return [
-            'judul' =&gt; 'required|string|max:120',
-            'tahun' =&gt; 'required|integer|min:1900|max:2100',
-        ];
-    }
-}
+// Simulasi isi .env — bukan file PHP sungguhan; hanya contoh teks.
+echo "APP_NAME=PerpustakaanApi", PHP_EOL;
+echo "APP_ENV=local", PHP_EOL;
+echo "APP_KEY=base64:...(diisi artisan key:generate)", PHP_EOL;
+echo "DB_CONNECTION=sqlite", PHP_EOL;
 </code></pre>
+<p><strong>Awam:</strong> <code>.env</code> seperti label di belakang toko: nama toko, mode latihan (<code>local</code>), dan jenis buku besar (database). <code>APP_KEY</code> digenerate Artisan — jangan dikarang manual.</p>
 
+<h2>Database dari nol — SQLite dulu</h2>
+<p>Untuk belajar di Windows tanpa memasang MySQL dulu, pakai <strong>SQLite</strong> (satu file).</p>
+<ol>
+  <li>Pastikan di <code>.env</code>: <code>DB_CONNECTION=sqlite</code>.</li>
+  <li>Buat file kosong: <code>database/database.sqlite</code>.
+    <ul>
+      <li><strong>Windows (Explorer):</strong> masuk folder <code>database</code>, buat Text File baru, namai <code>database.sqlite</code> (boleh kosong).</li>
+      <li><strong>Windows (terminal):</strong> <code>type nul &gt; database\database.sqlite</code></li>
+    </ul>
+  </li>
+  <li>Jalankan migrasi:</li>
+</ol>
+<pre><code class="language-bash">php artisan migrate
+</code></pre>
+<p>Perintah ini membuat tabel dasar Laravel di file SQLite. Kalau sukses, terminal biasanya menampilkan daftar migrasi yang dijalankan.</p>
+<p><strong>Awam:</strong> SQLite = buku besar satu map. Cukup untuk belajar denah. Nanti kalau butuh MySQL di Laragon, cukup ubah <code>DB_*</code> di <code>.env</code> — tidak wajib hari ini.</p>
+<p><strong>Install-dari-nol:</strong> kamu tidak perlu unduh driver ekstra untuk SQLite di jalur Laravel modern; cukup file <code>.sqlite</code> + <code>migrate</code>. Fondasi proyek tetap merujuk <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>.</p>
+
+<h2>Artisan — asisten perintah sehari-hari</h2>
+<p>Jalankan di dalam folder <code>perpustakaan-api</code>:</p>
+<pre><code class="language-bash">php artisan list
+php artisan --version
+php artisan migrate
+php artisan serve
+</code></pre>
+<p>Contoh bentuk output versi (simulasi):</p>
 <pre><code class="language-php">&lt;?php
-// Cuplikan Laravel — pakai Form Request di route.
-use App\Http\Requests\StoreBukuRequest;
-use Illuminate\Support\Facades\Route;
-
-Route::post('/api/buku', function (StoreBukuRequest $request) {
-    $data = $request-&gt;validated();
-
-    return response()-&gt;json(['ok' =&gt; true, 'buku' =&gt; $data], 201);
-});
+echo "Laravel Framework 13.0.0", PHP_EOL;
 </code></pre>
+<p><strong>Awam:</strong> <code>artisan list</code> seperti menu remote TV — kamu melihat perintah yang tersedia tanpa hafal semua. <code>serve</code> menyalakan lampu toko sementara.</p>
 
-<p><strong>Awam:</strong> <code>validated()</code> hanya mengembalikan field yang sudah lolos penjaga. Data kotor tidak ikut “nyelonong”.</p>
-
-<h2>Pola Dasar — Request &amp; validasi</h2>
-<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Lima langkah Request dan Form Request">
-<ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
+<h2>Pola Dasar — empat langkah denah bersih</h2>
+<figure style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1.25rem;margin:1.25rem 0">
+<ol style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.85rem">
+  <li style="display:flex;gap:.75rem;align-items:flex-start;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Tahu data apa yang masuk</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Misalnya <code>judul</code> dan <code>tahun</code> untuk buku baru.</span>
-    </div>
+    <div><strong style="color:#1a1a1a">Buka denah</strong><br><span style="color:#1a1a1a">Kenali <code>app</code>, <code>routes</code>, <code>database</code>, <code>.env</code> di <code>perpustakaan-api</code>.</span></div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
+  <li style="display:flex;gap:.75rem;align-items:flex-start;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Tulis aturan penjaga</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Wajib? String? Angka? Rentang tahun?</span>
-    </div>
+    <div><strong style="color:#1a1a1a">Siapkan .env</strong><br><span style="color:#1a1a1a">Salin dari <code>.env.example</code> bila perlu, lalu <code>php artisan key:generate</code>.</span></div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
+  <li style="display:flex;gap:.75rem;align-items:flex-start;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Tolak dengan status jujur</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Data kotor -&gt; <code>422</code>. Jangan pura-pura <code>200</code>.</span>
-    </div>
+    <div><strong style="color:#1a1a1a">Database SQLite</strong><br><span style="color:#1a1a1a">Buat <code>database/database.sqlite</code>, set <code>DB_CONNECTION=sqlite</code>, jalankan <code>migrate</code>.</span></div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
+  <li style="display:flex;gap:.75rem;align-items:flex-start;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Pakai data yang sudah bersih</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem"><code>validated()</code> / array yang lolos cek — bukan data mentah dari request.</span>
-    </div>
-  </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Baru pikir penyimpanan &amp; struktur kode</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> — pengatur kode, layanan, dan penyimpanan data setelah penjaga berdiri.</span>
-    </div>
+    <div><strong style="color:#1a1a1a">Cek Artisan</strong><br><span style="color:#1a1a1a"><code>php artisan list</code> dan <code>php artisan serve</code> — pastikan proyek masih hidup.</span></div>
   </li>
 </ol>
 </figure>
 
-<h2>Kode lengkap — <code>laravel_request_validasi_demo.php</code></h2>
-<p>Simpan dan jalankan: <code>php laravel_request_validasi_demo.php</code>. Ini meniru penjaga validasi tanpa server Laravel — supaya ide-nya terasa dulu.</p>
-<p><strong>Awam:</strong> fungsi <code>validasiBuku()</code> mengembalikan daftar kesalahan (kosong = lolos). Baris <code>mixed $data</code> artinya data bisa bermacam bentuk — tidak perlu dihafal. Fokus ke alur: cek -&gt; tolak/terima.</p>
-
+<h2>Demo peta folder — file mandiri</h2>
+<p>Simpan sebagai <code>laravel_struktur_env_artisan_demo.php</code>, lalu jalankan <code>php laravel_struktur_env_artisan_demo.php</code>. File ini <strong>mensimulasikan</strong> denah &amp; pengaturan — tidak mengubah proyek Laravel-mu:</p>
 <pre><code class="language-php">&lt;?php
-/**
- * Demo ide Request &amp; validasi (Seri 4 #57).
- * Di Laravel, ide yang sama hidup di Request::validate / Form Request.
- */
-
 declare(strict_types=1);
 
-function kirimJson(mixed $data, int $status = 200): void
+/**
+ * Demo peta folder &amp; .env — simulasi teks untuk awam.
+ */
+
+function petaFolder(): array
 {
-    http_response_code($status);
-    header("Content-Type: application/json; charset=utf-8");
-    echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
+    return [
+        'app' =&gt; 'otak aplikasi',
+        'routes' =&gt; 'daftar pintu HTTP',
+        'database' =&gt; 'migrasi &amp; sqlite',
+        '.env' =&gt; 'pengaturan lokal',
+    ];
 }
 
-function validasiBuku(array $input): array
+function contohEnv(): array
 {
-    $errors = [];
-
-    if (! isset($input['judul']) || trim((string) $input['judul']) === '') {
-        $errors['judul'] = 'Judul wajib diisi';
-    }
-
-    if (! isset($input['tahun']) || ! is_numeric($input['tahun'])) {
-        $errors['tahun'] = 'Tahun harus angka';
-    } elseif ((int) $input['tahun'] &lt; 1900 || (int) $input['tahun'] &gt; 2100) {
-        $errors['tahun'] = 'Tahun di luar rentang';
-    }
-
-    return $errors;
+    return [
+        'APP_NAME' =&gt; 'PerpustakaanApi',
+        'DB_CONNECTION' =&gt; 'sqlite',
+        'APP_ENV' =&gt; 'local',
+    ];
 }
 
 function demo(): void
 {
-    echo "=== POST kotor (judul kosong) ===", PHP_EOL;
-    $kotor = ['judul' =&gt; '', 'tahun' =&gt; 2024];
-    $errors = validasiBuku($kotor);
-    if ($errors !== []) {
-        kirimJson(['pesan' =&gt; 'Data tidak valid', 'errors' =&gt; $errors], 422);
+    echo "=== Demo denah Laravel ===", PHP_EOL;
+    foreach (petaFolder() as $nama =&gt; $peran) {
+        echo "- {$nama}: {$peran}", PHP_EOL;
     }
 
-    echo "=== POST bersih ===", PHP_EOL;
-    $bersih = ['judul' =&gt; 'Belajar PHP', 'tahun' =&gt; 2024];
-    $errors = validasiBuku($bersih);
-    if ($errors === []) {
-        kirimJson(['ok' =&gt; true, 'buku' =&gt; $bersih], 201);
+    echo PHP_EOL, "=== Contoh pengaturan .env ===", PHP_EOL;
+    foreach (contohEnv() as $kunci =&gt; $nilai) {
+        echo "{$kunci}={$nilai}", PHP_EOL;
     }
+
+    echo PHP_EOL, "Langkah berikutnya sungguhan: key:generate -&gt; buat sqlite -&gt; migrate -&gt; serve.", PHP_EOL;
 }
 
 demo();
 </code></pre>
-
-<p>Output yang diharapkan:</p>
-<pre><code>=== POST kotor (judul kosong) ===
-{
-    "pesan": "Data tidak valid",
-    "errors": {
-        "judul": "Judul wajib diisi"
-    }
-}
-=== POST bersih ===
-{
-    "ok": true,
-    "buku": {
-        "judul": "Belajar PHP",
-        "tahun": 2024
-    }
-}
-</code></pre>
+<p><strong>Awam:</strong> <code>demo()</code> hanya menampilkan peta di terminal. Setelah paham, kerjakan langkah yang sama di folder <code>perpustakaan-api</code> sungguhan. <code>declare(strict_types=1);</code> membuat tipe lebih ketat — boleh diikuti, tidak wajib dihafal.</p>
 
 <h2>Kesalahan umum</h2>
 <table>
@@ -402,57 +316,56 @@ demo();
     <tr>
       <th>Gejala</th>
       <th>Penyebab tipikal</th>
-      <th>Perbaikan</th>
+      <th>Perbaikan awam</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Data kotor tetap diproses</td>
-      <td>Langsung pakai input mentah</td>
-      <td>Validasi dulu; pakai hasil yang sudah bersih</td>
+      <td><code>.env</code> tidak ketemu</td>
+      <td>Belum disalin dari <code>.env.example</code></td>
+      <td><code>copy .env.example .env</code> lalu <code>key:generate</code></td>
     </tr>
     <tr>
-      <td>Gagal validasi tapi status 200</td>
-      <td>Lupa status error</td>
-      <td>Pakai <code>422</code> (atau biarkan Laravel yang mengurus)</td>
+      <td>Migrate gagal / database error</td>
+      <td>File <code>database.sqlite</code> belum dibuat</td>
+      <td>Buat file kosong di <code>database/database.sqlite</code></td>
     </tr>
     <tr>
-      <td>Bingung 404 vs 422</td>
-      <td>Semua error dianggap “tidak ketemu”</td>
-      <td>404 = tidak ada; 422 = ada tapi isian ditolak</td>
+      <td>Artisan “could not open input file”</td>
+      <td>Belum <code>cd</code> ke folder proyek</td>
+      <td>Masuk ke <code>perpustakaan-api</code> dulu</td>
     </tr>
     <tr>
-      <td>Aturan menumpuk di route</td>
-      <td>Semua cek ditumpuk di dalam file route</td>
-      <td>Pindah ke Form Request (<strong>#57 (ini)</strong>)</td>
-    </tr>
-    <tr>
-      <td>Langsung loncat database</td>
-      <td>Mau simpan sebelum penjaga siap</td>
-      <td>Rapatkan validasi dulu, baru penyimpanan nanti</td>
+      <td>Bingung beda <code>config/</code> dan <code>.env</code></td>
+      <td>Membuka terlalu banyak file sekaligus</td>
+      <td>Untuk awam: ubah <code>.env</code> dulu; <code>config/</code> biarkan</td>
     </tr>
   </tbody>
 </table>
 
-<h2>Latihan singkat</h2>
+<h2>Latihan</h2>
 <ol>
-  <li>Di demo PHP, tambah aturan: judul maksimal 40 karakter; uji dengan judul yang terlalu panjang.</li>
-  <li>Ubah tahun jadi <code>1800</code> dan pastikan output menampilkan error rentang (bukan sukses).</li>
-  <li>Di cuplikan Laravel, tambah field <code>penulis</code> wajib string di aturan <code>validate</code>.</li>
+  <li>Jalankan demo PHP di atas, lalu buka Explorer ke folder <code>perpustakaan-api</code> — cocokkan nama folder dengan peta.</li>
+  <li>Pastikan <code>.env</code> ada, jalankan <code>php artisan key:generate</code>, buat <code>database.sqlite</code>, lalu <code>php artisan migrate</code>.</li>
+  <li>Jelaskan ke teman: beda singkat <code>app/</code>, <code>routes/</code>, dan <code>.env</code> dengan bahasa toko/perpustakaan.</li>
 </ol>
 
-<h2>FAQ singkat</h2>
-<p><strong>Harus install Laravel dulu?</strong><br>Untuk memahami ide: demo PHP di atas sudah cukup. Untuk latihan framework: buat project Laravel 11+ lalu tempel cuplikan route / Form Request.</p>
-<p><strong>Kenapa tidak cukup cek di tampilan browser saja?</strong><br>Tampilan di browser (sering disebut frontend) bisa dilewati. Penjaga di server (API) tetap wajib — itu tempat keputusan yang bisa dipercaya.</p>
-<p><strong>Apa bedanya <code>$request-&gt;validate</code> dan Form Request?</strong><br>Secara awam: sama-sama penjaga. Form Request memindahkan aturan ke kelas sendiri supaya file route / pengatur kode tetap tipis dan rapi.</p>
-<p><strong>Lanjut ke mana?</strong><br>Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a> — pengatur kode, layanan, dan penyimpanan data setelah penjaga berdiri.</p>
+<h2>FAQ</h2>
+<p><strong>Harus MySQL dari awal?</strong><br>
+Tidak. SQLite cukup untuk langkah denah ini. MySQL di Laragon boleh belakangan saat data makin besar.</p>
+<p><strong>Bagaimana membuat file database.sqlite di Windows?</strong><br>
+Paling mudah lewat Explorer: folder <code>database</code>, buat file baru bernama <code>database.sqlite</code> (isi boleh kosong). Atau di terminal proyek: <code>type nul &gt; database\database.sqlite</code>.</p>
+<p><strong>Boleh mengedit banyak file di config/?</strong><br>
+Untuk pemula: tahan dulu. Kebanyakan pengaturan harian cukup lewat <code>.env</code>.</p>
+<p><strong>Apa hubungan dengan instalasi (#56)?</strong><br>
+<a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> mendirikan proyek. <strong>#57 (ini)</strong> mengajakmu mengenali isi rumahnya.</p>
+<p><strong>Ke mana setelah ini?</strong><br>
+Berikutnya kamu akan belajar <strong>routing</strong> dan jawaban <strong>JSON</strong> — membuka pintu HTTP untuk API perpustakaan mini.</p>
 
-<h2>Kesimpulan &amp; langkah berikutnya</h2>
-<p>Request = paket masuk. Validasi = cek kelayakan. Form Request = rumah aturan penjaga. Status 422 = “isian ditolak dengan jujur”.</p>
-<p>Artikel ini adalah <strong>#57 (ini)</strong> — penjaga input setelah <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> membuka pintu HTTP.</p>
-
+<h2>Kesimpulan</h2>
+<p>Kamu sudah punya denah kerja Laravel: folder penting, file <code>.env</code>, database SQLite dari nol, dan Artisan untuk <code>migrate</code>/<code>serve</code>/<code>list</code>. Ini langkah <strong>2/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#57 (ini)</strong> · 8/8 Capstone Laravel selesai · stack Laravel <strong>2/5</strong> · prasyarat: <a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a> LIVE. Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a>.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#57 (ini)</strong> · <strong>2/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> LIVE. Berikutnya: routing &amp; jawaban JSON untuk API perpustakaan.</p>
 </blockquote>
 HTML;
     }
