@@ -201,11 +201,11 @@ echo "Copyright (c) The PHP Group", PHP_EOL;
 <p><strong>Awam:</strong> Laragon = menu <em>Terminal</em>. XAMPP = tombol <em>Shell</em>. Intinya sama: ketik perintah di jendela yang sudah terhubung ke PHP.</p>
 
 <h2>Composer — pengelola paket PHP</h2>
-<p>Setelah <code>php -v</code> sukses di terminal Laragon:</p>
+<p>Setelah <code>php -v</code> sukses di terminal Laragon (atau Shell XAMPP):</p>
 <ol>
   <li>Buka browser, unduh installer Windows dari <a href="https://getcomposer.org/download/" rel="noopener noreferrer">getcomposer.org</a>.</li>
-  <li>Jalankan file installer (klik dua kali), ikuti Next. Biarkan installer mendeteksi PHP dari Laragon bila ditanya.</li>
-  <li><strong>Tutup lalu buka lagi</strong> terminal Laragon (supaya PATH Composer terbaca), lalu ketik:</li>
+  <li>Jalankan file installer (klik dua kali), ikuti Next. Biarkan installer mendeteksi PHP dari Laragon/XAMPP bila ditanya.</li>
+  <li><strong>Tutup lalu buka lagi</strong> terminal Laragon / Shell XAMPP (supaya PATH Composer terbaca), lalu ketik:</li>
 </ol>
 <pre><code class="language-bash">composer -V
 </code></pre>
@@ -249,7 +249,8 @@ echo "Laravel Framework 13.0.0", PHP_EOL;
 <h2>Alternatif singkat — PHP di PATH + Composer resmi</h2>
 <p>Jika tidak memakai Laragon/XAMPP, kamu bisa memasang PHP manual. Ringkasnya:</p>
 <ol>
-  <li>Buka browser, unduh PHP zip (Thread Safe) dari <a href="https://windows.php.net/download/" rel="noopener noreferrer">windows.php.net</a>.</li>
+  <li>Buka browser, unduh PHP zip berlabel <strong>Thread Safe</strong> dari <a href="https://windows.php.net/download/" rel="noopener noreferrer">windows.php.net</a>.
+    <br><strong>Awam:</strong> Thread Safe = paket PHP yang biasa dipakai untuk belajar di Windows (pilih yang bertuliskan itu di situs unduhan — jangan bingung dengan paket Non Thread Safe kecuali panduan lain memintanya).</li>
   <li>Ekstrak ke folder tetap, misalnya <code>C:\php</code> (ingat path ini).</li>
   <li>Tambahkan folder itu ke <strong>PATH</strong> Windows supaya perintah <code>php</code> dikenali di terminal mana pun:
     <ul>
