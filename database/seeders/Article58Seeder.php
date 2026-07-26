@@ -56,7 +56,12 @@ class Article58Seeder extends Seeder
         );
         // cover_image tidak disentuh — upload manual via Filament
 
+        $prevPublished = Article::where('slug', 'laravel-struktur-env-artisan')->value('published_at');
         if ($article->wasRecentlyCreated || ! $article->published_at) {
+            $article->published_at = now();
+            $article->save();
+        } elseif ($prevPublished && $article->published_at <= $prevPublished) {
+            // Soft: tanggal lama membuat nav Sebelumnya/Berikutnya loncat di luar jalur Laravel
             $article->published_at = now();
             $article->save();
         }

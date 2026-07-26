@@ -65,6 +65,7 @@ check(str_contains($deploy, 'Article 58 backlink #57') || str_contains($deploy, 
 check(file_exists(__DIR__.'/audit-article58-php.php'), 'audit-article58-php.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');
+check(str_contains($src, 'published_at <= $prevPublished') || str_contains($src, 'prevPublished'), 'Urutan publish setelah #57');
 check(str_contains($body, '3/8'), 'Progress 3/8');
 check(str_contains($body, 'Laravel 13+'), 'Pin Laravel 13+');
 check(str_contains($body, 'PHP 8.3+'), 'Syarat PHP 8.3+');
