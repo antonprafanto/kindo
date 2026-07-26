@@ -340,12 +340,12 @@ Supaya fokus satu hal: membuka pintu dan menjawab JSON. Menyimpan ke tabel datan
 <p><strong>Apa hubungan dengan denah (#57)?</strong><br>
 <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> menyiapkan rumah. <strong>#58 (ini)</strong> memasang nomor loket dan slip jawaban.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya kamu akan belajar menjaga <strong>isi formulir/permintaan</strong> yang masuk lewat pintu (Request &amp; Form Request) supaya data tidak berantakan.</p>
+Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> — jaga isi permintaan yang masuk lewat pintu supaya data tidak berantakan.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah membuka pintu HTTP di Laravel: menulis route <code>GET /api/buku</code>, menjawab dengan JSON, dan mengujinya saat <code>artisan serve</code> hidup. Ini langkah <strong>3/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#58 (ini)</strong> · <strong>3/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> LIVE. Berikutnya: menjaga input permintaan (Request &amp; Form Request) untuk API perpustakaan.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#58 (ini)</strong> · <strong>3/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> LIVE. Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>.</p>
 </blockquote>
 HTML;
     }

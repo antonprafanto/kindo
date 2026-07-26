@@ -4053,8 +4053,8 @@ class DeployController extends Controller
             return response('Article 59 seed failed', 500);
         }
 
-        $slug = 'laravel-auth-api-dasar';
-        $prevSlug = 'laravel-controller-service-eloquent';
+        $slug = 'laravel-request-validasi-api';
+        $prevSlug = 'laravel-routing-json-perpustakaan-api';
 
         $article = Article::published()->where('slug', $slug)->first();
 
@@ -4065,7 +4065,8 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel59authArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_auth_api_demo.php') || ! str_contains($body, 'bukti_masuk') || ! str_contains($body, '401') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#59 (ini)') || ! str_contains($body, '8/8 Capstone Laravel selesai') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'otentikasi') || ! str_contains($body, 'Belum diizinkan') || ! str_contains($body, 'capstone-api-perpustakaan-laravel') || ! str_contains($body, 'LoginRequest') || ! str_contains($body, 'Authorization') || ! str_contains($body, 'Cek login')) {
+        $hasValidate = str_contains($body, 'validate') || str_contains($body, 'validated');
+        if (! str_contains($body, 'laravel59reqArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_request_validasi_api_demo.php') || ! $hasValidate || ! str_contains($body, 'StoreBukuRequest') || ! str_contains($body, '422') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#59 (ini)') || ! str_contains($body, '4/8') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Laravel 13+') || ! str_contains($body, 'Form Request')) {
             report(new \RuntimeException('Article 59 body missing expected content after seed.'));
 
             return response('Article 59 body content checks failed', 500);

@@ -64,7 +64,7 @@ check(str_contains($body, 'routes/web.php'), 'File web.php');
 check(! str_contains($body, 'closure') && ! str_contains($body, 'endpoint'), 'Tanpa Pin/closure/endpoint');
 check(str_contains($body, 'Laravel 13+'), 'Versi Laravel awam');
 check(str_contains($body, 'PHP 8.3+'), 'Versi PHP awam');
-check((str_contains($body, 'Form Request') || str_contains($body, 'Request')) && ! str_contains($body, '/artikel/laravel-request-validasi-api'), 'Soft bridge #59 tanpa hardlink');
+check(str_contains($body, '/artikel/laravel-request-validasi-api'), 'Hardlink #59');
 check(! str_contains($body, 'Eloquent') && ! str_contains($body, 'scaffolding'), 'Tanpa Eloquent/scaffolding dingin');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa PHPDoc @param di demo');
