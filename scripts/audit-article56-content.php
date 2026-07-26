@@ -86,6 +86,9 @@ check(str_contains($body, 'Alat yang dipakai') && str_contains($body, 'Terminal'
 check(str_contains($body, 'cd C:\\laragon\\www') || str_contains($body, 'C:\\laragon\\www'), 'cd folder kerja Laragon');
 check(str_contains($body, 'Terminal mana') || str_contains($body, 'terminal Laragon'), 'FAQ/petunjuk terminal');
 check(str_contains($body, 'editor teks') || str_contains($body, 'Open in Terminal'), 'Petunjuk demo/editor');
+check(str_contains($body, 'Shell') && str_contains($body, 'xampp\\htdocs'), 'Petunjuk XAMPP Shell + htdocs');
+check(str_contains($body, 'Environment Variables') || str_contains($body, 'Variabel lingkungan'), 'Petunjuk PATH Windows');
+check(str_contains($body, 'Apa itu PATH') || str_contains($body, 'daftar folder yang dicari'), 'Gloss PATH awam');
 check(! str_contains($body, 'authorization policy'), 'Tanpa authorization mentah');
 check(! str_contains($body, 'supaya UI '), 'Tanpa jargon UI');
 check(substr_count($body, '<a ') - substr_count($body, '</a>') === 0, 'Thin anchor balance');
