@@ -37,6 +37,9 @@ check(str_contains($body, '.env') && str_contains($body, 'key:generate'), '.env 
 check(str_contains($body, 'sqlite') && str_contains($body, 'migrate'), 'SQLite + migrate');
 check(str_contains($body, 'Artisan') && str_contains($body, 'php artisan list'), 'Artisan list');
 check(str_contains($body, 'laravel57structArrow'), 'SVG marker');
+check(str_contains($body, 'viewBox="0 0 760 240"') || str_contains($body, "viewBox='0 0 760 240'"), 'SVG alur horizontal 4 langkah');
+check(str_contains($body, 'Alur: Folder'), 'SVG judul alur awam');
+check(! preg_match('/y="120"[^>]*>[\s\S]{0,80}Artisan/u', $body), 'SVG tanpa Artisan turun menimpa teks');
 check(str_contains($body, 'background:#F5F5F0'), 'Figure bg');
 check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar');
 check(str_contains($body, 'laravel_struktur_env_artisan_demo.php'), 'File contoh');

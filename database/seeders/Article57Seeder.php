@@ -131,30 +131,31 @@ class Article57Seeder extends Seeder
 
 <h2>Alur — dari denah sampai database siap</h2>
 <figure role="img" aria-label="Alur kenali struktur Laravel: folder, .env, database, Artisan" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Alur denah folder ke Artisan">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" width="100%" height="auto" role="img" aria-label="Alur denah folder ke Artisan">
   <defs>
     <marker id="laravel57structArrow" orient="auto" markerWidth="8" markerHeight="8" refX="7" refY="4" viewBox="0 0 8 8">
       <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
     </marker>
   </defs>
-  <rect x="16" y="28" width="140" height="64" rx="10" fill="#2979FF"/>
-  <text x="86" y="56" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Folder</text>
-  <text x="86" y="76" text-anchor="middle" fill="#fff" font-size="12">denah proyek</text>
-  <line x1="156" y1="60" x2="226" y2="60" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
-  <rect x="234" y="28" width="140" height="64" rx="10" fill="#00897B"/>
-  <text x="304" y="56" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">.env</text>
-  <text x="304" y="76" text-anchor="middle" fill="#fff" font-size="12">pengaturan</text>
-  <line x1="374" y1="60" x2="444" y2="60" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
-  <rect x="452" y="28" width="140" height="64" rx="10" fill="#F9A825"/>
-  <text x="522" y="56" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">SQLite</text>
-  <text x="522" y="76" text-anchor="middle" fill="#1a1a1a" font-size="12">+ migrate</text>
-  <line x1="592" y1="60" x2="630" y2="60" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
-  <line x1="630" y1="92" x2="630" y2="120" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
-  <rect x="560" y="120" width="140" height="64" rx="10" fill="#1a1a1a"/>
-  <text x="630" y="148" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Artisan</text>
-  <text x="630" y="168" text-anchor="middle" fill="#fff" font-size="12">serve / list</text>
-  <text x="24" y="150" fill="#1a1a1a" font-size="13">Setelah instalasi: masuk folder perpustakaan-api, kenali denah, isi .env, buat file sqlite, migrate.</text>
-  <text x="24" y="172" fill="#1a1a1a" font-size="13">Baru setelah ini nyaman lanjut ke routing &amp; JSON.</text>
+  <text x="24" y="28" fill="#1a1a1a" font-size="15" font-weight="700">Alur: Folder -&gt; .env -&gt; SQLite -&gt; Artisan</text>
+  <rect x="24" y="48" width="140" height="72" rx="10" fill="#2979FF"/>
+  <text x="94" y="80" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Folder</text>
+  <text x="94" y="100" text-anchor="middle" fill="#fff" font-size="12">denah proyek</text>
+  <line x1="164" y1="84" x2="204" y2="84" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
+  <rect x="212" y="48" width="140" height="72" rx="10" fill="#00897B"/>
+  <text x="282" y="80" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">.env</text>
+  <text x="282" y="100" text-anchor="middle" fill="#fff" font-size="12">pengaturan</text>
+  <line x1="352" y1="84" x2="392" y2="84" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
+  <rect x="400" y="48" width="140" height="72" rx="10" fill="#F9A825"/>
+  <text x="470" y="80" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">SQLite</text>
+  <text x="470" y="100" text-anchor="middle" fill="#1a1a1a" font-size="12">+ migrate</text>
+  <line x1="540" y1="84" x2="580" y2="84" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel57structArrow)"/>
+  <rect x="588" y="48" width="148" height="72" rx="10" fill="#1a1a1a"/>
+  <text x="662" y="80" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Artisan</text>
+  <text x="662" y="100" text-anchor="middle" fill="#fff" font-size="12">serve / list</text>
+  <text x="24" y="160" fill="#1a1a1a" font-size="13">Setelah instalasi: masuk folder perpustakaan-api, kenali denah, isi .env,</text>
+  <text x="24" y="182" fill="#1a1a1a" font-size="13">buat file sqlite, lalu migrate. Baru setelah ini nyaman lanjut ke routing &amp; JSON.</text>
+  <text x="24" y="214" fill="#1a1a1a" font-size="13">Urutan ini mengikuti langkah #57 (ini) — belum menulis route API.</text>
 </svg>
 <figcaption style="color:#1a1a1a;margin-top:.5rem"><strong>#57 (ini)</strong>: denah folder -&gt; <code>.env</code> -&gt; database SQLite -&gt; Artisan.</figcaption>
 </figure>
