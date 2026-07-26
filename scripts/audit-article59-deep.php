@@ -76,6 +76,7 @@ check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa @param di body');
 check(str_contains($body, 'strict_types'), 'Gloss strict_types');
 check(str_contains($body, 'proyek') || str_contains($body, 'Proyek'), 'Proyek (bukan project)');
+check(str_contains($body, 'curl.exe') && (str_contains($body, 'terminal kedua') || str_contains($body, 'Invoke-RestMethod')), 'Petunjuk uji tools awam');
 check(! str_contains($body, '/artikel/laravel-controller-service-eloquent'), 'Tanpa hardlink #60');
 check(! preg_match('/hardlink|STOP AUDIT|oke deploy/i', $body), 'Tanpa suara editor hardlink');
 check(! preg_match('/(?<![\w\/"#>(ini)\s])#5[3-9](?!\s*\(ini\))/', $plain), 'Tanpa thin anchor #N');

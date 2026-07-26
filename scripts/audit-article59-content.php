@@ -73,6 +73,10 @@ check(! str_contains($body, '@param'), 'Tanpa PHPDoc @param di demo');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains($body, 'install-dari-nol'), 'Aturan install-dari-nol');
 check(str_contains($body, 'demo()'), 'Demo fungsi');
+check(str_contains($body, 'terminal kedua') || str_contains($body, 'jendela terminal kedua'), 'Petunjuk terminal kedua');
+check(str_contains($body, 'curl.exe') && str_contains($body, 'Invoke-RestMethod'), 'Opsi uji Windows curl/PowerShell');
+check(str_contains($body, 'editor teks') || str_contains($body, 'Buka editor'), 'Petunjuk editor teks');
+check(str_contains($body, 'Alat yang dipakai') || str_contains($body, 'PowerShell'), 'Daftar alat awam');
 $thin = preg_match_all('/(?<![\w\/"#>(ini)\s])#5[3-9](?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '') ?? '');
 check($thin === 0, 'Thin/bare #53-59 = 0');
 

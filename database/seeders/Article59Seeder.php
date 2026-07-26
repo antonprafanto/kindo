@@ -169,13 +169,20 @@ class Article59Seeder extends Seeder
 </figure>
 
 <h2>Persiapan — toko &amp; pintu masih hidup</h2>
-<p>Di folder <code>perpustakaan-api</code>:</p>
+<p><strong>Alat yang dipakai di artikel ini</strong> (semua sudah dari fondasi #56/#57 — tidak ada unduhan wajib baru):</p>
+<ul>
+  <li><strong>Terminal</strong> — Windows: PowerShell atau Command Prompt (CMD). Mac/Linux: Terminal. Di sini kamu mengetik <code>php artisan …</code> dan perintah uji.</li>
+  <li><strong>Editor teks</strong> — Notepad, VS Code, atau editor bawaan — untuk membuka <code>routes/web.php</code> dan file Form Request.</li>
+  <li><strong>Browser</strong> — cukup untuk memastikan toko hidup (seperti di #58). Menguji <strong>POST</strong> tidak cukup ketik URL di bilah alamat; butuh perintah di terminal (atau alat uji API berjendela).</li>
+</ul>
+<p>Buka terminal, masuk folder proyek <code>perpustakaan-api</code> (contoh Windows: <code>cd path\to\perpustakaan-api</code>), lalu:</p>
 <pre><code class="language-bash">php artisan serve</code></pre>
-<p>Pastikan <code>GET /api/buku</code> dari <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> masih ada. Hari ini kita menambah pintu <strong>POST</strong>.</p>
-<p><strong>Awam:</strong> GET = “tolong kirim daftar”. POST = “tolong terima data baru”.</p>
+<p>Biarkan jendela terminal ini <strong>tetap hidup</strong> (lampu toko). Kalau perlu mengedit file atau menjalankan perintah lain, buka <strong>jendela terminal kedua</strong> — jangan matikan yang sedang <code>serve</code>.</p>
+<p>Pastikan <code>GET /api/buku</code> dari <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> masih ada (boleh dicek sekali di browser: <code>http://127.0.0.1:8000/api/buku</code>). Hari ini kita menambah pintu <strong>POST</strong>.</p>
+<p><strong>Awam:</strong> GET = “tolong kirim daftar”. POST = “tolong terima data baru”. Matikan toko sementara dengan Ctrl+C di terminal yang menjalankan <code>serve</code>.</p>
 
 <h2>PHP dulu — cek slip tanpa Laravel</h2>
-<p>Sebelum cuplikan Laravel, rasakan ide satpam di PHP biasa:</p>
+<p>Sebelum cuplikan Laravel, rasakan ide satpam di PHP biasa. <strong>Cuplikan di bawah boleh dibaca dulu</strong> — belum wajib disimpan. Kalau mau menjalankan di terminal, pakai file demo di bagian <strong>Demo satpam</strong> nanti (lebih lengkap).</p>
 <pre><code class="language-php">&lt;?php
 
 declare(strict_types=1);
@@ -203,7 +210,7 @@ if ($errors !== []) {
 <p><strong>Awam:</strong> array <code>$errors</code> = catatan satpam. Kalau ada isi, tolak dulu. Ide yang sama dipakai Laravel lewat <code>validate</code> / Form Request.</p>
 
 <h2>Validasi cepat di route</h2>
-<p>Di <code>routes/web.php</code>, tambahkan route POST (cuplikan — tempel di bawah route GET kamu):</p>
+<p>Buka editor teks, buka file <code>routes/web.php</code> di folder proyek. Tambahkan route POST (cuplikan — tempel di bawah route GET kamu), lalu <strong>simpan</strong> file:</p>
 <pre><code class="language-php">// Cuplikan routes/web.php — POST tambah buku (validasi di route)
 use Illuminate\Http\Request;
 
@@ -222,9 +229,9 @@ Route::post('/api/buku', function (Request $request) {
 <p><strong>Awam:</strong> <code>required</code> = wajib diisi. <code>max:120</code> = maksimal 120 huruf/angka (supaya judul tidak kepanjangan). Kalau gagal, Laravel otomatis menjawab JSON error (sering status <strong>422</strong>). Angka <strong>201</strong> = “data baru diterima” (belum berarti sudah di rak database).</p>
 
 <h2>Form Request — aturan di file sendiri</h2>
-<p>Kalau aturan makin panjang, pindahkan ke file khusus supaya route tidak penuh:</p>
+<p>Kalau aturan makin panjang, pindahkan ke file khusus supaya route tidak penuh. Di <strong>terminal kedua</strong> (folder <code>perpustakaan-api</code> masih sama; <code>serve</code> tetap hidup di terminal pertama):</p>
 <pre><code class="language-bash">php artisan make:request StoreBukuRequest</code></pre>
-<p>Buka file yang dibuat (biasanya di <code>app/Http/Requests/StoreBukuRequest.php</code>). Di dalam kelas itu sudah ada kerangka fungsi — ganti isi <code>authorize</code> dan <code>rules</code> menjadi seperti cuplikan berikut:</p>
+<p>Buka file yang dibuat di editor (biasanya <code>app/Http/Requests/StoreBukuRequest.php</code>). Di dalam kelas itu sudah ada kerangka fungsi — ganti isi <code>authorize</code> dan <code>rules</code> menjadi seperti cuplikan berikut, lalu simpan:</p>
 <pre><code class="language-php">// Cuplikan StoreBukuRequest — aturan satpam
 public function authorize(): bool
 {
@@ -255,20 +262,34 @@ Route::post('/api/buku', function (StoreBukuRequest $request) {
 <p><strong>Awam:</strong> <code>validated()</code> = ambil hanya field yang sudah lolos cek. <code>authorize(): true</code> di sini berarti “belum ada kartu anggota” — login dibahas belakangan. Artisan <code>make:request</code> sudah ada di proyek Laravel-mu (fondasi #56/#57) — tidak perlu unduh paket baru.</p>
 
 <h2>Uji gagal &amp; sukses</h2>
-<p>Dengan <code>php artisan serve</code> hidup, uji dari terminal (contoh <code>curl</code>):</p>
+<p>Pastikan <code>php artisan serve</code> masih hidup di terminal pertama. Buka <strong>terminal kedua</strong> untuk menguji. Kita kirim data JSON — bilah alamat browser saja tidak cukup untuk POST.</p>
+<p><strong>Opsi A — <code>curl</code> di terminal</strong> (Windows 10/11 biasanya sudah punya; di PowerShell ketik <code>curl.exe</code> agar tidak tertukar dengan perintah lain):</p>
 <pre><code class="language-bash"># Sengaja kosongkan judul — harus ditolak (422)
-curl -s -X POST http://127.0.0.1:8000/api/buku \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
+curl.exe -s -X POST http://127.0.0.1:8000/api/buku ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
   -d "{\"judul\":\"\",\"penulis\":\"Ayu\"}"
-
-# Slip bersih — harus 201 + JSON data
-curl -s -X POST http://127.0.0.1:8000/api/buku \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
+</code></pre>
+<p><strong>Awam Windows (CMD):</strong> tanda <code>^</code> di akhir baris = “lanjut ke baris berikutnya”. Di PowerShell/Mac/Linux, ganti <code>^</code> dengan <code>\</code> (backslash), atau ketik semua dalam satu baris tanpa pemisah.</p>
+<pre><code class="language-bash"># Slip bersih — harus 201 + JSON data
+curl.exe -s -X POST http://127.0.0.1:8000/api/buku ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
   -d "{\"judul\":\"Belajar Laravel\",\"penulis\":\"Budi\"}"
 </code></pre>
-<p><strong>Awam:</strong> baris <code>Accept: application/json</code> meminta jawaban berbentuk JSON (bukan halaman HTML error). Kalau Windows/PowerShell ribet dengan tanda kutip, boleh pakai alat uji API berjendela nanti — ide utamanya: kirim JSON, baca OK atau 422.</p>
+<p><strong>Opsi B — PowerShell</strong> (kalau kutip di <code>curl</code> ribet), tempel satu perintah per uji:</p>
+<pre><code class="language-powershell"># Judul kosong — harap 422
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/buku `
+  -ContentType 'application/json' -Headers @{ Accept = 'application/json' } `
+  -Body '{"judul":"","penulis":"Ayu"}'
+</code></pre>
+<pre><code class="language-powershell"># Slip bersih — harap data + status sukses
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/buku `
+  -ContentType 'application/json' -Headers @{ Accept = 'application/json' } `
+  -Body '{"judul":"Belajar Laravel","penulis":"Budi"}'
+</code></pre>
+<p><strong>Opsi C — alat uji API berjendela</strong> (misalnya Postman atau Insomnia — opsional, gratis). Isi: metode <strong>POST</strong>, URL <code>http://127.0.0.1:8000/api/buku</code>, header <code>Accept: application/json</code> + <code>Content-Type: application/json</code>, body JSON sama seperti di atas. Ide utamanya sama: kirim slip, baca OK atau 422.</p>
+<p><strong>Awam:</strong> baris <code>Accept: application/json</code> meminta jawaban berbentuk JSON (bukan halaman HTML error). Kalau muncul error HTML panjang, hampir selalu karena header Accept belum ada.</p>
 
 <h2>Pola Dasar — empat langkah satpam bersih</h2>
 <figure role="img" aria-label="Pola Dasar empat langkah Request Form Request" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
@@ -287,13 +308,19 @@ curl -s -X POST http://127.0.0.1:8000/api/buku \
   </li>
   <li style="display:flex;gap:.75rem;align-items:flex-start">
     <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
-    <div><strong style="color:#1a1a1a">Uji 422 &amp; 201</strong><br><span style="color:#1a1a1a">Kirim judul kosong (ditolak) lalu slip bersih (diterima).</span></div>
+    <div><strong style="color:#1a1a1a">Uji 422 &amp; 201</strong><br><span style="color:#1a1a1a">Di terminal kedua: <code>curl.exe</code> / PowerShell / alat berjendela — judul kosong (ditolak) lalu slip bersih.</span></div>
   </li>
 </ol>
 </figure>
 
 <h2>Demo satpam — file mandiri</h2>
-<p>Simpan sebagai <code>laravel_request_validasi_api_demo.php</code>, lalu jalankan <code>php laravel_request_validasi_api_demo.php</code>. File ini mensimulasikan cek slip — tidak mengubah proyek Laravel-mu:</p>
+<p>Latihan ide satpam tanpa menyentuh Laravel:</p>
+<ol>
+  <li>Buka editor teks, buat file baru, tempel cuplikan di bawah, simpan sebagai <code>laravel_request_validasi_api_demo.php</code> (boleh di Desktop atau folder latihan — tidak harus di dalam <code>perpustakaan-api</code>).</li>
+  <li>Buka terminal di folder tempat file itu disimpan (Windows Explorer: Shift+klik kanan folder -&gt; “Open in Terminal” / “Buka di Terminal”, atau <code>cd</code> manual).</li>
+  <li>Jalankan: <code>php laravel_request_validasi_api_demo.php</code> — layar harus menampilkan kasus 422 lalu OK.</li>
+</ol>
+<p>File ini hanya mensimulasikan cek slip — tidak mengubah proyek Laravel-mu:</p>
 <pre><code class="language-php">&lt;?php
 
 declare(strict_types=1);
@@ -358,6 +385,16 @@ demo();
       <td>Tambah Accept saat uji POST</td>
     </tr>
     <tr>
+      <td><code>curl</code> tidak dikenal / error aneh di PowerShell</td>
+      <td>Perintah tertukar atau belum memakai <code>curl.exe</code></td>
+      <td>Pakai <code>curl.exe</code>, Opsi B PowerShell, atau alat berjendela (Opsi C)</td>
+    </tr>
+    <tr>
+      <td>Connection refused / gagal sambung</td>
+      <td><code>php artisan serve</code> belum hidup / terminal salah folder</td>
+      <td>Nyalakan serve di folder <code>perpustakaan-api</code>, uji lagi di terminal kedua</td>
+    </tr>
+    <tr>
       <td>405 Method Not Allowed</td>
       <td>Masih memakai GET untuk kirim data</td>
       <td>Pakai POST ke <code>/api/buku</code></td>
@@ -385,6 +422,10 @@ demo();
 <h2>FAQ</h2>
 <p><strong>Harus Form Request dari hari pertama?</strong><br>
 Tidak. Boleh mulai dari <code>$request-&gt;validate</code> di route. Form Request berguna saat aturan makin panjang atau dipakai di banyak tempat.</p>
+<p><strong>Harus install Postman?</strong><br>
+Tidak wajib. Terminal + <code>curl.exe</code> / PowerShell sudah cukup. Alat berjendela hanya opsi kalau kutip di terminal terasa ribet.</p>
+<p><strong>Kenapa browser saja tidak cukup?</strong><br>
+Browser mudah untuk GET (ketik URL). POST butuh mengirim body JSON — itu kerja terminal atau alat uji API, bukan bilah alamat.</p>
 <p><strong>Kenapa belum disimpan ke database?</strong><br>
 Supaya fokus satu hal: menjaga input. Menyimpan rapi (pengatur kode + tabel) datang setelah fondasi satpam nyaman.</p>
 <p><strong>Apa hubungan dengan routing?</strong><br>
