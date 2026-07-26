@@ -219,7 +219,7 @@ echo "DB_CONNECTION=sqlite", PHP_EOL;
   <li>Pastikan di <code>.env</code>: <code>DB_CONNECTION=sqlite</code>.</li>
   <li>Buat file kosong: <code>database/database.sqlite</code>.
     <ul>
-      <li><strong>Windows (Explorer):</strong> masuk folder <code>database</code>, buat Text File baru, namai <code>database.sqlite</code> (boleh kosong).</li>
+      <li><strong>Windows (Explorer):</strong> masuk folder <code>database</code>, buat Text File baru, namai <code>database.sqlite</code> (boleh kosong). Pastikan namanya benar-benar berakhir <code>.sqlite</code> — bukan <code>database.sqlite.txt</code>. Kalau Windows menyembunyikan ekstensi, di Explorer buka tab <strong>View</strong> lalu centang opsi menampilkan ekstensi file (<em>File name extensions</em> / <em>Ekstensi nama file</em>).</li>
       <li><strong>Windows (terminal):</strong> <code>type nul &gt; database\database.sqlite</code></li>
     </ul>
   </li>
@@ -330,8 +330,8 @@ demo();
     </tr>
     <tr>
       <td>Migrate gagal / database error</td>
-      <td>File <code>database.sqlite</code> belum dibuat</td>
-      <td>Buat file kosong di <code>database/database.sqlite</code></td>
+      <td>File <code>database.sqlite</code> belum dibuat, atau namanya jadi <code>database.sqlite.txt</code></td>
+      <td>Buat ulang file kosong <code>database/database.sqlite</code> (tanpa <code>.txt</code>)</td>
     </tr>
     <tr>
       <td>Artisan “could not open input file”</td>
@@ -357,7 +357,7 @@ demo();
 <p><strong>Harus MySQL dari awal?</strong><br>
 Tidak. SQLite cukup untuk langkah denah ini. MySQL di Laragon boleh belakangan saat data makin besar.</p>
 <p><strong>Bagaimana membuat file database.sqlite di Windows?</strong><br>
-Paling mudah lewat Explorer: folder <code>database</code>, buat file baru bernama <code>database.sqlite</code> (isi boleh kosong). Atau di terminal proyek: <code>type nul &gt; database\database.sqlite</code>.</p>
+Paling mudah lewat Explorer: folder <code>database</code>, buat file baru bernama <code>database.sqlite</code> (isi boleh kosong). Cek nama file: jangan sampai jadi <code>database.sqlite.txt</code>. Atau di terminal proyek: <code>type nul &gt; database\database.sqlite</code>.</p>
 <p><strong>Boleh mengedit banyak file di config/?</strong><br>
 Untuk pemula: tahan dulu. Kebanyakan pengaturan harian cukup lewat <code>.env</code>.</p>
 <p><strong>Apa hubungan dengan instalasi (#56)?</strong><br>

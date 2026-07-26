@@ -62,6 +62,7 @@ check(file_exists(__DIR__.'/audit-article57-deep.php'), 'Deep pass-1 ada');
 check(str_contains($body, 'denah'), 'Narasi denah');
 check(str_contains($body, 'database.sqlite'), 'File sqlite disebut');
 check(str_contains($body, 'type nul') || str_contains($body, 'Text File'), 'Cara buat sqlite Windows');
+check(str_contains($body, 'database.sqlite.txt') || str_contains($body, '.sqlite.txt'), 'Peringatan ekstensi .txt Windows');
 check(str_contains($body, 'Bagaimana membuat file database.sqlite'), 'FAQ buat sqlite');
 check(str_contains($body, 'key:generate'), 'key:generate');
 check(! str_contains($body, 'Pin ') && ! str_contains($body, 'closure'), 'Tanpa Pin/closure');
