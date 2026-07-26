@@ -3952,8 +3952,8 @@ class DeployController extends Controller
             return response('Article 58 seed failed', 500);
         }
 
-        $slug = 'laravel-controller-service-eloquent';
-        $prevSlug = 'laravel-request-validasi-api';
+        $slug = 'laravel-routing-json-perpustakaan-api';
+        $prevSlug = 'laravel-struktur-env-artisan';
 
         $article = Article::published()->where('slug', $slug)->first();
 
@@ -3964,7 +3964,8 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel58ctrlArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_controller_service_demo.php') || ! str_contains($body, 'BukuService') || ! str_contains($body, 'BukuController') || ! str_contains($body, 'Eloquent') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#58 (ini)') || ! str_contains($body, '8/8 Capstone Laravel selesai') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'pengatur kode') || ! str_contains($body, 'otentikasi') || ! str_contains($body, 'langkah kerja') || ! str_contains($body, 'validated()') || ! str_contains($body, 'JsonResponse') || ! str_contains($body, 'callable') || ! str_contains($body, 'Perintah database tersebar') || ! str_contains($body, 'laravel-auth-api-dasar')) {
+        $hasJsonHelper = str_contains($body, 'response()->json') || str_contains($body, 'response()-&gt;json');
+        if (! str_contains($body, 'laravel58routeArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_routing_json_perpustakaan_demo.php') || ! $hasJsonHelper || ! str_contains($body, '/api/buku') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#58 (ini)') || ! str_contains($body, '3/8') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Laravel 13+') || ! str_contains($body, 'JSON')) {
             report(new \RuntimeException('Article 58 body missing expected content after seed.'));
 
             return response('Article 58 body content checks failed', 500);

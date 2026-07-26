@@ -364,12 +364,12 @@ Untuk pemula: tahan dulu. Kebanyakan pengaturan harian cukup lewat <code>.env</c
 <p><strong>Apa hubungan dengan instalasi (#56)?</strong><br>
 <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> mendirikan proyek. <strong>#57 (ini)</strong> mengajakmu mengenali isi rumahnya.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya kamu akan belajar <strong>routing</strong> dan jawaban <strong>JSON</strong> — membuka pintu HTTP untuk API perpustakaan mini.</p>
+Berikutnya: <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> — buka pintu HTTP dan jawab daftar buku dengan JSON.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah punya denah kerja Laravel: folder penting, file <code>.env</code>, database SQLite dari nol, dan Artisan untuk <code>migrate</code>/<code>serve</code>/<code>list</code>. Ini langkah <strong>2/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#57 (ini)</strong> · <strong>2/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> LIVE. Berikutnya: routing &amp; jawaban JSON untuk API perpustakaan.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#57 (ini)</strong> · <strong>2/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> LIVE. Berikutnya: <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a>.</p>
 </blockquote>
 HTML;
     }

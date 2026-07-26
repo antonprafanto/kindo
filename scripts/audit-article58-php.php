@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP/pedagogi audit #58 — runnable controller/service demo (skip cuplikan Laravel).
+ * PHP / pedagogi audit #58 — extract & run language-php blocks.
  * Usage: php scripts/audit-article58-php.php
  */
 
@@ -27,62 +27,40 @@ $method = $ref->getMethod('body');
 $method->setAccessible(true);
 $body = $method->invoke($ref->newInstanceWithoutConstructor());
 
-preg_match_all('/<pre><code class="language-php">(.*?)<\/code><\/pre>/s', $body, $blocks);
-check(count($blocks[1]) >= 4, 'Minimal 4 blok language-php ('.count($blocks[1]).')');
+preg_match_all('/<pre><code class="language-php">(.*?)<\/code><\/pre>/s', $body, $matches);
+$blocks = $matches[1] ?? [];
+check(count($blocks) >= 3, 'Minimal 3 blok language-php ('.count($blocks).')');
 
-$tmpDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a58php_'.uniqid();
-mkdir($tmpDir);
+$dir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a58php_'.bin2hex(random_bytes(4));
+mkdir($dir);
 
 $runnable = 0;
-foreach ($blocks[1] as $i => $raw) {
+$demoOut = '';
+foreach ($blocks as $i => $raw) {
     $code = html_entity_decode($raw, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-    if (
-        str_contains($code, 'Cuplikan Laravel')
-        || str_contains($code, 'namespace App\\Http\\Controllers')
-        || str_contains($code, 'namespace App\\Models')
-        || str_contains($code, 'namespace App\\Services')
-        || str_contains($code, 'extends Model')
-        || str_contains($code, 'BukuController')
-    ) {
-        check(true, 'skip Laravel cuplikan block #'.($i + 1));
+    $code = str_replace(['&lt;', '&gt;', '&amp;'], ['<', '>', '&'], $code);
+    if (! str_starts_with(ltrim($code), '<?php')) {
         continue;
     }
     $runnable++;
-    $file = $tmpDir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
+    $file = $dir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
     file_put_contents($file, $code);
     $lint = [];
-    $lrc = 0;
-    exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lrc);
-    check($lrc === 0, 'php -l block #'.($i + 1).' — '.trim(implode(' ', $lint)));
+    exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lintCode);
+    check($lintCode === 0, 'php -l block #'.($i + 1).' — '.implode(' ', $lint));
     $out = [];
-    $rc = 0;
-    exec('php '.escapeshellarg($file).' 2>&1', $out, $rc);
-    $joined = implode("\n", $out);
-    check($rc === 0, 'run block #'.($i + 1).' exit 0');
-    if ($runnable === 1) {
-        check(str_contains($joined, 'Belajar PHP') || str_contains($joined, '"ok"'), 'run block #'.($i + 1).' output: tambah buku');
-    }
-    if ($runnable === 2) {
-        check(str_contains($joined, 'data') || str_contains($joined, 'Belajar PHP'), 'run block #'.($i + 1).' output: daftar');
-    }
-    if (str_contains($code, 'function demo')) {
-        check(str_contains($joined, 'POST bersih') || str_contains($joined, 'GET daftar'), 'run demo output framing');
-        check(str_contains($joined, 'Belajar PHP') && str_contains($joined, '"ok"'), 'run demo has sukses + daftar');
-    }
+    exec('php '.escapeshellarg($file).' 2>&1', $out, $runCode);
+    check($runCode === 0, 'run block #'.($i + 1).' exit 0');
+    $demoOut .= implode("\n", $out)."\n";
 }
 
+check(str_contains($demoOut, 'buku') || str_contains($demoOut, 'JSON') || str_contains($demoOut, 'Peta') || str_contains($demoOut, 'Jumlah'), 'run demo output berguna');
 check($runnable >= 3, '≥3 blok runnable PHP ('.$runnable.')');
-check(str_contains($body, 'demo('), 'Ada demo()');
-check(str_contains($body, 'laravel_controller_service_demo.php'), 'File contoh');
-check(str_contains($body, 'BukuService'), 'Ada BukuService');
-check(str_contains($body, 'laravel58ctrlArrow'), 'SVG marker');
+check(str_contains($body, 'demo()'), 'Ada demo()');
+check(str_contains($body, 'laravel_routing_json_perpustakaan_demo.php'), 'File contoh');
+check(str_contains($body, 'laravel58routeArrow'), 'SVG marker');
 check(str_contains($body, 'Seri 4'), 'Framing Seri 4');
 check(str_contains($body, '#58 (ini)'), 'Self-ref');
-
-foreach (glob($tmpDir.DIRECTORY_SEPARATOR.'*') ?: [] as $f) {
-    @unlink($f);
-}
-@rmdir($tmpDir);
 
 echo "\n=== PHP/pedagogi audit #58: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

@@ -29,15 +29,16 @@ $method = $ref->getMethod('body');
 $method->setAccessible(true);
 $body = $method->invoke($ref->newInstanceWithoutConstructor());
 
-check(str_contains($body, 'laravel58ctrlArrow'), 'SVG marker');
+check(str_contains($body, 'laravel58routeArrow'), 'SVG marker');
 check(str_contains($body, 'viewBox'), 'viewBox');
-check(str_contains($body, 'figcaption'), 'figcaption');
-check(str_contains($body, 'Pola Dasar'), 'Pola Dasar');
+check(str_contains($body, '<figcaption'), 'figcaption');
+check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar');
+check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(substr_count($body, '<h2') >= 8, '≥8 H2');
 check(str_contains($body, 'language-php'), 'language-php');
-check(str_contains($body, 'laravel_controller_service_demo.php'), 'File contoh');
-check(str_contains($body, 'BukuService') || str_contains($body, 'Eloquent'), 'Service/Eloquent');
-check(substr_count($body, 'background:#F5F5F0') >= 2, '≥2 figure #F5F5F0');
+check(str_contains($body, 'laravel_routing_json_perpustakaan_demo.php'), 'File contoh');
+check(str_contains($body, '/api/buku') && str_contains($body, 'JSON'), 'Route/JSON markers');
+check(substr_count($body, '#F5F5F0') >= 2, '≥2 figure #F5F5F0');
 check(strlen($body) > 4000, 'Body tidak terpotong pendek');
 
 echo "\n=== Sanitize spot-check #58: {$passed} passed, {$failed} failed ===\n";

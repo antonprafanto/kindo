@@ -73,8 +73,8 @@ check(! str_contains($body, 'Laravel 11+'), 'Tanpa pin Laravel 11+ usang');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
-check(str_contains($body, 'routing') && str_contains($body, 'JSON'), 'Soft bridge #58');
-check(! str_contains($body, '/artikel/laravel-routing-json-perpustakaan-api'), 'Tanpa hardlink #58');
+check(str_contains($body, 'routing') && str_contains($body, 'JSON'), 'Jembatan #58');
+check(str_contains($body, '/artikel/laravel-routing-json-perpustakaan-api'), 'Hardlink #58');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article56Seeder.php'), $slug), '#56 hardlink #57');
 

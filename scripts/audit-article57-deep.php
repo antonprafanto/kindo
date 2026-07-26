@@ -70,18 +70,18 @@ check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article56Seed
 check(str_contains($body, '2/8'), 'Progress 2/8');
 check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel'), 'Framing Seri 4 v2');
 check(str_contains($body, 'Awam:'), 'Gloss awam');
-check(str_contains($body, 'routing') && str_contains($body, 'JSON'), 'Jembatan soft ke #58');
+check(str_contains($body, 'routing') && str_contains($body, 'JSON'), 'Jembatan ke #58');
 check(! str_contains($body, 'Pin ') && ! str_contains($body, 'closure'), 'Tanpa Pin/closure');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa @param di body');
 check(str_contains($body, 'strict_types'), 'Gloss strict_types');
 check(str_contains($body, 'proyek') || str_contains($body, 'Proyek'), 'Proyek (bukan project)');
-check(! str_contains($body, '/artikel/laravel-routing-json-perpustakaan-api'), 'Tanpa hardlink #58');
+check(str_contains($body, '/artikel/laravel-routing-json-perpustakaan-api'), 'Hardlink #58');
 check(! preg_match('/hardlink|STOP AUDIT|oke deploy/i', $body), 'Tanpa suara editor hardlink');
 check(! preg_match('/(?<![\w\/"#>(ini)\s])#5[3-7](?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '') ?? ''), 'Tanpa thin anchor #N');
 
 echo "\n=== Deep-audit pass-1 #57: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: LIVE #57 — hardlink #56 terkunci.\n";
+    echo "Verdict: LIVE #57 — hardlink #56 + #58 terkunci.\n";
 }
 exit($failed > 0 ? 1 : 0);

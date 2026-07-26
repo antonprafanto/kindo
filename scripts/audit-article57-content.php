@@ -68,7 +68,7 @@ check(str_contains($body, 'key:generate'), 'key:generate');
 check(! str_contains($body, 'Pin ') && ! str_contains($body, 'closure'), 'Tanpa Pin/closure');
 check(str_contains($body, 'Laravel 13+'), 'Versi Laravel awam');
 check(str_contains($body, 'PHP 8.3+'), 'Versi PHP awam');
-check(str_contains($body, 'routing') && ! str_contains($body, '/artikel/laravel-routing-json-perpustakaan-api'), 'Soft bridge #58 tanpa hardlink');
+check(str_contains($body, '/artikel/laravel-routing-json-perpustakaan-api'), 'Hardlink #58');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa PHPDoc @param di demo');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
