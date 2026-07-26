@@ -164,12 +164,23 @@ class Article56Seeder extends Seeder
 <figcaption>Alur <strong>#56 (ini)</strong>: siapkan alat, lahirkan proyek, cek versi, hidupkan server lokal.</figcaption>
 </figure>
 
+<h2>Persiapan — alat yang kamu buka</h2>
+<p><strong>Alat yang dipakai di artikel ini</strong> (semua gratis):</p>
+<ul>
+  <li><strong>Browser</strong> — unduh Laragon/XAMPP/Composer, dan nanti membuka halaman welcome Laravel.</li>
+  <li><strong>Laragon</strong> (disarankan) atau <strong>XAMPP</strong> — aplikasi yang membawa PHP di Windows. Di Laragon kamu juga punya tombol <em>Terminal</em>.</li>
+  <li><strong>Terminal</strong> — tempat mengetik <code>php</code>, <code>composer</code>, dan <code>php artisan …</code>. Di jalur utama: buka dari menu Terminal Laragon (bukan sembarang CMD yang belum kenal PHP).</li>
+  <li><strong>Explorer</strong> (opsional) — melihat folder <code>C:\laragon\www</code> dan proyek <code>perpustakaan-api</code>.</li>
+  <li><strong>Editor teks</strong> — Notepad / VS Code — hanya untuk file demo PHP di akhir artikel (bukan wajib untuk instal Laravel).</li>
+</ul>
+<p><strong>Awam:</strong> urutan nyaman: pasang aplikasi -&gt; buka terminal yang benar -&gt; ketik perintah -&gt; cek di browser. Jangan loncat ke <code>create-project</code> sebelum <code>php -v</code> dan <code>composer -V</code> jalan.</p>
+
 <h2>Laragon (atau XAMPP) — PHP di Windows</h2>
 <p><strong>Jalur utama Windows:</strong> pasang <strong>Laragon</strong> (disarankan) atau <strong>XAMPP</strong>. Keduanya sudah menyertakan PHP — kamu tidak perlu mengunduh PHP terpisah untuk langkah awal. Tautan unduh ada di langkah 1 di bawah.</p>
 <ol>
-  <li>Unduh <a href="https://laragon.org/download/" rel="noopener noreferrer">Laragon</a> (disarankan) atau <a href="https://www.apachefriends.org/" rel="noopener noreferrer">XAMPP</a> dari situs resmi, lalu instal seperti aplikasi biasa.</li>
-  <li>Buka Laragon, klik <strong>Start All</strong> (Apache/MySQL boleh hidup — untuk Laravel kita fokus PHP dulu).</li>
-  <li>Buka terminal Laragon (menu <em>Terminal</em>) lalu ketik:</li>
+  <li>Buka browser, unduh <a href="https://laragon.org/download/" rel="noopener noreferrer">Laragon</a> (disarankan) atau <a href="https://www.apachefriends.org/" rel="noopener noreferrer">XAMPP</a> dari situs resmi, lalu instal seperti aplikasi biasa (klik Next sampai selesai).</li>
+  <li>Buka aplikasi Laragon, klik <strong>Start All</strong> (Apache/MySQL boleh hidup — untuk Laravel kita fokus PHP dulu).</li>
+  <li>Di jendela Laragon, buka menu <em>Terminal</em> (ini terminal yang sudah “kenal” PHP). Lalu ketik perintah di bawah dan tekan Enter:</li>
 </ol>
 <pre><code class="language-bash">php -v
 </code></pre>
@@ -179,10 +190,15 @@ class Article56Seeder extends Seeder
 echo "PHP 8.3.12 (cli) (built: Oct 24 2024 00:00:00)", PHP_EOL;
 echo "Copyright (c) The PHP Group", PHP_EOL;
 </code></pre>
-<p><strong>Awam:</strong> kalau terminal bilang <code>php</code> tidak dikenali, PHP belum masuk PATH — restart Laragon atau buka terminal dari menu Laragon, bukan CMD acak.</p>
+<p><strong>Awam:</strong> kalau terminal bilang <code>php</code> tidak dikenali, PHP belum masuk PATH — restart Laragon atau buka lagi terminal dari menu Laragon, bukan CMD/PowerShell acak dari Start Menu.</p>
 
 <h2>Composer — pengelola paket PHP</h2>
-<p>Setelah PHP hidup, pasang <strong>Composer</strong> dari <a href="https://getcomposer.org/download/" rel="noopener noreferrer">getcomposer.org</a> (installer Windows). Composer mengunduh Laravel dan dependensinya ke folder proyek.</p>
+<p>Setelah <code>php -v</code> sukses di terminal Laragon:</p>
+<ol>
+  <li>Buka browser, unduh installer Windows dari <a href="https://getcomposer.org/download/" rel="noopener noreferrer">getcomposer.org</a>.</li>
+  <li>Jalankan file installer (klik dua kali), ikuti Next. Biarkan installer mendeteksi PHP dari Laragon bila ditanya.</li>
+  <li><strong>Tutup lalu buka lagi</strong> terminal Laragon (supaya PATH Composer terbaca), lalu ketik:</li>
+</ol>
 <pre><code class="language-bash">composer -V
 </code></pre>
 <p>Contoh output yang kamu harapkan:</p>
@@ -190,20 +206,23 @@ echo "Copyright (c) The PHP Group", PHP_EOL;
 // Simulasi output composer -V.
 echo "Composer version 2.8.3 2024-11-12 15:00:00", PHP_EOL;
 </code></pre>
-<p><strong>Awam:</strong> Composer seperti kurir yang mengantar rak, label, dan perlengkapan toko Laravel — kamu tidak mengunduh ribuan file manual.</p>
+<p><strong>Awam:</strong> Composer seperti kurir yang mengantar rak, label, dan perlengkapan toko Laravel — kamu tidak mengunduh ribuan file manual. Cek <code>composer -V</code> di <strong>terminal yang sama</strong> tempat <code>php -v</code> sudah jalan.</p>
 
 <h2>create-project — lahirkan proyek Laravel</h2>
-<p>Pilih folder kerja (misalnya <code>C:\laragon\www</code> di Laragon). Lalu jalankan:</p>
+<p>Masih di terminal Laragon. Masuk dulu ke folder kerja (contoh jalur Laragon):</p>
+<pre><code class="language-bash">cd C:\laragon\www
+</code></pre>
+<p>Kalau foldernya belum ada, buat dulu lewat Explorer atau <code>mkdir C:\laragon\www</code>. Lalu jalankan:</p>
 <pre><code class="language-bash">composer create-project laravel/laravel perpustakaan-api
 </code></pre>
-<p>Perintah ini membuat folder <code>perpustakaan-api</code> berisi kerangka <strong>Laravel 13+</strong> (yang diunduh Composer saat ini). Proses bisa beberapa menit — normal. Nama <code>perpustakaan-api</code> mengingatkan bahwa proyek ini nanti dipakai untuk <strong>API perpustakaan mini</strong>.</p>
+<p>Perintah ini membuat folder <code>perpustakaan-api</code> berisi kerangka <strong>Laravel 13+</strong> (yang diunduh Composer saat ini). Proses bisa beberapa menit — normal; biarkan terminal bekerja sampai selesai. Nama <code>perpustakaan-api</code> mengingatkan bahwa proyek ini nanti dipakai untuk <strong>API perpustakaan mini</strong>.</p>
 <p>Masuk ke folder proyek:</p>
 <pre><code class="language-bash">cd perpustakaan-api
 </code></pre>
-<p><strong>Awam:</strong> <code>create-project</code> = paket “toko siap bangun”. Isi rak buku (route, model) kita tambah di artikel berikutnya.</p>
+<p><strong>Awam:</strong> <code>create-project</code> = paket “toko siap bangun”. Isi rak buku (route, model) kita tambah di artikel berikutnya. Pastikan prompt terminal sudah berada di dalam <code>perpustakaan-api</code> sebelum perintah Artisan.</p>
 
 <h2>Cek versi &amp; artisan serve</h2>
-<p>Tiga cek cepat sebelum lanjut:</p>
+<p>Masih di folder <code>perpustakaan-api</code>, tiga cek cepat sebelum lanjut (ketik satu per satu, Enter):</p>
 <pre><code class="language-bash">php -v
 composer -V
 php artisan --version
@@ -216,8 +235,8 @@ echo "Laravel Framework 13.0.0", PHP_EOL;
 <p>Hidupkan server pengembangan bawaan:</p>
 <pre><code class="language-bash">php artisan serve
 </code></pre>
-<p>Buka browser ke alamat yang muncul (biasanya <code>http://127.0.0.1:8000</code>). Kamu harus melihat <strong>halaman welcome Laravel</strong> — artinya proyek hidup.</p>
-<p><strong>Awam:</strong> <code>artisan serve</code> = menyalakan lampu toko sementara di komputermu. Matikan dengan <code>Ctrl+C</code> di terminal.</p>
+<p>Biarkan jendela terminal ini <strong>tetap hidup</strong> (jangan ditutup). Buka <strong>browser</strong> (Chrome/Edge/Firefox), ketik alamat yang muncul di terminal (biasanya <code>http://127.0.0.1:8000</code>). Kamu harus melihat <strong>halaman welcome Laravel</strong> — artinya proyek hidup.</p>
+<p><strong>Awam:</strong> <code>artisan serve</code> = menyalakan lampu toko sementara di komputermu. Matikan dengan <code>Ctrl+C</code> di terminal yang menjalankan <code>serve</code>.</p>
 
 <h2>Alternatif singkat — PHP di PATH + Composer resmi</h2>
 <p>Jika tidak memakai Laragon/XAMPP: unduh PHP zip dari <a href="https://windows.php.net/download/" rel="noopener noreferrer">windows.php.net</a>, ekstrak, tambahkan folder PHP ke <strong>PATH</strong> Windows, lalu pasang Composer installer. Setelah <code>php -v</code> dan <code>composer -V</code> sama-sama jalan, langkah <code>create-project</code> dan <code>artisan serve</code> identik dengan atas.</p>
@@ -253,7 +272,13 @@ echo "Laravel Framework 13.0.0", PHP_EOL;
 </figure>
 
 <h2>Demo cek versi — file mandiri</h2>
-<p>Simpan sebagai <code>laravel_instalasi_proyek_pertama_demo.php</code>, lalu jalankan <code>php laravel_instalasi_proyek_pertama_demo.php</code>. File ini <strong>mensimulasikan</strong> output cek versi — tidak butuh Laravel terpasang:</p>
+<p>Latihan membaca bentuk output (tanpa mengubah proyek Laravel):</p>
+<ol>
+  <li>Buka editor teks, buat file baru, tempel cuplikan di bawah, simpan sebagai <code>laravel_instalasi_proyek_pertama_demo.php</code> (boleh di Desktop).</li>
+  <li>Buka terminal di folder tempat file itu disimpan (Explorer: Shift+klik kanan folder -&gt; “Open in Terminal” / “Buka di Terminal”, atau <code>cd</code> manual). Pastikan <code>php -v</code> sudah jalan di terminal itu.</li>
+  <li>Jalankan: <code>php laravel_instalasi_proyek_pertama_demo.php</code> — layar menampilkan contoh teks cek versi.</li>
+</ol>
+<p>File ini <strong>mensimulasikan</strong> output cek versi — tidak butuh Laravel terpasang:</p>
 
 <pre><code class="language-php">&lt;?php
 declare(strict_types=1);
@@ -327,7 +352,12 @@ demo();
     <tr>
       <td>Browser kosong / tidak bisa buka</td>
       <td>Server belum jalan atau port bentrok</td>
-      <td>Pastikan <code>php artisan serve</code> masih aktif; coba port lain</td>
+      <td>Pastikan <code>php artisan serve</code> masih aktif di terminal; buka URL yang tertulis di sana</td>
+    </tr>
+    <tr>
+      <td>Bingung perintah diketik di mana</td>
+      <td>Belum membuka terminal Laragon / salah jendela</td>
+      <td>Lihat bagian <strong>Persiapan — alat yang kamu buka</strong>; ketik di terminal Laragon</td>
     </tr>
   </tbody>
 </table>
@@ -342,6 +372,10 @@ demo();
 <h2>FAQ</h2>
 <p><strong>Harus pakai Laragon?</strong><br>
 Tidak wajib. Laragon/XAMPP hanya jalur paling nyaman di Windows. Yang wajib: <strong>PHP 8.3+</strong> dan Composer jalan di terminal yang sama (syarat Laravel 13).</p>
+<p><strong>Terminal mana yang harus dibuka?</strong><br>
+Di jalur utama: terminal dari menu Laragon (setelah Start All). Kalau kamu buka CMD/PowerShell dari Start Menu dan <code>php</code> tidak dikenali, hampir selalu karena PATH — kembali ke terminal Laragon.</p>
+<p><strong>Harus install editor seperti VS Code dulu?</strong><br>
+Tidak wajib untuk instalasi. Editor hanya membantu menyimpan file demo di akhir artikel. Mengedit kode Laravel dimulai lebih serius di langkah berikutnya.</p>
 <p><strong>Kenapa bukan Laravel 11 lagi?</strong><br>
 Versi terbaru resmi saat artikel ini ditulis adalah <strong>Laravel 13</strong> — butuh PHP 8.3 sampai 8.5. Kalau <code>php -v</code> masih 8.2, upgrade PHP di Laragon dulu sebelum <code>create-project</code>.</p>
 <p><strong>Boleh pakai nama folder selain perpustakaan-api?</strong><br>

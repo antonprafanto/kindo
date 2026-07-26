@@ -83,12 +83,13 @@ check(str_contains($body, 'proyek') && ! preg_match('/(?<!-)project /', $body), 
 check(! str_contains($body, 'endpoint'), 'Tanpa jargon endpoint');
 check(str_contains($body, 'php -v') && str_contains($body, 'composer -V'), 'Cek versi');
 check(str_contains($body, 'Laragon') || str_contains($body, 'XAMPP'), 'Jalur Windows');
+check(str_contains($body, 'Alat yang dipakai') && str_contains($body, 'terminal Laragon'), 'Petunjuk tools awam');
 check(! str_contains($body, '/artikel/laravel-request-validasi-api'), 'Tanpa hardlink slug lama');
 check(! str_contains($body, 'Belum perlu hardlink') && ! str_contains($body, 'soft, belum hardlink'), 'Tanpa suara editor hardlink');
 check(! preg_match('/<a\b[^>]*>\s*#\d+\s*<\/a>/u', $body), 'Tanpa thin anchor #N');
 
 echo "\n=== Deep-audit pass-1 #56: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: LIVE #56 — hardlink #55 + #57 terkunci.\n";
+    echo "Verdict: LIVE #56 — soft polish tools awam siap oke deploy.\n";
 }
 exit($failed > 0 ? 1 : 0);
