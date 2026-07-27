@@ -4154,8 +4154,8 @@ class DeployController extends Controller
             return response('Article 60 seed failed', 500);
         }
 
-        $slug = 'capstone-api-perpustakaan-laravel';
-        $prevSlug = 'laravel-auth-api-dasar';
+        $slug = 'laravel-controller-service-eloquent';
+        $prevSlug = 'laravel-request-validasi-api';
 
         $article = Article::published()->where('slug', $slug)->first();
 
@@ -4166,7 +4166,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel60capArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_capstone_perpustakaan_demo.php') || ! str_contains($body, 'bukti_masuk') || ! str_contains($body, '401') || ! str_contains($body, '422') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#60 (ini)') || ! str_contains($body, '8/8 Capstone Laravel') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Capstone') || ! str_contains($body, 'Belum diizinkan') || ! str_contains($body, 'Isian belum rapi') || ! str_contains($body, 'laravel-crud-api-buku-ubah-hapus') || ! str_contains($body, 'Indeks Seri 4') || ! str_contains($body, 'Cek login') || ! str_contains($body, 'validated()')) {
+        if (! str_contains($body, 'laravel60cseArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_controller_service_eloquent_demo.php') || ! str_contains($body, 'BukuController') || ! str_contains($body, 'BukuService') || ! str_contains($body, 'Eloquent') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#60 (ini)') || ! str_contains($body, '5/8') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Laravel 13+') || ! str_contains($body, 'Alat yang dipakai') || ! str_contains($body, 'terminal kedua')) {
             report(new \RuntimeException('Article 60 body missing expected content after seed.'));
 
             return response('Article 60 body content checks failed', 500);
@@ -4179,22 +4179,7 @@ class DeployController extends Controller
             return response('Article 60 prerequisite #59 missing', 500);
         }
 
-        if (class_exists(\Database\Seeders\Article59Seeder::class)) {
-            $backExit = Artisan::call('db:seed', [
-                '--class' => 'Database\\Seeders\\Article59Seeder',
-                '--force' => true,
-            ]);
-            if ($backExit !== 0) {
-                return response('Article 60 backlink #59 seed failed', 500);
-            }
-        }
-
-        $a59 = Article::published()->where('slug', $prevSlug)->first();
-        if (! $a59 || ! str_contains((string) $a59->body, $slug)) {
-            report(new \RuntimeException('Article 60 backlink missing on #59 after reseed.'));
-
-            return response('Article 60 backlink #59 incomplete', 500);
-        }
+        // Hardlink #59 -> #60 ditunda sampai oke deploy (kickoff)
 
         try {
             app(SitemapService::class)->writeToDisk();

@@ -20,12 +20,14 @@ class Article60Seeder extends Seeder
             throw new \RuntimeException('User atau kategori web-development/programming tidak ditemukan. Jalankan DatabaseSeeder dulu.');
         }
 
-        $slug = 'capstone-api-perpustakaan-laravel';
+        $slug = 'laravel-controller-service-eloquent';
 
         $existing = Article::withTrashed()->where('slug', $slug)->first();
         if ($existing?->trashed()) {
             $existing->restore();
         }
+
+        // Slug v2 Controller/Service/Eloquent — tidak menyentuh cover_image
 
         foreach ([
             'laravel' => 'laravel',
@@ -33,7 +35,7 @@ class Article60Seeder extends Seeder
             'api' => 'api',
             'http' => 'http',
             'web' => 'web',
-            'auth' => 'auth',
+            'json' => 'json',
             'eloquent' => 'eloquent',
         ] as $tagSlug => $tagName) {
             Tag::updateOrCreate(['slug' => $tagSlug], ['name' => $tagName]);
@@ -44,22 +46,26 @@ class Article60Seeder extends Seeder
             [
                 'user_id'         => $admin->id,
                 'category_id'     => $webCat->id,
-                'title'           => 'Capstone: API Perpustakaan Laravel',
+                'title'           => 'Controller, Service & Eloquent Laravel',
                 'body'            => $this->body(),
                 'status'          => 'published',
-                'is_featured'     => true,
-                'seo_title'       => 'Capstone API Perpustakaan Laravel — Seri 4',
-                'seo_description' => 'Seri 4 #60 Capstone: merangkai routing, validasi, controller/service/Eloquent, dan auth jadi API perpustakaan mini — berbahasa Indonesia, ramah awam.',
+                'is_featured'     => false,
+                'seo_title'       => 'Controller, Service & Eloquent Laravel untuk Pemula',
+                'seo_description' => 'Seri 4 #60: pindahkan daftar buku dari route ke Controller + Service, lalu baca tabel dengan Eloquent — ramah awam.',
             ]
         );
         // cover_image tidak disentuh — upload manual via Filament
 
+        $prevPublished = Article::where('slug', 'laravel-request-validasi-api')->value('published_at');
         if ($article->wasRecentlyCreated || ! $article->published_at) {
+            $article->published_at = now();
+            $article->save();
+        } elseif ($prevPublished && $article->published_at <= $prevPublished) {
             $article->published_at = now();
             $article->save();
         }
 
-        $tagIds = Tag::whereIn('slug', ['laravel', 'php', 'api', 'http', 'web', 'auth', 'eloquent'])->pluck('id');
+        $tagIds = Tag::whereIn('slug', ['laravel', 'php', 'api', 'http', 'web', 'json', 'eloquent'])->pluck('id');
         $article->tags()->sync($tagIds);
 
         $this->command?->info('✓ Artikel ke-60 berhasil dipublish: '.$article->title);
@@ -68,338 +74,267 @@ class Article60Seeder extends Seeder
     private function body(): string
     {
         return <<<'HTML'
-<h2>Pendahuluan — Capstone: satukan semua</h2>
-<p>Artikel ini adalah <strong>#60 (ini)</strong> — <strong>Capstone</strong> Seri 4. Capstone artinya penutup yang merangkai langkah sebelumnya jadi satu cerita utuh, bukan ide baru yang loncat jauh.</p>
-<p>Kamu sudah punya potongan di <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; JSON (#56)</a>, <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a>, <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a>, dan <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>. Sekarang kita satukan: <strong>API perpustakaan mini</strong> yang bisa dibaca publik, tapi menambah buku hanya setelah login + bukti masuk.</p>
-<p><strong>Awam:</strong> bayangkan perpustakaan yang pintunya sudah dipasang: peta jalan (route), penjaga isian, loket + pekerja + rak (controller/service/Eloquent), lalu kartu anggota (auth). Capstone = menjalankan semuanya dalam satu alur.</p>
+<h2>Pendahuluan — dari pintu ke loket &amp; dapur</h2>
+<p>Artikel ini adalah <strong>#60 (ini)</strong> di <strong>Seri 4: Pemrograman Web Lanjut v2</strong>. Di <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> kamu sudah punya satpam di pintu. Sekarang langkah <strong>5/8</strong>: pindahkan kerja dari file route ke <strong>Controller</strong> (loket), <strong>Service</strong> (dapur), dan <strong>Eloquent</strong> (cara baca baris di tabel).</p>
+<p><strong>Awam:</strong> kalau semua aturan ditulis di <code>routes/web.php</code>, file pintu cepat penuh. Loket menerima tamu, dapur menyiapkan daftar buku, rak (tabel) menyimpan data. Kita pisahkan biar rapi.</p>
+<p>Domain tetap <strong>perpustakaan mini</strong>. Hari ini fokus: daftar buku lewat Controller + Service, lalu baca dari tabel dengan model Eloquent. Login/auth datang di langkah berikutnya.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a> — paham login, bukti masuk, dan status <code>401</code>. Domain tetap <strong>perpustakaan mini</strong>. Pakai <strong>Laravel 11+</strong> — ide merangkai di sini berlaku di versi modern.</p>
+  <p><strong>Prasyarat:</strong> sudah selesai <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> dan <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> — <code>GET /api/buku</code> pernah jalan. Fondasi di <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> dan <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>. Pakai <strong>Laravel 13+</strong> — butuh <strong>PHP 8.3+</strong>.</p>
 </blockquote>
 
-<h2>Spesifikasi fitur — apa yang kita bangun?</h2>
-<p>Jangan mulai dari “proyek besar”. Mulai dari daftar singkat yang bisa dijelaskan ke teman:</p>
+<h2>Spesifikasi fitur — apa yang kita kuasai?</h2>
+<p>Daftar singkat yang bisa kamu centang di akhir artikel:</p>
 <ol>
-  <li><strong>Baca katalog</strong> — publik (tanpa bukti masuk). Jawaban JSON daftar buku.</li>
-  <li><strong>Login staf</strong> — email + sandi. Sukses = bukti masuk; gagal = <code>401</code>.</li>
-  <li><strong>Tambah buku</strong> — wajib bukti masuk. Isian kotor = <code>422</code>; tanpa bukti = <code>401</code>; sukses = <code>201</code>.</li>
+  <li>Membuat <strong>Controller</strong> dengan Artisan dan menghubungkan route ke loket.</li>
+  <li>Membuat <strong>Service</strong> sederhana yang menyiapkan daftar buku.</li>
+  <li>Mengenal <strong>Eloquent</strong> (model) sebagai cara baca baris di tabel <code>bukus</code>.</li>
+  <li>Menguji <code>GET /api/buku</code> di browser setelah <code>php artisan serve</code> hidup.</li>
 </ol>
-<p><strong>Awam:</strong> tiga pintu itu cukup untuk merasakan “API utuh”. Fitur pinjam/kembali/admin penuh bisa jadi latihan lanjut — bukan syarat Capstone ini.</p>
+<p><strong>Awam:</strong> urutan nyaman: <strong>buka alat -&gt; buat model/tabel -&gt; buat service -&gt; buat controller -&gt; hubungkan route -&gt; uji di browser</strong>. Belum perlu login.</p>
 
-<h2>Istilah — ringkas untuk Capstone</h2>
+<h2>Istilah — ringkas untuk loket, dapur, rak</h2>
 <table>
   <thead>
     <tr>
       <th>Istilah</th>
       <th>Arti awam</th>
-      <th>Dari artikel</th>
+      <th>Contoh di artikel ini</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Route</td>
-      <td>Peta: URL + metode HTTP ke fungsi yang menangani</td>
-      <td><a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; JSON (#56)</a></td>
+      <td>Controller</td>
+      <td>Loket — menerima permintaan, memanggil dapur, mengembalikan jawaban</td>
+      <td><code>BukuController</code></td>
     </tr>
     <tr>
-      <td>Form Request</td>
-      <td>Penjaga isian sebelum masuk ke pengatur kode</td>
-      <td><a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a></td>
+      <td>Service</td>
+      <td>Dapur — aturan bisnis ringan (ambil daftar buku)</td>
+      <td><code>BukuService</code></td>
     </tr>
     <tr>
-      <td>Controller / Service / Eloquent</td>
-      <td>Loket · pekerja · cara simpan ke database</td>
-      <td><a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a></td>
+      <td>Eloquent / Model</td>
+      <td>Cara bicara ke tabel database lewat class PHP</td>
+      <td><code>Buku::query()-&gt;get()</code></td>
     </tr>
     <tr>
-      <td>Bukti masuk + 401</td>
-      <td>Kartu anggota; tanpa kartu = belum diizinkan</td>
-      <td><a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a></td>
+      <td>Migrasi</td>
+      <td>Cetak biru tabel yang dijalankan Artisan</td>
+      <td><code>php artisan migrate</code></td>
     </tr>
   </tbody>
 </table>
-<p>Jangan hafal ulang semua. Cukup ingat urutan: <strong>pintu -&gt; cek siapa kamu -&gt; cek isian -&gt; simpan -&gt; jawab JSON</strong>.</p>
+<p>Urutan belajar: kenali tiga peran -&gt; buat file -&gt; hubungkan route -&gt; uji JSON.</p>
 
-<h2>Kenapa belum langsung satu proyek Laravel besar?</h2>
-<p>Karena ide “satukan alur” lebih mudah dirasakan di PHP biasa dulu. Kalau alurnya sudah “klik”, cuplikan Laravel terasa seperti bungkus yang sama — bukan sihir baru.</p>
+<h2>Kenapa pindah dari route?</h2>
+<p>Di artikel routing &amp; validasi sebelumnya, banyak logika masih di <code>routes/web.php</code>. Itu bagus untuk belajar pintu. Begitu daftar buku + validasi + tabel bertambah, pintu jadi ramai.</p>
+<p><strong>Awam:</strong> sama seperti perpustakaan — satpam tetap di pintu, tapi petugas loket dan dapur punya meja sendiri. Route hanya menunjuk: “tamu daftar buku -&gt; ke loket BukuController”.</p>
+<p>Artikel ini tetap <strong>install-dari-nol</strong> untuk file baru: kita pakai Artisan <code>make:model</code> / <code>make:controller</code> dan membuat Service manual. Tidak ada paket Composer baru. Fondasi tetap merujuk <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>.</p>
 
-<pre><code class="language-php">&lt;?php
-// Mini alur Capstone (bukan database sungguhan): tanpa bukti = 401.
-$buktiValid = "kartu-abc123";
-$buktiDariHeader = ""; // kosong
-
-header("Content-Type: application/json; charset=utf-8");
-
-if ($buktiDariHeader === "" || $buktiDariHeader !== $buktiValid) {
-    http_response_code(401);
-    echo json_encode(["pesan" =&gt; "Belum diizinkan — bawa bukti masuk"], JSON_UNESCAPED_UNICODE), PHP_EOL;
-    exit;
-}
-
-echo json_encode(["ok" =&gt; true], JSON_UNESCAPED_UNICODE), PHP_EOL;
-</code></pre>
-
-<p>Output:</p>
-<pre><code>{"pesan":"Belum diizinkan — bawa bukti masuk"}
-</code></pre>
-
-<p><strong>Awam:</strong> ini hanya pintu cek bukti (auth). Di Capstone, setelah pintu terbuka baru validasi isian dan simpan buku — seperti antrean loket yang rapi.</p>
-
-<figure role="img" aria-label="Diagram Capstone merangkai route validasi controller service auth" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" style="display:block;max-width:760px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif">
+<h2>Alur — dari URL sampai daftar buku</h2>
+<figure role="img" aria-label="Alur Controller Service Eloquent: browser, controller, service, tabel" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" width="100%" height="auto" role="img" aria-labelledby="laravel60title">
+  <title id="laravel60title">Alur: Browser -&gt; Controller -&gt; Service -&gt; Eloquent/tabel</title>
   <defs>
-    <marker id="laravel60capArrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/></marker>
+    <marker id="laravel60cseArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
   </defs>
-  <rect x="0" y="0" width="760" height="260" fill="#F5F5F0" rx="6"/>
-  <text x="380" y="28" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Capstone: route -&gt; cek login -&gt; validasi -&gt; service -&gt; JSON</text>
-  <rect x="16" y="70" width="130" height="90" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="81" y="110" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Route</text>
-  <text x="81" y="132" text-anchor="middle" fill="#2D3748" font-size="11">pintu URL</text>
-  <rect x="162" y="70" width="130" height="90" rx="6" fill="#1a1a1a" stroke="#000" stroke-width="2.5"/>
-  <text x="227" y="110" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">Cek login</text>
-  <text x="227" y="132" text-anchor="middle" fill="#90CDF4" font-size="11">bukti / 401</text>
-  <rect x="308" y="70" width="130" height="90" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="373" y="110" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Validasi</text>
-  <text x="373" y="132" text-anchor="middle" fill="#2D3748" font-size="11">422 kotor</text>
-  <rect x="454" y="70" width="130" height="90" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="519" y="110" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">Service</text>
-  <text x="519" y="132" text-anchor="middle" fill="#2D3748" font-size="11">simpan buku</text>
-  <rect x="600" y="70" width="140" height="90" rx="6" fill="#E8F4FF" stroke="#000" stroke-width="2.5"/>
-  <text x="670" y="110" text-anchor="middle" fill="#1a1a1a" font-size="12" font-weight="700">JSON</text>
-  <text x="670" y="132" text-anchor="middle" fill="#2D3748" font-size="11">201 / 200</text>
-  <line x1="146" y1="115" x2="162" y2="115" stroke="#2979FF" stroke-width="2.5" marker-end="url(#laravel60capArrow)"/>
-  <line x1="292" y1="115" x2="308" y2="115" stroke="#2979FF" stroke-width="2.5" marker-end="url(#laravel60capArrow)"/>
-  <line x1="438" y1="115" x2="454" y2="115" stroke="#2979FF" stroke-width="2.5" marker-end="url(#laravel60capArrow)"/>
-  <line x1="584" y1="115" x2="600" y2="115" stroke="#2979FF" stroke-width="2.5" marker-end="url(#laravel60capArrow)"/>
-  <text x="380" y="210" text-anchor="middle" fill="#2D3748" font-size="13">Katalog publik boleh lewati cek login; tambah buku tidak.</text>
+  <text x="24" y="28" fill="#1a1a1a" font-size="15" font-weight="700">Alur: Browser -&gt; Controller -&gt; Service -&gt; Tabel</text>
+  <rect x="24" y="48" width="148" height="72" rx="10" fill="#2979FF"/>
+  <text x="98" y="80" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Browser</text>
+  <text x="98" y="100" text-anchor="middle" fill="#fff" font-size="12">GET /api/buku</text>
+  <line x1="180" y1="84" x2="220" y2="84" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel60cseArrow)"/>
+  <rect x="228" y="48" width="148" height="72" rx="10" fill="#00C853"/>
+  <text x="302" y="80" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Controller</text>
+  <text x="302" y="100" text-anchor="middle" fill="#fff" font-size="12">loket</text>
+  <line x1="384" y1="84" x2="424" y2="84" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel60cseArrow)"/>
+  <rect x="432" y="48" width="148" height="72" rx="10" fill="#FF7A2F"/>
+  <text x="506" y="80" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Service</text>
+  <text x="506" y="100" text-anchor="middle" fill="#fff" font-size="12">dapur</text>
+  <line x1="588" y1="84" x2="628" y2="84" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel60cseArrow)"/>
+  <rect x="636" y="48" width="100" height="72" rx="10" fill="#1a1a1a"/>
+  <text x="686" y="80" text-anchor="middle" fill="#fff" font-size="14" font-weight="700">Tabel</text>
+  <text x="686" y="100" text-anchor="middle" fill="#fff" font-size="11">Eloquent</text>
+  <text x="24" y="160" fill="#1a1a1a" font-size="13">Setelah validasi: pindahkan daftar buku ke loket + dapur, baca dari tabel,</text>
+  <text x="24" y="182" fill="#1a1a1a" font-size="13">lalu uji lagi di browser. Login/auth datang belakangan.</text>
+  <text x="24" y="214" fill="#1a1a1a" font-size="13">Urutan ini mengikuti langkah #60 (ini) — belum auth API.</text>
 </svg>
-<figcaption style="margin-top:.75rem;color:#2D3748;font-size:.95rem">Capstone bukan “semua route dikunci”. Publik tetap bisa baca; yang sensitif yang wajib bukti.</figcaption>
+<figcaption style="color:#1a1a1a;margin-top:.5rem"><strong>#60 (ini)</strong>: browser -&gt; controller -&gt; service -&gt; Eloquent/tabel.</figcaption>
 </figure>
 
-<h2>Alur tambah buku — dari bukti sampai JSON</h2>
-<p>Setelah login (lihat <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>), <strong>pemanggil</strong> — aplikasi atau alat yang memanggil API — membawa bukti. Di PHP sederhana, urutannya seperti ini:</p>
-
-<pre><code class="language-php">&lt;?php
-$buktiValid = "kartu-abc123";
-$buktiDariHeader = "kartu-abc123";
-$isian = ["judul" =&gt; "Belajar PHP", "tahun" =&gt; 2024];
-
-header("Content-Type: application/json; charset=utf-8");
-
-if ($buktiDariHeader !== $buktiValid) {
-    http_response_code(401);
-    echo json_encode(["pesan" =&gt; "Belum diizinkan — bawa bukti masuk"], JSON_UNESCAPED_UNICODE), PHP_EOL;
-    exit;
-}
-
-if (($isian["judul"] ?? "") === "" || ! is_int($isian["tahun"] ?? null)) {
-    http_response_code(422);
-    echo json_encode(["pesan" =&gt; "Isian belum rapi"], JSON_UNESCAPED_UNICODE), PHP_EOL;
-    exit;
-}
-
-http_response_code(201);
-echo json_encode(["ok" =&gt; true, "buku" =&gt; $isian], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
+<h2>Persiapan — alat yang kamu buka</h2>
+<p><strong>Alat yang dipakai di artikel ini</strong> (sudah dari fondasi <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> — tidak ada unduhan wajib baru):</p>
+<ul>
+  <li><strong>Explorer</strong> — melihat folder <code>app</code>, <code>database/migrations</code>, dan membuat folder <code>app/Services</code> jika belum ada.</li>
+  <li><strong>Terminal</strong> — Laragon: menu <em>Terminal</em> · XAMPP: tombol <em>Shell</em>. Untuk <code>cd</code>, <code>php artisan serve</code>, <code>make:model</code>, <code>make:controller</code>, dan <code>migrate</code>. Jangan asal buka CMD/PowerShell dari Start Menu.</li>
+  <li><strong>Terminal kedua</strong> — wajib hari ini: terminal pertama menjalankan <code>serve</code> (lampu toko). Terminal kedua untuk Artisan <code>make:…</code> dan perintah lain tanpa mematikan lampu.</li>
+  <li><strong>Editor teks</strong> — Notepad / VS Code — membuka file Controller, Service, Model, migrasi, dan <code>routes/web.php</code>. Cara cepat Windows: <code>notepad path\ke\file.php</code> dari terminal kedua.</li>
+  <li><strong>Browser</strong> — menguji <code>http://127.0.0.1:8000/api/buku</code> setelah loket terhubung.</li>
+</ul>
+<p>Buka terminal Laragon/Shell XAMPP, masuk folder proyek dulu:</p>
+<pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
 </code></pre>
+<p>Di XAMPP biasanya: <code>cd C:\xampp\htdocs\perpustakaan-api</code>. Sesuaikan path jika foldermu beda.</p>
+<p>Nyalakan lampu toko di <strong>terminal pertama</strong>:</p>
+<pre><code class="language-bash">php artisan serve
+</code></pre>
+<p>Biarkan jendela itu hidup. Buka <strong>terminal kedua</strong> (Laragon/Shell lagi), <code>cd</code> ke folder proyek yang sama — di sini kamu mengetik perintah Artisan berikutnya.</p>
+<p><strong>Awam:</strong> Terminal 1 = lampu toko. Terminal 2 = tangan membuat file &amp; migrasi. Editor = menulis isi loket/dapur. Browser = melihat slip JSON. Matikan <code>serve</code> dengan Ctrl+C hanya di terminal yang menjalankannya.</p>
 
-<p>Output (bentuknya mirip):</p>
-<pre><code>{
-    "ok": true,
-    "buku": {
-        "judul": "Belajar PHP",
-        "tahun": 2024
+<h2>Model &amp; tabel — Eloquent dari nol</h2>
+<p>Di <strong>terminal kedua</strong> (folder <code>perpustakaan-api</code>):</p>
+<pre><code class="language-bash">php artisan make:model Buku -m
+</code></pre>
+<p>Artisan membuat dua berkas: model <code>app/Models/Buku.php</code> dan file migrasi di <code>database/migrations/</code> (nama berisi <code>create_bukus_table</code>).</p>
+<p>Buka file migrasi di editor. Cara awam:</p>
+<ol>
+  <li><strong>Explorer:</strong> masuk folder <code>database/migrations</code>, pilih file <strong>terbaru</strong> yang namanya mengandung <code>create_bukus_table</code>, buka dengan Notepad/VS Code.</li>
+  <li><strong>Atau terminal kedua</strong> — daftar dulu, lalu buka dengan nama yang muncul:</li>
+</ol>
+<pre><code class="language-bash">dir database\migrations
+notepad database\migrations\nama_file_create_bukus_table.php
+</code></pre>
+<p>Ganti <code>nama_file_create_bukus_table.php</code> dengan nama lengkap dari hasil <code>dir</code>. Di dalam fungsi <code>up()</code>, pastikan ada kolom sederhana (sesuaikan cuplikan ke kerangka yang Artisan buat):</p>
+<pre><code class="language-php">// Cuplikan migrasi — kolom judul &amp; penulis
+$table-&gt;id();
+$table-&gt;string('judul');
+$table-&gt;string('penulis');
+$table-&gt;timestamps();
+</code></pre>
+<p>Simpan, lalu di terminal kedua:</p>
+<pre><code class="language-bash">php artisan migrate
+</code></pre>
+<p>Buka model di editor (dari terminal kedua: <code>notepad app\Models\Buku.php</code>). Tambahkan daftar kolom yang boleh diisi massal (cuplikan — tempel di dalam class):</p>
+<pre><code class="language-php">// Cuplikan app/Models/Buku.php
+protected $fillable = ['judul', 'penulis'];
+</code></pre>
+<p><strong>Awam:</strong> <strong>Eloquent</strong> = cara Laravel membaca/menulis baris tabel lewat class Model. <code>Buku</code> = cetakan satu baris buku. <code>migrate</code> = membangun rak tabel di database (SQLite dari fondasi denah sudah cukup).</p>
+<p><strong>Install-dari-nol:</strong> tidak perlu driver ekstra. Pastikan <code>DB_CONNECTION=sqlite</code> dan file <code>database/database.sqlite</code> sudah ada seperti di <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a>.</p>
+
+<h2>Service — dapur daftar buku</h2>
+<p>Buat folder <code>app/Services</code> jika belum ada. Di <strong>terminal kedua</strong> (masih di folder proyek):</p>
+<pre><code class="language-bash">mkdir app\Services
+</code></pre>
+<p>Kalau terminal bilang folder sudah ada — lanjut saja, itu normal. Lalu buat file <code>app/Services/BukuService.php</code> (paling mudah: <code>notepad app\Services\BukuService.php</code>, tempel cuplikan di bawah, simpan):</p>
+<pre><code class="language-php">&lt;?php
+
+namespace App\Services;
+
+use App\Models\Buku;
+use Illuminate\Support\Collection;
+
+class BukuService
+{
+    public function daftar(): Collection
+    {
+        return Buku::query()-&gt;orderBy('id')-&gt;get(['id', 'judul', 'penulis']);
     }
 }
 </code></pre>
+<p><strong>Awam:</strong> Service = dapur. Loket tidak perlu tahu cara query tabel — cukup minta <code>daftar()</code>. Kalau tabel masih kosong, JSON <code>data</code> bisa berupa array kosong — itu normal; isi baris buku boleh belakangan (bukan wajib hari ini).</p>
 
-<p><strong>Awam:</strong> urutan penting. Kalau validasi dulu tanpa auth, orang asing bisa “menguji” isian. Banyak API cek bukti dulu, baru isian — seperti di diagram.</p>
-
-<h2>Laravel — merangkai cuplikan (bukan file mandiri)</h2>
-<p>Di proyek Laravel, ide yang sama biasanya tersebar di beberapa file. Cuplikan di bawah <strong>bukan</strong> dijalankan dengan <code>php file.php</code>:</p>
-
-<pre><code class="language-php">&lt;?php
-// Cuplikan Laravel (bukan file mandiri) — route publik + terlindungi.
-use App\Http\Controllers\BukuController;
-use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Route;
-
-Route::get('/api/buku', [BukuController::class, 'index']); // publik
-Route::post('/api/login', [AuthController::class, 'login']);
-
-Route::post('/api/buku', [BukuController::class, 'store'])
-    -&gt;middleware('auth:sanctum'); // wajib bukti masuk
+<h2>Controller — loket</h2>
+<p>Masih di <strong>terminal kedua</strong>:</p>
+<pre><code class="language-bash">php artisan make:controller BukuController
 </code></pre>
-
-<p><strong>Awam:</strong></p>
-<ul>
-  <li><code>index</code> = baca daftar (katalog publik)</li>
-  <li><code>login</code> = keluarkan bukti masuk (dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>)</li>
-  <li><code>store</code> = fungsi tambah; dijaga pemeriksa pintu (<code>middleware</code> <code>auth:sanctum</code>)</li>
-  <li>Isian <code>store</code> biasanya lewat Form Request (dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a>), lalu Service + Eloquent (dari <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a>)</li>
-</ul>
-
-<pre><code class="language-php">&lt;?php
-// Cuplikan Laravel — controller tipis memanggil service.
-namespace App\Http\Controllers;
-
-use App\Http\Requests\StoreBookRequest;
+<p>Buka <code>app/Http/Controllers/BukuController.php</code> di editor (boleh <code>notepad app\Http\Controllers\BukuController.php</code>). <strong>Jangan hapus</strong> baris <code>namespace</code> dan kerangka <code>class BukuController extends Controller</code>. Tambahkan baris <code>use</code> di atas class, lalu tempel method <code>index</code> di dalam class:</p>
+<pre><code class="language-php">// Cuplikan BukuController — loket daftar buku
 use App\Services\BukuService;
 use Illuminate\Http\JsonResponse;
 
-class BukuController extends Controller
+public function index(BukuService $bukuService): JsonResponse
 {
-    public function __construct(private BukuService $bukuService)
-    {
-    }
-
-    public function store(StoreBookRequest $request): JsonResponse
-    {
-        $buku = $this-&gt;bukuService-&gt;tambah($request-&gt;validated());
-
-        return response()-&gt;json(['ok' =&gt; true, 'buku' =&gt; $buku], 201);
-    }
+    return response()-&gt;json([
+        'message' =&gt; 'Daftar buku perpustakaan mini',
+        'data' =&gt; $bukuService-&gt;daftar(),
+    ]);
 }
 </code></pre>
+<p><strong>Awam:</strong> parameter <code>BukuService $bukuService</code> diisi otomatis oleh Laravel (seperti dipanggilkan ke dapur). Loket hanya menyusun jawaban JSON.</p>
 
-<p><strong>Awam:</strong> <code>StoreBookRequest</code> = penjaga isian. <code>validated()</code> = ambil isian yang sudah lolos penjaga. <code>BukuService</code> = pekerja yang menyimpan (Eloquent di dalamnya). <code>JsonResponse</code> = tipe jawaban “ini JSON” — boleh diabaikan dulu kalau masih asing. Baris <code>private BukuService $bukuService</code> di konstruktor = Laravel menyiapkan layanan otomatis (tidak perlu <code>new</code> manual). Controller tetap tipis: terima yang sudah bersih, minta service bekerja, balas JSON.</p>
+<h2>Hubungkan route ke loket</h2>
+<p>Buka <code>routes/web.php</code> di editor (atau <code>notepad routes\web.php</code> dari terminal kedua). Ganti / sesuaikan route GET daftar buku menjadi:</p>
+<pre><code class="language-php">// Cuplikan routes/web.php — arahkan ke Controller
+use App\Http\Controllers\BukuController;
 
-<h2>Pola Dasar — Capstone API</h2>
-<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah Capstone API perpustakaan">
-<ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Tulis spesifikasi singkat</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Katalog publik · login · tambah buku terlindungi.</span>
-    </div>
+Route::get('/api/buku', [BukuController::class, 'index']);
+</code></pre>
+<p>Simpan file. Pastikan <code>php artisan serve</code> masih hidup di terminal pertama.</p>
+<p><strong>Awam:</strong> baris itu artinya: tamu yang GET <code>/api/buku</code> dilayani loket <code>BukuController</code> fungsi <code>index</code> — bukan lagi fungsi panjang di dalam file route.</p>
+
+<h2>Uji di browser</h2>
+<p>Dengan <code>serve</code> masih hidup, buka browser ke:</p>
+<pre><code class="language-bash">http://127.0.0.1:8000/api/buku
+</code></pre>
+<p>Kamu harus melihat JSON berisi <code>message</code> dan <code>data</code>. Kalau tabel masih kosong, <code>data</code> bisa <code>[]</code> — struktur tetap benar. Kalau error class tidak ditemukan, cek: file Service/Controller sudah disimpan? Nama folder <code>Services</code> huruf besar S? Sudah <code>cd</code> di proyek yang sama?</p>
+<p><strong>Awam:</strong> browser = mata melihat slip. Terminal = tangan membuat file. Jangan menguji URL sebelum <code>serve</code> hidup.</p>
+
+<h2>Pola Dasar — empat langkah loket bersih</h2>
+<figure role="img" aria-label="Pola Dasar empat langkah Controller Service Eloquent" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
+<ol style="list-style:none;padding:0;margin:0;display:grid;gap:.75rem">
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
+    <div><strong style="color:#1a1a1a">Buka alat</strong><br><span style="color:#1a1a1a">Terminal 1 <code>serve</code> · Terminal 2 Artisan · Editor · Browser.</span></div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Pasang route</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Peta URL dari <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; JSON (#56)</a>.</span>
-    </div>
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
+    <div><strong style="color:#1a1a1a">Model + migrate</strong><br><span style="color:#1a1a1a"><code>make:model Buku -m</code> lalu isi kolom &amp; <code>migrate</code>.</span></div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Kunci yang sensitif</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Auth + bukti masuk dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>.</span>
-    </div>
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
+    <div><strong style="color:#1a1a1a">Service + Controller</strong><br><span style="color:#1a1a1a">Dapur <code>daftar()</code> · loket <code>index</code> mengembalikan JSON.</span></div>
   </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Jaga isian</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Form Request / validasi dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a> — kotor = <code>422</code>.</span>
-    </div>
-  </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Simpan lewat service</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Controller tipis + Service + Eloquent dari <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a>.</span>
-    </div>
-  </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">6</span>
-    <div style="color:#1a1a1a">
-      <strong style="color:#1a1a1a">Uji tiga jalur</strong>
-      <span style="display:block;color:#2D3748;margin-top:.25rem">Tanpa bukti · isian kotor · sukses 201. Baru kembangkan fitur lain.</span>
-    </div>
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
+    <div><strong style="color:#1a1a1a">Route + uji</strong><br><span style="color:#1a1a1a">Arahkan <code>GET /api/buku</code> ke Controller, cek di browser.</span></div>
   </li>
 </ol>
 </figure>
 
-<h2>Kode lengkap — demo mandiri Capstone</h2>
-<p>Simpan sebagai <code>laravel_capstone_perpustakaan_demo.php</code>, lalu jalankan <code>php laravel_capstone_perpustakaan_demo.php</code>:</p>
-
+<h2>Demo loket &amp; dapur — file mandiri</h2>
+<p>Latihan ide tanpa mengubah proyek Laravel:</p>
+<ol>
+  <li>Buka editor teks, buat file baru, tempel cuplikan di bawah, simpan sebagai <code>laravel_controller_service_eloquent_demo.php</code> (boleh di Desktop).</li>
+  <li>Buka terminal di folder tempat file itu disimpan (Explorer: Shift+klik kanan -&gt; “Open in Terminal” / “Buka di Terminal”, atau <code>cd</code> manual). Pastikan <code>php -v</code> sudah jalan.</li>
+  <li>Jalankan: <code>php laravel_controller_service_eloquent_demo.php</code> — layar menampilkan simulasi loket -&gt; dapur -&gt; daftar buku.</li>
+</ol>
+<p>File ini <strong>mensimulasikan</strong> peran — tidak mengubah proyek Laravel-mu:</p>
 <pre><code class="language-php">&lt;?php
+
 declare(strict_types=1);
 
-$anggota = [
-    "email" =&gt; "staf@perpustakaan.test",
-    "sandi" =&gt; "rahasia123",
-];
+/**
+ * Demo loket (Controller) &amp; dapur (Service) — simulasi teks untuk awam.
+ */
 
-$buktiAktif = null;
-$katalog = [
-    ["judul" =&gt; "Dasar PHP", "tahun" =&gt; 2023],
-];
-
-function login(array $input, array $anggota): array
+function dapurDaftarBuku(): array
 {
-    if (($input["email"] ?? "") !== $anggota["email"] || ($input["sandi"] ?? "") !== $anggota["sandi"]) {
-        return ["status" =&gt; 401, "body" =&gt; ["pesan" =&gt; "Belum diizinkan — email atau sandi salah"]];
-    }
-
-    $bukti = "kartu-".bin2hex(random_bytes(4));
-
-    return ["status" =&gt; 200, "body" =&gt; ["ok" =&gt; true, "bukti_masuk" =&gt; $bukti]];
+    return [
+        ['id' =&gt; 1, 'judul' =&gt; 'Belajar PHP', 'penulis' =&gt; 'Ayu'],
+        ['id' =&gt; 2, 'judul' =&gt; 'Dasar Laravel', 'penulis' =&gt; 'Budi'],
+    ];
 }
 
-function katalog(array $katalog): array
+function loketIndex(): array
 {
-    return ["status" =&gt; 200, "body" =&gt; ["ok" =&gt; true, "data" =&gt; $katalog]];
+    return [
+        'message' =&gt; 'Daftar buku perpustakaan mini',
+        'data' =&gt; dapurDaftarBuku(),
+    ];
 }
 
-function tambahBuku(?string $buktiHeader, ?string $buktiAktif, array $isian, array &amp;$katalog): array
+function demo(): void
 {
-    if ($buktiHeader === null || $buktiHeader === "" || $buktiHeader !== $buktiAktif) {
-        return ["status" =&gt; 401, "body" =&gt; ["pesan" =&gt; "Belum diizinkan — bawa bukti masuk"]];
-    }
-
-    $judul = trim((string) ($isian["judul"] ?? ""));
-    $tahun = $isian["tahun"] ?? null;
-    if ($judul === "" || ! is_int($tahun)) {
-        return ["status" =&gt; 422, "body" =&gt; ["pesan" =&gt; "Isian belum rapi"]];
-    }
-
-    $buku = ["judul" =&gt; $judul, "tahun" =&gt; $tahun];
-    $katalog[] = $buku;
-
-    return ["status" =&gt; 201, "body" =&gt; ["ok" =&gt; true, "buku" =&gt; $buku]];
+    echo "=== Simulasi loket -&gt; dapur ===", PHP_EOL;
+    echo json_encode(loketIndex(), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), PHP_EOL;
+    echo PHP_EOL, "Langkah sungguhan: Model+migrate -&gt; BukuService -&gt; BukuController -&gt; route -&gt; browser.", PHP_EOL;
 }
 
-function demo(string $judul, callable $aksi): void
-{
-    echo "=== {$judul} ===", PHP_EOL;
-    $hasil = $aksi();
-    echo "status: ", $hasil["status"], PHP_EOL;
-    echo json_encode($hasil["body"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL, PHP_EOL;
-}
-
-demo("Katalog publik -&gt; 200", function () use ($katalog) {
-    return katalog($katalog);
-});
-
-demo("Login kotor -&gt; 401", function () use ($anggota) {
-    return login(["email" =&gt; "staf@perpustakaan.test", "sandi" =&gt; "salah"], $anggota);
-});
-
-demo("Login bersih -&gt; 200 + bukti", function () use ($anggota, &amp;$buktiAktif) {
-    $hasil = login(["email" =&gt; "staf@perpustakaan.test", "sandi" =&gt; "rahasia123"], $anggota);
-    if (($hasil["body"]["bukti_masuk"] ?? null) !== null) {
-        $buktiAktif = $hasil["body"]["bukti_masuk"];
-    }
-
-    return $hasil;
-});
-
-demo("Tambah tanpa bukti -&gt; 401", function () use (&amp;$buktiAktif, &amp;$katalog) {
-    return tambahBuku(null, $buktiAktif, ["judul" =&gt; "Belajar Laravel", "tahun" =&gt; 2024], $katalog);
-});
-
-demo("Tambah isian kotor -&gt; 422", function () use (&amp;$buktiAktif, &amp;$katalog) {
-    return tambahBuku($buktiAktif, $buktiAktif, ["judul" =&gt; "", "tahun" =&gt; "dua ribu"], $katalog);
-});
-
-demo("Tambah bersih -&gt; 201", function () use (&amp;$buktiAktif, &amp;$katalog) {
-    return tambahBuku($buktiAktif, $buktiAktif, ["judul" =&gt; "Belajar Laravel", "tahun" =&gt; 2024], $katalog);
-});
+demo();
 </code></pre>
-
-<p><strong>Awam:</strong> <code>demo(...)</code> hanya membungkus output di terminal. <code>callable</code> = sesuatu yang bisa dipanggil seperti fungsi. <code>declare(strict_types=1);</code> membuat tipe lebih ketat — boleh diikuti, tidak wajib dihafal. Alur penting: katalog publik, login gagal/sukses, tambah tanpa bukti, isian kotor, lalu sukses.</p>
+<p><strong>Awam:</strong> <code>demo()</code> hanya menampilkan JSON contoh di terminal. Setelah paham, kerjakan langkah sungguhan di folder <code>perpustakaan-api</code>. <code>declare(strict_types=1);</code> membuat tipe lebih ketat — boleh diikuti, tidak wajib dihafal.</p>
 
 <h2>Kesalahan umum</h2>
 <table>
@@ -412,57 +347,65 @@ demo("Tambah bersih -&gt; 201", function () use (&amp;$buktiAktif, &amp;$katalog
   </thead>
   <tbody>
     <tr>
-      <td>Semua pintu API 401</td>
-      <td>Katalog publik ikut dikunci pemeriksa pintu (middleware)</td>
-      <td>Kunci hanya yang sensitif (misalnya POST tambah)</td>
+      <td>Class BukuService not found</td>
+      <td>File/folder salah atau belum disimpan</td>
+      <td>Cek path <code>app/Services/BukuService.php</code> dan huruf besar <code>S</code></td>
     </tr>
     <tr>
-      <td>Bingung 401 vs 422</td>
-      <td>Mencampur “belum diizinkan” dengan “data kotor”</td>
-      <td>401 = identitas; 422 = isian</td>
+      <td>Connection refused</td>
+      <td><code>serve</code> belum hidup</td>
+      <td>Nyalakan di terminal pertama setelah <code>cd</code> ke proyek</td>
     </tr>
     <tr>
-      <td>Controller membengkak</td>
-      <td>Validasi + simpan + JSON digabung di satu fungsi</td>
-      <td>Form Request + Service + controller tipis</td>
+      <td>Bingung perintah diketik di mana</td>
+      <td>Terminal salah / Start Menu</td>
+      <td>Lihat <strong>Persiapan — alat yang kamu buka</strong>; pakai Laragon/Shell XAMPP</td>
     </tr>
     <tr>
-      <td>Capstone terasa “belum selesai”</td>
-      <td>Target terlalu besar (pinjam, denda, admin…)</td>
-      <td>Kunci dulu 3 fitur inti; sisanya latihan</td>
+      <td>Tabel/migrate error</td>
+      <td>SQLite belum siap atau <code>DB_CONNECTION</code> masih mysql</td>
+      <td>Kembali ke <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a>: file <code>database.sqlite</code> + <code>DB_CONNECTION=sqlite</code></td>
+    </tr>
+    <tr>
+      <td>Bingung file migrasi mana yang dibuka</td>
+      <td>Banyak file di folder <code>migrations</code></td>
+      <td>Pilih yang namanya mengandung <code>create_bukus_table</code> — pakai <code>dir database\migrations</code> atau Explorer</td>
+    </tr>
+    <tr>
+      <td><code>data</code> kosong <code>[]</code></td>
+      <td>Tabel belum diisi baris</td>
+      <td>Normal di awal — struktur JSON sudah benar; isi data belakangan</td>
     </tr>
   </tbody>
 </table>
 
-<h2>Latihan singkat</h2>
+<h2>Latihan</h2>
 <ol>
-  <li>Ubah demo: tambah kasus “bukti palsu” dan pastikan tetap <code>401</code>.</li>
-  <li>Jelaskan ke teman (tanpa jargon): urutan auth -&gt; validasi -&gt; simpan dengan analogi loket.</li>
-  <li>Tulis satu kalimat: beda pintu publik (<code>GET /api/buku</code>) dan pintu terlindungi (<code>POST /api/buku</code>).</li>
+  <li>Jalankan demo PHP di atas, lalu bandingkan strukturnya dengan JSON di browser setelah Controller hidup.</li>
+  <li>Jelaskan ke teman: beda singkat loket (Controller), dapur (Service), dan rak (Eloquent/tabel).</li>
+  <li>Pastikan kamu bisa mengulang: terminal 1 <code>serve</code>, terminal 2 <code>make:…</code>, editor simpan, browser uji.</li>
 </ol>
 
-<h2>FAQ singkat</h2>
-<p><strong>Apakah Capstone harus satu folder proyek Laravel lengkap di laptop?</strong><br>Idealnya ya, tapi artikel ini menekankan <strong>alur</strong>. Demo PHP mandiri sudah cukup untuk “merasakan” satunya pintu. Cuplikan Laravel menunjukkan tempat masing-masing potongan.</p>
-<p><strong>Haruskah pakai Sanctum sekarang?</strong><br><strong>Sanctum</strong> = paket Laravel untuk mengeluarkan dan memeriksa bukti masuk API. Untuk alur Capstone, itu pilihan umum di Laravel modern. Detail pasang-pasangnya bisa dipelajari setelah alurnya sudah jelas (lihat juga <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a>).</p>
-<p><strong>Ke mana setelah Seri 4?</strong><br>Berikutnya: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#61)</a> — pembuka Seri 5 Laravel Lanjutan. Memperdalam pola yang sama: ubah dan hapus buku lewat API.</p>
-
-<h2>Indeks Seri 4 lengkap</h2>
-<ol>
-  <li><a href="/artikel/mengenal-oop-cara-berpikir-dengan-objek-php">Mengenal OOP PHP (#53)</a></li>
-  <li><a href="/artikel/oop-php-property-method-constructor">Property, Method &amp; Constructor (#54)</a></li>
-  <li><a href="/artikel/oop-php-visibility-composition">Visibility &amp; Composition (#55)</a></li>
-  <li><a href="/artikel/laravel-routing-json-perpustakaan-api">Laravel Routing &amp; JSON (#56)</a></li>
-  <li><a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request (#57)</a></li>
-  <li><a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent (#58)</a></li>
-  <li><a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a></li>
-  <li><strong>Capstone: API Perpustakaan Laravel (#60 (ini))</strong> — artikel ini</li>
-</ol>
+<h2>FAQ</h2>
+<p><strong>Terminal mana yang harus dibuka?</strong><br>
+Laragon: menu Terminal · XAMPP: tombol Shell. Lalu <code>cd</code> ke <code>perpustakaan-api</code>. Satu jendela untuk <code>serve</code>, jendela kedua untuk Artisan.</p>
+<p><strong>Harus VS Code?</strong><br>
+Tidak. Notepad cukup untuk menempel cuplikan. Dari terminal kedua: <code>notepad app\Services\BukuService.php</code> atau path file lain. VS Code membantu kalau kamu suka.</p>
+<p><strong>File migrasi yang mana?</strong><br>
+Setelah <code>make:model Buku -m</code>, di terminal kedua ketik <code>dir database\migrations</code> — pilih file yang namanya mengandung <code>create_bukus_table</code>, lalu <code>notepad database\migrations\…</code>. Atau lewat Explorer ke folder yang sama.</p>
+<p><strong>Kenapa Service dibuat manual?</strong><br>
+Supaya awam melihat folder <code>app/Services</code> dengan jelas. Intinya: dapur = class berisi fungsi daftar buku.</p>
+<p><strong>Apa itu Eloquent tanpa istilah sulit?</strong><br>
+Eloquent = cara membaca/menulis tabel lewat model PHP. <code>Buku::query()-&gt;get()</code> ≈ “ambil semua baris buku”.</p>
+<p><strong>Apa hubungan dengan artikel validasi?</strong><br>
+<a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> menjaga slip masuk. <strong>#60 (ini)</strong> merapikan siapa yang melayani daftar buku (loket + dapur + tabel).</p>
+<p><strong>Ke mana setelah ini?</strong><br>
+Berikutnya kita belajar <strong>Auth API dasar</strong> — kartu anggota supaya tidak semua orang boleh menambah data sembarangan. (Artikel berikutnya di jalur Laravel.)</p>
 
 <h2>Kesimpulan</h2>
-<p>Kamu sudah menutup Seri 4 dengan Capstone: <strong>route</strong>, <strong>auth</strong>, <strong>validasi</strong>, dan <strong>controller/service/Eloquent</strong> digabung jadi API perpustakaan mini. Publik boleh baca; staf membawa bukti masuk untuk menambah buku. Alur dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a> tetap dipakai — sekarang dalam satu cerita utuh.</p>
-
+<p>Kamu sudah memindahkan daftar buku ke pola rapi: Controller (loket), Service (dapur), Eloquent (baca tabel), diuji lewat browser saat <code>artisan serve</code> hidup. Ini langkah <strong>5/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#60 (ini)</strong> · 8/8 Capstone Laravel selesai · stack Laravel <strong>5/5</strong> · prasyarat: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar (#59)</a> LIVE. Berikutnya: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#61)</a> — Seri 5 Laravel Lanjutan.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#60 (ini)</strong> · <strong>5/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> LIVE. Berikutnya: Auth API dasar (login/kartu anggota).</p>
 </blockquote>
 HTML;
     }
