@@ -45,12 +45,12 @@
             <div class="hidden md:flex items-center gap-1">
                 <a href="{{ route('articles.index') }}"
                    class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('articles.*') ? 'bg-black text-white' : '' }}">
-                    Artikel
+                    {{ __('ui.nav.articles') }}
                 </a>
 
                 <a href="{{ route('belajar.fullstack-iot') }}"
                    class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('belajar.fullstack-iot') ? 'bg-black text-white' : '' }}">
-                    Jalur IoT
+                    {{ __('ui.nav.iot_path') }}
                 </a>
 
                 {{-- Kategori Dropdown --}}
@@ -62,7 +62,7 @@
                         aria-haspopup="true"
                         class="px-4 py-2 font-semibold text-sm flex items-center gap-1 hover:bg-black hover:text-white transition-colors"
                     >
-                        Kategori
+                        {{ __('ui.nav.categories') }}
                         <svg class="w-3.5 h-3.5" :class="catOpen ? 'rotate-180' : ''" style="transition: transform .2s" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="square" stroke-linejoin="miter" d="M6 9l6 6 6-6"/></svg>
                     </button>
                     <div
@@ -85,44 +85,47 @@
                         </a>
                         @endforeach
                         <a href="{{ route('articles.index') }}" class="flex items-center gap-2 px-4 py-2.5 text-sm font-bold hover:bg-[#2979FF] hover:text-white border-t-2 border-black">
-                            Semua Artikel →
+                            {{ __('ui.nav.all_articles') }}
                         </a>
                     </div>
                 </div>
 
                 <a href="{{ route('about') }}"
                    class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('about') ? 'bg-black text-white' : '' }}">
-                    Tentang
+                    {{ __('ui.nav.about') }}
                 </a>
 
                 <a href="{{ route('authors.index') }}"
                    class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('authors.*') ? 'bg-black text-white' : '' }}">
-                    Penulis
+                    {{ __('ui.nav.authors') }}
                 </a>
 
                 <a href="{{ route('contact') }}"
                    class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('contact') ? 'bg-black text-white' : '' }}">
-                    Kontak
+                    {{ __('ui.nav.contact') }}
                 </a>
 
                 <a href="{{ route('search') }}"
-                   class="ml-2 px-3 py-2 border-2 border-black hover:bg-black hover:text-white transition-colors"
+                   class="ml-2 px-3 py-2 border-2 border-black hover:bg-black hover:text-white transition-colors shrink-0"
                    style="box-shadow: 2px 2px 0 #000;"
-                   aria-label="Cari artikel"
-                   title="Cari artikel"
+                   aria-label="{{ __('ui.nav.search') }}"
+                   title="{{ __('ui.nav.search') }}"
                 >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                     </svg>
                 </a>
 
-                <x-theme-toggle />
+                <x-locale-switcher class="ml-1" />
+
+                <x-theme-toggle class="ml-1 shrink-0" />
             </div>
 
-            {{-- Mobile: Search + Theme + Hamburger --}}
-            <div class="flex items-center gap-2 md:hidden">
-                <x-theme-toggle />
-                <a href="{{ route('search') }}" class="p-2 border-2 border-black" aria-label="Cari artikel">
+            {{-- Mobile: Locale + Search + Theme + Hamburger --}}
+            <div class="flex items-center gap-2 md:hidden shrink-0">
+                <x-locale-switcher size="sm" />
+                <x-theme-toggle class="shrink-0" />
+                <a href="{{ route('search') }}" class="p-2 border-2 border-black shrink-0" aria-label="{{ __('ui.nav.search') }}">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
                     </svg>
@@ -130,7 +133,7 @@
                 <button
                     @click="open = !open; if (open) focusFirstLink()"
                     class="p-2 border-2 border-black"
-                    aria-label="Menu"
+                    aria-label="{{ __('ui.nav.menu') }}"
                     :aria-expanded="open.toString()"
                 >
                     <svg x-show="!open" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
@@ -146,10 +149,10 @@
         {{-- Mobile Menu --}}
         <div x-ref="mobileMenu" x-show="open" x-transition class="md:hidden border-t-2 border-black pb-4">
             <div class="flex flex-col pt-2">
-                <a href="{{ route('articles.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Artikel</a>
-                <a href="{{ route('belajar.fullstack-iot') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Jalur IoT</a>
+                <a href="{{ route('articles.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">{{ __('ui.nav.articles') }}</a>
+                <a href="{{ route('belajar.fullstack-iot') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">{{ __('ui.nav.iot_path') }}</a>
                 <div class="border-b border-black/10 dark:border-white/10">
-                    <div class="px-4 py-2 text-xs font-bold uppercase tracking-widest theme-muted mt-1">Kategori</div>
+                    <div class="px-4 py-2 text-xs font-bold uppercase tracking-widest theme-muted mt-1">{{ __('ui.nav.categories') }}</div>
                     @foreach($navCategories as $cat)
                     <a href="{{ route('categories.show', $cat->slug) }}" @click="open=false" class="flex items-center gap-2 px-6 py-2 text-sm hover:bg-black hover:text-white">
                         <span class="w-2 h-2 rounded-full" style="background: {{ $cat->color }};"></span>
@@ -157,9 +160,9 @@
                     </a>
                     @endforeach
                 </div>
-                <a href="{{ route('about') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Tentang</a>
-                <a href="{{ route('authors.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Penulis</a>
-                <a href="{{ route('contact') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm hover:bg-black hover:text-white">Kontak</a>
+                <a href="{{ route('about') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">{{ __('ui.nav.about') }}</a>
+                <a href="{{ route('authors.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">{{ __('ui.nav.authors') }}</a>
+                <a href="{{ route('contact') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm hover:bg-black hover:text-white">{{ __('ui.nav.contact') }}</a>
             </div>
         </div>
     </div>

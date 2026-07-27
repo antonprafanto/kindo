@@ -1,7 +1,7 @@
 <x-layouts.app
-    title="Koding Indonesia — Tutorial ESP32, IoT & Pemrograman"
-    description="Belajar ESP32, Arduino, IoT, web development, UI/UX, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir."
-    ogDescription="Belajar ESP32, Arduino, IoT, web development, dan UI/UX dengan tutorial praktis berbahasa Indonesia. Gratis untuk pemula hingga mahir."
+    :title="__('ui.home.meta_title')"
+    :description="__('ui.home.meta_description')"
+    :ogDescription="__('ui.home.meta_og_description')"
 >
 
     {{-- ═══════════════════════════════════ HERO ═══════════════════════════════════ --}}
@@ -11,27 +11,27 @@
 
                 <div>
                     <div class="inline-flex items-center gap-2 text-white text-xs font-bold px-3 py-1.5 border-2 border-black mb-4 sm:mb-6" style="background:#FF7A2F; box-shadow:2px 2px 0 #000; text-transform:uppercase; letter-spacing:.05em;">
-                        <span>✦</span> Platform Edukasi Pemrograman
+                        <span>✦</span> {{ __('ui.home.badge') }}
                     </div>
 
                     <h1 class="font-black leading-[1.1] mb-4 sm:mb-6 text-4xl sm:text-5xl lg:text-6xl theme-heading" style="letter-spacing:-0.03em;">
-                        Belajar Coding<br>
-                        <span class="text-white px-2 sm:px-3 py-1 border-2 border-black text-3xl sm:text-4xl lg:text-5xl" style="background:#2979FF; box-shadow:4px 4px 0 #000; display:inline;">Berbahasa</span><br>
-                        Indonesia
+                        {{ __('ui.home.hero_line1') }}<br>
+                        <span class="text-white px-2 sm:px-3 py-1 border-2 border-black text-3xl sm:text-4xl lg:text-5xl" style="background:#2979FF; box-shadow:4px 4px 0 #000; display:inline;">{{ __('ui.home.hero_highlight') }}</span><br>
+                        {{ __('ui.home.hero_line3') }}
                     </h1>
 
                     <p class="text-sm sm:text-base leading-relaxed mb-6 sm:mb-8 max-w-lg theme-body" style="font-family: 'Inter', sans-serif;">
-                        Tutorial ESP32, Arduino, IoT, web development, UI/UX, dan pemrograman — ditulis dengan bahasa yang mudah dipahami oleh developer dan pelajar Indonesia.
+                        {{ __('ui.home.hero_body') }}
                     </p>
 
                     <div class="flex flex-wrap gap-3">
                         <a href="{{ route('articles.index') }}"
                            class="btn-brutal btn-primary px-7 py-3 text-sm">
-                            Mulai Belajar →
+                            {{ __('ui.home.cta_start') }}
                         </a>
                         <a href="{{ route('about') }}"
                            class="btn-brutal btn-outline px-7 py-3 text-sm">
-                            Tentang Kami
+                            {{ __('ui.home.cta_about') }}
                         </a>
                     </div>
                 </div>
@@ -82,15 +82,15 @@
             <div class="flex flex-wrap gap-6 sm:gap-10">
                 <div>
                     <div class="text-2xl font-black" style="color:#2979FF;">{{ \App\Models\Article::published()->count() }}+</div>
-                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Artikel</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">{{ __('ui.home.stat_articles') }}</div>
                 </div>
                 <div>
                     <div class="text-2xl font-black" style="color:#FF7A2F;">{{ \App\Models\Category::count() }}</div>
-                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Kategori</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">{{ __('ui.home.stat_categories') }}</div>
                 </div>
                 <div>
                     <div class="text-2xl font-black">100%</div>
-                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">Bahasa Indonesia</div>
+                    <div class="text-xs font-semibold uppercase tracking-wider theme-muted">{{ __('ui.home.stat_language') }}</div>
                 </div>
             </div>
         </div>
@@ -101,18 +101,17 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="p-6 sm:p-8 theme-paper border-2 border-black" style="box-shadow: 6px 6px 0 #000;">
                 <p class="inline-flex text-white text-xs font-bold px-3 py-1 border-2 border-black mb-4" style="background:#FF7A2F; box-shadow:2px 2px 0 #000; text-transform:uppercase; letter-spacing:.04em;">
-                    Jalur unggulan
+                    {{ __('ui.home.fsiot_badge') }}
                 </p>
                 <h2 class="text-2xl sm:text-3xl font-black mb-3 theme-heading" style="letter-spacing:-0.02em;">
-                    Full Stack IoT — Dari Nol
+                    {{ __('ui.home.fsiot_title') }}
                 </h2>
                 <p class="theme-body text-sm sm:text-base max-w-2xl mb-6" style="font-family:'Inter',sans-serif; line-height:1.7;">
-                    Kurikulum premium berurutan untuk awam: dari listrik & coding dasar sampai dashboard IoT.
-                    Akses gratis — dukung opsional lewat tip.
+                    {{ __('ui.home.fsiot_body') }}
                 </p>
                 <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('belajar.fullstack-iot') }}" class="btn-brutal btn-primary px-6 py-3 text-sm">Lihat jalur IoT →</a>
-                    <a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="btn-brutal btn-outline px-6 py-3 text-sm">Dukung di Trakteer</a>
+                    <a href="{{ route('belajar.fullstack-iot') }}" class="btn-brutal btn-primary px-6 py-3 text-sm">{{ __('ui.home.fsiot_cta') }}</a>
+                    <a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="btn-brutal btn-outline px-6 py-3 text-sm">{{ __('ui.home.fsiot_support') }}</a>
                 </div>
             </div>
         </div>
@@ -125,13 +124,13 @@
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 sm:mb-10">
                 <div>
                     <h2 class="text-2xl sm:text-3xl font-black relative inline-block" style="letter-spacing:-0.02em;">
-                        Artikel Unggulan
+                        {{ __('ui.home.featured_title') }}
                         <span class="absolute -bottom-1 left-0 w-full h-1" style="background:#FF7A2F;"></span>
                     </h2>
-                    <p class="mt-3 text-sm theme-muted" style="font-family:'Inter',sans-serif;">Artikel pilihan editor terbaik untuk kamu</p>
+                    <p class="mt-3 text-sm theme-muted" style="font-family:'Inter',sans-serif;">{{ __('ui.home.featured_subtitle') }}</p>
                 </div>
                 <a href="{{ route('articles.index') }}" class="btn-brutal btn-outline text-sm px-5 py-2 hidden sm:flex">
-                    Lihat Semua →
+                    {{ __('ui.home.see_all') }}
                 </a>
             </div>
 
@@ -149,10 +148,10 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="mb-8 sm:mb-10">
                 <h2 class="text-2xl sm:text-3xl font-black relative inline-block" style="letter-spacing:-0.02em;">
-                    Jelajahi Topik
+                    {{ __('ui.home.topics_title') }}
                     <span class="absolute -bottom-1 left-0 w-full h-1" style="background:#2979FF;"></span>
                 </h2>
-                <p class="mt-3 text-sm theme-muted" style="font-family:'Inter',sans-serif;">Pilih topik yang ingin kamu pelajari</p>
+                <p class="mt-3 text-sm theme-muted" style="font-family:'Inter',sans-serif;">{{ __('ui.home.topics_subtitle') }}</p>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
@@ -164,7 +163,7 @@
                    onmouseleave="this.style.transform='';this.style.boxShadow='3px 3px 0 #000';this.style.background=''">
                     <div class="w-10 h-10 rounded-full border-2 border-black mx-auto mb-3" style="background: {{ $cat->color }};"></div>
                     <div class="font-bold text-sm theme-heading group-hover:text-white">{{ $cat->name }}</div>
-                    <div class="text-xs mt-1 font-mono theme-muted group-hover:text-white/80">{{ $cat->articles_count }} artikel</div>
+                    <div class="text-xs mt-1 font-mono theme-muted group-hover:text-white/80">{{ __('ui.home.articles_count', ['count' => $cat->articles_count]) }}</div>
                 </a>
                 @endforeach
             </div>
@@ -178,11 +177,11 @@
             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 sm:mb-10">
                 <div>
                     <h2 class="text-2xl sm:text-3xl font-black relative inline-block" style="letter-spacing:-0.02em;">
-                        Artikel Terbaru
+                        {{ __('ui.home.recent_title') }}
                         <span class="absolute -bottom-1 left-0 w-full h-1" style="background:#2979FF;"></span>
                     </h2>
                 </div>
-                <a href="{{ route('articles.index') }}" class="btn-brutal btn-outline text-sm px-5 py-2 hidden sm:flex">Semua Artikel →</a>
+                <a href="{{ route('articles.index') }}" class="btn-brutal btn-outline text-sm px-5 py-2 hidden sm:flex">{{ __('ui.home.all_articles') }}</a>
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -193,7 +192,7 @@
 
             <div class="text-center mt-10">
                 <a href="{{ route('articles.index') }}" class="btn-brutal btn-dark px-10 py-3 text-sm">
-                    Lihat Semua Artikel →
+                    {{ __('ui.home.see_all_articles') }}
                 </a>
             </div>
         </div>
@@ -205,9 +204,9 @@
     <section class="py-32 text-center theme-paper">
         <div class="max-w-lg mx-auto px-4">
             <div class="text-8xl mb-6">🚀</div>
-            <h2 class="text-3xl font-black mb-4">Konten Segera Hadir!</h2>
-            <p class="mb-8 theme-muted" style="font-family:'Inter',sans-serif;">Kami sedang mempersiapkan artikel-artikel berkualitas tentang ESP32, IoT, dan pemrograman. Tunggu sebentar ya!</p>
-            <a href="{{ route('contact') }}" class="btn-brutal btn-primary px-8 py-3">Hubungi Kami</a>
+            <h2 class="text-3xl font-black mb-4">{{ __('ui.home.empty_title') }}</h2>
+            <p class="mb-8 theme-muted" style="font-family:'Inter',sans-serif;">{{ __('ui.home.empty_body') }}</p>
+            <a href="{{ route('contact') }}" class="btn-brutal btn-primary px-8 py-3">{{ __('ui.home.empty_cta') }}</a>
         </div>
     </section>
     @endif

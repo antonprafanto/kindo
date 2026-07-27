@@ -2,8 +2,9 @@
 {{-- items: [['label' => 'Artikel', 'url' => '/artikel'], ['label' => 'Judul Artikel']] --}}
 
 @php
+    $homeLabel = __('ui.nav.home');
     $crumbList = [
-        ['label' => 'Beranda', 'url' => route('home')],
+        ['label' => $homeLabel, 'url' => route('home')],
     ];
     foreach ($items as $i => $item) {
         $isLast = $i === count($items) - 1;
@@ -35,11 +36,11 @@
 </script>
 @endpush
 
-<nav aria-label="breadcrumb" class="py-3 border-b-2 border-black theme-paper">
+<nav aria-label="{{ __('ui.nav.breadcrumb') }}" class="py-3 border-b-2 border-black theme-paper">
     <div class="max-w-6xl mx-auto px-4">
         <ol class="flex flex-wrap items-center gap-1 text-sm">
             <li>
-                <a href="{{ route('home') }}" class="font-medium theme-body hover:text-[#2979FF] transition-colors">Beranda</a>
+                <a href="{{ route('home') }}" class="font-medium theme-body hover:text-[#2979FF] transition-colors">{{ $homeLabel }}</a>
             </li>
             @foreach($items as $i => $item)
                 <li class="theme-muted">›</li>

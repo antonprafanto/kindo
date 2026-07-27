@@ -9,7 +9,7 @@
                     <span class="font-bold text-white text-lg sm:text-xl">Koding Indonesia</span>
                 </a>
                 <p class="text-sm leading-relaxed" style="color: #A0AEC0;">
-                    Platform edukasi pemrograman berbahasa Indonesia sejak 2016. Belajar ESP32, IoT, Arduino, dan pemrograman dari konten berkualitas.
+                    {{ __('ui.footer.blurb') }}
                 </p>
                 <div class="mt-5 flex items-center gap-1">
                     <span class="text-xs px-2 py-0.5 border border-gray-500 font-mono" style="color:#A0AEC0;">PHP 8.4</span>
@@ -20,35 +20,35 @@
 
             {{-- Navigasi --}}
             <div>
-                <h3 class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#FF7A2F;">Navigasi</h3>
+                <h3 class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#FF7A2F;">{{ __('ui.footer.nav') }}</h3>
                 <ul class="space-y-2.5 text-sm">
-                    <li><a href="{{ route('home') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Beranda</a></li>
-                    <li><a href="{{ route('articles.index') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Semua Artikel</a></li>
-                    <li><a href="{{ route('belajar.fullstack-iot') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Jalur Full Stack IoT</a></li>
-                    <li><a href="{{ route('search') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Cari Artikel</a></li>
-                    <li><a href="{{ route('about') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Tentang Kami</a></li>
-                    <li><a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Dukung kami (Trakteer)</a></li>
-                    <li><a href="{{ route('authors.index') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Penulis</a></li>
-                    <li><a href="{{ route('contributor.apply') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Menjadi Kontributor</a></li>
-                    <li><a href="{{ route('contact') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Kontak</a></li>
-                    <li><a href="{{ route('newsletter') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Newsletter</a></li>
+                    <li><a href="{{ route('home') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.home') }}</a></li>
+                    <li><a href="{{ route('articles.index') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.all_articles') }}</a></li>
+                    <li><a href="{{ route('belajar.fullstack-iot') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.iot_path') }}</a></li>
+                    <li><a href="{{ route('search') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.search') }}</a></li>
+                    <li><a href="{{ route('about') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.about') }}</a></li>
+                    <li><a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.support') }}</a></li>
+                    <li><a href="{{ route('authors.index') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.authors') }}</a></li>
+                    <li><a href="{{ route('contributor.apply') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.contributor') }}</a></li>
+                    <li><a href="{{ route('contact') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.contact') }}</a></li>
+                    <li><a href="{{ route('newsletter') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.newsletter') }}</a></li>
                 </ul>
             </div>
 
             {{-- Newsletter --}}
             <div>
-                <h3 class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#FF7A2F;">Newsletter</h3>
+                <h3 class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#FF7A2F;">{{ __('ui.footer.newsletter') }}</h3>
                 <p class="text-sm mb-5 leading-relaxed" style="color:#A0AEC0;">
-                    Dapatkan notifikasi artikel tutorial ESP32 & IoT terbaru langsung ke email kamu.
+                    {{ __('ui.footer.newsletter_blurb') }}
                 </p>
                 <a href="{{ route('newsletter') }}" class="btn-brutal btn-primary inline-block py-3 px-6 text-sm no-underline">
-                    Berlangganan →
+                    {{ __('ui.footer.newsletter_cta') }}
                 </a>
             </div>
 
             {{-- Kategori --}}
             <div>
-                <h3 class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#FF7A2F;">Topik</h3>
+                <h3 class="text-xs font-bold uppercase tracking-widest mb-5" style="color:#FF7A2F;">{{ __('ui.footer.topics') }}</h3>
                 <ul class="space-y-2.5 text-sm">
                     @foreach($navCategories as $cat)
                     <li>
@@ -63,10 +63,10 @@
         </div>
 
         <div class="mt-10 pt-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 text-xs" style="border-top: 1px solid #4A5568; color: #718096;">
-            <span class="max-w-full">© {{ date('Y') }} Koding Indonesia — Menyebarkan ilmu coding sejak 2016 · Konten dilisensikan di bawah <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline hover:text-white">CC BY-NC-SA 4.0</a></span>
+            <span class="max-w-full">{{ __('ui.footer.copyright', ['year' => date('Y')]) }} <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" class="underline hover:text-white">CC BY-NC-SA 4.0</a></span>
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
-                <a href="{{ route('privacy') }}" class="underline hover:text-white">Kebijakan Privasi</a>
-                <span class="font-mono">Built with ♥ in Indonesia 🇮🇩</span>
+                <a href="{{ route('privacy') }}" class="underline hover:text-white">{{ __('ui.footer.privacy') }}</a>
+                <span class="font-mono">{{ __('ui.footer.built_with') }}</span>
             </div>
         </div>
     </div>

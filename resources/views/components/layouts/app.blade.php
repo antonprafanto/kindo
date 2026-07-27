@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -15,17 +15,18 @@
         })();
     </script>
     @php
-        $pageTitle = $title ?? 'Koding Indonesia — Tutorial ESP32 & IoT';
-        $metaDescription = $description ?? 'Belajar ESP32, Arduino, IoT, dan pemrograman dalam Bahasa Indonesia. Tutorial praktis step-by-step gratis untuk pemula hingga mahir.';
+        $pageTitle = $title ?? __('ui.meta.default_title');
+        $metaDescription = $description ?? __('ui.meta.default_description');
         $shareTitle = $ogTitle ?? $pageTitle;
-        $defaultShareDescription = 'Belajar ESP32, Arduino, dan IoT dengan tutorial praktis berbahasa Indonesia. Gratis untuk pemula hingga mahir.';
+        $defaultShareDescription = __('ui.meta.default_share_description');
         $pageDescription = $description ?? null;
         $shareDescription = $ogDescription ?? ($pageDescription
             ? \Illuminate\Support\Str::limit(strip_tags($pageDescription), 120, '…')
             : $defaultShareDescription);
         $shareImage = $ogImage ?? asset('og-default.png');
-        $defaultOgImageAlt = 'Belajar ESP32 & IoT — Tutorial praktis berbahasa Indonesia. Mulai belajar gratis di Koding Indonesia.';
+        $defaultOgImageAlt = __('ui.meta.default_og_image_alt');
         $shareImageAlt = $ogImageAlt ?? $defaultOgImageAlt;
+        $ogLocale = app()->getLocale() === 'en' ? 'en_US' : 'id_ID';
     @endphp
     <title>{{ $pageTitle }}</title>
     <meta name="description" content="{{ $metaDescription }}">
@@ -45,7 +46,12 @@
     <meta property="og:type" content="{{ $ogType ?? 'website' }}">
     <meta property="og:url" content="{{ $canonical ?? url()->current() }}">
     <meta property="og:site_name" content="Koding Indonesia">
-    <meta property="og:locale" content="id_ID">
+    <meta property="og:locale" content="{{ $ogLocale }}">
+    @if (app()->getLocale() === 'en')
+    <meta property="og:locale:alternate" content="id_ID">
+    @else
+    <meta property="og:locale:alternate" content="en_US">
+    @endif
     @if (($ogType ?? 'website') === 'article')
         @if (!empty($ogPublished))
         <meta property="article:published_time" content="{{ $ogPublished }}">

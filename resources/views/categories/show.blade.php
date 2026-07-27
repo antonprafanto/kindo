@@ -1,12 +1,14 @@
 <x-layouts.app
     :title="$category->name . ' — Koding Indonesia'"
-    :description="$category->description ?? 'Artikel tentang ' . $category->name . ' di Koding Indonesia'"
+    :description="$category->description ?? __('ui.articles.category_meta', ['name' => $category->name])"
 >
 
     <x-breadcrumb :items="[
-        ['label' => 'Artikel', 'url' => route('articles.index')],
+        ['label' => __('ui.articles.breadcrumb'), 'url' => route('articles.index')],
         ['label' => $category->name],
     ]" />
+
+    <x-locale-article-banner />
 
     <div class="max-w-6xl mx-auto px-4 py-10">
 
@@ -16,7 +18,7 @@
             <div>
                 <div class="flex items-center gap-3 mb-1">
                     <h1 class="text-3xl font-black theme-heading" style="letter-spacing:-0.02em;">{{ $category->name }}</h1>
-                    <span class="text-xs font-mono px-2 py-1 border-2 border-black theme-surface">{{ $articles->total() }} artikel</span>
+                    <span class="text-xs font-mono px-2 py-1 border-2 border-black theme-surface">{{ __('ui.articles.count_label', ['count' => $articles->total()]) }}</span>
                 </div>
                 @if($category->description)
                 <p class="text-sm max-w-xl theme-muted" style="font-family:'Inter',sans-serif;">{{ $category->description }}</p>
@@ -34,11 +36,11 @@
         @else
         <div class="py-24 text-center">
             <div class="text-6xl mb-4">📭</div>
-            <h2 class="text-xl font-bold mb-2 theme-heading">Belum ada artikel</h2>
-            <p class="theme-muted mb-6">Belum ada artikel yang dipublikasikan di kategori ini.</p>
+            <h2 class="text-xl font-bold mb-2 theme-heading">{{ __('ui.articles.empty_title') }}</h2>
+            <p class="theme-muted mb-6">{{ __('ui.articles.empty_category_body') }}</p>
             <div class="flex flex-wrap justify-center gap-3">
-                <a href="{{ route('articles.index') }}" class="btn-brutal btn-primary px-5 py-2 text-sm">Semua Artikel</a>
-                <a href="{{ route('search') }}" class="btn-brutal btn-outline px-5 py-2 text-sm">Cari Artikel</a>
+                <a href="{{ route('articles.index') }}" class="btn-brutal btn-primary px-5 py-2 text-sm">{{ __('ui.articles.empty_cta') }}</a>
+                <a href="{{ route('search') }}" class="btn-brutal btn-outline px-5 py-2 text-sm">{{ __('ui.articles.search_cta') }}</a>
             </div>
         </div>
         @endif

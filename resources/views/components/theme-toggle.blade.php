@@ -2,10 +2,10 @@
     type="button"
     data-theme-toggle
     @click="$store.theme.toggle($event)"
-    class="p-2 border-2 border-black hover:bg-black hover:text-white transition-colors theme-toggle-btn"
+    {{ $attributes->class(['p-2 border-2 border-black hover:bg-black hover:text-white transition-colors theme-toggle-btn']) }}
     style="box-shadow: 2px 2px 0 #000;"
-    x-bind:title="$store.theme.current === 'dark' ? 'Mode terang' : 'Mode gelap'"
-    x-bind:aria-label="$store.theme.current === 'dark' ? 'Aktifkan mode terang' : 'Aktifkan mode gelap'"
+    x-bind:title="$store.theme.current === 'dark' ? @js(__('ui.theme.light')) : @js(__('ui.theme.dark'))"
+    x-bind:aria-label="$store.theme.current === 'dark' ? @js(__('ui.theme.to_light')) : @js(__('ui.theme.to_dark'))"
 >
     {{-- Sun (shown in dark mode) --}}
     <svg x-show="$store.theme.current === 'dark'" x-cloak x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 rotate-90 scale-50" x-transition:enter-end="opacity-100 rotate-0 scale-100" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">

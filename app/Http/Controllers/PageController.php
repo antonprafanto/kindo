@@ -22,32 +22,32 @@ class PageController extends Controller
         $phases = [
             [
                 'code' => 'ZERO',
-                'title' => 'Fondasi awam',
-                'blurb' => 'Peta IoT, alat, listrik dasar, dan coding mini — tanpa Wi‑Fi dulu.',
+                'title' => __('ui.fsiot.phases.zero.title'),
+                'blurb' => __('ui.fsiot.phases.zero.blurb'),
                 'modules' => 'FS-01 … FS-16',
             ],
             [
                 'code' => 'BUILDER',
-                'title' => 'Perangkat hidup',
-                'blurb' => 'ESP32, GPIO, sensor, aktuator, dan bus I2C — automasi lokal.',
+                'title' => __('ui.fsiot.phases.builder.title'),
+                'blurb' => __('ui.fsiot.phases.builder.blurb'),
                 'modules' => 'FS-17 … FS-28',
             ],
             [
                 'code' => 'CONNECTED',
-                'title' => 'Terhubung',
-                'blurb' => 'Wi‑Fi, HTTP/JSON, MQTT, Mosquitto, dan rules ringan.',
+                'title' => __('ui.fsiot.phases.connected.title'),
+                'blurb' => __('ui.fsiot.phases.connected.blurb'),
                 'modules' => 'FS-29 … FS-38',
             ],
             [
                 'code' => 'FULLSTACK',
-                'title' => 'Backend & dashboard',
-                'blurb' => 'Python, SQLite, API Flask, chart, kontrol, dan alert.',
+                'title' => __('ui.fsiot.phases.fullstack.title'),
+                'blurb' => __('ui.fsiot.phases.fullstack.blurb'),
                 'modules' => 'FS-39 … FS-48',
             ],
             [
                 'code' => 'HERO',
-                'title' => 'Production & capstone',
-                'blurb' => 'Keamanan, daya, OTA, Git, dan proyek Stasiun Ruang Belajar.',
+                'title' => __('ui.fsiot.phases.hero.title'),
+                'blurb' => __('ui.fsiot.phases.hero.blurb'),
                 'modules' => 'FS-49 … FS-56',
             ],
         ];

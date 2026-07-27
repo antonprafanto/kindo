@@ -37,6 +37,8 @@
 </div>
 @endif
 
+<x-locale-article-banner />
+
 @unless($isPreview ?? false)
 @push('schema')
 <script type="application/ld+json">
@@ -70,7 +72,7 @@
 
     @php
         $breadcrumbs = array_values(array_filter([
-            ['label' => 'Artikel', 'url' => route('articles.index')],
+            ['label' => __('ui.articles.breadcrumb'), 'url' => route('articles.index')],
             $article->category ? ['label' => $article->category->name, 'url' => route('categories.show', $article->category->slug)] : null,
             ['label' => $article->title],
         ]));
@@ -130,15 +132,15 @@
                     @endif
                     <span class="text-sm font-mono theme-muted">
                         @if($isPreview ?? false)
-                            Belum dipublikasikan
+                            {{ __('ui.articles.unpublished') }}
                         @else
                             {{ $article->published_at?->translatedFormat('d F Y') }}
                             @if($article->updated_at && $article->published_at && $article->updated_at->gt($article->published_at->copy()->addMinute()))
-                                · Terakhir diperbarui {{ $article->updated_at->translatedFormat('d F Y') }}
+                                · {{ __('ui.articles.updated', ['date' => $article->updated_at->translatedFormat('d F Y')]) }}
                             @endif
                         @endif
                     </span>
-                    <span class="text-sm font-mono theme-muted">{{ $article->read_time_minutes }} menit baca</span>
+                    <span class="text-sm font-mono theme-muted">{{ __('ui.articles.minutes_read', ['count' => $article->read_time_minutes]) }}</span>
                     @unless($isPreview ?? false)
                     <span class="flex items-center gap-1 text-sm font-mono theme-muted">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -174,7 +176,7 @@
                         @endif
                         <div class="min-w-0">
                             <div class="font-bold text-sm theme-heading {{ $authorUrl ? 'group-hover:text-[#2979FF] transition-colors' : '' }}">{{ $author->name }}</div>
-                            <div class="text-xs theme-muted">{{ $author->expertise ?: 'Penulis · Koding Indonesia' }}</div>
+                            <div class="text-xs theme-muted">{{ $author->expertise ?: __('ui.articles.author_fallback') }}</div>
                         </div>
                     @if($authorUrl)
                     </a>
@@ -187,11 +189,11 @@
                 {{-- Mobile TOC (desktop uses sidebar) --}}
                 <details id="toc-mobile-wrap" class="lg:hidden mb-8 border-2 border-black theme-paper" style="box-shadow: 4px 4px 0 #000;">
                     <summary class="px-4 py-3 border-b-2 border-black cursor-pointer list-none flex items-center justify-between font-bold text-sm uppercase tracking-wider text-white" style="background:#2979FF;">
-                        <span>Daftar Isi</span>
+                        <span>{{ __('ui.articles.toc') }}</span>
                         <span class="text-xs font-mono normal-case opacity-90" aria-hidden="true">▼</span>
                     </summary>
                     <nav id="toc-mobile" class="p-4 text-sm space-y-1.5 max-h-64 overflow-y-auto">
-                        <p class="text-xs italic theme-muted">Memuat...</p>
+                        <p class="text-xs italic theme-muted">{{ __('ui.articles.toc_loading') }}</p>
                     </nav>
                 </details>
 
@@ -217,7 +219,7 @@
                 {{-- Share --}}
                 @unless($isPreview ?? false)
                 <div id="article-share" class="mt-8 p-6 border-2 border-black theme-highlight" style="box-shadow: 4px 4px 0 #000;">
-                    <p class="font-bold text-sm mb-3">Bagikan artikel ini:</p>
+                    <p class="font-bold text-sm mb-3">{{ __('ui.articles.share') }}</p>
                     <div class="flex flex-wrap gap-2">
                         <a href="https://wa.me/?text={{ urlencode($article->title . ' — ' . route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
                            class="btn-brutal px-4 py-2 text-xs text-white" style="background:#25D366; border-color:#000;">WhatsApp</a>
@@ -228,12 +230,16 @@
                         <button type="button"
                                 id="copy-article-link"
                                 data-url="{{ route('articles.show', $article->slug) }}"
+                                data-label-copy="{{ __('ui.articles.copy_link') }}"
+                                data-label-copied="{{ __('ui.articles.copied') }}"
+                                data-label-failed="{{ __('ui.articles.copy_failed') }}"
+                                data-label-feedback="{{ __('ui.articles.link_copied') }}"
                                 class="btn-brutal px-4 py-2 text-xs theme-heading"
                                 style="background:#FFD600; border-color:#000;">
-                            Salin tautan
+                            {{ __('ui.articles.copy_link') }}
                         </button>
                     </div>
-                    <p id="copy-article-link-feedback" class="mt-2 text-xs font-bold theme-muted hidden" aria-live="polite">Tautan disalin!</p>
+                    <p id="copy-article-link-feedback" class="mt-2 text-xs font-bold theme-muted hidden" aria-live="polite">{{ __('ui.articles.link_copied') }}</p>
                 </div>
 
                 <div class="print:hidden">
@@ -241,7 +247,7 @@
                 </div>
                 @else
                 <div class="mt-8 p-4 border-2 border-dashed border-black theme-muted text-sm text-center">
-                    Bagikan dan komentar akan tersedia setelah artikel dipublikasikan.
+                    {{ __('ui.articles.preview_share_disabled') }}
                 </div>
                 @endunless
 
@@ -252,31 +258,31 @@
                     <div class="px-4 py-3 border-b-2 border-black" style="background:#2D3748;">
                         <h2 class="text-sm font-bold text-white uppercase tracking-wider">
                             @if($article->category)
-                                Di {{ $article->category->name }}
+                                {{ __('ui.articles.in_category', ['name' => $article->category->name]) }}
                             @else
-                                Artikel terkait kategori
+                                {{ __('ui.articles.related_category') }}
                             @endif
                         </h2>
                     </div>
                     <div class="grid sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-black/10 dark:divide-white/10">
                         <div class="p-4">
                             @if($previousArticle ?? null)
-                            <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">← Sebelumnya</p>
+                            <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">{{ __('ui.articles.prev') }}</p>
                             <a href="{{ route('articles.show', $previousArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
                                 {{ $previousArticle->title }}
                             </a>
                             @else
-                            <p class="text-xs theme-muted italic">Tidak ada artikel sebelumnya</p>
+                            <p class="text-xs theme-muted italic">{{ __('ui.articles.prev_none') }}</p>
                             @endif
                         </div>
                         <div class="p-4 sm:text-right">
                             @if($nextArticle ?? null)
-                            <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">Berikutnya →</p>
+                            <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">{{ __('ui.articles.next') }}</p>
                             <a href="{{ route('articles.show', $nextArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
                                 {{ $nextArticle->title }}
                             </a>
                             @else
-                            <p class="text-xs theme-muted italic">Tidak ada artikel berikutnya</p>
+                            <p class="text-xs theme-muted italic">{{ __('ui.articles.next_none') }}</p>
                             @endif
                         </div>
                     </div>
@@ -288,7 +294,7 @@
                 @if($related->count())
                 <div class="lg:hidden mt-10 theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
                     <div class="px-4 py-3 border-b-2 border-black" style="background:#FF7A2F;">
-                        <h2 class="text-sm font-bold text-white uppercase tracking-wider">Artikel Terkait</h2>
+                        <h2 class="text-sm font-bold text-white uppercase tracking-wider">{{ __('ui.articles.related') }}</h2>
                     </div>
                     <div class="p-4 space-y-4">
                         @foreach($related as $rel)
@@ -310,10 +316,10 @@
                     {{-- Table of Contents --}}
                     <div class="theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
                         <div class="px-4 py-3 border-b-2 border-black" style="background:#2979FF;">
-                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Daftar Isi</h3>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">{{ __('ui.articles.toc') }}</h3>
                         </div>
                         <nav id="toc" class="p-4 text-sm space-y-1.5 max-h-80 overflow-y-auto">
-                            <p class="text-xs italic theme-muted">Memuat...</p>
+                            <p class="text-xs italic theme-muted">{{ __('ui.articles.toc_loading') }}</p>
                         </nav>
                     </div>
 
@@ -322,12 +328,12 @@
                     @if(($previousArticle ?? null) || ($nextArticle ?? null))
                     <div class="theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
                         <div class="px-4 py-3 border-b-2 border-black" style="background:#2D3748;">
-                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Sebelumnya / Berikutnya</h3>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">{{ __('ui.articles.prev_next') }}</h3>
                         </div>
                         <div class="p-4 space-y-4">
                             @if($previousArticle ?? null)
                             <div>
-                                <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">← Sebelumnya</p>
+                                <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">{{ __('ui.articles.prev') }}</p>
                                 <a href="{{ route('articles.show', $previousArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
                                     {{ $previousArticle->title }}
                                 </a>
@@ -335,7 +341,7 @@
                             @endif
                             @if($nextArticle ?? null)
                             <div>
-                                <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">Berikutnya →</p>
+                                <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">{{ __('ui.articles.next') }}</p>
                                 <a href="{{ route('articles.show', $nextArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
                                     {{ $nextArticle->title }}
                                 </a>
@@ -350,7 +356,7 @@
                     @if($related->count())
                     <div class="theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
                         <div class="px-4 py-3 border-b-2 border-black" style="background:#FF7A2F;">
-                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">Artikel Terkait</h3>
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider">{{ __('ui.articles.related') }}</h3>
                         </div>
                         <div class="p-4 space-y-4">
                             @foreach($related as $rel)
@@ -378,6 +384,10 @@
 <script>
     hljs.highlightAll();
 
+    const codeCopyLabel = @js(__('ui.articles.copy_code'));
+    const codeCopiedLabel = @js(__('ui.articles.code_copied'));
+    const codeCopyAria = @js(__('ui.articles.copy_code_aria'));
+
     document.querySelectorAll('.article-body pre, #article-content pre').forEach(pre => {
         const wrap = document.createElement('div');
         wrap.className = 'code-block-wrap';
@@ -385,14 +395,14 @@
         wrap.appendChild(pre);
 
         const copyBtn = document.createElement('button');
-        copyBtn.textContent = 'Salin';
+        copyBtn.textContent = codeCopyLabel;
         copyBtn.className = 'copy-code-btn';
         copyBtn.type = 'button';
-        copyBtn.setAttribute('aria-label', 'Salin kode');
+        copyBtn.setAttribute('aria-label', codeCopyAria);
         copyBtn.addEventListener('click', () => {
             navigator.clipboard.writeText(pre.querySelector('code')?.textContent || pre.textContent);
-            copyBtn.textContent = 'Tersalin!';
-            setTimeout(() => copyBtn.textContent = 'Salin', 2000);
+            copyBtn.textContent = codeCopiedLabel;
+            setTimeout(() => copyBtn.textContent = codeCopyLabel, 2000);
         });
         wrap.appendChild(copyBtn);
     });
@@ -403,6 +413,7 @@
 <script>
 // Build Table of Contents from headings
 document.addEventListener('DOMContentLoaded', () => {
+    const tocEmptyLabel = @js(__('ui.articles.toc_empty'));
     const content = document.getElementById('article-content');
     const tocTargets = [document.getElementById('toc'), document.getElementById('toc-mobile')].filter(Boolean);
     if (!content || !tocTargets.length) return;
@@ -410,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const headings = content.querySelectorAll('h2, h3');
     if (!headings.length) {
         tocTargets.forEach(toc => {
-            toc.innerHTML = '<p class="text-xs italic theme-muted">Tidak ada daftar isi.</p>';
+            toc.innerHTML = '<p class="text-xs italic theme-muted">' + tocEmptyLabel + '</p>';
         });
         const mobileWrap = document.getElementById('toc-mobile-wrap');
         if (mobileWrap) mobileWrap.hidden = true;
@@ -501,16 +512,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.removeChild(ta);
             }
             if (feedback) {
+                feedback.textContent = btn.dataset.labelFeedback || feedback.textContent;
                 feedback.classList.remove('hidden');
-                btn.textContent = 'Disalin!';
+                btn.textContent = btn.dataset.labelCopied || 'Copied!';
                 setTimeout(() => {
                     feedback.classList.add('hidden');
-                    btn.textContent = 'Salin tautan';
+                    btn.textContent = btn.dataset.labelCopy || 'Copy link';
                 }, 2000);
             }
         } catch (err) {
             if (feedback) {
-                feedback.textContent = 'Gagal menyalin — salin manual dari bilah alamat.';
+                feedback.textContent = btn.dataset.labelFailed || feedback.textContent;
                 feedback.classList.remove('hidden');
             }
         }

@@ -32,7 +32,7 @@
                 {{ $article->category->name }}
             </a>
             @endif
-            <span class="text-xs font-mono theme-muted">{{ $article->read_time_minutes ?? 1 }} menit</span>
+            <span class="text-xs font-mono theme-muted">{{ __('ui.articles.minutes', ['count' => $article->read_time_minutes ?? 1]) }}</span>
         </div>
 
         {{-- Title --}}
