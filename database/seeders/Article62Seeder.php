@@ -154,7 +154,7 @@ class Article62Seeder extends Seeder
   <li><strong>Explorer</strong> — pastikan folder <code>perpustakaan-api</code> ada; cek file Controller / Form Request / <code>routes/web.php</code>.</li>
   <li><strong>Terminal</strong> — Laragon: menu <em>Terminal</em> · XAMPP: tombol <em>Shell</em>. Jangan asal CMD/PowerShell dari Start Menu (PATH PHP bisa hilang).</li>
   <li><strong>Terminal kedua</strong> — wajib: terminal pertama = <code>php artisan serve</code>. Terminal kedua = uji <code>curl.exe</code> / PowerShell (login + tambah + baca).</li>
-  <li><strong>Editor teks</strong> — Notepad / VS Code — sambungkan route POST tambah + method <code>store</code>. Tip: <code>notepad path\ke\file.php</code> dari terminal kedua.</li>
+  <li><strong>Editor teks</strong> — Notepad / VS Code — sambungkan route POST tambah + method <code>store</code>. Tip: <code>notepad app\Http\Controllers\BukuController.php</code> dari terminal kedua (ganti nama file sesuai yang mau dibuka).</li>
   <li><strong>Browser</strong> — opsional: cek lampu toko. Uji Capstone (POST login/tambah) <strong>bukan</strong> lewat bilah alamat browser.</li>
 </ul>
 <p><strong>Cara buka terminal kedua</strong> (baru pertama kali buka dua terminal sekaligus? ini caranya, jangan tutup yang pertama): <strong>Laragon</strong> — klik menu <em>Terminal</em> sekali lagi di jendela utama Laragon, sebuah jendela terminal baru akan muncul terpisah dari yang pertama. <strong>XAMPP</strong> — di XAMPP Control Panel, klik tombol <em>Shell</em> sekali lagi, jendela Shell kedua akan terbuka. Kedua jendela boleh hidup bersamaan — jendela pertama tetap menjalankan <code>php artisan serve</code>, jendela kedua kamu pakai untuk mengetik perintah lain.</p>
@@ -245,6 +245,7 @@ Route::middleware('auth:sanctum')-&gt;group(function () {
   -d "{\"email\":\"staf@perpustakaan.test\",\"password\":\"password\"}"
 </code></pre>
 <p><strong>Awam — salin token:</strong> di jawaban JSON cari kunci <code>"token"</code>. Salin <em>hanya</em> string di antara tanda kutip. Jangan salin kata <code>Bearer</code> dari JSON — kata Bearer ditulis di header. Ganti <code>GANTI_DENGAN_TOKEN</code> di bawah.</p>
+<p><strong>Awam — cara salin teks dari terminal Windows:</strong> blok teks dengan klik kiri lalu tahan sambil digeser (klik-drag), lepas tombol mouse untuk menyalin otomatis. Tempel dengan klik kanan di jendela terminal (bukan <code>Ctrl+V</code>, terminal bawaan Windows kadang tidak mendukungnya).</p>
 <p><strong>2) Tambah tanpa kartu — harus ditolak</strong></p>
 <pre><code class="language-bash">curl.exe -s -X POST http://127.0.0.1:8000/api/buku ^
   -H "Content-Type: application/json" ^

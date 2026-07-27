@@ -168,7 +168,7 @@ class Article61Seeder extends Seeder
   <li><strong>Explorer</strong> — memastikan folder proyek <code>perpustakaan-api</code> dan melihat file Controller / Model yang dibuat Artisan.</li>
   <li><strong>Terminal</strong> — Laragon: menu <em>Terminal</em> · XAMPP: tombol <em>Shell</em>. Jangan asal CMD/PowerShell dari Start Menu (PATH PHP/Composer bisa hilang).</li>
   <li><strong>Terminal kedua</strong> — wajib: terminal pertama = <code>php artisan serve</code>. Terminal kedua = Composer, Artisan lain, dan <code>curl.exe</code> / PowerShell untuk uji POST/GET ber-token.</li>
-  <li><strong>Editor teks</strong> — Notepad / VS Code — edit Model User, AuthController, <code>routes/web.php</code>. Tip: <code>notepad path\ke\file.php</code> dari terminal kedua.</li>
+  <li><strong>Editor teks</strong> — Notepad / VS Code — edit Model User, AuthController, <code>routes/web.php</code>. Tip: <code>notepad app\Http\Controllers\AuthController.php</code> dari terminal kedua (ganti nama file sesuai yang mau dibuka).</li>
   <li><strong>Browser</strong> — opsional hari ini. Pintu login &amp; uji token pakai terminal (seperti POST di <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>). Browser berguna hanya untuk cek lampu toko masih hidup.</li>
 </ul>
 <p><strong>Cara buka terminal kedua</strong> (baru pertama kali buka dua terminal sekaligus? ini caranya, jangan tutup yang pertama): <strong>Laragon</strong> — klik menu <em>Terminal</em> sekali lagi di jendela utama Laragon, sebuah jendela terminal baru akan muncul terpisah dari yang pertama. <strong>XAMPP</strong> — di XAMPP Control Panel, klik tombol <em>Shell</em> sekali lagi, jendela Shell kedua akan terbuka. Kedua jendela boleh hidup bersamaan — jendela pertama tetap menjalankan <code>php artisan serve</code>, jendela kedua kamu pakai untuk mengetik perintah lain.</p>
@@ -277,6 +277,7 @@ Route::middleware('auth:sanctum')-&gt;get('/api/saya', [AuthController::class, '
   -d "{\"email\":\"staf@perpustakaan.test\",\"password\":\"password\"}"
 </code></pre>
 <p><strong>Awam — salin token:</strong> di jawaban JSON cari kunci <code>"token"</code>. Salin <em>hanya</em> string di antara tanda kutip (panjang, tanpa spasi di ujung). Jangan salin kata <code>Bearer</code> dari JSON — kata Bearer ditulis nanti di header. Ganti <code>GANTI_DENGAN_TOKEN</code> di perintah berikutnya dengan string itu.</p>
+<p><strong>Awam — cara salin teks dari terminal Windows:</strong> blok teks dengan klik kiri lalu tahan sambil digeser (klik-drag), lepas tombol mouse untuk menyalin otomatis. Tempel dengan klik kanan di jendela terminal (bukan <code>Ctrl+V</code>, terminal bawaan Windows kadang tidak mendukungnya).</p>
 <p><strong>2) Tanpa kartu — harus 401</strong></p>
 <pre><code class="language-bash">curl.exe -s http://127.0.0.1:8000/api/saya ^
   -H "Accept: application/json"
