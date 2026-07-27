@@ -77,8 +77,8 @@ check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
 check(! str_contains($body, 'endpoint'), 'Tanpa jargon endpoint');
-check(str_contains($body, 'Auth API') || str_contains($body, 'kartu anggota'), 'Soft bridge #61');
-check(! str_contains($body, '/artikel/laravel-auth-api-dasar'), 'Tanpa hardlink #61');
+check(str_contains($body, 'Auth API') || str_contains($body, 'kartu anggota') || str_contains($body, '/artikel/laravel-auth-api-dasar'), 'Soft/hard bridge #61');
+check(str_contains($body, '/artikel/laravel-auth-api-dasar'), 'Hardlink #61');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(! str_contains($src, 'capstone-api-perpustakaan-laravel'), 'Tanpa slug Capstone usang');
 

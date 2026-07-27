@@ -72,7 +72,8 @@ check(str_contains($deploy, 'backlink missing on #59') || str_contains($deploy, 
 check(str_contains($body, '5/8'), 'Progress 5/8');
 check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel'), 'Framing Seri 4 v2');
 check(str_contains($body, 'Awam:'), 'Gloss awam');
-check(str_contains($body, 'Auth API') || str_contains($body, 'kartu anggota'), 'Soft bridge #61');
+check(str_contains($body, 'Auth API') || str_contains($body, 'kartu anggota') || str_contains($body, '/artikel/laravel-auth-api-dasar'), 'Bridge #61');
+check(str_contains($body, '/artikel/laravel-auth-api-dasar'), 'Hardlink #61');
 check(! str_contains($body, 'Pin ') && ! str_contains($body, 'closure') && ! str_contains($body, 'endpoint'), 'Tanpa Pin/closure/endpoint');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa @param di body');

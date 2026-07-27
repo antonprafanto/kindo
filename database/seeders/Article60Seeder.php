@@ -400,12 +400,12 @@ Eloquent = cara membaca/menulis tabel lewat model PHP. <code>Buku::query()-&gt;g
 <p><strong>Apa hubungan dengan artikel validasi?</strong><br>
 <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> menjaga slip masuk. <strong>#60 (ini)</strong> merapikan siapa yang melayani daftar buku (loket + dapur + tabel).</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya kita belajar <strong>Auth API dasar</strong> — kartu anggota supaya tidak semua orang boleh menambah data sembarangan. (Artikel berikutnya di jalur Laravel.)</p>
+Berikutnya: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> — kartu anggota supaya tidak semua orang boleh masuk pintu staf.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah memindahkan daftar buku ke pola rapi: Controller (loket), Service (dapur), Eloquent (baca tabel), diuji lewat browser saat <code>artisan serve</code> hidup. Ini langkah <strong>5/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#60 (ini)</strong> · <strong>5/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> LIVE. Berikutnya: Auth API dasar (login/kartu anggota).</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#60 (ini)</strong> · <strong>5/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> LIVE. Berikutnya: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>.</p>
 </blockquote>
 HTML;
     }

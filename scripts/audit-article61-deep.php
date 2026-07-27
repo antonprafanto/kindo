@@ -65,7 +65,9 @@ $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.p
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 check(str_contains($deploy, 'laravel-auth-api-dasar'), 'Hook');
 check(str_contains($yml, 'laravel-auth-api-dasar'), 'CI slug');
-check(preg_match('/Publish article 61 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml) === 1, 'CI #61 continue-on-error');
+check(preg_match('/Publish article 61 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml) !== 1, 'CI #61 required');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article60Seeder.php'), 'laravel-auth-api-dasar'), '#60 hardlink #61');
+check(str_contains($deploy, 'backlink missing on #60') || str_contains($deploy, 'Article 61 backlink #60'), 'Hook hardlink #60');
 check(str_contains($body, '6/8'), 'Progress 6/8');
 check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel'), 'Framing Seri 4 v2');
 check(str_contains($body, 'Awam:'), 'Gloss awam');
@@ -88,6 +90,6 @@ check(preg_match_all('/#60(?!\s*\(ini\))/', $withoutLinks) === 0, 'Tanpa bare #6
 
 echo "\n=== Deep-audit pass-1 #61: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: kickoff #61 — soft residual tools awam siap oke deploy (hardlink #60 ditunda).\n";
+    echo "Verdict: LIVE #61 — hardlink #60 aktif · CI required. Next: kickoff #62.\n";
 }
 exit($failed > 0 ? 1 : 0);
