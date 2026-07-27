@@ -91,24 +91,28 @@ class Article62Seeder extends Seeder
 <p><strong>Awam:</strong> tanpa kartu -&gt; tambah ditolak. Dengan kartu + slip bagus -&gt; buku baru muncul di daftar.</p>
 
 <figure style="margin:1.5rem 0;padding:1rem;background:#F5F5F0;border-radius:8px;">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-label="Alur Capstone: baca katalog, login dapat kartu, tambah buku ber-kartu" id="laravel62capstoneArrow">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-label="Alur Capstone: baca katalog, login dapat kartu, tambah buku ber-kartu">
+  <title>Alur Capstone: baca, login, tambah</title>
+  <defs>
+    <marker id="laravel62capstoneArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
   <rect x="16" y="36" width="200" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
   <text x="116" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">1. Baca</text>
   <text x="116" y="98" text-anchor="middle" fill="#1a1a1a" font-size="13">GET /api/buku</text>
-  <path d="M226 80 H268" stroke="#1a1a1a" stroke-width="2" fill="none"/>
-  <polygon points="268,74 282,80 268,86" fill="#1a1a1a"/>
+  <line x1="226" y1="80" x2="278" y2="80" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel62capstoneArrow)"/>
   <rect x="290" y="36" width="200" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
   <text x="390" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">2. Login</text>
   <text x="390" y="98" text-anchor="middle" fill="#1a1a1a" font-size="13">POST /api/login</text>
-  <path d="M500 80 H542" stroke="#1a1a1a" stroke-width="2" fill="none"/>
-  <polygon points="542,74 556,80 542,86" fill="#1a1a1a"/>
+  <line x1="500" y1="80" x2="552" y2="80" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel62capstoneArrow)"/>
   <rect x="564" y="36" width="180" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
   <text x="654" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">3. Tambah</text>
   <text x="654" y="98" text-anchor="middle" fill="#1a1a1a" font-size="13">POST /api/buku</text>
   <text x="24" y="180" fill="#1a1a1a" font-size="13">Tanpa kartu di langkah 3 = ditolak. Dengan Bearer + slip valid = buku masuk rak.</text>
-  <text x="24" y="208" fill="#1a1a1a" font-size="13">Urutan Capstone #62 (ini) — belum ubah &amp; hapus.</text>
+  <text x="24" y="208" fill="#1a1a1a" font-size="13">Urutan Capstone #62 (ini) - belum ubah &amp; hapus.</text>
 </svg>
-<figcaption>Tiga pintu Capstone: baca (umum) -&gt; login (kartu) -&gt; tambah (ber-kartu).</figcaption>
+<figcaption style="color:#1a1a1a">Tiga pintu Capstone: baca (umum) -&gt; login (kartu) -&gt; tambah (ber-kartu).</figcaption>
 </figure>
 
 <h2>Istilah — ringkas Capstone</h2>
@@ -274,8 +278,8 @@ Invoke-RestMethod -Uri http://127.0.0.1:8000/api/buku -Headers @{ Accept = "appl
 <p><strong>Opsi C — Postman / Insomnia</strong> (alat berjendela): method POST, URL <code>http://127.0.0.1:8000/api/buku</code>, header Authorization type Bearer Token, body JSON judul+penulis. Sama hasilnya — pilih yang paling nyaman.</p>
 
 <h2>Pola Dasar</h2>
-<p style="color:#1a1a1a;"><strong>Urutan Capstone yang aman:</strong> (1) nyalakan <code>serve</code> di terminal 1 · (2) pastikan login &amp; GET daftar pernah OK · (3) pasang <code>store</code> + Form Request · (4) bungkus POST <code>/api/buku</code> dengan <code>auth:sanctum</code> · (5) uji: tanpa kartu gagal -&gt; dengan kartu 201 -&gt; GET melihat buku baru.</p>
-<p style="color:#1a1a1a;"><strong>Awam:</strong> jangan menambah pintu ubah/hapus dulu. Capstone hari ini = baca + login + tambah saja.</p>
+<p><strong style="color:#1a1a1a">Urutan Capstone yang aman:</strong> <span style="color:#1a1a1a">(1) nyalakan <code>serve</code> di terminal 1 · (2) pastikan login &amp; GET daftar pernah OK · (3) pasang <code>store</code> + Form Request · (4) bungkus POST <code>/api/buku</code> dengan <code>auth:sanctum</code> · (5) uji: tanpa kartu gagal -&gt; dengan kartu 201 -&gt; GET melihat buku baru.</span></p>
+<p><strong style="color:#1a1a1a">Awam:</strong> <span style="color:#1a1a1a">jangan menambah pintu ubah/hapus dulu. Capstone hari ini = baca + login + tambah saja.</span></p>
 
 <h2>File contoh — simulasi alur Capstone</h2>
 <p>Simpan sebagai <code>laravel_capstone_api_perpustakaan_demo.php</code> lalu jalankan: <code>php laravel_capstone_api_perpustakaan_demo.php</code>. Ini <em>bukan</em> Laravel sungguhan — hanya meniru tiga pintu agar alur terasa.</p>
