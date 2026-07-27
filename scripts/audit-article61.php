@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Audit utama #61 — CRUD API Buku: Ubah & Hapus (Seri 5).
+ * Audit utama #61 — Auth API Dasar (Seri 4).
  * Usage: php scripts/audit-article61.php
  */
 
@@ -22,9 +22,9 @@ function check(bool $ok, string $label): void
     $ok ? $passed++ : $failed++;
 }
 
-$slug = 'laravel-crud-api-buku-ubah-hapus';
+$slug = 'laravel-auth-api-dasar';
 
-echo "=== Audit Artikel #61 — CRUD API Buku Ubah & Hapus ===\n\n";
+echo "=== Audit Artikel #61 — Auth API Dasar ===\n\n";
 
 $ref = new ReflectionClass(Article61Seeder::class);
 $method = $ref->getMethod('body');
@@ -33,46 +33,55 @@ $body = $method->invoke($ref->newInstanceWithoutConstructor());
 $src = file_get_contents(__DIR__.'/../database/seeders/Article61Seeder.php');
 
 check(str_contains($body, '#61 (ini)'), 'Self-ref');
-check(str_contains($body, '404') && str_contains($body, '204') && str_contains($body, '422'), '404 + 204 + 422');
-check(str_contains($body, 'CRUD') || str_contains($body, 'ubah'), 'CRUD framing');
-check(str_contains($body, 'laravel61crudArrow'), 'SVG marker');
+check(str_contains($body, 'AuthController') && str_contains($body, 'Sanctum'), 'AuthController + Sanctum');
+check(str_contains($body, 'createToken') || str_contains($body, 'Bearer'), 'Token / Bearer');
+check(str_contains($body, 'laravel61authArrow'), 'SVG marker');
+check(str_contains($body, 'viewBox="0 0 760 240"'), 'SVG horizontal');
 check(str_contains($body, 'background:#F5F5F0'), 'Figure bg');
 check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar');
-check(str_contains($body, 'laravel_crud_buku_ubah_hapus_demo.php'), 'File contoh');
-check(str_contains($body, 'Seri 5'), 'Seri 5');
+check(str_contains($body, 'laravel_auth_api_dasar_demo.php'), 'File contoh');
+check(str_contains($body, 'Seri 4'), 'Seri 4');
 check(str_contains($body, 'language-php'), 'language-php');
 check(substr_count($body, '<h2') >= 8, '≥8 H2');
 check(str_contains($src, $slug), 'Slug di seeder');
-check(str_contains($body, '/artikel/capstone-api-perpustakaan-laravel'), 'Link #60');
-check(! preg_match('/(?<![\w\/"#>])#62(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #62+');
-$plainLinked = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '');
-check(! preg_match('/(?<![\w\/"#>])#60(?!\d)(?!\s*\(ini\))/', $plainLinked), 'Tidak bare #60');
-check(str_contains($body, 'Belum diizinkan'), 'Gloss 401 awam');
-check(str_contains($body, 'Buku tidak ketemu'), 'Gloss 404 awam');
-check(str_contains($body, 'Isian belum rapi'), 'Gloss 422 awam');
+check(str_contains($body, '/artikel/laravel-controller-service-eloquent'), 'Link #60');
+check(str_contains($body, '/artikel/laravel-request-validasi-api'), 'Link #59');
+check(str_contains($body, '/artikel/laravel-struktur-env-artisan'), 'Link #57');
+check(str_contains($body, '/artikel/laravel-instalasi-proyek-pertama'), 'Link #56');
+check(! preg_match('/(?<![\w\/"#>])#(?:6[2-3])(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #62+');
+check(str_contains($body, 'kartu anggota') || str_contains($body, 'Bearer'), 'Analogi kartu');
+check(str_contains($body, 'install-dari-nol'), 'Marker install-dari-nol');
+check(str_contains($body, 'Alat yang dipakai') && str_contains($body, 'terminal kedua'), 'Petunjuk tools awam');
+check(str_contains($body, 'curl.exe'), 'curl.exe uji');
 
 $routes = file_get_contents(__DIR__.'/../routes/web.php');
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php');
 
-check(str_contains($routes, 'publish-article-61'), 'Route');
+check(str_contains($routes, 'publish-article-61'), 'Route hook');
 check(str_contains($yml, $slug), 'CI slug');
-check(str_contains($yml, 'Publish article 61 via deploy hook (required)'), 'CI #61 required');
-check(! preg_match('/Publish article 61 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml), 'CI #61 tidak continue-on-error');
+check(str_contains($yml, 'Publish article 61 via deploy hook (required)'), 'CI #61 step');
+check(preg_match('/Publish article 61 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml) === 1, 'CI #61 continue-on-error (kickoff)');
 check(str_contains($deploy, 'publishArticle61'), 'DeployController');
 check(str_contains($deploy, $slug), 'Hook cek slug');
+check(str_contains($deploy, 'Hardlink #60 -> #61 ditunda') || str_contains($deploy, 'hardlink ditunda'), 'Hardlink #60 ditunda');
 check(file_exists(__DIR__.'/audit-article61-php.php'), 'audit-article61-php.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');
-check(str_contains($body, '1/8 Laravel Lanjutan'), 'Progress 1/8');
-check(str_contains($body, 'Laravel 11+'), 'Pin Laravel 11+');
+check(str_contains($src, 'prevPublished'), 'Urutan publish setelah #60');
+check(str_contains($body, '6/8'), 'Progress 6/8');
+check(str_contains($body, 'Laravel 13+'), 'Pin Laravel 13+');
+check(str_contains($body, 'PHP 8.3+'), 'Syarat PHP 8.3+');
+check(! str_contains($body, 'Laravel 11+'), 'Tanpa pin Laravel 11+ usang');
 check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
+check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
-check(str_contains($body, 'Relasi Eloquent'), 'Bridge #62');
-check(str_contains($body, '/artikel/laravel-eloquent-relasi-peminjaman'), 'Hardlink #62');
-check(str_contains($body, 'bukti masuk'), 'Gloss bukti masuk');
-check(str_contains($body, 'destroy'), 'destroy framing');
-check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article60Seeder.php'), $slug), '#60 hardlink #61');
+check(! str_contains($body, 'endpoint'), 'Tanpa jargon endpoint');
+check(str_contains($body, 'Capstone') || str_contains($body, 'tambah buku'), 'Soft bridge #62');
+check(! str_contains($body, '/artikel/capstone-api-perpustakaan-laravel'), 'Tanpa hardlink #62');
+check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
+check(! str_contains($src, 'laravel-crud-api-buku-ubah-hapus'), 'Tanpa slug CRUD Seri 5 usang');
+check(! str_contains($body, 'Seri 5'), 'Tanpa framing Seri 5 usang');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

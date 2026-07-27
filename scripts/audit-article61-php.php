@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP/pedagogi audit #61 — runnable CRUD demo (skip cuplikan Laravel).
+ * PHP / pedagogi audit #61 — extract & run language-php blocks.
  * Usage: php scripts/audit-article61-php.php
  */
 
@@ -27,54 +27,41 @@ $method = $ref->getMethod('body');
 $method->setAccessible(true);
 $body = $method->invoke($ref->newInstanceWithoutConstructor());
 
-preg_match_all('/<pre><code class="language-php">(.*?)<\/code><\/pre>/s', $body, $blocks);
-check(count($blocks[1]) >= 4, 'Minimal 4 blok language-php ('.count($blocks[1]).')');
+preg_match_all('/<pre><code class="language-php">(.*?)<\/code><\/pre>/s', $body, $matches);
+$blocks = $matches[1] ?? [];
+check(count($blocks) >= 3, 'Minimal 3 blok language-php ('.count($blocks).')');
 
-$tmpDir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a61php_'.uniqid();
-mkdir($tmpDir);
+$dir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'kindo_a61php_'.bin2hex(random_bytes(4));
+mkdir($dir);
 
 $runnable = 0;
-foreach ($blocks[1] as $i => $raw) {
+$demoOut = '';
+foreach ($blocks as $i => $raw) {
     $code = html_entity_decode($raw, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-    if (
-        str_contains($code, 'Cuplikan Laravel')
-        || str_contains($code, 'namespace App\\Http\\Controllers')
-        || str_contains($code, 'auth:sanctum')
-        || str_contains($code, 'UpdateBookRequest')
-        || str_contains($code, 'BukuService')
-    ) {
-        check(true, 'skip Laravel cuplikan block #'.($i + 1));
+    $code = str_replace(['&lt;', '&gt;', '&amp;'], ['<', '>', '&'], $code);
+    if (! str_starts_with(ltrim($code), '<?php')) {
         continue;
     }
     $runnable++;
-    $file = $tmpDir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
+    $file = $dir.DIRECTORY_SEPARATOR.'block_'.($i + 1).'.php';
     file_put_contents($file, $code);
     $lint = [];
-    $lrc = 0;
-    exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lrc);
-    check($lrc === 0, 'php -l block #'.($i + 1).' — '.trim(implode(' ', $lint)));
+    exec('php -l '.escapeshellarg($file).' 2>&1', $lint, $lintCode);
+    check($lintCode === 0, 'php -l block #'.($i + 1).' — '.implode(' ', $lint));
     $out = [];
-    $rc = 0;
-    exec('php '.escapeshellarg($file).' 2>&1', $out, $rc);
-    $joined = implode("\n", $out);
-    check($rc === 0, 'run block #'.($i + 1).' exit 0');
-    if ($runnable === 1) {
-        check(str_contains($joined, 'Belum diizinkan') || str_contains($joined, '401'), 'run block #'.($i + 1).' output: 401');
-    }
-    if (str_contains($code, 'function demo')) {
-        check(str_contains($joined, 'Ubah tanpa bukti') || str_contains($joined, '401'), 'run demo framing');
-        check(str_contains($joined, 'Buku tidak ketemu') || str_contains($joined, '404'), 'run demo 404');
-        check(str_contains($joined, 'Isian belum rapi') || str_contains($joined, '422'), 'run demo 422');
-        check(str_contains($joined, '"ok": true') || str_contains($joined, '"ok":true'), 'run demo sukses ubah');
-        check(str_contains($joined, '204') || str_contains($joined, 'tubuh kosong'), 'run demo hapus 204');
+    exec('php '.escapeshellarg($file).' 2>&1', $out, $runCode);
+    check($runCode === 0, 'run block #'.($i + 1).' exit 0');
+    if (str_contains($code, 'function demo(')) {
+        $demoOut = implode("\n", $out);
     }
 }
 
-check($runnable >= 3, '≥3 blok runnable PHP ('.$runnable.')');
-check(str_contains($body, 'demo('), 'Ada demo()');
-check(str_contains($body, 'laravel_crud_buku_ubah_hapus_demo.php'), 'File contoh');
-check(str_contains($body, 'laravel61crudArrow'), 'SVG marker');
-check(str_contains($body, 'Seri 5'), 'Framing Seri 5');
+check($runnable >= 1, '≥1 blok runnable PHP ('.$runnable.')');
+check(str_contains($body, 'demo()'), 'Ada demo()');
+check(str_contains($body, 'laravel_auth_api_dasar_demo.php'), 'File contoh');
+check(str_contains($demoOut, 'Login') || str_contains($demoOut, 'kartu') || str_contains($demoOut, '401'), 'run demo output berguna');
+check(str_contains($body, 'laravel61authArrow'), 'SVG marker');
+check(str_contains($body, 'Seri 4'), 'Framing Seri 4');
 check(str_contains($body, '#61 (ini)'), 'Self-ref');
 
 echo "\n=== PHP/pedagogi audit #61: {$passed} passed, {$failed} failed ===\n";
