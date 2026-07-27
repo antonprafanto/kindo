@@ -96,6 +96,28 @@
         </div>
     </section>
 
+    {{-- Jalur Full Stack IoT --}}
+    <section class="py-10 sm:py-14 border-b-4 border-black" style="background: var(--color-surface);">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="p-6 sm:p-8 theme-paper border-2 border-black" style="box-shadow: 6px 6px 0 #000;">
+                <p class="inline-flex text-white text-xs font-bold px-3 py-1 border-2 border-black mb-4" style="background:#FF7A2F; box-shadow:2px 2px 0 #000; text-transform:uppercase; letter-spacing:.04em;">
+                    Jalur unggulan
+                </p>
+                <h2 class="text-2xl sm:text-3xl font-black mb-3 theme-heading" style="letter-spacing:-0.02em;">
+                    Full Stack IoT — Dari Nol
+                </h2>
+                <p class="theme-body text-sm sm:text-base max-w-2xl mb-6" style="font-family:'Inter',sans-serif; line-height:1.7;">
+                    Kurikulum premium berurutan untuk awam: dari listrik & coding dasar sampai dashboard IoT.
+                    Akses gratis — dukung opsional lewat tip.
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <a href="{{ route('belajar.fullstack-iot') }}" class="btn-brutal btn-primary px-6 py-3 text-sm">Lihat jalur IoT →</a>
+                    <a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="btn-brutal btn-outline px-6 py-3 text-sm">Dukung di Trakteer</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     {{-- ═══════════════════════════════ FEATURED ARTICLES ══════════════════════════ --}}
     @if($featuredArticles->count())
     <section class="py-10 sm:py-16 border-b-4 border-black theme-paper">

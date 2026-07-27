@@ -24,8 +24,10 @@
                 <ul class="space-y-2.5 text-sm">
                     <li><a href="{{ route('home') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Beranda</a></li>
                     <li><a href="{{ route('articles.index') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Semua Artikel</a></li>
+                    <li><a href="{{ route('belajar.fullstack-iot') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Jalur Full Stack IoT</a></li>
                     <li><a href="{{ route('search') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Cari Artikel</a></li>
                     <li><a href="{{ route('about') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Tentang Kami</a></li>
+                    <li><a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Dukung kami (Trakteer)</a></li>
                     <li><a href="{{ route('authors.index') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Penulis</a></li>
                     <li><a href="{{ route('contributor.apply') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Menjadi Kontributor</a></li>
                     <li><a href="{{ route('contact') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">Kontak</a></li>

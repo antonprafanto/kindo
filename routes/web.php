@@ -28,6 +28,7 @@ Route::get('/tag/{slug}', [TagController::class, 'show'])->name('tags.show');
 Route::get('/cari', \App\Livewire\SearchPage::class)->name('search');
 
 Route::get('/tentang', [PageController::class, 'about'])->name('about');
+Route::get('/belajar/fullstack-iot', [PageController::class, 'fullstackIot'])->name('belajar.fullstack-iot');
 
 Route::get('/menjadi-kontributor', [ContributorController::class, 'show'])->name('contributor.apply');
 Route::post('/menjadi-kontributor', [ContributorController::class, 'store'])->name('contributor.apply.store');

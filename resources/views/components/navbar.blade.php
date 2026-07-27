@@ -48,6 +48,11 @@
                     Artikel
                 </a>
 
+                <a href="{{ route('belajar.fullstack-iot') }}"
+                   class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('belajar.fullstack-iot') ? 'bg-black text-white' : '' }}">
+                    Jalur IoT
+                </a>
+
                 {{-- Kategori Dropdown --}}
                 <div class="relative" x-data="{ catOpen: false }">
                     <button
@@ -142,6 +147,7 @@
         <div x-ref="mobileMenu" x-show="open" x-transition class="md:hidden border-t-2 border-black pb-4">
             <div class="flex flex-col pt-2">
                 <a href="{{ route('articles.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Artikel</a>
+                <a href="{{ route('belajar.fullstack-iot') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">Jalur IoT</a>
                 <div class="border-b border-black/10 dark:border-white/10">
                     <div class="px-4 py-2 text-xs font-bold uppercase tracking-widest theme-muted mt-1">Kategori</div>
                     @foreach($navCategories as $cat)

@@ -50,12 +50,24 @@
                 </ul>
             </div>
 
+            <div class="p-8 theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+                <h2 class="text-xl font-black mb-4 border-b-2 border-black pb-3">Jalur Full Stack IoT</h2>
+                <p class="theme-body mb-6">
+                    Kami menyiapkan kurikulum unggulan <strong>Full Stack IoT Developer — Dari Nol</strong>:
+                    jalur berurutan untuk awam, akses gratis, diterbitkan bertahap di Koding Indonesia.
+                </p>
+                <a href="{{ route('belajar.fullstack-iot') }}" class="btn-brutal btn-primary px-8 py-3 text-sm inline-flex">Lihat jalur IoT →</a>
+            </div>
+
             <div class="p-8 border-2 border-black text-white" style="background:#2D3748; box-shadow: 4px 4px 0 #000;">
-                <h2 class="text-xl font-black mb-4 border-b border-gray-600 pb-3">✉️ Ingin Berkontribusi?</h2>
+                <h2 class="text-xl font-black mb-4 border-b border-gray-600 pb-3">Ingin Berkontribusi?</h2>
                 <p class="mb-6" style="color:#CBD5E0;">
                     Punya artikel menarik atau ingin berbagi pengetahuan? Kami terbuka untuk kolaborasi!
                 </p>
-                <a href="{{ route('contributor.apply') }}" class="btn-brutal btn-primary px-8 py-3 text-sm inline-flex">Daftar Kontributor</a>
+                <div class="flex flex-wrap gap-3">
+                    <a href="{{ route('contributor.apply') }}" class="btn-brutal btn-primary px-8 py-3 text-sm inline-flex">Daftar Kontributor</a>
+                    <a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="btn-brutal btn-outline px-8 py-3 text-sm inline-flex" style="border-color:#fff; color:#fff;">Dukung lewat tip</a>
+                </div>
             </div>
 
         </div>
