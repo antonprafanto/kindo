@@ -4317,6 +4317,10 @@ class DeployController extends Controller
     {
         $this->authorizeDeployHook();
 
+        if (function_exists('set_time_limit')) {
+            @set_time_limit(150);
+        }
+
         if (function_exists('opcache_reset')) {
             opcache_reset();
         }

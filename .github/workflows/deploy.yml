@@ -949,10 +949,21 @@ jobs:
 
       - name: Publish article 62 via deploy hook (required)
         run: |
-          resp=$(curl -fsS --max-time 120 \
-            -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
-            "https://kodingindonesia.com/deploy/publish-article-62")
-          echo "Hook response: $resp"
+          set +e
+          for attempt in 1 2 3; do
+            body="$(mktemp)"
+            code=$(curl -sS --max-time 180 -o "$body" -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/publish-article-62" || echo "000")
+            echo "publish-article-62 HTTP $code"
+            sed -n '1,120p' "$body" || true
+            [ "$code" = "200" ] && break
+            sleep $((attempt * 5))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::publish-article-62 failed after retries (last HTTP $code)"
+            exit 1
+          fi
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
             "https://kodingindonesia.com/artikel/capstone-api-perpustakaan-laravel")
           echo "Article 62 HTTP status: $code"
