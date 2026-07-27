@@ -171,14 +171,15 @@ class Article61Seeder extends Seeder
   <li><strong>Editor teks</strong> — Notepad / VS Code — edit Model User, AuthController, <code>routes/web.php</code>. Tip: <code>notepad path\ke\file.php</code> dari terminal kedua.</li>
   <li><strong>Browser</strong> — opsional hari ini. Pintu login &amp; uji token pakai terminal (seperti POST di <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>). Browser berguna hanya untuk cek lampu toko masih hidup.</li>
 </ul>
-<p>Buka terminal Laragon/Shell XAMPP, masuk folder proyek:</p>
+<p><strong>Cara buka terminal kedua</strong> (baru pertama kali buka dua terminal sekaligus? ini caranya, jangan tutup yang pertama): <strong>Laragon</strong> — klik menu <em>Terminal</em> sekali lagi di jendela utama Laragon, sebuah jendela terminal baru akan muncul terpisah dari yang pertama. <strong>XAMPP</strong> — di XAMPP Control Panel, klik tombol <em>Shell</em> sekali lagi, jendela Shell kedua akan terbuka. Kedua jendela boleh hidup bersamaan — jendela pertama tetap menjalankan <code>php artisan serve</code>, jendela kedua kamu pakai untuk mengetik perintah lain.</p>
+<p>Buka terminal Laragon/Shell XAMPP (terminal pertama), masuk folder proyek:</p>
 <pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
 </code></pre>
 <p>Di XAMPP biasanya: <code>cd C:\xampp\htdocs\perpustakaan-api</code>. Sesuaikan path jika foldermu beda.</p>
 <p>Nyalakan lampu toko di <strong>terminal pertama</strong>:</p>
 <pre><code class="language-bash">php artisan serve
 </code></pre>
-<p>Biarkan jendela itu hidup. Buka <strong>terminal kedua</strong>, <code>cd</code> ke folder proyek yang sama — di sini kamu mengetik Composer, Artisan, dan uji <code>curl.exe</code>.</p>
+<p>Biarkan jendela itu hidup. Buka <strong>terminal kedua</strong> (caranya sudah dijelaskan di atas), <code>cd</code> ke folder proyek yang sama — di sini kamu mengetik Composer, Artisan, dan uji <code>curl.exe</code>.</p>
 <p><strong>Awam:</strong> Terminal 1 = lampu toko. Terminal 2 = tangan memasang Sanctum + menguji kartu. Editor = menulis login. Browser = boleh dicek sebentar, bukan alat utama uji token.</p>
 
 <h2>Pasang Sanctum dari nol</h2>

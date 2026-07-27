@@ -157,14 +157,15 @@ class Article62Seeder extends Seeder
   <li><strong>Editor teks</strong> — Notepad / VS Code — sambungkan route POST tambah + method <code>store</code>. Tip: <code>notepad path\ke\file.php</code> dari terminal kedua.</li>
   <li><strong>Browser</strong> — opsional: cek lampu toko. Uji Capstone (POST login/tambah) <strong>bukan</strong> lewat bilah alamat browser.</li>
 </ul>
-<p>Buka terminal Laragon/Shell XAMPP, masuk folder proyek:</p>
+<p><strong>Cara buka terminal kedua</strong> (baru pertama kali buka dua terminal sekaligus? ini caranya, jangan tutup yang pertama): <strong>Laragon</strong> — klik menu <em>Terminal</em> sekali lagi di jendela utama Laragon, sebuah jendela terminal baru akan muncul terpisah dari yang pertama. <strong>XAMPP</strong> — di XAMPP Control Panel, klik tombol <em>Shell</em> sekali lagi, jendela Shell kedua akan terbuka. Kedua jendela boleh hidup bersamaan — jendela pertama tetap menjalankan <code>php artisan serve</code>, jendela kedua kamu pakai untuk mengetik perintah lain.</p>
+<p>Buka terminal Laragon/Shell XAMPP (terminal pertama), masuk folder proyek:</p>
 <pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
 </code></pre>
 <p>Di XAMPP biasanya: <code>cd C:\xampp\htdocs\perpustakaan-api</code>. Sesuaikan path jika foldermu beda.</p>
 <p>Nyalakan lampu toko di <strong>terminal pertama</strong>:</p>
 <pre><code class="language-bash">php artisan serve
 </code></pre>
-<p>Biarkan jendela itu hidup. Buka <strong>terminal kedua</strong>, <code>cd</code> ke folder proyek yang sama — di sini kamu menguji Capstone.</p>
+<p>Biarkan jendela itu hidup. Buka <strong>terminal kedua</strong> (caranya sudah dijelaskan di atas), <code>cd</code> ke folder proyek yang sama — di sini kamu menguji Capstone.</p>
 <p><strong>Awam:</strong> Terminal 1 = lampu toko. Terminal 2 = tangan menguji tiga pintu. Editor = menyambungkan route. Browser = boleh dicek sebentar, bukan alat utama POST.</p>
 <p><strong>Install-dari-nol:</strong> jika Sanctum / login belum ada, selesaikan dulu <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> (termasuk <code>composer require laravel/sanctum</code>). Jika PHP/Composer belum dikenal, kembali ke <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>.</p>
 
