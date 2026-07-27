@@ -76,10 +76,17 @@ check(! str_contains($body, '@param'), 'Tanpa @param di body');
 check(str_contains($body, 'strict_types'), 'Gloss strict_types');
 check(str_contains($body, 'proyek') || str_contains($body, 'Proyek'), 'Proyek (bukan project)');
 check(! preg_match('/hardlink|STOP AUDIT|oke deploy/i', $body), 'Tanpa suara editor hardlink');
-check(! preg_match('/(?<![\w\/"#>(ini)\s])#5[3-8](?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '') ?? ''), 'Tanpa thin anchor #N');
+check(str_contains($body, 'Alat yang dipakai') && str_contains($body, 'terminal'), 'Petunjuk tools awam');
+check(str_contains($body, 'terminal kedua'), 'Terminal kedua saat serve');
+check(str_contains($body, 'notepad routes') || str_contains($body, 'web.php'), 'Petunjuk buka web.php');
+$withoutLinks = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '') ?? '';
+$bare57 = preg_match_all('/#57(?!\s*\(ini\))/', $withoutLinks);
+$thinLink57 = preg_match_all('/<a\b[^>]*>\s*#57\s*<\/a>/', $body);
+check($bare57 === 0 && $thinLink57 === 0, 'Tanpa bare/thin #57');
+check(! preg_match('/#59(?!\s*\(ini\))|#6[0-3](?!\s*\(ini\))/', $withoutLinks), 'Tanpa bare #59+');
 
 echo "\n=== Deep-audit pass-1 #58: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: LIVE #58 — hardlink #59 terkunci.\n";
+    echo "Verdict: LIVE #58 — soft polish tools awam siap oke deploy.\n";
 }
 exit($failed > 0 ? 1 : 0);

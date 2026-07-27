@@ -169,14 +169,25 @@ class Article58Seeder extends Seeder
 <figcaption style="color:#1a1a1a;margin-top:.5rem"><strong>#58 (ini)</strong>: browser -&gt; route -&gt; JSON -&gt; jawaban.</figcaption>
 </figure>
 
-<h2>Persiapan — pastikan toko hidup</h2>
-<p>Di terminal, masuk folder <code>perpustakaan-api</code> lalu:</p>
-<pre><code class="language-bash">php artisan serve</code></pre>
-<p>Biarkan terminal ini hidup. Buka tab terminal lain jika perlu mengedit file. Alamat lokal biasanya <code>http://127.0.0.1:8000</code>.</p>
-<p><strong>Awam:</strong> <code>serve</code> = menyalakan lampu toko sementara. Matikan dengan Ctrl+C.</p>
+<h2>Persiapan — alat yang kamu buka</h2>
+<p><strong>Alat yang dipakai di artikel ini</strong> (sudah dari fondasi <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> — tidak ada unduhan wajib baru):</p>
+<ul>
+  <li><strong>Terminal</strong> — Laragon: menu <em>Terminal</em> · XAMPP: tombol <em>Shell</em>. Untuk <code>cd</code>, <code>php artisan serve</code>, dan menjalankan file demo. Jangan asal buka CMD/PowerShell dari Start Menu.</li>
+  <li><strong>Editor teks</strong> — Notepad / VS Code — untuk membuka <code>routes/web.php</code> dan menempel cuplikan route.</li>
+  <li><strong>Browser</strong> — Chrome/Edge/Firefox — menguji alamat <code>http://127.0.0.1:8000/api/buku</code> setelah lampu toko hidup.</li>
+</ul>
+<p>Buka terminal Laragon/Shell XAMPP, masuk folder proyek dulu:</p>
+<pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
+</code></pre>
+<p>Di XAMPP biasanya: <code>cd C:\xampp\htdocs\perpustakaan-api</code>. Sesuaikan path jika foldermu beda (pakai lokasi yang kamu catat saat instalasi).</p>
+<p>Lalu nyalakan lampu toko:</p>
+<pre><code class="language-bash">php artisan serve
+</code></pre>
+<p>Biarkan jendela terminal ini <strong>tetap hidup</strong>. Kalau perlu mengedit <code>web.php</code> atau menjalankan perintah lain, buka <strong>jendela terminal kedua</strong> (Laragon/Shell XAMPP lagi), <code>cd</code> ke folder proyek yang sama, lalu bekerja di sana. Alamat lokal biasanya <code>http://127.0.0.1:8000</code>.</p>
+<p><strong>Awam:</strong> Terminal pertama = lampu toko (<code>serve</code>). Terminal kedua = tangan mengedit/cek tanpa mematikan lampu. Matikan <code>serve</code> dengan Ctrl+C di terminal yang menjalankannya.</p>
 
 <h2>Tulis route daftar buku</h2>
-<p>Buka <code>routes/web.php</code>. Di bagian bawah file (setelah route bawaan), tambahkan cuplikan berikut (ini cuplikan untuk ditempel ke proyek — bukan file PHP mandiri):</p>
+<p>Buka file <code>routes/web.php</code> di <strong>editor teks</strong> (Explorer: masuk folder <code>routes</code>, klik kanan file -&gt; Open with Notepad / VS Code — atau dari terminal kedua: <code>notepad routes\web.php</code>). Di bagian bawah file (setelah route bawaan), tambahkan cuplikan berikut (ini cuplikan untuk ditempel ke proyek — bukan file PHP mandiri):</p>
 <pre><code class="language-php">// Cuplikan routes/web.php — tempel di bawah route bawaan
 Route::get('/api/buku', function () {
     $buku = [
@@ -221,9 +232,10 @@ echo 'Jumlah buku contoh: ', count($data), PHP_EOL;
 <p>Kenapa di <code>web.php</code>? Supaya awam tidak wajib memasang file/route API ekstra dulu. Nanti jalur <code>routes/api.php</code> bisa dipelajari saat kebutuhan API makin besar — fondasi route-nya sama.</p>
 
 <h2>Uji di browser</h2>
-<p>Dengan <code>php artisan serve</code> masih hidup, buka:</p>
-<pre><code class="language-bash">http://127.0.0.1:8000/api/buku</code></pre>
-<p>Kamu harus melihat teks JSON berisi <code>message</code> dan <code>data</code> (dua buku contoh). Kalau 404, cek: sudah simpan <code>web.php</code>? Sudah di folder proyek yang benar? URL path-nya <code>/api/buku</code>?</p>
+<p>Dengan <code>php artisan serve</code> masih hidup di terminal pertama, buka <strong>browser</strong> lalu ketik di bilah alamat:</p>
+<pre><code class="language-bash">http://127.0.0.1:8000/api/buku
+</code></pre>
+<p>Kamu harus melihat teks JSON berisi <code>message</code> dan <code>data</code> (dua buku contoh). Kalau 404, cek: sudah simpan <code>web.php</code>? Sudah di folder proyek yang benar? URL path-nya <code>/api/buku</code>? Kalau “tidak bisa terhubung”, hampir selalu karena <code>serve</code> belum hidup.</p>
 <p><strong>Awam:</strong> browser menampilkan JSON seperti “slip jawaban”. Bentuknya kaku untuk mata manusia — itu normal. Yang penting mesin bisa membacanya.</p>
 
 <h2>Pola Dasar — empat langkah pintu bersih</h2>
@@ -249,7 +261,13 @@ echo 'Jumlah buku contoh: ', count($data), PHP_EOL;
 </figure>
 
 <h2>Demo peta pintu — file mandiri</h2>
-<p>Simpan sebagai <code>laravel_routing_json_perpustakaan_demo.php</code>, lalu jalankan <code>php laravel_routing_json_perpustakaan_demo.php</code>. File ini mensimulasikan peta route &amp; paket JSON — tidak mengubah proyek Laravel-mu:</p>
+<p>Latihan ide pintu &amp; JSON tanpa mengubah proyek Laravel:</p>
+<ol>
+  <li>Buka editor teks, buat file baru, tempel cuplikan di bawah, simpan sebagai <code>laravel_routing_json_perpustakaan_demo.php</code> (boleh di Desktop).</li>
+  <li>Buka terminal di folder tempat file itu disimpan (Explorer: Shift+klik kanan folder -&gt; “Open in Terminal” / “Buka di Terminal”, atau <code>cd</code> manual). Pastikan <code>php -v</code> sudah jalan.</li>
+  <li>Jalankan: <code>php laravel_routing_json_perpustakaan_demo.php</code> — layar menampilkan peta route &amp; contoh paket JSON.</li>
+</ol>
+<p>File ini <strong>mensimulasikan</strong> peta route &amp; paket JSON — tidak mengubah proyek Laravel-mu:</p>
 <pre><code class="language-php">&lt;?php
 
 declare(strict_types=1);
@@ -310,12 +328,17 @@ demo();
     <tr>
       <td>Halaman HTML welcome, bukan JSON</td>
       <td>Membuka <code>/</code> bukan <code>/api/buku</code></td>
-      <td>Ketik path lengkap di bilah alamat</td>
+      <td>Ketik path lengkap di bilah alamat browser</td>
     </tr>
     <tr>
-      <td>Connection refused</td>
-      <td><code>artisan serve</code> belum jalan</td>
-      <td>Nyalakan lagi di folder proyek</td>
+      <td>Connection refused / tidak bisa terhubung</td>
+      <td><code>artisan serve</code> belum jalan, atau terminal salah</td>
+      <td>Buka Terminal Laragon / Shell XAMPP, <code>cd</code> ke <code>perpustakaan-api</code>, nyalakan <code>serve</code> lagi</td>
+    </tr>
+    <tr>
+      <td>Bingung perintah diketik di mana</td>
+      <td>Belum buka terminal Laragon / Shell XAMPP</td>
+      <td>Lihat <strong>Persiapan — alat yang kamu buka</strong>; jangan CMD/PowerShell acak dari Start Menu</td>
     </tr>
     <tr>
       <td>JSON terlihat “aneh” di browser</td>
@@ -335,9 +358,13 @@ demo();
 <h2>FAQ</h2>
 <p><strong>Harus pakai routes/api.php?</strong><br>
 Belum wajib di langkah ini. <code>web.php</code> cukup untuk belajar pintu + JSON. File <code>api.php</code> bisa belakangan saat kebutuhan API bertambah.</p>
+<p><strong>Terminal mana yang harus dibuka?</strong><br>
+Sama seperti di <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a>: menu Terminal Laragon atau tombol Shell XAMPP. Lalu <code>cd</code> ke <code>perpustakaan-api</code> sebelum <code>php artisan serve</code>.</p>
+<p><strong>Bagaimana membuka routes/web.php?</strong><br>
+Lewat Explorer (folder <code>routes</code>) atau dari terminal kedua: <code>notepad routes\web.php</code>. Simpan setelah menempel cuplikan, baru uji di browser.</p>
 <p><strong>Kenapa belum pakai database?</strong><br>
 Supaya fokus satu hal: membuka pintu dan menjawab JSON. Menyimpan ke tabel datang setelah fondasi ini nyaman.</p>
-<p><strong>Apa hubungan dengan denah (#57)?</strong><br>
+<p><strong>Apa hubungan dengan artikel denah?</strong><br>
 <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> menyiapkan rumah. <strong>#58 (ini)</strong> memasang nomor loket dan slip jawaban.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
 Berikutnya: <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> — jaga isi permintaan yang masuk lewat pintu supaya data tidak berantakan.</p>

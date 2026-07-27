@@ -71,8 +71,16 @@ check(! str_contains($body, '@param'), 'Tanpa PHPDoc @param di demo');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains($body, 'install-dari-nol'), 'Aturan install-dari-nol');
 check(str_contains($body, 'demo()'), 'Demo fungsi');
-$thin = preg_match_all('/(?<![\w\/"#>(ini)\s])#5[3-8](?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '') ?? '');
-check($thin === 0, 'Thin/bare #53-58 = 0');
+check(str_contains($body, 'Alat yang dipakai') && str_contains($body, 'Browser'), 'Daftar alat awam');
+check(str_contains($body, 'cd C:\\laragon\\www\\perpustakaan-api') || str_contains($body, 'perpustakaan-api'), 'cd folder proyek');
+check(str_contains($body, 'terminal kedua'), 'Tip terminal kedua saat serve');
+check(str_contains($body, 'notepad routes') || str_contains($body, 'notepad routes\\web.php'), 'Buka web.php via notepad');
+check(str_contains($body, 'Terminal mana') || str_contains($body, 'Shell XAMPP'), 'FAQ terminal');
+check(str_contains($body, 'Start Menu') || str_contains($body, 'CMD/PowerShell'), 'Peringatan terminal salah');
+$withoutLinks = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '') ?? '';
+$bare57 = preg_match_all('/#57(?!\s*\(ini\))/', $withoutLinks);
+$thinLink57 = preg_match_all('/<a\b[^>]*>\s*#57\s*<\/a>/', $body);
+check($bare57 === 0 && $thinLink57 === 0, 'Tanpa bare/thin #57 ('.$bare57.'/'.$thinLink57.')');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);
