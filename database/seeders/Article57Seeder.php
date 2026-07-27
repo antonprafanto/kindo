@@ -160,8 +160,22 @@ class Article57Seeder extends Seeder
 <figcaption style="color:#1a1a1a;margin-top:.5rem"><strong>#57 (ini)</strong>: denah folder -&gt; <code>.env</code> -&gt; database SQLite -&gt; Artisan.</figcaption>
 </figure>
 
+<h2>Persiapan — alat yang kamu buka</h2>
+<p><strong>Alat yang dipakai di artikel ini</strong> (sudah dari fondasi <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> — tidak ada unduhan wajib baru):</p>
+<ul>
+  <li><strong>Explorer</strong> — melihat denah folder <code>perpustakaan-api</code> (app, routes, database, …) dan membuat file <code>database.sqlite</code>.</li>
+  <li><strong>Terminal</strong> — Laragon: menu <em>Terminal</em> · XAMPP: tombol <em>Shell</em>. Di sini kamu mengetik <code>copy</code>, <code>php artisan …</code>, dan <code>cd</code>. Jangan asal buka CMD/PowerShell dari Start Menu.</li>
+  <li><strong>Editor teks</strong> — Notepad / VS Code — untuk membuka/mengecek baris di file <code>.env</code> (misalnya <code>DB_CONNECTION=sqlite</code>). Cara paling mudah di Windows: di terminal proyek ketik <code>notepad .env</code> lalu Enter.</li>
+  <li><strong>Browser</strong> — opsional hari ini; berguna nanti saat <code>php artisan serve</code> untuk memastikan toko masih hidup (seperti di fondasi instalasi).</li>
+</ul>
+<p>Buka terminal Laragon/Shell XAMPP, masuk folder proyek dulu:</p>
+<pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
+</code></pre>
+<p>Di XAMPP biasanya: <code>cd C:\xampp\htdocs\perpustakaan-api</code>. Sesuaikan path jika foldermu beda (pakai lokasi yang kamu catat saat instalasi).</p>
+<p><strong>Awam:</strong> Explorer = mata melihat denah. Terminal = tangan mengetik perintah. Editor = baca/ubah label <code>.env</code>. Jangan loncat ke <code>migrate</code> sebelum kamu sudah di dalam folder proyek. File yang namanya diawali titik (<code>.env</code>) kadang susah terlihat di Explorer — kalau bingung, pakai <code>notepad .env</code> dari terminal.</p>
+
 <h2>Struktur folder — denah singkat</h2>
-<p>Buka folder <code>perpustakaan-api</code>. Fokus dulu ke yang sering dipakai:</p>
+<p>Buka <strong>Explorer</strong>, masuk folder <code>perpustakaan-api</code> (boleh lewat Laragon/XAMPP atau path yang kamu catat saat instalasi). Fokus dulu ke yang sering dipakai:</p>
 <table>
   <thead>
     <tr>
@@ -199,12 +213,12 @@ class Article57Seeder extends Seeder
 <p><strong>Awam:</strong> belum hafal semua folder? Tidak apa-apa. Yang wajib diingat sekarang: <code>app</code>, <code>routes</code>, <code>database</code>, <code>.env</code>.</p>
 
 <h2>File .env — buku pengaturan</h2>
-<p>Kalau belum ada <code>.env</code>, salin dari contoh:</p>
+<p>Masih di <strong>terminal</strong> (folder <code>perpustakaan-api</code>). Kalau belum ada file <code>.env</code>, salin dari contoh lalu generate kunci:</p>
 <pre><code class="language-bash">copy .env.example .env
 php artisan key:generate
 </code></pre>
 <p>Di macOS/Linux: <code>cp .env.example .env</code> lalu <code>php artisan key:generate</code>.</p>
-<p>Beberapa baris yang sering dilihat awam:</p>
+<p>Buka file <code>.env</code> di <strong>editor teks</strong>. Di Windows, paling mudah: ketik <code>notepad .env</code> di terminal proyek (lalu Enter). Beberapa baris yang sering dilihat awam (bentuk mirip — jangan salin baris simulasi PHP di bawah ke <code>.env</code>):</p>
 <pre><code class="language-php">&lt;?php
 // Simulasi isi .env — bukan file PHP sungguhan; hanya contoh teks.
 echo "APP_NAME=PerpustakaanApi", PHP_EOL;
@@ -217,14 +231,14 @@ echo "DB_CONNECTION=sqlite", PHP_EOL;
 <h2>Database dari nol — SQLite dulu</h2>
 <p>Untuk belajar di Windows tanpa memasang MySQL dulu, pakai <strong>SQLite</strong> (satu file).</p>
 <ol>
-  <li>Pastikan di <code>.env</code>: <code>DB_CONNECTION=sqlite</code>.</li>
+  <li>Di editor, cari baris <code>DB_CONNECTION=...</code>. Kalau masih <code>mysql</code> (atau nilai lain), <strong>ganti</strong> jadi <code>DB_CONNECTION=sqlite</code>. Simpan file.</li>
   <li>Buat file kosong: <code>database/database.sqlite</code>.
     <ul>
       <li><strong>Windows (Explorer):</strong> masuk folder <code>database</code>, buat Text File baru, namai <code>database.sqlite</code> (boleh kosong). Pastikan namanya benar-benar berakhir <code>.sqlite</code> — bukan <code>database.sqlite.txt</code>. Kalau Windows menyembunyikan ekstensi, di Explorer buka tab <strong>View</strong> lalu centang opsi menampilkan ekstensi file (<em>File name extensions</em> / <em>Ekstensi nama file</em>).</li>
-      <li><strong>Windows (terminal):</strong> <code>type nul &gt; database\database.sqlite</code></li>
+      <li><strong>Windows (terminal):</strong> tetap di folder <code>perpustakaan-api</code>, ketik <code>type nul &gt; database\database.sqlite</code></li>
     </ul>
   </li>
-  <li>Jalankan migrasi:</li>
+  <li>Di terminal yang sama, jalankan migrasi:</li>
 </ol>
 <pre><code class="language-bash">php artisan migrate
 </code></pre>
@@ -233,12 +247,13 @@ echo "DB_CONNECTION=sqlite", PHP_EOL;
 <p><strong>Install-dari-nol:</strong> kamu tidak perlu unduh driver ekstra untuk SQLite di jalur Laravel modern; cukup file <code>.sqlite</code> + <code>migrate</code>. Fondasi proyek tetap merujuk <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>.</p>
 
 <h2>Artisan — asisten perintah sehari-hari</h2>
-<p>Jalankan di dalam folder <code>perpustakaan-api</code>:</p>
+<p>Pastikan prompt terminal masih di dalam <code>perpustakaan-api</code>, lalu coba satu per satu (Enter setelah tiap baris):</p>
 <pre><code class="language-bash">php artisan list
 php artisan --version
 php artisan migrate
 php artisan serve
 </code></pre>
+<p>Saat <code>serve</code> hidup, biarkan jendela terminal itu terbuka. Boleh buka <strong>browser</strong> ke <code>http://127.0.0.1:8000</code> untuk memastikan toko masih nyala (halaman welcome). Kalau kamu ingin menjalankan perintah Artisan lain tanpa mematikan lampu toko, buka <strong>jendela terminal kedua</strong> (Laragon/Shell XAMPP lagi), <code>cd</code> ke folder proyek yang sama, lalu ketik di sana. Matikan <code>serve</code> dengan Ctrl+C di terminal yang menjalankannya.</p>
 <p>Contoh bentuk output versi (simulasi):</p>
 <pre><code class="language-php">&lt;?php
 echo "Laravel Framework 13.0.0", PHP_EOL;
@@ -268,7 +283,13 @@ echo "Laravel Framework 13.0.0", PHP_EOL;
 </figure>
 
 <h2>Demo peta folder — file mandiri</h2>
-<p>Simpan sebagai <code>laravel_struktur_env_artisan_demo.php</code>, lalu jalankan <code>php laravel_struktur_env_artisan_demo.php</code>. File ini <strong>mensimulasikan</strong> denah &amp; pengaturan — tidak mengubah proyek Laravel-mu:</p>
+<p>Latihan ide denah tanpa mengubah proyek Laravel:</p>
+<ol>
+  <li>Buka editor teks, buat file baru, tempel cuplikan di bawah, simpan sebagai <code>laravel_struktur_env_artisan_demo.php</code> (boleh di Desktop).</li>
+  <li>Buka terminal di folder tempat file itu disimpan (Explorer: Shift+klik kanan folder -&gt; “Open in Terminal” / “Buka di Terminal”, atau <code>cd</code> manual). Pastikan <code>php -v</code> sudah jalan.</li>
+  <li>Jalankan: <code>php laravel_struktur_env_artisan_demo.php</code> — layar menampilkan peta folder simulasi.</li>
+</ol>
+<p>File ini <strong>mensimulasikan</strong> denah &amp; pengaturan — tidak mengubah proyek Laravel-mu:</p>
 <pre><code class="language-php">&lt;?php
 declare(strict_types=1);
 
@@ -325,9 +346,14 @@ demo();
   </thead>
   <tbody>
     <tr>
-      <td><code>.env</code> tidak ketemu</td>
-      <td>Belum disalin dari <code>.env.example</code></td>
-      <td><code>copy .env.example .env</code> lalu <code>key:generate</code></td>
+      <td><code>.env</code> tidak ketemu / tidak kelihatan di Explorer</td>
+      <td>Belum disalin, atau file bertitik sulit terlihat</td>
+      <td><code>copy .env.example .env</code> lalu <code>key:generate</code>; buka dengan <code>notepad .env</code> di terminal</td>
+    </tr>
+    <tr>
+      <td>Migrate gagal meski file sqlite ada</td>
+      <td><code>DB_CONNECTION</code> masih <code>mysql</code> (belum diganti)</td>
+      <td>Di <code>.env</code>, ganti jadi <code>DB_CONNECTION=sqlite</code>, simpan, jalankan <code>migrate</code> lagi</td>
     </tr>
     <tr>
       <td>Migrate gagal / database error</td>
@@ -337,12 +363,17 @@ demo();
     <tr>
       <td>Artisan “could not open input file”</td>
       <td>Belum <code>cd</code> ke folder proyek</td>
-      <td>Masuk ke <code>perpustakaan-api</code> dulu</td>
+      <td>Masuk ke <code>perpustakaan-api</code> dulu (lihat bagian Persiapan)</td>
+    </tr>
+    <tr>
+      <td>Bingung perintah diketik di mana</td>
+      <td>Belum buka terminal Laragon / Shell XAMPP</td>
+      <td>Lihat <strong>Persiapan — alat yang kamu buka</strong>; ketik di terminal yang sudah kenal PHP</td>
     </tr>
     <tr>
       <td>Bingung beda <code>config/</code> dan <code>.env</code></td>
       <td>Membuka terlalu banyak file sekaligus</td>
-      <td>Untuk awam: ubah <code>.env</code> dulu; <code>config/</code> biarkan</td>
+      <td>Untuk awam: ubah <code>.env</code> di editor dulu; <code>config/</code> biarkan</td>
     </tr>
   </tbody>
 </table>
@@ -357,11 +388,17 @@ demo();
 <h2>FAQ</h2>
 <p><strong>Harus MySQL dari awal?</strong><br>
 Tidak. SQLite cukup untuk langkah denah ini. MySQL di Laragon boleh belakangan saat data makin besar.</p>
+<p><strong>Terminal mana yang harus dibuka?</strong><br>
+Sama seperti di <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>: menu Terminal Laragon atau tombol Shell XAMPP. Lalu <code>cd</code> ke folder <code>perpustakaan-api</code> sebelum perintah Artisan.</p>
+<p><strong>Harus buka VS Code dulu?</strong><br>
+Tidak wajib. Editor teks apa pun cukup untuk mengecek <code>.env</code>. Di Windows: <code>notepad .env</code> dari terminal proyek sudah cukup. VS Code membantu kalau kamu suka, tapi bukan syarat langkah ini.</p>
+<p><strong>Kenapa <code>.env</code> tidak kelihatan di Explorer?</strong><br>
+Nama file diawali titik. Banyak orang lebih nyaman membuka lewat terminal: pastikan sudah <code>cd</code> ke <code>perpustakaan-api</code>, lalu <code>notepad .env</code>. Kalau file belum ada, jalankan dulu <code>copy .env.example .env</code>.</p>
 <p><strong>Bagaimana membuat file database.sqlite di Windows?</strong><br>
 Paling mudah lewat Explorer: folder <code>database</code>, buat file baru bernama <code>database.sqlite</code> (isi boleh kosong). Cek nama file: jangan sampai jadi <code>database.sqlite.txt</code>. Atau di terminal proyek: <code>type nul &gt; database\database.sqlite</code>.</p>
 <p><strong>Boleh mengedit banyak file di config/?</strong><br>
 Untuk pemula: tahan dulu. Kebanyakan pengaturan harian cukup lewat <code>.env</code>.</p>
-<p><strong>Apa hubungan dengan instalasi (#56)?</strong><br>
+<p><strong>Apa hubungan dengan artikel instalasi?</strong><br>
 <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> mendirikan proyek. <strong>#57 (ini)</strong> mengajakmu mengenali isi rumahnya.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
 Berikutnya: <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> — buka pintu HTTP dan jawab daftar buku dengan JSON.</p>
