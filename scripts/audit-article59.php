@@ -75,12 +75,12 @@ check(! str_contains($body, '→'), 'Tanpa Unicode arrow');
 check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
 check(! str_contains($body, 'endpoint'), 'Tanpa jargon endpoint');
-check(str_contains($body, 'pengatur kode') || str_contains($body, 'tabel') || str_contains($body, 'file pengatur'), 'Soft bridge #60');
-check(! str_contains($body, '/artikel/laravel-controller-service-eloquent'), 'Tanpa hardlink #60');
+check(str_contains($body, '/artikel/laravel-controller-service-eloquent'), 'Hardlink #60');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article58Seeder.php'), $slug), '#58 hardlink #59');
 check(! str_contains($src, 'laravel-auth-api-dasar'), 'Tanpa slug lama auth');
-check(! str_contains($body, 'Eloquent') && ! str_contains($body, 'Sanctum'), 'Tanpa Eloquent/Sanctum dingin');
+$bodySans60 = preg_replace('/<a\b[^>]*href=["\']\/artikel\/laravel-controller-service-eloquent["\'][^>]*>.*?<\/a>/is', '', $body) ?? '';
+check(! str_contains($bodySans60, 'Eloquent') && ! str_contains($bodySans60, 'Sanctum'), 'Tanpa Eloquent/Sanctum dingin (di luar hardlink #60)');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

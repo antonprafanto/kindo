@@ -70,19 +70,20 @@ check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel
 check(str_contains($body, 'Awam:'), 'Gloss awam');
 check(str_contains($body, 'pengatur kode') || str_contains($body, 'tabel') || str_contains($body, 'file pengatur'), 'Jembatan soft ke #60');
 check(! str_contains($body, 'Pin ') && ! str_contains($body, 'closure') && ! str_contains($body, 'endpoint'), 'Tanpa Pin/closure/endpoint');
-check(! str_contains($body, 'Eloquent') && ! str_contains($body, 'Sanctum') && ! str_contains($body, 'scaffolding'), 'Tanpa Eloquent/Sanctum/scaffolding dingin');
+$bodySans60 = preg_replace('/<a\b[^>]*href=["\']\/artikel\/laravel-controller-service-eloquent["\'][^>]*>.*?<\/a>/is', '', $body) ?? '';
+check(! str_contains($bodySans60, 'Eloquent') && ! str_contains($bodySans60, 'Sanctum') && ! str_contains($bodySans60, 'scaffolding'), 'Tanpa Eloquent/Sanctum/scaffolding dingin');
 check(! str_contains($body, 'GUI') && ! str_contains($body, 'namespace'), 'Tanpa GUI/namespace dingin');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa @param di body');
 check(str_contains($body, 'strict_types'), 'Gloss strict_types');
 check(str_contains($body, 'proyek') || str_contains($body, 'Proyek'), 'Proyek (bukan project)');
 check(str_contains($body, 'curl.exe') && (str_contains($body, 'terminal kedua') || str_contains($body, 'Invoke-RestMethod')), 'Petunjuk uji tools awam');
-check(! str_contains($body, '/artikel/laravel-controller-service-eloquent'), 'Tanpa hardlink #60');
+check(str_contains($body, '/artikel/laravel-controller-service-eloquent'), 'Hardlink #60');
 check(! preg_match('/hardlink|STOP AUDIT|oke deploy/i', $body), 'Tanpa suara editor hardlink');
 check(! preg_match('/(?<![\w\/"#>(ini)\s])#5[3-9](?!\s*\(ini\))/', $plain), 'Tanpa thin anchor #N');
 
 echo "\n=== Deep-audit pass-1 #59: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: LIVE #59 — hardlink #58 terkunci. Next: kickoff #60.\n";
+    echo "Verdict: LIVE #59 — hardlink #60 aktif. Next: #61 setelah #60 mapan.\n";
 }
 exit($failed > 0 ? 1 : 0);

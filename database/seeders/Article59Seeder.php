@@ -431,12 +431,12 @@ Supaya fokus satu hal: menjaga input. Menyimpan rapi (pengatur kode + tabel) dat
 <p><strong>Apa hubungan dengan routing?</strong><br>
 <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> memasang pintu. <strong>#59 (ini)</strong> memasang satpam di pintu itu.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya kamu akan merapikan alur: file pengatur kode (sering disebut controller), layanan kecil, dan menyimpan ke tabel database — supaya slip bersih benar-benar masuk rak.</p>
+Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a> — merapikan loket, dapur, dan cara baca baris di tabel.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah menjaga input API di Laravel: memahami Request, memakai validasi, mengenal Form Request, dan membedakan jawaban OK vs 422. Ini langkah <strong>4/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#59 (ini)</strong> · <strong>4/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> LIVE. Berikutnya: merapikan file pengatur, layanan, dan penyimpanan tabel untuk API perpustakaan.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#59 (ini)</strong> · <strong>4/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> LIVE. Berikutnya: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a>.</p>
 </blockquote>
 HTML;
     }

@@ -60,10 +60,11 @@ $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.p
 check(str_contains($routes, 'publish-article-60'), 'Route hook');
 check(str_contains($yml, $slug), 'CI slug');
 check(str_contains($yml, 'Publish article 60 via deploy hook (required)'), 'CI #60 step');
-check(preg_match('/Publish article 60 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml) === 1, 'CI #60 continue-on-error (kickoff)');
+check(preg_match('/Publish article 60 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml) !== 1, 'CI #60 required (tanpa continue-on-error)');
 check(str_contains($deploy, 'publishArticle60'), 'DeployController');
 check(str_contains($deploy, $slug), 'Hook cek slug');
-check(str_contains($deploy, 'Hardlink #59 -> #60 ditunda') || str_contains($deploy, 'hardlink ditunda'), 'Hardlink #59 ditunda');
+check(str_contains($deploy, 'Article 60 backlink #59') || str_contains($deploy, 'backlink missing on #59'), 'Hardlink #59→#60 aktif');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article59Seeder.php'), $slug), '#59 hardlink #60');
 check(file_exists(__DIR__.'/audit-article60-php.php'), 'audit-article60-php.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'cover tidak overwrite');

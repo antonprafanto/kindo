@@ -4179,7 +4179,22 @@ class DeployController extends Controller
             return response('Article 60 prerequisite #59 missing', 500);
         }
 
-        // Hardlink #59 -> #60 ditunda sampai oke deploy (kickoff)
+        if (class_exists(\Database\Seeders\Article59Seeder::class)) {
+            $backExit = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article59Seeder',
+                '--force' => true,
+            ]);
+            if ($backExit !== 0) {
+                return response('Article 60 backlink #59 seed failed', 500);
+            }
+        }
+
+        $a59 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a59 || ! str_contains((string) $a59->body, $slug)) {
+            report(new \RuntimeException('Article 60 backlink missing on #59 after reseed.'));
+
+            return response('Article 60 backlink #59 incomplete', 500);
+        }
 
         try {
             app(SitemapService::class)->writeToDisk();
