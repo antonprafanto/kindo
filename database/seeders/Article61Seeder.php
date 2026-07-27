@@ -459,12 +459,12 @@ API JSON sering dipanggil dari terminal/aplikasi lain. Token mudah dibawa di hea
 <p><strong>Apa hubungan dengan artikel loket?</strong><br>
 <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a> merapikan daftar buku. <strong>#61 (ini)</strong> menambah siapa yang boleh masuk pintu staf.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya: Capstone API Perpustakaan — menggabungkan baca katalog, login, dan tambah buku dengan kartu. (Artikel berikutnya di jalur Laravel.)</p>
+Berikutnya: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (Baca + Login + Tambah) (#62)</a> — menggabungkan baca katalog, login, dan tambah buku dengan kartu.</p>
 
 <h2>Kesimpulan</h2>
 <p>Kamu sudah memasang Auth API dasar: Sanctum dari nol, login mengeluarkan token, pintu <code>/api/saya</code> terlindungi, diuji lewat terminal saat <code>artisan serve</code> hidup. Ini langkah <strong>6/8</strong> jalur Laravel di Seri 4.</p>
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#61 (ini)</strong> · <strong>6/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a> LIVE. Berikutnya: Capstone API Perpustakaan (baca + login + tambah).</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#61 (ini)</strong> · <strong>6/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a> LIVE. Berikutnya: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (Baca + Login + Tambah) (#62)</a>.</p>
 </blockquote>
 HTML;
     }

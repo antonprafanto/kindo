@@ -71,7 +71,7 @@ check(str_contains($deploy, 'backlink missing on #60') || str_contains($deploy, 
 check(str_contains($body, '6/8'), 'Progress 6/8');
 check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel'), 'Framing Seri 4 v2');
 check(str_contains($body, 'Awam:'), 'Gloss awam');
-check(str_contains($body, 'Capstone') || str_contains($body, 'tambah buku'), 'Soft bridge #62');
+check(str_contains($body, '/artikel/capstone-api-perpustakaan-laravel'), 'Hardlink #62 aktif');
 check(! str_contains($body, 'Pin ') && ! str_contains($body, 'closure') && ! str_contains($body, 'endpoint'), 'Tanpa Pin/closure/endpoint');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa @param di body');

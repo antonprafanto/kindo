@@ -65,9 +65,9 @@ $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.p
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 check(str_contains($deploy, 'capstone-api-perpustakaan-laravel'), 'Hook');
 check(str_contains($yml, 'capstone-api-perpustakaan-laravel'), 'CI slug');
-check(preg_match('/Publish article 62 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml) === 1, 'CI continue-on-error kickoff');
-check(! str_contains(file_get_contents(__DIR__.'/../database/seeders/Article61Seeder.php'), 'capstone-api-perpustakaan-laravel'), 'Tanpa hardlink #61 dulu');
-check(str_contains($deploy, 'Hardlink #61 -> #62 ditunda') || str_contains($deploy, 'ditunda sampai oke deploy'), 'Hook hardlink ditunda');
+check(preg_match('/Publish article 62 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', $yml) !== 1, 'CI #62 required (tanpa continue-on-error)');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article61Seeder.php'), 'capstone-api-perpustakaan-laravel'), '#61 hardlink #62');
+check(str_contains($deploy, 'Article 62 backlink #61') || str_contains($deploy, 'backlink missing on #61'), 'Hook hardlink #61 aktif');
 check(str_contains($body, '7/8'), 'Progress 7/8');
 check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel'), 'Framing Seri 4 v2');
 check(str_contains($body, 'Awam:'), 'Gloss awam');
@@ -88,6 +88,6 @@ check(preg_match_all('/#61(?!\s*\(ini\))/', $withoutLinks) === 0, 'Tanpa bare #6
 
 echo "\n=== Deep-audit pass-1 #62: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: STOP AUDIT — tunggu oke deploy #62. Hardlink #61 ditunda.\n";
+    echo "Verdict: LIVE #62 — hardlink #61 aktif · CI required. Next: kickoff #63.\n";
 }
 exit($failed > 0 ? 1 : 0);

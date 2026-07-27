@@ -79,7 +79,7 @@ check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
 check(! str_contains($body, 'endpoint'), 'Tanpa jargon endpoint');
 check(str_contains($body, 'Capstone') || str_contains($body, 'tambah buku'), 'Soft bridge #62');
-check(! str_contains($body, '/artikel/capstone-api-perpustakaan-laravel'), 'Tanpa hardlink #62');
+check(str_contains($body, '/artikel/capstone-api-perpustakaan-laravel'), 'Hardlink #62 aktif');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(! str_contains($src, 'laravel-crud-api-buku-ubah-hapus'), 'Tanpa slug CRUD Seri 5 usang');
 check(! str_contains($body, 'Seri 5'), 'Tanpa framing Seri 5 usang');

@@ -948,7 +948,6 @@ jobs:
           test "$code" = "200"
 
       - name: Publish article 62 via deploy hook (required)
-        continue-on-error: true
         run: |
           resp=$(curl -fsS --max-time 120 \
             -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
