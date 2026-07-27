@@ -20,7 +20,7 @@ class Article62Seeder extends Seeder
             throw new \RuntimeException('User atau kategori web-development/programming tidak ditemukan. Jalankan DatabaseSeeder dulu.');
         }
 
-        $slug = 'laravel-eloquent-relasi-peminjaman';
+        $slug = 'capstone-api-perpustakaan-laravel';
 
         $existing = Article::withTrashed()->where('slug', $slug)->first();
         if ($existing?->trashed()) {
@@ -33,8 +33,8 @@ class Article62Seeder extends Seeder
             'api' => 'api',
             'http' => 'http',
             'web' => 'web',
-            'eloquent' => 'eloquent',
-            'database' => 'database',
+            'json' => 'json',
+            'auth' => 'auth',
         ] as $tagSlug => $tagName) {
             Tag::updateOrCreate(['slug' => $tagSlug], ['name' => $tagName]);
         }
@@ -44,22 +44,26 @@ class Article62Seeder extends Seeder
             [
                 'user_id'         => $admin->id,
                 'category_id'     => $webCat->id,
-                'title'           => 'Relasi Eloquent: Anggota & Peminjaman',
+                'title'           => 'Capstone: API Perpustakaan (Baca + Login + Tambah)',
                 'body'            => $this->body(),
                 'status'          => 'published',
                 'is_featured'     => false,
-                'seo_title'       => 'Relasi Eloquent Anggota & Peminjaman — Laravel',
-                'seo_description' => 'Seri 5 #62: setelah CRUD buku lengkap, belajar menghubungkan anggota dan peminjaman — PHP dulu, cuplikan Eloquent hasMany/belongsTo, ramah awam.',
+                'seo_title'       => 'Capstone API Perpustakaan Laravel: Baca, Login, Tambah',
+                'seo_description' => 'Seri 4 #62 Capstone: gabungkan baca katalog, login Sanctum, dan tambah buku ber-kartu — ramah awam.',
             ]
         );
         // cover_image tidak disentuh — upload manual via Filament
 
+        $prevPublished = Article::where('slug', 'laravel-auth-api-dasar')->value('published_at');
         if ($article->wasRecentlyCreated || ! $article->published_at) {
+            $article->published_at = now();
+            $article->save();
+        } elseif ($prevPublished && $article->published_at <= $prevPublished) {
             $article->published_at = now();
             $article->save();
         }
 
-        $tagIds = Tag::whereIn('slug', ['laravel', 'php', 'api', 'http', 'web', 'eloquent', 'database'])->pluck('id');
+        $tagIds = Tag::whereIn('slug', ['laravel', 'php', 'api', 'http', 'web', 'json', 'auth'])->pluck('id');
         $article->tags()->sync($tagIds);
 
         $this->command?->info('✓ Artikel ke-62 berhasil dipublish: '.$article->title);
@@ -68,25 +72,46 @@ class Article62Seeder extends Seeder
     private function body(): string
     {
         return <<<'HTML'
-<h2>Pendahuluan — dari CRUD buku ke pinjam</h2>
-<p>Artikel ini adalah <strong>#62 (ini)</strong> di <strong>Seri 5: Laravel Lanjutan</strong> (di roadmap sering disebut Framework-based). Domain tetap <strong>perpustakaan mini</strong>.</p>
-<p>Di <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#61)</a> kamu sudah melengkapi CRUD buku. Capstone (<a href="/artikel/capstone-api-perpustakaan-laravel">#60</a>) memberi baca + login + tambah. Sekarang rak buku saja belum cukup: perpustakaan butuh <strong>anggota</strong> dan catatan <strong>peminjaman</strong> yang saling terhubung.</p>
-<p><strong>Awam:</strong> <em>relasi</em> = hubungan antar data. Satu anggota bisa punya banyak pinjaman. Satu pinjaman menunjuk satu anggota dan satu buku. Belum Capstone pinjam-kembali penuh — fokusnya “menghubungkan tabel” dulu.</p>
+<h2>Pendahuluan — merakit perpustakaan mini</h2>
+<p>Artikel ini adalah <strong>#62 (ini)</strong> di <strong>Seri 4: Pemrograman Web Lanjut v2</strong> — <strong>Capstone</strong> jalur Laravel. Langkah <strong>7/8</strong>: menggabungkan yang sudah kamu punya jadi satu alur nyata.</p>
+<p>Domain tetap <strong>perpustakaan mini</strong>. Hari ini tamu boleh <strong>membaca</strong> katalog, staf <strong>login</strong> dapat kartu, lalu staf <strong>menambah</strong> buku dengan kartu itu. Belum ubah &amp; hapus — itu langkah terakhir jalur.</p>
+<p><strong>Awam:</strong> Capstone = hari “rakit”. Bukan tool baru besar — kamu menyambungkan pintu baca, loket login, dan pintu tambah buku yang sudah dipelajari terpisah.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD ubah &amp; hapus (#61)</a> dan <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone (#60)</a>. Pakai <strong>Laravel 11+</strong>.</p>
+  <p><strong>Prasyarat:</strong> sudah selesai <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> (login + <code>/api/saya</code> ber-kartu), <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a> (daftar buku lewat loket), dan <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> (satpam slip). Fondasi <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a>. Pakai <strong>Laravel 13+</strong> — butuh <strong>PHP 8.3+</strong>.</p>
 </blockquote>
 
-<h2>Spesifikasi fitur — apa yang kita bangun?</h2>
-<p>Daftar singkat yang bisa dijelaskan ke teman:</p>
+<h2>Spesifikasi fitur — apa yang “selesai” hari ini?</h2>
+<p>Bayangkan kamu menjelaskan ke teman dalam tiga kalimat:</p>
 <ol>
-  <li><strong>Anggota</strong> — orang yang boleh meminjam (nama + ID).</li>
-  <li><strong>Peminjaman</strong> — catatan: siapa meminjam buku mana, status aktif atau sudah kembali.</li>
-  <li><strong>Hubungan</strong> — dari anggota lihat daftar pinjamannya; dari pinjaman lihat anggota dan buku.</li>
+  <li><strong>Baca katalog</strong> — <code>GET /api/buku</code> tanpa kartu (tamu boleh lihat rak).</li>
+  <li><strong>Login staf</strong> — <code>POST /api/login</code> -&gt; dapat string <code>token</code> (kartu anggota digital).</li>
+  <li><strong>Tambah buku</strong> — <code>POST /api/buku</code> <em>hanya</em> dengan header Bearer + slip judul/penulis yang valid.</li>
 </ol>
-<p><strong>Awam:</strong> bayangkan kartu anggota di meja loket, dan slip pinjam yang menempel nomor anggota + nomor buku. Eloquent membantu membaca slip itu tanpa menulis “cari manual” berkali-kali.</p>
+<p><strong>Awam:</strong> tanpa kartu -&gt; tambah ditolak. Dengan kartu + slip bagus -&gt; buku baru muncul di daftar.</p>
 
-<h2>Istilah — ringkas untuk relasi</h2>
+<figure style="margin:1.5rem 0;padding:1rem;background:#F5F5F0;border-radius:8px;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" role="img" aria-label="Alur Capstone: baca katalog, login dapat kartu, tambah buku ber-kartu" id="laravel62capstoneArrow">
+  <rect x="16" y="36" width="200" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="116" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">1. Baca</text>
+  <text x="116" y="98" text-anchor="middle" fill="#1a1a1a" font-size="13">GET /api/buku</text>
+  <path d="M226 80 H268" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <polygon points="268,74 282,80 268,86" fill="#1a1a1a"/>
+  <rect x="290" y="36" width="200" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="390" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">2. Login</text>
+  <text x="390" y="98" text-anchor="middle" fill="#1a1a1a" font-size="13">POST /api/login</text>
+  <path d="M500 80 H542" stroke="#1a1a1a" stroke-width="2" fill="none"/>
+  <polygon points="542,74 556,80 542,86" fill="#1a1a1a"/>
+  <rect x="564" y="36" width="180" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="654" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">3. Tambah</text>
+  <text x="654" y="98" text-anchor="middle" fill="#1a1a1a" font-size="13">POST /api/buku</text>
+  <text x="24" y="180" fill="#1a1a1a" font-size="13">Tanpa kartu di langkah 3 = ditolak. Dengan Bearer + slip valid = buku masuk rak.</text>
+  <text x="24" y="208" fill="#1a1a1a" font-size="13">Urutan Capstone #62 (ini) — belum ubah &amp; hapus.</text>
+</svg>
+<figcaption>Tiga pintu Capstone: baca (umum) -&gt; login (kartu) -&gt; tambah (ber-kartu).</figcaption>
+</figure>
+
+<h2>Istilah — ringkas Capstone</h2>
 <table>
   <thead>
     <tr>
@@ -97,350 +122,243 @@ class Article62Seeder extends Seeder
   </thead>
   <tbody>
     <tr>
-      <td>Relasi</td>
-      <td>Hubungan antar baris data (anggota -&gt; pinjam -&gt; buku)</td>
-      <td>Bukan “teman di media sosial”</td>
+      <td>Capstone</td>
+      <td>Proyek penutup yang merakit potongan sebelumnya</td>
+      <td>Bukan instal framework baru</td>
     </tr>
     <tr>
-      <td>Kunci asing</td>
-      <td>Nomor di baris pinjam yang menunjuk anggota/buku</td>
-      <td>Di kode sering <code>anggota_id</code>, <code>buku_id</code></td>
+      <td>Bearer</td>
+      <td>Cara membawa kartu di header HTTP</td>
+      <td><code>Authorization: Bearer …</code></td>
     </tr>
     <tr>
-      <td><code>hasMany</code></td>
-      <td>“satu punya banyak” — anggota punya banyak pinjaman</td>
-      <td>Nama fungsi Eloquent</td>
+      <td>Publik vs terlindungi</td>
+      <td>Pintu boleh tanpa kartu vs wajib kartu</td>
+      <td>GET daftar = publik; POST tambah = terlindungi</td>
     </tr>
     <tr>
-      <td><code>belongsTo</code></td>
-      <td>“banyak milik satu” — pinjaman milik satu anggota</td>
-      <td>Kebalikan arah dari <code>hasMany</code></td>
-    </tr>
-    <tr>
-      <td>Eloquent</td>
-      <td>Cara Laravel membaca/menulis tabel lewat model (kelas yang mewakili satu tabel)</td>
-      <td>Sudah muncul di Capstone &amp; service</td>
+      <td>Slip valid</td>
+      <td>Judul/penulis lolos satpam Form Request</td>
+      <td>Dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a></td>
     </tr>
   </tbody>
 </table>
-<p>Urutan belajar: <strong>data terpisah dulu -&gt; tautkan dengan nomor -&gt; baru bungkus Eloquent</strong>.</p>
 
-<h2>Kenapa PHP biasa dulu?</h2>
-<p>Ide “slip pinjam menyimpan nomor anggota dan nomor buku” lebih mudah dirasakan di array PHP. Kalau alurnya klik, cuplikan <code>hasMany</code> / <code>belongsTo</code> terasa bungkus yang sama.</p>
-
-<pre><code class="language-php">&lt;?php
-// Mini: gabungkan pinjaman dengan nama anggota &amp; judul buku.
-$anggota = [
-    1 =&gt; ["nama" =&gt; "Siti"],
-    2 =&gt; ["nama" =&gt; "Budi"],
-];
-$buku = [
-    10 =&gt; ["judul" =&gt; "Dasar PHP"],
-    11 =&gt; ["judul" =&gt; "Belajar Laravel"],
-];
-$pinjaman = [
-    ["id" =&gt; 1, "anggota_id" =&gt; 1, "buku_id" =&gt; 10, "status" =&gt; "aktif"],
-    ["id" =&gt; 2, "anggota_id" =&gt; 1, "buku_id" =&gt; 11, "status" =&gt; "kembali"],
-];
-
-$idAnggota = 1;
-$daftar = [];
-foreach ($pinjaman as $p) {
-    if ($p["anggota_id"] !== $idAnggota) {
-        continue;
-    }
-    $daftar[] = [
-        "pinjam_id" =&gt; $p["id"],
-        "anggota" =&gt; $anggota[$p["anggota_id"]]["nama"],
-        "buku" =&gt; $buku[$p["buku_id"]]["judul"],
-        "status" =&gt; $p["status"],
-    ];
-}
-
-echo json_encode(["ok" =&gt; true, "pinjaman" =&gt; $daftar], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
+<h2>Persiapan — alat yang kamu buka</h2>
+<p><strong>Alat yang dipakai di artikel ini</strong> (fondasi <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> — <strong>tidak</strong> ada unduhan Composer baru hari ini jika Sanctum sudah dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>):</p>
+<ul>
+  <li><strong>Explorer</strong> — pastikan folder <code>perpustakaan-api</code> ada; cek file Controller / Form Request / <code>routes/web.php</code>.</li>
+  <li><strong>Terminal</strong> — Laragon: menu <em>Terminal</em> · XAMPP: tombol <em>Shell</em>. Jangan asal CMD/PowerShell dari Start Menu (PATH PHP bisa hilang).</li>
+  <li><strong>Terminal kedua</strong> — wajib: terminal pertama = <code>php artisan serve</code>. Terminal kedua = uji <code>curl.exe</code> / PowerShell (login + tambah + baca).</li>
+  <li><strong>Editor teks</strong> — Notepad / VS Code — sambungkan route POST tambah + method <code>store</code>. Tip: <code>notepad path\ke\file.php</code> dari terminal kedua.</li>
+  <li><strong>Browser</strong> — opsional: cek lampu toko. Uji Capstone (POST login/tambah) <strong>bukan</strong> lewat bilah alamat browser.</li>
+</ul>
+<p>Buka terminal Laragon/Shell XAMPP, masuk folder proyek:</p>
+<pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
 </code></pre>
-<p>Output (bentuknya mirip):</p>
-<pre><code>{
-    "ok": true,
-    "pinjaman": [
-        {
-            "pinjam_id": 1,
-            "anggota": "Siti",
-            "buku": "Dasar PHP",
-            "status": "aktif"
-        },
-        {
-            "pinjam_id": 2,
-            "anggota": "Siti",
-            "buku": "Belajar Laravel",
-            "status": "kembali"
-        }
-    ]
+<p>Di XAMPP biasanya: <code>cd C:\xampp\htdocs\perpustakaan-api</code>. Sesuaikan path jika foldermu beda.</p>
+<p>Nyalakan lampu toko di <strong>terminal pertama</strong>:</p>
+<pre><code class="language-bash">php artisan serve
+</code></pre>
+<p>Biarkan jendela itu hidup. Buka <strong>terminal kedua</strong>, <code>cd</code> ke folder proyek yang sama — di sini kamu menguji Capstone.</p>
+<p><strong>Awam:</strong> Terminal 1 = lampu toko. Terminal 2 = tangan menguji tiga pintu. Editor = menyambungkan route. Browser = boleh dicek sebentar, bukan alat utama POST.</p>
+<p><strong>Install-dari-nol:</strong> jika Sanctum / login belum ada, selesaikan dulu <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> (termasuk <code>composer require laravel/sanctum</code>). Jika PHP/Composer belum dikenal, kembali ke <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>.</p>
+
+<h2>Cek cepat — potongan yang harus sudah ada</h2>
+<p>Sebelum merakit, pastikan di proyekmu sudah pernah jalan:</p>
+<ul>
+  <li><code>GET /api/buku</code> lewat <code>BukuController</code> (<a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a>)</li>
+  <li><code>POST /api/login</code> + user uji + Sanctum (<a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>)</li>
+  <li>Form Request / aturan validasi untuk slip buku (<a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>)</li>
+</ul>
+<p>Kalau salah satu hilang, jangan “loncat Capstone” — perbaiki fondasi dulu. Capstone hanya menyambung.</p>
+
+<h2>Loket tambah — method store</h2>
+<p>Buka <code>notepad app\Http\Controllers\BukuController.php</code>. Pastikan ada method <code>store</code> (nama boleh sama) yang menerima slip valid lalu menyimpan lewat Service/Eloquent yang sudah kamu punya di <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a>. Contoh kerangka:</p>
+<pre><code class="language-php">// Cuplikan BukuController — loket tambah buku
+use App\Http\Requests\StoreBukuRequest; // sesuaikan nama Form Request-mu
+use Illuminate\Http\JsonResponse;
+
+public function store(StoreBukuRequest $request): JsonResponse
+{
+    $data = $request-&gt;validated();
+
+    // Panggil Service / Model yang sudah kamu buat di #60
+    $buku = $this-&gt;bukuService-&gt;tambah($data);
+    // atau: $buku = Buku::query()-&gt;create($data);
+
+    return response()-&gt;json([
+        'message' =&gt; 'Buku ditambahkan',
+        'data' =&gt; $buku,
+    ], 201);
 }
 </code></pre>
-<p><strong>Awam:</strong> <code>anggota_id</code> dan <code>buku_id</code> = nomor yang menempel di slip. Loop di atas = “cari semua slip milik Siti, lalu tulis nama + judul”. Eloquent nanti mengganti loop manual itu.</p>
+<p><strong>Awam:</strong> sesuaikan nama class Form Request / Service dengan file di Explorer-mu. Intinya: satpam slip dulu -&gt; baru tulis ke rak -&gt; jawab JSON 201.</p>
+<p>Jika Form Request belum ada, buat mengikuti <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> (misalnya <code>php artisan make:request StoreBukuRequest</code>), lalu isi aturan <code>judul</code> / <code>penulis</code> required string.</p>
 
-<figure role="img" aria-label="Diagram relasi anggota peminjaman dan buku" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:760px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif" viewBox="0 0 760 260">
-  <defs>
-    <marker id="laravel62relasiArrow" orient="auto" markerWidth="8" markerHeight="8" refX="7" refY="4" viewBox="0 0 8 8">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
-    </marker>
-  </defs>
-  <rect width="760" height="260" fill="#F5F5F0"/>
-  <text x="24" y="36" fill="#1a1a1a" font-size="16" font-weight="700">Relasi: Anggota -&gt; Peminjaman -&gt; Buku</text>
-  <rect x="40" y="70" width="160" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="120" y="105" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Anggota</text>
-  <text x="120" y="128" text-anchor="middle" fill="#1a1a1a" font-size="12">hasMany pinjaman</text>
-  <line x1="200" y1="110" x2="270" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel62relasiArrow)"/>
-  <rect x="274" y="70" width="200" height="80" rx="8" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="374" y="100" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Peminjaman</text>
-  <text x="374" y="122" text-anchor="middle" fill="#fff" font-size="12">anggota_id + buku_id</text>
-  <line x1="474" y1="110" x2="544" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel62relasiArrow)"/>
-  <rect x="548" y="70" width="160" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="628" y="105" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Buku</text>
-  <text x="628" y="128" text-anchor="middle" fill="#1a1a1a" font-size="12">belongsTo dari pinjam</text>
-  <text x="24" y="190" fill="#1a1a1a" font-size="13">Satu anggota boleh banyak pinjaman. Satu pinjaman menunjuk satu anggota dan satu buku.</text>
-  <text x="24" y="220" fill="#1a1a1a" font-size="13">CRUD buku tetap (langkah sebelumnya); di sini kita menambah lapisan “siapa meminjam apa”.</text>
+<h2>Sambungkan pintu di routes</h2>
+<p>Buka <code>notepad routes\web.php</code>. Pastikan tiga pintu Capstone terdaftar (login dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> boleh sudah ada):</p>
+<pre><code class="language-php">// Cuplikan routes/web.php — Capstone baca + login + tambah
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BukuController;
+
+Route::get('/api/buku', [BukuController::class, 'index']);
+Route::post('/api/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')-&gt;group(function () {
+    Route::get('/api/saya', [AuthController::class, 'saya']);
+    Route::post('/api/buku', [BukuController::class, 'store']);
+});
+</code></pre>
+<p>Simpan. Pastikan <code>serve</code> masih hidup di terminal pertama.</p>
+<p><strong>Awam:</strong> GET daftar di luar satpam kartu. POST tambah di dalam <code>auth:sanctum</code> — tanpa Bearer sah = ditolak.</p>
+
+<figure style="margin:1.5rem 0;padding:1rem;background:#F5F5F0;border-radius:8px;">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 200" role="img" aria-label="Pintu publik baca versus pintu terlindungi tambah">
+  <rect x="40" y="40" width="280" height="100" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="180" y="85" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Publik</text>
+  <text x="180" y="112" text-anchor="middle" fill="#1a1a1a" font-size="13">GET /api/buku</text>
+  <rect x="440" y="40" width="280" height="100" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="580" y="85" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Ber-kartu</text>
+  <text x="580" y="112" text-anchor="middle" fill="#1a1a1a" font-size="13">POST /api/buku</text>
+  <text x="24" y="175" fill="#1a1a1a" font-size="13">Kartu didapat dari POST /api/login (Auth API Dasar).</text>
 </svg>
-<figcaption>Anggota dan buku sudah dikenal; <strong>#62 (ini)</strong> menambahkan slip peminjaman yang menghubungkan keduanya.</figcaption>
+<figcaption>Baca boleh tanpa kartu; tambah wajib kartu Sanctum.</figcaption>
 </figure>
 
-<h2>Alur baca pinjaman — PHP sederhana</h2>
-<p>Setelah data terhubung, kita bisa menjawab: “pinjaman aktif milik anggota berapa?”</p>
-
-<pre><code class="language-php">&lt;?php
-$anggota = [1 =&gt; ["nama" =&gt; "Siti"]];
-$buku = [10 =&gt; ["judul" =&gt; "Dasar PHP"]];
-$pinjaman = [
-    ["id" =&gt; 1, "anggota_id" =&gt; 1, "buku_id" =&gt; 10, "status" =&gt; "aktif"],
-    ["id" =&gt; 2, "anggota_id" =&gt; 1, "buku_id" =&gt; 10, "status" =&gt; "kembali"],
-];
-
-function pinjamanAktifAnggota(int $anggotaId, array $pinjaman, array $anggota, array $buku): array
-{
-    if (! isset($anggota[$anggotaId])) {
-        return ["status" =&gt; 404, "body" =&gt; ["pesan" =&gt; "Anggota tidak ketemu"]];
-    }
-
-    $hasil = [];
-    foreach ($pinjaman as $p) {
-        if ($p["anggota_id"] !== $anggotaId || $p["status"] !== "aktif") {
-            continue;
-        }
-        if (! isset($buku[$p["buku_id"]])) {
-            return ["status" =&gt; 404, "body" =&gt; ["pesan" =&gt; "Buku tidak ketemu di slip"]];
-        }
-        $hasil[] = [
-            "pinjam_id" =&gt; $p["id"],
-            "anggota" =&gt; $anggota[$anggotaId]["nama"],
-            "buku" =&gt; $buku[$p["buku_id"]]["judul"],
-            "status" =&gt; $p["status"],
-        ];
-    }
-
-    return ["status" =&gt; 200, "body" =&gt; ["ok" =&gt; true, "pinjaman" =&gt; $hasil]];
-}
-
-$r = pinjamanAktifAnggota(1, $pinjaman, $anggota, $buku);
-http_response_code($r["status"]);
-echo json_encode($r["body"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
-</code></pre>
-<p><strong>Awam:</strong> filter <code>status === "aktif"</code> = hanya slip yang belum dikembalikan. Kalau anggota tidak ada = <code>404</code> — sama seperti “buku tidak ketemu” di <a href="/artikel/laravel-crud-api-buku-ubah-hapus">#61</a>.</p>
-
-<h2>Laravel — cuplikan relasi Eloquent (bukan file mandiri)</h2>
-<p>Di proyek Laravel, ide yang sama ditulis di <strong>model</strong> (kelas yang mewakili satu tabel). Cuplikan di bawah <strong>bukan</strong> dijalankan dengan <code>php file.php</code>:</p>
-
-<pre><code class="language-php">&lt;?php
-// Cuplikan Laravel (bukan file mandiri) — model Anggota.
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-
-class Anggota extends Model
-{
-    public function peminjaman(): HasMany
-    {
-        return $this-&gt;hasMany(Peminjaman::class);
-    }
-}
+<h2>Uji Capstone di terminal kedua</h2>
+<p>Jangan andalkan bilah alamat browser untuk POST. Ikuti pola uji di <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> dan <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>.</p>
+<p>Pastikan user uji masih ada (satu tembakan, bukan chat panjang):</p>
+<pre><code class="language-bash">php artisan tinker --execute="\App\Models\User::updateOrCreate(['email'=>'staf@perpustakaan.test'], ['name'=>'Staf Mini','password'=>bcrypt('password')]);"
 </code></pre>
 
-<p><strong>Awam:</strong> <code>hasMany</code> = “satu anggota punya banyak baris peminjaman”. <code>HasMany</code> = tipe kembalian — boleh diabaikan dulu.</p>
-
-<pre><code class="language-php">&lt;?php
-// Cuplikan Laravel — model Peminjaman mengarah ke anggota &amp; buku.
-namespace App\Models;
-
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
-class Peminjaman extends Model
-{
-    public function anggota(): BelongsTo
-    {
-        return $this-&gt;belongsTo(Anggota::class);
-    }
-
-    public function buku(): BelongsTo
-    {
-        return $this-&gt;belongsTo(Buku::class);
-    }
-}
+<p><strong>Opsi A — <code>curl.exe</code></strong> (Windows 10/11 biasanya sudah punya; ketik <code>curl.exe</code> agar tidak tertukar di PowerShell):</p>
+<p><strong>1) Login — ambil token</strong></p>
+<pre><code class="language-bash">curl.exe -s -X POST http://127.0.0.1:8000/api/login ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
+  -d "{\"email\":\"staf@perpustakaan.test\",\"password\":\"password\"}"
+</code></pre>
+<p><strong>Awam — salin token:</strong> di jawaban JSON cari kunci <code>"token"</code>. Salin <em>hanya</em> string di antara tanda kutip. Jangan salin kata <code>Bearer</code> dari JSON — kata Bearer ditulis di header. Ganti <code>GANTI_DENGAN_TOKEN</code> di bawah.</p>
+<p><strong>2) Tambah tanpa kartu — harus ditolak</strong></p>
+<pre><code class="language-bash">curl.exe -s -X POST http://127.0.0.1:8000/api/buku ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
+  -d "{\"judul\":\"Laskar Pelangi\",\"penulis\":\"Andrea Hirata\"}"
+</code></pre>
+<p>Kamu harus melihat “Belum diizinkan” / unauthenticated — bukan “Buku ditambahkan”.</p>
+<p><strong>3) Tambah dengan kartu — harus 201</strong></p>
+<pre><code class="language-bash">curl.exe -s -X POST http://127.0.0.1:8000/api/buku ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
+  -H "Authorization: Bearer GANTI_DENGAN_TOKEN" ^
+  -d "{\"judul\":\"Laskar Pelangi\",\"penulis\":\"Andrea Hirata\"}"
+</code></pre>
+<p><strong>4) Baca katalog — buku baru harus terlihat</strong></p>
+<pre><code class="language-bash">curl.exe -s http://127.0.0.1:8000/api/buku ^
+  -H "Accept: application/json"
 </code></pre>
 
-<p><strong>Awam:</strong> <code>belongsTo</code> = “baris ini milik satu anggota / satu buku”. Setelah itu, di pengatur kode (<code>controller</code>) / pekerja (<code>service</code>) kamu bisa menulis gaya: <code>$anggota-&gt;peminjaman</code> atau <code>$pinjam-&gt;buku</code> — Eloquent yang mengisi dari kunci asing.</p>
+<p><strong>Opsi B — PowerShell</strong> (kalau lebih nyaman menempel header Bearer):</p>
+<pre><code class="language-powershell">$login = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/login `
+  -ContentType "application/json" `
+  -Body '{"email":"staf@perpustakaan.test","password":"password"}'
+$token = $login.token
+Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/buku `
+  -ContentType "application/json" `
+  -Headers @{ Authorization = "Bearer $token"; Accept = "application/json" } `
+  -Body '{"judul":"Laskar Pelangi","penulis":"Andrea Hirata"}'
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/buku -Headers @{ Accept = "application/json" }
+</code></pre>
 
-<h2>Pola Dasar — anggota &amp; peminjaman</h2>
-<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah relasi Eloquent anggota peminjaman">
-<ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
-    <div><strong style="color:#1a1a1a">Rapikan CRUD buku dulu</strong><br><span style="color:#1a1a1a">Pastikan alur di <a href="/artikel/laravel-crud-api-buku-ubah-hapus" style="color:#1a1a1a;text-decoration:underline">#61</a> sudah “klik”.</span></div>
-  </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
-    <div><strong style="color:#1a1a1a">Buat tabel anggota &amp; peminjaman</strong><br><span style="color:#1a1a1a">Migrasi (skrip buat/ubah tabel): kolom <code>anggota_id</code> dan <code>buku_id</code> di slip pinjam.</span></div>
-  </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
-    <div><strong style="color:#1a1a1a">Tulis <code>hasMany</code> / <code>belongsTo</code></strong><br><span style="color:#1a1a1a">Satu arah “punya banyak”, arah balik “milik satu”.</span></div>
-  </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
-    <div><strong style="color:#1a1a1a">Baca lewat relasi</strong><br><span style="color:#1a1a1a">Dari anggota ambil daftar pinjam; dari pinjam ambil buku.</span></div>
-  </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
-    <div><strong style="color:#1a1a1a">Jaga ID kosong</strong><br><span style="color:#1a1a1a">Anggota/buku tidak ketemu = <code>404</code>, jangan pura-pura sukses.</span></div>
-  </li>
-  <li style="display:flex;gap:1rem;padding:.9rem 0;color:#1a1a1a">
-    <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">6</span>
-    <div><strong style="color:#1a1a1a">Uji dua arah</strong><br><span style="color:#1a1a1a">Anggota tanpa pinjam · pinjam aktif · ID palsu.</span></div>
-  </li>
-</ol>
-</figure>
+<p><strong>Opsi C — Postman / Insomnia</strong> (alat berjendela): method POST, URL <code>http://127.0.0.1:8000/api/buku</code>, header Authorization type Bearer Token, body JSON judul+penulis. Sama hasilnya — pilih yang paling nyaman.</p>
 
-<h2>Kode lengkap — demo mandiri relasi</h2>
-<p>Simpan sebagai <code>laravel_eloquent_relasi_peminjaman_demo.php</code>, lalu jalankan <code>php laravel_eloquent_relasi_peminjaman_demo.php</code>:</p>
+<h2>Pola Dasar</h2>
+<p style="color:#1a1a1a;"><strong>Urutan Capstone yang aman:</strong> (1) nyalakan <code>serve</code> di terminal 1 · (2) pastikan login &amp; GET daftar pernah OK · (3) pasang <code>store</code> + Form Request · (4) bungkus POST <code>/api/buku</code> dengan <code>auth:sanctum</code> · (5) uji: tanpa kartu gagal -&gt; dengan kartu 201 -&gt; GET melihat buku baru.</p>
+<p style="color:#1a1a1a;"><strong>Awam:</strong> jangan menambah pintu ubah/hapus dulu. Capstone hari ini = baca + login + tambah saja.</p>
 
+<h2>File contoh — simulasi alur Capstone</h2>
+<p>Simpan sebagai <code>laravel_capstone_api_perpustakaan_demo.php</code> lalu jalankan: <code>php laravel_capstone_api_perpustakaan_demo.php</code>. Ini <em>bukan</em> Laravel sungguhan — hanya meniru tiga pintu agar alur terasa.</p>
 <pre><code class="language-php">&lt;?php
 declare(strict_types=1);
 
-$anggota = [
-    1 =&gt; ["nama" =&gt; "Siti"],
-    2 =&gt; ["nama" =&gt; "Budi"],
-];
-$buku = [
-    10 =&gt; ["judul" =&gt; "Dasar PHP"],
-    11 =&gt; ["judul" =&gt; "Belajar Laravel"],
-];
-$pinjaman = [
-    ["id" =&gt; 1, "anggota_id" =&gt; 1, "buku_id" =&gt; 10, "status" =&gt; "aktif"],
-    ["id" =&gt; 2, "anggota_id" =&gt; 1, "buku_id" =&gt; 11, "status" =&gt; "kembali"],
-    ["id" =&gt; 3, "anggota_id" =&gt; 2, "buku_id" =&gt; 10, "status" =&gt; "aktif"],
-];
+/**
+ * laravel_capstone_api_perpustakaan_demo.php
+ * Simulasi Capstone: baca (publik) + login + tambah (ber-kartu).
+ */
 
-function pinjamanAktifAnggota(int $anggotaId, array $pinjaman, array $anggota, array $buku): array
+function demo(): void
 {
-    if (! isset($anggota[$anggotaId])) {
-        return ["status" =&gt; 404, "body" =&gt; ["pesan" =&gt; "Anggota tidak ketemu"]];
-    }
+    $katalog = [
+        ['id' =&gt; 1, 'judul' =&gt; 'Bumi', 'penulis' =&gt; 'Tere Liye'],
+    ];
+    $kartuSah = 'kartu-staf-contoh';
 
-    $hasil = [];
-    foreach ($pinjaman as $p) {
-        if ($p["anggota_id"] !== $anggotaId || $p["status"] !== "aktif") {
-            continue;
-        }
-        if (! isset($buku[$p["buku_id"]])) {
-            return ["status" =&gt; 404, "body" =&gt; ["pesan" =&gt; "Buku tidak ketemu di slip"]];
-        }
-        $hasil[] = [
-            "pinjam_id" =&gt; $p["id"],
-            "anggota" =&gt; $anggota[$anggotaId]["nama"],
-            "buku" =&gt; $buku[$p["buku_id"]]["judul"],
-            "status" =&gt; $p["status"],
-        ];
-    }
+    echo "1) GET /api/buku (publik)\n";
+    echo json_encode(['message' =&gt; 'Daftar buku', 'data' =&gt; $katalog], JSON_UNESCAPED_UNICODE), PHP_EOL;
 
-    return ["status" =&gt; 200, "body" =&gt; ["ok" =&gt; true, "pinjaman" =&gt; $hasil]];
+    echo "2) POST /api/login -&gt; token\n";
+    echo json_encode(['message' =&gt; 'Login berhasil', 'token' =&gt; $kartuSah], JSON_UNESCAPED_UNICODE), PHP_EOL;
+
+    echo "3) POST /api/buku tanpa kartu -&gt; 401\n";
+    echo json_encode(['message' =&gt; 'Belum diizinkan'], JSON_UNESCAPED_UNICODE), PHP_EOL;
+
+    echo "4) POST /api/buku dengan Bearer -&gt; 201\n";
+    $baru = ['id' =&gt; 2, 'judul' =&gt; 'Laskar Pelangi', 'penulis' =&gt; 'Andrea Hirata'];
+    $katalog[] = $baru;
+    echo json_encode(['message' =&gt; 'Buku ditambahkan', 'data' =&gt; $baru], JSON_UNESCAPED_UNICODE), PHP_EOL;
+
+    echo "5) GET /api/buku lagi\n";
+    echo json_encode(['message' =&gt; 'Daftar buku', 'data' =&gt; $katalog], JSON_UNESCAPED_UNICODE), PHP_EOL;
+    echo PHP_EOL, "Langkah sungguhan: serve -&gt; login curl -&gt; Bearer POST /api/buku -&gt; GET daftar.", PHP_EOL;
 }
 
-function demo(string $judul, callable $aksi): void
-{
-    echo "=== {$judul} ===", PHP_EOL;
-    $hasil = $aksi();
-    echo "status: ", $hasil["status"], PHP_EOL;
-    echo json_encode($hasil["body"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL, PHP_EOL;
-}
-
-demo("Anggota palsu -&gt; 404", function () use ($pinjaman, $anggota, $buku) {
-    return pinjamanAktifAnggota(99, $pinjaman, $anggota, $buku);
-});
-
-demo("Siti pinjam aktif -&gt; 200", function () use ($pinjaman, $anggota, $buku) {
-    return pinjamanAktifAnggota(1, $pinjaman, $anggota, $buku);
-});
-
-demo("Budi pinjam aktif -&gt; 200", function () use ($pinjaman, $anggota, $buku) {
-    return pinjamanAktifAnggota(2, $pinjaman, $anggota, $buku);
-});
+demo();
 </code></pre>
-<p><strong>Awam:</strong> <code>demo(...)</code> hanya membungkus output di terminal. <code>callable</code> = sesuatu yang bisa dipanggil seperti fungsi. <code>declare(strict_types=1);</code> membuat tipe lebih ketat — boleh diikuti, tidak wajib dihafal. Alur penting: ID palsu, Siti punya pinjam aktif, Budi punya pinjam aktif.</p>
+<p><strong>Awam:</strong> <code>declare(strict_types=1);</code> = PHP lebih ketat soal tipe data di file contoh. Di Laravel sungguhan, kartu = token Sanctum, bukan string hard-code.</p>
 
 <h2>Kesalahan umum</h2>
-<table>
-  <thead>
-    <tr>
-      <th>Gejala</th>
-      <th>Penyebab tipikal</th>
-      <th>Perbaikan awam</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Pinjaman kosong padahal data ada</td>
-      <td>Salah <code>anggota_id</code> / lupa filter status</td>
-      <td>Cetak ID di demo; cek “aktif” vs “kembali”</td>
-    </tr>
-    <tr>
-      <td>Bingung <code>hasMany</code> vs <code>belongsTo</code></td>
-      <td>Membalik arah “punya banyak” vs “milik satu”</td>
-      <td>Anggota <code>hasMany</code> pinjam; pinjam <code>belongsTo</code> anggota</td>
-    </tr>
-    <tr>
-      <td>Judul buku kosong</td>
-      <td><code>buku_id</code> tidak ketemu di katalog</td>
-      <td>Jawab <code>404</code> atau perbaiki kunci asing</td>
-    </tr>
-    <tr>
-      <td>Daftar pinjam terasa lambat saat data banyak</td>
-      <td>Membaca buku/anggota satu-satu di dalam loop (sering disebut masalah N+1)</td>
-      <td>Nanti dilatih saat daftar panjang (pagination) — cukup tahu dulu</td>
-    </tr>
-  </tbody>
-</table>
+<ul>
+  <li><strong>POST tambah dari bilah alamat browser</strong> — browser biasa GET. Pakai terminal kedua + <code>curl.exe</code> / PowerShell / Postman.</li>
+  <li><strong>Lupa header Accept</strong> — tambahkan <code>Accept: application/json</code> supaya pesan error jelas (bukan halaman HTML).</li>
+  <li><strong>Token salah salin</strong> — salin hanya nilai <code>"token"</code>; jangan dobel kata Bearer; jangan ada spasi di ujung.</li>
+  <li><strong>POST /api/buku di luar middleware</strong> — tanpa <code>auth:sanctum</code>, siapa saja bisa menambah. Capstone wajib satpam kartu.</li>
+  <li><strong>Serve mati di terminal 1</strong> — semua uji di terminal 2 akan gagal koneksi. Nyalakan lagi <code>php artisan serve</code>.</li>
+  <li><strong>Terminal dari Start Menu</strong> — PATH PHP/Composer hilang. Pakai Terminal Laragon / Shell XAMPP.</li>
+</ul>
 
-<h2>Latihan singkat</h2>
+<h2>Latihan</h2>
 <ol>
-  <li>Ubah demo: tambah kasus “anggota tanpa pinjam aktif” dan pastikan daftar kosong tapi status tetap <code>200</code>.</li>
-  <li>Jelaskan ke teman: beda <code>hasMany</code> dan <code>belongsTo</code> dengan analogi kartu anggota + slip pinjam.</li>
-  <li>Tulis satu kalimat: kenapa slip pinjam menyimpan nomor, bukan menyalin seluruh nama anggota.</li>
+  <li>Uji POST tambah tanpa Bearer — pastikan ditolak.</li>
+  <li>Login, salin token, tambah satu buku, lalu GET daftar — pastikan judul baru ada.</li>
+  <li>Coba slip kosong (<code>{}</code>) dengan Bearer — pastikan satpam Form Request menolak (bukan 201).</li>
+  <li>(Opsional) Tambah buku kedua dengan judul beda; pastikan GET menampilkan keduanya.</li>
 </ol>
 
-<h2>FAQ singkat</h2>
-<p><strong>Haruskah hafal semua jenis relasi Eloquent?</strong><br>
-Belum. Untuk perpustakaan mini, <code>hasMany</code> dan <code>belongsTo</code> sudah cukup. Relasi “banyak-ke-banyak” bisa menyusul kalau dibutuhkan.</p>
-<p><strong>Kenapa belum Capstone pinjam-kembali?</strong><br>
-Karena fondasi hubungan data harus jelas dulu. Alur pinjam + kembali penuh ada di akhir Seri 5.</p>
-<p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya: <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#63)</a> — daftar pinjaman/buku yang panjang tetap nyaman dibaca.</p>
+<h2>FAQ</h2>
+<p><strong>Apa bedanya Capstone dengan Auth API Dasar?</strong><br>
+<a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> fokus kartu + pintu <code>/api/saya</code>. Capstone memakai kartu itu untuk <em>menambah buku</em>, plus memastikan baca katalog tetap publik.</p>
+<p><strong>Token yang mana yang disalin?</strong><br>
+Hanya string di kunci <code>"token"</code> pada jawaban login. Panjang, tanpa spasi. Lalu tulis: <code>Authorization: Bearer </code> + string itu.</p>
+<p><strong>Terminal mana yang dipakai?</strong><br>
+Terminal 1: <code>serve</code>. Terminal 2: login, tambah, baca. Editor: route + <code>store</code>. Browser: opsional cek lampu.</p>
+<p><strong>Kenapa masih Shell XAMPP / Laragon?</strong><br>
+Agar PATH PHP sama seperti saat proyek dibuat. CMD dari Start Menu sering “php tidak dikenal”.</p>
+<p><strong>Apakah perlu Composer baru?</strong><br>
+Tidak, jika Sanctum sudah dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>. Kalau belum — install-dari-nol di sana dulu.</p>
+<p><strong>Kapan ubah &amp; hapus?</strong><br>
+Langkah berikutnya di jalur Laravel (CRUD ubah &amp; hapus) — setelah Capstone ini nyaman.</p>
 
-<h2>Kesimpulan</h2>
-<p>Kamu sudah melangkah dari CRUD buku ke <strong>relasi</strong>: anggota dan peminjaman terhubung lewat nomor (<code>anggota_id</code>, <code>buku_id</code>). PHP array dulu; Eloquent <code>hasMany</code> / <code>belongsTo</code> adalah bungkus yang sama.</p>
+<h2>Ringkasan</h2>
+<p><strong>#62 (ini)</strong> merakit tiga pintu: baca katalog (publik), login (kartu), tambah buku (ber-kartu + slip valid). Fondasi datang dari
+<a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>,
+<a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a>, dan
+<a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>.</p>
+<p><strong>Ke mana setelah ini?</strong><br>
+Berikutnya: CRUD API Buku — ubah &amp; hapus, supaya staf bisa memperbaiki atau menghapus entri dengan kartu yang sama. (Artikel berikutnya di jalur Laravel.)</p>
+
 <blockquote>
-  <p><strong>Seri 5 progress:</strong> langkah <strong>#62 (ini)</strong> · 2/8 Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD ubah &amp; hapus (#61)</a> LIVE. Berikutnya: <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#63)</a>.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#62 (ini)</strong> · <strong>7/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> LIVE. Berikutnya: CRUD API Buku — Ubah &amp; Hapus.</p>
 </blockquote>
 HTML;
     }
