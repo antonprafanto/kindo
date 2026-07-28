@@ -4480,6 +4480,13 @@ class DeployController extends Controller
             return response('Article 63 body content checks failed', 500);
         }
 
+        $bodyEn = (string) $article->body_en;
+        if (! filled($article->title_en) || ! filled($bodyEn) || ! str_contains($bodyEn, 'laravel63crudArrow') || ! str_contains($bodyEn, '#63 (this article)') || ! str_contains($bodyEn, 'Beginner:') || ! str_contains($bodyEn, 'curl.exe') || ! str_contains($bodyEn, 'Tools used')) {
+            report(new \RuntimeException('Article 63 English body missing expected content after seed.'));
+
+            return response('Article 63 English content checks failed', 500);
+        }
+
         $a62 = Article::published()->where('slug', $prevSlug)->first();
         if (! $a62) {
             report(new \RuntimeException('Article 62 missing while publishing #63.'));
@@ -4487,9 +4494,23 @@ class DeployController extends Controller
             return response('Article 63 prerequisite #62 missing', 500);
         }
 
-        // Hardlink #62 -> #63 menyusul setelah #63 dinyatakan LIVE (pola seri:
-        // artikel sebelumnya baru menaut ke artikel baru sesudah deploy sukses).
+        // Hardlink #62 -> #63 (aktif setelah #63 LIVE + EN).
+        $b62 = (string) $a62->body;
+        if (! str_contains($b62, $slug)) {
+            $exit62 = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article62Seeder',
+                '--force' => true,
+            ]);
+            if ($exit62 !== 0) {
+                return response('Article 62 hardlink reseed failed', 500);
+            }
+            $a62 = Article::published()->where('slug', $prevSlug)->first();
+            if (! $a62 || ! str_contains((string) $a62->body, $slug)) {
+                report(new \RuntimeException('Article 62 hardlink to #63 missing after reseed.'));
 
+                return response('Article 62 hardlink to #63 failed', 500);
+            }
+        }
         try {
             app(SitemapService::class)->writeToDisk();
         } catch (\Throwable $e) {

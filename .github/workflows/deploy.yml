@@ -969,8 +969,7 @@ jobs:
           echo "Article 62 HTTP status: $code"
           test "$code" = "200"
 
-      - name: Publish article 63 via deploy hook (kickoff)
-        continue-on-error: true
+      - name: Publish article 63 via deploy hook (required)
         run: |
           set +e
           for attempt in 1 2 3; do
@@ -984,7 +983,7 @@ jobs:
             sleep $((attempt * 5))
           done
           if [ "$code" != "200" ]; then
-            echo "::warning::publish-article-63 failed after retries (last HTTP $code)"
+            echo "::error::publish-article-63 failed after retries (last HTTP $code)"
             exit 1
           fi
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \

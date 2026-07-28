@@ -374,7 +374,7 @@ Agar PATH PHP sama seperti saat proyek dibuat. CMD dari Start Menu sering “php
 <p><strong>Apakah perlu Composer baru?</strong><br>
 Tidak, jika Sanctum sudah dari <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>. Kalau belum — install-dari-nol di sana dulu.</p>
 <p><strong>Kapan ubah &amp; hapus?</strong><br>
-Langkah berikutnya di jalur Laravel (CRUD ubah &amp; hapus) — setelah Capstone ini nyaman.</p>
+Lanjut ke <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a> — setelah Capstone ini nyaman.</p>
 
 <h2>Ringkasan</h2>
 <p><strong>#62 (ini)</strong> merakit tiga pintu: baca katalog (publik), login (kartu), tambah buku (ber-kartu + slip valid). Fondasi datang dari
@@ -382,10 +382,10 @@ Langkah berikutnya di jalur Laravel (CRUD ubah &amp; hapus) — setelah Capstone
 <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a>, dan
 <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya: CRUD API Buku — ubah &amp; hapus, supaya staf bisa memperbaiki atau menghapus entri dengan kartu yang sama. (Artikel berikutnya di jalur Laravel.)</p>
+Berikutnya: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a> — supaya staf bisa memperbaiki atau menghapus entri dengan kartu yang sama.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#62 (ini)</strong> · <strong>7/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> LIVE. Berikutnya: CRUD API Buku — Ubah &amp; Hapus.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#62 (ini)</strong> · <strong>7/8</strong> jalur Laravel · prasyarat: <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> LIVE. Berikutnya: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a>.</p>
 </blockquote>
 HTML;
     }

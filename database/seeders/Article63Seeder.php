@@ -42,14 +42,19 @@ class Article63Seeder extends Seeder
         $article = Article::updateOrCreate(
             ['slug' => $slug],
             [
-                'user_id'         => $admin->id,
-                'category_id'     => $webCat->id,
-                'title'           => 'CRUD API Buku: Ubah & Hapus (Laravel)',
-                'body'            => $this->body(),
-                'status'          => 'published',
-                'is_featured'     => false,
-                'seo_title'       => 'CRUD API Buku Laravel: Ubah & Hapus dengan Kartu Sanctum',
-                'seo_description' => 'Seri 4 #63: lengkapi CRUD API buku Laravel — ubah (PUT) dan hapus (DELETE) satu buku dengan kartu Sanctum, ramah awam.',
+                'user_id'            => $admin->id,
+                'category_id'        => $webCat->id,
+                'title'              => 'CRUD API Buku: Ubah & Hapus (Laravel)',
+                'title_en'           => 'CRUD Book API: Update & Delete (Laravel)',
+                'excerpt_en'         => 'Seri 4 #63: finish your Laravel book CRUD API — update one book (PUT) and delete one book (DELETE) with a Sanctum staff card, beginner-friendly tools-first walkthrough.',
+                'body'               => $this->body(),
+                'body_en'            => $this->bodyEn(),
+                'status'             => 'published',
+                'is_featured'        => false,
+                'seo_title'          => 'CRUD API Buku Laravel: Ubah & Hapus dengan Kartu Sanctum',
+                'seo_title_en'       => 'Laravel Book CRUD API: Update & Delete with Sanctum Token',
+                'seo_description'    => 'Seri 4 #63: lengkapi CRUD API buku Laravel — ubah (PUT) dan hapus (DELETE) satu buku dengan kartu Sanctum, ramah awam.',
+                'seo_description_en' => 'Seri 4 #63: complete Laravel book CRUD — update (PUT) and delete (DELETE) one book with a Sanctum token, with second-terminal curl.exe / PowerShell / Postman steps for beginners.',
             ]
         );
         // cover_image tidak disentuh — upload manual via Filament
@@ -621,6 +626,562 @@ Jalur “Laravel dari nol” tamat di sini — kamu sudah bisa membangun API kec
 <blockquote>
   <p><strong>Seri 4 progress:</strong> langkah <strong>#63 (ini)</strong> · <strong>8/8</strong> jalur Laravel — <strong>tamat</strong> · prasyarat: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> LIVE.</p>
 </blockquote>
+HTML;
+    }
+
+    private function bodyEn(): string
+    {
+        return <<<'HTML'
+<h2>Introduction — finishing the library shelf</h2>
+<p>This article is <strong>#63 (this article)</strong> in <strong>Seri 4: Pemrograman Web Lanjut v2</strong> — step <strong>8/8</strong>, the closing chapter of the Laravel from-scratch path.</p>
+<p>In <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> staff can already <strong>read</strong> the catalog and <strong>add</strong> books with a card. But real life needs two more things: <strong>fixing</strong> data that was typed wrong, and <strong>removing</strong> books that are no longer on the shelf.</p>
+<p><strong>Beginner:</strong> today we add the last two counters. The <em>update</em> counter = fix a catalog card that was typed wrong. The <em>delete</em> counter = pull a book off the shelf. Both require a staff card, just like the add counter.</p>
+
+<blockquote>
+  <p><strong>Prerequisites:</strong> you have finished <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> (read + login + add already working), <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> (Sanctum card), and <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> (slip bouncer). Foundation from <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a>. Use <strong>Laravel 13+</strong> — requires <strong>PHP 8.3+</strong>.</p>
+</blockquote>
+
+<h2>Feature spec — what counts as “done” today?</h2>
+<p>Just two sentences:</p>
+<ol>
+  <li><strong>Update one book</strong> — <code>PUT /api/buku/1</code> with a Bearer card + a valid title/author slip.</li>
+  <li><strong>Delete one book</strong> — <code>DELETE /api/buku/1</code> with a Bearer card (no slip needed).</li>
+</ol>
+<p>The number <code>1</code> in that address is the <strong>book number</strong> (the <code>id</code> column in the database). If that number is not on the shelf, the answer is <code>404</code> — not a red error.</p>
+<p><strong>Beginner:</strong> after today, your library shelf has all four moves: view, add, fix, remove. That is what people call <strong>CRUD</strong>.</p>
+
+<figure style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 240" width="100%" height="auto" role="img" aria-label="Four CRUD moves: read, add, update, delete">
+  <title>Four CRUD moves on the book shelf</title>
+  <defs>
+    <marker id="laravel63crudArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#1a1a1a"/>
+    </marker>
+  </defs>
+  <rect x="12" y="36" width="164" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="94" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Read</text>
+  <text x="94" y="98" text-anchor="middle" fill="#1a1a1a" font-size="12">GET /api/buku</text>
+  <line x1="182" y1="80" x2="212" y2="80" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel63crudArrow)"/>
+  <rect x="220" y="36" width="164" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="302" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Add</text>
+  <text x="302" y="98" text-anchor="middle" fill="#1a1a1a" font-size="12">POST /api/buku</text>
+  <line x1="390" y1="80" x2="420" y2="80" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel63crudArrow)"/>
+  <rect x="428" y="36" width="150" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="503" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Update</text>
+  <text x="503" y="98" text-anchor="middle" fill="#1a1a1a" font-size="12">PUT /api/buku/1</text>
+  <line x1="584" y1="80" x2="614" y2="80" stroke="#1a1a1a" stroke-width="3" marker-end="url(#laravel63crudArrow)"/>
+  <rect x="622" y="36" width="126" height="88" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="685" y="72" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Delete</text>
+  <text x="685" y="98" text-anchor="middle" fill="#1a1a1a" font-size="12">DELETE /api/buku/1</text>
+  <text x="20" y="176" fill="#1a1a1a" font-size="13">The first two boxes you built in the Capstone. The last two are installed today.</text>
+  <text x="20" y="204" fill="#1a1a1a" font-size="13">Update &amp; delete always name the book number in the address — and always need a card.</text>
+</svg>
+<figcaption style="color:#1a1a1a">Full CRUD: read &amp; add have worked since the Capstone; update &amp; delete are installed today.</figcaption>
+</figure>
+
+<h2>Terms — update &amp; delete in brief</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Plain meaning</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CRUD</td>
+      <td>Four data moves: view, add, update, remove</td>
+      <td>Today completes the last two</td>
+    </tr>
+    <tr>
+      <td>PUT</td>
+      <td>HTTP way to say “replace the contents of this record”</td>
+      <td><code>PUT /api/buku/1</code></td>
+    </tr>
+    <tr>
+      <td>DELETE</td>
+      <td>HTTP way to say “throw away this record”</td>
+      <td><code>DELETE /api/buku/1</code></td>
+    </tr>
+    <tr>
+      <td>Number in the address</td>
+      <td>The digit that points to which book you mean</td>
+      <td>Written as <code>{id}</code> when registering the door</td>
+    </tr>
+    <tr>
+      <td>Bearer</td>
+      <td>How to show your staff card through a header</td>
+      <td>Written as <code>Authorization: Bearer &lt;token&gt;</code> (from <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>)</td>
+    </tr>
+    <tr>
+      <td>404</td>
+      <td>That number is not on the shelf</td>
+      <td>A normal answer, not a broken app</td>
+    </tr>
+    <tr>
+      <td>419</td>
+      <td>Laravel suspects the request came from outside the browser</td>
+      <td>Appears if the <code>api/*</code> exception is not set up yet</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Preparation — tools to open</h2>
+<p><strong>Tools used in this article</strong> (foundation from <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> — <strong>no</strong> new Composer downloads today):</p>
+<ul>
+  <li><strong>Explorer</strong> — make sure the <code>perpustakaan-api</code> folder exists; check <code>BukuController.php</code>, <code>routes/web.php</code>, and <code>bootstrap/app.php</code>.</li>
+  <li><strong>Terminal</strong> — Laragon: <em>Terminal</em> menu · XAMPP: <em>Shell</em> button. Do not open CMD/PowerShell from the Start Menu (PHP PATH may be missing).</li>
+  <li><strong>Second terminal</strong> — required: first terminal = <code>php artisan serve</code>. Second terminal = test with <code>curl.exe</code> / PowerShell (login + update + delete + read).</li>
+  <li><strong>Text editor</strong> — Notepad / VS Code — add <code>update</code> &amp; <code>destroy</code> methods, two new routes, and one small permission in <code>bootstrap\app.php</code>. Tip: <code>notepad app\Http\Controllers\BukuController.php</code> from the second terminal (change the filename to match what you want to open).</li>
+  <li><strong>Browser</strong> — only to check the shop light and view the book list (GET). Update &amp; delete <strong>cannot</strong> be tested from the browser address bar.</li>
+</ul>
+<p><strong>How to open a second terminal</strong> (first time opening two terminals at once? Here is how — do not close the first one): <strong>Laragon</strong> — click the <em>Terminal</em> menu again in the main Laragon window; a new terminal window will appear separate from the first. <strong>XAMPP</strong> — in XAMPP Control Panel, click the <em>Shell</em> button again; a second Shell window will open. Both windows can stay open — the first keeps running <code>php artisan serve</code>, the second is for typing other commands.</p>
+<p>Open the Laragon terminal / XAMPP Shell (first terminal), go to the project folder:</p>
+<pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
+</code></pre>
+<p>On XAMPP it is usually: <code>cd C:\xampp\htdocs\perpustakaan-api</code>. Adjust the path if your folder is different.</p>
+<p>Turn on the shop light in the <strong>first terminal</strong>:</p>
+<pre><code class="language-bash">php artisan serve
+</code></pre>
+<p>Leave that window running. Open a <strong>second terminal</strong> (how to do that is explained above), <code>cd</code> to the same project folder — this is where you test update &amp; delete.</p>
+<p><strong>Beginner:</strong> Terminal 1 = shop light. Terminal 2 = hands testing the two new counters. Editor = writing <code>update</code> &amp; <code>destroy</code>. Browser = just peeking at the list.</p>
+<p><strong>Install-from-scratch:</strong> if Sanctum / login is not set up yet, finish <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> first. If PHP/Composer is not recognized in the terminal, go back to <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a>.</p>
+
+<h2>Quick check — pieces that must already exist</h2>
+<p>Before adding new counters, make sure these already work in your project:</p>
+<ul>
+  <li><code>GET /api/buku</code> shows the list (<a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a>)</li>
+  <li><code>POST /api/login</code> returns a <code>token</code> (<a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>)</li>
+  <li><code>POST /api/buku</code> with a card successfully adds a book (<a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a>)</li>
+  <li>File <code>app\Models\Buku.php</code> has the line <code>protected $fillable = ['judul', 'penulis'];</code> (from <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a>)</li>
+</ul>
+<p>If any of these do not work yet, fix them in the original article first. The update &amp; delete counters only ride on paths that already exist.</p>
+<p><strong>Beginner — why must you check that <code>$fillable</code> line?</strong> That line is the list of columns allowed to be written at once. The <em>update</em> counter writes title and author in one move, so if the list is empty, Laravel <strong>silently drops</strong> your changes: the answer still says “Buku diperbarui”, but the book content does not change at all. This is the only mistake today that gives no red error message, so open that file and make sure the line is there.</p>
+
+<h2>Book number in the address — where does the digit come from?</h2>
+<p>This is the first beginner question: <em>“<code>PUT /api/buku/1</code> — do I make up the number 1 myself?”</em> No. The number comes from the book list.</p>
+<p>In the <strong>second terminal</strong>, look at the shelf first:</p>
+<pre><code class="language-bash">curl.exe -s http://127.0.0.1:8000/api/buku ^
+  -H "Accept: application/json"
+</code></pre>
+<p>In the JSON response, each book has an <code>"id"</code> key. That is the book number. If book “Bumi” has <code>"id": 3</code>, the address to update it is <code>/api/buku/3</code>.</p>
+<p><strong>Beginner:</strong> <code>{id}</code> when registering a route is an <em>empty slot</em>. When testing, you fill that slot with a real number from the list. Wrong number = <code>404</code> answer, not a broken app.</p>
+<p><strong>If the answer is <code>"data": []</code> (empty)</strong> — the shelf really has no books yet, and that is normal if in <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a> you have not added rows yet. There is no number to update or delete. Fill the shelf first: work through <strong>“Test update &amp; delete”</strong> below up to step <strong>1) Login</strong> to get a card, then add one or two books with <code>POST /api/buku</code> following <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a>. Once the shelf has books, come back here and note their <code>"id"</code> values.</p>
+
+<figure style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 200" width="100%" height="auto" role="img" aria-label="Number exists means success, number missing means 404">
+  <title>Number exists versus number missing</title>
+  <rect x="40" y="40" width="290" height="100" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="185" y="80" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Number on shelf</text>
+  <text x="185" y="108" text-anchor="middle" fill="#1a1a1a" font-size="13">update / delete succeeds</text>
+  <rect x="430" y="40" width="290" height="100" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="575" y="80" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Number missing</text>
+  <text x="575" y="108" text-anchor="middle" fill="#1a1a1a" font-size="13">404 answer, shelf safe</text>
+  <text x="24" y="175" fill="#1a1a1a" font-size="13">Without a Bearer card, both are rejected first — before the number even matters.</text>
+</svg>
+<figcaption style="color:#1a1a1a">Check the number first, then worry about content. Without a card, the door does not open at all.</figcaption>
+</figure>
+
+<h2>Update counter — the update method</h2>
+<p>Open <code>notepad app\Http\Controllers\BukuController.php</code>. Do not delete the <code>namespace</code> line or the <code>class BukuController extends Controller</code> skeleton — we are only adding.</p>
+<p><strong>Part 1 — <code>use</code> lines, placed ABOVE <code>class</code></strong> (aligned with existing <code>use</code> lines, not inside the class):</p>
+<pre><code class="language-php">use App\Http\Requests\StoreBukuRequest; // slip yang sama boleh dipakai ulang
+use App\Models\Buku;
+use Illuminate\Http\JsonResponse;
+</code></pre>
+<p><strong>Beginner — IMPORTANT, do not write these twice:</strong> if any line above <strong>already exists</strong> in your file, <em>skip</em> that line. Usually <code>Illuminate\Http\JsonResponse</code> and <code>App\Models\Buku</code> were already written in <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a>, and <code>StoreBukuRequest</code> since <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> — so often <strong>nothing</strong> needs to be added here. If written twice, PHP stops with <code>Cannot use ... because the name is already in use</code>.</p>
+<p><strong>Beginner — why must they be above class?</strong> A <code>use</code> line above class means “pull in a file from another folder”. A <code>use</code> line written <em>inside</em> class means something completely different (attaching a trait), and PHP will complain <code>Trait "App\Models\Buku" not found</code>. So watch the placement carefully.</p>
+<p><strong>Part 2 — the <code>update</code> method, placed INSIDE the class</strong>, next to <code>store</code> that you built in <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a>:</p>
+<pre><code class="language-php">// Cuplikan BukuController — loket ubah buku (di dalam class)
+public function update(StoreBukuRequest $request, int $id): JsonResponse
+{
+    $buku = Buku::find($id);
+
+    if (! $buku) {
+        return response()-&gt;json(['message' =&gt; 'Buku tidak ditemukan'], 404);
+    }
+
+    $buku-&gt;update($request-&gt;validated());
+
+    return response()-&gt;json([
+        'message' =&gt; 'Buku diperbarui',
+        'data' =&gt; $buku,
+    ]);
+}
+</code></pre>
+<p><strong>Beginner:</strong> just three steps — find the book by number, if missing answer <code>404</code>, if found rewrite its contents then answer with JSON. The slip bouncer (<code>StoreBukuRequest</code>) still runs first, so an empty title will not pass.</p>
+<p><strong>Note:</strong> match the Form Request name to the file in your Explorer. If it does not exist yet, create it following <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>.</p>
+<p><strong>“Wait, why not go through <code>BukuService</code>?”</strong> In <a href="/artikel/laravel-controller-service-eloquent">Controller, Service &amp; Eloquent Laravel (#60)</a> we used a “kitchen” (<code>BukuService</code>) so the counter does not busy itself with the table. Here <code>Buku::find($id)</code> is called directly from the counter so the snippet stays short and you see <em>clearly</em> which line births the <code>404</code>. If you already have <code>BukuService</code>, feel free to move <code>find</code>/<code>update</code>/<code>delete</code> there as <code>ubah()</code> and <code>hapus()</code> methods — same result, tidier kitchen.</p>
+
+<h2>Delete counter — the destroy method</h2>
+<p>Still in the same file, still <strong>inside the class</strong>, add the <code>destroy</code> method below <code>update</code>. This part needs no new <code>use</code> lines — everything is already available from the previous step:</p>
+<pre><code class="language-php">// Cuplikan BukuController — loket hapus buku (di dalam class)
+public function destroy(int $id): JsonResponse
+{
+    $buku = Buku::find($id);
+
+    if (! $buku) {
+        return response()-&gt;json(['message' =&gt; 'Buku tidak ditemukan'], 404);
+    }
+
+    $buku-&gt;delete();
+
+    return response()-&gt;json(['message' =&gt; 'Buku dihapus']);
+}
+</code></pre>
+<p>Save the file. <strong>Beginner:</strong> delete does not need a title/author slip — just the book number and staff card. That is why <code>destroy</code> does not use a Form Request.</p>
+
+<h2>Wire the doors in routes</h2>
+<p>Open <code>notepad routes\web.php</code>. You only need to type the <strong>two lines marked NEW</strong> below — the rest already exists in your file from earlier articles, shown so you know the exact placement:</p>
+<pre><code class="language-php">// Cuplikan routes/web.php — bentuk AKHIR file setelah hari ini
+use App\Http\Controllers\AuthController;   // sudah ada dari Auth API
+use App\Http\Controllers\BukuController;   // sudah ada dari Controller/Service
+
+Route::get('/api/buku', [BukuController::class, 'index']);   // sudah ada dari Controller/Service
+Route::post('/api/login', [AuthController::class, 'login']); // sudah ada dari Auth API
+
+Route::middleware('auth:sanctum')-&gt;group(function () {
+    Route::get('/api/saya', [AuthController::class, 'saya']);            // sudah ada dari Auth API
+    Route::post('/api/buku', [BukuController::class, 'store']);          // sudah ada dari Capstone
+    Route::put('/api/buku/{id}', [BukuController::class, 'update']);     // &lt;-- BARU hari ini
+    Route::delete('/api/buku/{id}', [BukuController::class, 'destroy']); // &lt;-- BARU hari ini
+});
+</code></pre>
+<p><strong>Beginner — do not paste this whole block as-is.</strong> If you paste it below existing content, <code>use</code> lines become duplicates and PHP stops with <code>Cannot use ... name is already in use</code>. If you overwrite the whole file, other routes (including normal pages in your project) may disappear. Find the existing <code>auth:sanctum</code> group in your file, then insert the two <code>Route::put</code> and <code>Route::delete</code> lines inside it.</p>
+<p>Save. Make sure <code>serve</code> is still running in the first terminal.</p>
+<p><strong>Beginner:</strong> <code>{id}</code> is an empty slot for the book number. The two new doors are deliberately placed <em>inside</em> <code>auth:sanctum</em> — without a card, guests may not update or delete anything.</p>
+<p><strong>Make sure Laravel really sees the two new doors.</strong> In the <strong>second terminal</strong> (leave <code>serve</code> running in the first), run:</p>
+<pre><code class="language-bash">php artisan route:list --path=api/buku
+</code></pre>
+<p>You should see four lines: <code>GET</code>, <code>POST</code>, <code>PUT</code>, and <code>DELETE</code>. If <code>PUT</code>/<code>DELETE</code> do not appear, <code>routes\web.php</code> was not saved or the verbs were mistyped — fix that before continuing to test.</p>
+
+<h2>Check the api/* permission — so PUT &amp; DELETE are not rejected with 419</h2>
+<p>The lobby <strong>CSRF</strong> guard was set up in <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a> (and rechecked in <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> / <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a>). Its job is to protect <em>web forms</em>: reject <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> submissions that do not come from that site’s own browser pages.</p>
+<p>Because we test from the <strong>terminal</strong> (not the browser), without the <code>api/*</code> exception the answer is:</p>
+<pre><code class="language-json">{"message":"CSRF token mismatch."}
+</code></pre>
+<p>with status <strong>419</strong>. This does <em>not</em> mean your code is wrong — our door was not even reached yet.</p>
+<p><strong>If <code>'api/*'</code> is already inside <code>withMiddleware</code></strong> — <strong>skip this step</strong>. Once per project is enough; today’s new doors are covered too.</p>
+<p><strong>Not there yet / you jumped to this article?</strong> Make sure the second terminal is in the project folder (<code>cd</code> to <code>perpustakaan-api</code>), then <code>notepad bootstrap\app.php</code>. <strong>Do not paste</strong> a new <code>-&gt;withMiddleware(...)</code> block inside the existing function. Work inside that function: remove <code>//</code> if still there, leave other lines, then paste <strong>only</strong>:</p>
+<pre><code class="language-php">// Tempel di dalam withMiddleware yang sudah ada — jangan buat withMiddleware baru
+$middleware-&gt;preventRequestForgery(except: [
+    'api/*',
+]);
+</code></pre>
+<p>The correct result looks roughly like this (other lines around it are fine):</p>
+<pre><code class="language-php">-&gt;withMiddleware(function (Middleware $middleware): void {
+    $middleware-&gt;preventRequestForgery(except: [
+        'api/*',
+    ]);
+})
+</code></pre>
+<p>Save. <strong>Beginner:</strong> <code>except</code> = “except”. The <code>*</code> means “anything after that”, so <code>api/buku/3</code> and <code>api/login</code> are included. In Laravel 13 the official name is <code>preventRequestForgery</code>; the old name <code>validateCsrfTokens</code> means the same thing.</p>
+<p><strong>Does this make my API unsafe?</strong> No. The fence guarding update &amp; delete is the <strong>Sanctum card guard</strong> (<code>auth:sanctum</code>) — without a card you are still rejected. CSRF is the lobby guard for browser forms; token-based APIs use a different kind of fence.</p>
+<p><strong>Every time you save <code>bootstrap\app.php</code></strong>, stop <code>serve</code> in the first terminal (<code>Ctrl+C</code>) then start <code>php artisan serve</code> again. That file is only read when the app starts.</p>
+
+<h2>Test update &amp; delete in the second terminal</h2>
+<p>The <code>PUT</code> and <code>DELETE</code> doors <strong>cannot</strong> be tried from the browser address bar — browsers only do GET. So test via the second terminal (or a windowed tool like Postman in Option C).</p>
+<p>Make sure the test user still exists. Run in the <strong>second terminal</strong> (leave <code>serve</code> running in the first) — one shot, not a long chat:</p>
+<pre><code class="language-bash">php artisan tinker --execute="\App\Models\User::updateOrCreate(['email'=>'staf@perpustakaan.test'], ['name'=>'Staf Mini','password'=>bcrypt('password')]);"
+</code></pre>
+
+<p>Pick <strong>one</strong> option below (A, B, or C) — do not run two options on the same book number, because a book deleted in the first try is gone for the second (the answer will be <code>404</code>).</p>
+
+<p><strong>Option A — <code>curl.exe</code></strong> (Windows 10/11 usually has it; type <code>curl.exe</code> so PowerShell does not confuse it):</p>
+<p><strong>Beginner — about the <code>^</code> at the end of a line:</strong> that means “this command continues on the next line”, and it works in <strong>CMD / XAMPP Shell / Laragon Terminal</strong>. If you use <strong>PowerShell</strong>, <code>^</code> is not recognized — replace each <code>^</code> with a backtick <code>`</code>, or safest: type the whole command on <strong>one long line</strong> with no <code>^</code> at all.</p>
+<p><strong>1) Login — get the token</strong></p>
+<pre><code class="language-bash">curl.exe -s -X POST http://127.0.0.1:8000/api/login ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
+  -d "{\"email\":\"staf@perpustakaan.test\",\"password\":\"password\"}"
+</code></pre>
+<p><strong>Beginner — copy the token:</strong> in the JSON response find the <code>"token"</code> key. Copy <em>only</em> the string between the quotes. Do not copy the word <code>Bearer</code> from the JSON — Bearer is written in the header. Replace <code>GANTI_DENGAN_TOKEN</code> below.</p>
+<p><strong>Beginner — how to copy text from the Windows terminal:</strong> select text with left-click and hold while dragging (click-drag), release the mouse button to copy automatically. Paste with right-click in the terminal window (not <code>Ctrl+V</code> — the default Windows terminal sometimes does not support it).</p>
+<p><strong>2) See the book number first</strong> — note one <code>"id"</code> from this response, then use that number in the next steps:</p>
+<pre><code class="language-bash">curl.exe -s http://127.0.0.1:8000/api/buku ^
+  -H "Accept: application/json"
+</code></pre>
+<p><strong>Beginner — two words you must replace yourself</strong> in all commands below: replace <code>GANTI_DENGAN_TOKEN</code> with the token from step 1, and replace <code>NOMOR</code> with the <code>"id"</code> number you noted in step 2. Example: if <code>id</code> is 3, type <code>/api/buku/NOMOR</code> as <code>/api/buku/3</code>. Do not leave the word <code>NOMOR</code> typed in.</p>
+<p><strong>3) Update without a card — must be rejected</strong></p>
+<pre><code class="language-bash">curl.exe -s -X PUT http://127.0.0.1:8000/api/buku/NOMOR ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
+  -d "{\"judul\":\"Coba Ubah\",\"penulis\":\"Tanpa Kartu\"}"
+</code></pre>
+<p>You should see an “Unauthenticated” / not-authorized message — not “Buku diperbarui”. If you get <code>CSRF token mismatch</code> instead, the <code>api/*</code> permission in <code>bootstrap\app.php</code> is not set up — go back to the previous section.</p>
+<p><strong>4) Update with a card — must succeed</strong></p>
+<pre><code class="language-bash">curl.exe -s -X PUT http://127.0.0.1:8000/api/buku/NOMOR ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
+  -H "Authorization: Bearer GANTI_DENGAN_TOKEN" ^
+  -d "{\"judul\":\"Bumi (Edisi Revisi)\",\"penulis\":\"Tere Liye\"}"
+</code></pre>
+<p>A correct answer looks roughly like this (all on one long line — that is normal):</p>
+<pre><code class="language-json">{"message":"Buku diperbarui","data":{"id":3,"judul":"Bumi (Edisi Revisi)","penulis":"Tere Liye","created_at":"2026-07-20T08:11:02.000000Z","updated_at":"2026-07-27T02:45:13.000000Z"}}
+</code></pre>
+<p><strong>Beginner:</strong> <code>created_at</code> and <code>updated_at</code> appear even though you did not send them — those are two timestamp columns Laravel fills itself. Notice <code>updated_at</code>: the time is new, proof the book was touched.</p>
+<p><strong>5) Read the catalog — make sure the title really changed</strong></p>
+<pre><code class="language-bash">curl.exe -s http://127.0.0.1:8000/api/buku ^
+  -H "Accept: application/json"
+</code></pre>
+<p><strong>Do not skip this step.</strong> If step 4 answered “Buku diperbarui” but the list here still shows the <em>old</em> title, the cause is almost certainly that <code>$fillable</code> in <code>app\Models\Buku.php</code> does not include <code>'judul'</code> and <code>'penulis'</code> (see “Quick check” above). This is the only failure today that disguises itself as success.</p>
+<p><strong>6) Update a number that does not exist — must be 404</strong></p>
+<pre><code class="language-bash">curl.exe -s -X PUT http://127.0.0.1:8000/api/buku/9999 ^
+  -H "Content-Type: application/json" ^
+  -H "Accept: application/json" ^
+  -H "Authorization: Bearer GANTI_DENGAN_TOKEN" ^
+  -d "{\"judul\":\"Buku Hantu\",\"penulis\":\"Tidak Ada\"}"
+</code></pre>
+<p>Correct answer: <code>{"message":"Buku tidak ditemukan"}</code> (the message <em>Buku tidak ditemukan</em> means “book not found”). The number <code>9999</code> here is deliberately made up — no need to replace it.</p>
+<p><strong>7) Delete with a card</strong> (note: no <code>-d</code>, because delete does not send a slip). You may use the book you updated in step 4 — you already proved the update in step 5:</p>
+<pre><code class="language-bash">curl.exe -s -X DELETE http://127.0.0.1:8000/api/buku/NOMOR ^
+  -H "Accept: application/json" ^
+  -H "Authorization: Bearer GANTI_DENGAN_TOKEN"
+</code></pre>
+<p>Correct answer: <code>{"message":"Buku dihapus"}</code> (meaning “book deleted”).</p>
+<p><strong>8) Read the catalog — that book must be gone</strong></p>
+<pre><code class="language-bash">curl.exe -s http://127.0.0.1:8000/api/buku ^
+  -H "Accept: application/json"
+</code></pre>
+<p>The book with that number no longer appears in the list. All four CRUD moves are complete.</p>
+
+<p><strong>Option B — PowerShell</strong> (token is stored automatically in a variable — no manual copy-paste). Stay in <strong>Laragon / XAMPP Shell</strong> if that window is already PowerShell (often the case). If you open PowerShell from the Start Menu just for Option B: that is fine, because the commands below use <code>Invoke-RestMethod</code> (no <code>php</code> needed) — but for <code>tinker</code> / <code>route:list</code> earlier, still use Laragon/XAMPP Shell. <code>cd</code> to the project folder, then type these lines. In PowerShell the line-continuation character is backtick <code>`</code> (not <code>^</code>):</p>
+<pre><code class="language-powershell">$login = Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/login `
+  -ContentType "application/json" `
+  -Body '{"email":"staf@perpustakaan.test","password":"password"}'
+$token = $login.token
+
+# Lihat isi rak dulu, catat salah satu id
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/buku -Headers @{ Accept = "application/json" }
+
+# GANTI angka 3 di bawah dengan id buku milikmu
+$nomor = 3
+
+Invoke-RestMethod -Method Put -Uri "http://127.0.0.1:8000/api/buku/$nomor" `
+  -ContentType "application/json" `
+  -Headers @{ Authorization = "Bearer $token"; Accept = "application/json" } `
+  -Body '{"judul":"Bumi (Edisi Revisi)","penulis":"Tere Liye"}'
+
+# Buktikan judulnya benar-benar berubah
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/buku -Headers @{ Accept = "application/json" }
+
+Invoke-RestMethod -Method Delete -Uri "http://127.0.0.1:8000/api/buku/$nomor" `
+  -Headers @{ Authorization = "Bearer $token"; Accept = "application/json" }
+
+Invoke-RestMethod -Uri http://127.0.0.1:8000/api/buku -Headers @{ Accept = "application/json" }
+</code></pre>
+<p><strong>Beginner:</strong> lines starting with <code>#</code> are notes for humans — PowerShell ignores them, so you may paste them too. Also note: if something is rejected (for example the number was already deleted), PowerShell shows a long red message and <em>stops</em> there. That is normal — read the first line for the status code (<code>404</code>, <code>401</code>, or <code>419</code>), fix it, then run again from the line that failed.</p>
+
+<p><strong>Option C — Postman / Insomnia</strong> (windowed tool — most comfortable for PUT/DELETE because you do not fight quotes). Download and install Postman first if you do not have it, then:</p>
+<ol>
+  <li><strong>Get the token.</strong> New request, method <strong>POST</strong>, URL <code>http://127.0.0.1:8000/api/login</code>. <em>Headers</em> tab: add <code>Accept</code> with value <code>application/json</code>. <em>Body</em> tab: choose <strong>raw</strong> then <strong>JSON</strong>, body <code>{"email":"staf@perpustakaan.test","password":"password"}</code>. Press <strong>Send</strong>, then copy the <code>token</code> value from the response.</li>
+  <li><strong>Find the book number.</strong> Method <strong>GET</strong>, URL <code>http://127.0.0.1:8000/api/buku</code>, press <strong>Send</strong>, note one <code>"id"</code>.</li>
+  <li><strong>Update.</strong> Method <strong>PUT</strong>, URL <code>http://127.0.0.1:8000/api/buku/NOMOR</code> — replace <code>NOMOR</code> with the <code>"id"</code> from step 2 (not always 3). <em>Authorization</em> tab: type <strong>Bearer Token</strong>, paste token from step 1. <em>Body</em> tab: <strong>raw</strong> + <strong>JSON</strong>, new title and author. <strong>Send</strong>.</li>
+  <li><strong>Delete.</strong> Change method to <strong>DELETE</strong>, clear Body, keep Authorization filled, same URL number. <strong>Send</strong>.</li>
+</ol>
+<p><strong>Beginner:</strong> in Postman you paste the token once on the Authorization tab — Postman writes the <code>Authorization: Bearer ...</code> header for you. Status codes (200, 401, 404, 419) show clearly in the response panel corner, so this option is nicest for beginners still nervous about the terminal.</p>
+
+<h2>Basic Pattern — six steps to complete CRUD</h2>
+<figure role="img" aria-label="Basic Pattern six steps to complete update and delete CRUD" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:12px;padding:1rem;margin:1.25rem 0">
+<ol style="list-style:none;padding:0;margin:0;display:grid;gap:.75rem">
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
+    <div><strong style="color:#1a1a1a">Open tools</strong><br><span style="color:#1a1a1a">Terminal 1 <code>serve</code> · Terminal 2 test · Editor · Browser peek.</span></div>
+  </li>
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
+    <div><strong style="color:#1a1a1a">Check foundation</strong><br><span style="color:#1a1a1a">Read, login, add from Capstone still work · <code>$fillable</code> in Model.</span></div>
+  </li>
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
+    <div><strong style="color:#1a1a1a">Write two counters</strong><br><span style="color:#1a1a1a"><code>update</code> then <code>destroy</code> inside class <code>BukuController</code>.</span></div>
+  </li>
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
+    <div><strong style="color:#1a1a1a">Register doors</strong><br><span style="color:#1a1a1a"><code>PUT</code> &amp; <code>DELETE</code> inside <code>auth:sanctum</code> · check <code>route:list</code>.</span></div>
+  </li>
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
+    <div><strong style="color:#1a1a1a">Check <code>api/*</code> permission</strong><br><span style="color:#1a1a1a">Already there? skip. Not yet? paste line inside <code>withMiddleware</code> · restart <code>serve</code>.</span></div>
+  </li>
+  <li style="display:flex;gap:.75rem;align-items:flex-start">
+    <span style="flex:0 0 2rem;height:2rem;border-radius:999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">6</span>
+    <div><strong style="color:#1a1a1a">Test in order</strong><br><span style="color:#1a1a1a">See number -&gt; update without card fails -&gt; update with card succeeds -&gt; read again to prove -&gt; bogus number returns 404 -&gt; delete -&gt; list shrinks.</span></div>
+  </li>
+</ol>
+</figure>
+<p><strong style="color:#1a1a1a">Beginner:</strong> <span style="color:#1a1a1a">always test the “fail” version first (no card, bogus number), then the “success” version. If the fail case succeeds, the card guard is not wired correctly.</span></p>
+
+<h2>Example file — simulate update &amp; delete</h2>
+<p>Save as <code>laravel_crud_api_buku_ubah_hapus_demo.php</code> then run in the second terminal: <code>php laravel_crud_api_buku_ubah_hapus_demo.php</code>. This is <em>not</em> real Laravel — it only mimics the flow so you can feel it before doing it in the project.</p>
+<pre><code class="language-php">&lt;?php
+declare(strict_types=1);
+
+/**
+ * laravel_crud_api_buku_ubah_hapus_demo.php
+ * Simulasi ubah (PUT) dan hapus (DELETE) satu buku berdasarkan nomor.
+ */
+
+function cariBaris(array $rak, int $id): ?int
+{
+    foreach ($rak as $baris =&gt; $buku) {
+        if ($buku['id'] === $id) {
+            return $baris;
+        }
+    }
+
+    return null;
+}
+
+function demo(): void
+{
+    $rak = [
+        ['id' =&gt; 1, 'judul' =&gt; 'Bumi', 'penulis' =&gt; 'Tere Liye'],
+        ['id' =&gt; 2, 'judul' =&gt; 'Laskar Pelangi', 'penulis' =&gt; 'Andrea Hirata'],
+    ];
+
+    echo "1) PUT /api/buku/2 dengan kartu\n";
+    $baris = cariBaris($rak, 2);
+    if ($baris !== null) {
+        $rak[$baris]['judul'] = 'Laskar Pelangi (Edisi Revisi)';
+        echo json_encode(['message' =&gt; 'Buku diperbarui', 'data' =&gt; $rak[$baris]], JSON_UNESCAPED_UNICODE), PHP_EOL;
+    }
+
+    echo "2) PUT /api/buku/9999 - nomor tidak ada\n";
+    $baris = cariBaris($rak, 9999);
+    echo json_encode(['message' =&gt; $baris === null ? 'Buku tidak ditemukan' : 'Buku diperbarui'], JSON_UNESCAPED_UNICODE), PHP_EOL;
+
+    echo "3) DELETE /api/buku/1 dengan kartu\n";
+    $baris = cariBaris($rak, 1);
+    if ($baris !== null) {
+        unset($rak[$baris]);
+        $rak = array_values($rak);
+    }
+    echo json_encode(['message' =&gt; 'Buku dihapus'], JSON_UNESCAPED_UNICODE), PHP_EOL;
+
+    echo "4) GET /api/buku - sisa rak\n";
+    echo json_encode(['message' =&gt; 'Daftar buku', 'data' =&gt; $rak], JSON_UNESCAPED_UNICODE), PHP_EOL;
+    echo PHP_EOL, "Langkah sungguhan: serve -&gt; login -&gt; Bearer PUT/DELETE /api/buku/{nomor} -&gt; GET daftar.", PHP_EOL;
+}
+
+demo();
+</code></pre>
+<p><strong>Beginner:</strong> <code>declare(strict_types=1);</code> = PHP is stricter about types in this example file. <code>?int</code> means the function may return a number <em>or</em> “nothing”. In real Laravel, finding the row is done by <code>Buku::find($id)</code>.</p>
+
+<h2>Common mistakes</h2>
+<p>Find the symptom you see in the first column — usually the cause is just one small thing.</p>
+<table>
+  <thead>
+    <tr>
+      <th>What you see</th>
+      <th>Cause</th>
+      <th>Fix</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>CSRF token mismatch</code> / status <code>419</code></td>
+      <td><code>api/*</code> exception not set up, or <code>serve</code> not restarted after saving <code>bootstrap\app.php</code></td>
+      <td>Add <code>preventRequestForgery(except: ['api/*'])</code> (do not overwrite other lines in <code>withMiddleware</code>), then <code>Ctrl+C</code> and <code>php artisan serve</code> again</td>
+    </tr>
+    <tr>
+      <td><code>Cannot use ... name is already in use</code></td>
+      <td><code>use</code> line written twice because it already existed from earlier Controller/Capstone articles</td>
+      <td>Remove duplicate <code>use</code> lines — one per name is enough</td>
+    </tr>
+    <tr>
+      <td><code>Trait "App\Models\Buku" not found</code></td>
+      <td><code>use</code> line pasted <em>inside</em> class, not above it</td>
+      <td>Move <code>use</code> lines above <code>class BukuController</code></td>
+    </tr>
+    <tr>
+      <td>“Buku diperbarui” but list still shows old title</td>
+      <td><code>$fillable</code> in <code>app\Models\Buku.php</code> missing <code>'judul'</code> and <code>'penulis'</code></td>
+      <td>Add both columns to <code>$fillable</code>, then update again</td>
+    </tr>
+    <tr>
+      <td><code>405 Method Not Allowed</code></td>
+      <td>Route saved but wrong verb (e.g. <code>Route::post</code> while testing <code>PUT</code>)</td>
+      <td>Check with <code>php artisan route:list --path=api/buku</code></td>
+    </tr>
+    <tr>
+      <td><code>404</code> without <code>"Buku tidak ditemukan"</code> message</td>
+      <td>That is Laravel’s 404: <code>PUT</code>/<code>DELETE</code> route not registered</td>
+      <td>Save <code>routes\web.php</code>, check <code>route:list</code>. If the message <em>is</em> there, that is normal — the number really does not exist</td>
+    </tr>
+    <tr>
+      <td>Status <code>401</code> / “Unauthenticated” even though token was pasted</td>
+      <td>Token copied partially, or the word <code>Bearer</code> copied from JSON too</td>
+      <td>Copy again <em>only</em> the <code>"token"</code> value; type <code>Bearer</code> manually in the header</td>
+    </tr>
+    <tr>
+      <td><code>curl</code> command splits into several errors</td>
+      <td><code>^</code> used in PowerShell</td>
+      <td>Replace <code>^</code> with backtick <code>`</code>, or type one long line</td>
+    </tr>
+    <tr>
+      <td>Long HTML page, not JSON</td>
+      <td><code>Accept</code> header not sent</td>
+      <td>Add <code>-H "Accept: application/json"</code></td>
+    </tr>
+    <tr>
+      <td>Connection failed / <em>connection refused</em></td>
+      <td><code>serve</code> stopped in the first terminal</td>
+      <td>Start <code>php artisan serve</code> again, leave that window running</td>
+    </tr>
+    <tr>
+      <td><code>php is not recognized</code></td>
+      <td>Terminal opened from Start Menu, PHP PATH missing</td>
+      <td>Use Laragon <em>Terminal</em> menu or XAMPP <em>Shell</em> button</td>
+    </tr>
+  </tbody>
+</table>
+<p>Two other things that often confuse people but are not really errors: <strong>trying PUT/DELETE from the browser address bar</strong> (browsers only do GET — use the second terminal or Postman), and <strong>sending <code>-d</code> when deleting</strong> (no slip needed for delete; just number + card). And if the two new doors were placed <em>outside</em> <code>auth:sanctum</code>, anyone could delete books — make sure both are inside the card-protected group.</p>
+
+<h2>Practice</h2>
+<ol>
+  <li>Update one book’s title, then <code>GET /api/buku</code> — make sure the new title is really saved.</li>
+  <li>Try updating with an empty slip (<code>{}</code>) using a card — make sure the Form Request bouncer rejects it, not save an empty title.</li>
+  <li>Delete one book, then delete the same number again — notice the second answer should be <code>404</code>.</li>
+  <li>Add a new book (from <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a>), update its title, then delete — feel all four CRUD moves in one breath.</li>
+  <li>(Optional) Try delete without a card — make sure it is rejected before the number even matters.</li>
+</ol>
+
+<h2>FAQ</h2>
+<p><strong>Why <code>PUT</code>, not <code>POST</code>?</strong><br>
+Both send data, but <code>PUT</code> means “replace the contents of the record whose number I already named”. Using the right verb makes API doors easier for others to read.</p>
+<p><strong>Can I use <code>PATCH</code>?</strong><br>
+Yes. <code>PATCH</code> is usually for changing only some columns. For this exercise <code>PUT</code> is simpler because we send title and author together.</p>
+<p><strong>Why <code>Buku::find</code> then check yourself, not <code>findOrFail</code>?</strong><br>
+<code>findOrFail</code> is also correct and shorter. We use <code>find</code> + <code>if</code> so you see yourself when status <code>404</code> appears, not “magically” from Laravel.</p>
+<p><strong>Do I need to download anything new today?</strong><br>
+No. Update &amp; delete only add two methods in the Controller, two lines in routes, and one small permission in <code>bootstrap\app.php</code> — no new Composer packages. If Sanctum is not installed yet, do install-from-scratch in <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a> first.</p>
+<p><strong>Why 419 / CSRF token mismatch when testing from the terminal?</strong><br>
+Because the CSRF lobby guard blocks all <code>POST</code>, <code>PUT</code>, and <code>DELETE</code> from outside the browser — including login, add, update, and delete. The <code>api/*</code> exception was set up in <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>; once per project and it covers all <code>api/</code> doors. If you see 419 today, almost certainly that exception is missing or <code>serve</code> was not restarted.</p>
+<p><strong>If I later move to <code>routes/api.php</code>, is that exception still needed?</strong><br>
+No. Routes in <code>routes/api.php</code> are not CSRF-guarded from the start, so that exception can be removed. We stay on <code>web.php</code> today so you do not need an extra route file — matching the path used since <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a>.</p>
+<p><strong>Which token do I copy?</strong><br>
+Only the string in the <code>"token"</code> key in the login response. Long, no spaces. Then write in the header: <code>Authorization: Bearer </code> + that string.</p>
+<p><strong>Which terminal for what?</strong><br>
+Terminal 1: <code>serve</code>. Terminal 2: login, see number, update, delete. Editor: <code>update</code> &amp; <code>destroy</code> + routes. Browser: view list only.</p>
+<p><strong>Why still XAMPP Shell / Laragon?</strong><br>
+So PHP PATH matches when the project was created. CMD from Start Menu often answers “php is not recognized”.</p>
+<p><strong>Can a deleted book come back?</strong><br>
+With normal <code>delete()</code>: no. Laravel has “soft delete” for that — good material for learning after this path ends.</p>
+
+<h2>Summary</h2>
+<p><strong>#63 (this article)</strong> completes book-shelf CRUD: <code>PUT /api/buku/{id}</code> to fix data and <code>DELETE /api/buku/{id}</code> to remove it, both require a Sanctum card and return <code>404</code> when the number is missing. Everything builds on
+<a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a>,
+<a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>, and
+<a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>.</p>
+<p><strong>Where next?</strong><br>
+The “Laravel from scratch” path ends here — you can now build a small, fenced API on your own. A good next step: redo <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> without looking at examples, then continue to advanced Laravel topics (table relations, pagination, per-owner permissions, soft delete). To connect the API to real devices, see the <a href="/belajar/fullstack-iot">Full Stack IoT</a> path.</p>
+
+<blockquote>
+  <p><strong>Seri 4 progress:</strong> step <strong>#63 (this article)</strong> · <strong>8/8</strong> Laravel path — <strong>complete</strong> · prerequisite: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> LIVE.</p>
+</blockquote>
+
 HTML;
     }
 }

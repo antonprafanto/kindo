@@ -80,7 +80,7 @@ check(! str_contains($body, '↔'), 'Tanpa Unicode lr-arrow');
 check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
 check(! str_contains($body, 'endpoint'), 'Tanpa jargon endpoint');
 check(str_contains($body, 'ubah') || str_contains($body, 'hapus'), 'Soft bridge #63');
-check(! str_contains($body, '/artikel/laravel-crud-api-buku-ubah-hapus'), 'Tanpa hardlink #63');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article62Seeder.php'), '/artikel/laravel-crud-api-buku-ubah-hapus'), 'Hardlink #62→#63');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(! str_contains($src, 'laravel-eloquent-relasi-peminjaman'), 'Tanpa slug relasi Seri 5 usang');
 check(! str_contains($body, 'Seri 5'), 'Tanpa framing Seri 5 usang');

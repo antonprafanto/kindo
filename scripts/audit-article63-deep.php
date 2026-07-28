@@ -70,8 +70,9 @@ $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.p
 $yml = file_get_contents(__DIR__.'/../.github/workflows/deploy.yml');
 check(str_contains($deploy, 'laravel-crud-api-buku-ubah-hapus'), 'Hook');
 check(str_contains($yml, 'laravel-crud-api-buku-ubah-hapus'), 'CI slug');
-check(preg_match('/Publish article 63 via deploy hook \(kickoff\)\s*\n\s*continue-on-error:\s*true/u', $yml) === 1, 'CI #63 kickoff (continue-on-error)');
-check(! str_contains(file_get_contents(__DIR__.'/../database/seeders/Article62Seeder.php'), 'laravel-crud-api-buku-ubah-hapus'), 'Tanpa hardlink #62→#63 (menyusul)');
+check(str_contains($yml, 'Publish article 63 via deploy hook (required)'), 'CI #63 required');
+check(! preg_match('/Publish article 63 via deploy hook \(kickoff\)\s*\n\s*continue-on-error:\s*true/u', $yml), 'CI #63 bukan kickoff continue-on-error');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article62Seeder.php'), 'laravel-crud-api-buku-ubah-hapus'), 'Hardlink #62→#63 aktif');
 check(str_contains($body, '8/8'), 'Progress 8/8');
 check(str_contains($body, 'Web Lanjut v2') || str_contains($body, 'jalur Laravel'), 'Framing Seri 4 v2');
 check(str_contains($body, 'Awam:'), 'Gloss awam');
@@ -97,6 +98,6 @@ check(! str_contains($body, 'Seri 5'), 'Tanpa framing Seri 5 usang');
 
 echo "\n=== Deep-audit pass-1 #63: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: #63 siap kickoff — CI continue-on-error, hardlink #62 menyusul setelah LIVE.\n";
+    echo "Verdict: #63 EN + hardlink #62 siap — STOP AUDIT → oke deploy.\n";
 }
 exit($failed > 0 ? 1 : 0);

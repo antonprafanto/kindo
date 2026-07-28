@@ -67,12 +67,26 @@ $deploy = file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.p
 
 check(str_contains($routes, 'publish-article-63'), 'Route hook');
 check(str_contains($yml, $slug), 'CI slug');
-check(str_contains($yml, 'Publish article 63 via deploy hook (kickoff)'), 'CI #63 step');
-check(preg_match('/Publish article 63 via deploy hook \(kickoff\)\s*\n\s*continue-on-error:\s*true/u', $yml) === 1, 'CI #63 kickoff (continue-on-error)');
+check(str_contains($yml, 'Publish article 63 via deploy hook (required)'), 'CI #63 step required');
+check(! preg_match('/Publish article 63 via deploy hook \(kickoff\)\s*\n\s*continue-on-error:\s*true/u', $yml), 'CI #63 bukan kickoff continue-on-error');
 check(str_contains($deploy, 'publishArticle63'), 'DeployController');
 check(str_contains($deploy, $slug), 'Hook cek slug');
 check(str_contains($deploy, 'laravel63crudArrow'), 'Hook cek marker SVG');
-check(! str_contains(file_get_contents(__DIR__.'/../database/seeders/Article62Seeder.php'), $slug), 'Tanpa hardlink #62→#63 (menyusul setelah LIVE)');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article62Seeder.php'), $slug), 'Hardlink #62→#63 aktif');
+check(str_contains($src, 'title_en') && str_contains($src, 'body_en') && str_contains($src, 'function bodyEn'), 'Seeder field EN + bodyEn()');
+check(str_contains($deploy, 'English content checks failed'), 'Hook cek EN body');
+
+$refEn = new ReflectionClass(Article63Seeder::class);
+$methodEn = $refEn->getMethod('bodyEn');
+$methodEn->setAccessible(true);
+$bodyEn = $methodEn->invoke($refEn->newInstanceWithoutConstructor());
+check(str_contains($bodyEn, '#63 (this article)'), 'EN self-ref');
+check(str_contains($bodyEn, 'Beginner:') && str_contains($bodyEn, 'Tools used'), 'EN pedagogy Beginner/Tools');
+check(str_contains($bodyEn, 'second terminal') || str_contains($bodyEn, 'How to open a second terminal'), 'EN second terminal');
+check(str_contains($bodyEn, 'laravel63crudArrow') && str_contains($bodyEn, 'curl.exe'), 'EN SVG + curl.exe');
+check(substr_count($bodyEn, '<h2') === substr_count($body, '<h2'), 'EN H2 count = ID');
+check(substr_count($bodyEn, '<pre') === substr_count($body, '<pre'), 'EN pre count = ID');
+
 check(file_exists(__DIR__.'/audit-article63-php.php'), 'audit-article63-php.php');
 check(file_exists(__DIR__.'/audit-article63-sanitize.php'), 'audit-article63-sanitize.php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');

@@ -48,5 +48,15 @@ check(substr_count($body, '#F5F5F0') >= 2, '≥2 figure #F5F5F0');
 check(strlen($body) > 2000, 'Body tidak terpotong pendek');
 check(strlen($raw) - strlen($body) < 500, 'Sanitizer tidak membuang banyak konten (raw='.strlen($raw).' clean='.strlen($body).')');
 
+$methodEn = $ref->getMethod('bodyEn');
+$methodEn->setAccessible(true);
+$rawEn = $methodEn->invoke($ref->newInstanceWithoutConstructor());
+$bodyEn = app(ArticleHtmlSanitizer::class)->sanitize($rawEn);
+check(str_contains($bodyEn, 'laravel63crudArrow'), 'EN SVG marker survives sanitize');
+check(str_contains($bodyEn, '#63 (this article)'), 'EN self-ref survives sanitize');
+check(str_contains($bodyEn, 'Beginner:'), 'EN Beginner marker survives sanitize');
+check(str_contains($bodyEn, 'curl.exe'), 'EN curl.exe survives sanitize');
+check(strlen($rawEn) - strlen($bodyEn) < 800, 'EN sanitizer tidak membuang banyak konten');
+
 echo "\n=== Sanitize spot-check #63: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);
