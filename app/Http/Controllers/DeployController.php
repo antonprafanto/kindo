@@ -4664,6 +4664,29 @@ class DeployController extends Controller
             return response('Article65Seeder class not found on server', 500);
         }
 
+        $prevSlug = 'laravel-eloquent-relasi-peminjaman';
+
+        // Bootstrap #64 jika hilang di prod (recovery path).
+        $a64 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a64) {
+            if (! class_exists(\Database\Seeders\Article64Seeder::class)) {
+                return response('Article64Seeder class not found on server', 500);
+            }
+            $bootstrap64 = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article64Seeder',
+                '--force' => true,
+            ]);
+            if ($bootstrap64 !== 0) {
+                return response('Article 64 bootstrap seed failed', 500);
+            }
+            $a64 = Article::published()->where('slug', $prevSlug)->first();
+            if (! $a64) {
+                report(new \RuntimeException('Article 64 still missing after bootstrap seed in publishArticle65.'));
+
+                return response('Article 64 bootstrap incomplete', 500);
+            }
+        }
+
         $tagExit = Artisan::call('db:seed', [
             '--class' => 'Database\\Seeders\\TagSeeder',
             '--force' => true,
@@ -4683,7 +4706,6 @@ class DeployController extends Controller
         }
 
         $slug = 'laravel-pagination-filter-pencarian';
-        $prevSlug = 'laravel-eloquent-relasi-peminjaman';
 
         $article = Article::published()->where('slug', $slug)->first();
 
@@ -4715,7 +4737,7 @@ class DeployController extends Controller
 
         $a64 = Article::published()->where('slug', $prevSlug)->first();
         if (! $a64) {
-            report(new \RuntimeException('Article 64 missing while publishing #65.'));
+            report(new \RuntimeException('Article 64 missing after bootstrap while publishing #65.'));
 
             return response('Article 65 prerequisite #64 missing', 500);
         }
