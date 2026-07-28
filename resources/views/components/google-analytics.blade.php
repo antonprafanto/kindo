@@ -1,16 +1,18 @@
-@php($gaId = config('services.google_analytics.measurement_id'))
-@if ($gaId && str_starts_with($gaId, 'G-'))
 @php
-    $consent = [
-        'aria' => __('ui.cookie.aria'),
-        'body' => __('ui.cookie.body'),
-        'privacy' => __('ui.cookie.privacy'),
-        'reject' => __('ui.cookie.reject'),
-        'accept' => __('ui.cookie.accept'),
-        'privacyUrl' => route('privacy'),
-    ];
+    $gaId = config('services.google_analytics.measurement_id');
 @endphp
-<script>
+@if ($gaId && str_starts_with($gaId, 'G-'))
+    @php
+        $consent = [
+            'aria' => __('ui.cookie.aria'),
+            'body' => __('ui.cookie.body'),
+            'privacy' => __('ui.cookie.privacy'),
+            'reject' => __('ui.cookie.reject'),
+            'accept' => __('ui.cookie.accept'),
+            'privacyUrl' => route('privacy'),
+        ];
+    @endphp
+    <script>
 (function () {
     var KEY = 'kindo-ga-consent';
     var gaId = @json($gaId);
@@ -73,5 +75,5 @@
         });
     });
 })();
-</script>
+    </script>
 @endif
