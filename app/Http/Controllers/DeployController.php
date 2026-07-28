@@ -4640,6 +4640,120 @@ class DeployController extends Controller
         return response('Article 64 published', 200);
     }
 
+    public function publishArticle65(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        foreach ([
+            'database/seeders/Article65Seeder.php',
+            'database/seeders/Article64Seeder.php',
+        ] as $relative) {
+            $seederPath = base_path($relative);
+            clearstatcache(true, $seederPath);
+            if (function_exists('opcache_invalidate')) {
+                opcache_invalidate($seederPath, true);
+            }
+        }
+
+        if (! class_exists(\Database\Seeders\Article65Seeder::class)) {
+            return response('Article65Seeder class not found on server', 500);
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 65 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article65Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 65 seed failed', 500);
+        }
+
+        $slug = 'laravel-pagination-filter-pencarian';
+        $prevSlug = 'laravel-eloquent-relasi-peminjaman';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 65 missing or not visible after Article65Seeder on deploy hook.'));
+
+            return response('Article 65 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        if (! str_contains($body, 'laravel65pageArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_pagination_filter_pencarian_demo.php') || ! str_contains($body, 'paginate') || ! str_contains($body, 'array_slice') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#65 (ini)') || ! str_contains($body, '2/7') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Persiapan') || ! str_contains($body, 'notepad app\Http\Controllers\PeminjamanController.php')) {
+            report(new \RuntimeException('Article 65 body missing expected content after seed.'));
+
+            return response('Article 65 body content checks failed', 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 65 English fields are incomplete after seed.'));
+
+            return response('Article 65 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        if (! str_contains($bodyEn, '#65 (this article)') || ! str_contains($bodyEn, 'Beginner:') || ! str_contains($bodyEn, 'Tools used in this article') || ! str_contains($bodyEn, 'Preparation') || ! str_contains($bodyEn, 'notepad app\Http\Controllers\PeminjamanController.php') || ! str_contains($bodyEn, 'paginate')) {
+            report(new \RuntimeException('Article 65 EN body missing expected content after seed.'));
+
+            return response('Article 65 EN body content checks failed', 500);
+        }
+
+        $a64 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a64) {
+            report(new \RuntimeException('Article 64 missing while publishing #65.'));
+
+            return response('Article 65 prerequisite #64 missing', 500);
+        }
+
+        // Hardlink #64 → #65: when Article64Seeder includes the slug, reseed if missing on prod.
+        if (str_contains(file_get_contents(base_path('database/seeders/Article64Seeder.php')) ?: '', $slug)
+            && ! str_contains((string) $a64->body, $slug)) {
+            $exit64 = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article64Seeder',
+                '--force' => true,
+            ]);
+            if ($exit64 !== 0) {
+                return response('Article 64 hardlink reseed failed', 500);
+            }
+            $a64 = Article::published()->where('slug', $prevSlug)->first();
+            if (! $a64 || ! str_contains((string) $a64->body, $slug)) {
+                report(new \RuntimeException('Article 64 hardlink to #65 missing after reseed.'));
+
+                return response('Article 64 hardlink to #65 failed', 500);
+            }
+        }
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 65 published', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

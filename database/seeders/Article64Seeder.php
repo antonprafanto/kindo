@@ -407,12 +407,12 @@ Mulai dari Explorer untuk memastikan folder proyek benar, lalu satu terminal di 
 <p><strong>Potongan sintaks diuji di mana?</strong><br>
 Potongan PHP biasa diuji di terminal dengan <code>php nama-file.php</code>. Potongan Laravel ditempel ke file model seperti <code>app\Models\Anggota.php</code> dan <code>app\Models\Peminjaman.php</code>.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya alami: <strong>Pagination, Filter &amp; Pencarian</strong> untuk daftar slip pinjam yang makin panjang.</p>
+Berikutnya alami: <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#65)</a> untuk daftar slip pinjam yang makin panjang.</p>
 
 <h2>Kesimpulan</h2>
-<p>Kamu sudah belajar fondasi relasi: <strong>anggota</strong>, <strong>buku</strong>, dan <strong>peminjaman</strong> saling terhubung. Mulai dari array PHP dulu, lalu pindah ke <code>hasMany</code> dan <code>belongsTo</code> di Laravel. Setelah ini, daftar pinjam panjang akan jauh lebih mudah dibaca dan diolah.</p>
+<p>Kamu sudah belajar fondasi relasi: <strong>anggota</strong>, <strong>buku</strong>, dan <strong>peminjaman</strong> saling terhubung. Mulai dari array PHP dulu, lalu pindah ke <code>hasMany</code> dan <code>belongsTo</code> di Laravel. Setelah ini, lanjut ke <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#65)</a> supaya daftar pinjam panjang terasa rapi dan mudah diolah.</p>
 <blockquote>
-  <p><strong>Seri 5 progress:</strong> langkah <strong>#64 (ini)</strong> · <strong>1/7</strong> Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a> LIVE. Berikutnya: <strong>Pagination, Filter &amp; Pencarian</strong>.</p>
+  <p><strong>Seri 5 progress:</strong> langkah <strong>#64 (ini)</strong> · <strong>1/7</strong> Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a> LIVE. Berikutnya: <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#65)</a>.</p>
 </blockquote>
 HTML;
     }
@@ -754,12 +754,12 @@ Start with Explorer to make sure the project folder is right, then one terminal 
 <p><strong>Where should I test the snippets?</strong><br>
 Plain PHP snippets are tested in a normal terminal with <code>php nama-file.php</code>. Laravel relation snippets are copied into model files like <code>app\Models\Anggota.php</code> and <code>app\Models\Peminjaman.php</code>.</p>
 <p><strong>Where next?</strong><br>
-The natural next step is <strong>Pagination, Filter &amp; Pencarian</strong> for borrowing lists that are getting longer.</p>
+The natural next step is <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#65)</a> for borrowing lists that are getting longer.</p>
 
 <h2>Summary</h2>
-<p>You have learned the foundation of relations: <strong>members</strong>, <strong>books</strong>, and <strong>borrowing</strong> connect to each other. Start from plain PHP arrays first, then move into <code>hasMany</code> and <code>belongsTo</code> in Laravel. After this, long borrowing lists become much easier to read and process.</p>
+<p>You have learned the foundation of relations: <strong>members</strong>, <strong>books</strong>, and <strong>borrowing</strong> connect to each other. Start from plain PHP arrays first, then move into <code>hasMany</code> and <code>belongsTo</code> in Laravel. After this, continue with <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#65)</a> so long borrowing lists feel neat and easy to process.</p>
 <blockquote>
-  <p><strong>Seri 5 progress:</strong> step <strong>#64 (this article)</strong> · <strong>1/7</strong> Laravel Lanjutan · prerequisite: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a> LIVE. Next: <strong>Pagination, Filter &amp; Pencarian</strong>.</p>
+  <p><strong>Seri 5 progress:</strong> step <strong>#64 (this article)</strong> · <strong>1/7</strong> Laravel Lanjutan · prerequisite: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a> LIVE. Next: <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#65)</a>.</p>
 </blockquote>
 HTML;
 
