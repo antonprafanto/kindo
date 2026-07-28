@@ -27,7 +27,11 @@ echo "=== Content / checklist audit #64 ===\n\n";
 $ref = new ReflectionClass(Article64Seeder::class);
 $method = $ref->getMethod('body');
 $method->setAccessible(true);
-$body = $method->invoke($ref->newInstanceWithoutConstructor());
+$enMethod = $ref->getMethod('bodyEn');
+$enMethod->setAccessible(true);
+$instance = $ref->newInstanceWithoutConstructor();
+$body = $method->invoke($instance);
+$bodyEn = $enMethod->invoke($instance);
 $src = file_get_contents(__DIR__.'/../database/seeders/Article64Seeder.php');
 $slug = 'laravel-eloquent-relasi-peminjaman';
 
@@ -54,6 +58,7 @@ check(str_contains(file_get_contents(__DIR__.'/../routes/web.php'), 'publish-art
 check(str_contains($body, '1/7'), 'Progress 1/7');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat awam');
 check(str_contains($body, 'Awam:'), 'Gloss awam');
+check(str_contains($body, 'Persiapan') && str_contains($body, 'notepad app\Models\Anggota.php'), 'Tools-first ID');
 check(! str_contains($body, 'TODO') && ! str_contains($body, 'Belum perlu hardlink') && ! str_contains($body, 'soft, belum hardlink') && ! str_contains($body, 'STOP AUDIT'), 'Tanpa suara editor');
 check(! preg_match('/<a\b[^>]*>\s*#\d+\s*<\/a>/u', $body), 'Tanpa thin anchor #N');
 check(file_exists(__DIR__.'/audit-article64.php'), 'Audit utama ada');
@@ -75,12 +80,15 @@ check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
 check(str_contains($body, 'pemanggil') && str_contains($body, 'yang memanggil API'), 'Gloss pemanggil');
 check(str_contains($body, 'pengatur kode') || str_contains($body, 'controller'), 'Gloss controller');
 check(str_contains($body, 'relasi') && str_contains($body, 'peminjaman'), 'Relasi awam-first');
+check(str_contains($src, "'title_en'") && str_contains($src, "'body_en'"), 'Field EN ada');
+check(str_contains($bodyEn, '#64 (this article)') && str_contains($bodyEn, 'Beginner:'), 'Body EN ada');
+check(str_contains($bodyEn, 'Tools used in this article') && str_contains($bodyEn, 'Install-from-scratch'), 'Tools-first EN');
 check(! str_contains($body, 'supaya UI '), 'Tanpa jargon UI');
 check(substr_count($body, '<a ') - substr_count($body, '</a>') === 0, 'Thin anchor balance');
 $noSvg = preg_replace('/<svg\b.*?<\/svg>/is', '', $body) ?? $body;
 $noA = preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $noSvg) ?? $noSvg;
 check(! preg_match('/(?<![\w\/"#>])#6[0-9](?!\s*\(ini\))/', strip_tags($noA)), 'Thin/bare numbered = 0');
-check(! str_contains(file_get_contents(__DIR__.'/../database/seeders/Article63Seeder.php'), $slug), '#63 belum hardlink #64');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article63Seeder.php'), $slug), '#63 hardlink #64');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

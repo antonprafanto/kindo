@@ -614,6 +614,8 @@ Terminal 1: <code>serve</code>. Terminal 2: login, lihat nomor, ubah, hapus. Edi
 Agar PATH PHP sama seperti saat proyek dibuat. CMD dari Start Menu sering menjawab “php tidak dikenal”.</p>
 <p><strong>Buku yang dihapus bisa dikembalikan?</strong><br>
 Dengan <code>delete()</code> biasa: tidak. Laravel punya fitur “hapus lunak” (soft delete) untuk itu — bahan bagus untuk belajar lanjutan setelah jalur ini tamat.</p>
+<p><strong>Kalau saya mau lanjut belajar setelah jalur dasar ini selesai, mulai dari mana?</strong><br>
+Mulai dari <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent: Anggota &amp; Peminjaman (#64)</a>. Di situ kamu belajar cara menghubungkan buku, anggota, dan slip pinjam sebelum masuk ke daftar berhalaman, policy, resource, dan test.</p>
 
 <h2>Ringkasan</h2>
 <p><strong>#63 (ini)</strong> melengkapi CRUD rak buku: <code>PUT /api/buku/{id}</code> untuk memperbaiki data dan <code>DELETE /api/buku/{id}</code> untuk membuangnya, keduanya wajib kartu Sanctum dan mengembalikan <code>404</code> bila nomornya tidak ada. Semua bertumpu pada
@@ -621,10 +623,10 @@ Dengan <code>delete()</code> biasa: tidak. Laravel punya fitur “hapus lunak”
 <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>, dan
 <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Jalur “Laravel dari nol” tamat di sini — kamu sudah bisa membangun API kecil yang utuh dan berpagar. Langkah bagus berikutnya: ulangi <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> tanpa melihat contoh, lalu lanjutkan ke topik Laravel lanjutan (relasi antar tabel, daftar berhalaman, izin per-pemilik, hapus lunak). Kalau ingin menyambungkan API ke perangkat nyata, lihat jalur <a href="/belajar/fullstack-iot">Full Stack IoT</a>.</p>
+Jalur “Laravel dari nol” tamat di sini — kamu sudah bisa membangun API kecil yang utuh dan berpagar. Langkah alami berikutnya adalah <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent: Anggota &amp; Peminjaman (#64)</a>, supaya buku, anggota, dan slip pinjam bisa saling terhubung rapi. Kalau ingin menyambungkan API ke perangkat nyata, lihat jalur <a href="/belajar/fullstack-iot">Full Stack IoT</a>.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> langkah <strong>#63 (ini)</strong> · <strong>8/8</strong> jalur Laravel — <strong>tamat</strong> · prasyarat: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> LIVE.</p>
+  <p><strong>Seri 4 progress:</strong> langkah <strong>#63 (ini)</strong> · <strong>8/8</strong> jalur Laravel — <strong>tamat</strong> · prasyarat: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> LIVE · lanjut alami: <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent: Anggota &amp; Peminjaman (#64)</a>.</p>
 </blockquote>
 HTML;
     }
@@ -1169,6 +1171,8 @@ Terminal 1: <code>serve</code>. Terminal 2: login, see number, update, delete. E
 So PHP PATH matches when the project was created. CMD from Start Menu often answers “php is not recognized”.</p>
 <p><strong>Can a deleted book come back?</strong><br>
 With normal <code>delete()</code>: no. Laravel has “soft delete” for that — good material for learning after this path ends.</p>
+<p><strong>If I want to continue learning after this base path ends, where should I start?</strong><br>
+Start with <a href="/artikel/laravel-eloquent-relasi-peminjaman">Eloquent Relations: Members &amp; Borrowing (#64)</a>. That is where you learn how books, members, and borrowing slips connect before moving into pagination, policies, resources, and tests.</p>
 
 <h2>Summary</h2>
 <p><strong>#63 (this article)</strong> completes book-shelf CRUD: <code>PUT /api/buku/{id}</code> to fix data and <code>DELETE /api/buku/{id}</code> to remove it, both require a Sanctum card and return <code>404</code> when the number is missing. Everything builds on
@@ -1176,10 +1180,10 @@ With normal <code>delete()</code>: no. Laravel has “soft delete” for that �
 <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>, and
 <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>.</p>
 <p><strong>Where next?</strong><br>
-The “Laravel from scratch” path ends here — you can now build a small, fenced API on your own. A good next step: redo <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> without looking at examples, then continue to advanced Laravel topics (table relations, pagination, per-owner permissions, soft delete). To connect the API to real devices, see the <a href="/belajar/fullstack-iot">Full Stack IoT</a> path.</p>
+The “Laravel from scratch” path ends here — you can now build a small, fenced API on your own. The natural next step is <a href="/artikel/laravel-eloquent-relasi-peminjaman">Eloquent Relations: Members &amp; Borrowing (#64)</a>, so books, members, and borrowing slips can connect neatly. To connect the API to real devices, see the <a href="/belajar/fullstack-iot">Full Stack IoT</a> path.</p>
 
 <blockquote>
-  <p><strong>Seri 4 progress:</strong> step <strong>#63 (this article)</strong> · <strong>8/8</strong> Laravel path — <strong>complete</strong> · prerequisite: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> LIVE.</p>
+  <p><strong>Seri 4 progress:</strong> step <strong>#63 (this article)</strong> · <strong>8/8</strong> Laravel path — <strong>complete</strong> · prerequisite: <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> LIVE · natural next: <a href="/artikel/laravel-eloquent-relasi-peminjaman">Eloquent Relations: Members &amp; Borrowing (#64)</a>.</p>
 </blockquote>
 
 HTML;

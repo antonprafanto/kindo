@@ -27,7 +27,11 @@ echo "=== Deep-audit pass-1 #64 ===\n\n";
 $ref = new ReflectionClass(Article64Seeder::class);
 $method = $ref->getMethod('body');
 $method->setAccessible(true);
-$body = $method->invoke($ref->newInstanceWithoutConstructor());
+$enMethod = $ref->getMethod('bodyEn');
+$enMethod->setAccessible(true);
+$instance = $ref->newInstanceWithoutConstructor();
+$body = $method->invoke($instance);
+$bodyEn = $enMethod->invoke($instance);
 $src = file_get_contents(__DIR__.'/../database/seeders/Article64Seeder.php');
 $plain = trim(preg_replace('/\s+/u', ' ', strip_tags($body)) ?? '');
 $words = preg_split('/\s+/u', $plain, -1, PREG_SPLIT_NO_EMPTY) ?: [];
@@ -54,12 +58,15 @@ check(str_contains($body, 'laravel_eloquent_relasi_peminjaman_demo.php') && str_
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar');
 check(str_contains($body, 'Kesalahan umum') && str_contains($body, 'Latihan') && str_contains($body, 'FAQ'), 'KU/Latihan/FAQ');
 check(str_contains($src, 'laravel-eloquent-relasi-peminjaman'), 'Slug');
+check(str_contains($src, "'title_en'") && str_contains($src, "'body_en'"), 'Field EN');
+check(str_contains($bodyEn, '#64 (this article)') && str_contains($bodyEn, 'Beginner:'), 'EN body dasar');
+check(str_contains($bodyEn, 'Tools used in this article') && str_contains($bodyEn, 'Preparation'), 'EN tools-first');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, 'web-development'), 'Kategori web-development');
 check(str_contains(file_get_contents(__DIR__.'/../app/Http/Controllers/DeployController.php'), 'publishArticle64'), 'Hook');
 check(! preg_match('/Publish article 64 via deploy hook \(required\)\s*\n\s*continue-on-error:\s*true/u', file_get_contents(__DIR__.'/../.github/workflows/deploy.yml')), 'CI #64 tidak continue-on-error');
-check(! str_contains(file_get_contents(__DIR__.'/../database/seeders/Article63Seeder.php'), 'laravel-eloquent-relasi-peminjaman'), '#63 belum hardlink #64');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article63Seeder.php'), 'laravel-eloquent-relasi-peminjaman'), '#63 hardlink #64');
 check(str_contains($body, '1/7'), 'Progress 1/7');
 check(str_contains($body, 'Laravel Lanjutan') || str_contains($body, 'Framework-based'), 'Framing Seri 5');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'Awam:'), 'Gloss awam');
@@ -81,6 +88,6 @@ check(! preg_match('/<a\b[^>]*>\s*#\d+\s*<\/a>/u', $body), 'Tanpa thin anchor #N
 
 echo "\n=== Deep-audit pass-1 #64: {$passed} passed, {$failed} failed ===\n";
 if ($failed === 0) {
-    echo "Verdict: KICKOFF #64 relasi siap lanjut — hardlink #65 ditunda. STOP AUDIT → belum deploy.\n";
+    echo "Verdict: #64 relasi ID+EN + hardlink #63 siap — STOP AUDIT → oke deploy.\n";
 }
 exit($failed > 0 ? 1 : 0);

@@ -29,7 +29,11 @@ echo "=== Audit Artikel #64 — Relasi Eloquent ===\n\n";
 $ref = new ReflectionClass(Article64Seeder::class);
 $method = $ref->getMethod('body');
 $method->setAccessible(true);
-$body = $method->invoke($ref->newInstanceWithoutConstructor());
+$enMethod = $ref->getMethod('bodyEn');
+$enMethod->setAccessible(true);
+$instance = $ref->newInstanceWithoutConstructor();
+$body = $method->invoke($instance);
+$bodyEn = $enMethod->invoke($instance);
 $src = file_get_contents(__DIR__.'/../database/seeders/Article64Seeder.php');
 
 check(str_contains($body, '#64 (ini)'), 'Self-ref');
@@ -43,6 +47,9 @@ check(str_contains($body, 'laravel_eloquent_relasi_peminjaman_demo.php'), 'File 
 check(str_contains($body, 'Seri 5'), 'Seri 5');
 check(str_contains($body, 'language-php'), 'language-php');
 check(substr_count($body, '<h2') >= 8, '≥8 H2');
+check(str_contains($src, "'title_en'") && str_contains($src, "'body_en'") && str_contains($src, 'function bodyEn'), 'Seeder field EN + bodyEn()');
+check(str_contains($bodyEn, '#64 (this article)') && str_contains($bodyEn, 'Beginner:'), 'Body EN dasar');
+check(str_contains($bodyEn, 'Tools used in this article') && str_contains($bodyEn, 'Preparation'), 'EN tools-first');
 check(str_contains($src, $slug), 'Slug di seeder');
 check(str_contains($body, '/artikel/laravel-crud-api-buku-ubah-hapus'), 'Link #63');
 check(! preg_match('/(?<![\w\/"#>])#65(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak bare #65');
@@ -67,7 +74,7 @@ check(! str_contains($body, 'closure'), 'Tanpa jargon closure');
 check((str_contains($body, 'Pagination') || str_contains($body, 'Filter')) && ! str_contains($body, '/artikel/laravel-pagination-filter-pencarian'), 'Soft bridge #65');
 check(! str_contains($body, '/artikel/laravel-api-resource-json'), 'Tanpa hardlink #65');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
-check(! str_contains(file_get_contents(__DIR__.'/../database/seeders/Article63Seeder.php'), $slug), '#63 belum hardlink #64');
+check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article63Seeder.php'), $slug), '#63 hardlink #64');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);

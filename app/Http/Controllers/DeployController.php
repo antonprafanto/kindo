@@ -4581,10 +4581,23 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel64relasiArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_eloquent_relasi_peminjaman_demo.php') || ! str_contains($body, 'belongsTo') || ! str_contains($body, 'hasMany') || ! str_contains($body, 'relasi') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#64 (ini)') || ! str_contains($body, '1/7') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar')) {
+        if (! str_contains($body, 'laravel64relasiArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_eloquent_relasi_peminjaman_demo.php') || ! str_contains($body, 'belongsTo') || ! str_contains($body, 'hasMany') || ! str_contains($body, 'relasi') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#64 (ini)') || ! str_contains($body, '1/7') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Persiapan') || ! str_contains($body, 'notepad app\Models\Anggota.php')) {
             report(new \RuntimeException('Article 64 body missing expected content after seed.'));
 
             return response('Article 64 body content checks failed', 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 64 English fields are incomplete after seed.'));
+
+            return response('Article 64 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        if (! str_contains($bodyEn, '#64 (this article)') || ! str_contains($bodyEn, 'Beginner:') || ! str_contains($bodyEn, 'Tools used in this article') || ! str_contains($bodyEn, 'Preparation') || ! str_contains($bodyEn, 'notepad app\Models\Anggota.php') || ! str_contains($bodyEn, 'belongsTo') || ! str_contains($bodyEn, 'hasMany')) {
+            report(new \RuntimeException('Article 64 EN body missing expected content after seed.'));
+
+            return response('Article 64 EN body content checks failed', 500);
         }
 
         $a63 = Article::published()->where('slug', $prevSlug)->first();
@@ -4592,6 +4605,22 @@ class DeployController extends Controller
             report(new \RuntimeException('Article 63 missing while publishing #64.'));
 
             return response('Article 64 prerequisite #63 missing', 500);
+        }
+
+        if (! str_contains((string) $a63->body, $slug)) {
+            $exit63 = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article63Seeder',
+                '--force' => true,
+            ]);
+            if ($exit63 !== 0) {
+                return response('Article 63 hardlink reseed failed', 500);
+            }
+            $a63 = Article::published()->where('slug', $prevSlug)->first();
+            if (! $a63 || ! str_contains((string) $a63->body, $slug) || ! str_contains((string) $a63->body_en, $slug)) {
+                report(new \RuntimeException('Article 63 hardlink to #64 missing after reseed.'));
+
+                return response('Article 63 hardlink to #64 failed', 500);
+            }
         }
 
         try {
