@@ -46,6 +46,7 @@ class Article65Seeder extends Seeder
                 'category_id'        => $webCat->id,
                 'title'              => 'Pagination, Filter & Pencarian',
                 'title_en'           => 'Pagination, Filtering & Search',
+                'excerpt'            => 'Seri 5 #65: setelah relasi anggota & pinjam, potong daftar per halaman, filter status, dan cari dengan ?q=. Ramah awam, PHP dulu lalu paginate().',
                 'excerpt_en'         => 'Seri 5 #65: after relations, learn to page borrowing lists, filter status, and search with ?q= — plain PHP first, then Laravel paginate().',
                 'body'               => $this->body(),
                 'body_en'            => $this->bodyEn(),
@@ -59,7 +60,12 @@ class Article65Seeder extends Seeder
         );
         // cover_image tidak disentuh — upload manual via Filament
 
+        // published_at setelah #64 supaya urutan "Terbaru" di /artikel tidak menjatuhkan #65 ke tengah daftar
+        $prevPublished = Article::where('slug', 'laravel-eloquent-relasi-peminjaman')->value('published_at');
         if ($article->wasRecentlyCreated || ! $article->published_at) {
+            $article->published_at = now();
+            $article->save();
+        } elseif ($prevPublished && $article->published_at <= $prevPublished) {
             $article->published_at = now();
             $article->save();
         }

@@ -44,10 +44,16 @@ class Article extends Model
                 $words = str_word_count(strip_tags($article->body));
                 $article->read_time_minutes = max(1, (int) ceil($words / 200));
             }
-            if (empty($article->excerpt) && $article->body) {
+            // Refresh listing excerpt when body changes (unless excerpt was set explicitly
+            // in the same save). Prevents stale "#N (ini)" numbers after series renumber.
+            if ($article->isDirty('body') && is_string($article->body) && ! $article->isDirty('excerpt')) {
+                $article->excerpt = Str::limit(strip_tags($article->body), 200);
+            } elseif (empty($article->excerpt) && $article->body) {
                 $article->excerpt = Str::limit(strip_tags($article->body), 200);
             }
-            if (empty($article->excerpt_en) && $article->body_en) {
+            if ($article->isDirty('body_en') && is_string($article->body_en) && ! $article->isDirty('excerpt_en')) {
+                $article->excerpt_en = Str::limit(strip_tags($article->body_en), 200);
+            } elseif (empty($article->excerpt_en) && $article->body_en) {
                 $article->excerpt_en = Str::limit(strip_tags($article->body_en), 200);
             }
             if ($article->status === 'published' && $article->published_at === null) {

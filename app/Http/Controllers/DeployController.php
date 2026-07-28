@@ -4789,6 +4789,14 @@ class DeployController extends Controller
             }
         }
 
+        // Refresh excerpt kartu listing (#N basi di /artikel setelah renumber seri).
+        if ($this->ensureSeederClass('database/seeders/RefreshLaravelSeriesExcerptsSeeder.php', \Database\Seeders\RefreshLaravelSeriesExcerptsSeeder::class)) {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\RefreshLaravelSeriesExcerptsSeeder',
+                '--force' => true,
+            ]);
+        }
+
         try {
             app(SitemapService::class)->writeToDisk();
         } catch (\Throwable $e) {
