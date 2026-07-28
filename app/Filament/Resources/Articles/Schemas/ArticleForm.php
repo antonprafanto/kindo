@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Articles\Schemas;
 
+use App\Filament\Support\SeoFormFields;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Placeholder;
@@ -273,18 +274,9 @@ class ArticleForm
                             ->columnSpanFull(),
                     ]),
 
-                TextInput::make('seo_title_en')
-                    ->label('SEO Title (EN)')
-                    ->maxLength(70)
-                    ->helperText(fn (?string $state): string => mb_strlen($state ?? '').'/70 characters')
-                    ->columnSpanFull(),
+                SeoFormFields::title('seo_title_en', 'SEO Title (EN)', 'shown in browser tab & search results'),
 
-                Textarea::make('seo_description_en')
-                    ->label('Meta Description (EN)')
-                    ->rows(3)
-                    ->maxLength(160)
-                    ->helperText(fn (?string $state): string => mb_strlen($state ?? '').'/160 characters')
-                    ->columnSpanFull(),
+                SeoFormFields::description('seo_description_en', 'Meta Description (EN)', 'Google/social snippet'),
             ])
             ->columns(1)
             ->columnSpanFull()
@@ -388,26 +380,9 @@ class ArticleForm
         $components[] = Section::make('SEO (opsional)')
             ->description('Kosongkan untuk memakai judul & ringkasan artikel secara otomatis')
             ->schema([
-                TextInput::make('seo_title')
-                    ->label('Judul SEO')
-                    ->maxLength(70)
-                    ->live(onBlur: true)
-                    ->helperText(fn (?string $state): string => mb_strlen($state ?? '').'/70 karakter — tampil di tab browser & hasil pencarian')
-                    ->validationMessages([
-                        'max' => 'Judul SEO maksimal 70 karakter.',
-                    ])
-                    ->columnSpanFull(),
+                SeoFormFields::title('seo_title', 'Judul SEO', 'tampil di tab browser & hasil pencarian'),
 
-                Textarea::make('seo_description')
-                    ->label('Meta Description')
-                    ->rows(3)
-                    ->maxLength(160)
-                    ->live(debounce: 300)
-                    ->helperText(fn (?string $state): string => mb_strlen($state ?? '').'/160 karakter — cuplikan di Google/sosial')
-                    ->validationMessages([
-                        'max' => 'Meta Description maksimal 160 karakter.',
-                    ])
-                    ->columnSpanFull(),
+                SeoFormFields::description('seo_description', 'Meta Description', 'cuplikan di Google/sosial'),
             ])
             ->columns(1)
             ->columnSpanFull()

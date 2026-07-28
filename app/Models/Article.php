@@ -52,6 +52,18 @@ class Article extends Model
             if ($article->status === 'published' && $article->published_at === null) {
                 $article->published_at = now();
             }
+
+            foreach ([
+                'seo_title' => 70,
+                'seo_title_en' => 70,
+                'seo_description' => 160,
+                'seo_description_en' => 160,
+            ] as $field => $max) {
+                $value = $article->{$field};
+                if (is_string($value) && mb_strlen($value) > $max) {
+                    $article->{$field} = mb_substr($value, 0, $max);
+                }
+            }
         });
     }
 
