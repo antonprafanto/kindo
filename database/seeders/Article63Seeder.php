@@ -631,7 +631,7 @@ HTML;
 
     private function bodyEn(): string
     {
-        return <<<'HTML'
+        $html = <<<'HTML'
 <h2>Introduction — finishing the library shelf</h2>
 <p>This article is <strong>#63 (this article)</strong> in <strong>Seri 4: Pemrograman Web Lanjut v2</strong> — step <strong>8/8</strong>, the closing chapter of the Laravel from-scratch path.</p>
 <p>In <a href="/artikel/capstone-api-perpustakaan-laravel">Capstone: API Perpustakaan (#62)</a> staff can already <strong>read</strong> the catalog and <strong>add</strong> books with a card. But real life needs two more things: <strong>fixing</strong> data that was typed wrong, and <strong>removing</strong> books that are no longer on the shelf.</p>
@@ -1183,5 +1183,27 @@ The “Laravel from scratch” path ends here — you can now build a small, fen
 </blockquote>
 
 HTML;
+
+        return str_replace(
+            [
+                'Seri 4: Pemrograman Web Lanjut v2',
+                'Capstone: API Perpustakaan (#62)',
+                'Auth API Dasar: Login &amp; Kartu Anggota (#61)',
+                'Request &amp; Form Request: Menjaga Input API (#59)',
+                'Instal PHP, Composer &amp; Proyek Laravel (#56)',
+                'Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)',
+                'Routing &amp; Jawaban JSON API Perpustakaan (#58)',
+            ],
+            [
+                'Seri 4: Advanced Web Programming v2',
+                'Capstone: Library API (Read + Login + Add) (#62)',
+                'Basic Auth API: Login & Member Card (#61)',
+                'Request & Form Request: Guarding API Input (#59)',
+                'Install PHP, Composer & Your First Laravel Project (#56)',
+                'Folder Structure, <code>.env</code> & Artisan Laravel (#57)',
+                'Routing & JSON Responses for the Library API (#58)',
+            ],
+            $html
+        );
     }
 }

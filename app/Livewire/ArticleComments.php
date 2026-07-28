@@ -68,12 +68,12 @@ class ArticleComments extends Component
             'body'         => 'required|string|min:10|max:2000',
             'replyingTo'   => 'nullable|integer',
         ], [
-            'author_name.required'  => 'Nama wajib diisi.',
-            'author_email.required' => 'Email wajib diisi.',
-            'author_email.email'    => 'Format email tidak valid.',
-            'body.required'         => 'Komentar wajib diisi.',
-            'body.min'              => 'Komentar minimal 10 karakter.',
-            'body.max'              => 'Komentar maksimal 2000 karakter.',
+            'author_name.required'  => __('ui.comments.validation.name_required'),
+            'author_email.required' => __('ui.comments.validation.email_required'),
+            'author_email.email'    => __('ui.comments.validation.email_invalid'),
+            'body.required'         => __('ui.comments.validation.body_required'),
+            'body.min'              => __('ui.comments.validation.body_min'),
+            'body.max'              => __('ui.comments.validation.body_max'),
         ]);
 
         if ($this->replyingTo) {
@@ -84,7 +84,7 @@ class ArticleComments extends Component
                 ->find($this->replyingTo);
 
             if (! $parent) {
-                $this->addError('body', 'Komentar yang dibalas tidak ditemukan.');
+                $this->addError('body', __('ui.comments.validation.parent_missing'));
 
                 return;
             }
@@ -99,7 +99,7 @@ class ArticleComments extends Component
             }
 
             if (blank($this->turnstileToken) || ! $turnstile->verify($this->turnstileToken, request()->ip())) {
-                $this->addError('turnstile', 'Verifikasi keamanan gagal. Silakan coba lagi.');
+                $this->addError('turnstile', __('ui.comments.validation.turnstile_failed'));
                 $this->turnstileRequested = false;
                 $this->dispatch('reset-turnstile');
 
@@ -110,7 +110,7 @@ class ArticleComments extends Component
         $key = 'comment:' . request()->ip();
         if (RateLimiter::tooManyAttempts($key, 5)) {
             $seconds = RateLimiter::availableIn($key);
-            $this->addError('body', "Terlalu banyak percobaan. Silakan coba lagi dalam {$seconds} detik.");
+            $this->addError('body', __('ui.comments.validation.rate_limit', ['seconds' => $seconds]));
 
             return;
         }
@@ -146,7 +146,7 @@ class ArticleComments extends Component
             ]);
         }
 
-        $this->successMessage = 'Komentar kamu menunggu moderasi. Terima kasih!';
+        $this->successMessage = __('ui.comments.success');
         $this->resetForm();
         $this->dispatch('reset-turnstile');
     }

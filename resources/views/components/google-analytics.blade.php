@@ -1,9 +1,20 @@
 @php($gaId = config('services.google_analytics.measurement_id'))
 @if ($gaId && str_starts_with($gaId, 'G-'))
+@php
+    $consent = [
+        'aria' => __('ui.cookie.aria'),
+        'body' => __('ui.cookie.body'),
+        'privacy' => __('ui.cookie.privacy'),
+        'reject' => __('ui.cookie.reject'),
+        'accept' => __('ui.cookie.accept'),
+        'privacyUrl' => route('privacy'),
+    ];
+@endphp
 <script>
 (function () {
     var KEY = 'kindo-ga-consent';
     var gaId = @json($gaId);
+    var consent = @json($consent);
 
     function loadGa() {
         if (window.__kindoGaLoaded) return;
@@ -38,16 +49,16 @@
         var bar = document.createElement('div');
         bar.id = 'ga-consent-bar';
         bar.setAttribute('role', 'dialog');
-        bar.setAttribute('aria-label', 'Persetujuan analitik');
+        bar.setAttribute('aria-label', consent.aria);
         bar.className = 'fixed bottom-0 inset-x-0 z-[90] border-t-2 border-black theme-paper p-4';
         bar.style.boxShadow = '0 -4px 0 #000';
         bar.innerHTML =
             '<div class="max-w-6xl mx-auto flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6">' +
-            '<p class="text-sm theme-body flex-1">Kami memakai Google Analytics anonim untuk memahami kunjungan. ' +
-            '<a href="/kebijakan-privasi" class="underline font-semibold">Kebijakan Privasi</a></p>' +
+            '<p class="text-sm theme-body flex-1">' + consent.body +
+            '<a href="' + consent.privacyUrl + '" class="underline font-semibold">' + consent.privacy + '</a></p>' +
             '<div class="flex gap-2 flex-shrink-0">' +
-            '<button type="button" id="ga-consent-reject" class="btn-brutal btn-outline px-4 py-2 text-xs">Tolak</button>' +
-            '<button type="button" id="ga-consent-accept" class="btn-brutal btn-primary px-4 py-2 text-xs">Setuju</button>' +
+            '<button type="button" id="ga-consent-reject" class="btn-brutal btn-outline px-4 py-2 text-xs">' + consent.reject + '</button>' +
+            '<button type="button" id="ga-consent-accept" class="btn-brutal btn-primary px-4 py-2 text-xs">' + consent.accept + '</button>' +
             '</div></div>';
         document.body.appendChild(bar);
 
