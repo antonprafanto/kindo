@@ -267,6 +267,26 @@ Route::middleware('auth:sanctum')-&gt;get('/api/saya', [AuthController::class, '
 <p>Simpan. Pastikan <code>serve</code> masih hidup di terminal pertama.</p>
 <p><strong>Awam:</strong> <code>auth:sanctum</code> = satpam kartu di pintu <code>/api/saya</code>. Tanpa header Bearer yang sah, tamu ditolak.</p>
 
+<h2>Cek izin api/* — supaya login tidak ditolak 419</h2>
+<p>Laravel punya satpam lobi bawaan bernama <strong>CSRF</strong> yang melindungi formulir web: ia menolak semua kiriman <code>POST</code> yang tidak datang dari halaman browser milik situs itu sendiri. Karena kita menguji <code>POST /api/login</code> dari <strong>terminal</strong> (bukan browser), tanpa izin khusus jawabannya adalah <code>{"message":"CSRF token mismatch."}</code> dengan kode <strong>419</strong> — bukan token.</p>
+<p><strong>Kalau di dalam <code>withMiddleware</code> sudah ada <code>'api/*'</code></strong> (biasanya dari <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>) — <strong>lewati langkah ini</strong>. Penjelasan panjangnya ada di artikel itu.</p>
+<p><strong>Belum ada?</strong> Pastikan terminal kedua sudah di folder proyek (<code>cd</code> ke <code>perpustakaan-api</code>), lalu <code>notepad bootstrap\app.php</code>. <strong>Jangan menempel</strong> blok <code>-&gt;withMiddleware(...)</code> baru di dalam fungsi yang sudah ada. Kerja di dalam fungsi itu: hapus <code>//</code> kalau masih ada, biarkan baris lain, lalu tempel <strong>hanya</strong>:</p>
+<pre><code class="language-php">// Tempel di dalam withMiddleware yang sudah ada — jangan buat withMiddleware baru
+$middleware-&gt;preventRequestForgery(except: [
+    'api/*',
+]);
+</code></pre>
+<p>Hasil yang benar kira-kira begini (boleh ada baris lain di sekitarnya):</p>
+<pre><code class="language-php">-&gt;withMiddleware(function (Middleware $middleware): void {
+    $middleware-&gt;preventRequestForgery(except: [
+        'api/*',
+    ]);
+})
+</code></pre>
+<p><strong>Awam:</strong> <code>except</code> = “kecuali”. Di Laravel 13 nama resminya <code>preventRequestForgery</code>; nama lama <code>validateCsrfTokens</code> masih sama artinya.</p>
+<p><strong>Setiap kali menyimpan <code>bootstrap\app.php</code></strong>, matikan <code>serve</code> di terminal pertama (<code>Ctrl+C</code>) lalu <code>php artisan serve</code> lagi — file itu hanya dibaca saat aplikasi mulai.</p>
+<p><strong>Tenang, kartunya tetap aman.</strong> Pagar yang menjaga <code>/api/saya</code> adalah petugas kartu Sanctum yang kamu pasang di artikel ini — CSRF itu satpam lobi untuk formulir browser, jenis yang berbeda.</p>
+
 <h2>Uji di terminal kedua</h2>
 <p>Jangan andalkan bilah alamat browser untuk POST login. Ikuti pola uji di <a href="/artikel/laravel-request-validasi-api">Request &amp; Form Request: Menjaga Input API (#59)</a>.</p>
 <p><strong>Opsi A — <code>curl.exe</code></strong> (Windows 10/11 biasanya sudah punya; ketik <code>curl.exe</code> agar tidak tertukar di PowerShell):</p>
@@ -402,6 +422,11 @@ demo();
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><code>CSRF token mismatch</code> / kode <code>419</code> saat login</td>
+      <td>Izin <code>api/*</code> di <code>bootstrap\app.php</code> belum dipasang, atau <code>serve</code> belum dinyalakan ulang</td>
+      <td>Pasang <code>preventRequestForgery(except: ['api/*'])</code> (jangan timpa baris lain), lalu <code>Ctrl+C</code> dan <code>php artisan serve</code> lagi</td>
+    </tr>
     <tr>
       <td><code>composer</code> tidak dikenal</td>
       <td>Terminal Start Menu / PATH</td>

@@ -4421,6 +4421,10 @@ class DeployController extends Controller
     {
         $this->authorizeDeployHook();
 
+        if (function_exists('set_time_limit')) {
+            @set_time_limit(150);
+        }
+
         if (function_exists('opcache_reset')) {
             opcache_reset();
         }
@@ -4458,8 +4462,8 @@ class DeployController extends Controller
             return response('Article 63 seed failed', 500);
         }
 
-        $slug = 'laravel-pagination-filter-pencarian';
-        $prevSlug = 'laravel-eloquent-relasi-peminjaman';
+        $slug = 'laravel-crud-api-buku-ubah-hapus';
+        $prevSlug = 'capstone-api-perpustakaan-laravel';
 
         $article = Article::published()->where('slug', $slug)->first();
 
@@ -4470,7 +4474,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel63pageArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_pagination_filter_pencarian_demo.php') || ! str_contains($body, 'paginate') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#63 (ini)') || ! str_contains($body, '3/8 Laravel Lanjutan') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Isian halaman belum rapi') || ! str_contains($body, 'Policy') || ! str_contains($body, 'array_slice') || ! str_contains($body, 'Pola Dasar')) {
+        if (! str_contains($body, 'laravel63crudArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_crud_api_buku_ubah_hapus_demo.php') || ! str_contains($body, 'BukuController') || ! str_contains($body, 'auth:sanctum') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 4') || ! str_contains($body, '#63 (ini)') || ! str_contains($body, '8/8') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Laravel 13+') || ! str_contains($body, 'Alat yang dipakai') || ! str_contains($body, 'terminal kedua') || ! str_contains($body, 'curl.exe') || ! str_contains($body, 'Buku tidak ditemukan') || ! str_contains($body, 'destroy')) {
             report(new \RuntimeException('Article 63 body missing expected content after seed.'));
 
             return response('Article 63 body content checks failed', 500);
@@ -4483,22 +4487,8 @@ class DeployController extends Controller
             return response('Article 63 prerequisite #62 missing', 500);
         }
 
-        if (class_exists(\Database\Seeders\Article62Seeder::class)) {
-            $backExit = Artisan::call('db:seed', [
-                '--class' => 'Database\\Seeders\\Article62Seeder',
-                '--force' => true,
-            ]);
-            if ($backExit !== 0) {
-                return response('Article 63 backlink #62 seed failed', 500);
-            }
-        }
-
-        $a62 = Article::published()->where('slug', $prevSlug)->first();
-        if (! $a62 || ! str_contains((string) $a62->body, $slug)) {
-            report(new \RuntimeException('Article 63 backlink missing on #62 after reseed.'));
-
-            return response('Article 63 backlink #62 incomplete', 500);
-        }
+        // Hardlink #62 -> #63 menyusul setelah #63 dinyatakan LIVE (pola seri:
+        // artikel sebelumnya baru menaut ke artikel baru sesudah deploy sukses).
 
         try {
             app(SitemapService::class)->writeToDisk();

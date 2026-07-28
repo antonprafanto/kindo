@@ -169,15 +169,20 @@ class Article59Seeder extends Seeder
 </figure>
 
 <h2>Persiapan — toko &amp; pintu masih hidup</h2>
-<p><strong>Alat yang dipakai di artikel ini</strong> (semua sudah dari fondasi #56/#57 — tidak ada unduhan wajib baru):</p>
+<p><strong>Alat yang dipakai di artikel ini</strong> (semua sudah dari fondasi <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a> — tidak ada unduhan wajib baru):</p>
 <ul>
-  <li><strong>Terminal</strong> — Windows: PowerShell atau Command Prompt (CMD). Mac/Linux: Terminal. Di sini kamu mengetik <code>php artisan …</code> dan perintah uji.</li>
-  <li><strong>Editor teks</strong> — Notepad, VS Code, atau editor bawaan — untuk membuka <code>routes/web.php</code> dan file Form Request.</li>
-  <li><strong>Browser</strong> — cukup untuk memastikan toko hidup (seperti di #58). Menguji <strong>POST</strong> tidak cukup ketik URL di bilah alamat; butuh perintah di terminal (atau alat uji API berjendela).</li>
+  <li><strong>Explorer</strong> — pastikan folder <code>perpustakaan-api</code> ada; cek <code>routes/web.php</code> dan nanti <code>bootstrap/app.php</code>.</li>
+  <li><strong>Terminal</strong> — Laragon: menu <em>Terminal</em> · XAMPP: tombol <em>Shell</em>. Jangan asal CMD/PowerShell dari Start Menu (PATH PHP bisa hilang).</li>
+  <li><strong>Terminal kedua</strong> — wajib: terminal pertama = <code>php artisan serve</code>. Terminal kedua = uji <code>curl.exe</code> / PowerShell / edit file.</li>
+  <li><strong>Editor teks</strong> — Notepad / VS Code. Tip dari terminal kedua: <code>notepad routes\web.php</code> atau <code>notepad bootstrap\app.php</code> (harus sudah <code>cd</code> ke folder proyek).</li>
+  <li><strong>Browser</strong> — cukup untuk memastikan toko hidup (seperti di <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a>). Menguji <strong>POST</strong> tidak cukup ketik URL di bilah alamat; butuh perintah di terminal (atau alat uji API berjendela).</li>
 </ul>
-<p>Buka terminal, masuk folder proyek <code>perpustakaan-api</code> (contoh Windows: <code>cd path\to\perpustakaan-api</code>), lalu:</p>
+<p>Buka terminal Laragon/Shell XAMPP (terminal pertama), masuk folder proyek:</p>
+<pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
+</code></pre>
+<p>Di XAMPP biasanya: <code>cd C:\xampp\htdocs\perpustakaan-api</code>. Sesuaikan path jika foldermu beda. Lalu:</p>
 <pre><code class="language-bash">php artisan serve</code></pre>
-<p>Biarkan jendela terminal ini <strong>tetap hidup</strong> (lampu toko). Kalau perlu mengedit file atau menjalankan perintah lain, buka <strong>jendela terminal kedua</strong> — jangan matikan yang sedang <code>serve</code>.</p>
+<p>Biarkan jendela terminal ini <strong>tetap hidup</strong> (lampu toko). <strong>Cara buka terminal kedua</strong>: <strong>Laragon</strong> — klik menu <em>Terminal</em> sekali lagi; <strong>XAMPP</strong> — klik tombol <em>Shell</em> sekali lagi. Jangan matikan yang sedang <code>serve</code>.</p>
 <p>Pastikan <code>GET /api/buku</code> dari <a href="/artikel/laravel-routing-json-perpustakaan-api">Routing &amp; Jawaban JSON API Perpustakaan (#58)</a> masih ada (boleh dicek sekali di browser: <code>http://127.0.0.1:8000/api/buku</code>). Hari ini kita menambah pintu <strong>POST</strong>.</p>
 <p><strong>Awam:</strong> GET = “tolong kirim daftar”. POST = “tolong terima data baru”. Matikan toko sementara dengan Ctrl+C di terminal yang menjalankan <code>serve</code>.</p>
 
@@ -259,7 +264,34 @@ Route::post('/api/buku', function (StoreBukuRequest $request) {
     ], 201);
 });
 </code></pre>
-<p><strong>Awam:</strong> <code>validated()</code> = ambil hanya field yang sudah lolos cek. <code>authorize(): true</code> di sini berarti “belum ada kartu anggota” — login dibahas belakangan. Artisan <code>make:request</code> sudah ada di proyek Laravel-mu (fondasi #56/#57) — tidak perlu unduh paket baru.</p>
+<p><strong>Awam:</strong> <code>validated()</code> = ambil hanya field yang sudah lolos cek. <code>authorize(): true</code> di sini berarti “belum ada kartu anggota” — login dibahas belakangan. Artisan <code>make:request</code> sudah ada di proyek Laravel-mu (fondasi <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a>) — tidak perlu unduh paket baru.</p>
+
+<h2>Cek izin api/* — supaya POST tidak ditolak 419</h2>
+<p>Sebelum menguji, ada satu satpam lobi lain yang perlu kita sapa. Laravel punya penjaga bawaan bernama <strong>CSRF</strong> yang melindungi <em>formulir web</em>: ia menolak semua kiriman <code>POST</code> (juga <code>PUT</code> dan <code>DELETE</code>) yang <strong>tidak datang dari halaman browser milik situs itu sendiri</strong>.</p>
+<p>Masalahnya, kita menguji dari <strong>terminal</strong> pakai <code>curl.exe</code> — dan terminal bukan browser. Jadi tanpa izin khusus, uji <code>POST</code> di bawah akan dijawab:</p>
+<pre><code class="language-json">{"message":"CSRF token mismatch."}
+</code></pre>
+<p>dengan kode <strong>419</strong>. Ini <em>bukan</em> berarti slip atau satpam Form Request-mu salah — pintu kita bahkan belum sempat dijalankan.</p>
+<p><strong>Awam:</strong> bayangkan satpam lobi yang hanya mengizinkan orang masuk lewat pintu depan resmi. Kita datang dari pintu samping (terminal), jadi dia menahan kita. Kita perlu bilang: “alamat yang berawalan <code>api/</code> itu memang dilayani dari luar lobi, tolong jangan ditahan.”</p>
+<p><strong>Kalau di dalam <code>withMiddleware</code> sudah ada tulisan <code>'api/*'</code></strong> — jangan ubah apa-apa; lanjut ke bagian Uji di bawah. Izin ini cukup sekali per proyek.</p>
+<p><strong>Belum ada?</strong> Pastikan terminal kedua sudah di folder proyek (<code>cd</code> ke <code>perpustakaan-api</code>, sama seperti saat <code>serve</code>). Lalu buka: <code>notepad bootstrap\app.php</code>. Cari bagian <code>-&gt;withMiddleware(...)</code>.</p>
+<p><strong>Awam — PENTING:</strong> jangan menempel blok <code>-&gt;withMiddleware(...)</code> baru di dalam fungsi yang sudah ada (itu membuat fungsi bersarang dan Laravel error). Kerja <em>di dalam</em> fungsi yang sudah ada: kalau isinya masih <code>//</code>, hapus baris <code>//</code> itu; kalau sudah ada baris lain, biarkan. Lalu tempel <strong>hanya</strong> baris di bawah ini ke dalam fungsi:</p>
+<pre><code class="language-php">// Tempel di dalam withMiddleware yang sudah ada — jangan buat withMiddleware baru
+$middleware-&gt;preventRequestForgery(except: [
+    'api/*',
+]);
+</code></pre>
+<p>Setelah disimpan, isi fungsimu kira-kira seperti ini (boleh ada baris lain di atas/bawahnya):</p>
+<pre><code class="language-php">-&gt;withMiddleware(function (Middleware $middleware): void {
+    $middleware-&gt;preventRequestForgery(except: [
+        'api/*',
+    ]);
+})
+</code></pre>
+<p>Simpan file. <strong>Awam:</strong> <code>except</code> artinya “kecuali”. Bacanya: “periksa CSRF untuk semua halaman, <em>kecuali</em> alamat berawalan <code>api/</code>.” Tanda <code>*</code> = “apa pun setelahnya”, jadi <code>api/buku</code> ikut dikecualikan.</p>
+<p><strong>Catatan nama:</strong> di Laravel 13 nama resminya <code>preventRequestForgery</code>. Nama lama <code>validateCsrfTokens</code> masih diterima dan artinya sama — kalau kamu melihatnya di tempat lain, itu bukan kesalahan.</p>
+<p><strong>Apakah ini membuat API-ku tidak aman?</strong> Tidak. CSRF adalah pagar khusus <em>formulir browser</em>. Pengecualian <code>api/*</code> resmi untuk API yang diuji dari luar browser. Siapa yang boleh masuk pintu API dibahas belakangan di seri ini — hari ini kita hanya memastikan satpam lobi tidak menahan uji dari terminal.</p>
+<p><strong>Setiap kali menyimpan <code>bootstrap\app.php</code></strong>, matikan <code>serve</code> di terminal pertama dengan <code>Ctrl+C</code>, lalu nyalakan lagi <code>php artisan serve</code>. File itu hanya dibaca saat aplikasi mulai. Izin ini berlaku untuk semua artikel berikutnya di seri ini.</p>
 
 <h2>Uji gagal &amp; sukses</h2>
 <p>Pastikan <code>php artisan serve</code> masih hidup di terminal pertama. Buka <strong>terminal kedua</strong> untuk menguji. Kita kirim data JSON — bilah alamat browser saja tidak cukup untuk POST.</p>
@@ -270,7 +302,7 @@ curl.exe -s -X POST http://127.0.0.1:8000/api/buku ^
   -H "Accept: application/json" ^
   -d "{\"judul\":\"\",\"penulis\":\"Ayu\"}"
 </code></pre>
-<p><strong>Awam Windows (CMD):</strong> tanda <code>^</code> di akhir baris = “lanjut ke baris berikutnya”. Di PowerShell/Mac/Linux, ganti <code>^</code> dengan <code>\</code> (backslash), atau ketik semua dalam satu baris tanpa pemisah.</p>
+<p><strong>Awam — soal tanda <code>^</code> di ujung baris:</strong> tanda itu berarti “perintah ini masih lanjut ke baris berikutnya”, dan berlaku di <strong>CMD / Shell XAMPP / Terminal Laragon</strong>. Kalau kamu memakai <strong>PowerShell</strong>, <code>^</code> tidak dikenal — ganti setiap <code>^</code> dengan tanda backtick <code>`</code>, atau yang paling aman: ketik seluruh perintah dalam <strong>satu baris panjang</strong> tanpa <code>^</code>. Di Mac/Linux, ganti <code>^</code> dengan <code>\</code> atau satu baris.</p>
 <pre><code class="language-bash"># Slip bersih — harus 201 + JSON data
 curl.exe -s -X POST http://127.0.0.1:8000/api/buku ^
   -H "Content-Type: application/json" ^
@@ -379,6 +411,11 @@ demo();
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td><code>CSRF token mismatch</code> / kode <code>419</code></td>
+      <td>Izin <code>api/*</code> di <code>bootstrap\app.php</code> belum dipasang, atau <code>serve</code> belum dinyalakan ulang setelah menyimpannya</td>
+      <td>Pasang <code>preventRequestForgery(except: ['api/*'])</code> (jangan timpa baris lain di <code>withMiddleware</code>), lalu <code>Ctrl+C</code> dan <code>php artisan serve</code> lagi</td>
+    </tr>
     <tr>
       <td>HTML error page, bukan JSON</td>
       <td>Lupa baris <code>Accept: application/json</code></td>

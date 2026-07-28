@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Content / checklist audit #63.
+ * Content / checklist audit #63 — CRUD API Buku: Ubah & Hapus.
  * Usage: php scripts/audit-article63-content.php
  */
 
@@ -22,6 +22,8 @@ function check(bool $ok, string $label): void
     $ok ? $passed++ : $failed++;
 }
 
+$slug = 'laravel-crud-api-buku-ubah-hapus';
+
 echo "=== Content / checklist audit #63 ===\n\n";
 
 $ref = new ReflectionClass(Article63Seeder::class);
@@ -29,65 +31,68 @@ $method = $ref->getMethod('body');
 $method->setAccessible(true);
 $body = $method->invoke($ref->newInstanceWithoutConstructor());
 $src = file_get_contents(__DIR__.'/../database/seeders/Article63Seeder.php');
-$slug = 'laravel-pagination-filter-pencarian';
+$withoutLinks = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '') ?? '';
 
 check(str_contains($body, '#63 (ini)'), 'Self-ref #63 (ini)');
-check(! preg_match('/(?<![\w\/"#>])#64(?!\s*\(ini\))/', strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '')), 'Tidak plain #64');
-$plainLinked = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '');
-check(! preg_match('/(?<![\w\/"#>])#62(?!\d)(?!\s*\(ini\))/', $plainLinked), 'Tidak bare #62 di prosa');
-check(! preg_match('/(?<![\w\/"#>])#61(?!\d)(?!\s*\(ini\))/', $plainLinked), 'Tidak bare #61 di prosa');
-check(str_contains($body, '/artikel/laravel-eloquent-relasi-peminjaman'), 'Link #62');
-check(str_contains($body, '/artikel/laravel-crud-api-buku-ubah-hapus'), 'Link #61');
+check(str_contains($body, '/artikel/capstone-api-perpustakaan-laravel'), 'Link #62');
 check(! str_contains($body, '→') && ! str_contains($body, '↔'), 'Tidak panah Unicode');
 check(substr_count($body, '#F5F5F0') >= 2, '≥2 figure #F5F5F0');
 check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar dark-safe');
-check(str_contains($body, 'laravel_pagination_filter_pencarian_demo.php'), 'File contoh');
+check(str_contains($body, 'laravel_crud_api_buku_ubah_hapus_demo.php'), 'File contoh');
 check(str_contains($body, 'Latihan'), 'Latihan');
 check(str_contains($body, 'FAQ'), 'FAQ');
 check(str_contains($body, 'Kesalahan umum'), 'Kesalahan umum');
-check(str_contains($body, 'laravel63pageArrow'), 'SVG marker');
-check(str_contains($body, 'Seri 5'), 'Seri 5');
-check(substr_count($body, 'language-php') >= 4, '≥4 language-php');
+check(str_contains($body, 'laravel63crudArrow'), 'SVG marker');
+check(str_contains($body, 'Seri 4'), 'Seri 4');
+check(substr_count($body, 'language-php') >= 3, '≥3 language-php');
 check(preg_match("/'is_featured'\\s*=>\\s*false/", $src) === 1, 'is_featured false');
 check(! preg_match("/'cover_image'\\s*=>/", $src), 'Cover tidak overwrite');
 check(str_contains($src, $slug), 'Slug');
 check(str_contains(file_get_contents(__DIR__.'/../routes/web.php'), 'publish-article-63'), 'Route hook');
 check(str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), $slug), 'CI slug');
-check(str_contains($body, '3/8 Laravel Lanjutan'), 'Progress 3/8');
+check(str_contains($body, '8/8'), 'Progress 8/8');
 check(str_contains($body, 'Prasyarat'), 'Prasyarat awam');
 check(str_contains($body, 'Awam:'), 'Gloss awam');
-check(str_contains($body, '422'), 'Status 422');
-check(! str_contains($body, 'TODO') && ! str_contains($body, 'Belum perlu hardlink') && ! str_contains($body, 'soft, belum hardlink') && ! str_contains($body, 'STOP AUDIT'), 'Tanpa suara editor');
-check(! preg_match('/<a\b[^>]*>\s*#\d+\s*<\/a>/u', $body), 'Tanpa thin anchor #N');
-check(str_contains($body, 'CRUD ubah') && str_contains($body, 'Relasi Eloquent (#62)'), 'Thin #61/#62 diganti teks');
+check(! preg_match('/hardlink|STOP AUDIT|oke deploy/i', $body), 'Tanpa suara editor');
+check(! preg_match('/(?<![\w\/"#>(ini)\s])#5[6-9](?!\s*\(ini\))/', $withoutLinks), 'Tanpa thin anchor #N');
 check(file_exists(__DIR__.'/audit-article63.php'), 'Audit utama ada');
 check(file_exists(__DIR__.'/audit-article63-php.php'), 'Audit PHP ada');
 check(file_exists(__DIR__.'/audit-article63-sanitize.php'), 'Audit sanitize ada');
 check(file_exists(__DIR__.'/audit-article63-deep.php'), 'Deep pass-1 ada');
-check(str_contains($body, 'PHP biasa') || str_contains($body, 'Kenapa PHP'), 'Narasi PHP dulu');
-check(str_contains($body, 'loket') || str_contains($body, 'perpustakaan'), 'Analogi loket/perpustakaan');
-check(str_contains($body, 'paginate') && str_contains($body, 'potong'), 'Gloss paginate');
-check(str_contains($body, 'like') && str_contains($body, 'mengandung'), 'Gloss like');
-check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
-check(str_contains($body, 'Laravel 11+'), 'Versi Laravel awam');
-check(str_contains($body, '/artikel/laravel-policy-otorisasi-api'), 'Hardlink Policy #64');
+check(str_contains($body, 'CRUD') && str_contains($body, 'hapus'), 'Narasi CRUD/hapus');
+check(str_contains($body, 'PUT /api/buku') && str_contains($body, 'DELETE /api/buku'), 'Path PUT + DELETE');
+check(str_contains($body, 'BukuController'), 'BukuController');
+check(str_contains($body, 'update') && str_contains($body, 'destroy'), 'update + destroy');
+check(str_contains($body, '{id}'), 'Route parameter {id}');
+check(str_contains($body, '"id"'), 'Jelaskan asal nomor dari kunci id');
+check(str_contains($body, '404'), 'Jelaskan 404');
+check(! str_contains($body, 'Pin ') && ! str_contains($body, 'closure') && ! str_contains($body, 'endpoint'), 'Tanpa Pin/closure/endpoint');
+check(str_contains($body, 'Laravel 13+'), 'Versi Laravel awam');
+check(str_contains($body, 'PHP 8.3+'), 'Versi PHP awam');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa PHPDoc @param di demo');
-check(! str_contains($body, 'Unauthorized') && ! str_contains($body, 'JWT'), 'Tanpa Unauthorized/JWT');
-check(str_contains($body, 'proyek') && ! str_contains($body, 'project '), 'Proyek Laravel');
-check(! str_contains($body, 'endpoint'), 'Tanpa endpoint');
 check(str_contains($body, 'Pola Dasar'), 'Pola Dasar H2');
-check(str_contains($body, 'pemanggil') && str_contains($body, 'yang memanggil API'), 'Gloss pemanggil');
-check(str_contains($body, 'pengatur kode') && str_contains($body, 'pekerja'), 'Gloss controller/service');
-check(str_contains($body, 'saring dulu') || str_contains($body, 'Saring dulu'), 'Urutan saring dulu');
-check(str_contains($body, 'info ringkas') || str_contains($body, 'Kirim info'), 'Gloss meta→info');
-check(str_contains($body, 'aturan izin') && str_contains($body, 'policy'), 'Soft Policy awam-first');
-check(! str_contains($body, 'authorization policy'), 'Tanpa authorization mentah');
-check(! str_contains($body, 'supaya UI '), 'Tanpa jargon UI');
-check(substr_count($body, '<a ') - substr_count($body, '</a>') === 0, 'Thin anchor balance');
-$noSvg = preg_replace('/<svg\b.*?<\/svg>/is', '', $body) ?? $body;
-$noA = preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $noSvg) ?? $noSvg;
-check(! preg_match('/(?<![\w\/"#>])#6[0-9](?!\s*\(ini\))/', strip_tags($noA)), 'Thin/bare numbered = 0');
+check(str_contains($body, 'install-dari-nol'), 'Aturan install-dari-nol');
+check(str_contains($body, 'demo()'), 'Demo fungsi');
+check(str_contains($body, 'Alat yang dipakai') && str_contains($body, 'Browser'), 'Daftar alat awam');
+check(str_contains($body, 'Explorer'), 'Explorer di daftar alat');
+check(str_contains($body, 'perpustakaan-api'), 'cd folder proyek');
+check(str_contains($body, 'terminal kedua'), 'Tip terminal kedua');
+check(str_contains($body, 'Cara buka terminal kedua'), 'Cara buka terminal kedua eksplisit');
+check(str_contains($body, 'cara salin teks dari terminal'), 'Cara salin teks terminal');
+check(str_contains($body, 'notepad app\\Http\\Controllers\\BukuController.php'), 'Contoh path notepad konkret');
+check(str_contains($body, 'Terminal mana') || str_contains($body, 'Shell XAMPP'), 'FAQ terminal');
+check(str_contains($body, 'Start Menu') || str_contains($body, 'CMD/PowerShell'), 'Peringatan terminal salah');
+check(str_contains($body, 'curl.exe'), 'curl.exe');
+check(str_contains($body, 'Opsi C') || str_contains($body, 'Postman'), 'Opsi alat berjendela');
+check(str_contains($body, 'salin token') || str_contains($body, '"token"'), 'Tip salin token');
+check(! str_contains($body, '%%{http_code}'), 'Tanpa %%{http_code} membingungkan');
+check(str_contains($body, 'Accept: application/json'), 'Header Accept');
+check(str_contains($body, 'bilah alamat browser'), 'Peringatan PUT/DELETE bukan lewat browser');
+$bare62 = preg_match_all('/#62(?!\s*\(ini\))/', $withoutLinks);
+check($bare62 === 0, 'Tanpa bare #62 ('.$bare62.')');
+$bare64 = preg_match_all('/#6[4-9]/', $withoutLinks);
+check($bare64 === 0, 'Tanpa bare #64+ ('.$bare64.')');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
 exit($failed > 0 ? 1 : 0);
