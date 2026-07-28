@@ -4651,6 +4651,7 @@ class DeployController extends Controller
         foreach ([
             'database/seeders/Article65Seeder.php',
             'database/seeders/Article64Seeder.php',
+            'database/seeders/Article64Hardlink65Seeder.php',
         ] as $relative) {
             $seederPath = base_path($relative);
             clearstatcache(true, $seederPath);
@@ -4719,19 +4720,18 @@ class DeployController extends Controller
             return response('Article 65 prerequisite #64 missing', 500);
         }
 
-        // Hardlink #64 → #65: when Article64Seeder includes the slug, reseed if missing on prod.
-        if (str_contains(file_get_contents(base_path('database/seeders/Article64Seeder.php')) ?: '', $slug)
-            && ! str_contains((string) $a64->body, $slug)) {
+        // Hardlink #64 → #65: setelah #65 LIVE, patch #64 tanpa reseed penuh.
+        if (! str_contains((string) $a64->body, $slug)) {
             $exit64 = Artisan::call('db:seed', [
-                '--class' => 'Database\\Seeders\\Article64Seeder',
+                '--class' => 'Database\\Seeders\\Article64Hardlink65Seeder',
                 '--force' => true,
             ]);
             if ($exit64 !== 0) {
-                return response('Article 64 hardlink reseed failed', 500);
+                return response('Article 64 hardlink patch failed', 500);
             }
             $a64 = Article::published()->where('slug', $prevSlug)->first();
             if (! $a64 || ! str_contains((string) $a64->body, $slug)) {
-                report(new \RuntimeException('Article 64 hardlink to #65 missing after reseed.'));
+                report(new \RuntimeException('Article 64 hardlink to #65 missing after patch.'));
 
                 return response('Article 64 hardlink to #65 failed', 500);
             }

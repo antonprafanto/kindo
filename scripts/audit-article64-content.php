@@ -70,7 +70,7 @@ check(str_contains($body, 'kartu anggota') || str_contains($body, 'perpustakaan'
 check(str_contains($body, 'belongsTo') && str_contains($body, 'hasMany'), 'Gloss belongsTo/hasMany');
 check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
 check(str_contains($body, 'Laravel 13+'), 'Versi Laravel awam');
-check(substr_count($body, '/artikel/laravel-pagination-filter-pencarian') >= 3, 'Hardlink #65 3×');
+check((str_contains($body, 'Pagination') || str_contains($body, 'Filter')) && ! str_contains($body, '/artikel/laravel-pagination-filter-pencarian'), 'Soft bridge #65');
 check(str_contains($body, 'Spesifikasi'), 'Spesifikasi');
 check(! str_contains($body, '@param'), 'Tanpa PHPDoc @param di demo');
 check(! str_contains($body, 'Unauthorized') && ! str_contains($body, 'JWT'), 'Tanpa Unauthorized/JWT');

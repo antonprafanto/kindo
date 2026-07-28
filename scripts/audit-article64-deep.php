@@ -70,8 +70,7 @@ check(str_contains(file_get_contents(__DIR__.'/../database/seeders/Article63Seed
 check(str_contains($body, '1/7'), 'Progress 1/7');
 check(str_contains($body, 'Laravel Lanjutan') || str_contains($body, 'Framework-based'), 'Framing Seri 5');
 check(str_contains($body, 'Arti awam') || str_contains($body, 'Awam:'), 'Gloss awam');
-check(substr_count($body, '/artikel/laravel-pagination-filter-pencarian') >= 3, 'Hardlink #65 3×');
-check(substr_count($bodyEn, '/artikel/laravel-pagination-filter-pencarian') >= 3, 'EN hardlink #65 3×');
+check((str_contains($body, 'Pagination') || str_contains($body, 'Filter')) && ! str_contains($body, '/artikel/laravel-pagination-filter-pencarian'), 'Jembatan soft ke #65');
 check(str_contains($body, 'kartu anggota') || str_contains($body, 'perpustakaan'), 'Analogi kartu');
 check(! str_contains($body, 'closure') && ! str_contains($body, 'Pin framework'), 'Tanpa Pin/closure');
 check(str_contains($body, 'Spesifikasi fitur'), 'Spesifikasi');
