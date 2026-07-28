@@ -17,6 +17,7 @@ HTML;
         $excerpt = ArticleExcerpt::fromHtml($html);
 
         $this->assertStringContainsString('#55 (ini)', $excerpt);
+        $this->assertTrue(ArticleExcerpt::markerVisibleInCardPreview($excerpt));
     }
 
     public function test_it_uses_english_series_marker(): void
