@@ -19,6 +19,7 @@ $slugs = [
     'laravel-crud-api-buku-ubah-hapus' => 63,
     'laravel-eloquent-relasi-peminjaman' => 64,
     'laravel-pagination-filter-pencarian' => 65,
+    'laravel-policy-otorisasi-api' => 66,
 ];
 
 $failed = 0;
