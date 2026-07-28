@@ -20,8 +20,12 @@ class ArticleBodyEditorController extends Controller
     {
         $this->authorizeBodyEdit($article);
 
+        $lang = request()->query('lang') === 'en' ? 'en' : 'id';
+
         return view('admin.article-body-editor', [
             'article'    => $article,
+            'lang'       => $lang,
+            'content'    => $lang === 'en' ? $article->body_en : $article->body,
             'backUrl'    => $this->filamentEditUrl($article),
             'uploadUrl'  => route('filament.admin.articles.isi.upload', ['article' => $article]),
         ]);
@@ -33,7 +37,10 @@ class ArticleBodyEditorController extends Controller
 
         $request->validate([
             'body_b64' => ['required', 'string', 'max:700000'],
+            'lang'     => ['nullable', 'in:id,en'],
         ]);
+
+        $lang = $request->input('lang') === 'en' ? 'en' : 'id';
 
         $body = base64_decode($request->input('body_b64'), true);
 
@@ -44,18 +51,22 @@ class ArticleBodyEditorController extends Controller
         }
 
         $body = app(ArticleHtmlSanitizer::class)->sanitize($body);
+        $isEmpty = trim(strip_tags($body)) === '';
 
-        if (trim(strip_tags($body)) === '') {
+        if ($lang === 'id' && $isEmpty) {
             return back()
                 ->withInput()
                 ->withErrors(['body' => 'Isi artikel tidak boleh kosong.']);
         }
 
-        $article->update(['body' => $body]);
+        // English body may be saved empty — clears the translation (article falls back to ID + banner).
+        $article->update([
+            $lang === 'en' ? 'body_en' : 'body' => $isEmpty ? null : $body,
+        ]);
 
         // Stay on the body editor so authors can keep writing; flash confirms save.
         return redirect()
-            ->route('filament.admin.articles.isi', ['article' => $article])
+            ->route('filament.admin.articles.isi', ['article' => $article, 'lang' => $lang])
             ->with('body_saved', true);
     }
 

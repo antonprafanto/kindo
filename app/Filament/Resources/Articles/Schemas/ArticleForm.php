@@ -95,6 +95,7 @@ class ArticleForm
                                 && filled($record->category_id);
                             $hasBody = filled(trim(strip_tags((string) $record->body)));
                             $hasCover = filled($record->cover_image);
+                            $hasEnglish = $record->has_english;
                             $statusReady = in_array($record->status, ['pending_review', 'published'], true);
 
                             $item = function (bool $done, string $label, ?string $hint = null): string {
@@ -116,9 +117,15 @@ class ArticleForm
                                 ? '<a href="' . e($bodyEditorUrl ?? '#') . '">Edit isi</a>'
                                 : '<a href="' . e($bodyEditorUrl ?? '#') . '">Buka editor isi</a>';
 
+                            $enUrl = $bodyEditorUrl ? $bodyEditorUrl . '?lang=en' : '#';
+                            $enHint = $hasEnglish
+                                ? '<a href="' . e($enUrl) . '">Edit English body</a>'
+                                : '<a href="' . e($enUrl) . '">Wajib untuk artikel baru — buka editor EN</a>';
+
                             $html = '<ul style="margin:0;padding:0;list-style:none;font-size:.875rem;line-height:1.45;">'
                                 . $item($hasMeta, 'Metadata', 'judul, slug, ringkasan, kategori')
                                 . $item($hasBody, 'Isi artikel', $isiHint)
+                                . $item($hasEnglish, 'Versi Inggris (EN)', $enHint)
                                 . $item($hasCover, 'Cover', 'upload dari daftar artikel → Upload Cover')
                                 . $item($statusReady, 'Status', $record->status === 'draft'
                                     ? 'masih draft — pilih Menunggu Review saat siap'
@@ -218,6 +225,70 @@ class ArticleForm
                         ]),
                 ])
                 ->columnSpanFull();
+
+        $components[] = Section::make('English Version')
+            ->description('Wajib untuk SEMUA artikel baru ke depan (semua seri/jalur) — body artikel lama tetap Indonesia-only, tidak di-retrofit.')
+            ->schema([
+                TextInput::make('title_en')
+                    ->label('Title (EN)')
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+
+                Textarea::make('excerpt_en')
+                    ->label('Excerpt (EN)')
+                    ->rows(3)
+                    ->maxLength(500)
+                    ->hint('Max 500 characters — shown in EN listing & meta description.')
+                    ->columnSpanFull(),
+
+                ...($excludeBodyFromForm
+                    ? [
+                        Placeholder::make('body_en_editor_link')
+                            ->label('Article Body (EN)')
+                            ->content(fn ($record) => new HtmlString(
+                                '<p style="margin:0;font-size:.875rem;">'
+                                . '<a href="' . e($bodyEditorUrl ? $bodyEditorUrl.'?lang=en' : '#') . '" '
+                                . 'style="display:inline-block;padding:.5rem 1rem;font-weight:700;'
+                                . 'background:#2979FF;color:#fff;border:2px solid #000;text-decoration:none;">'
+                                . 'Open English Body Editor →</a>'
+                                . ' &nbsp; '
+                                . (filled($record?->body_en) ? '✅ has English body' : '☐ not translated yet')
+                                . '</p>'
+                            ))
+                            ->columnSpanFull(),
+                    ]
+                    : [
+                        RichEditor::make('body_en')
+                            ->label('Article Body (EN)')
+                            ->fileAttachmentsDisk('public')
+                            ->fileAttachmentsDirectory('articles/body')
+                            ->fileAttachmentsVisibility('public')
+                            ->toolbarButtons([
+                                ['bold', 'italic', 'underline', 'strike', 'code', 'link'],
+                                ['h2', 'h3', 'h4'],
+                                ['blockquote', 'codeBlock', 'bulletList', 'orderedList'],
+                                ['table', 'horizontalRule', 'attachFiles'],
+                                ['undo', 'redo'],
+                            ])
+                            ->columnSpanFull(),
+                    ]),
+
+                TextInput::make('seo_title_en')
+                    ->label('SEO Title (EN)')
+                    ->maxLength(70)
+                    ->helperText(fn (?string $state): string => mb_strlen($state ?? '').'/70 characters')
+                    ->columnSpanFull(),
+
+                Textarea::make('seo_description_en')
+                    ->label('Meta Description (EN)')
+                    ->rows(3)
+                    ->maxLength(160)
+                    ->helperText(fn (?string $state): string => mb_strlen($state ?? '').'/160 characters')
+                    ->columnSpanFull(),
+            ])
+            ->columns(1)
+            ->columnSpanFull()
+            ->collapsed();
 
         if ($includeCoverSection) {
             $components[] = Section::make('Gambar Sampul')

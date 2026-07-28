@@ -62,6 +62,18 @@ class ArticlesTable
                         default          => $state,
                     }),
 
+                IconColumn::make('has_english')
+                    ->label('EN')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-language')
+                    ->falseIcon('heroicon-o-minus')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->tooltip(fn ($record): string => $record->has_english
+                        ? 'Versi Inggris lengkap (body_en)'
+                        : 'Belum ada body_en — wajib untuk artikel baru')
+                    ->alignCenter(),
+
                 IconColumn::make('is_featured')
                     ->label('Unggulan')
                     ->boolean()

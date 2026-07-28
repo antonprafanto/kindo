@@ -7,7 +7,7 @@
         @if($article->cover_image)
             <img
                 src="{{ $article->cover_url }}"
-                alt="{{ $article->title }}"
+                alt="{{ $article->display_title }}"
                 class="w-full h-full object-cover"
                 loading="lazy"
                 onerror="this.onerror=null;this.src='{{ asset('og-default.png') }}';"
@@ -16,7 +16,7 @@
             <div class="w-full h-full flex items-center justify-center theme-surface" style="background: #E8EEF7;">
                 <div class="text-center p-4">
                     <div class="text-xs font-bold uppercase tracking-wider theme-muted mb-2">Koding Indonesia</div>
-                    <div class="text-xs font-mono font-semibold theme-heading opacity-70">{{ Str::limit($article->title, 40) }}</div>
+                    <div class="text-xs font-mono font-semibold theme-heading opacity-70">{{ Str::limit($article->display_title, 40) }}</div>
                 </div>
             </div>
         @endif
@@ -32,20 +32,20 @@
                 {{ $article->category->name }}
             </a>
             @endif
-            <span class="text-xs font-mono theme-muted">{{ __('ui.articles.minutes', ['count' => $article->read_time_minutes ?? 1]) }}</span>
+            <span class="text-xs font-mono theme-muted">{{ __('ui.articles.minutes', ['count' => $article->display_read_time_minutes]) }}</span>
         </div>
 
         {{-- Title --}}
         <h2 class="{{ $featured ? 'text-xl' : 'text-base' }} font-bold leading-snug mb-3 flex-1">
             <a href="{{ route('articles.show', $article->slug) }}" class="theme-heading hover:text-[#2979FF] transition-colors no-underline">
-                {{ $article->title }}
+                {{ $article->display_title }}
             </a>
         </h2>
 
         {{-- Excerpt --}}
-        @if($article->excerpt)
+        @if($article->display_excerpt)
         <p class="text-sm leading-relaxed mb-4 theme-body">
-            {{ Str::limit($article->excerpt, 100) }}
+            {{ Str::limit($article->display_excerpt, 100) }}
         </p>
         @endif
 

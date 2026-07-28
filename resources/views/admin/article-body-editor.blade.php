@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ $lang }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Edit Isi — {{ $article->title }}</title>
+    <title>{{ $lang === 'en' ? 'Edit Body (EN)' : 'Edit Isi' }} — {{ $article->title }}</title>
     <script src="https://cdn.jsdelivr.net/npm/tinymce@7.6.1/tinymce.min.js" referrerpolicy="origin"></script>
     <style>
         :root {
@@ -147,11 +147,26 @@
     <div class="wrap">
         <p class="meta"><a href="{{ $backUrl }}">← Kembali ke Edit Artikel</a></p>
 
-        <h1>Edit Isi Artikel</h1>
+        <h1>{{ $lang === 'en' ? 'Edit Article Body (English)' : 'Edit Isi Artikel' }}</h1>
         <p class="meta">{{ $article->title }}</p>
 
+        <p class="meta" style="margin-top:-.5rem;">
+            @php
+                $idUrl = route('filament.admin.articles.isi', ['article' => $article]);
+                $enUrl = route('filament.admin.articles.isi', ['article' => $article, 'lang' => 'en']);
+            @endphp
+            Bahasa:
+            <a href="{{ $idUrl }}" style="{{ $lang === 'id' ? 'color:#fff;font-weight:700;text-decoration:none;' : '' }}">🇮🇩 Indonesia</a>
+            &nbsp;·&nbsp;
+            <a href="{{ $enUrl }}" style="{{ $lang === 'en' ? 'color:#fff;font-weight:700;text-decoration:none;' : '' }}">🇬🇧 English{{ filled($article->body_en) ? ' ✅' : ' (belum)' }}</a>
+        </p>
+
         <div class="notice">
-            <strong>Simpan isi di sini</strong> (Ctrl/⌘+S). Judul, kategori, tag &amp; status tetap di halaman Edit Artikel.
+            @if($lang === 'en')
+                <strong>English body wajib untuk semua artikel baru</strong> (semua seri/jalur, mulai sekarang). Kosongkan &amp; simpan untuk hapus terjemahan (fallback ke ID).
+            @else
+                <strong>Simpan isi di sini</strong> (Ctrl/⌘+S). Judul, kategori, tag &amp; status tetap di halaman Edit Artikel.
+            @endif
             Sorot teks untuk menu format mengambang; sisipkan gambar lewat tombol Image.
         </div>
 
@@ -173,24 +188,26 @@
         <form method="post" action="{{ route('filament.admin.articles.isi.update', $article) }}" id="body-form">
             @csrf
             <input type="hidden" name="body_b64" id="body_b64">
+            <input type="hidden" name="lang" value="{{ $lang }}">
 
-            <label for="body">Isi Artikel</label>
+            <label for="body">{{ $lang === 'en' ? 'Article Body' : 'Isi Artikel' }}</label>
             <div class="editor-shell">
-                <textarea id="body">{{ old('body_raw', $article->body) }}</textarea>
+                <textarea id="body">{{ old('body_raw', $content) }}</textarea>
             </div>
 
             <div class="actions">
-                <button type="submit" class="btn btn-primary" id="save-btn">Simpan Isi Artikel</button>
-                <a href="{{ $backUrl }}" class="btn">Batal</a>
+                <button type="submit" class="btn btn-primary" id="save-btn">{{ $lang === 'en' ? 'Save English Body' : 'Simpan Isi Artikel' }}</button>
+                <a href="{{ $backUrl }}" class="btn">{{ $lang === 'en' ? 'Cancel' : 'Batal' }}</a>
                 <span class="hint">Sorot teks untuk menu format · Sisipkan gambar lewat tombol Image · <kbd>Ctrl</kbd>+<kbd>S</kbd> / <kbd>⌘</kbd>+<kbd>S</kbd> simpan</span>
             </div>
         </form>
     </div>
 
     <script>
-        const initialHtml = @json(old('body_raw', $article->body));
+        const initialHtml = @json(old('body_raw', $content));
         const imageUploadUrl = @json($uploadUrl);
         const csrfToken = @json(csrf_token());
+        const editorLang = @json($lang);
 
         tinymce.init({
             selector: '#body',
@@ -201,8 +218,10 @@
             branding: false,
             promotion: false,
             license_key: 'gpl',
-            language: 'id',
-            language_url: 'https://cdn.jsdelivr.net/npm/tinymce-i18n@26.6.8/langs7/id.js',
+            ...(editorLang === 'en' ? {} : {
+                language: 'id',
+                language_url: 'https://cdn.jsdelivr.net/npm/tinymce-i18n@26.6.8/langs7/id.js',
+            }),
             skin: 'oxide-dark',
             content_css: 'dark',
             toolbar_sticky: true,
@@ -343,7 +362,7 @@
             }
 
             const raw = editor.getContent();
-            if (!raw.replace(/<[^>]*>/g, '').trim()) {
+            if (editorLang === 'id' && !raw.replace(/<[^>]*>/g, '').trim()) {
                 alert('Isi artikel tidak boleh kosong.');
                 return;
             }

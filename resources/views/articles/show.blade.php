@@ -1,9 +1,9 @@
 <x-layouts.app
-    :title="($isPreview ?? false ? '[Pratinjau] ' : '') . $article->seo_title . ' — Koding Indonesia'"
-    :description="$article->seo_description"
+    :title="($isPreview ?? false ? '[Pratinjau] ' : '') . $article->display_seo_title . ' — Koding Indonesia'"
+    :description="$article->display_seo_description"
     :ogImage="$article->cover_url"
     :ogImageAlt="$article->cover_image
-        ? $article->seo_title . ' — Tutorial ESP32 & IoT di Koding Indonesia'
+        ? $article->display_seo_title . ' — Tutorial ESP32 & IoT di Koding Indonesia'
         : null"
     ogType="article"
     :ogPublished="$article->published_at?->toIso8601String()"
@@ -37,7 +37,7 @@
 </div>
 @endif
 
-<x-locale-article-banner />
+<x-locale-article-banner :article="$article" />
 
 @unless($isPreview ?? false)
 @push('schema')
@@ -45,8 +45,8 @@
 {
     "@@context": "https://schema.org",
     "@@type": "Article",
-    "headline": "{{ $article->title }}",
-    "description": "{{ $article->seo_description }}",
+    "headline": "{{ $article->display_title }}",
+    "description": "{{ $article->display_seo_description }}",
     "image": "{{ $article->cover_url }}",
     "datePublished": "{{ $article->published_at?->toIso8601String() }}",
     "dateModified": "{{ $article->updated_at->toIso8601String() }}",
@@ -74,7 +74,7 @@
         $breadcrumbs = array_values(array_filter([
             ['label' => __('ui.articles.breadcrumb'), 'url' => route('articles.index')],
             $article->category ? ['label' => $article->category->name, 'url' => route('categories.show', $article->category->slug)] : null,
-            ['label' => $article->title],
+            ['label' => $article->display_title],
         ]));
     @endphp
     <x-breadcrumb :items="$breadcrumbs" />
@@ -99,7 +99,7 @@
                     @endphp
                     @if($coverOnDisk)
                         <img src="{{ $article->cover_url }}"
-                             alt="{{ $article->title }}"
+                             alt="{{ $article->display_title }}"
                              class="w-full h-full object-cover">
                     @else
                         {{-- Placeholder branded gradient --}}
@@ -110,7 +110,7 @@
                                  style="box-shadow: 3px 3px 0 rgba(0,0,0,0.3);">
                             <p class="text-white text-center font-bold px-6 max-w-lg"
                                style="font-size:1.1rem; text-shadow: 1px 1px 0 rgba(0,0,0,0.4); line-height:1.4;">
-                                {{ $article->title }}
+                                {{ $article->display_title }}
                             </p>
                             @if($article->category)
                             <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 border-2 border-white text-white opacity-80">
@@ -140,7 +140,7 @@
                             @endif
                         @endif
                     </span>
-                    <span class="text-sm font-mono theme-muted">{{ __('ui.articles.minutes_read', ['count' => $article->read_time_minutes]) }}</span>
+                    <span class="text-sm font-mono theme-muted">{{ __('ui.articles.minutes_read', ['count' => $article->display_read_time_minutes]) }}</span>
                     @unless($isPreview ?? false)
                     <span class="flex items-center gap-1 text-sm font-mono theme-muted">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -151,7 +151,7 @@
 
                 {{-- Title --}}
                 <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black leading-tight mb-6 theme-heading" style="letter-spacing:-0.02em;">
-                    {{ $article->title }}
+                    {{ $article->display_title }}
                 </h1>
 
                 {{-- Author --}}
@@ -199,7 +199,7 @@
 
                 {{-- Article Body --}}
                 <div class="article-body prose max-w-none min-w-0" id="article-content">
-                    {!! $article->body !!}
+                    {!! $article->display_body !!}
                 </div>
 
                 {{-- Tags --}}
@@ -221,9 +221,9 @@
                 <div id="article-share" class="mt-8 p-6 border-2 border-black theme-highlight" style="box-shadow: 4px 4px 0 #000;">
                     <p class="font-bold text-sm mb-3">{{ __('ui.articles.share') }}</p>
                     <div class="flex flex-wrap gap-2">
-                        <a href="https://wa.me/?text={{ urlencode($article->title . ' — ' . route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
+                        <a href="https://wa.me/?text={{ urlencode($article->display_title . ' — ' . route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
                            class="btn-brutal px-4 py-2 text-xs text-white" style="background:#25D366; border-color:#000;">WhatsApp</a>
-                        <a href="https://twitter.com/intent/tweet?text={{ urlencode($article->title) }}&url={{ urlencode(route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
+                        <a href="https://twitter.com/intent/tweet?text={{ urlencode($article->display_title) }}&url={{ urlencode(route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
                            class="btn-brutal px-4 py-2 text-xs text-white" style="background:#1DA1F2; border-color:#000;">X</a>
                         <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode(route('articles.show', $article->slug)) }}" target="_blank" rel="noopener noreferrer"
                            class="btn-brutal px-4 py-2 text-xs text-white" style="background:#0077B5; border-color:#000;">LinkedIn</a>
@@ -269,7 +269,7 @@
                             @if($previousArticle ?? null)
                             <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">{{ __('ui.articles.prev') }}</p>
                             <a href="{{ route('articles.show', $previousArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
-                                {{ $previousArticle->title }}
+                                {{ $previousArticle->display_title }}
                             </a>
                             @else
                             <p class="text-xs theme-muted italic">{{ __('ui.articles.prev_none') }}</p>
@@ -279,7 +279,7 @@
                             @if($nextArticle ?? null)
                             <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">{{ __('ui.articles.next') }}</p>
                             <a href="{{ route('articles.show', $nextArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
-                                {{ $nextArticle->title }}
+                                {{ $nextArticle->display_title }}
                             </a>
                             @else
                             <p class="text-xs theme-muted italic">{{ __('ui.articles.next_none') }}</p>
@@ -299,7 +299,7 @@
                     <div class="p-4 space-y-4">
                         @foreach($related as $rel)
                         <a href="{{ route('articles.show', $rel->slug) }}" class="block group">
-                            <div class="text-sm font-semibold theme-heading group-hover:text-[#2979FF] leading-snug mb-1">{{ $rel->title }}</div>
+                            <div class="text-sm font-semibold theme-heading group-hover:text-[#2979FF] leading-snug mb-1">{{ $rel->display_title }}</div>
                             <div class="text-xs font-mono theme-muted">{{ $rel->published_at?->translatedFormat('d M Y') }}</div>
                         </a>
                         @endforeach
@@ -335,7 +335,7 @@
                             <div>
                                 <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">{{ __('ui.articles.prev') }}</p>
                                 <a href="{{ route('articles.show', $previousArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
-                                    {{ $previousArticle->title }}
+                                    {{ $previousArticle->display_title }}
                                 </a>
                             </div>
                             @endif
@@ -343,7 +343,7 @@
                             <div>
                                 <p class="text-xs font-bold uppercase tracking-wider theme-muted mb-1">{{ __('ui.articles.next') }}</p>
                                 <a href="{{ route('articles.show', $nextArticle->slug) }}" class="block text-sm font-semibold theme-heading hover:text-[#2979FF] leading-snug">
-                                    {{ $nextArticle->title }}
+                                    {{ $nextArticle->display_title }}
                                 </a>
                             </div>
                             @endif
@@ -361,7 +361,7 @@
                         <div class="p-4 space-y-4">
                             @foreach($related as $rel)
                             <a href="{{ route('articles.show', $rel->slug) }}" class="block group">
-                                <div class="text-sm font-semibold theme-heading group-hover:text-[#2979FF] leading-snug mb-1">{{ $rel->title }}</div>
+                                <div class="text-sm font-semibold theme-heading group-hover:text-[#2979FF] leading-snug mb-1">{{ $rel->display_title }}</div>
                                 <div class="text-xs font-mono theme-muted">{{ $rel->published_at?->translatedFormat('d M Y') }}</div>
                             </a>
                             @endforeach

@@ -1,4 +1,7 @@
-@if(app()->getLocale() === 'en')
+@props(['article' => null])
+
+{{-- On a single-article page, suppress this notice once that article has a full English body. --}}
+@if(app()->getLocale() === 'en' && (!$article || !$article->has_english))
 <aside
     class="border-b-2 border-black theme-highlight"
     role="status"

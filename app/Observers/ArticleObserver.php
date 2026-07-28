@@ -38,8 +38,12 @@ class ArticleObserver
 
         // Body images (Filament attachFiles / TinyMCE) live under storage/app/public
         // but must be mirrored into public_html/storage on Rumahweb.
+        // body_en is mirrored separately so EN-only image uploads are not skipped.
         if ($article->wasRecentlyCreated || $article->wasChanged('body')) {
             $mirror->mirrorPathsFromHtml($article->body);
+        }
+        if ($article->wasChanged('body_en') && filled($article->body_en)) {
+            $mirror->mirrorPathsFromHtml($article->body_en);
         }
 
         if ($this->wasJustPublished($article) && ! ArticleNewsletterLog::where('article_id', $article->id)->exists()) {
