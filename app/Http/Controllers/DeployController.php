@@ -4640,6 +4640,8 @@ class DeployController extends Controller
             }
         }
 
+        $this->refreshLaravelSeriesExcerpts();
+
         try {
             app(SitemapService::class)->writeToDisk();
         } catch (\Throwable $e) {
@@ -4790,12 +4792,7 @@ class DeployController extends Controller
         }
 
         // Refresh excerpt kartu listing (#N basi di /artikel setelah renumber seri).
-        if ($this->ensureSeederClass('database/seeders/RefreshLaravelSeriesExcerptsSeeder.php', \Database\Seeders\RefreshLaravelSeriesExcerptsSeeder::class)) {
-            Artisan::call('db:seed', [
-                '--class' => 'Database\\Seeders\\RefreshLaravelSeriesExcerptsSeeder',
-                '--force' => true,
-            ]);
-        }
+        $this->refreshLaravelSeriesExcerpts();
 
         try {
             app(SitemapService::class)->writeToDisk();
@@ -4889,6 +4886,20 @@ class DeployController extends Controller
             'status'  => 'ok',
             'message' => 'Admin account ensured successfully.',
         ], 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+    private function refreshLaravelSeriesExcerpts(): void
+    {
+        if (! $this->ensureSeederClass('database/seeders/RefreshLaravelSeriesExcerptsSeeder.php', \Database\Seeders\RefreshLaravelSeriesExcerptsSeeder::class)) {
+            report(new \RuntimeException('RefreshLaravelSeriesExcerptsSeeder class not found — excerpt refresh skipped.'));
+
+            return;
+        }
+
+        Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\RefreshLaravelSeriesExcerptsSeeder',
+            '--force' => true,
+        ]);
     }
 
     private function ensureSeederClass(string $relativePath, string $class): bool

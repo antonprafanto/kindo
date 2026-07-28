@@ -26,8 +26,8 @@ class ArticleController extends Controller
 
         $sort = $request->get('sort', 'terbaru');
         match ($sort) {
-            'populer' => $query->orderByDesc('views_count'),
-            default   => $query->latest('published_at'),
+            'populer' => $query->orderByDesc('views_count')->orderByDesc('id'),
+            default   => $query->latest('published_at')->orderByDesc('id'),
         };
 
         $articles   = $query->paginate(12)->withQueryString();
