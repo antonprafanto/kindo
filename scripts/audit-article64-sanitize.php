@@ -29,14 +29,14 @@ $method = $ref->getMethod('body');
 $method->setAccessible(true);
 $body = $method->invoke($ref->newInstanceWithoutConstructor());
 
-check(str_contains($body, 'laravel64policyArrow'), 'SVG marker');
+check(str_contains($body, 'laravel64relasiArrow'), 'SVG marker');
 check(str_contains($body, 'viewBox'), 'viewBox');
 check(str_contains($body, 'figcaption'), 'figcaption');
 check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar');
 check(substr_count($body, '<h2') >= 8, '≥8 H2');
 check(str_contains($body, 'language-php'), 'language-php');
-check(str_contains($body, 'laravel_policy_otorisasi_api_demo.php'), 'File contoh');
-check(str_contains($body, 'Tidak punya izin') || str_contains($body, '403'), 'Policy/403');
+check(str_contains($body, 'laravel_eloquent_relasi_peminjaman_demo.php'), 'File contoh');
+check(str_contains($body, 'belongsTo') || str_contains($body, 'hasMany'), 'Relasi');
 check(substr_count($body, '#F5F5F0') >= 2, '≥2 figure #F5F5F0');
 check(strlen($body) > 4000, 'Body tidak terpotong pendek');
 

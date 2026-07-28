@@ -991,6 +991,28 @@ jobs:
           echo "Article 63 HTTP status: $code"
           test "$code" = "200"
 
+      - name: Publish article 64 via deploy hook (required)
+        run: |
+          set +e
+          for attempt in 1 2 3; do
+            body="$(mktemp)"
+            code=$(curl -sS --max-time 180 -o "$body" -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/publish-article-64" || echo "000")
+            echo "publish-article-64 HTTP $code"
+            sed -n '1,120p' "$body" || true
+            [ "$code" = "200" ] && break
+            sleep $((attempt * 5))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::publish-article-64 failed after retries (last HTTP $code)"
+            exit 1
+          fi
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/laravel-eloquent-relasi-peminjaman")
+          echo "Article 64 HTTP status: $code"
+          test "$code" = "200"
+
       - name: Publish article 59 via deploy hook (required)
         run: |
           resp=$(curl -fsS --max-time 120 \

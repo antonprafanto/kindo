@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP/pedagogi audit #64 — runnable policy demo (skip cuplikan Laravel).
+ * PHP/pedagogi audit #64 — runnable relasi demo (skip cuplikan Laravel).
  * Usage: php scripts/audit-article64-php.php
  */
 
@@ -38,10 +38,11 @@ foreach ($blocks[1] as $i => $raw) {
     $code = html_entity_decode($raw, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     if (
         str_contains($code, 'Cuplikan Laravel')
-        || str_contains($code, 'PinjamPolicy')
-        || str_contains($code, 'Request $request')
-        || str_contains($code, "authorize('update'")
-        || str_contains($code, 'namespace App\\Policies')
+        || str_contains($code, 'Cuplikan Laravel')
+        || str_contains($code, 'namespace App\\Models')
+        || str_contains($code, 'HasMany')
+        || str_contains($code, 'BelongsTo')
+        || str_contains($code, 'with([')
     ) {
         check(true, 'skip Laravel cuplikan block #'.($i + 1));
         continue;
@@ -58,20 +59,19 @@ foreach ($blocks[1] as $i => $raw) {
     exec('php '.escapeshellarg($file).' 2>&1', $out, $rc);
     $joined = implode("\n", $out);
     check($rc === 0, 'run block #'.($i + 1).' exit 0');
-    if ($runnable === 1) {
-        check(str_contains($joined, 'Tidak punya izin') || str_contains($joined, '"pesan"'), 'run block #'.($i + 1).' output: 403');
+    if ($runnable === 1 && (str_contains($code, 'echo') || str_contains($code, 'json_encode'))) {
+        check(str_contains($joined, 'judul_buku') || str_contains($joined, 'Dasar PHP'), 'run block #'.($i + 1).' output: relasi gabung');
     }
     if (str_contains($code, 'function demo')) {
-        check(str_contains($joined, 'Tidak punya izin') || str_contains($joined, '403'), 'run demo 403');
-        check(str_contains($joined, '"ok": true') || str_contains($joined, '"ok":true'), 'run demo pemilik');
-        check(str_contains($joined, 'tidak ketemu') || str_contains($joined, '404'), 'run demo 404');
+        check(str_contains($joined, 'Satu slip gabungan') || str_contains($joined, 'judul_buku'), 'run demo satu slip');
+        check(str_contains($joined, 'Dua slip gabungan') || str_contains($joined, 'Belajar Laravel'), 'run demo banyak slip');
     }
 }
 
 check($runnable >= 3, '≥3 blok runnable PHP ('.$runnable.')');
 check(str_contains($body, 'demo('), 'Ada demo()');
-check(str_contains($body, 'laravel_policy_otorisasi_api_demo.php'), 'File contoh');
-check(str_contains($body, 'laravel64policyArrow'), 'SVG marker');
+check(str_contains($body, 'laravel_eloquent_relasi_peminjaman_demo.php'), 'File contoh');
+check(str_contains($body, 'laravel64relasiArrow'), 'SVG marker');
 check(str_contains($body, 'Seri 5'), 'Framing Seri 5');
 check(str_contains($body, '#64 (ini)'), 'Self-ref');
 

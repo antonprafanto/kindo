@@ -20,7 +20,7 @@ class Article64Seeder extends Seeder
             throw new \RuntimeException('User atau kategori web-development/programming tidak ditemukan. Jalankan DatabaseSeeder dulu.');
         }
 
-        $slug = 'laravel-policy-otorisasi-api';
+        $slug = 'laravel-eloquent-relasi-peminjaman';
 
         $existing = Article::withTrashed()->where('slug', $slug)->first();
         if ($existing?->trashed()) {
@@ -44,12 +44,12 @@ class Article64Seeder extends Seeder
             [
                 'user_id'         => $admin->id,
                 'category_id'     => $webCat->id,
-                'title'           => 'Authorization Policy: Siapa Boleh Ubah',
+                'title'           => 'Relasi Eloquent: Anggota & Peminjaman',
                 'body'            => $this->body(),
                 'status'          => 'published',
                 'is_featured'     => false,
-                'seo_title'       => 'Aturan Izin API — Policy Laravel Siapa Boleh Ubah',
-                'seo_description' => 'Seri 5 #64: setelah daftar panjang, belajar aturan izin siapa boleh ubah catatan pinjam — cek pemilik PHP dulu, cuplikan Policy Laravel, ramah awam.',
+                'seo_title'       => 'Relasi Eloquent Laravel — Anggota, Buku, dan Peminjaman',
+                'seo_description' => 'Seri 5 #64: setelah CRUD buku selesai, sambungkan anggota, buku, dan peminjaman lewat relasi Eloquent. Ramah awam, PHP dulu lalu cuplikan Laravel.',
             ]
         );
         // cover_image tidak disentuh — upload manual via Filament
@@ -68,25 +68,53 @@ class Article64Seeder extends Seeder
     private function body(): string
     {
         return <<<'HTML'
-<h2>Pendahuluan — siapa boleh ubah catatan pinjam?</h2>
-<p>Artikel ini adalah <strong>#64 (ini)</strong> di <strong>Seri 5: Laravel Lanjutan</strong> (di roadmap sering disebut Framework-based). Domain tetap <strong>perpustakaan mini</strong>.</p>
-<p>Di <a href="/artikel/laravel-pagination-filter-pencarian">Pagination, Filter &amp; Pencarian (#63)</a> kamu sudah merapikan daftar panjang. Sekarang pertanyaan berikutnya: <strong>siapa boleh mengubah atau menghapus catatan pinjam orang lain?</strong> Tanpa aturan, siapa saja bisa mengubah data — berbahaya.</p>
-<p><strong>Awam:</strong> bayangkan kartu anggota perpustakaan. Hanya pemilik kartu (atau petugas resmi) yang boleh mengubah catatan pinjam miliknya. Itu inti <strong>aturan izin</strong> (<em>policy</em>).</p>
+<h2>Pendahuluan — menghubungkan kartu anggota ke slip pinjam</h2>
+<p>Artikel ini adalah <strong>#64 (ini)</strong> di <strong>Seri 5: Laravel Lanjutan</strong>. Setelah jalur Laravel dari nol selesai di <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a>, sekarang kita masuk ke lapisan yang lebih nyata: <strong>hubungan antar data</strong>.</p>
+<p>Di dunia perpustakaan, buku tidak berdiri sendirian. Ada <strong>anggota</strong> yang meminjam, ada <strong>buku</strong> yang dipinjam, dan ada <strong>catatan peminjaman</strong> yang menjadi penghubung keduanya. Di Laravel, hubungan seperti ini disebut <strong>relasi Eloquent</strong>. Nanti hasil gabungan ini dibaca oleh <strong>pemanggil</strong>, yaitu aplikasi atau alat <strong>yang memanggil API</strong>.</p>
+<p><strong>Awam:</strong> bayangkan tiga kartu. Kartu pertama = data anggota. Kartu kedua = data buku. Kartu ketiga = slip pinjam yang menuliskan “siapa meminjam buku apa”. Slip itu menunjuk ke dua kartu lain. Hari ini kita belajar cara menulis hubungan itu dengan rapi.</p>
 
 <blockquote>
-  <p><strong>Prasyarat:</strong> sudah baca <a href="/artikel/laravel-pagination-filter-pencarian">Pagination &amp; Pencarian (#63)</a> dan <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent (#62)</a>. Pakai <strong>Laravel 11+</strong>.</p>
+  <p><strong>Prasyarat:</strong> sudah selesai <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD API Buku: Ubah &amp; Hapus (#63)</a>, paham <a href="/artikel/laravel-auth-api-dasar">Auth API Dasar: Login &amp; Kartu Anggota (#61)</a>, dan fondasi <a href="/artikel/laravel-instalasi-proyek-pertama">Instal PHP, Composer &amp; Proyek Laravel (#56)</a> / <a href="/artikel/laravel-struktur-env-artisan">Struktur Folder, <code>.env</code> &amp; Artisan Laravel (#57)</a>. Pakai <strong>Laravel 13+</strong> — butuh <strong>PHP 8.3+</strong>.</p>
 </blockquote>
 
-<h2>Spesifikasi fitur — apa yang kita bangun?</h2>
-<p>Daftar singkat yang bisa dijelaskan ke teman:</p>
+<h2>Spesifikasi fitur — apa yang selesai hari ini?</h2>
+<p>Tiga hal ini yang kita kejar:</p>
 <ol>
-  <li><strong>Cek pemilik</strong> — sebelum ubah/hapus, pastikan pemanggil adalah pemilik catatan (atau punya peran khusus).</li>
-  <li><strong>Jawaban jelas saat ditolak</strong> — status <code>403</code> dengan pesan awam “Tidak punya izin”.</li>
-  <li><strong>Aturan terpusat</strong> — logika “boleh/tidak” tidak tersebar di banyak tempat.</li>
+  <li><strong>Buat model relasi</strong> — <code>Anggota</code>, <code>Buku</code>, dan <code>Peminjaman</code> saling terhubung.</li>
+  <li><strong>Bisa membaca data gabungan</strong> — satu catatan pinjam bisa menampilkan nama anggota dan judul buku sekaligus.</li>
+  <li><strong>Punya fondasi untuk artikel berikutnya</strong> — daftar panjang pinjam, policy, resource, dan test semua bergantung pada relasi ini.</li>
 </ol>
-<p><strong>Awam:</strong> urutan kerja yang nyaman: <strong>kenali siapa memanggil -&gt; cek pemilik -&gt; baru ubah data</strong>. Kalau langsung ubah tanpa cek, siapa pun bisa merusak catatan orang lain.</p>
+<p><strong>Awam:</strong> selesai artikel ini, kamu belum sedang membangun loket “izin” atau “JSON rapi”. Kamu sedang memasang <strong>peta jalan</strong> supaya Laravel tahu buku mana milik slip pinjam yang mana, anggota mana yang terlibat, dan jawaban apa yang harus dibaca oleh <strong>pemanggil</strong> API nanti.</p>
 
-<h2>Istilah — ringkas untuk aturan izin</h2>
+<figure role="img" aria-label="Relasi buku, peminjaman, dan anggota" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:760px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif" viewBox="0 0 760 250">
+  <defs>
+    <marker id="laravel64relasiArrow" orient="auto" markerWidth="8" markerHeight="8" refX="7" refY="4" viewBox="0 0 8 8">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
+    </marker>
+  </defs>
+  <rect width="760" height="250" fill="#F5F5F0"/>
+  <text x="24" y="36" fill="#1a1a1a" font-size="16" font-weight="700">Buku -&gt; Peminjaman &lt;- Anggota</text>
+  <rect x="28" y="72" width="180" height="90" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="118" y="107" text-anchor="middle" fill="#1a1a1a" font-size="16" font-weight="700">Buku</text>
+  <text x="118" y="132" text-anchor="middle" fill="#1a1a1a" font-size="12">satu buku bisa muncul</text>
+  <text x="118" y="150" text-anchor="middle" fill="#1a1a1a" font-size="12">di banyak slip pinjam</text>
+  <line x1="208" y1="116" x2="288" y2="116" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel64relasiArrow)"/>
+  <rect x="290" y="58" width="180" height="120" rx="10" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="380" y="100" text-anchor="middle" fill="#ffffff" font-size="16" font-weight="700">Peminjaman</text>
+  <text x="380" y="126" text-anchor="middle" fill="#ffffff" font-size="12">penghubung siapa</text>
+  <text x="380" y="144" text-anchor="middle" fill="#ffffff" font-size="12">meminjam buku apa</text>
+  <line x1="470" y1="116" x2="550" y2="116" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel64relasiArrow)"/>
+  <rect x="552" y="72" width="180" height="90" rx="10" fill="#ffffff" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="642" y="107" text-anchor="middle" fill="#1a1a1a" font-size="16" font-weight="700">Anggota</text>
+  <text x="642" y="132" text-anchor="middle" fill="#1a1a1a" font-size="12">satu anggota bisa punya</text>
+  <text x="642" y="150" text-anchor="middle" fill="#1a1a1a" font-size="12">banyak catatan pinjam</text>
+  <text x="24" y="212" fill="#1a1a1a" font-size="13">Relasi ini akan dipakai lagi di pagination, policy, resource, dan capstone.</text>
+</svg>
+<figcaption>Relasi Eloquent membantu Laravel membaca hubungan buku, anggota, dan peminjaman tanpa menulis sambungan manual terus-menerus.</figcaption>
+</figure>
+
+<h2>Istilah — ringkas untuk relasi</h2>
 <table>
   <thead>
     <tr>
@@ -97,250 +125,211 @@ class Article64Seeder extends Seeder
   </thead>
   <tbody>
     <tr>
-      <td>Aturan izin / <em>policy</em></td>
-      <td>Daftar “siapa boleh apa”</td>
-      <td>Bukan kata sandi login</td>
+      <td>Relasi</td>
+      <td>Hubungan antar data</td>
+      <td>Siapa terhubung ke siapa</td>
     </tr>
     <tr>
-      <td>Pemilik / <code>anggota_id</code></td>
-      <td>Anggota yang punya catatan pinjam</td>
-      <td>Dari relasi di <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi Eloquent (#62)</a></td>
+      <td><code>belongsTo</code></td>
+      <td>Baris ini “milik” satu baris lain</td>
+      <td>Satu slip pinjam milik satu buku, dan milik satu anggota</td>
     </tr>
     <tr>
-      <td><code>403 Forbidden</code></td>
-      <td>Tidak punya izin</td>
-      <td>Beda dengan “belum login”</td>
+      <td><code>hasMany</code></td>
+      <td>Satu baris punya banyak pasangan</td>
+      <td>Satu anggota punya banyak slip pinjam</td>
     </tr>
     <tr>
-      <td><code>authorize</code></td>
-      <td>Perintah “cek aturan izin dulu”</td>
-      <td>Di Laravel, sebelum aksi sensitif</td>
+      <td><code>buku_id</code></td>
+      <td>Nomor buku yang ditunjuk slip</td>
+      <td>Kunci penghubung ke tabel buku</td>
     </tr>
     <tr>
-      <td>Kelas Policy</td>
-      <td>File tempat aturan ditulis rapi</td>
-      <td>Satu tempat untuk “boleh ubah?”</td>
+      <td><code>anggota_id</code></td>
+      <td>Nomor anggota yang meminjam</td>
+      <td>Kunci penghubung ke tabel anggota</td>
     </tr>
   </tbody>
 </table>
-<p>Urutan belajar: <strong>array PHP dulu -&gt; cek pemilik dengan <code>if</code> -&gt; baru bungkus Laravel Policy</strong>.</p>
+<p>Urutan belajar kita: <strong>array PHP dulu -&gt; lihat relasi secara kasat mata -&gt; baru bungkus dengan <code>hasMany</code> dan <code>belongsTo</code> di Eloquent</strong>.</p>
 
 <h2>Kenapa PHP biasa dulu?</h2>
-<p>Ide “hanya pemilik yang boleh ubah” lebih mudah dirasakan di array. Kalau alurnya klik, cuplikan <code>authorize</code> dan kelas Policy terasa bungkus yang sama.</p>
+<p>Kalau langsung loncat ke tiga model Eloquent, pemula sering cuma menghafal fungsi tanpa benar-benar paham hubungan datanya. Maka kita mulai dari array: lihat buku, lihat anggota, lihat slip pinjam, lalu cocokkan nomornya.</p>
 
 <pre><code class="language-php">&lt;?php
-// Mini: cek pemilik sebelum ubah status pinjam.
-$pinjam = ["id" =&gt; 10, "anggota_id" =&gt; 1, "judul" =&gt; "Dasar PHP", "status" =&gt; "aktif"];
-$penggunaId = 2; // bukan pemilik
-
-if ($pinjam["anggota_id"] !== $penggunaId) {
-    http_response_code(403);
-    echo json_encode(["pesan" =&gt; "Tidak punya izin"], JSON_UNESCAPED_UNICODE), PHP_EOL;
-    exit;
-}
-
-$pinjam["status"] = "kembali";
-echo json_encode(["ok" =&gt; true, "data" =&gt; $pinjam], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
-</code></pre>
-<p>Output saat bukan pemilik:</p>
-<pre><code>{
-    "pesan": "Tidak punya izin"
-}
-</code></pre>
-<p><strong>Awam:</strong> <code>anggota_id</code> di catatan harus sama dengan siapa yang memanggil. Beda? Tolak dengan <code>403</code> — artinya “Tidak punya izin”, bukan “data hilang”.</p>
-
-<figure role="img" aria-label="Diagram alur cek izin sebelum ubah catatan pinjam" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:760px;width:100%;height:auto;font-family:Inter,system-ui,sans-serif" viewBox="0 0 760 260">
-  <defs>
-    <marker id="laravel64policyArrow" orient="auto" markerWidth="8" markerHeight="8" refX="7" refY="4" viewBox="0 0 8 8">
-      <path d="M0,0 L8,4 L0,8 Z" fill="#2979FF"/>
-    </marker>
-  </defs>
-  <rect width="760" height="260" fill="#F5F5F0"/>
-  <text x="24" y="36" fill="#1a1a1a" font-size="16" font-weight="700">Ubah catatan: Siapa memanggil -&gt; Cek pemilik -&gt; Izin / Tolak -&gt; JSON</text>
-  <rect x="24" y="70" width="140" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="94" y="105" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Pemanggil</text>
-  <text x="94" y="128" text-anchor="middle" fill="#1a1a1a" font-size="12">kartu anggota</text>
-  <line x1="164" y1="110" x2="214" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel64policyArrow)"/>
-  <rect x="218" y="70" width="140" height="80" rx="8" fill="#1a1a1a" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="288" y="105" text-anchor="middle" fill="#fff" font-size="15" font-weight="700">Cek</text>
-  <text x="288" y="128" text-anchor="middle" fill="#fff" font-size="12">anggota_id</text>
-  <line x1="358" y1="110" x2="408" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel64policyArrow)"/>
-  <rect x="412" y="70" width="150" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="487" y="105" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">Izin?</text>
-  <text x="487" y="128" text-anchor="middle" fill="#1a1a1a" font-size="12">ya / 403</text>
-  <line x1="562" y1="110" x2="612" y2="110" stroke="#2979FF" stroke-width="3" marker-end="url(#laravel64policyArrow)"/>
-  <rect x="616" y="70" width="120" height="80" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="676" y="105" text-anchor="middle" fill="#1a1a1a" font-size="15" font-weight="700">JSON</text>
-  <text x="676" y="128" text-anchor="middle" fill="#1a1a1a" font-size="12">ok / pesan</text>
-  <text x="24" y="190" fill="#1a1a1a" font-size="13">403 = Tidak punya izin (bukan “belum login”).</text>
-  <text x="24" y="220" fill="#1a1a1a" font-size="13">Setelah daftar panjang jelas, kita mengunci siapa boleh mengubah baris tertentu.</text>
-</svg>
-<figcaption>Setelah pagination jelas, <strong>#64 (ini)</strong> mengunci siapa boleh ubah catatan pinjam lewat aturan izin.</figcaption>
-</figure>
-
-<h2>Alur izin — PHP sederhana</h2>
-<p>Pemanggil — aplikasi atau alat yang memanggil API — mengirim identitas anggota. Server membandingkan dengan <code>anggota_id</code> di catatan.</p>
-
-<pre><code class="language-php">&lt;?php
-$pinjam = [
-    ["id" =&gt; 10, "anggota_id" =&gt; 1, "judul" =&gt; "Dasar PHP", "status" =&gt; "aktif"],
-    ["id" =&gt; 11, "anggota_id" =&gt; 2, "judul" =&gt; "Belajar Laravel", "status" =&gt; "aktif"],
+$buku = [
+    ["id" =&gt; 1, "judul" =&gt; "Dasar PHP"],
+    ["id" =&gt; 2, "judul" =&gt; "Belajar Laravel"],
 ];
 
-function ubahStatusPinjam(array $pinjam, int $pinjamId, int $penggunaId, string $statusBaru): array
-{
-    $row = null;
-    foreach ($pinjam as $p) {
-        if ($p["id"] === $pinjamId) {
-            $row = $p;
-            break;
-        }
-    }
-    if ($row === null) {
-        return ["status" =&gt; 404, "body" =&gt; ["pesan" =&gt; "Catatan pinjam tidak ketemu"]];
-    }
-    if ($row["anggota_id"] !== $penggunaId) {
-        return ["status" =&gt; 403, "body" =&gt; ["pesan" =&gt; "Tidak punya izin"]];
-    }
+$anggota = [
+    ["id" =&gt; 10, "nama" =&gt; "Budi"],
+    ["id" =&gt; 11, "nama" =&gt; "Siti"],
+];
 
-    return [
-        "status" =&gt; 200,
-        "body" =&gt; ["ok" =&gt; true, "id" =&gt; $pinjamId, "status" =&gt; $statusBaru],
-    ];
-}
-
-$r = ubahStatusPinjam($pinjam, 10, 2, "kembali");
-http_response_code($r["status"]);
-echo json_encode($r["body"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
+$peminjaman = [
+    ["id" =&gt; 100, "buku_id" =&gt; 1, "anggota_id" =&gt; 10, "status" =&gt; "aktif"],
+];
 </code></pre>
-<p><strong>Awam:</strong> <code>404</code> = catatan tidak ada. <code>403</code> = ada, tapi bukan milikmu. <code>200</code> = pemilik cocok, boleh ubah. Pola ini sama dengan ide ubah/hapus di <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD ubah &amp; hapus (#61)</a>, hanya ditambah cek pemilik.</p>
+<p><strong>Awam:</strong> di sini relasi belum memakai Laravel sama sekali. Tapi hubungan itu sudah ada: slip pinjam <code>100</code> menunjuk buku <code>1</code> dan anggota <code>10</code>. Laravel nanti hanya membantu membacanya lebih rapi.</p>
 
-<h2>Laravel — cuplikan Policy &amp; authorize (bukan file mandiri)</h2>
-<p>Di proyek Laravel, aturan izin sering ditulis di kelas Policy, lalu dipanggil lewat <code>authorize</code> di pengatur kode (<code>controller</code>).</p>
+<h2>Gabungkan data dengan PHP dulu</h2>
+<pre><code class="language-php">&lt;?php
+$buku = [
+    1 =&gt; ["id" =&gt; 1, "judul" =&gt; "Dasar PHP"],
+    2 =&gt; ["id" =&gt; 2, "judul" =&gt; "Belajar Laravel"],
+];
+
+$anggota = [
+    10 =&gt; ["id" =&gt; 10, "nama" =&gt; "Budi"],
+    11 =&gt; ["id" =&gt; 11, "nama" =&gt; "Siti"],
+];
+
+$peminjaman = ["id" =&gt; 100, "buku_id" =&gt; 1, "anggota_id" =&gt; 10, "status" =&gt; "aktif"];
+
+$hasil = [
+    "id" =&gt; $peminjaman["id"],
+    "judul_buku" =&gt; $buku[$peminjaman["buku_id"]]["judul"],
+    "nama_anggota" =&gt; $anggota[$peminjaman["anggota_id"]]["nama"],
+    "status" =&gt; $peminjaman["status"],
+];
+
+echo json_encode($hasil, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
+</code></pre>
+<p>Kalau dijalankan, kamu mendapat satu baris gabungan yang enak dibaca: judul buku + nama anggota + status. Itulah rasa dasar relasi: <strong>data diambil dari tempat lain lewat nomor penghubung</strong>.</p>
+
+<h2>Masuk ke Laravel — model apa saja?</h2>
+<p>Di proyek Laravel, kita akan punya tiga model inti:</p>
+<ol>
+  <li><code>Buku</code> — data buku</li>
+  <li><code>Anggota</code> — data peminjam</li>
+  <li><code>Peminjaman</code> — baris penghubung buku + anggota</li>
+</ol>
+<p><strong>Awam:</strong> model itu bukan mantra. Anggap saja seperti tiga map data yang beda. Kita sedang mengajari tiap map cara saling kenal, supaya <strong>pengatur kode</strong> (<code>controller</code>) nanti bisa membaca data gabungan tanpa menyambung manual terus-menerus.</p>
+
+<pre><code class="language-bash">php artisan make:model Anggota -m
+php artisan make:model Peminjaman -m
+</code></pre>
+
+<h2>Cuplikan relasi di model Laravel</h2>
+<pre><code class="language-php">&lt;?php
+// app/Models/Anggota.php
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+public function peminjaman(): HasMany
+{
+    return $this-&gt;hasMany(Peminjaman::class);
+}
+</code></pre>
 
 <pre><code class="language-php">&lt;?php
-// Cuplikan Laravel (bukan file mandiri) — kelas Policy pinjam.
-namespace App\Policies;
+// app/Models/Peminjaman.php
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-use App\Models\Pinjam;
-use App\Models\User;
-
-class PinjamPolicy
+public function buku(): BelongsTo
 {
-    public function update(User $user, Pinjam $pinjam): bool
-    {
-        return $user-&gt;id === $pinjam-&gt;anggota_id;
-    }
+    return $this-&gt;belongsTo(Buku::class);
+}
+
+public function anggota(): BelongsTo
+{
+    return $this-&gt;belongsTo(Anggota::class);
 }
 </code></pre>
 
-<pre><code class="language-php">&lt;?php
-// Cuplikan Laravel (bukan file mandiri) — cek izin sebelum ubah.
-use App\Models\Pinjam;
-use Illuminate\Http\Request;
-
-public function update(Request $request, Pinjam $pinjam)
-{
-    $this-&gt;authorize('update', $pinjam);
-
-    $pinjam-&gt;update($request-&gt;only('status'));
-
-    return response()-&gt;json(['ok' =&gt; true, 'data' =&gt; $pinjam]);
-}
-</code></pre>
-
-<p><strong>Awam:</strong></p>
+<p><strong>Awam:</strong> kalimatnya dibaca begini:</p>
 <ul>
-  <li><code>PinjamPolicy::update</code> = aturan “boleh ubah kalau pemilik sama”</li>
-  <li><code>authorize('update', $pinjam)</code> = jalankan aturan itu dulu; gagal -&gt; Laravel otomatis jawab <code>403</code> (Tidak punya izin)</li>
-  <li>Aturan di satu file = lebih mudah dirawat daripada <code>if</code> berulang di banyak tempat</li>
+  <li><strong>Anggota hasMany Peminjaman</strong> = satu anggota bisa punya banyak slip pinjam</li>
+  <li><strong>Peminjaman belongsTo Buku</strong> = satu slip menunjuk satu buku</li>
+  <li><strong>Peminjaman belongsTo Anggota</strong> = satu slip menunjuk satu anggota</li>
 </ul>
 
-<h2>Pola Dasar — aturan izin yang rapi</h2>
-<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah aturan izin API">
+<h2>Membaca data gabungan lewat Eloquent</h2>
+<pre><code class="language-php">&lt;?php
+$rows = Peminjaman::with(['buku', 'anggota'])->get();
+
+foreach ($rows as $row) {
+    echo $row-&gt;anggota-&gt;nama.' meminjam '.$row-&gt;buku-&gt;judul.PHP_EOL;
+}
+</code></pre>
+<p><strong>Awam:</strong> <code>with(['buku', 'anggota'])</code> berarti: “saat ambil slip pinjam, sekalian bawa buku dan anggota yang terhubung”. Jadi saat mencetak, <strong>pemanggil</strong> atau <strong>pengatur kode</strong> tidak pusing memburu nomor satu per satu lagi.</p>
+
+<h2>Pola Dasar — membaca relasi dengan nyaman</h2>
+<figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah memahami relasi Eloquent">
 <ol style="list-style:none;padding:0;margin:0;color:#1a1a1a">
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">1</span>
-    <div><strong style="color:#1a1a1a">Kenali pemanggil</strong><br><span style="color:#1a1a1a">Siapa yang login / kartu anggota mana — fondasi dari langkah sebelumnya.</span></div>
+    <div><strong style="color:#1a1a1a">Tentukan map data</strong><br><span style="color:#1a1a1a">Buku, anggota, dan peminjaman punya tempat masing-masing.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">2</span>
-    <div><strong style="color:#1a1a1a">Temukan catatan</strong><br><span style="color:#1a1a1a">Pinjam ada? Kalau tidak, jawab <code>404</code> jelas.</span></div>
+    <div><strong style="color:#1a1a1a">Pasang nomor penghubung</strong><br><span style="color:#1a1a1a"><code>buku_id</code> dan <code>anggota_id</code> hidup di slip peminjaman.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
-    <div><strong style="color:#1a1a1a">Bandingkan pemilik</strong><br><span style="color:#1a1a1a"><code>anggota_id</code> catatan vs pemanggil — PHP <code>if</code> dulu.</span></div>
+    <div><strong style="color:#1a1a1a">Lihat dengan array dulu</strong><br><span style="color:#1a1a1a">Supaya hubungan datanya terlihat jelas, bukan sekadar hafalan fungsi.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">4</span>
-    <div><strong style="color:#1a1a1a">Tolak dengan 403</strong><br><span style="color:#1a1a1a">Pesan awam “Tidak punya izin” — jangan biarkan orang lain ubah.</span></div>
+    <div><strong style="color:#1a1a1a">Tuliskan relasi</strong><br><span style="color:#1a1a1a"><code>hasMany</code> di pemilik banyak, <code>belongsTo</code> di penunjuk.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;border-bottom:1px dashed #A0AEC0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">5</span>
-    <div><strong style="color:#1a1a1a">Pindah ke Policy</strong><br><span style="color:#1a1a1a">Tulis aturan di kelas Policy; panggil <code>authorize</code> sebelum ubah.</span></div>
+    <div><strong style="color:#1a1a1a">Ambil data gabungan</strong><br><span style="color:#1a1a1a">Pakai <code>with()</code> agar buku dan anggota ikut terbaca.</span></div>
   </li>
   <li style="display:flex;gap:1rem;padding:.9rem 0;color:#1a1a1a">
     <span style="flex-shrink:0;width:2rem;height:2rem;border-radius:9999px;background:#2979FF;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700">6</span>
-    <div><strong style="color:#1a1a1a">Uji tiga jalur</strong><br><span style="color:#1a1a1a">Pemilik benar · bukan pemilik · catatan tidak ada.</span></div>
+    <div><strong style="color:#1a1a1a">Siapkan artikel berikutnya</strong><br><span style="color:#1a1a1a">Setelah relasi benar, pagination jadi jauh lebih masuk akal.</span></div>
   </li>
 </ol>
 </figure>
 
-<h2>Kode lengkap — demo mandiri aturan izin</h2>
-<p>Simpan sebagai <code>laravel_policy_otorisasi_api_demo.php</code>, lalu jalankan <code>php laravel_policy_otorisasi_api_demo.php</code>:</p>
+<h2>Kode lengkap — demo mandiri relasi sederhana</h2>
+<p>Simpan sebagai <code>laravel_eloquent_relasi_peminjaman_demo.php</code>, lalu jalankan <code>php laravel_eloquent_relasi_peminjaman_demo.php</code>:</p>
 
 <pre><code class="language-php">&lt;?php
 declare(strict_types=1);
 
-$pinjam = [
-    ["id" =&gt; 10, "anggota_id" =&gt; 1, "judul" =&gt; "Dasar PHP", "status" =&gt; "aktif"],
-    ["id" =&gt; 11, "anggota_id" =&gt; 2, "judul" =&gt; "Belajar Laravel", "status" =&gt; "aktif"],
+$buku = [
+    1 =&gt; ["id" =&gt; 1, "judul" =&gt; "Dasar PHP"],
+    2 =&gt; ["id" =&gt; 2, "judul" =&gt; "Belajar Laravel"],
 ];
 
-function ubahStatusPinjam(array $pinjam, int $pinjamId, int $penggunaId, string $statusBaru): array
-{
-    $row = null;
-    foreach ($pinjam as $p) {
-        if ($p["id"] === $pinjamId) {
-            $row = $p;
-            break;
-        }
-    }
-    if ($row === null) {
-        return ["status" =&gt; 404, "body" =&gt; ["pesan" =&gt; "Catatan pinjam tidak ketemu"]];
-    }
-    if ($row["anggota_id"] !== $penggunaId) {
-        return ["status" =&gt; 403, "body" =&gt; ["pesan" =&gt; "Tidak punya izin"]];
-    }
+$anggota = [
+    10 =&gt; ["id" =&gt; 10, "nama" =&gt; "Budi"],
+    11 =&gt; ["id" =&gt; 11, "nama" =&gt; "Siti"],
+];
 
+$peminjaman = [
+    ["id" =&gt; 100, "buku_id" =&gt; 1, "anggota_id" =&gt; 10, "status" =&gt; "aktif"],
+    ["id" =&gt; 101, "buku_id" =&gt; 2, "anggota_id" =&gt; 11, "status" =&gt; "kembali"],
+];
+
+function gabungRelasi(array $row, array $buku, array $anggota): array
+{
     return [
-        "status" =&gt; 200,
-        "body" =&gt; ["ok" =&gt; true, "id" =&gt; $pinjamId, "status" =&gt; $statusBaru],
+        "id" =&gt; $row["id"],
+        "judul_buku" =&gt; $buku[$row["buku_id"]]["judul"],
+        "nama_anggota" =&gt; $anggota[$row["anggota_id"]]["nama"],
+        "status" =&gt; $row["status"],
     ];
 }
 
 function demo(string $judul, callable $aksi): void
 {
     echo "=== {$judul} ===", PHP_EOL;
-    $hasil = $aksi();
-    echo "status: ", $hasil["status"], PHP_EOL;
-    echo json_encode($hasil["body"], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL, PHP_EOL;
+    echo json_encode($aksi(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL, PHP_EOL;
 }
 
-demo("Bukan pemilik -&gt; 403", function () use ($pinjam) {
-    return ubahStatusPinjam($pinjam, 10, 2, "kembali");
+demo("Satu slip gabungan", function () use ($peminjaman, $buku, $anggota) {
+    return gabungRelasi($peminjaman[0], $buku, $anggota);
 });
 
-demo("Pemilik benar -&gt; 200", function () use ($pinjam) {
-    return ubahStatusPinjam($pinjam, 10, 1, "kembali");
-});
-
-demo("Catatan tidak ada -&gt; 404", function () use ($pinjam) {
-    return ubahStatusPinjam($pinjam, 99, 1, "kembali");
+demo("Dua slip gabungan", function () use ($peminjaman, $buku, $anggota) {
+    return array_map(fn ($row) =&gt; gabungRelasi($row, $buku, $anggota), $peminjaman);
 });
 </code></pre>
-<p><strong>Awam:</strong> <code>demo(...)</code> hanya membungkus output di terminal. <code>callable</code> = sesuatu yang bisa dipanggil seperti fungsi. <code>declare(strict_types=1);</code> membuat tipe lebih ketat — boleh diikuti, tidak wajib dihafal. Alur penting: bukan pemilik, pemilik benar, catatan hilang.</p>
+<p><strong>Awam:</strong> <code>demo(...)</code> hanya pembungkus output. <code>declare(strict_types=1);</code> artinya PHP lebih ketat membaca tipe data; boleh diikuti, tidak wajib dihafal. Yang penting adalah fungsi <code>gabungRelasi</code>: dia mengambil satu slip, lalu mencari buku dan anggota yang cocok berdasarkan nomor.</p>
 
 <h2>Kesalahan umum</h2>
 <table>
@@ -353,47 +342,47 @@ demo("Catatan tidak ada -&gt; 404", function () use ($pinjam) {
   </thead>
   <tbody>
     <tr>
-      <td>Siapa saja bisa ubah pinjam orang lain</td>
-      <td>Lupa cek <code>anggota_id</code></td>
-      <td>Cek pemilik sebelum ubah/hapus</td>
+      <td>Nama anggota kosong</td>
+      <td><code>anggota_id</code> salah atau model belum terhubung</td>
+      <td>Cek nomor penghubung dan relasi <code>belongsTo</code></td>
     </tr>
     <tr>
-      <td><code>403</code> padahal yakin pemilik</td>
-      <td>ID pemanggil salah / belum login</td>
-      <td>Pastikan identitas pemanggil benar</td>
+      <td>Judul buku tidak muncul</td>
+      <td><code>buku_id</code> tidak cocok dengan data buku</td>
+      <td>Pastikan slip menunjuk buku yang benar</td>
     </tr>
     <tr>
-      <td>Aturan tersebar di banyak file</td>
-      <td>Copy-paste <code>if</code> berulang</td>
-      <td>Kumpulkan di kelas Policy</td>
+      <td>Data gabungan lambat atau berulang</td>
+      <td>Ambil relasi satu per satu tanpa strategi</td>
+      <td>Belajar <code>with()</code> dan daftar gabungan dengan rapi</td>
     </tr>
     <tr>
-      <td>Pesan error membingungkan</td>
-      <td>403 tanpa penjelasan awam</td>
-      <td>Tulis “Tidak punya izin” yang jelas</td>
+      <td>Relasi terasa abstrak</td>
+      <td>Langsung hafal fungsi tanpa melihat contoh data</td>
+      <td>Kembali ke array PHP dulu sampai hubungan datanya terasa</td>
     </tr>
   </tbody>
 </table>
 
 <h2>Latihan singkat</h2>
 <ol>
-  <li>Ubah demo: tambah kasus “pemilik benar ubah pinjam id 11” dan bandingkan dengan kasus bukan pemilik.</li>
-  <li>Jelaskan ke teman: beda <code>403</code> (Tidak punya izin) dengan <code>404</code> (tidak ketemu).</li>
-  <li>Tulis satu kalimat: kenapa aturan izin lebih rapi di kelas Policy daripada <code>if</code> di banyak tempat.</li>
+  <li>Tambahkan satu anggota baru dan satu slip pinjam baru ke demo, lalu cek apakah hasil gabungan ikut muncul.</li>
+  <li>Jelaskan ke teman: kenapa <code>peminjaman</code> lebih cocok menjadi tabel penghubung daripada menaruh semua informasi di tabel buku.</li>
+  <li>Tulis satu kalimat: beda <code>hasMany</code> dan <code>belongsTo</code> dengan bahasa awam.</li>
 </ol>
 
 <h2>FAQ singkat</h2>
-<p><strong>Apakah Policy menggantikan login?</strong><br>
-Tidak. Login menjawab “siapa kamu”. Policy menjawab “apakah kamu boleh melakukan ini pada baris ini”.</p>
-<p><strong>Haruskah selalu pakai kelas Policy?</strong><br>
-Untuk belajar, <code>if</code> PHP sudah cukup memahami ide. Di proyek Laravel nyata, Policy membantu merapikan aturan saat bertambah.</p>
+<p><strong>Kenapa tidak langsung policy atau resource?</strong><br>
+Karena policy, resource, dan pagination baru terasa berguna kalau hubungan datanya sudah benar. Artikel ini memasang fondasi itu.</p>
+<p><strong>Apakah satu buku bisa dipinjam berkali-kali?</strong><br>
+Secara konsep iya. Itulah kenapa satu buku bisa muncul di banyak baris peminjaman pada waktu yang berbeda.</p>
 <p><strong>Ke mana setelah ini?</strong><br>
-Berikutnya alami: <strong>API Resource</strong> — merapikan bentuk JSON jawaban.</p>
+Berikutnya alami: <strong>Pagination, Filter &amp; Pencarian</strong> untuk daftar slip pinjam yang makin panjang.</p>
 
 <h2>Kesimpulan</h2>
-<p>Kamu sudah mengunci siapa boleh ubah: <strong>cek pemilik</strong> dengan <code>if</code> PHP dulu, lalu pindahkan ke <strong>aturan izin</strong> (<em>Policy</em>) dan <code>authorize</code> di Laravel. Status <code>403</code> = “Tidak punya izin” — jelas untuk pemanggil.</p>
+<p>Kamu sudah belajar fondasi relasi: <strong>anggota</strong>, <strong>buku</strong>, dan <strong>peminjaman</strong> saling terhubung. Mulai dari array PHP dulu, lalu pindah ke <code>hasMany</code> dan <code>belongsTo</code> di Laravel. Setelah ini, daftar pinjam panjang akan jauh lebih mudah dibaca dan diolah.</p>
 <blockquote>
-  <p><strong>Seri 5 progress:</strong> langkah <strong>#64 (ini)</strong> · 4/8 Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-pagination-filter-pencarian">Pagination (#63)</a> LIVE · <a href="/artikel/laravel-eloquent-relasi-peminjaman">Relasi (#62)</a> LIVE. Berikutnya: API Resource (rapikan JSON).</p>
+  <p><strong>Seri 5 progress:</strong> langkah <strong>#64 (ini)</strong> · <strong>1/7</strong> Laravel Lanjutan · prasyarat: <a href="/artikel/laravel-crud-api-buku-ubah-hapus">CRUD Buku (#63)</a> LIVE. Berikutnya: <strong>Pagination, Filter &amp; Pencarian</strong>.</p>
 </blockquote>
 HTML;
     }

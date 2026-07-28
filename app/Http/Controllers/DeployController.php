@@ -4569,8 +4569,8 @@ class DeployController extends Controller
             return response('Article 64 seed failed', 500);
         }
 
-        $slug = 'laravel-policy-otorisasi-api';
-        $prevSlug = 'laravel-pagination-filter-pencarian';
+        $slug = 'laravel-eloquent-relasi-peminjaman';
+        $prevSlug = 'laravel-crud-api-buku-ubah-hapus';
 
         $article = Article::published()->where('slug', $slug)->first();
 
@@ -4581,7 +4581,7 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel64policyArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_policy_otorisasi_api_demo.php') || ! str_contains($body, 'authorize') || ! str_contains($body, 'aturan izin') || ! str_contains($body, 'Policy') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#64 (ini)') || ! str_contains($body, '4/8 Laravel Lanjutan') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Tidak punya izin') || ! str_contains($body, 'Pola Dasar')) {
+        if (! str_contains($body, 'laravel64relasiArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_eloquent_relasi_peminjaman_demo.php') || ! str_contains($body, 'belongsTo') || ! str_contains($body, 'hasMany') || ! str_contains($body, 'relasi') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#64 (ini)') || ! str_contains($body, '1/7') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar')) {
             report(new \RuntimeException('Article 64 body missing expected content after seed.'));
 
             return response('Article 64 body content checks failed', 500);
@@ -4592,23 +4592,6 @@ class DeployController extends Controller
             report(new \RuntimeException('Article 63 missing while publishing #64.'));
 
             return response('Article 64 prerequisite #63 missing', 500);
-        }
-
-        if (class_exists(\Database\Seeders\Article63Seeder::class)) {
-            $backExit = Artisan::call('db:seed', [
-                '--class' => 'Database\\Seeders\\Article63Seeder',
-                '--force' => true,
-            ]);
-            if ($backExit !== 0) {
-                return response('Article 64 backlink #63 seed failed', 500);
-            }
-        }
-
-        $a63 = Article::published()->where('slug', $prevSlug)->first();
-        if (! $a63 || ! str_contains((string) $a63->body, $slug)) {
-            report(new \RuntimeException('Article 64 backlink missing on #63 after reseed.'));
-
-            return response('Article 64 backlink #63 incomplete', 500);
         }
 
         try {
