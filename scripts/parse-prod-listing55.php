@@ -1,5 +1,12 @@
 <?php
 
+require __DIR__.'/../vendor/autoload.php';
+
+$app = require __DIR__.'/../bootstrap/app.php';
+$app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
+
+use Illuminate\Support\Str;
+
 $url = $argv[1] ?? 'https://kodingindonesia.com/artikel';
 $html = file_get_contents($url);
 if ($html === false) {
@@ -21,7 +28,7 @@ foreach ($m as $i => $row) {
     }
     $found = true;
     $excerpt = trim(strip_tags(html_entity_decode($row[3])));
-    $card = \Illuminate\Support\Str::limit($excerpt, 100);
+    $card = Str::limit($excerpt, 100);
     echo 'Position: '.($i + 1)."\n";
     echo "Excerpt: {$excerpt}\n";
     echo "Card: {$card}\n";
