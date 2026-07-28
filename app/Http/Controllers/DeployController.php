@@ -4648,19 +4648,7 @@ class DeployController extends Controller
             opcache_reset();
         }
 
-        foreach ([
-            'database/seeders/Article65Seeder.php',
-            'database/seeders/Article64Seeder.php',
-            'database/seeders/Article64Hardlink65Seeder.php',
-        ] as $relative) {
-            $seederPath = base_path($relative);
-            clearstatcache(true, $seederPath);
-            if (function_exists('opcache_invalidate')) {
-                opcache_invalidate($seederPath, true);
-            }
-        }
-
-        if (! class_exists(\Database\Seeders\Article65Seeder::class)) {
+        if (! $this->ensureSeederClass('database/seeders/Article65Seeder.php', \Database\Seeders\Article65Seeder::class)) {
             return response('Article65Seeder class not found on server', 500);
         }
 
@@ -4669,7 +4657,7 @@ class DeployController extends Controller
         // Bootstrap #64 jika hilang di prod (recovery path).
         $a64 = Article::published()->where('slug', $prevSlug)->first();
         if (! $a64) {
-            if (! class_exists(\Database\Seeders\Article64Seeder::class)) {
+            if (! $this->ensureSeederClass('database/seeders/Article64Seeder.php', \Database\Seeders\Article64Seeder::class)) {
                 return response('Article64Seeder class not found on server', 500);
             }
             $bootstrap64 = Artisan::call('db:seed', [
@@ -4677,7 +4665,7 @@ class DeployController extends Controller
                 '--force' => true,
             ]);
             if ($bootstrap64 !== 0) {
-                return response('Article 64 bootstrap seed failed', 500);
+                return response('Article 64 bootstrap seed failed: '.trim(Artisan::output()), 500);
             }
             $a64 = Article::published()->where('slug', $prevSlug)->first();
             if (! $a64) {
@@ -4702,7 +4690,7 @@ class DeployController extends Controller
         ]);
 
         if ($exitCode !== 0) {
-            return response('Article 65 seed failed', 500);
+            return response('Article 65 seed failed: '.trim(Artisan::output()), 500);
         }
 
         $slug = 'laravel-pagination-filter-pencarian';
@@ -4716,10 +4704,26 @@ class DeployController extends Controller
         }
 
         $body = (string) $article->body;
-        if (! str_contains($body, 'laravel65pageArrow') || ! str_contains($body, 'color:#1a1a1a') || ! str_contains($body, 'laravel_pagination_filter_pencarian_demo.php') || ! str_contains($body, 'paginate') || ! str_contains($body, 'array_slice') || ! str_contains($body, 'demo(') || ! str_contains($body, 'Seri 5') || ! str_contains($body, '#65 (ini)') || ! str_contains($body, '2/7') || ! str_contains($body, $prevSlug) || ! str_contains($body, 'Pola Dasar') || ! str_contains($body, 'Persiapan') || ! str_contains($body, 'notepad app\Http\Controllers\PeminjamanController.php')) {
-            report(new \RuntimeException('Article 65 body missing expected content after seed.'));
+        $bodyNeedles = [
+            'laravel65pageArrow',
+            'color:#1a1a1a',
+            'laravel_pagination_filter_pencarian_demo.php',
+            'paginate',
+            'array_slice',
+            'demo(',
+            'Seri 5',
+            '#65 (ini)',
+            '2/7',
+            $prevSlug,
+            'Pola Dasar',
+            'Persiapan',
+            'notepad app\Http\Controllers\PeminjamanController.php',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Article 65 body missing expected content after seed: '.implode(', ', $missingBody)));
 
-            return response('Article 65 body content checks failed', 500);
+            return response('Article 65 body content checks failed: '.implode(', ', $missingBody), 500);
         }
 
         if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
@@ -4729,10 +4733,19 @@ class DeployController extends Controller
         }
 
         $bodyEn = (string) $article->body_en;
-        if (! str_contains($bodyEn, '#65 (this article)') || ! str_contains($bodyEn, 'Beginner:') || ! str_contains($bodyEn, 'Tools used in this article') || ! str_contains($bodyEn, 'Preparation') || ! str_contains($bodyEn, 'notepad app\Http\Controllers\PeminjamanController.php') || ! str_contains($bodyEn, 'paginate')) {
-            report(new \RuntimeException('Article 65 EN body missing expected content after seed.'));
+        $enNeedles = [
+            '#65 (this article)',
+            'Beginner:',
+            'Tools used in this article',
+            'Preparation',
+            'notepad app\Http\Controllers\PeminjamanController.php',
+            'paginate',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 65 EN body missing expected content after seed: '.implode(', ', $missingEn)));
 
-            return response('Article 65 EN body content checks failed', 500);
+            return response('Article 65 EN body content checks failed: '.implode(', ', $missingEn), 500);
         }
 
         $a64 = Article::published()->where('slug', $prevSlug)->first();
@@ -4743,19 +4756,19 @@ class DeployController extends Controller
         }
 
         // Hardlink #64 → #65: setelah #65 LIVE, patch #64 tanpa reseed penuh.
+        // Non-fatal — #65 LIVE lebih penting; hardlink bisa diulang lewat hook berikutnya.
         if (! str_contains((string) $a64->body, $slug)) {
-            $exit64 = Artisan::call('db:seed', [
-                '--class' => 'Database\\Seeders\\Article64Hardlink65Seeder',
-                '--force' => true,
-            ]);
-            if ($exit64 !== 0) {
-                return response('Article 64 hardlink patch failed', 500);
-            }
-            $a64 = Article::published()->where('slug', $prevSlug)->first();
-            if (! $a64 || ! str_contains((string) $a64->body, $slug)) {
-                report(new \RuntimeException('Article 64 hardlink to #65 missing after patch.'));
-
-                return response('Article 64 hardlink to #65 failed', 500);
+            if ($this->ensureSeederClass('database/seeders/Article64Hardlink65Seeder.php', \Database\Seeders\Article64Hardlink65Seeder::class)) {
+                $exit64 = Artisan::call('db:seed', [
+                    '--class' => 'Database\\Seeders\\Article64Hardlink65Seeder',
+                    '--force' => true,
+                ]);
+                $a64 = Article::published()->where('slug', $prevSlug)->first();
+                if ($exit64 !== 0 || ! $a64 || ! str_contains((string) $a64->body, $slug)) {
+                    report(new \RuntimeException('Article 64 hardlink to #65 deferred: patch exit='.$exit64.' slug_present='.(int) ($a64 && str_contains((string) $a64->body, $slug))));
+                }
+            } else {
+                report(new \RuntimeException('Article64Hardlink65Seeder class not found — hardlink deferred.'));
             }
         }
 
@@ -4851,6 +4864,20 @@ class DeployController extends Controller
             'status'  => 'ok',
             'message' => 'Admin account ensured successfully.',
         ], 200, [], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    }
+
+    private function ensureSeederClass(string $relativePath, string $class): bool
+    {
+        $seederPath = base_path($relativePath);
+        clearstatcache(true, $seederPath);
+        if (function_exists('opcache_invalidate')) {
+            opcache_invalidate($seederPath, true);
+        }
+        if (! class_exists($class) && is_readable($seederPath)) {
+            require_once $seederPath;
+        }
+
+        return class_exists($class);
     }
 
     private function publishArticle(string $seederClass, string $successMessage): Response

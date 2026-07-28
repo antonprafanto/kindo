@@ -138,7 +138,7 @@ class Article65Seeder extends Seeder
   <li><strong>Editor teks</strong> — Notepad / VS Code — untuk membuka atau membuat <strong>pengatur kode</strong>. Contoh: <code>notepad app\Http\Controllers\PeminjamanController.php</code>.</li>
   <li><strong>Browser</strong> — opsional. Inti uji hari ini ada di terminal; browser berguna kalau kamu sudah menjalankan <code>php artisan serve</code> dan ingin uji lewat alamat URL.</li>
 </ul>
-<p><strong>Awam:</strong> untuk artikel ini <strong>satu terminal sebenarnya cukup</strong> — jalankan <code>php laravel_pagination_filter_pencarian_demo.php</code> di folder proyek. Kalau <code>php artisan serve</code> dari artikel sebelumnya masih hidup, pakai <strong>terminal kedua</strong> untuk demo PHP dan perintah <code>curl.exe</code> saat menguji rute Laravel.</p>
+<p><strong>Awam:</strong> untuk artikel ini <strong>satu terminal sebenarnya cukup</strong> — jalankan <code>php laravel_pagination_filter_pencarian_demo.php</code> di folder proyek. Kalau <code>php artisan serve</code> dari artikel sebelumnya masih hidup, pakai <strong>terminal kedua</strong> untuk demo PHP dan perintah <code>curl.exe</code> saat menguji rute Laravel. Kalau butuh jendela kedua: Laragon — klik menu <em>Terminal</em> lagi · XAMPP — klik tombol <em>Shell</em> lagi, lalu <code>cd</code> ke folder proyek yang sama.</p>
 <p>Buka terminal Laragon/Shell XAMPP, masuk ke folder proyek:</p>
 <pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
 </code></pre>
@@ -503,7 +503,7 @@ HTML;
   <li><strong>Text editor</strong> — Notepad / VS Code — to open or create the <strong>code organizer</strong>. Example: <code>notepad app\Http\Controllers\PeminjamanController.php</code>.</li>
   <li><strong>Browser</strong> — optional. The core test today is in the terminal; the browser helps if you already run <code>php artisan serve</code> and want to test through a URL.</li>
 </ul>
-<p><strong>Beginner:</strong> for this article, <strong>one terminal is actually enough</strong> — run <code>php laravel_pagination_filter_pencarian_demo.php</code> in the project folder. If <code>php artisan serve</code> from the previous article is still alive, use a <strong>second terminal</strong> for the PHP demo and <code>curl.exe</code> when testing the Laravel route.</p>
+<p><strong>Beginner:</strong> for this article, <strong>one terminal is actually enough</strong> — run <code>php laravel_pagination_filter_pencarian_demo.php</code> in the project folder. If <code>php artisan serve</code> from the previous article is still alive, use a <strong>second terminal</strong> for the PHP demo and <code>curl.exe</code> when testing the Laravel route. To open a second window: Laragon — click the <em>Terminal</em> menu again · XAMPP — click the <em>Shell</em> button again, then <code>cd</code> to the same project folder.</p>
 <p>Open Laragon Terminal / XAMPP Shell, then move into the project folder:</p>
 <pre><code class="language-bash">cd C:\laragon\www\perpustakaan-api
 </code></pre>
