@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Article;
+use App\Support\ArticleExcerpt;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 
 /**
  * Regenerasi excerpt ID dari body agar kartu di /artikel tidak menampilkan "#N (ini)" basi
@@ -38,9 +38,9 @@ class RefreshLaravelSeriesExcerptsSeeder extends Seeder
                 continue;
             }
 
-            $article->excerpt = Str::limit(strip_tags((string) $article->body), 200);
+            $article->excerpt = ArticleExcerpt::fromHtml((string) $article->body);
             if (filled($article->body_en)) {
-                $article->excerpt_en = Str::limit(strip_tags((string) $article->body_en), 200);
+                $article->excerpt_en = ArticleExcerpt::fromHtml((string) $article->body_en, markerPattern: ArticleExcerpt::MARKER_EN);
             }
             $article->save();
             $n++;

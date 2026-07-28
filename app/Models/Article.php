@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\ArticleHtmlSanitizer;
+use App\Support\ArticleExcerpt;
 use App\Support\ArticleSeoLimits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -47,14 +48,14 @@ class Article extends Model
             // Refresh listing excerpt when body changes (unless excerpt was set explicitly
             // in the same save). Prevents stale "#N (ini)" numbers after series renumber.
             if ($article->isDirty('body') && is_string($article->body) && ! $article->isDirty('excerpt')) {
-                $article->excerpt = Str::limit(strip_tags($article->body), 200);
+                $article->excerpt = ArticleExcerpt::fromHtml($article->body);
             } elseif (empty($article->excerpt) && $article->body) {
-                $article->excerpt = Str::limit(strip_tags($article->body), 200);
+                $article->excerpt = ArticleExcerpt::fromHtml($article->body);
             }
             if ($article->isDirty('body_en') && is_string($article->body_en) && ! $article->isDirty('excerpt_en')) {
-                $article->excerpt_en = Str::limit(strip_tags($article->body_en), 200);
+                $article->excerpt_en = ArticleExcerpt::fromHtml($article->body_en, markerPattern: ArticleExcerpt::MARKER_EN);
             } elseif (empty($article->excerpt_en) && $article->body_en) {
-                $article->excerpt_en = Str::limit(strip_tags($article->body_en), 200);
+                $article->excerpt_en = ArticleExcerpt::fromHtml($article->body_en, markerPattern: ArticleExcerpt::MARKER_EN);
             }
             if ($article->status === 'published' && $article->published_at === null) {
                 $article->published_at = now();
