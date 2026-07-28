@@ -4623,6 +4623,23 @@ class DeployController extends Controller
             }
         }
 
+        // Hardlink #64 → #65 setelah reseed #64, jika #65 sudah LIVE (CI: step #65 jalan sebelum #64).
+        $nextSlug = 'laravel-pagination-filter-pencarian';
+        $a65 = Article::published()->where('slug', $nextSlug)->first();
+        $article = Article::published()->where('slug', $slug)->first();
+        if ($a65 && $article && ! str_contains((string) $article->body, $nextSlug)) {
+            if ($this->ensureSeederClass('database/seeders/Article64Hardlink65Seeder.php', \Database\Seeders\Article64Hardlink65Seeder::class)) {
+                $exitHl = Artisan::call('db:seed', [
+                    '--class' => 'Database\\Seeders\\Article64Hardlink65Seeder',
+                    '--force' => true,
+                ]);
+                $article = Article::published()->where('slug', $slug)->first();
+                if ($exitHl !== 0 || ! $article || ! str_contains((string) $article->body, $nextSlug)) {
+                    report(new \RuntimeException('Article 64 hardlink to #65 missing after patch in publishArticle64.'));
+                }
+            }
+        }
+
         try {
             app(SitemapService::class)->writeToDisk();
         } catch (\Throwable $e) {
