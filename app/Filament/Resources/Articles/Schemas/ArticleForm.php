@@ -12,6 +12,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\HtmlString;
@@ -164,7 +165,13 @@ class ArticleForm
                         ->label('Ringkasan / Excerpt')
                         ->rows(3)
                         ->maxLength(500)
-                        ->hint('Maks 500 karakter — ditampilkan di listing dan meta description.')
+                        ->live()
+                        ->partiallyRenderAfterStateUpdated()
+                        ->belowContent(fn (Get $get): HtmlString => new HtmlString(
+                            '<p style="margin:.35rem 0 0;font-size:.75rem;color:#718096;">'
+                            .mb_strlen($get('excerpt') ?? '').'/500 karakter — tampil di kartu artikel; dipakai sebagai fallback meta bila Meta Description kosong.'
+                            .'</p>'
+                        ))
                         ->columnSpanFull(),
 
                     ...($excludeBodyFromForm

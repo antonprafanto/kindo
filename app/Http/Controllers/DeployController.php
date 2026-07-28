@@ -5020,6 +5020,23 @@ class DeployController extends Controller
         ]);
     }
 
+    /**
+     * Clamp contributor/admin SEO fields that exceed Google snippet limits.
+     */
+    public function clampArticleSeoFields(): JsonResponse
+    {
+        $this->authorizeDeployHook();
+
+        $result = \App\Support\ArticleSeoLimits::clampAllArticles();
+
+        Artisan::call('view:clear');
+
+        return response()->json([
+            'ok' => true,
+            ...$result,
+        ]);
+    }
+
     private function authorizeDeployHook(): void
     {
         $token = config('app.deploy_hook_token');

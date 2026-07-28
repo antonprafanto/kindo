@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Services\ArticleHtmlSanitizer;
+use App\Support\ArticleSeoLimits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -53,15 +54,10 @@ class Article extends Model
                 $article->published_at = now();
             }
 
-            foreach ([
-                'seo_title' => 70,
-                'seo_title_en' => 70,
-                'seo_description' => 160,
-                'seo_description_en' => 160,
-            ] as $field => $max) {
+            foreach (ArticleSeoLimits::fieldLimits() as $field => $max) {
                 $value = $article->{$field};
-                if (is_string($value) && mb_strlen($value) > $max) {
-                    $article->{$field} = mb_substr($value, 0, $max);
+                if (is_string($value)) {
+                    $article->{$field} = ArticleSeoLimits::clamp($value, $max);
                 }
             }
         });
@@ -156,28 +152,28 @@ class Article extends Model
     {
         if (app()->getLocale() === 'en' && $this->has_english) {
             if (filled($this->seo_title_en)) {
-                return $this->seo_title_en;
+                return ArticleSeoLimits::clamp($this->seo_title_en, ArticleSeoLimits::TITLE_MAX) ?? '';
             }
             if (filled($this->title_en)) {
-                return $this->title_en;
+                return ArticleSeoLimits::clamp($this->title_en, ArticleSeoLimits::TITLE_MAX) ?? '';
             }
         }
 
-        return $this->seo_title;
+        return ArticleSeoLimits::clamp($this->seo_title, ArticleSeoLimits::TITLE_MAX) ?? '';
     }
 
     public function getDisplaySeoDescriptionAttribute(): string
     {
         if (app()->getLocale() === 'en' && $this->has_english) {
             if (filled($this->seo_description_en)) {
-                return $this->seo_description_en;
+                return ArticleSeoLimits::clamp($this->seo_description_en, ArticleSeoLimits::DESCRIPTION_MAX) ?? '';
             }
             if (filled($this->excerpt_en)) {
-                return $this->excerpt_en;
+                return ArticleSeoLimits::clamp($this->excerpt_en, ArticleSeoLimits::DESCRIPTION_MAX) ?? '';
             }
         }
 
-        return $this->seo_description;
+        return ArticleSeoLimits::clamp($this->seo_description, ArticleSeoLimits::DESCRIPTION_MAX) ?? '';
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Support;
 
+use App\Support\ArticleSeoLimits;
 use Closure;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -16,9 +17,9 @@ class SeoFormFields
         return self::configure(
             TextInput::make($name)->label($label),
             $name,
-            70,
+            ArticleSeoLimits::TITLE_MAX,
             $hintSuffix,
-            "{$label} maksimal 70 karakter.",
+            "{$label} maksimal ".ArticleSeoLimits::TITLE_MAX.' karakter.',
         );
     }
 
@@ -29,9 +30,9 @@ class SeoFormFields
                 ->label($label)
                 ->rows(3),
             $name,
-            160,
+            ArticleSeoLimits::DESCRIPTION_MAX,
             $hintSuffix,
-            "{$label} maksimal 160 karakter.",
+            "{$label} maksimal ".ArticleSeoLimits::DESCRIPTION_MAX.' karakter.',
         );
     }
 
@@ -57,14 +58,14 @@ class SeoFormFields
                     return;
                 }
 
-                $set($name, mb_substr($state, 0, $max));
+                $set($name, ArticleSeoLimits::clamp($state, $max));
             })
             ->afterStateUpdated(function (Set $set, ?string $state) use ($name, $max): void {
                 if (! is_string($state) || mb_strlen($state) <= $max) {
                     return;
                 }
 
-                $set($name, mb_substr($state, 0, $max));
+                $set($name, ArticleSeoLimits::clamp($state, $max));
             })
             ->belowContent(fn (Get $get): HtmlString => self::counter(
                 $get($name),

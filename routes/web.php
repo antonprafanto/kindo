@@ -350,6 +350,10 @@ Route::get('/deploy/remirror-article-images', [DeployController::class, 'remirro
     ->middleware('throttle:5,1')
     ->name('deploy.remirror-article-images');
 
+Route::get('/deploy/clamp-article-seo-fields', [DeployController::class, 'clampArticleSeoFields'])
+    ->middleware('throttle:5,1')
+    ->name('deploy.clamp-article-seo-fields');
+
 Route::get('/deploy/ensure-admin', [DeployController::class, 'ensureAdmin'])
     ->middleware('throttle:120,1')
     ->name('deploy.ensure-admin');

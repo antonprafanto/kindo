@@ -373,6 +373,25 @@ jobs:
           echo "::warning::remirror-article-images failed — run manually with deploy token"
           exit 1
 
+      - name: Clamp over-limit article SEO fields
+        continue-on-error: true
+        run: |
+          set +e
+          for attempt in 1 2 3; do
+            body="$(mktemp)"
+            code=$(curl -sS --max-time 120 -o "$body" -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/clamp-article-seo-fields" || echo "000")
+            echo "clamp-seo HTTP $code"
+            sed -n '1,40p' "$body" || true
+            if [ "$code" = "200" ]; then
+              exit 0
+            fi
+            sleep $((attempt * 5))
+          done
+          echo "::warning::clamp-article-seo-fields failed — run manually with deploy token"
+          exit 1
+
       - name: Publish article 1 via deploy hook (idempotent)
         continue-on-error: true
         run: |
