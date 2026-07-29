@@ -21,6 +21,7 @@ $slugs = [
     'laravel-pagination-filter-pencarian' => 65,
     'laravel-policy-otorisasi-api' => 66,
     'laravel-api-resource-json' => 67,
+    'laravel-feature-test-api' => 68,
 ];
 
 $failed = 0;
