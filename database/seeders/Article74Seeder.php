@@ -1,0 +1,526 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
+use App\Models\User;
+use Illuminate\Database\Seeder;
+
+class Article74Seeder extends Seeder
+{
+    public function run(): void
+    {
+        $admin = User::first();
+        $iotCat = Category::where('slug', 'iot-smart-device')->first()
+            ?? Category::where('slug', 'esp32-arduino')->first();
+
+        if (! $admin || ! $iotCat) {
+            throw new \RuntimeException('User atau kategori iot-smart-device/esp32-arduino tidak ditemukan. Jalankan DatabaseSeeder dulu.');
+        }
+
+        $slug = 'fullstack-iot-buka-kotak-kit';
+
+        $existing = Article::withTrashed()->where('slug', $slug)->first();
+        if ($existing?->trashed()) {
+            $existing->restore();
+        }
+
+        foreach ([
+            'fullstack-iot' => 'fullstack-iot',
+            'iot' => 'iot',
+            'esp32' => 'esp32',
+        ] as $tagSlug => $tagName) {
+            Tag::updateOrCreate(['slug' => $tagSlug], ['name' => $tagName]);
+        }
+
+        $article = Article::updateOrCreate(
+            ['slug' => $slug],
+            [
+                'user_id'            => $admin->id,
+                'category_id'        => $iotCat->id,
+                'title'              => 'Buka kotak: kenali setiap komponen kit',
+                'title_en'           => 'Open the box: meet every kit part',
+                'excerpt'            => 'FS-04 / #74: Kenali board, breadboard, LED, resistor, sensor, relay + checklist kit. Belum wiring menyala.',
+                'excerpt_en'         => 'FS-04 / #74: Meet the board, breadboard, LED, resistor, sensor, relay + kit checklist. No powered wiring yet.',
+                'body'               => $this->body(),
+                'body_en'            => $this->bodyEn(),
+                'status'             => 'draft',
+                'is_featured'        => false,
+                'published_at'       => null,
+                'seo_title'          => 'Kenali Komponen Kit ESP32 — Full Stack IoT #74',
+                'seo_title_en'       => 'Meet Your ESP32 Kit Parts — Full Stack IoT #74',
+                'seo_description'    => 'Buka kotak kit Full Stack IoT: ESP32-DevKitC-1, breadboard, jumper, LED, resistor, DHT22, relay. Checklist + belanja awam. Modul FS-04.',
+                'seo_description_en' => 'Open the Full Stack IoT kit: ESP32-DevKitC-1, breadboard, jumpers, LED, resistor, DHT22, relay. Checklist + beginner shopping. Module FS-04.',
+            ]
+        );
+
+        if ($article->published_at !== null || $article->status !== 'draft') {
+            $article->status = 'draft';
+            $article->published_at = null;
+            $article->save();
+        }
+
+        $tagIds = Tag::whereIn('slug', ['fullstack-iot', 'iot', 'esp32'])->pluck('id');
+        $article->tags()->sync($tagIds);
+
+        $this->command?->info('✓ Artikel #74 / FS-04 tersimpan sebagai DRAFT: '.$article->title);
+    }
+
+    private function overviewFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Foto overview board ESP32-DevKitC dari dokumentasi Espressif" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Overview board keluarga <strong>ESP32-DevKitC</strong> (sama keluarga dengan <strong>DevKitC-1</strong> yang kita pakai). Hari ini cukup kenali bentuknya — belum menyambung kabel untuk menyalakan rangkaian.
+    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (dokumen resmi).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function overviewFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC board overview photo from Espressif documentation" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Overview of the <strong>ESP32-DevKitC</strong> family (same family as the <strong>DevKitC-1</strong> we use). Today, just recognize the shape — no powered wiring yet.
+    <br>Image source: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (official docs).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function pinoutFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="Diagram pinout resmi ESP32-DevKitC-1 dari dokumentasi Espressif" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Pinout resmi <strong>ESP32-DevKitC-1</strong>. Cocokkan tulisan di board (silkscreen) dengan gambar ini. <strong>Jangan hafal semua nomor GPIO hari ini</strong> — cukup tahu di mana 3V3, 5V, GND, EN, dan BOOT.
+    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif / Arduino-ESP32 — ESP32-DevKitC-1</a> (dokumen resmi).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function pinoutFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="Official ESP32-DevKitC-1 pinout diagram from Espressif documentation" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Official <strong>ESP32-DevKitC-1</strong> pinout. Match the silkscreen on your board to this picture. <strong>Do not memorize every GPIO number today</strong> — just know where 3V3, 5V, GND, EN, and BOOT are.
+    <br>Image source: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif / Arduino-ESP32 — ESP32-DevKitC-1</a> (official docs).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function breadboardSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Diagram dalaman breadboard: baris, kolom, dan power rail" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Breadboard connections">
+  <rect x="40" y="30" width="40" height="160" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="90" y="30" width="40" height="160" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="60" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">+</text>
+  <text x="110" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">−</text>
+  <text x="100" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail (panjang)</text>
+  <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
+    <rect x="180" y="50" width="28" height="28"/><rect x="218" y="50" width="28" height="28"/><rect x="256" y="50" width="28" height="28"/><rect x="294" y="50" width="28" height="28"/><rect x="332" y="50" width="28" height="28"/>
+    <rect x="180" y="95" width="28" height="28"/><rect x="218" y="95" width="28" height="28"/><rect x="256" y="95" width="28" height="28"/><rect x="294" y="95" width="28" height="28"/><rect x="332" y="95" width="28" height="28"/>
+  </g>
+  <text x="270" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Satu baris = saling nyambung</text>
+  <line x1="185" y1="64" x2="355" y2="64" stroke="#E53935" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="450" y="70" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">← baris A–E (contoh)</text>
+  <text x="270" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Kolom di baris berbeda = TIDAK otomatis nyambung</text>
+  <text x="270" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Ada “parit” tengah: kiri dan kanan terpisah</text>
+  <rect x="520" y="30" width="40" height="160" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="570" y="30" width="40" height="160" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="565" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kanan</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Inganan breadboard sederhana (buatan Koding Indonesia). Jangan mengira semua lubang saling nyambung.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function breadboardSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Breadboard internals: rows, columns, and power rails" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Breadboard connections">
+  <rect x="40" y="30" width="40" height="160" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="90" y="30" width="40" height="160" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="60" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">+</text>
+  <text x="110" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">−</text>
+  <text x="100" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail (long)</text>
+  <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
+    <rect x="180" y="50" width="28" height="28"/><rect x="218" y="50" width="28" height="28"/><rect x="256" y="50" width="28" height="28"/><rect x="294" y="50" width="28" height="28"/><rect x="332" y="50" width="28" height="28"/>
+    <rect x="180" y="95" width="28" height="28"/><rect x="218" y="95" width="28" height="28"/><rect x="256" y="95" width="28" height="28"/><rect x="294" y="95" width="28" height="28"/><rect x="332" y="95" width="28" height="28"/>
+  </g>
+  <text x="270" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">One row = connected together</text>
+  <line x1="185" y1="64" x2="355" y2="64" stroke="#E53935" stroke-width="2" stroke-dasharray="4 3"/>
+  <text x="450" y="70" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">← row A–E (example)</text>
+  <text x="270" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Columns across different rows are NOT auto-connected</text>
+  <text x="270" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Center trench: left and right halves are separate</text>
+  <rect x="520" y="30" width="40" height="160" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="570" y="30" width="40" height="160" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="565" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Right power rail</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Simple breadboard internals (by Koding Indonesia). Do not assume every hole is connected.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function ledSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="LED: kaki panjang anode dan kaki pendek katode" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="100%" height="auto" role="img" aria-label="LED polarity">
+  <ellipse cx="200" cy="70" rx="55" ry="40" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="105" x2="175" y2="155" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="225" y1="105" x2="225" y2="140" stroke="#1a1a1a" stroke-width="4"/>
+  <text x="175" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">panjang = +</text>
+  <text x="225" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">pendek = −</text>
+  <text x="200" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">LED 5mm</text>
+  <rect x="360" y="40" width="220" height="100" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="470" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Resistor</text>
+  <text x="470" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">220Ω / 330Ω = rem</text>
+  <text x="470" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">agar LED tidak “terbakar”</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Polaritas LED + peran resistor (buatan Koding Indonesia). Wiring menyala baru di modul nanti.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function ledSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="LED: long anode leg and short cathode leg" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="100%" height="auto" role="img" aria-label="LED polarity">
+  <ellipse cx="200" cy="70" rx="55" ry="40" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="175" y1="105" x2="175" y2="155" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="225" y1="105" x2="225" y2="140" stroke="#1a1a1a" stroke-width="4"/>
+  <text x="175" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">long = +</text>
+  <text x="225" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">short = −</text>
+  <text x="200" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">5mm LED</text>
+  <rect x="360" y="40" width="220" height="100" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="470" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Resistor</text>
+  <text x="470" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">220Ω / 330Ω = brake</text>
+  <text x="470" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">so the LED does not burn out</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">LED polarity + resistor role (by Koding Indonesia). Powered wiring comes in later modules.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function usbSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Perbedaan kabel USB data dan charge-only" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 150" width="100%" height="auto" role="img" aria-label="USB data vs charge">
+  <rect x="30" y="30" width="300" height="90" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="180" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">USB data ✓</text>
+  <text x="180" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Bisa charge + kirim program</text>
+  <text x="180" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Ini yang kita butuhkan</text>
+  <rect x="390" y="30" width="300" height="90" fill="#FFEBEE" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="540" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Charge-only ✗</text>
+  <text x="540" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Hanya isi daya</text>
+  <text x="540" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Port COM sering “hilang”</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Tips belanja kabel USB (buatan Koding Indonesia). Tes upload baru di FS-06.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function usbSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Difference between USB data cable and charge-only cable" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 150" width="100%" height="auto" role="img" aria-label="USB data vs charge">
+  <rect x="30" y="30" width="300" height="90" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="180" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">USB data ✓</text>
+  <text x="180" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Can charge + send programs</text>
+  <text x="180" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">This is what we need</text>
+  <rect x="390" y="30" width="300" height="90" fill="#FFEBEE" stroke="#1a1a1a" stroke-width="2" rx="4"/>
+  <text x="540" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Charge-only ✗</text>
+  <text x="540" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power only</text>
+  <text x="540" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">COM port often “missing”</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">USB cable shopping tip (by Koding Indonesia). Upload testing comes in FS-06.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function body(): string
+    {
+        $overview = $this->overviewFigureId();
+        $pinout = $this->pinoutFigureId();
+        $bread = $this->breadboardSvgId();
+        $led = $this->ledSvgId();
+        $usb = $this->usbSvgId();
+
+        return <<<HTML
+<h2>Pendahuluan — kenapa buka kotak dulu?</h2>
+<p>Artikel ini adalah <strong>#74 (ini)</strong> · modul <strong>FS-04</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Di FS-01 kamu paham IoT itu apa; di FS-02 kamu punya peta; di <strong>FS-03</strong> kamu punya kamus mini. Hari ini kita <strong>buka kotak</strong>: kenali benda di meja sebelum mengalirkan listrik atau menulis program.</p>
+<p><strong>Awam:</strong> seperti memasak — sebelum nyalakan kompor, kamu susun bahan &amp; sebut namanya. Salah sebut “garam” vs “gula” lebih bahaya kalau sudah panas.</p>
+<p><strong>Prasyarat:</strong> ide dari FS-01–FS-03. Belum wajib punya semua barang hari ini — kalau belum beli, pakai daftar belanja di bawah sebagai panduan.</p>
+
+<h2>Persiapan — alat yang kamu buka hari ini</h2>
+<p><strong>Alat yang dipakai di artikel ini</strong> (belum Arduino IDE, belum driver USB, belum terminal, belum Laragon):</p>
+<ul>
+<li><strong>Browser</strong> — membaca artikel + mengerjakan <strong>checklist interaktif</strong> di akhir (Chrome, Edge, Firefox, atau browser HP).</li>
+<li><strong>Kit fisik di meja</strong> (atau daftar belanja jika belum lengkap) — board, breadboard, kabel, LED, resistor, sensor, relay, multimeter, kabel USB.</li>
+<li><strong>Kertas label + spidol</strong> (opsional) — tulis nama tiap benda; foto untuk catatanmu sendiri.</li>
+</ul>
+<p><strong>Tidak ada perintah sintaks hari ini.</strong> Tidak ada baris kode, tidak ada <code>php artisan</code>, tidak ada sketch Arduino, tidak ada upload. Cara “menguji” di FS-04 = <strong>susun &amp; sebut nama</strong> + centang checklist (browser atau kertas). Belum menyalakan rangkaian latihan.</p>
+<p><strong>Awam:</strong> kalau kamu hanya punya browser hari ini, tetap bisa belajar dari foto &amp; daftar belanja. Kit fisik bisa menyusul sebelum FS-06.</p>
+
+<h2>Board resmi — ESP32-DevKitC-1</h2>
+<p>Board resmi jalur ini: <strong>ESP32-DevKitC-1</strong>. Di pasaran banyak clone berlabel “DevKitC” / DOIT mirip — <strong>wajib cocokkan silkscreen</strong> dengan diagram resmi, jangan hafal “board tetangga”.</p>
+{$overview}
+<p>Yang perlu kamu temukan hari ini (dengan jari, tanpa kabel program):</p>
+<ul>
+<li><strong>Modul hitam</strong> di tengah (chip + antena Wi‑Fi di dalamnya).</li>
+<li><strong>Lubang pin</strong> kiri–kanan (tempat jumper nanti).</li>
+<li>Tombol <strong>EN</strong> (reset) dan <strong>BOOT</strong> (mode unduh — detail di modul upload).</li>
+<li>Soket <strong>USB</strong> (micro-USB atau USB‑C, tergantung edisi board).</li>
+</ul>
+{$pinout}
+<p><strong>Awam:</strong> pinout seperti peta kursi bioskop. Hari ini cukup tahu di mana pintu masuk (USB) dan kursi “aman” (3V3 / GND). Kursi GPIO detail datang saat BUILDER.</p>
+
+<h2>Breadboard — meja percobaan berlubang</h2>
+<p>Breadboard adalah papan berlubang untuk mencoba rangkaian <strong>tanpa solder</strong>. Kunci awam: <strong>tidak semua lubang saling nyambung</strong>.</p>
+{$bread}
+<ul>
+<li><strong>Power rail</strong> (garis +/− di tepi) — biasanya sepanjang papan.</li>
+<li><strong>Satu baris kecil</strong> (misalnya 5 lubang) — saling nyambung.</li>
+<li><strong>Parit tengah</strong> — memisahkan sisi kiri dan kanan (berguna saat menancapkan board).</li>
+</ul>
+<p><strong>Awam:</strong> bayangkan kursi bis: satu baris kursi saling “ngobrol”; baris di belakang tidak otomatis ngobrol kecuali kamu sambungkan dengan jumper.</p>
+
+<h2>Jumper, LED, resistor</h2>
+<p><strong>Jumper</strong> = kabel pendek Male‑Male (M‑M) atau Male‑Female (M‑F). Warnanya hanya penanda; yang penting ujungnya masuk lubang dengan kencang.</p>
+{$led}
+<ul>
+<li><strong>LED:</strong> kaki <strong>panjang = anode (+)</strong>, kaki <strong>pendek = katode (−)</strong>. Tertukar → sering tidak menyala (nanti saat latihan LED).</li>
+<li><strong>Resistor 220Ω / 330Ω:</strong> “rem” arus untuk LED. Baca warna sederhana cukup: bandingkan dengan tabel di kemasan / aplikasi pembaca warna — detail hitung Ohm di FS-08.</li>
+<li><strong>Resistor 10kΩ:</strong> sering dipakai untuk tombol / pembagi tegangan (LDR) nanti.</li>
+<li><strong>Tombol tactile:</strong> saklar kecil tekan-lepas.</li>
+</ul>
+<p><strong>Awam:</strong> LED tanpa resistor seperti keran tanpa pembatas — bisa “kebanyakan” dan rusak. Kita belum merakit hari ini; cukup kenali bentuknya.</p>
+
+<h2>Sensor vs relay — indra vs otot</h2>
+<p>Di kamus FS-03: sensor ≈ indra, aktuator ≈ otot. Di kotak kit:</p>
+<ul>
+<li><strong>DHT22</strong> — sensor suhu &amp; kelembapan (indra). Kalau stok kosong, <strong>DHT11 boleh sementara</strong> — bedanya ketelitian &amp; rentang; sebut saja di catatanmu.</li>
+<li><strong>LDR</strong> — “mata” cahaya (bersama resistor 10k nanti).</li>
+<li><strong>Modul relay 1 channel 5V</strong> — saklar elektronik (otot kecil). Di jalur Core kita pakai untuk <strong>beban DC kecil</strong> saja.</li>
+</ul>
+<p><strong>Awam:</strong> sensor membaca; relay mengganti saklar. Jangan beli kit “AC 220V / lampu rumah” dulu — itu level lain dan lebih berbahaya.</p>
+
+<h2>Belanja awam — harga &amp; urutan</h2>
+<p>Estimasi kasar marketplace Indonesia (Juli 2026 — <strong>update berkala</strong>; harga berubah):</p>
+<table>
+<thead><tr><th>Item</th><th>Qty</th><th>Kisaran (IDR)</th></tr></thead>
+<tbody>
+<tr><td>ESP32-DevKitC-1 (atau clone pin-compatible)</td><td>1</td><td>Rp 60.000–120.000</td></tr>
+<tr><td>Breadboard 830</td><td>1</td><td>Rp 15.000–35.000</td></tr>
+<tr><td>Jumper M‑M &amp; M‑F</td><td>1 set</td><td>Rp 10.000–25.000</td></tr>
+<tr><td>LED 5mm</td><td>5</td><td>Rp 5.000–15.000</td></tr>
+<tr><td>Resistor 220/330Ω</td><td>10</td><td>Rp 5.000–15.000</td></tr>
+<tr><td>Resistor 10kΩ</td><td>10</td><td>Rp 5.000–15.000</td></tr>
+<tr><td>Tombol tactile</td><td>2</td><td>Rp 5.000–10.000</td></tr>
+<tr><td>DHT22 (atau DHT11 sementara)</td><td>1</td><td>Rp 25.000–50.000</td></tr>
+<tr><td>LDR</td><td>1</td><td>Rp 2.000–8.000</td></tr>
+<tr><td>Modul relay 1ch 5V</td><td>1</td><td>Rp 10.000–25.000</td></tr>
+<tr><td>Kabel USB <strong>data</strong></td><td>1</td><td>Rp 15.000–40.000</td></tr>
+<tr><td>Multimeter</td><td>1</td><td>Rp 50.000–150.000</td></tr>
+</tbody>
+</table>
+<p><strong>Total kasar kit §6.1:</strong> sekitar <strong>Rp 200.000–450.000</strong> tergantung toko &amp; kualitas. Belanja bertahap OK: minimal board + breadboard + jumper + LED + resistor + USB data sebelum latihan lampu.</p>
+{$usb}
+<ul>
+<li>Beli di marketplace lokal; baca ulasan “cable data” / “bukan charge only”.</li>
+<li>Komponen §6.2 (PIR, servo, OLED, BME280) belanja nanti sebelum akhir BUILDER.</li>
+<li><strong>Jangan</strong> beli kit beban AC 220V untuk Core.</li>
+</ul>
+<p><strong>Awam:</strong> harga murah bukan selalu jebakan — tapi kabel USB murah sering charge-only. Simpan struk &amp; foto barang agar mudah klaim.</p>
+
+<h2 id="fsiot-kit-checklist">Praktik — checklist kit di meja</h2>
+<p>Susun komponen di meja. Di bawah ada <strong>checklist interaktif</strong>: centang tiap item yang sudah kamu punya / kenali. Versi kertas (label spidol) tetap tersedia. Target: <strong>semua item wajib §6.1 tercentang</strong> (atau ditandai “pesan” di catatan jika menunggu kiriman).</p>
+<ul id="fsiot-kit-checklist-items">
+<li>ESP32-DevKitC-1 (cocok diagram resmi)</li>
+<li>Breadboard 830</li>
+<li>Jumper M‑M &amp; M‑F (1 set)</li>
+<li>LED 5mm (minimal 5)</li>
+<li>Resistor 220Ω atau 330Ω (minimal 10)</li>
+<li>Resistor 10kΩ (minimal 10)</li>
+<li>Tombol tactile (minimal 2)</li>
+<li>DHT22 (atau DHT11 sementara)</li>
+<li>LDR</li>
+<li>Modul relay 1 channel 5V</li>
+<li>Kabel USB data (bukan charge-only)</li>
+<li>Multimeter</li>
+</ul>
+<p><strong>Awam — cara menguji:</strong> kerjakan dulu checklist interaktif di browser. Opsional: tempel label kertas di tiap benda, foto untuk catatan. Tidak perlu menjalankan perintah apa pun. Belum cabut-colok USB untuk upload.</p>
+
+<h2>Kesalahan umum awam</h2>
+<ul>
+<li><strong>Mengira semua lubang breadboard nyambung.</strong> Hanya baris/rail tertentu — lihat diagram di atas.</li>
+<li><strong>Tertukar anode/katode LED.</strong> Panjang = +; pendek = −.</li>
+<li><strong>Belanja beban AC 220V terlalu cepat.</strong> Relay Core = beban DC kecil dulu.</li>
+<li><strong>Kabel USB charge-only.</strong> Gejala nanti: port tidak muncul di komputer (FS-06).</li>
+<li><strong>Hafal pinout penuh sebelum paham 3V3/GND.</strong> Cukup kenali dulu; GPIO detail menyusul.</li>
+<li><strong>Langsung nyambung listrik “coba-coba”.</strong> Modul berikutnya (FS-05) adalah kebiasaan aman sebelum power ON.</li>
+<li><strong>Mencampur Seri ESP32 lama sebagai prasyarat.</strong> Jalur ini mandiri dari nol. Artikel terkait di bawah halaman bisa dari topik lama; itu bukan syarat FS-04.</li>
+</ul>
+
+<h2>Lanjut belajar</h2>
+<p>Setelah FS-04, langkah alami berikutnya adalah <strong>FS-05 — keselamatan &amp; kebiasaan sebelum mengalirkan listrik</strong> (short circuit, 3.3V vs 5V, checklist cabut USB dulu). Artikel itu belum dilink di sini sampai modulnya siap.</p>
+<p>Simpan juga <a href="/belajar/fullstack-iot">halaman jalur Full Stack IoT</a> sebagai pintu masuk resmi.</p>
+
+<h2>Kesimpulan</h2>
+<p>Di <strong>#74 (ini)</strong> kamu sudah bisa menyebut nama benda di kit, membedakan indra vs otot, membaca pinout secara awam, dan mencentang checklist §6.1. Board resmi tetap <strong>ESP32-DevKitC-1</strong> — masih pengenalan, belum wiring menyala.</p>
+<p><strong>Awam:</strong> kalau kamu bisa menunjuk board, breadboard, LED, resistor, sensor, dan relay sambil bilang “ini apa”, FS-04 selesai. Lanjut ke kebiasaan aman di FS-05 saat modulnya terbit.</p>
+HTML;
+    }
+
+    private function bodyEn(): string
+    {
+        $overview = $this->overviewFigureEn();
+        $pinout = $this->pinoutFigureEn();
+        $bread = $this->breadboardSvgEn();
+        $led = $this->ledSvgEn();
+        $usb = $this->usbSvgEn();
+
+        return <<<HTML
+<h2>Introduction — why open the box first?</h2>
+<p>This article is <strong>#74 (this article)</strong> · module <strong>FS-04</strong> on the <em>Full Stack IoT Developer — From Zero</em> path. In FS-01 you learned what IoT is; in FS-02 you got the map; in <strong>FS-03</strong> you got a mini glossary. Today we <strong>open the box</strong>: name the parts on the desk before power or code.</p>
+<p><strong>Beginner:</strong> like cooking — before you turn on the stove, lay out ingredients and name them. Mixing salt and sugar is worse once things are hot.</p>
+<p><strong>Prerequisites:</strong> ideas from FS-01–FS-03. You do not need every part today — if you have not bought yet, use the shopping list below as a guide.</p>
+
+<h2>Preparation — tools you open today</h2>
+<p><strong>Tools used in this article</strong> (no Arduino IDE yet, no USB driver, no terminal, no Laragon):</p>
+<ul>
+<li><strong>Browser</strong> — read the article + complete the <strong>interactive checklist</strong> at the end (Chrome, Edge, Firefox, or a phone browser).</li>
+<li><strong>Physical kit on the desk</strong> (or a shopping list if incomplete) — board, breadboard, wires, LED, resistor, sensor, relay, multimeter, USB cable.</li>
+<li><strong>Paper labels + marker</strong> (optional) — write each part’s name; photo for your own notes.</li>
+</ul>
+<p><strong>There is no syntax to run today.</strong> No code lines, no <code>php artisan</code>, no Arduino sketch, no upload. How you “test” in FS-04 = <strong>lay out &amp; name</strong> + tick the checklist (browser or paper). No practice circuit is powered on yet.</p>
+<p><strong>Beginner:</strong> if you only have a browser today, you can still learn from photos and the shopping list. The physical kit can arrive before FS-06.</p>
+
+<h2>Official board — ESP32-DevKitC-1</h2>
+<p>Official board for this path: <strong>ESP32-DevKitC-1</strong>. Many marketplace clones say “DevKitC” / DOIT-like — <strong>match the silkscreen</strong> to the official diagram; do not memorize a neighbor board.</p>
+{$overview}
+<p>Find these today (with your finger, no programming cable required):</p>
+<ul>
+<li>The <strong>black module</strong> in the middle (chip + Wi‑Fi antenna inside).</li>
+<li><strong>Pin headers</strong> left and right (where jumpers go later).</li>
+<li><strong>EN</strong> (reset) and <strong>BOOT</strong> buttons (download mode — detail in the upload module).</li>
+<li>The <strong>USB</strong> socket (micro-USB or USB‑C, depending on board edition).</li>
+</ul>
+{$pinout}
+<p><strong>Beginner:</strong> a pinout is like a cinema seating map. Today, know the entrance (USB) and safe seats (3V3 / GND). Detailed GPIO seats come in BUILDER.</p>
+
+<h2>Breadboard — a holey practice table</h2>
+<p>A breadboard lets you try circuits <strong>without soldering</strong>. Beginner key: <strong>not every hole is connected</strong>.</p>
+{$bread}
+<ul>
+<li><strong>Power rails</strong> (+/− strips on the sides) — usually run the length of the board.</li>
+<li><strong>One short row</strong> (e.g. 5 holes) — connected together.</li>
+<li><strong>Center trench</strong> — separates left and right halves (useful when seating the board).</li>
+</ul>
+<p><strong>Beginner:</strong> picture bus seats: one row of seats “talks”; the row behind does not unless you bridge them with a jumper.</p>
+
+<h2>Jumpers, LEDs, resistors</h2>
+<p><strong>Jumpers</strong> = short Male‑Male (M‑M) or Male‑Female (M‑F) wires. Color is just a label; what matters is a firm fit in the hole.</p>
+{$led}
+<ul>
+<li><strong>LED:</strong> <strong>long leg = anode (+)</strong>, <strong>short leg = cathode (−)</strong>. Swapped → often stays dark (later, in the LED lesson).</li>
+<li><strong>220Ω / 330Ω resistor:</strong> a current “brake” for the LED. Simple color reading is enough: compare with the pack chart / a color-reader app — Ohm math comes in FS-08.</li>
+<li><strong>10kΩ resistor:</strong> often used later for buttons / LDR voltage dividers.</li>
+<li><strong>Tactile button:</strong> a small press-release switch.</li>
+</ul>
+<p><strong>Beginner:</strong> an LED without a resistor is like a tap without a limiter — too much flow can kill it. We do not build today; just recognize the shapes.</p>
+
+<h2>Sensor vs relay — sense vs muscle</h2>
+<p>From the FS-03 glossary: sensor ≈ sense, actuator ≈ muscle. In the kit box:</p>
+<ul>
+<li><strong>DHT22</strong> — temperature &amp; humidity sensor (sense). If stock is empty, <strong>DHT11 is OK temporarily</strong> — accuracy/range differ; note it in your notes.</li>
+<li><strong>LDR</strong> — a light “eye” (with a 10k resistor later).</li>
+<li><strong>1-channel 5V relay module</strong> — an electronic switch (small muscle). On Core we use it for <strong>small DC loads</strong> only.</li>
+</ul>
+<p><strong>Beginner:</strong> sensors read; relays switch. Do not buy “AC 220V / house lamp” kits yet — that is another level and more dangerous.</p>
+
+<h2>Beginner shopping — price &amp; order</h2>
+<p>Rough Indonesian marketplace estimates (July 2026 — <strong>update periodically</strong>; prices move):</p>
+<table>
+<thead><tr><th>Item</th><th>Qty</th><th>Range (IDR)</th></tr></thead>
+<tbody>
+<tr><td>ESP32-DevKitC-1 (or pin-compatible clone)</td><td>1</td><td>Rp 60,000–120,000</td></tr>
+<tr><td>Breadboard 830</td><td>1</td><td>Rp 15,000–35,000</td></tr>
+<tr><td>Jumper M‑M &amp; M‑F</td><td>1 set</td><td>Rp 10,000–25,000</td></tr>
+<tr><td>5mm LED</td><td>5</td><td>Rp 5,000–15,000</td></tr>
+<tr><td>220/330Ω resistor</td><td>10</td><td>Rp 5,000–15,000</td></tr>
+<tr><td>10kΩ resistor</td><td>10</td><td>Rp 5,000–15,000</td></tr>
+<tr><td>Tactile button</td><td>2</td><td>Rp 5,000–10,000</td></tr>
+<tr><td>DHT22 (or temporary DHT11)</td><td>1</td><td>Rp 25,000–50,000</td></tr>
+<tr><td>LDR</td><td>1</td><td>Rp 2,000–8,000</td></tr>
+<tr><td>1ch 5V relay module</td><td>1</td><td>Rp 10,000–25,000</td></tr>
+<tr><td><strong>Data</strong> USB cable</td><td>1</td><td>Rp 15,000–40,000</td></tr>
+<tr><td>Multimeter</td><td>1</td><td>Rp 50,000–150,000</td></tr>
+</tbody>
+</table>
+<p><strong>Rough §6.1 kit total:</strong> about <strong>Rp 200,000–450,000</strong> depending on shop &amp; quality. Staged buying is fine: at least board + breadboard + jumpers + LED + resistor + data USB before the first lamp practice.</p>
+{$usb}
+<ul>
+<li>Buy on local marketplaces; read reviews for “data cable” / “not charge only”.</li>
+<li>§6.2 parts (PIR, servo, OLED, BME280) come later before the end of BUILDER.</li>
+<li><strong>Do not</strong> buy AC 220V load kits for Core.</li>
+</ul>
+<p><strong>Beginner:</strong> cheap is not always a trap — but cheap USB cables are often charge-only. Keep receipts and photos for easy claims.</p>
+
+<h2 id="fsiot-kit-checklist">Practice — kit checklist on the desk</h2>
+<p>Lay the parts on the desk. Below is an <strong>interactive checklist</strong>: tick each item you already own / recognize. A paper version (marker labels) stays available. Target: <strong>all required §6.1 items checked</strong> (or mark “ordered” in your notes if waiting on shipping).</p>
+<ul id="fsiot-kit-checklist-items">
+<li>ESP32-DevKitC-1 (matches official diagram)</li>
+<li>Breadboard 830</li>
+<li>Jumper M‑M &amp; M‑F (1 set)</li>
+<li>5mm LED (at least 5)</li>
+<li>220Ω or 330Ω resistor (at least 10)</li>
+<li>10kΩ resistor (at least 10)</li>
+<li>Tactile button (at least 2)</li>
+<li>DHT22 (or temporary DHT11)</li>
+<li>LDR</li>
+<li>1-channel 5V relay module</li>
+<li>USB data cable (not charge-only)</li>
+<li>Multimeter</li>
+</ul>
+<p><strong>Beginner — how to test:</strong> complete the interactive checklist in the browser first. Optional: stick paper labels on each part and take a photo for notes. No commands to run. No USB plug/unplug for upload yet.</p>
+
+<h2>Common beginner mistakes</h2>
+<ul>
+<li><strong>Assuming every breadboard hole is connected.</strong> Only certain rows/rails — see the diagram above.</li>
+<li><strong>Swapping LED anode/cathode.</strong> Long = +; short = −.</li>
+<li><strong>Buying AC 220V loads too early.</strong> Core relay = small DC loads first.</li>
+<li><strong>Charge-only USB cable.</strong> Later symptom: port does not appear on the computer (FS-06).</li>
+<li><strong>Memorizing the full pinout before knowing 3V3/GND.</strong> Recognize first; GPIO detail follows.</li>
+<li><strong>Powering “just to try” immediately.</strong> The next module (FS-05) is safe habits before power ON.</li>
+<li><strong>Treating old ESP32 series articles as prerequisites.</strong> This path stands alone from zero. Related articles below may be older topics; they are not FS-04 requirements.</li>
+</ul>
+
+<h2>Continue learning</h2>
+<p>After FS-04, the natural next step is <strong>FS-05 — safety &amp; habits before applying power</strong> (short circuits, 3.3V vs 5V, unplug-USB-first checklist). That article is not linked here until the module is ready.</p>
+<p>Also bookmark the <a href="/belajar/fullstack-iot">Full Stack IoT path page</a> as the official entry.</p>
+
+<h2>Conclusion</h2>
+<p>In <strong>#74 (this article)</strong> you can name kit parts, tell sense from muscle, read the pinout as a beginner, and tick the §6.1 checklist. The official board remains <strong>ESP32-DevKitC-1</strong> — introduction only, no powered wiring yet.</p>
+<p><strong>Beginner:</strong> if you can point at the board, breadboard, LED, resistor, sensor, and relay while saying what each is, FS-04 is done. Continue to safe habits in FS-05 when that module publishes.</p>
+HTML;
+    }
+}

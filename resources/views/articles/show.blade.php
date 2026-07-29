@@ -540,6 +540,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     initFsiotMatchQuiz();
     initFsiotWorksheet();
+    initFsiotKitChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1087,6 +1088,192 @@ function initFsiotWorksheet() {
             samplesEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     });
+}
+
+function initFsiotKitChecklist() {
+    const labels = {
+        badge: @js(__('ui.articles.fsiot_cl_badge')),
+        hint: @js(__('ui.articles.fsiot_cl_hint')),
+        check: @js(__('ui.articles.fsiot_cl_check')),
+        retry: @js(__('ui.articles.fsiot_cl_retry')),
+        paper: @js(__('ui.articles.fsiot_cl_paper')),
+        progress: @js(__('ui.articles.fsiot_cl_progress')),
+        pass: @js(__('ui.articles.fsiot_cl_pass')),
+        incomplete: @js(__('ui.articles.fsiot_cl_incomplete')),
+        done: @js(__('ui.articles.fsiot_cl_done')),
+        todo: @js(__('ui.articles.fsiot_cl_todo')),
+    };
+
+    const content = document.getElementById('article-content');
+    if (!content) return;
+
+    const clH2 = content.querySelector('#fsiot-kit-checklist');
+    if (!clH2) return;
+
+    const nextH2 = (() => {
+        for (let n = clH2.nextElementSibling; n; n = n.nextElementSibling) {
+            if (n.tagName === 'H2') return n;
+        }
+        return null;
+    })();
+
+    const sectionNodes = [];
+    for (let n = clH2.nextElementSibling; n && n !== nextH2; n = n.nextElementSibling) {
+        sectionNodes.push(n);
+    }
+
+    const list = sectionNodes.find(n => n.id === 'fsiot-kit-checklist-items' || (n.tagName === 'UL' && n.querySelectorAll('li').length >= 8));
+    if (!list) return;
+
+    const items = Array.from(list.querySelectorAll('li')).map(li => li.textContent.trim()).filter(Boolean);
+    if (items.length < 8) return;
+
+    const intro = sectionNodes[0] && sectionNodes[0].tagName === 'P' ? sectionNodes[0] : null;
+    const howto = sectionNodes.find(n => n.tagName === 'P' && n !== intro && /Awam|Beginner/i.test(n.textContent || ''));
+
+    const paper = document.createElement('details');
+    paper.className = 'fsiot-match-paper';
+    const paperSummary = document.createElement('summary');
+    paperSummary.textContent = labels.paper;
+    paper.appendChild(paperSummary);
+
+    const toPaper = sectionNodes.filter(n => n !== intro && n !== howto);
+    toPaper.forEach(n => paper.appendChild(n));
+    if (intro) {
+        intro.after(paper);
+    } else {
+        clH2.after(paper);
+    }
+    if (howto) {
+        paper.after(howto);
+    }
+
+    const lang = (document.documentElement.lang || 'id').slice(0, 2);
+    const storageKey = `fsiot-cl-74:${lang}`;
+
+    const widget = document.createElement('div');
+    widget.className = 'fsiot-match-quiz fsiot-kit-checklist';
+    widget.setAttribute('role', 'region');
+    widget.setAttribute('aria-label', labels.badge);
+
+    const head = document.createElement('div');
+    head.className = 'fsiot-match-quiz__head';
+    head.innerHTML = `<span class="fsiot-match-quiz__badge">${labels.badge}</span><p class="fsiot-match-quiz__hint"></p><span class="fsiot-match-quiz__progress"></span>`;
+    head.querySelector('.fsiot-match-quiz__hint').textContent = labels.hint;
+    const progressEl = head.querySelector('.fsiot-match-quiz__progress');
+
+    const body = document.createElement('div');
+    body.className = 'fsiot-match-quiz__body';
+
+    const ul = document.createElement('ul');
+    ul.className = 'fsiot-kit-checklist__list';
+
+    let saved = [];
+    try {
+        saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        if (!Array.isArray(saved)) saved = [];
+    } catch (_) {
+        saved = [];
+    }
+
+    const rows = items.map((label, i) => {
+        const li = document.createElement('li');
+        li.className = 'fsiot-kit-checklist__item';
+        const id = `fsiot-cl-${i}`;
+        const cb = document.createElement('input');
+        cb.type = 'checkbox';
+        cb.id = id;
+        cb.className = 'fsiot-kit-checklist__cb';
+        cb.checked = !!saved[i];
+        const lab = document.createElement('label');
+        lab.htmlFor = id;
+        lab.textContent = label;
+        const mark = document.createElement('span');
+        mark.className = 'fsiot-kit-checklist__mark';
+        mark.textContent = cb.checked ? labels.done : labels.todo;
+        li.appendChild(cb);
+        li.appendChild(lab);
+        li.appendChild(mark);
+        ul.appendChild(li);
+        return { cb, mark };
+    });
+
+    body.appendChild(ul);
+
+    const actions = document.createElement('div');
+    actions.className = 'fsiot-match-quiz__actions';
+    const checkBtn = document.createElement('button');
+    checkBtn.type = 'button';
+    checkBtn.className = 'fsiot-match-quiz__btn fsiot-match-quiz__btn--primary';
+    checkBtn.textContent = labels.check;
+    const retryBtn = document.createElement('button');
+    retryBtn.type = 'button';
+    retryBtn.className = 'fsiot-match-quiz__btn';
+    retryBtn.textContent = labels.retry;
+    actions.appendChild(checkBtn);
+    actions.appendChild(retryBtn);
+
+    const result = document.createElement('p');
+    result.className = 'fsiot-match-quiz__result';
+    result.setAttribute('aria-live', 'polite');
+
+    widget.appendChild(head);
+    widget.appendChild(body);
+    widget.appendChild(actions);
+    widget.appendChild(result);
+
+    if (intro) {
+        intro.after(widget);
+    } else {
+        clH2.after(widget);
+    }
+
+    const total = rows.length;
+
+    function persist() {
+        localStorage.setItem(storageKey, JSON.stringify(rows.map(r => r.cb.checked)));
+    }
+
+    function updateProgress() {
+        const filled = rows.filter(r => r.cb.checked).length;
+        progressEl.textContent = labels.progress
+            .replace(':filled', String(filled))
+            .replace(':total', String(total));
+        rows.forEach(r => {
+            r.mark.textContent = r.cb.checked ? labels.done : labels.todo;
+            r.cb.closest('li').classList.toggle('is-checked', r.cb.checked);
+        });
+        persist();
+    }
+
+    rows.forEach(r => r.cb.addEventListener('change', () => {
+        result.className = 'fsiot-match-quiz__result';
+        result.textContent = '';
+        updateProgress();
+    }));
+
+    checkBtn.addEventListener('click', () => {
+        const filled = rows.filter(r => r.cb.checked).length;
+        result.className = 'fsiot-match-quiz__result';
+        if (filled < total) {
+            result.classList.add('is-warn');
+            result.textContent = labels.incomplete;
+            return;
+        }
+        result.classList.add('is-pass');
+        result.textContent = labels.pass
+            .replace(':filled', String(filled))
+            .replace(':total', String(total));
+    });
+
+    retryBtn.addEventListener('click', () => {
+        rows.forEach(r => { r.cb.checked = false; });
+        result.className = 'fsiot-match-quiz__result';
+        result.textContent = '';
+        updateProgress();
+    });
+
+    updateProgress();
 }
 </script>
 @endpush

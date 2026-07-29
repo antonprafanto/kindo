@@ -244,6 +244,16 @@ return [
         'fsiot_ws_ok' => 'Filled',
         'fsiot_ws_short' => 'Too short',
         'fsiot_ws_empty' => 'Empty',
+        'fsiot_cl_badge' => 'Interactive checklist',
+        'fsiot_cl_hint' => 'Tick each kit part you already own or recognize on the desk. Target: 12/12.',
+        'fsiot_cl_check' => 'Check completeness',
+        'fsiot_cl_retry' => 'Clear again',
+        'fsiot_cl_paper' => 'Paper version (labels / no clicks)',
+        'fsiot_cl_progress' => ':filled of :total checked',
+        'fsiot_cl_pass' => 'Complete :filled/:total — pass! Save a photo of your labeled kit. Continue to FS-05 when that module publishes.',
+        'fsiot_cl_incomplete' => 'Some items are still unchecked. Tick all required items first (or write “ordered” on paper if waiting on shipping).',
+        'fsiot_cl_done' => 'Have it',
+        'fsiot_cl_todo' => 'Missing',
     ],
 
     'theme' => [

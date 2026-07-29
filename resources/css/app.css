@@ -1109,6 +1109,62 @@ html.dark .fsiot-match-paper {
     display: none;
 }
 
+/* FSIOT kit checklist (FS-04) */
+.fsiot-kit-checklist__list {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0 0;
+}
+.fsiot-kit-checklist__item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.65rem;
+    align-items: start;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+html.dark .fsiot-kit-checklist__item {
+    border-bottom-color: rgba(255, 243, 176, 0.18);
+}
+.fsiot-kit-checklist__item:last-child {
+    border-bottom: 0;
+}
+.fsiot-kit-checklist__item.is-checked {
+    background: rgba(76, 175, 80, 0.08);
+}
+html.dark .fsiot-kit-checklist__item.is-checked {
+    background: rgba(124, 227, 139, 0.1);
+}
+.fsiot-kit-checklist__cb {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: 0.15rem;
+    accent-color: #1a1a1a;
+    cursor: pointer;
+}
+.fsiot-kit-checklist__item label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+}
+.fsiot-kit-checklist__mark {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+}
+.fsiot-kit-checklist__item.is-checked .fsiot-kit-checklist__mark {
+    opacity: 1;
+    color: #2E7D32;
+}
+html.dark .fsiot-kit-checklist__item.is-checked .fsiot-kit-checklist__mark {
+    color: #7CE38B;
+}
+
 @media (max-width: 640px) {
     .fsiot-match-quiz__row {
         grid-template-columns: 1fr;

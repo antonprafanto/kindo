@@ -244,6 +244,16 @@ return [
         'fsiot_ws_ok' => 'Terisi',
         'fsiot_ws_short' => 'Terlalu pendek',
         'fsiot_ws_empty' => 'Kosong',
+        'fsiot_cl_badge' => 'Checklist interaktif',
+        'fsiot_cl_hint' => 'Centang tiap komponen kit yang sudah kamu punya atau kenali di meja. Target: 12/12.',
+        'fsiot_cl_check' => 'Cek kelengkapan',
+        'fsiot_cl_retry' => 'Kosongkan lagi',
+        'fsiot_cl_paper' => 'Versi catatan (label kertas / tanpa klik)',
+        'fsiot_cl_progress' => ':filled dari :total tercentang',
+        'fsiot_cl_pass' => 'Lengkap :filled/:total — lulus! Simpan foto kit berlabel. Lanjut FS-05 saat modulnya terbit.',
+        'fsiot_cl_incomplete' => 'Masih ada yang belum dicentang. Centang semua item wajib dulu (atau catat “pesan” di kertas jika barang menunggu kiriman).',
+        'fsiot_cl_done' => 'Ada',
+        'fsiot_cl_todo' => 'Belum',
     ],
 
     'theme' => [
