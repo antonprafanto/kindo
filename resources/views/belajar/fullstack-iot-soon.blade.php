@@ -7,7 +7,7 @@
 
     <x-breadcrumb :items="[
         ['label' => __('ui.fsiot.breadcrumb_learn'), 'url' => route('belajar.fullstack-iot')],
-        ['label' => 'Full Stack IoT'],
+        ['label' => __('ui.fsiot.title')],
     ]" />
 
     <div class="max-w-4xl mx-auto px-4 py-10 sm:py-16">
@@ -45,7 +45,7 @@
         <div class="p-6 sm:p-8 border-2 border-black text-white" style="background:#2D3748; box-shadow: 4px 4px 0 #000;">
             <h2 class="text-xl font-black mb-3 border-b border-gray-600 pb-3">{{ __('ui.fsiot.support_title') }}</h2>
             <p class="mb-6 text-sm leading-relaxed" style="color:#CBD5E0; font-family:'Inter',sans-serif;">
-                {{ __('ui.fsiot.support_body') }}
+                {{ __('ui.fsiot.soon_support_body') }}
             </p>
             <a
                 href="{{ $trakteerUrl }}"

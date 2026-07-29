@@ -15,6 +15,7 @@ class FullstackIotGateTest extends TestCase
             ->assertOk()
             ->assertSee(__('ui.fsiot.soon_badge'), false)
             ->assertSee(__('ui.fsiot.soon_headline'), false)
+            ->assertSee(__('ui.fsiot.soon_support_body'), false)
             ->assertDontSee(__('ui.fsiot.phases_title'), false)
             ->assertDontSee(__('ui.fsiot.admin_preview_badge'), false);
     }

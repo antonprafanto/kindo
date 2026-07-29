@@ -7,7 +7,7 @@
 
     <x-breadcrumb :items="[
         ['label' => __('ui.fsiot.breadcrumb_learn'), 'url' => route('belajar.fullstack-iot')],
-        ['label' => 'Full Stack IoT'],
+        ['label' => __('ui.fsiot.title')],
     ]" />
 
     <div class="max-w-4xl mx-auto px-4 py-10 sm:py-16">
