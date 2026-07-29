@@ -586,6 +586,23 @@ html.theme-animate footer {
     .theme-heading { color: var(--color-ink); }
     .theme-highlight { background-color: var(--color-highlight); color: var(--color-ink); }
 
+    /* FSIOT path header — photo stays a faint backdrop so copy keeps contrast.
+       Blur + left-to-right mask keeps the text column nearly photo-free. */
+    .fsiot-hero-bg {
+        background-image: url('/images/fsiot/hero-desk.jpg');
+        background-size: cover;
+        background-position: center;
+        opacity: 0.07;
+        filter: blur(3px);
+        transform: scale(1.06);
+        mask-image: linear-gradient(100deg, transparent 0%, rgba(0,0,0,0.25) 45%, #000 100%);
+        -webkit-mask-image: linear-gradient(100deg, transparent 0%, rgba(0,0,0,0.25) 45%, #000 100%);
+    }
+    html.dark .fsiot-hero-bg {
+        opacity: 0.11;
+        filter: blur(3px) saturate(0.7);
+    }
+
     /* Soft success callout — readable in light + dark */
     .theme-success {
         background-color: color-mix(in srgb, #166534 18%, var(--color-paper));

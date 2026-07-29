@@ -12,32 +12,20 @@
 
     <div class="max-w-4xl mx-auto px-4 py-10 sm:py-16">
 
-        <div class="mb-8 sm:mb-12">
-            <p class="inline-flex items-center gap-2 text-white text-xs font-bold px-3 py-1.5 border-2 border-black mb-4" style="background:#FF7A2F; box-shadow:2px 2px 0 #000; text-transform:uppercase; letter-spacing:.05em;">
-                {{ __('ui.fsiot.badge') }}
-            </p>
-            <h1 class="text-3xl sm:text-4xl font-black mb-4 theme-heading" style="letter-spacing:-0.02em;">
-                {{ __('ui.fsiot.title') }}
-            </h1>
-            <p class="text-lg theme-body max-w-2xl" style="font-family:'Inter',sans-serif; line-height:1.7;">
-                {{ __('ui.fsiot.intro') }}
-            </p>
+        <div class="relative overflow-hidden theme-paper border-2 border-black mb-10 sm:mb-14" style="box-shadow: 4px 4px 0 #000;">
+            <div class="fsiot-hero-bg absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+            <div class="relative px-5 py-8 sm:px-8 sm:py-12">
+                <p class="inline-flex items-center gap-2 text-white text-xs font-bold px-3 py-1.5 border-2 border-black mb-4" style="background:#FF7A2F; box-shadow:2px 2px 0 #000; text-transform:uppercase; letter-spacing:.05em;">
+                    {{ __('ui.fsiot.badge') }}
+                </p>
+                <h1 class="text-3xl sm:text-4xl font-black mb-4 theme-heading" style="letter-spacing:-0.02em;">
+                    {{ __('ui.fsiot.title') }}
+                </h1>
+                <p class="text-lg theme-body max-w-2xl" style="font-family:'Inter',sans-serif; line-height:1.7;">
+                    {{ __('ui.fsiot.intro') }}
+                </p>
+            </div>
         </div>
-
-        <figure class="mb-10 sm:mb-14 -mx-4 sm:mx-0 border-2 border-black overflow-hidden" style="box-shadow: 4px 4px 0 #000;">
-            <img
-                src="{{ asset('images/fsiot/hero-desk.jpg') }}"
-                alt="{{ __('ui.fsiot.hero_alt') }}"
-                width="1600"
-                height="893"
-                class="w-full h-auto block"
-                loading="eager"
-                decoding="async"
-            />
-            <figcaption class="px-4 py-3 text-xs theme-muted border-t-2 border-black" style="font-family:'Inter',sans-serif; background: var(--theme-paper, #F5F5F0);">
-                {{ __('ui.fsiot.hero_caption') }}
-            </figcaption>
-        </figure>
 
         <div class="grid sm:grid-cols-3 gap-4 mb-10 sm:mb-14">
             @foreach([
