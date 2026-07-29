@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 
 /**
  * Regenerasi excerpt ID dari body agar kartu di /artikel tidak menampilkan "#N (ini)" basi
- * setelah renumber seri Laravel. Dipanggil dari publishArticle69.
+ * setelah renumber seri Laravel. Dipanggil dari publishArticle70.
  */
 class RefreshLaravelSeriesExcerptsSeeder extends Seeder
 {
@@ -31,6 +31,7 @@ class RefreshLaravelSeriesExcerptsSeeder extends Seeder
         'laravel-api-resource-json',
         'laravel-feature-test-api',
         'laravel-rate-limiting-api',
+        'capstone-pinjam-kembali-laravel',
     ];
 
     public function run(): void

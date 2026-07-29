@@ -5473,6 +5473,22 @@ class DeployController extends Controller
             }
         }
 
+        // Hardlink #69 → #70 setelah reseed #69, jika #70 sudah LIVE (CI: step #70 jalan sebelum #69).
+        $nextSlug70 = 'capstone-pinjam-kembali-laravel';
+        $a70 = Article::published()->where('slug', $nextSlug70)->first();
+        if ($a70 && $article && ! str_contains((string) $article->body, $nextSlug70)) {
+            if ($this->ensureSeederClass('database/seeders/Article69Hardlink70Seeder.php', \Database\Seeders\Article69Hardlink70Seeder::class)) {
+                $exitHl70 = Artisan::call('db:seed', [
+                    '--class' => 'Database\\Seeders\\Article69Hardlink70Seeder',
+                    '--force' => true,
+                ]);
+                $article = Article::published()->where('slug', $slug)->first();
+                if ($exitHl70 !== 0 || ! $article || ! str_contains((string) $article->body, $nextSlug70)) {
+                    report(new \RuntimeException('Article 69 hardlink to #70 missing after patch in publishArticle69.'));
+                }
+            }
+        }
+
         $this->refreshLaravelSeriesExcerpts();
 
         try {
@@ -5490,6 +5506,158 @@ class DeployController extends Controller
         }
 
         return response('Article 69 published', 200);
+    }
+
+    public function publishArticle70(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! $this->ensureSeederClass('database/seeders/Article70Seeder.php', \Database\Seeders\Article70Seeder::class)) {
+            return response('Article70Seeder class not found on server', 500);
+        }
+
+        $prevSlug = 'laravel-rate-limiting-api';
+
+        $a69 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a69) {
+            if (! $this->ensureSeederClass('database/seeders/Article69Seeder.php', \Database\Seeders\Article69Seeder::class)) {
+                return response('Article69Seeder class not found on server', 500);
+            }
+            $bootstrap69 = Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article69Seeder',
+                '--force' => true,
+            ]);
+            if ($bootstrap69 !== 0) {
+                return response('Article 69 bootstrap seed failed: '.trim(Artisan::output()), 500);
+            }
+            $a69 = Article::published()->where('slug', $prevSlug)->first();
+            if (! $a69) {
+                report(new \RuntimeException('Article 69 still missing after bootstrap seed in publishArticle70.'));
+
+                return response('Article 69 bootstrap incomplete', 500);
+            }
+        }
+
+        $tagExit = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\TagSeeder',
+            '--force' => true,
+        ]);
+
+        if ($tagExit !== 0) {
+            return response('Article 70 tag seed failed', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article70Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 70 seed failed: '.trim(Artisan::output()), 500);
+        }
+
+        $slug = 'capstone-pinjam-kembali-laravel';
+
+        $article = Article::published()->where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 70 missing or not visible after Article70Seeder on deploy hook.'));
+
+            return response('Article 70 seed incomplete', 500);
+        }
+
+        $body = (string) $article->body;
+        $bodyNeedles = [
+            'laravel70capArrow',
+            'color:#1a1a1a',
+            'capstone_pinjam_kembali_laravel_demo.php',
+            'alur-cek.php',
+            'authorize',
+            'throttle:pinjam',
+            'demo(',
+            'Seri 5',
+            '#70 (ini)',
+            '7/7',
+            $prevSlug,
+            'Pola Dasar',
+            'Persiapan',
+            'curl.exe',
+            'Piranti Bergerak',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Article 70 body missing expected content after seed: '.implode(', ', $missingBody)));
+
+            return response('Article 70 body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 70 English fields are incomplete after seed.'));
+
+            return response('Article 70 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        $enNeedles = [
+            '#70 (this article)',
+            'Beginner:',
+            'Tools used in this article',
+            'Preparation',
+            'authorize',
+            'throttle:pinjam',
+            'Mobile Devices',
+            '7/7 — complete',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 70 EN body missing expected content after seed: '.implode(', ', $missingEn)));
+
+            return response('Article 70 EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        $a69 = Article::published()->where('slug', $prevSlug)->first();
+        if (! $a69) {
+            report(new \RuntimeException('Article 69 missing after bootstrap while publishing #70.'));
+
+            return response('Article 70 prerequisite #69 missing', 500);
+        }
+
+        if (! str_contains((string) $a69->body, $slug)) {
+            if ($this->ensureSeederClass('database/seeders/Article69Hardlink70Seeder.php', \Database\Seeders\Article69Hardlink70Seeder::class)) {
+                $exit69 = Artisan::call('db:seed', [
+                    '--class' => 'Database\\Seeders\\Article69Hardlink70Seeder',
+                    '--force' => true,
+                ]);
+                $a69 = Article::published()->where('slug', $prevSlug)->first();
+                if ($exit69 !== 0 || ! $a69 || ! str_contains((string) $a69->body, $slug)) {
+                    report(new \RuntimeException('Article 69 hardlink to #70 deferred: patch exit='.$exit69.' slug_present='.(int) ($a69 && str_contains((string) $a69->body, $slug))));
+                }
+            } else {
+                report(new \RuntimeException('Article69Hardlink70Seeder class not found — hardlink deferred.'));
+            }
+        }
+
+        $this->refreshLaravelSeriesExcerpts();
+
+        try {
+            app(SitemapService::class)->writeToDisk();
+        } catch (\Throwable $e) {
+            report($e);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 70 published', 200);
     }
 
     private function runDuplicateBme280Cleanup(): void

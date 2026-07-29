@@ -23,6 +23,7 @@ $slugs = [
     'laravel-api-resource-json' => 67,
     'laravel-feature-test-api' => 68,
     'laravel-rate-limiting-api' => 69,
+    'capstone-pinjam-kembali-laravel' => 70,
 ];
 
 $failed = 0;
