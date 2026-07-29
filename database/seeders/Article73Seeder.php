@@ -114,9 +114,62 @@ SVG;
 SVG;
     }
 
+    private function flowSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Arah data telemetry dan command antara perangkat dan sistem" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" width="100%" height="auto" role="img" aria-label="Perangkat broker sistem">
+  <rect x="20" y="70" width="170" height="70" fill="#EBF4FF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="105" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Perangkat</text>
+  <text x="105" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">board (DevKitC-1)</text>
+  <rect x="275" y="70" width="170" height="70" fill="#FFF3E0" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Broker</text>
+  <text x="360" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">pengantar pesan</text>
+  <rect x="530" y="70" width="170" height="70" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="615" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Sistem</text>
+  <text x="615" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">server / HP</text>
+  <line x1="190" y1="55" x2="530" y2="55" stroke="#2E7D32" stroke-width="2"/>
+  <polygon points="530,55 520,50 520,60" fill="#2E7D32"/>
+  <text x="360" y="45" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#2E7D32">Telemetry — laporan (perangkat → sistem)</text>
+  <line x1="530" y1="165" x2="190" y2="165" stroke="#C62828" stroke-width="2"/>
+  <polygon points="190,165 200,160 200,170" fill="#C62828"/>
+  <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#C62828">Command — perintah (sistem → perangkat)</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Arah data: telemetry naik dari perangkat, command turun dari sistem — broker mengantar di tengah, topic jadi alamatnya (buatan Koding Indonesia). Belum praktek di modul ini.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function flowSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Data direction of telemetry and command between device and system" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" width="100%" height="auto" role="img" aria-label="Device broker system">
+  <rect x="20" y="70" width="170" height="70" fill="#EBF4FF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="105" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Device</text>
+  <text x="105" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">board (DevKitC-1)</text>
+  <rect x="275" y="70" width="170" height="70" fill="#FFF3E0" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="360" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Broker</text>
+  <text x="360" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">message messenger</text>
+  <rect x="530" y="70" width="170" height="70" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="615" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">System</text>
+  <text x="615" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">server / phone</text>
+  <line x1="190" y1="55" x2="530" y2="55" stroke="#2E7D32" stroke-width="2"/>
+  <polygon points="530,55 520,50 520,60" fill="#2E7D32"/>
+  <text x="360" y="45" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#2E7D32">Telemetry — report (device → system)</text>
+  <line x1="530" y1="165" x2="190" y2="165" stroke="#C62828" stroke-width="2"/>
+  <polygon points="190,165 200,160 200,170" fill="#C62828"/>
+  <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#C62828">Command — order (system → device)</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Data direction: telemetry goes up from the device, command comes down from the system — the broker relays in the middle, the topic is the address (by Koding Indonesia). No practice in this module.</figcaption>
+</figure>
+SVG;
+    }
+
     private function body(): string
     {
         $sense = $this->senseSvgId();
+        $flow = $this->flowSvgId();
 
         return <<<HTML
 <h2>Pendahuluan — kenapa perlu kamus mini?</h2>
@@ -205,6 +258,7 @@ SVG;
 
 <h2>Keluarga 3 — percakapan data (nanti di fase CONNECTED)</h2>
 <p>Cukup kenal dulu. Detailnya jauh di depan peta.</p>
+{$flow}
 <table>
   <thead>
     <tr>
@@ -348,6 +402,7 @@ HTML;
     private function bodyEn(): string
     {
         $sense = $this->senseSvgEn();
+        $flow = $this->flowSvgEn();
 
         return <<<HTML
 <h2>Introduction — why a mini glossary?</h2>
@@ -436,6 +491,7 @@ HTML;
 
 <h2>Family 3 — data conversation (later in CONNECTED)</h2>
 <p>Know the names first. Details are farther on the map.</p>
+{$flow}
 <table>
   <thead>
     <tr>

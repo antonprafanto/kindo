@@ -44,7 +44,8 @@ check('EN self-ref #73 (this article)', str_contains($en, '#73 (this article)'))
 check('ID Awam >= 5', substr_count($id, 'Awam:') + substr_count($id, 'Awam —') >= 5);
 check('EN Beginner >= 5', substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —') >= 5);
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('SVG figure both', substr_count($id, '<figure') >= 1 && substr_count($en, '<figure') >= 1);
+check('SVG figure both (>=2: sense + flow)', substr_count($id, '<figure') >= 2 && substr_count($en, '<figure') >= 2);
+check('flow diagram telemetry/command dir', str_contains($id, 'perangkat → sistem') && str_contains($id, 'sistem → perangkat') && str_contains($en, 'device → system') && str_contains($en, 'system → device'));
 
 foreach (['Sensor', 'Aktuator', 'Mikrokontroler', 'Firmware', 'GPIO', 'Sketch', 'Upload', 'Serial', 'Telemetry', 'Command', 'Broker', 'Topic', 'API', 'SQLite', 'OTA', 'Flask', 'Node-RED', 'NTP'] as $t) {
     check('ID has '.$t, str_contains($id, $t) || ($t === 'Aktuator' && str_contains($id, 'aktuator')));

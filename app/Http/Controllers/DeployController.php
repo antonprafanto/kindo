@@ -5941,6 +5941,8 @@ class DeployController extends Controller
             '12/15',
             'ESP32-DevKitC-1',
             '/belajar/fullstack-iot',
+            'perangkat → sistem',
+            'sistem → perangkat',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
