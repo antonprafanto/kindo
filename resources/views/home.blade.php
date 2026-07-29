@@ -100,7 +100,8 @@
     <section class="py-10 sm:py-14 border-b-4 border-black" style="background: var(--color-surface);">
         <div class="max-w-6xl mx-auto px-4">
             <div class="p-6 sm:p-8 theme-paper border-2 border-black" style="box-shadow: 6px 6px 0 #000;">
-                <p class="inline-flex text-white text-xs font-bold px-3 py-1 border-2 border-black mb-4" style="background:#FF7A2F; box-shadow:2px 2px 0 #000; text-transform:uppercase; letter-spacing:.04em;">
+                <p class="fsiot-soon-badge mb-4">
+                    <span class="fsiot-soon-dot" aria-hidden="true"></span>
                     {{ __('ui.home.fsiot_badge') }}
                 </p>
                 <h2 class="text-2xl sm:text-3xl font-black mb-3 theme-heading" style="letter-spacing:-0.02em;">

@@ -603,6 +603,45 @@ html.theme-animate footer {
         filter: blur(3px) saturate(0.7);
     }
 
+    /* Pre-launch status pill — must stay loud on both paper and dark surfaces */
+    .fsiot-soon-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #FFD600;
+        color: #0a0a0a;
+        border: 2.5px solid #000;
+        box-shadow: 4px 4px 0 #000;
+        font-family: var(--font-sans);
+        font-size: 0.9375rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        line-height: 1.2;
+    }
+    html.dark .fsiot-soon-badge {
+        border-color: #FFF3B0;
+        box-shadow: 4px 4px 0 #8a6d00;
+    }
+
+    .fsiot-soon-dot {
+        width: 0.625rem;
+        height: 0.625rem;
+        border-radius: 9999px;
+        background-color: #C62828;
+        border: 2px solid #000;
+        flex-shrink: 0;
+        animation: fsiot-soon-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes fsiot-soon-pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.35); opacity: 0.55; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .fsiot-soon-dot { animation: none; }
+    }
+
     /* Soft success callout — readable in light + dark */
     .theme-success {
         background-color: color-mix(in srgb, #166534 18%, var(--color-paper));
