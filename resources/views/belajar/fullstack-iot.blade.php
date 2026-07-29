@@ -12,6 +12,13 @@
 
     <div class="max-w-4xl mx-auto px-4 py-10 sm:py-16">
 
+        @if(!empty($isAdminPreview))
+        <div class="mb-6 p-4 border-2 border-black theme-highlight" style="box-shadow: 3px 3px 0 #000; font-family:'Inter',sans-serif;">
+            <p class="text-sm font-bold theme-heading mb-1">{{ __('ui.fsiot.admin_preview_badge') }}</p>
+            <p class="text-xs theme-body">{{ __('ui.fsiot.admin_preview_note') }}</p>
+        </div>
+        @endif
+
         <div class="relative overflow-hidden theme-paper border-2 border-black mb-10 sm:mb-14" style="box-shadow: 4px 4px 0 #000;">
             <div class="fsiot-hero-bg absolute inset-0 pointer-events-none" aria-hidden="true"></div>
             <div class="relative px-5 py-8 sm:px-8 sm:py-12">

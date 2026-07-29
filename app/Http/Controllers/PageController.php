@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\User;
+use Illuminate\Contracts\View\View;
 
 class PageController extends Controller
 {
@@ -17,8 +19,18 @@ class PageController extends Controller
         return view('privacy');
     }
 
-    public function fullstackIot()
+    public function fullstackIot(): View
     {
+        $isPublic = (bool) config('kindo.fsiot_public');
+        $user = auth()->user();
+        $canPreviewFull = $this->canPreviewFsiotPath($user);
+
+        if (! $isPublic && ! $canPreviewFull) {
+            return view('belajar.fullstack-iot-soon', [
+                'trakteerUrl' => config('kindo.trakteer_tip_url'),
+            ]);
+        }
+
         $phases = [
             [
                 'code' => 'ZERO',
@@ -55,6 +67,12 @@ class PageController extends Controller
         return view('belajar.fullstack-iot', [
             'phases' => $phases,
             'trakteerUrl' => config('kindo.trakteer_tip_url'),
+            'isAdminPreview' => ! $isPublic && $canPreviewFull,
         ]);
+    }
+
+    private function canPreviewFsiotPath(?User $user): bool
+    {
+        return $user !== null && $user->isAdmin();
     }
 }
