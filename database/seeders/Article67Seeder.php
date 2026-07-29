@@ -180,7 +180,7 @@ $peminjamanRapi = [
 
 echo json_encode(["mentah" =&gt; $peminjamanMentah, "rapi" =&gt; $peminjamanRapi], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
 </code></pre>
-<p><strong>Awam:</strong> versi <code>rapi</code> tidak mengirim <code>anggota_id</code> dan <code>created_at</code> mentah — pemanggil cukup baca field yang berguna. Tambahan <code>status_label</code> membuat status lebih manusiawi daripada kode <code>aktif</code> saja.</p>
+<p><strong>Awam — cara menguji bagian ini:</strong> salin potongan di atas ke file misalnya <code>mentah-vs-rapi.php</code>, lalu di terminal Laragon/XAMPP jalankan <code>php mentah-vs-rapi.php</code>. Kalau muncul dua objek JSON (<code>mentah</code> vs <code>rapi</code>) dan yang rapi tanpa <code>anggota_id</code>, ide “sembunyikan yang tidak perlu” sudah terlihat. Versi <code>rapi</code> menambah <code>status_label</code> supaya status lebih manusiawi daripada kode <code>aktif</code> saja.</p>
 
 <h2>Alur rapikan — array PHP dulu</h2>
 <p>Gerakan yang benar selalu sama:</p>
@@ -292,7 +292,7 @@ public function index()
 <pre><code class="language-bash">curl.exe "http://127.0.0.1:8000/api/peminjaman/10"
 curl.exe "http://127.0.0.1:8000/api/peminjaman"
 </code></pre>
-<p><strong>Awam:</strong> respons JSON dari <code>curl.exe</code> adalah cara cepat melihat apakah field konsisten — ada <code>status_label</code>, tidak ada <code>anggota_id</code> mentah. Kalau bentuk beda-beda tiap halaman, rapikan belum terpusat di satu Resource.</p>
+<p><strong>Awam:</strong> respons JSON dari <code>curl.exe</code> adalah cara cepat melihat apakah field konsisten — ada <code>status_label</code>, tidak ada <code>anggota_id</code> mentah. Kalau muncul <code>404</code>, rute pinjam mungkin belum dipasang — itu wajar; fokus dulu ke demo PHP di atas. Kalau bentuk beda-beda tiap halaman, rapikan belum terpusat di satu Resource.</p>
 
 <h2>Pola Dasar — bentuk jawaban JSON yang rapi</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Enam langkah rapikan bentuk jawaban JSON">
@@ -542,7 +542,7 @@ $peminjamanRapi = [
 
 echo json_encode(["mentah" =&gt; $peminjamanMentah, "rapi" =&gt; $peminjamanRapi], JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), PHP_EOL;
 </code></pre>
-<p><strong>Beginner:</strong> the <code>rapi</code> version does not send raw <code>anggota_id</code> and <code>created_at</code> — the caller only reads useful fields. The extra <code>status_label</code> makes status more human than the code <code>aktif</code> alone.</p>
+<p><strong>Beginner — how to test this part:</strong> copy the snippet above into a file such as <code>mentah-vs-rapi.php</code>, then in Laragon/XAMPP terminal run <code>php mentah-vs-rapi.php</code>. If you see two JSON objects (<code>mentah</code> vs <code>rapi</code>) and the tidy one has no <code>anggota_id</code>, the idea “hide what is not needed” is already visible. The <code>rapi</code> version adds <code>status_label</code> so status feels more human than the code <code>aktif</code> alone.</p>
 
 <h2>Tidy flow — plain PHP array first</h2>
 <p>The correct move order is always the same:</p>
@@ -654,7 +654,7 @@ public function index()
 <pre><code class="language-bash">curl.exe "http://127.0.0.1:8000/api/peminjaman/10"
 curl.exe "http://127.0.0.1:8000/api/peminjaman"
 </code></pre>
-<p><strong>Beginner:</strong> the JSON response from <code>curl.exe</code> is a fast way to see whether fields are consistent — <code>status_label</code> is present, raw <code>anggota_id</code> is not. If the shape differs page by page, tidying is not centralized in one Resource yet.</p>
+<p><strong>Beginner:</strong> the JSON response from <code>curl.exe</code> is a fast way to see whether fields are consistent — <code>status_label</code> is present, raw <code>anggota_id</code> is not. If you get <code>404</code>, the borrowing route may not be installed yet — that is normal; focus on the PHP demo above first. If the shape differs page by page, tidying is not centralized in one Resource yet.</p>
 
 <h2>Basic Pattern — a tidy JSON response shape</h2>
 <figure style="margin:1.5rem 0;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1.25rem;color:#1a1a1a" aria-label="Six steps to tidy JSON response shape">
