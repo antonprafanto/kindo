@@ -57,6 +57,8 @@ foreach (['Sensor', 'Actuator', 'Microcontroller', 'Firmware', 'GPIO', 'Sketch',
 check('ID Persiapan + no-syntax', str_contains($id, 'Persiapan') && str_contains($id, 'Tidak ada perintah sintaks hari ini'));
 check('EN Preparation + no-syntax', str_contains($en, 'Preparation') && str_contains($en, 'There is no syntax to run today'));
 check('quiz 15 + key', str_contains($id, '15') && str_contains($id, '1B') && str_contains($en, '1B'));
+check('quiz interactive markers', str_contains($id, 'id="fsiot-kuis-matching"') && str_contains($id, 'id="fsiot-kuis-kunci"') && str_contains($en, 'id="fsiot-kuis-matching"'));
+check('quiz mentions interactive', str_contains($id, 'kuis interaktif') && str_contains($en, 'interactive quiz'));
 check('score target 12/15', str_contains($id, '12/15') && str_contains($en, '12/15'));
 check('DevKitC-1', str_contains($id, 'ESP32-DevKitC-1') && str_contains($en, 'ESP32-DevKitC-1'));
 check('soft FS-02', str_contains($id, 'FS-02') && str_contains($en, 'FS-02'));

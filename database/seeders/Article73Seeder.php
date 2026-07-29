@@ -182,10 +182,10 @@ SVG;
 <h2>Persiapan — alat yang kamu buka hari ini</h2>
 <p><strong>Alat yang dipakai di artikel ini</strong> (belum Laragon, belum Arduino IDE, belum USB board, belum terminal):</p>
 <ul>
-  <li><strong>Browser</strong> — membaca artikel (Chrome, Edge, Firefox, atau browser HP).</li>
-  <li><strong>Catatan</strong> — kertas, Notepad, Google Docs, atau catatan HP untuk kuis matching di akhir.</li>
+  <li><strong>Browser</strong> — membaca artikel + mengerjakan <strong>kuis interaktif</strong> di akhir (Chrome, Edge, Firefox, atau browser HP).</li>
+  <li><strong>Catatan</strong> (opsional) — kertas / Notepad hanya jika kamu lebih suka versi tulis tangan.</li>
 </ul>
-<p><strong>Tidak ada perintah sintaks hari ini.</strong> Tidak ada baris kode untuk disalin, tidak ada <code>php artisan</code>, tidak ada sketch Arduino. Cara “menguji” = mencocokkan istilah ↔ arti dengan bahasamu sendiri (kuis 15 soal).</p>
+<p><strong>Tidak ada perintah sintaks hari ini.</strong> Tidak ada baris kode untuk disalin, tidak ada <code>php artisan</code>, tidak ada sketch Arduino. Cara “menguji” = cocokkan istilah ↔ arti di kuis interaktif (target ≥ 12/15).</p>
 
 <h2>Keluarga 1 — indra, otak, otot</h2>
 {$sense}
@@ -335,8 +335,8 @@ SVG;
 </ul>
 <p><strong>Awam:</strong> jangan instal apa pun hari ini. Cukup seperti mengenal nama kota di peta sebelum berangkat.</p>
 
-<h2>Praktik — kuis matching 15 soal</h2>
-<p>Buka catatan. Tutup tabel di atas sebentar. Cocokkan kolom kiri dengan arti di kanan (tulis A–O).</p>
+<h2 id="fsiot-kuis-matching">Praktik — kuis matching 15 soal</h2>
+<p>Tutup tabel di atas sebentar. Di bawah ini ada <strong>kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan.</p>
 <p><strong>Kolom istilah:</strong></p>
 <ol>
   <li>Sensor</li>
@@ -373,9 +373,9 @@ SVG;
   <li>N. Perintah ke perangkat</li>
   <li>O. Kaki pin serba guna</li>
 </ul>
-<p><strong>Awam — cara menguji:</strong> kerjakan dulu, baru buka kunci. Target ≥ <strong>12/15</strong>. Tidak perlu menjalankan perintah komputer apa pun.</p>
+<p><strong>Awam — cara menguji:</strong> kerjakan dulu di kuis interaktif, baru buka kunci. Target ≥ <strong>12/15</strong>. Tidak perlu menjalankan perintah komputer apa pun.</p>
 
-<h2>Kunci jawaban</h2>
+<h2 id="fsiot-kuis-kunci">Kunci jawaban</h2>
 <p>1B · 2E · 3G · 4I · 5O · 6K · 7C · 8M · 9J · 10N · 11L · 12H · 13F · 14A · 15D</p>
 <p>Hitung skormu. Di bawah 12? Baca ulang keluarga yang salah, ulangi matching — itu normal.</p>
 
@@ -415,10 +415,10 @@ HTML;
 <h2>Preparation — tools you open today</h2>
 <p><strong>Tools used in this article</strong> (no Laragon, no Arduino IDE, no USB board, no terminal yet):</p>
 <ul>
-  <li><strong>Browser</strong> — to read this article (Chrome, Edge, Firefox, or a phone browser).</li>
-  <li><strong>Notes</strong> — paper, Notepad, Google Docs, or a phone note for the matching quiz at the end.</li>
+  <li><strong>Browser</strong> — to read this article and take the <strong>interactive quiz</strong> at the end (Chrome, Edge, Firefox, or a phone browser).</li>
+  <li><strong>Notes</strong> (optional) — paper / Notepad only if you prefer handwriting.</li>
 </ul>
-<p><strong>There is no syntax to run today.</strong> No code to copy, no <code>php artisan</code>, no Arduino sketch. “Testing” means matching term ↔ meaning in your own words (15-question quiz).</p>
+<p><strong>There is no syntax to run today.</strong> No code to copy, no <code>php artisan</code>, no Arduino sketch. “Testing” means matching term ↔ meaning in the interactive quiz (target ≥ 12/15).</p>
 
 <h2>Family 1 — sense, brain, muscle</h2>
 {$sense}
@@ -568,8 +568,8 @@ HTML;
 </ul>
 <p><strong>Beginner:</strong> install nothing today. Just like learning city names on a map before you travel.</p>
 
-<h2>Practice — matching quiz (15 items)</h2>
-<p>Open your notes. Briefly close the tables above. Match the left column to meanings on the right (write A–O).</p>
+<h2 id="fsiot-kuis-matching">Practice — matching quiz (15 items)</h2>
+<p>Briefly close the tables above. Below is an <strong>interactive quiz</strong>: pick a meaning for each term, then press <strong>Check score</strong>. A paper version stays available as a backup.</p>
 <p><strong>Terms:</strong></p>
 <ol>
   <li>Sensor</li>
@@ -606,9 +606,9 @@ HTML;
   <li>N. An order to a device</li>
   <li>O. General-purpose pins</li>
 </ul>
-<p><strong>Beginner — how to test:</strong> answer first, then open the key. Target ≥ <strong>12/15</strong>. You do not need to run any computer command.</p>
+<p><strong>Beginner — how to test:</strong> answer in the interactive quiz first, then open the key. Target ≥ <strong>12/15</strong>. You do not need to run any computer command.</p>
 
-<h2>Answer key</h2>
+<h2 id="fsiot-kuis-kunci">Answer key</h2>
 <p>1B · 2E · 3G · 4I · 5O · 6K · 7C · 8M · 9J · 10N · 11L · 12H · 13F · 14A · 15D</p>
 <p>Count your score. Under 12? Re-read the family you missed and match again — that is normal.</p>
 

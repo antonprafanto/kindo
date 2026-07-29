@@ -431,16 +431,19 @@ document.addEventListener('DOMContentLoaded', () => {
     tocTargets.forEach(toc => { toc.innerHTML = ''; });
 
     headings.forEach((h, i) => {
-        h.id = 'heading-' + i;
+        if (!h.id) {
+            h.id = 'heading-' + i;
+        }
+        const hid = h.id;
         tocTargets.forEach(toc => {
             const a = document.createElement('a');
-            a.href = '#heading-' + i;
+            a.href = '#' + hid;
             a.textContent = h.textContent;
             a.className = 'toc-link' + (h.tagName === 'H3' ? ' toc-link--h3' : '');
-            a.dataset.headingId = 'heading-' + i;
+            a.dataset.headingId = hid;
             a.addEventListener('click', e => {
                 e.preventDefault();
-                document.getElementById('heading-' + i).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                document.getElementById(hid)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 const mobileWrap = document.getElementById('toc-mobile-wrap');
                 if (mobileWrap && mobileWrap.open) mobileWrap.open = false;
             });
@@ -528,6 +531,248 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 })();
+</script>
+@endpush
+
+@push('scripts')
+<script>
+// FSIOT FS-03 — interactive matching quiz (safe: not stored in article HTML body)
+document.addEventListener('DOMContentLoaded', () => {
+    const labels = {
+        badge: @js(__('ui.articles.fsiot_quiz_badge')),
+        hint: @js(__('ui.articles.fsiot_quiz_hint')),
+        placeholder: @js(__('ui.articles.fsiot_quiz_placeholder')),
+        check: @js(__('ui.articles.fsiot_quiz_check')),
+        retry: @js(__('ui.articles.fsiot_quiz_retry')),
+        showKey: @js(__('ui.articles.fsiot_quiz_show_key')),
+        hideKey: @js(__('ui.articles.fsiot_quiz_hide_key')),
+        paper: @js(__('ui.articles.fsiot_quiz_paper')),
+        progress: @js(__('ui.articles.fsiot_quiz_progress')),
+        pass: @js(__('ui.articles.fsiot_quiz_pass')),
+        fail: @js(__('ui.articles.fsiot_quiz_fail')),
+        incomplete: @js(__('ui.articles.fsiot_quiz_incomplete')),
+        correct: @js(__('ui.articles.fsiot_quiz_correct')),
+        wrong: @js(__('ui.articles.fsiot_quiz_wrong')),
+    };
+
+    const content = document.getElementById('article-content');
+    if (!content) return;
+
+    const quizH2 = content.querySelector('#fsiot-kuis-matching');
+    const keyH2 = content.querySelector('#fsiot-kuis-kunci');
+    if (!quizH2 || !keyH2) return;
+
+    const sectionNodes = [];
+    for (let n = quizH2.nextElementSibling; n && n !== keyH2; n = n.nextElementSibling) {
+        sectionNodes.push(n);
+    }
+
+    const termsOl = sectionNodes.find(n => n.tagName === 'OL');
+    const meaningsUl = sectionNodes.find(n => n.tagName === 'UL');
+    if (!termsOl || !meaningsUl) return;
+
+    const terms = Array.from(termsOl.querySelectorAll('li')).map(li => li.textContent.trim()).filter(Boolean);
+    const meanings = Array.from(meaningsUl.querySelectorAll('li')).map(li => {
+        const raw = li.textContent.trim();
+        const m = raw.match(/^([A-O])\.\s*(.+)$/i);
+        return m ? { letter: m[1].toUpperCase(), text: m[2].trim() } : null;
+    }).filter(Boolean);
+
+    const keyPara = keyH2.nextElementSibling;
+    const keyText = keyPara ? keyPara.textContent : '';
+    const answers = {};
+    for (const match of keyText.matchAll(/(\d+)\s*([A-O])/gi)) {
+        answers[parseInt(match[1], 10)] = match[2].toUpperCase();
+    }
+
+    if (terms.length !== 15 || meanings.length !== 15 || Object.keys(answers).length !== 15) {
+        return;
+    }
+
+    const intro = sectionNodes[0] && sectionNodes[0].tagName === 'P' ? sectionNodes[0] : null;
+
+    // Paper backup: collapse static lists under <details>
+    const paper = document.createElement('details');
+    paper.className = 'fsiot-match-paper';
+    const paperSummary = document.createElement('summary');
+    paperSummary.textContent = labels.paper;
+    paper.appendChild(paperSummary);
+
+    const afterIntro = [];
+    for (let n = quizH2.nextElementSibling; n && n !== keyH2; ) {
+        const next = n.nextElementSibling;
+        if (n !== intro) {
+            afterIntro.push(n);
+        }
+        n = next;
+    }
+    afterIntro.forEach(n => paper.appendChild(n));
+    if (intro) {
+        intro.after(paper);
+    } else {
+        quizH2.after(paper);
+    }
+
+    // Hide answer key until user checks score or opens it
+    const keyWrap = document.createElement('div');
+    keyWrap.className = 'fsiot-match-key-wrap is-hidden';
+    keyWrap.id = 'fsiot-match-key-panel';
+    const toWrap = [keyH2];
+    for (let n = keyH2.nextElementSibling; n && n.tagName !== 'H2'; n = n.nextElementSibling) {
+        toWrap.push(n);
+    }
+    keyH2.before(keyWrap);
+    toWrap.forEach(n => keyWrap.appendChild(n));
+
+    const widget = document.createElement('div');
+    widget.className = 'fsiot-match-quiz';
+    widget.setAttribute('role', 'region');
+    widget.setAttribute('aria-label', labels.badge);
+
+    const head = document.createElement('div');
+    head.className = 'fsiot-match-quiz__head';
+    head.innerHTML = '<span class="fsiot-match-quiz__badge">' + labels.badge + '</span>'
+        + '<p class="fsiot-match-quiz__hint"></p>'
+        + '<span class="fsiot-match-quiz__progress" aria-live="polite"></span>';
+    head.querySelector('.fsiot-match-quiz__hint').textContent = labels.hint;
+    const progressEl = head.querySelector('.fsiot-match-quiz__progress');
+    widget.appendChild(head);
+
+    const list = document.createElement('ul');
+    list.className = 'fsiot-match-quiz__list';
+
+    const selects = [];
+    terms.forEach((term, idx) => {
+        const num = idx + 1;
+        const li = document.createElement('li');
+        li.className = 'fsiot-match-quiz__row';
+
+        const termEl = document.createElement('p');
+        termEl.className = 'fsiot-match-quiz__term';
+        termEl.innerHTML = '<span class="fsiot-match-quiz__num">' + num + '.</span>';
+        termEl.appendChild(document.createTextNode(term));
+
+        const select = document.createElement('select');
+        select.className = 'fsiot-match-quiz__select';
+        select.setAttribute('aria-label', term);
+        const empty = document.createElement('option');
+        empty.value = '';
+        empty.textContent = labels.placeholder;
+        select.appendChild(empty);
+        meanings.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m.letter;
+            opt.textContent = m.letter + '. ' + m.text;
+            select.appendChild(opt);
+        });
+
+        const status = document.createElement('span');
+        status.className = 'fsiot-match-quiz__status';
+        status.setAttribute('aria-live', 'polite');
+
+        li.appendChild(termEl);
+        li.appendChild(select);
+        li.appendChild(status);
+        list.appendChild(li);
+        selects.push({ select, status, li, num });
+    });
+    widget.appendChild(list);
+
+    const result = document.createElement('p');
+    result.className = 'fsiot-match-quiz__result';
+    result.hidden = true;
+    result.setAttribute('aria-live', 'polite');
+    widget.appendChild(result);
+
+    const actions = document.createElement('div');
+    actions.className = 'fsiot-match-quiz__actions';
+
+    const checkBtn = document.createElement('button');
+    checkBtn.type = 'button';
+    checkBtn.className = 'fsiot-match-quiz__btn';
+    checkBtn.textContent = labels.check;
+
+    const retryBtn = document.createElement('button');
+    retryBtn.type = 'button';
+    retryBtn.className = 'fsiot-match-quiz__btn fsiot-match-quiz__btn--ghost';
+    retryBtn.textContent = labels.retry;
+
+    const keyBtn = document.createElement('button');
+    keyBtn.type = 'button';
+    keyBtn.className = 'fsiot-match-quiz__btn fsiot-match-quiz__btn--ghost';
+    keyBtn.textContent = labels.showKey;
+
+    actions.appendChild(checkBtn);
+    actions.appendChild(retryBtn);
+    actions.appendChild(keyBtn);
+    widget.appendChild(actions);
+
+    paper.before(widget);
+
+    const updateProgress = () => {
+        const filled = selects.filter(s => s.select.value !== '').length;
+        progressEl.textContent = labels.progress.replace(':filled', String(filled));
+    };
+    selects.forEach(s => s.select.addEventListener('change', updateProgress));
+    updateProgress();
+
+    const clearMarks = () => {
+        selects.forEach(s => {
+            s.li.classList.remove('is-correct', 'is-wrong');
+            s.status.textContent = '';
+            s.select.disabled = false;
+        });
+        result.hidden = true;
+        result.classList.remove('is-pass', 'is-fail', 'is-warn');
+    };
+
+    checkBtn.addEventListener('click', () => {
+        const filled = selects.filter(s => s.select.value !== '').length;
+        if (filled < 15) {
+            result.hidden = false;
+            result.classList.remove('is-pass', 'is-fail');
+            result.classList.add('is-warn');
+            result.textContent = labels.incomplete;
+            return;
+        }
+
+        let score = 0;
+        selects.forEach(s => {
+            const ok = s.select.value === answers[s.num];
+            if (ok) score += 1;
+            s.li.classList.toggle('is-correct', ok);
+            s.li.classList.toggle('is-wrong', !ok);
+            s.status.textContent = ok ? labels.correct : labels.wrong;
+            s.select.disabled = true;
+        });
+
+        result.hidden = false;
+        result.classList.remove('is-warn');
+        const tpl = score >= 12 ? labels.pass : labels.fail;
+        result.classList.toggle('is-pass', score >= 12);
+        result.classList.toggle('is-fail', score < 12);
+        result.textContent = tpl.replace(':score', String(score)).replace(':total', '15');
+        keyWrap.classList.remove('is-hidden');
+        keyBtn.textContent = labels.hideKey;
+    });
+
+    retryBtn.addEventListener('click', () => {
+        selects.forEach(s => { s.select.value = ''; });
+        clearMarks();
+        updateProgress();
+        keyWrap.classList.add('is-hidden');
+        keyBtn.textContent = labels.showKey;
+        selects[0]?.select.focus();
+    });
+
+    keyBtn.addEventListener('click', () => {
+        const hidden = keyWrap.classList.toggle('is-hidden');
+        keyBtn.textContent = hidden ? labels.showKey : labels.hideKey;
+        if (!hidden) {
+            keyWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    });
+});
 </script>
 @endpush
 
