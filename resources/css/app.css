@@ -799,6 +799,13 @@ html.dark .fsiot-match-quiz {
 html.dark .fsiot-match-quiz__head {
     border-bottom-color: #FFF3B0;
 }
+/* Header kuis selalu kuning, jadi isinya wajib gelap — menang atas `html.dark .article-body p` */
+.article-body .fsiot-match-quiz__head,
+html.dark .article-body .fsiot-match-quiz__head,
+.article-body .fsiot-match-quiz__head :is(p, span, strong, b, em),
+html.dark .article-body .fsiot-match-quiz__head :is(p, span, strong, b, em) {
+    color: #0a0a0a;
+}
 .fsiot-match-quiz__badge {
     display: inline-flex;
     align-items: center;
@@ -957,6 +964,15 @@ html.dark .fsiot-match-quiz__btn--ghost {
 }
 .fsiot-match-quiz__result.is-warn {
     color: #E65100;
+}
+html.dark .article-body .fsiot-match-quiz__result.is-pass {
+    color: #7CE38B;
+}
+html.dark .article-body .fsiot-match-quiz__result.is-fail {
+    color: #FF8A80;
+}
+html.dark .article-body .fsiot-match-quiz__result.is-warn {
+    color: #FFB74D;
 }
 .fsiot-match-paper {
     margin: 1rem 0 1.5rem;
