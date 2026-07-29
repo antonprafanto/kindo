@@ -30,8 +30,10 @@ $enPlain = strip_tags(preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $en) ?? '')
 
 check('H2 parity', substr_count($en, '<h2') === substr_count($id, '<h2'));
 check('pre parity', substr_count($en, '<pre') === substr_count($id, '<pre'));
-check('Beginner count >= 6', substr_count($en, 'Beginner:') >= 6);
-check('Awam count mirrored roughly', substr_count($id, 'Awam:') >= 6);
+$awamLabels = substr_count($id, 'Awam:') + substr_count($id, 'Awam —');
+$beginnerLabels = substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —');
+check('Beginner count >= 6', $beginnerLabels >= 6);
+check('Awam count mirrored roughly', $awamLabels >= 6 && abs($awamLabels - $beginnerLabels) <= 2);
 check('Tools used section', str_contains($en, 'Tools used in this article'));
 check('Preparation section', str_contains($en, 'Preparation'));
 check('Explorer', str_contains($en, 'Explorer'));
@@ -42,6 +44,8 @@ check('one terminal enough', str_contains($en, 'one terminal is actually enough'
 check('second terminal explained', str_contains($en, 'second terminal'));
 check('php demo file syntax test', str_contains($en, 'php laravel_feature_test_api_demo.php'));
 check('curl.exe Windows', str_contains($en, 'curl.exe'));
+check('curl 404 route gloss', str_contains($en, '404') && str_contains($en, 'route may not be installed'));
+check('how to test demo', str_contains($en, 'how to test this part') && str_contains($en, 'laravel_feature_test_api_demo.php'));
 check('assertJson mentioned', str_contains($en, 'assertJson'));
 check('assertStatus mentioned', str_contains($en, 'assertStatus'));
 check('Feature Test mentioned', str_contains($en, 'Feature Test'));

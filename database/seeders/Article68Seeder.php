@@ -303,7 +303,7 @@ php vendor/bin/phpunit --filter test_peminjaman_json_rapi
 <p>Kalau <code>php artisan serve</code> sudah jalan di terminal pertama, bandingkan manual di terminal kedua dengan <code>curl.exe</code> (opsional):</p>
 <pre><code class="language-bash">curl.exe "http://127.0.0.1:8000/api/peminjaman/10"
 </code></pre>
-<p><strong>Awam:</strong> <code>curl.exe</code> membantu melihat JSON dengan mata — tapi yang mengunci bentuk setiap hari adalah <code>php artisan test</code>, bukan cek manual. Kalau uji gagal, ada field yang hilang atau <code>anggota_id</code> bocor kembali.</p>
+<p><strong>Awam:</strong> <code>curl.exe</code> membantu melihat JSON dengan mata — tapi yang mengunci bentuk setiap hari adalah <code>php artisan test</code>, bukan cek manual. Kalau muncul <code>404</code>, rute pinjam mungkin belum dipasang — itu wajar; fokus dulu ke demo PHP di atas. Kalau <code>php artisan test</code> gagal karena status 404 atau factory belum ada, rute/Resource belum siap — bukan berarti ide Feature Test salah. Kalau uji gagal padahal rute hidup, biasanya field hilang atau <code>anggota_id</code> bocor kembali.</p>
 <p><em>Catatan singkat:</em> Pest adalah alternatif sintaks uji yang lebih ringkas; Laravel mendukungnya, tapi artikel ini fokus PHPUnit karena itu bawaan dan dokumentasi resmi paling mudah diikuti awam.</p>
 
 <h2>Pola Dasar — uji yang merawat JSON</h2>
@@ -395,7 +395,7 @@ demo("Tanpa status_label — harus gagal", [
     "status" =&gt; "kembali",
 ]);
 </code></pre>
-<p><strong>Awam:</strong> tiga skenario di atas menunjukkan pola yang wajar: slip rapi lolos, slip bocor gagal, field wajib hilang gagal. Fungsi <code>cekBentukJson</code> adalah inti logika; <code>demo(...)</code> hanya membungkus output agar mudah dibaca di terminal — mirip apa yang dilakukan <code>assertJsonPath</code> di Laravel.</p>
+<p><strong>Awam — cara menguji bagian ini:</strong> simpan file sebagai <code>laravel_feature_test_api_demo.php</code> di folder proyek, lalu di terminal Laragon/XAMPP jalankan <code>php laravel_feature_test_api_demo.php</code>. Harusnya muncul satu <code>LOLOS</code> lalu dua <code>GAGAL</code>. Fungsi <code>cekBentukJson</code> adalah inti logika; <code>demo(...)</code> hanya membungkus output agar mudah dibaca di terminal — mirip apa yang dilakukan <code>assertJsonPath</code> di Laravel.</p>
 
 <h2>Kesalahan umum</h2>
 <table>
@@ -694,7 +694,7 @@ php vendor/bin/phpunit --filter test_peminjaman_json_rapi
 <p>If <code>php artisan serve</code> is already running in the first terminal, optionally compare manually in the second terminal with <code>curl.exe</code>:</p>
 <pre><code class="language-bash">curl.exe "http://127.0.0.1:8000/api/peminjaman/10"
 </code></pre>
-<p><strong>Beginner:</strong> <code>curl.exe</code> helps you see JSON with your eyes — but what locks the shape every day is <code>php artisan test</code>, not manual checking. If the test fails, a field is missing or <code>anggota_id</code> leaked again.</p>
+<p><strong>Beginner:</strong> <code>curl.exe</code> helps you see JSON with your eyes — but what locks the shape every day is <code>php artisan test</code>, not manual checking. If you get <code>404</code>, the borrowing route may not be installed yet — that is normal; focus on the PHP demo above first. If <code>php artisan test</code> fails with status 404 or a missing factory, the route/Resource is not ready yet — that does not mean the Feature Test idea is wrong. If the test fails while the route is alive, a field is usually missing or <code>anggota_id</code> leaked again.</p>
 <p><em>Brief note:</em> Pest is an alternative test syntax that is more compact; Laravel supports it, but this article focuses on PHPUnit because it is the default and the official docs are easiest for beginners.</p>
 
 <h2>Basic Pattern — tests that maintain JSON</h2>
@@ -786,7 +786,7 @@ demo("Without status_label — should fail", [
     "status" =&gt; "kembali",
 ]);
 </code></pre>
-<p><strong>Beginner:</strong> the three scenarios above show a sensible pattern: tidy slip passes, leaking slip fails, missing required field fails. Function <code>cekBentukJson</code> is the core logic; <code>demo(...)</code> only wraps output so the terminal result is easy to read — similar to what <code>assertJsonPath</code> does in Laravel.</p>
+<p><strong>Beginner — how to test this part:</strong> save the file as <code>laravel_feature_test_api_demo.php</code> in the project folder, then in Laragon/XAMPP terminal run <code>php laravel_feature_test_api_demo.php</code>. You should see one <code>PASS</code> then two <code>FAIL</code>. Function <code>cekBentukJson</code> is the core logic; <code>demo(...)</code> only wraps output so the terminal result is easy to read — similar to what <code>assertJsonPath</code> does in Laravel.</p>
 
 <h2>Common mistakes</h2>
 <table>

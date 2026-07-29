@@ -48,6 +48,8 @@ check(str_contains($body, 'color:#1a1a1a'), 'Pola Dasar dark-safe');
 check(str_contains($body, 'laravel_feature_test_api_demo.php'), 'File contoh');
 check(str_contains($body, 'uji-cek.php'), 'Mid file uji-cek');
 check(str_contains($body, 'curl.exe'), 'curl.exe Windows awam');
+check(str_contains($body, '404') && str_contains($body, 'rute pinjam mungkin belum'), 'Gloss curl 404 rute belum');
+check(str_contains($body, 'cara menguji bagian ini') && str_contains($body, 'laravel_feature_test_api_demo.php'), 'Cara uji demo lengkap');
 check(str_contains($body, 'Latihan'), 'Latihan');
 check(str_contains($body, 'FAQ'), 'FAQ');
 check(str_contains($body, 'Kesalahan umum'), 'Kesalahan umum');
@@ -94,6 +96,8 @@ check(! preg_match('/(?<![\w\/"#>])#6[0-9](?!\s*\(ini\))/', strip_tags($noA)), '
 check(str_contains($body, 'satu terminal') || str_contains($body, 'satu terminal sebenarnya cukup'), 'Satu terminal cukup');
 check(str_contains($body, 'terminal kedua'), 'Terminal kedua dijelaskan');
 check(str_contains($bodyEn, 'curl.exe'), 'EN curl.exe');
+check(str_contains($bodyEn, '404') && str_contains($bodyEn, 'route may not be installed'), 'EN gloss curl 404');
+check(str_contains($bodyEn, 'how to test this part') && str_contains($bodyEn, 'laravel_feature_test_api_demo.php'), 'EN cara uji demo');
 check(str_contains($body, 'php uji-cek.php') && str_contains($body, 'demo(') && (str_contains($body, 'php artisan test') || str_contains($body, 'vendor/bin/phpunit')), '3-tier uji-cek → demo → artisan test');
 
 echo "\n=== Hasil: {$passed} passed, {$failed} failed ===\n";
