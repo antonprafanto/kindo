@@ -5835,6 +5835,9 @@ class DeployController extends Controller
             'hero-desk.jpg',
             'Perangkat',
             'Penyimpanan',
+            'fsiot-worksheet-boxes',
+            'fsiot-layer-roles',
+            'worksheet interaktif',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -5858,6 +5861,8 @@ class DeployController extends Controller
             'There is no syntax to run today',
             'ESP32-DevKitC-1',
             'you are here',
+            'fsiot-worksheet-boxes',
+            'interactive worksheet',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

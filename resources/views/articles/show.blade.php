@@ -536,8 +536,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 @push('scripts')
 <script>
-// FSIOT FS-03 — interactive matching quiz (safe: not stored in article HTML body)
+// FSIOT interactive widgets (injected after sanitizer — safe from article body HTML)
 document.addEventListener('DOMContentLoaded', () => {
+    initFsiotMatchQuiz();
+    initFsiotWorksheet();
+});
+
+function initFsiotMatchQuiz() {
     const labels = {
         badge: @js(__('ui.articles.fsiot_quiz_badge')),
         hint: @js(__('ui.articles.fsiot_quiz_hint')),
@@ -591,7 +596,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const intro = sectionNodes[0] && sectionNodes[0].tagName === 'P' ? sectionNodes[0] : null;
 
-    // Paper backup: collapse static lists under <details>
     const paper = document.createElement('details');
     paper.className = 'fsiot-match-paper';
     const paperSummary = document.createElement('summary');
@@ -613,7 +617,6 @@ document.addEventListener('DOMContentLoaded', () => {
         quizH2.after(paper);
     }
 
-    // Hide answer key until user checks score or opens it
     const keyWrap = document.createElement('div');
     keyWrap.className = 'fsiot-match-key-wrap is-hidden';
     keyWrap.id = 'fsiot-match-key-panel';
@@ -631,9 +634,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const head = document.createElement('div');
     head.className = 'fsiot-match-quiz__head';
-    head.innerHTML = '<span class="fsiot-match-quiz__badge">' + labels.badge + '</span>'
+    head.innerHTML = '<span class="fsiot-match-quiz__badge"></span>'
         + '<p class="fsiot-match-quiz__hint"></p>'
         + '<span class="fsiot-match-quiz__progress" aria-live="polite"></span>';
+    head.querySelector('.fsiot-match-quiz__badge').textContent = labels.badge;
     head.querySelector('.fsiot-match-quiz__hint').textContent = labels.hint;
     const progressEl = head.querySelector('.fsiot-match-quiz__progress');
     widget.appendChild(head);
@@ -772,7 +776,318 @@ document.addEventListener('DOMContentLoaded', () => {
             keyWrap.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
     });
-});
+}
+
+function initFsiotWorksheet() {
+    const labels = {
+        badge: @js(__('ui.articles.fsiot_ws_badge')),
+        hint: @js(__('ui.articles.fsiot_ws_hint')),
+        placeholder: @js(__('ui.articles.fsiot_ws_placeholder')),
+        check: @js(__('ui.articles.fsiot_ws_check')),
+        retry: @js(__('ui.articles.fsiot_ws_retry')),
+        showSamples: @js(__('ui.articles.fsiot_ws_show_samples')),
+        hideSamples: @js(__('ui.articles.fsiot_ws_hide_samples')),
+        paper: @js(__('ui.articles.fsiot_ws_paper')),
+        progress: @js(__('ui.articles.fsiot_ws_progress')),
+        phaseLabel: @js(__('ui.articles.fsiot_ws_phase_label')),
+        pass: @js(__('ui.articles.fsiot_ws_pass')),
+        incomplete: @js(__('ui.articles.fsiot_ws_incomplete')),
+        phaseWrong: @js(__('ui.articles.fsiot_ws_phase_wrong')),
+        samplesTitle: @js(__('ui.articles.fsiot_ws_samples_title')),
+        samplesNote: @js(__('ui.articles.fsiot_ws_samples_note')),
+        ok: @js(__('ui.articles.fsiot_ws_ok')),
+        short: @js(__('ui.articles.fsiot_ws_short')),
+        empty: @js(__('ui.articles.fsiot_ws_empty')),
+    };
+
+    const content = document.getElementById('article-content');
+    if (!content) return;
+
+    const wsH2 = content.querySelector('#fsiot-worksheet-boxes');
+    if (!wsH2) return;
+
+    const nextH2 = (() => {
+        for (let n = wsH2.nextElementSibling; n; n = n.nextElementSibling) {
+            if (n.tagName === 'H2') return n;
+        }
+        return null;
+    })();
+
+    const sectionNodes = [];
+    for (let n = wsH2.nextElementSibling; n && n !== nextH2; n = n.nextElementSibling) {
+        sectionNodes.push(n);
+    }
+
+    const table = sectionNodes.find(n => n.tagName === 'TABLE');
+    if (!table) return;
+
+    const boxes = Array.from(table.querySelectorAll('tbody tr')).map(tr => {
+        const cells = tr.querySelectorAll('td');
+        return cells[0] ? cells[0].textContent.trim() : '';
+    }).filter(Boolean);
+
+    if (boxes.length !== 7) return;
+
+    // Sample roles from the earlier "one sentence per box" table
+    const samples = {};
+    const rolesH2 = content.querySelector('#fsiot-layer-roles');
+    if (rolesH2) {
+        let rolesTable = null;
+        for (let n = rolesH2.nextElementSibling; n && n.tagName !== 'H2'; n = n.nextElementSibling) {
+            if (n.tagName === 'TABLE') { rolesTable = n; break; }
+        }
+        if (rolesTable) {
+            rolesTable.querySelectorAll('tbody tr').forEach(tr => {
+                const cells = tr.querySelectorAll('td');
+                if (cells.length >= 2) {
+                    const name = cells[0].textContent.trim().replace(/\s*\(.*\)\s*$/, '').trim();
+                    samples[name] = cells[1].textContent.trim();
+                }
+            });
+        }
+    }
+
+    const intro = sectionNodes[0] && sectionNodes[0].tagName === 'P' ? sectionNodes[0] : null;
+    const howto = sectionNodes.find(n => n.tagName === 'P' && n !== intro && /Awam|Beginner/i.test(n.textContent || ''));
+
+    const paper = document.createElement('details');
+    paper.className = 'fsiot-match-paper';
+    const paperSummary = document.createElement('summary');
+    paperSummary.textContent = labels.paper;
+    paper.appendChild(paperSummary);
+
+    const toPaper = sectionNodes.filter(n => n !== intro && n !== howto);
+    toPaper.forEach(n => paper.appendChild(n));
+    if (intro) {
+        intro.after(paper);
+    } else {
+        wsH2.after(paper);
+    }
+    if (howto) {
+        paper.after(howto);
+    }
+
+    const widget = document.createElement('div');
+    widget.className = 'fsiot-match-quiz';
+    widget.setAttribute('role', 'region');
+    widget.setAttribute('aria-label', labels.badge);
+
+    const head = document.createElement('div');
+    head.className = 'fsiot-match-quiz__head';
+    head.innerHTML = '<span class="fsiot-match-quiz__badge"></span>'
+        + '<p class="fsiot-match-quiz__hint"></p>'
+        + '<span class="fsiot-match-quiz__progress" aria-live="polite"></span>';
+    head.querySelector('.fsiot-match-quiz__badge').textContent = labels.badge;
+    head.querySelector('.fsiot-match-quiz__hint').textContent = labels.hint;
+    const progressEl = head.querySelector('.fsiot-match-quiz__progress');
+    widget.appendChild(head);
+
+    const list = document.createElement('ul');
+    list.className = 'fsiot-match-quiz__list';
+
+    const storageKey = 'fsiot-ws-72:' + (document.documentElement.lang || 'id');
+    let saved = {};
+    try { saved = JSON.parse(localStorage.getItem(storageKey) || '{}') || {}; } catch (e) { saved = {}; }
+
+    const rows = [];
+    boxes.forEach((box, idx) => {
+        const num = idx + 1;
+        const li = document.createElement('li');
+        li.className = 'fsiot-match-quiz__row';
+
+        const termEl = document.createElement('p');
+        termEl.className = 'fsiot-match-quiz__term';
+        termEl.innerHTML = '<span class="fsiot-match-quiz__num">' + num + '.</span>';
+        termEl.appendChild(document.createTextNode(box));
+
+        const input = document.createElement('textarea');
+        input.className = 'fsiot-match-quiz__input';
+        input.rows = 2;
+        input.setAttribute('aria-label', box);
+        input.placeholder = labels.placeholder;
+        if (saved[box]) input.value = saved[box];
+
+        const status = document.createElement('span');
+        status.className = 'fsiot-match-quiz__status';
+        status.setAttribute('aria-live', 'polite');
+
+        li.appendChild(termEl);
+        li.appendChild(input);
+        li.appendChild(status);
+        list.appendChild(li);
+        rows.push({ box, input, status, li });
+    });
+    widget.appendChild(list);
+
+    const phasesWrap = document.createElement('div');
+    phasesWrap.className = 'fsiot-match-quiz__phases';
+    const phaseLabel = document.createElement('p');
+    phaseLabel.className = 'fsiot-match-quiz__phase-label';
+    phaseLabel.textContent = labels.phaseLabel;
+    phasesWrap.appendChild(phaseLabel);
+
+    const phases = ['ZERO', 'BUILDER', 'CONNECTED', 'FULLSTACK', 'HERO'];
+    let selectedPhase = saved.phase || 'ZERO';
+    const phaseBtns = [];
+    phases.forEach(phase => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'fsiot-match-quiz__phase' + (phase === selectedPhase ? ' is-active' : '');
+        btn.textContent = phase;
+        btn.setAttribute('aria-pressed', phase === selectedPhase ? 'true' : 'false');
+        btn.addEventListener('click', () => {
+            selectedPhase = phase;
+            phaseBtns.forEach(b => {
+                const on = b.textContent === selectedPhase;
+                b.classList.toggle('is-active', on);
+                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+            });
+            persist();
+        });
+        phasesWrap.appendChild(btn);
+        phaseBtns.push(btn);
+    });
+    widget.appendChild(phasesWrap);
+
+    const samplesEl = document.createElement('div');
+    samplesEl.className = 'fsiot-match-quiz__samples';
+    samplesEl.hidden = true;
+    const samplesTitle = document.createElement('p');
+    samplesTitle.className = 'fsiot-match-quiz__samples-title';
+    samplesTitle.textContent = labels.samplesTitle;
+    const samplesNote = document.createElement('p');
+    samplesNote.className = 'fsiot-match-quiz__samples-note';
+    samplesNote.textContent = labels.samplesNote;
+    const samplesList = document.createElement('ol');
+    samplesList.className = 'fsiot-match-quiz__samples-list';
+    boxes.forEach(box => {
+        const li = document.createElement('li');
+        const shortName = box.replace(/\s*\(.*\)\s*$/, '').trim();
+        const sample = samples[shortName] || samples[box] || '—';
+        li.innerHTML = '<strong></strong>: ';
+        li.querySelector('strong').textContent = box;
+        li.appendChild(document.createTextNode(sample));
+        samplesList.appendChild(li);
+    });
+    samplesEl.appendChild(samplesTitle);
+    samplesEl.appendChild(samplesNote);
+    samplesEl.appendChild(samplesList);
+    widget.appendChild(samplesEl);
+
+    const result = document.createElement('p');
+    result.className = 'fsiot-match-quiz__result';
+    result.hidden = true;
+    result.setAttribute('aria-live', 'polite');
+    widget.appendChild(result);
+
+    const actions = document.createElement('div');
+    actions.className = 'fsiot-match-quiz__actions';
+
+    const checkBtn = document.createElement('button');
+    checkBtn.type = 'button';
+    checkBtn.className = 'fsiot-match-quiz__btn';
+    checkBtn.textContent = labels.check;
+
+    const retryBtn = document.createElement('button');
+    retryBtn.type = 'button';
+    retryBtn.className = 'fsiot-match-quiz__btn fsiot-match-quiz__btn--ghost';
+    retryBtn.textContent = labels.retry;
+
+    const samplesBtn = document.createElement('button');
+    samplesBtn.type = 'button';
+    samplesBtn.className = 'fsiot-match-quiz__btn fsiot-match-quiz__btn--ghost';
+    samplesBtn.textContent = labels.showSamples;
+
+    actions.appendChild(checkBtn);
+    actions.appendChild(retryBtn);
+    actions.appendChild(samplesBtn);
+    widget.appendChild(actions);
+
+    paper.before(widget);
+
+    const isFilled = (val) => val.trim().replace(/\s+/g, ' ').length >= 8;
+
+    const persist = () => {
+        const data = { phase: selectedPhase };
+        rows.forEach(r => { data[r.box] = r.input.value; });
+        try { localStorage.setItem(storageKey, JSON.stringify(data)); } catch (e) {}
+    };
+
+    const updateProgress = () => {
+        const filled = rows.filter(r => isFilled(r.input.value)).length;
+        progressEl.textContent = labels.progress.replace(':filled', String(filled));
+        persist();
+    };
+    rows.forEach(r => r.input.addEventListener('input', updateProgress));
+    updateProgress();
+
+    const clearMarks = () => {
+        rows.forEach(r => {
+            r.li.classList.remove('is-correct', 'is-wrong');
+            r.status.textContent = '';
+            r.input.disabled = false;
+        });
+        result.hidden = true;
+        result.classList.remove('is-pass', 'is-fail', 'is-warn');
+    };
+
+    checkBtn.addEventListener('click', () => {
+        let filled = 0;
+        rows.forEach(r => {
+            const val = r.input.value;
+            const ok = isFilled(val);
+            const empty = val.trim() === '';
+            if (ok) filled += 1;
+            r.li.classList.toggle('is-correct', ok);
+            r.li.classList.toggle('is-wrong', !ok);
+            r.status.textContent = ok ? labels.ok : (empty ? labels.empty : labels.short);
+        });
+
+        result.hidden = false;
+        result.classList.remove('is-pass', 'is-fail', 'is-warn');
+
+        if (filled < 7) {
+            result.classList.add('is-warn');
+            result.textContent = labels.incomplete;
+            return;
+        }
+
+        if (selectedPhase !== 'ZERO') {
+            result.classList.add('is-fail');
+            result.textContent = labels.phaseWrong;
+            return;
+        }
+
+        rows.forEach(r => { r.input.disabled = true; });
+        result.classList.add('is-pass');
+        result.textContent = labels.pass.replace(':filled', String(filled));
+        samplesEl.hidden = false;
+        samplesBtn.textContent = labels.hideSamples;
+    });
+
+    retryBtn.addEventListener('click', () => {
+        rows.forEach(r => { r.input.value = ''; });
+        selectedPhase = 'ZERO';
+        phaseBtns.forEach(b => {
+            const on = b.textContent === 'ZERO';
+            b.classList.toggle('is-active', on);
+            b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        clearMarks();
+        samplesEl.hidden = true;
+        samplesBtn.textContent = labels.showSamples;
+        updateProgress();
+        rows[0]?.input.focus();
+    });
+
+    samplesBtn.addEventListener('click', () => {
+        samplesEl.hidden = !samplesEl.hidden;
+        samplesBtn.textContent = samplesEl.hidden ? labels.showSamples : labels.hideSamples;
+        if (!samplesEl.hidden) {
+            samplesEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    });
+}
 </script>
 @endpush
 

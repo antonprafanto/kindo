@@ -53,6 +53,11 @@ check('ID Persiapan + no-syntax', str_contains($id, 'Persiapan') && str_contains
 check('EN Preparation + no-syntax', str_contains($en, 'Preparation') && str_contains($en, 'There is no syntax to run today'));
 check('ID worksheet', str_contains($id, 'worksheet') || str_contains($id, '________________'));
 check('EN worksheet blanks', str_contains($en, '________________'));
+check('worksheet interactive markers', str_contains($id, 'id="fsiot-worksheet-boxes"') && str_contains($en, 'id="fsiot-worksheet-boxes"') && str_contains($id, 'id="fsiot-layer-roles"'));
+check('ID interactive worksheet mention', str_contains($id, 'worksheet interaktif'));
+check('EN interactive worksheet mention', str_contains($en, 'interactive worksheet'));
+check('ID tools-first browser worksheet', str_contains($id, 'Browser') && str_contains($id, 'worksheet interaktif'));
+check('EN tools-first browser worksheet', str_contains($en, 'Browser') && str_contains($en, 'interactive worksheet'));
 check('Stasiun / Study Room', str_contains($id, 'Stasiun Ruang Belajar') && str_contains($en, 'Study Room Station'));
 check('DevKitC-1 mention', str_contains($id, 'ESP32-DevKitC-1') && str_contains($en, 'ESP32-DevKitC-1'));
 check('soft mention FS-01', str_contains($id, 'FS-01') && str_contains($en, 'FS-01'));

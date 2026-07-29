@@ -198,10 +198,10 @@ SVG;
 <h2>Persiapan — alat yang kamu buka hari ini</h2>
 <p><strong>Alat yang dipakai di artikel ini</strong> (belum Laragon, belum Arduino IDE, belum USB board, belum terminal):</p>
 <ul>
-  <li><strong>Browser</strong> — membaca artikel + melihat diagram (Chrome, Edge, Firefox, atau browser HP).</li>
-  <li><strong>Catatan</strong> — kertas, Notepad, Google Docs, atau catatan HP untuk mengisi worksheet di bagian praktik.</li>
+  <li><strong>Browser</strong> — membaca artikel + mengerjakan <strong>worksheet interaktif</strong> di akhir (Chrome, Edge, Firefox, atau browser HP).</li>
+  <li><strong>Catatan</strong> (opsional) — kertas / Notepad hanya jika kamu lebih suka versi tulis tangan.</li>
 </ul>
-<p><strong>Tidak ada perintah sintaks hari ini.</strong> Tidak ada baris kode, tidak ada <code>php artisan</code>, tidak ada sketch Arduino. Cara “menguji” di FS-02 = <em>menunjuk kotak di diagram dan menjelaskan perannya dengan kata-katamu sendiri</em>.</p>
+<p><strong>Tidak ada perintah sintaks hari ini.</strong> Tidak ada baris kode, tidak ada <code>php artisan</code>, tidak ada sketch Arduino. Cara “menguji” di FS-02 = isi tujuh kotak di worksheet interaktif (satu kalimat peran dengan bahasamu sendiri) + pastikan fase <strong>ZERO</strong>.</p>
 
 <h2>Satu gambar resmi — tujuh lapisan</h2>
 <p>Ini diagram yang akan kita pakai ulang sepanjang jalur. Panah mengalir dari atas (dunia nyata) ke bawah (sistem siap pakai).</p>
@@ -215,7 +215,7 @@ SVG;
 {$layers}
 <p><strong>Awam:</strong> baca dari atas ke bawah seperti cerita: benda di meja → otak kecil di board → jalan data → (kadang) pintu kecil → tempat simpan → layar HP → baru urusan “siap dipakai setiap hari”.</p>
 
-<h2>Satu kalimat per kotak</h2>
+<h2 id="fsiot-layer-roles">Satu kalimat per kotak</h2>
 <table>
   <thead>
     <tr>
@@ -296,12 +296,12 @@ SVG;
 </ul>
 <p><strong>Awam:</strong> pelajari dulu “lampu di meja hidup tanpa internet”. Baru kemudian “kirim kabar ke HP”.</p>
 
-<h2>Praktik — worksheet isi kotak</h2>
-<p>Buka catatan. Tanpa melihat tabel di atas terlalu lama, isi tujuh baris:</p>
+<h2 id="fsiot-worksheet-boxes">Praktik — worksheet isi kotak</h2>
+<p>Tutup tabel di atas sebentar. Di bawah ini ada <strong>worksheet interaktif</strong>: tulis satu kalimat peran untuk tiap kotak, pilih fase <strong>ZERO</strong>, lalu tekan <strong>Cek kelengkapan</strong>. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan.</p>
 <ol>
-  <li>Tulis nama kotak (dunia nyata … siap pakai).</li>
-  <li>Di sampingnya, tulis <strong>satu kalimat peran</strong> dengan bahasamu sendiri.</li>
-  <li>Lingkari fase yang sedang kita jalani: <strong>ZERO</strong>.</li>
+  <li>Untuk tiap kotak, tulis <strong>satu kalimat peran</strong> dengan bahasamu sendiri (bukan salin paste panjang).</li>
+  <li>Pilih / pastikan fase yang sedang kita jalani: <strong>ZERO</strong>.</li>
+  <li>Baru buka contoh jawaban kalau sudah mencoba sendiri.</li>
 </ol>
 <table>
   <thead>
@@ -320,7 +320,7 @@ SVG;
     <tr><td>Siap pakai</td><td>________________________</td></tr>
   </tbody>
 </table>
-<p><strong>Awam — cara menguji (tanpa komputer khusus):</strong> tutup artikel sebentar, tunjuk jari ke layar (atau kertas cetak diagram), sebutkan tiap kotak + satu kalimat. Kalau orang non-teknis mengangguk, worksheet-mu lolos. Tidak perlu menjalankan perintah apa pun.</p>
+<p><strong>Awam — cara menguji:</strong> kerjakan dulu di worksheet interaktif di browser. Opsional: sebutkan tiap kotak + satu kalimat ke orang non-teknis — kalau dia mengangguk, kamu paham. Tidak perlu menjalankan perintah komputer apa pun.</p>
 
 <h2>Kesalahan umum awam</h2>
 <ol>
@@ -358,10 +358,10 @@ HTML;
 <h2>Preparation — tools you open today</h2>
 <p><strong>Tools used in this article</strong> (no Laragon, no Arduino IDE, no USB board, no terminal yet):</p>
 <ul>
-  <li><strong>Browser</strong> — to read this article and view the diagrams (Chrome, Edge, Firefox, or a phone browser).</li>
-  <li><strong>Notes</strong> — paper, Notepad, Google Docs, or a phone note to fill the practice worksheet.</li>
+  <li><strong>Browser</strong> — to read this article and complete the <strong>interactive worksheet</strong> at the end (Chrome, Edge, Firefox, or a phone browser).</li>
+  <li><strong>Notes</strong> (optional) — paper / Notepad only if you prefer handwriting.</li>
 </ul>
-<p><strong>There is no syntax to run today.</strong> No code lines, no <code>php artisan</code>, no Arduino sketch. “Testing” in FS-02 means <em>pointing at a box on the diagram and explaining its role in your own words</em>.</p>
+<p><strong>There is no syntax to run today.</strong> No code lines, no <code>php artisan</code>, no Arduino sketch. “Testing” in FS-02 means filling seven boxes on the interactive worksheet (one role sentence in your own words) and confirming phase <strong>ZERO</strong>.</p>
 
 <h2>The official picture — seven layers</h2>
 <p>This is the diagram we will reuse along the path. Arrows flow from top (real world) to bottom (ready-to-use system).</p>
@@ -375,7 +375,7 @@ HTML;
 {$layers}
 <p><strong>Beginner:</strong> read top to bottom like a story: thing on the desk → small brain on the board → data road → (sometimes) a small door → storage place → phone screen → then “ready for everyday use”.</p>
 
-<h2>One sentence per box</h2>
+<h2 id="fsiot-layer-roles">One sentence per box</h2>
 <table>
   <thead>
     <tr>
@@ -456,12 +456,12 @@ HTML;
 </ul>
 <p><strong>Beginner:</strong> first learn “lamp on the desk works without internet.” Then “send news to the phone.”</p>
 
-<h2>Practice — fill-the-boxes worksheet</h2>
-<p>Open your notes. Without staring at the table too long, fill seven rows:</p>
+<h2 id="fsiot-worksheet-boxes">Practice — fill-the-boxes worksheet</h2>
+<p>Close the table above for a moment. Below is an <strong>interactive worksheet</strong>: write one role sentence for each box, select phase <strong>ZERO</strong>, then press <strong>Check completeness</strong>. A handwritten paper version stays available as backup.</p>
 <ol>
-  <li>Write the box name (real world … everyday-ready).</li>
-  <li>Beside it, write <strong>one role sentence</strong> in your own words.</li>
-  <li>Circle the phase we are in: <strong>ZERO</strong>.</li>
+  <li>For each box, write <strong>one role sentence</strong> in your own words (not a long copy-paste).</li>
+  <li>Select / confirm the phase we are in: <strong>ZERO</strong>.</li>
+  <li>Only then open the sample answers after you have tried yourself.</li>
 </ol>
 <table>
   <thead>
@@ -480,7 +480,7 @@ HTML;
     <tr><td>Everyday-ready</td><td>________________________</td></tr>
   </tbody>
 </table>
-<p><strong>Beginner — how to test (no special computer):</strong> close the article briefly, point at the screen (or a printed diagram), name each box + one sentence. If a non-technical person nods, your worksheet passes. You do not need to run any command.</p>
+<p><strong>Beginner — how to test:</strong> complete the interactive worksheet in the browser first. Optional: say each box + one sentence to a non-technical person — if they nod, you understand. You do not need to run any computer command.</p>
 
 <h2>Common beginner mistakes</h2>
 <ol>
