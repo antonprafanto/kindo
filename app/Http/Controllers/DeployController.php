@@ -5832,6 +5832,9 @@ class DeployController extends Controller
             'Tidak ada perintah sintaks hari ini',
             'ESP32-DevKitC-1',
             '/belajar/fullstack-iot',
+            'hero-desk.jpg',
+            'Perangkat',
+            'Penyimpanan',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {

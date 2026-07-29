@@ -78,20 +78,20 @@ class Article72Seeder extends Seeder
   <text x="380" y="77" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">1. Dunia nyata — meja, lampu, udara, tanah</text>
   <text x="380" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18">↓</text>
   <rect x="40" y="118" width="680" height="42" fill="#EBF4FF" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="380" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">2. Device — board ESP32-DevKitC-1 + sensor/lampu</text>
+  <text x="380" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">2. Perangkat — board ESP32-DevKitC-1 + sensor/lampu</text>
   <text x="380" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18">↓</text>
   <rect x="40" y="186" width="680" height="42" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
   <text x="380" y="213" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">3. Jaringan — jalan data (Wi‑Fi / kabel) nanti</text>
   <text x="380" y="244" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18">↓</text>
   <rect x="40" y="254" width="680" height="42" fill="#F3E5F5" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="380" y="281" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">4. Edge — “pintu kecil” di dekat perangkat (opsional)</text>
+  <text x="380" y="281" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">4. Pintu kecil (edge) — dekat perangkat, opsional</text>
   <text x="380" y="312" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18">↓</text>
   <rect x="40" y="322" width="330" height="42" fill="#E0F7FA" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="205" y="349" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">5. Backend — simpan data</text>
+  <text x="205" y="349" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">5. Penyimpanan (backend)</text>
   <rect x="390" y="322" width="330" height="42" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="555" y="349" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">6. Aplikasi — dashboard / HP</text>
+  <text x="555" y="349" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">6. Layar HP / dashboard</text>
   <rect x="40" y="378" width="680" height="32" fill="#FFEBEE" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="380" y="399" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">7. Production — aman, daya, update jarak jauh (fase akhir)</text>
+  <text x="380" y="399" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">7. Siap pakai sehari-hari (production) — aman &amp; dirawat jarak jauh</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Diagram resmi jalur Full Stack IoT (buatan Koding Indonesia). Hafalkan arah panah — detail tiap kotak datang di modul berikutnya.</figcaption>
 </figure>
@@ -114,14 +114,14 @@ SVG;
   <text x="380" y="213" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">3. Network — data road (Wi‑Fi / cable) later</text>
   <text x="380" y="244" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18">↓</text>
   <rect x="40" y="254" width="680" height="42" fill="#F3E5F5" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="380" y="281" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">4. Edge — a “small door” near the device (optional)</text>
+  <text x="380" y="281" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">4. Small door (edge) — near the device, optional</text>
   <text x="380" y="312" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18">↓</text>
   <rect x="40" y="322" width="330" height="42" fill="#E0F7FA" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="205" y="349" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">5. Backend — store data</text>
+  <text x="205" y="349" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">5. Storage (backend)</text>
   <rect x="390" y="322" width="330" height="42" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="555" y="349" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">6. App — dashboard / phone</text>
+  <text x="555" y="349" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">6. Phone screen / dashboard</text>
   <rect x="40" y="378" width="680" height="32" fill="#FFEBEE" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="380" y="399" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">7. Production — safe, power, remote update (final phase)</text>
+  <text x="380" y="399" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">7. Everyday-ready (production) — safe &amp; remotely maintained</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Official Full Stack IoT path diagram (by Koding Indonesia). Memorize the arrow direction — box detail comes in later modules.</figcaption>
 </figure>
@@ -205,6 +205,13 @@ SVG;
 
 <h2>Satu gambar resmi — tujuh lapisan</h2>
 <p>Ini diagram yang akan kita pakai ulang sepanjang jalur. Panah mengalir dari atas (dunia nyata) ke bawah (sistem siap pakai).</p>
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/hero-desk.jpg" width="1200" height="893" alt="Meja belajar dengan laptop dan peralatan — contoh dunia nyata untuk Stasiun Ruang Belajar" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Contoh <strong>dunia nyata</strong> di jalur ini: meja belajar (nanti jadi Stasiun Ruang Belajar). Belum perlu menyentuh board hari ini.
+    <br>Sumber foto: dokumentasi jalur Full Stack IoT — <strong>Koding Indonesia</strong> (aset internal situs).
+  </figcaption>
+</figure>
 {$layers}
 <p><strong>Awam:</strong> baca dari atas ke bawah seperti cerita: benda di meja → otak kecil di board → jalan data → (kadang) pintu kecil → tempat simpan → layar HP → baru urusan “siap dipakai setiap hari”.</p>
 
@@ -224,7 +231,7 @@ SVG;
       <td>Suhu kamar, lampu belajar</td>
     </tr>
     <tr>
-      <td>Device</td>
+      <td>Perangkat (device)</td>
       <td>Board + sensor/lampu yang “merasakan” atau “bergerak”.</td>
       <td>ESP32-DevKitC-1 + sensor (nanti)</td>
     </tr>
@@ -234,22 +241,22 @@ SVG;
       <td>Wi‑Fi rumah (belum sekarang)</td>
     </tr>
     <tr>
-      <td>Edge</td>
-      <td>Pintu kecil dekat perangkat (opsional) sebelum data jauh.</td>
+      <td>Pintu kecil (edge)</td>
+      <td>Pintu dekat perangkat (opsional) sebelum data jauh.</td>
       <td>Resepsionis di pintu rumah</td>
     </tr>
     <tr>
-      <td>Backend</td>
+      <td>Penyimpanan (backend)</td>
       <td>Tempat menyimpan dan mengolah data.</td>
       <td>Lemari arsip / catatan di komputer</td>
     </tr>
     <tr>
-      <td>Aplikasi</td>
+      <td>Layar / aplikasi</td>
       <td>Layar yang kamu baca atau tombol yang kamu tekan.</td>
       <td>Dashboard di HP/laptop</td>
     </tr>
     <tr>
-      <td>Production</td>
+      <td>Siap pakai (production)</td>
       <td>Sistem yang aman dan bisa dirawat jarak jauh.</td>
       <td>Rumah yang sudah “siap ditinggali”</td>
     </tr>
@@ -261,13 +268,13 @@ SVG;
 <p>Selain tujuh lapisan, jalur dibagi <strong>lima fase</strong>. Nama fasenya sengaja singkat supaya mudah diingat:</p>
 {$phases}
 <ul>
-  <li><strong>ZERO</strong> — fondasi awam: peta, alat, listrik, coding mini. <em>Tanpa Wi‑Fi dulu.</em> ← <strong>kamu di sini</strong></li>
+  <li><strong>ZERO</strong> — fondasi awam: peta, alat, listrik, latihan coding mini. <em>Tanpa Wi‑Fi dulu.</em> ← <strong>kamu di sini</strong></li>
   <li><strong>BUILDER</strong> — perangkat hidup di meja (sensor, lampu) tanpa internet.</li>
   <li><strong>CONNECTED</strong> — baru belajar menghubungkan ke jaringan.</li>
-  <li><strong>FULLSTACK</strong> — backend + dashboard.</li>
-  <li><strong>HERO</strong> — keamanan, daya, update jarak jauh, proyek utuh.</li>
+  <li><strong>FULLSTACK</strong> — data tersimpan di komputer/server + terlihat di layar dashboard.</li>
+  <li><strong>HERO</strong> — lebih aman, hemat daya, bisa di-update dari jauh, proyek utuh.</li>
 </ul>
-<p><strong>Awam:</strong> fase seperti level game. Jangan loncat ke “CONNECTED” hanya karena penasaran Wi‑Fi — fondasi ZERO mencegah kabel salah dan bingung istilah.</p>
+<p><strong>Awam:</strong> fase seperti level game. Jangan loncat ke “CONNECTED” hanya karena penasaran Wi‑Fi — fondasi ZERO mencegah kabel salah sambung dan bingung istilah.</p>
 
 <h2>Stasiun Ruang Belajar di peta</h2>
 <p>Proyek benang merah kita tetap <strong>Stasiun Ruang Belajar</strong>. Cara membacanya di peta:</p>
@@ -283,16 +290,16 @@ SVG;
 <h2>Mengapa jangan loncat ke Wi‑Fi?</h2>
 <p>Banyak pemula ingin langsung “nyambung internet”. Di peta, Wi‑Fi ada di kotak <strong>jaringan</strong> — dan fase <strong>CONNECTED</strong>. Kalau kamu loncat:</p>
 <ul>
-  <li>wiring salah → sulit bedakan error kabel vs error Wi‑Fi,</li>
+  <li>kabel salah sambung → sulit bedakan error kabel vs error Wi‑Fi,</li>
   <li>istilah bertumpuk → mudah menyerah,</li>
-  <li>board belum “bicara” lewat Serial → kamu tidak punya bukti lokal.</li>
+  <li>board belum sempat mengirim status sederhana ke komputer → kamu belum punya bukti lokal bahwa perangkat “hidup”.</li>
 </ul>
 <p><strong>Awam:</strong> pelajari dulu “lampu di meja hidup tanpa internet”. Baru kemudian “kirim kabar ke HP”.</p>
 
 <h2>Praktik — worksheet isi kotak</h2>
 <p>Buka catatan. Tanpa melihat tabel di atas terlalu lama, isi tujuh baris:</p>
 <ol>
-  <li>Tulis nama kotak (dunia nyata … production).</li>
+  <li>Tulis nama kotak (dunia nyata … siap pakai).</li>
   <li>Di sampingnya, tulis <strong>satu kalimat peran</strong> dengan bahasamu sendiri.</li>
   <li>Lingkari fase yang sedang kita jalani: <strong>ZERO</strong>.</li>
 </ol>
@@ -305,12 +312,12 @@ SVG;
   </thead>
   <tbody>
     <tr><td>Dunia nyata</td><td>________________________</td></tr>
-    <tr><td>Device</td><td>________________________</td></tr>
+    <tr><td>Perangkat</td><td>________________________</td></tr>
     <tr><td>Jaringan</td><td>________________________</td></tr>
-    <tr><td>Edge</td><td>________________________</td></tr>
-    <tr><td>Backend</td><td>________________________</td></tr>
-    <tr><td>Aplikasi</td><td>________________________</td></tr>
-    <tr><td>Production</td><td>________________________</td></tr>
+    <tr><td>Pintu kecil</td><td>________________________</td></tr>
+    <tr><td>Penyimpanan</td><td>________________________</td></tr>
+    <tr><td>Layar / aplikasi</td><td>________________________</td></tr>
+    <tr><td>Siap pakai</td><td>________________________</td></tr>
   </tbody>
 </table>
 <p><strong>Awam — cara menguji (tanpa komputer khusus):</strong> tutup artikel sebentar, tunjuk jari ke layar (atau kertas cetak diagram), sebutkan tiap kotak + satu kalimat. Kalau orang non-teknis mengangguk, worksheet-mu lolos. Tidak perlu menjalankan perintah apa pun.</p>
@@ -319,7 +326,7 @@ SVG;
 <ol>
   <li><strong>Langsung loncat ke coding Wi‑Fi.</strong> Wi‑Fi ada di fase CONNECTED — setelah fondasi ZERO dan BUILDER.</li>
   <li><strong>Hafal nama kotak tanpa paham peran.</strong> Satu kalimat peran lebih penting daripada hafalan istilah.</li>
-  <li><strong>Mengira “edge” wajib dari hari pertama.</strong> Edge opsional; banyak proyek kecil langsung device → jaringan → backend.</li>
+  <li><strong>Mengira “pintu kecil / edge” wajib dari hari pertama.</strong> Bagian ini opsional; banyak proyek kecil langsung perangkat → jaringan → penyimpanan.</li>
   <li><strong>Mengira satu fase = selesai semua lapisan.</strong> Lapisan dibangun pelan; fase menandai fokus belajar.</li>
   <li><strong>Membuang peta setelah FS-02.</strong> Diagram ini akan dipakai ulang — simpan catatanmu.</li>
   <li><strong>Mencampur Seri ESP32 lama sebagai prasyarat.</strong> Jalur ini mandiri dari nol. Artikel terkait di bawah halaman bisa dari topik lama; itu bukan syarat FS-02.</li>
@@ -330,7 +337,7 @@ SVG;
 <p>Simpan juga <a href="/belajar/fullstack-iot">halaman jalur Full Stack IoT</a> sebagai pintu masuk resmi.</p>
 
 <h2>Kesimpulan</h2>
-<p>Di <strong>#72 (ini)</strong> kamu punya <strong>satu gambar</strong> tujuh lapisan dan peta lima fase. Kamu sekarang di <strong>ZERO</strong>. Board resmi nanti tetap <strong>ESP32-DevKitC-1</strong> — masih di kotak device, belum wiring.</p>
+<p>Di <strong>#72 (ini)</strong> kamu punya <strong>satu gambar</strong> tujuh lapisan dan peta lima fase. Kamu sekarang di <strong>ZERO</strong>. Board resmi nanti tetap <strong>ESP32-DevKitC-1</strong> — masih di kotak perangkat, belum wiring.</p>
 <p><strong>Awam:</strong> kalau kamu bisa menunjuk tiap kotak dan bilang perannya dalam satu napas, FS-02 selesai. Lanjut ke kamus mini di FS-03 saat modulnya terbit.</p>
 HTML;
     }
@@ -358,6 +365,13 @@ HTML;
 
 <h2>The official picture — seven layers</h2>
 <p>This is the diagram we will reuse along the path. Arrows flow from top (real world) to bottom (ready-to-use system).</p>
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/hero-desk.jpg" width="1200" height="893" alt="Study desk with laptop and tools — a real-world example for Study Room Station" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Example of the <strong>real world</strong> on this path: a study desk (later the Study Room Station). You do not touch a board today.
+    <br>Photo source: Full Stack IoT path documentation — <strong>Koding Indonesia</strong> (site internal asset).
+  </figcaption>
+</figure>
 {$layers}
 <p><strong>Beginner:</strong> read top to bottom like a story: thing on the desk → small brain on the board → data road → (sometimes) a small door → storage place → phone screen → then “ready for everyday use”.</p>
 
@@ -387,40 +401,40 @@ HTML;
       <td>Home Wi‑Fi (not yet)</td>
     </tr>
     <tr>
-      <td>Edge</td>
-      <td>A small door near the device (optional) before data goes far.</td>
+      <td>Small door (edge)</td>
+      <td>A door near the device (optional) before data goes far.</td>
       <td>A receptionist at the front door</td>
     </tr>
     <tr>
-      <td>Backend</td>
+      <td>Storage (backend)</td>
       <td>Where data is stored and processed.</td>
       <td>A filing cabinet / notes on a computer</td>
     </tr>
     <tr>
-      <td>App</td>
+      <td>Screen / app</td>
       <td>The screen you read or the button you press.</td>
       <td>Dashboard on phone/laptop</td>
     </tr>
     <tr>
-      <td>Production</td>
+      <td>Everyday-ready (production)</td>
       <td>A system that is safe and can be maintained remotely.</td>
       <td>A house ready to live in</td>
     </tr>
   </tbody>
 </table>
-<p><strong>Beginner:</strong> do not memorize English terms first. Memorize the <em>arrow story</em>. Technical names deepen in the glossary module (FS-03) and later modules.</p>
+<p><strong>Beginner:</strong> do not memorize English jargon first. Memorize the <em>arrow story</em>. Technical names deepen in the glossary module (FS-03) and later modules.</p>
 
 <h2>Phase map — where are we?</h2>
 <p>Besides seven layers, the path has <strong>five phases</strong>. Short names on purpose:</p>
 {$phases}
 <ul>
-  <li><strong>ZERO</strong> — beginner foundation: map, tools, electricity, mini coding. <em>No Wi‑Fi yet.</em> ← <strong>you are here</strong></li>
+  <li><strong>ZERO</strong> — beginner foundation: map, tools, electricity, mini coding practice. <em>No Wi‑Fi yet.</em> ← <strong>you are here</strong></li>
   <li><strong>BUILDER</strong> — devices alive on the desk (sensors, lamp) without internet.</li>
   <li><strong>CONNECTED</strong> — then learn to connect to a network.</li>
-  <li><strong>FULLSTACK</strong> — backend + dashboard.</li>
-  <li><strong>HERO</strong> — security, power, remote updates, full project.</li>
+  <li><strong>FULLSTACK</strong> — data stored on a computer/server + visible on a dashboard screen.</li>
+  <li><strong>HERO</strong> — safer, power-aware, remotely updatable, full project.</li>
 </ul>
-<p><strong>Beginner:</strong> phases are like game levels. Do not jump to “CONNECTED” just because Wi‑Fi is exciting — ZERO foundations prevent wrong wiring and term confusion.</p>
+<p><strong>Beginner:</strong> phases are like game levels. Do not jump to “CONNECTED” just because Wi‑Fi is exciting — ZERO foundations prevent wrong cable wiring and term confusion.</p>
 
 <h2>Study Room Station on the map</h2>
 <p>Our story project remains <strong>Study Room Station</strong>. How to read it on the map:</p>
@@ -436,16 +450,16 @@ HTML;
 <h2>Why not jump to Wi‑Fi?</h2>
 <p>Many beginners want internet on day one. On the map, Wi‑Fi sits in the <strong>network</strong> box — and the <strong>CONNECTED</strong> phase. If you jump:</p>
 <ul>
-  <li>wrong wiring → hard to tell cable error vs Wi‑Fi error,</li>
+  <li>wrong cable wiring → hard to tell cable error vs Wi‑Fi error,</li>
   <li>terms pile up → easy to quit,</li>
-  <li>board cannot “talk” via Serial yet → you lack local proof.</li>
+  <li>the board has not yet sent a simple status to a computer → you lack local proof that the device is “alive”.</li>
 </ul>
 <p><strong>Beginner:</strong> first learn “lamp on the desk works without internet.” Then “send news to the phone.”</p>
 
 <h2>Practice — fill-the-boxes worksheet</h2>
 <p>Open your notes. Without staring at the table too long, fill seven rows:</p>
 <ol>
-  <li>Write the box name (real world … production).</li>
+  <li>Write the box name (real world … everyday-ready).</li>
   <li>Beside it, write <strong>one role sentence</strong> in your own words.</li>
   <li>Circle the phase we are in: <strong>ZERO</strong>.</li>
 </ol>
@@ -460,10 +474,10 @@ HTML;
     <tr><td>Real world</td><td>________________________</td></tr>
     <tr><td>Device</td><td>________________________</td></tr>
     <tr><td>Network</td><td>________________________</td></tr>
-    <tr><td>Edge</td><td>________________________</td></tr>
-    <tr><td>Backend</td><td>________________________</td></tr>
-    <tr><td>App</td><td>________________________</td></tr>
-    <tr><td>Production</td><td>________________________</td></tr>
+    <tr><td>Small door</td><td>________________________</td></tr>
+    <tr><td>Storage</td><td>________________________</td></tr>
+    <tr><td>Screen / app</td><td>________________________</td></tr>
+    <tr><td>Everyday-ready</td><td>________________________</td></tr>
   </tbody>
 </table>
 <p><strong>Beginner — how to test (no special computer):</strong> close the article briefly, point at the screen (or a printed diagram), name each box + one sentence. If a non-technical person nods, your worksheet passes. You do not need to run any command.</p>
@@ -472,7 +486,7 @@ HTML;
 <ol>
   <li><strong>Jumping straight into Wi‑Fi coding.</strong> Wi‑Fi belongs to CONNECTED — after ZERO and BUILDER foundations.</li>
   <li><strong>Memorizing box names without understanding roles.</strong> One role sentence beats term drilling.</li>
-  <li><strong>Thinking “edge” is required on day one.</strong> Edge is optional; many small projects go device → network → backend.</li>
+  <li><strong>Thinking the “small door / edge” is required on day one.</strong> That part is optional; many small projects go device → network → storage.</li>
   <li><strong>Thinking one phase finishes every layer.</strong> Layers grow slowly; phases mark learning focus.</li>
   <li><strong>Throwing away the map after FS-02.</strong> We will reuse this diagram — keep your notes.</li>
   <li><strong>Mixing old ESP32 series as a prerequisite.</strong> This path is independent from zero. Related articles below may be older IoT topics; they are not FS-02 requirements.</li>

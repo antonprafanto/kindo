@@ -63,6 +63,10 @@ check('no hardlink #71 article', ! str_contains($id, '/artikel/fullstack-iot-apa
 check('no hardlink #73', ! str_contains($id, '/artikel/fullstack-iot') || ! preg_match('#/artikel/fullstack-iot-(?!satu)#', $id.$en));
 check('no Seri ESP32 prereq link', ! preg_match('#/artikel/(esp32|arduino)#i', $id.$en));
 check('no pre/code blocks', ! str_contains($id, '<pre') && ! str_contains($en, '<pre'));
+check('ID no Serial jargon early', ! str_contains($id, 'Serial'));
+check('ID Indonesian-first device label', str_contains($id, 'Perangkat'));
+check('ID desk photo + citation', str_contains($id, 'hero-desk.jpg') && str_contains($id, 'Koding Indonesia'));
+check('EN desk photo + citation', str_contains($en, 'hero-desk.jpg') && str_contains($en, 'Koding Indonesia'));
 check('no Soft bridge jargon', ! str_contains($id, 'Soft bridge') && ! str_contains($en, 'soft bridge'));
 
 $enPlain = strip_tags($en);
