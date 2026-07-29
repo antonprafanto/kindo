@@ -54,15 +54,24 @@ check('ID DevKitC-1 mention', str_contains($id, 'ESP32-DevKitC-1'));
 check('EN DevKitC-1 mention', str_contains($en, 'ESP32-DevKitC-1'));
 check('ID Persiapan / browser', str_contains($id, 'Persiapan') && str_contains($id, 'Browser'));
 check('EN Preparation / Browser', str_contains($en, 'Preparation') && str_contains($en, 'Browser'));
+check('ID no-syntax day message', str_contains($id, 'Tidak ada perintah sintaks hari ini'));
+check('EN no-syntax day message', str_contains($en, 'There is no syntax to run today'));
+check('ID board overview image', str_contains($id, 'esp32-devkitc-overview.jpg'));
+check('EN board overview image', str_contains($en, 'esp32-devkitc-overview.jpg'));
+check('ID Espressif citation', str_contains($id, 'Espressif Systems') && str_contains($id, 'esp32-devkitc/user_guide.html'));
+check('EN Espressif citation', str_contains($en, 'Espressif Systems') && str_contains($en, 'esp32-devkitc/user_guide.html'));
+check('ID jalur page link', str_contains($id, '/belajar/fullstack-iot'));
+check('EN jalur page link', str_contains($en, '/belajar/fullstack-iot'));
+check('no Soft bridge jargon', ! str_contains($id, 'Soft bridge') && ! str_contains($en, 'soft bridge'));
 check('ID no Arduino IDE install', ! str_contains($id, 'Arduino IDE') || str_contains($id, 'belum'));
 check('ID latihan 3 contoh', str_contains($id, '3 contoh') || str_contains($id, 'tiga'));
 check('EN practice 3 examples', str_contains($en, '3 IoT examples') || str_contains($en, 'three things'));
 check('ID kesalahan >= 5 items', preg_match_all('/<li><strong>/', $id) >= 5 || substr_count($id, '<li><strong>') >= 5);
-check('no hardlink to #72', ! str_contains($id, '/artikel/fullstack-iot') && ! str_contains($en, '/artikel/fullstack-iot'));
+check('no hardlink to #72 article', ! str_contains($id, '/artikel/fullstack-iot') && ! str_contains($en, '/artikel/fullstack-iot'));
 check('no Seri ESP32 prerequisite link', ! preg_match('#/artikel/(esp32|arduino)#i', $id.$en));
 check('no wiring/code blocks', ! str_contains($id, '<pre') && ! str_contains($en, '<pre'));
 check('soft bridge FS-02 text', str_contains($id, 'FS-02') && str_contains($en, 'FS-02'));
-
+check('figure both >= 2', substr_count($id, '<figure') >= 2 && substr_count($en, '<figure') >= 2);
 $enPlain = strip_tags(preg_replace('/<pre\b[^>]*>.*?<\/pre>/is', '', $en) ?? '');
 foreach (['Pendahuluan', 'Persiapan', 'Kesalahan umum', 'Kesimpulan', 'Awam:'] as $w) {
     check('No residual Indo prose in EN: '.$w, ! str_contains($enPlain, $w) && ! str_contains($en, '<h2>'.$w));

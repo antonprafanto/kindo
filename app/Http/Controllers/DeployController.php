@@ -5721,6 +5721,10 @@ class DeployController extends Controller
             'Awam:',
             'Persiapan',
             'Kesalahan umum',
+            'Tidak ada perintah sintaks hari ini',
+            'esp32-devkitc-overview.jpg',
+            'Espressif Systems',
+            '/belajar/fullstack-iot',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -5742,6 +5746,9 @@ class DeployController extends Controller
             'Study Room Station',
             'ESP32-DevKitC-1',
             'Preparation',
+            'There is no syntax to run today',
+            'esp32-devkitc-overview.jpg',
+            'Espressif Systems',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

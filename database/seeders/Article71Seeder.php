@@ -76,8 +76,17 @@ class Article71Seeder extends Seeder
 <p>Artikel ini adalah <strong>#71 (ini)</strong> · modul <strong>FS-01</strong> di jalur <strong>Full Stack IoT Developer — Dari Nol</strong>. Belum ada kabel, belum ada kode, belum ada unduhan software. Hari ini kamu hanya butuh satu pertanyaan: <em>IoT itu apa, kalau dijelaskan ke teman yang tidak suka istilah teknis?</em></p>
 <p><strong>Awam:</strong> bayangkan kamu menjelaskan ke ibu atau adik di ruang tamu. Kalau mereka mengangguk dalam satu menit, kamu sudah lulus modul ini.</p>
 <blockquote>
-  <p><strong>Prasyarat:</strong> tidak ada. Modul ini pintu masuk jalur. Soft bridge ke modul berikutnya (satu gambar seluruh jalur) akan muncul setelah FS-02 siap — tanpa lompat wiring.</p>
+  <p><strong>Prasyarat:</strong> tidak ada. Modul ini pintu masuk jalur. Modul berikutnya (satu gambar seluruh jalur) akan muncul setelah FS-02 siap — tanpa lompat ke kabel atau kode.</p>
 </blockquote>
+
+<h2>Persiapan — alat yang kamu buka hari ini</h2>
+<p><strong>Alat yang dipakai di artikel ini</strong> (belum Laragon, belum Arduino IDE, belum USB board, belum terminal):</p>
+<ul>
+  <li><strong>Browser</strong> — membaca artikel ini (Chrome, Edge, Firefox, atau browser HP).</li>
+  <li><strong>Catatan</strong> — kertas, Notepad, Google Docs, atau catatan HP untuk latihan 3 contoh IoT.</li>
+</ul>
+<p><strong>Tidak ada perintah sintaks hari ini.</strong> Tidak ada baris kode untuk disalin, tidak ada <code>php artisan</code>, tidak ada Arduino sketch, tidak ada unduhan software. Cara “menguji” di FS-01 = <em>menjelaskan dengan kata-katamu sendiri</em>, bukan menjalankan program.</p>
+<p>Kalau kamu sudah punya board di laci, biarkan saja — kita buka kotaknya di modul belakangan.</p>
 
 <h2>IoT dalam bahasa sehari-hari</h2>
 <p><strong>IoT</strong> kepanjangan dari <em>Internet of Things</em> — “internet of things”. Intinya sederhana:</p>
@@ -152,25 +161,42 @@ class Article71Seeder extends Seeder
 <p>Seluruh jalur mengitari satu proyek: <strong>Stasiun Ruang Belajar</strong>. Nanti (modul-modul berikutnya) kamu akan:</p>
 <ul>
   <li>membaca <strong>suhu</strong> dan <strong>cahaya</strong> di meja belajar,</li>
-  <li>mengendalikan <strong>lampu</strong> (relay) dari sistem,</li>
-  <li>melihat data di <strong>dashboard</strong>,</li>
-  <li>mendapat <strong>alert</strong> bila kondisi aneh,</li>
+  <li>mengendalikan <strong>lampu</strong> lewat saklar listrik kecil (relay) dari sistem,</li>
+  <li>melihat data di <strong>dashboard</strong> (layar ringkas di HP/laptop),</li>
+  <li>mendapat <strong>peringatan</strong> bila kondisi aneh,</li>
   <li>belajar tetap aman saat Wi‑Fi putus.</li>
 </ul>
 <p>Hari ini cukup tahu namanya. Belum merakit apa pun.</p>
+<figure role="img" aria-label="Sketsa Stasiun Ruang Belajar: meja, sensor, lampu, dan HP" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="Sketsa Stasiun Ruang Belajar">
+  <rect x="40" y="120" width="280" height="40" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="180" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Meja belajar</text>
+  <rect x="60" y="50" width="100" height="55" fill="#EBF4FF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="110" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Sensor</text>
+  <rect x="200" y="50" width="100" height="55" fill="#FFF3E0" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="250" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Lampu</text>
+  <text x="360" y="90" font-family="system-ui,sans-serif" font-size="22">→</text>
+  <rect x="400" y="45" width="140" height="70" fill="#EBF4FF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="470" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Board</text>
+  <text x="470" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">nanti: DevKitC-1</text>
+  <text x="560" y="90" font-family="system-ui,sans-serif" font-size="22">→</text>
+  <rect x="590" y="45" width="110" height="70" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="645" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">HP / dashboard</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Sketsa arah proyek (bukan wiring). Detail komponen datang pelan di modul berikutnya.</figcaption>
+</figure>
 <p><strong>Awam:</strong> Stasiun Ruang Belajar = “mini cuaca + saklar pintar di meja belajar” yang kita bangun setahap demi setahap.</p>
 
 <h2>Board yang nanti kita pakai</h2>
-<p>Di jalur ini board resmi kita adalah <strong>ESP32-DevKitC-1</strong> — papan kecil yang mudah dicari di toko lokal maupun luar negeri. Di FS-01 kamu <strong>belum</strong> menyentuh pin, kabel, atau software unduhan. Cukup ingat namanya: nanti, mulai modul kit dan IDE, kita pakai DevKitC-1 secara konsisten.</p>
-<p><strong>Awam:</strong> DevKitC-1 seperti “otak kecil” di breadboard. Kita kenalan dulu lewat nama, baru nanti wiring.</p>
-
-<h2>Persiapan — alat yang kamu buka</h2>
-<p><strong>Alat yang dipakai di artikel ini</strong> (belum Laragon, belum Arduino IDE, belum USB board):</p>
-<ul>
-  <li><strong>Browser</strong> — membaca artikel ini.</li>
-  <li><strong>Catatan</strong> — kertas, Notepad, atau catatan HP untuk latihan 3 contoh IoT.</li>
-</ul>
-<p>Tidak ada unduhan hari ini. Tidak ada “install-dari-nol” software. Kalau kamu sudah punya board di laci, biarkan saja — kita buka kotaknya di modul belakangan.</p>
+<p>Di jalur ini board resmi kita adalah <strong>ESP32-DevKitC-1</strong> — papan kecil yang mudah dicari di toko lokal maupun luar negeri. Di FS-01 kamu <strong>belum</strong> menyentuh pin, kabel, atau software unduhan. Cukup kenalan bentuknya dulu.</p>
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Foto overview board ESP32-DevKitC dari dokumentasi Espressif" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Overview board keluarga <strong>ESP32-DevKitC</strong> (sama keluarga dengan DevKitC-1 yang kita pakai). Pin detail belum perlu dihafal hari ini.
+    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (dokumen resmi).
+  </figcaption>
+</figure>
+<p><strong>Awam:</strong> DevKitC-1 seperti “otak kecil” di breadboard. Kita kenalan dulu lewat foto &amp; nama, baru nanti wiring.</p>
 
 <h2>Istilah mini untuk FS-01</h2>
 <table>
@@ -193,9 +219,9 @@ class Article71Seeder extends Seeder
       <td>Dipakai di Stasiun Ruang Belajar nanti</td>
     </tr>
     <tr>
-      <td>Aktuator</td>
-      <td>“Otot” yang bergerak (lampu, relay, motor kecil)</td>
-      <td>Nanti: lampu via relay</td>
+      <td>Aktuator / relay</td>
+      <td>“Otot” yang bergerak; relay = saklar listrik kecil yang dikendalikan sistem</td>
+      <td>Nanti: lampu di meja belajar</td>
     </tr>
     <tr>
       <td>Dashboard</td>
@@ -204,7 +230,7 @@ class Article71Seeder extends Seeder
     </tr>
     <tr>
       <td>ESP32-DevKitC-1</td>
-      <td>Board resmi jalur ini</td>
+      <td>Board resmi jalur ini (papan “otak” kecil)</td>
       <td>Belum wiring di FS-01</td>
     </tr>
   </tbody>
@@ -212,12 +238,12 @@ class Article71Seeder extends Seeder
 
 <h2>Praktik — tulis 3 contoh IoT di sekitarmu</h2>
 <ol>
-  <li>Ambil catatan.</li>
+  <li>Buka catatan (kertas / Notepad / catatan HP).</li>
   <li>Tulis tiga benda di rumah/sekolah yang <em>bisa</em> jadi IoT (atau sudah IoT).</li>
   <li>Untuk tiap benda, tulis satu kalimat: apa yang dipantau atau dikontrol.</li>
 </ol>
-<p>Contoh jawaban (boleh beda): (1) lampu kamar — nyala/mati dari HP, (2) sensor asap — alert ke HP, (3) pot tanaman — kelembaban tanah.</p>
-<p><strong>Awam — cara menguji bagian ini:</strong> bacakan tiga contohmu ke orang non-teknis. Kalau mereka paham tanpa kamu menjelaskan Wi‑Fi atau cloud, latihanmu lolos.</p>
+<p>Contoh jawaban (boleh beda): (1) lampu kamar — nyala/mati dari HP, (2) sensor asap — peringatan ke HP, (3) pot tanaman — kelembaban tanah.</p>
+<p><strong>Awam — cara menguji bagian ini (tanpa komputer khusus):</strong> bacakan tiga contohmu ke orang non-teknis. Kalau mereka paham tanpa kamu menjelaskan Wi‑Fi atau cloud, latihanmu lolos. Tidak perlu menjalankan perintah apa pun.</p>
 
 <h2>Kesalahan umum awam</h2>
 <ol>
@@ -226,12 +252,12 @@ class Article71Seeder extends Seeder
   <li><strong>Mengira harus bisa coding dulu.</strong> FS-01 tidak menulis kode. Coding datang pelan setelah fondasi.</li>
   <li><strong>Mengira “sudah Wi‑Fi” = sudah IoT.</strong> Lihat bagian “bukan sekadar Wi‑Fi” di atas.</li>
   <li><strong>Langsung beli banyak komponen tanpa peta.</strong> Tunggu modul kit; hari ini cukup paham konsep.</li>
-  <li><strong>Mencampur jalur lama ESP32 sebagai prasyarat.</strong> Jalur Full Stack IoT ini mandiri dari nol — ikuti FS-01 → FS-… berurutan.</li>
+  <li><strong>Mencampur jalur lama ESP32 sebagai prasyarat.</strong> Jalur Full Stack IoT ini mandiri dari nol — ikuti FS-01 → FS-… berurutan. Artikel terkait di bawah halaman bisa dari topik IoT lama; itu bukan prasyarat jalur ini.</li>
 </ol>
 
 <h2>Lanjut belajar</h2>
 <p>Setelah FS-01, langkah alami berikutnya adalah <strong>FS-02 — satu gambar untuk seluruh jalur</strong> (peta lapisan dari benda nyata sampai dashboard). Artikel itu belum dilink di sini sampai modulnya siap, supaya tidak ada tautan mati.</p>
-<p>Simpan juga halaman jalur Full Stack IoT di situs ini sebagai pintu masuk resmi — saat rilis, materi akan terbuka berurutan.</p>
+<p>Simpan juga <a href="/belajar/fullstack-iot">halaman jalur Full Stack IoT</a> sebagai pintu masuk resmi — saat rilis, materi akan terbuka berurutan.</p>
 
 <h2>Kesimpulan</h2>
 <p>Di <strong>#71 (ini)</strong> kamu sudah punya definisi IoT yang bisa dijelaskan ke orang awam, beda remote lokal vs jalur jarak jauh, dan preview <strong>Stasiun Ruang Belajar</strong>. Board resmi nanti: <strong>ESP32-DevKitC-1</strong>. Belum wiring — dan itu sengaja.</p>
@@ -246,8 +272,17 @@ HTML;
 <p>This article is <strong>#71 (this article)</strong> · module <strong>FS-01</strong> on the <strong>Full Stack IoT Developer — From Zero</strong> path. No wires, no code, no software downloads today. You only need one question: <em>What is IoT, if you explain it to a friend who dislikes technical jargon?</em></p>
 <p><strong>Beginner:</strong> imagine explaining it to a parent or sibling in the living room. If they nod within one minute, you have passed this module.</p>
 <blockquote>
-  <p><strong>Prerequisites:</strong> none. This module is the path entrance. A soft bridge to the next module (one picture of the whole path) will appear when FS-02 is ready — without jumping into wiring.</p>
+  <p><strong>Prerequisites:</strong> none. This module is the path entrance. The next module (one picture of the whole path) will appear when FS-02 is ready — without jumping into cables or code.</p>
 </blockquote>
+
+<h2>Preparation — tools you open today</h2>
+<p><strong>Tools used in this article</strong> (no Laragon, no Arduino IDE, no USB board, no terminal yet):</p>
+<ul>
+  <li><strong>Browser</strong> — to read this article (Chrome, Edge, Firefox, or a phone browser).</li>
+  <li><strong>Notes</strong> — paper, Notepad, Google Docs, or a phone note for the 3 IoT examples exercise.</li>
+</ul>
+<p><strong>There is no syntax to run today.</strong> No code lines to copy, no <code>php artisan</code>, no Arduino sketch, no software download. “Testing” in FS-01 means <em>explaining in your own words</em>, not running a program.</p>
+<p>If you already have a board in a drawer, leave it there — we open the kit in a later module.</p>
 
 <h2>IoT in everyday language</h2>
 <p><strong>IoT</strong> stands for <em>Internet of Things</em>. The core idea is simple:</p>
@@ -322,25 +357,42 @@ HTML;
 <p>The whole path follows one project: <strong>Study Room Station</strong>. Later (in upcoming modules) you will:</p>
 <ul>
   <li>read <strong>temperature</strong> and <strong>light</strong> on the study desk,</li>
-  <li>control a <strong>lamp</strong> (relay) from the system,</li>
-  <li>view data on a <strong>dashboard</strong>,</li>
+  <li>control a <strong>lamp</strong> through a small electric switch (relay) from the system,</li>
+  <li>view data on a <strong>dashboard</strong> (a simple screen on phone/laptop),</li>
   <li>get <strong>alerts</strong> when something looks wrong,</li>
   <li>learn to stay safe when Wi‑Fi drops.</li>
 </ul>
 <p>Today you only need the name. Do not assemble anything yet.</p>
+<figure role="img" aria-label="Sketch of Study Room Station: desk, sensor, lamp, and phone" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="Study Room Station sketch">
+  <rect x="40" y="120" width="280" height="40" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="180" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Study desk</text>
+  <rect x="60" y="50" width="100" height="55" fill="#EBF4FF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="110" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Sensor</text>
+  <rect x="200" y="50" width="100" height="55" fill="#FFF3E0" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="250" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Lamp</text>
+  <text x="360" y="90" font-family="system-ui,sans-serif" font-size="22">→</text>
+  <rect x="400" y="45" width="140" height="70" fill="#EBF4FF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="470" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Board</text>
+  <text x="470" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">later: DevKitC-1</text>
+  <text x="560" y="90" font-family="system-ui,sans-serif" font-size="22">→</text>
+  <rect x="590" y="45" width="110" height="70" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="645" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Phone / dashboard</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Project direction sketch (not wiring). Component detail comes slowly in later modules.</figcaption>
+</figure>
 <p><strong>Beginner:</strong> Study Room Station = a “mini weather + smart switch on your study desk” that we build step by step.</p>
 
 <h2>The board we will use later</h2>
-<p>On this path our official board is <strong>ESP32-DevKitC-1</strong> — a small board that is easy to find in local and international stores. In FS-01 you do <strong>not</strong> touch pins, cables, or download software. Just remember the name: later, from the kit and IDE modules, we use DevKitC-1 consistently.</p>
-<p><strong>Beginner:</strong> DevKitC-1 is like a “small brain” on a breadboard. We learn the name first; wiring comes later.</p>
-
-<h2>Preparation — tools you open</h2>
-<p><strong>Tools used in this article</strong> (no Laragon, no Arduino IDE, no USB board yet):</p>
-<ul>
-  <li><strong>Browser</strong> — to read this article.</li>
-  <li><strong>Notes</strong> — paper, Notepad, or a phone note for the 3 IoT examples exercise.</li>
-</ul>
-<p>No downloads today. No install-from-scratch software. If you already have a board in a drawer, leave it there — we open the kit in a later module.</p>
+<p>On this path our official board is <strong>ESP32-DevKitC-1</strong> — a small board that is easy to find in local and international stores. In FS-01 you do <strong>not</strong> touch pins, cables, or download software. Just get familiar with how it looks.</p>
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC board overview photo from Espressif documentation" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Overview of the <strong>ESP32-DevKitC</strong> board family (same family as the DevKitC-1 we use). You do not need to memorize pins today.
+    <br>Image source: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (official docs).
+  </figcaption>
+</figure>
+<p><strong>Beginner:</strong> DevKitC-1 is like a “small brain” on a breadboard. We learn the look and name first; wiring comes later.</p>
 
 <h2>Mini glossary for FS-01</h2>
 <table>
@@ -363,9 +415,9 @@ HTML;
       <td>Used later in Study Room Station</td>
     </tr>
     <tr>
-      <td>Actuator</td>
-      <td>“Muscle” that moves (lamp, relay, small motor)</td>
-      <td>Later: lamp via relay</td>
+      <td>Actuator / relay</td>
+      <td>“Muscle” that moves; a relay is a small electric switch controlled by the system</td>
+      <td>Later: lamp on the study desk</td>
     </tr>
     <tr>
       <td>Dashboard</td>
@@ -374,7 +426,7 @@ HTML;
     </tr>
     <tr>
       <td>ESP32-DevKitC-1</td>
-      <td>Official board for this path</td>
+      <td>Official board for this path (small “brain” board)</td>
       <td>No wiring in FS-01</td>
     </tr>
   </tbody>
@@ -382,12 +434,12 @@ HTML;
 
 <h2>Practice — write 3 IoT examples around you</h2>
 <ol>
-  <li>Grab your notes.</li>
+  <li>Open your notes (paper / Notepad / phone note).</li>
   <li>Write three things at home/school that <em>could</em> be IoT (or already are).</li>
   <li>For each thing, write one sentence: what is monitored or controlled.</li>
 </ol>
 <p>Sample answers (yours may differ): (1) bedroom lamp — on/off from phone, (2) smoke sensor — alert to phone, (3) plant pot — soil moisture.</p>
-<p><strong>Beginner — how to test this part:</strong> read your three examples to a non-technical person. If they understand without you explaining Wi‑Fi or cloud, your practice passes.</p>
+<p><strong>Beginner — how to test this part (no special computer):</strong> read your three examples to a non-technical person. If they understand without you explaining Wi‑Fi or cloud, your practice passes. You do not need to run any command.</p>
 
 <h2>Common beginner mistakes</h2>
 <ol>
@@ -396,12 +448,12 @@ HTML;
   <li><strong>Thinking you must know coding first.</strong> FS-01 writes no code. Coding comes slowly after foundations.</li>
   <li><strong>Thinking “has Wi‑Fi” = already IoT.</strong> See the “not just Wi‑Fi” section above.</li>
   <li><strong>Buying many parts without a map.</strong> Wait for the kit module; today is concepts only.</li>
-  <li><strong>Mixing old ESP32 series as a prerequisite.</strong> This Full Stack IoT path is independent from zero — follow FS-01 → FS-… in order.</li>
+  <li><strong>Mixing old ESP32 series as a prerequisite.</strong> This Full Stack IoT path is independent from zero — follow FS-01 → FS-… in order. Related articles at the bottom may come from older IoT topics; they are not prerequisites for this path.</li>
 </ol>
 
 <h2>Keep learning</h2>
 <p>After FS-01, the natural next step is <strong>FS-02 — one picture for the whole path</strong> (layer map from real-world things to dashboard). That article is not hard-linked here until the module is ready, so we avoid dead links.</p>
-<p>Also bookmark the Full Stack IoT path page on this site as the official entrance — at launch, lessons will open in order.</p>
+<p>Also bookmark the <a href="/belajar/fullstack-iot">Full Stack IoT path page</a> as the official entrance — at launch, lessons will open in order.</p>
 
 <h2>Conclusion</h2>
 <p>In <strong>#71 (this article)</strong> you have an IoT definition you can explain to a non-technical person, the difference between a local remote and a long-distance path, and a preview of <strong>Study Room Station</strong>. Official board later: <strong>ESP32-DevKitC-1</strong>. No wiring yet — on purpose.</p>
