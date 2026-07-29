@@ -22,6 +22,7 @@ $slugs = [
     'laravel-policy-otorisasi-api' => 66,
     'laravel-api-resource-json' => 67,
     'laravel-feature-test-api' => 68,
+    'laravel-rate-limiting-api' => 69,
 ];
 
 $failed = 0;
