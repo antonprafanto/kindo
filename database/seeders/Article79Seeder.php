@@ -68,6 +68,84 @@ class Article79Seeder extends Seeder
         $this->command?->info('✓ Artikel #79 / FS-09 tersimpan sebagai DRAFT: '.$article->title);
     }
 
+    private function ledFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/kit-led-5mm.jpg" width="1200" height="900" alt="LED 5mm — kaki panjang anoda, kaki pendek katoda" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>LED 5mm</strong> dari kit: kaki <strong>panjang = anoda (+)</strong>, kaki <strong>pendek = katoda (-)</strong>. Sebelum dicolok, pegang &amp; cocokkan dengan diagram polaritas di bawah.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — 5mm LED</a> (CC BY-SA 3.0).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function ledFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/kit-led-5mm.jpg" width="1200" height="900" alt="5mm LED — long leg anode, short leg cathode" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>5mm LED</strong> from the kit: <strong>long leg = anode (+)</strong>, <strong>short leg = cathode (-)</strong>. Before plugging in, hold it and match the polarity diagram below.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — 5mm LED</a> (CC BY-SA 3.0).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function resistorFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/kit-resistor.jpg" width="1200" height="900" alt="Resistor 220 ohm — rem arus untuk LED" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Ambil resistor <strong>220 ohm</strong> (atau 330 ohm) dari kit. Foto ini contoh bentuk resistor — angka di kit kamu 220/330.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function resistorFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/kit-resistor.jpg" width="1200" height="900" alt="220 ohm resistor — current brake for LED" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Grab a <strong>220 ohm</strong> (or 330 ohm) resistor from the kit. This photo shows the shape — your kit values are 220/330.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function realWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/breadboard-led-example.jpg" width="699" height="386" alt="Contoh rangkaian LED dan resistor di breadboard nyata" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Contoh foto nyata</strong> (bukan ESP32): LED + resistor + kabel di breadboard — bentuknya mirip yang akan kamu rakit, bedanya kita pakai pin <strong>3V3</strong> dari ESP32, bukan baterai 9V.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Circuit_with_components_visible_and_breadboard_with_led_and_resistance_and_wire.jpg" rel="noopener noreferrer" target="_blank">T Matheij — breadboard LED circuit</a> · Wikimedia Commons (own work).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function realWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/breadboard-led-example.jpg" width="699" height="386" alt="Real example of LED and resistor on a breadboard" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Real photo example</strong> (not ESP32): LED + resistor + wires on a breadboard — similar to what you will build, except we use the ESP32 <strong>3V3</strong> pin, not a 9V battery.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Circuit_with_components_visible_and_breadboard_with_led_and_resistance_and_wire.jpg" rel="noopener noreferrer" target="_blank">T Matheij — breadboard LED circuit</a> · Wikimedia Commons (own work).
+  </figcaption>
+</figure>
+HTML;
+    }
+
     private function breadboardFigureId(): string
     {
         return <<<'HTML'
@@ -266,27 +344,30 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Lima langkah wiring LED resistor" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="100%" height="auto" role="img" aria-label="Five wiring steps">
-  <text x="380" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Urutan wiring (baris 12 - 15 - 16)</text>
-  <circle cx="60" cy="70" r="18" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="76" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">1</text>
-  <text x="200" y="65" font-family="system-ui,sans-serif" font-size="12">Jumper rail + ke <strong>baris 12</strong></text>
-  <text x="200" y="85" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Ini kabel yang nanti dicabut untuk matikan LED</text>
-  <circle cx="60" cy="130" r="18" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="136" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">2</text>
-  <text x="200" y="128" font-family="system-ui,sans-serif" font-size="12">Resistor 220 ohm: kaki 1 di baris 12, kaki 2 di <strong>baris 15</strong></text>
-  <circle cx="60" cy="190" r="18" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="196" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">3</text>
-  <text x="200" y="188" font-family="system-ui,sans-serif" font-size="12">LED kaki panjang di <strong>baris 15</strong>, pendek di <strong>baris 16</strong></text>
-  <circle cx="60" cy="250" r="18" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="256" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">4</text>
-  <text x="200" y="248" font-family="system-ui,sans-serif" font-size="12">Jumper <strong>baris 16</strong> ke rail biru (GND)</text>
-  <circle cx="60" cy="290" r="18" fill="#2E7D32" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="296" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">5</text>
-  <text x="200" y="288" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Colok USB - LED harus menyala</text>
-  <rect x="480" y="55" width="250" height="230" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="605" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Alur listrik</text>
-  <text x="605" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">3V3 - R - LED - GND</text>
-  <line x1="510" y1="140" x2="700" y2="140" stroke="#1565C0" stroke-width="2"/>
-  <text x="605" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">baris 12 - 15 - 16</text>
-  <text x="605" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">Matikan: cabut jumper</text>
-  <text x="605" y="220" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">baris 12 dari rail +</text>
-  <text x="380" y="315" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="100%" height="auto" role="img" aria-label="Five wiring steps">
+  <text x="380" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Urutan wiring (baris 12 - 15 - 16)</text>
+  <circle cx="44" cy="58" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="63" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">1</text>
+  <text x="72" y="54" font-family="system-ui,sans-serif" font-size="12"><tspan>Jumper rail + ke </tspan><tspan font-weight="700">baris 12</tspan></text>
+  <text x="72" y="72" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Cabut kabel ini untuk matikan LED</text>
+  <circle cx="44" cy="108" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="113" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">2</text>
+  <text x="72" y="104" font-family="system-ui,sans-serif" font-size="12"><tspan>Resistor 220 ohm: kaki 1 </tspan><tspan font-weight="700">baris 12</tspan></text>
+  <text x="72" y="120" font-family="system-ui,sans-serif" font-size="12"><tspan>kaki 2 di </tspan><tspan font-weight="700">baris 15</tspan></text>
+  <circle cx="44" cy="158" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="163" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">3</text>
+  <text x="72" y="154" font-family="system-ui,sans-serif" font-size="12"><tspan>LED panjang di </tspan><tspan font-weight="700">baris 15</tspan></text>
+  <text x="72" y="170" font-family="system-ui,sans-serif" font-size="12"><tspan>LED pendek di </tspan><tspan font-weight="700">baris 16</tspan></text>
+  <circle cx="44" cy="208" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="213" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">4</text>
+  <text x="72" y="208" font-family="system-ui,sans-serif" font-size="12"><tspan>Jumper </tspan><tspan font-weight="700">baris 16</tspan><tspan> ke rail biru (GND)</tspan></text>
+  <circle cx="44" cy="258" r="16" fill="#2E7D32" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="263" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">5</text>
+  <text x="72" y="258" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Colok USB - LED harus menyala</text>
+  <rect x="400" y="48" width="320" height="250" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="560" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Alur listrik</text>
+  <text x="560" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">3V3 - R - LED - GND</text>
+  <line x1="430" y1="135" x2="690" y2="135" stroke="#1565C0" stroke-width="2.5"/>
+  <text x="560" y="162" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">baris 12 - 15 - 16</text>
+  <text x="560" y="195" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">Matikan: cabut jumper</text>
+  <text x="560" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">baris 12 dari rail +</text>
+  <text x="560" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#C62828">Jangan tukar merah/hitam</text>
+  <text x="380" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Lima langkah wiring yang kita ikuti hari ini — nomor baris boleh digeser asal urutan sama (buatan Koding Indonesia).</figcaption>
 </figure>
@@ -297,27 +378,30 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Five LED resistor wiring steps" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" width="100%" height="auto" role="img" aria-label="Five wiring steps">
-  <text x="380" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Wiring order (rows 12 - 15 - 16)</text>
-  <circle cx="60" cy="70" r="18" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="76" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">1</text>
-  <text x="200" y="65" font-family="system-ui,sans-serif" font-size="12">Jumper + rail to <strong>row 12</strong></text>
-  <text x="200" y="85" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">This wire gets unplugged to turn the LED off</text>
-  <circle cx="60" cy="130" r="18" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="136" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">2</text>
-  <text x="200" y="128" font-family="system-ui,sans-serif" font-size="12">220 ohm resistor: leg 1 in row 12, leg 2 in <strong>row 15</strong></text>
-  <circle cx="60" cy="190" r="18" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="196" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">3</text>
-  <text x="200" y="188" font-family="system-ui,sans-serif" font-size="12">LED long leg in <strong>row 15</strong>, short in <strong>row 16</strong></text>
-  <circle cx="60" cy="250" r="18" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="256" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">4</text>
-  <text x="200" y="248" font-family="system-ui,sans-serif" font-size="12">Jumper <strong>row 16</strong> to blue rail (GND)</text>
-  <circle cx="60" cy="290" r="18" fill="#2E7D32" stroke="#1a1a1a" stroke-width="2"/><text x="60" y="296" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="14" font-weight="700">5</text>
-  <text x="200" y="288" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Plug in USB - LED should light</text>
-  <rect x="480" y="55" width="250" height="230" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="605" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Current path</text>
-  <text x="605" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">3V3 - R - LED - GND</text>
-  <line x1="510" y1="140" x2="700" y2="140" stroke="#1565C0" stroke-width="2"/>
-  <text x="605" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">rows 12 - 15 - 16</text>
-  <text x="605" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">Turn off: unplug jumper</text>
-  <text x="605" y="220" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">from row 12 to + rail</text>
-  <text x="380" y="315" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="100%" height="auto" role="img" aria-label="Five wiring steps">
+  <text x="380" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Wiring order (rows 12 - 15 - 16)</text>
+  <circle cx="44" cy="58" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="63" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">1</text>
+  <text x="72" y="54" font-family="system-ui,sans-serif" font-size="12"><tspan>Jumper + rail to </tspan><tspan font-weight="700">row 12</tspan></text>
+  <text x="72" y="72" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Unplug this wire to turn LED off</text>
+  <circle cx="44" cy="108" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="113" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">2</text>
+  <text x="72" y="104" font-family="system-ui,sans-serif" font-size="12"><tspan>220 ohm resistor: leg 1 </tspan><tspan font-weight="700">row 12</tspan></text>
+  <text x="72" y="120" font-family="system-ui,sans-serif" font-size="12"><tspan>leg 2 in </tspan><tspan font-weight="700">row 15</tspan></text>
+  <circle cx="44" cy="158" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="163" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">3</text>
+  <text x="72" y="154" font-family="system-ui,sans-serif" font-size="12"><tspan>LED long leg in </tspan><tspan font-weight="700">row 15</tspan></text>
+  <text x="72" y="170" font-family="system-ui,sans-serif" font-size="12"><tspan>LED short leg in </tspan><tspan font-weight="700">row 16</tspan></text>
+  <circle cx="44" cy="208" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="213" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">4</text>
+  <text x="72" y="208" font-family="system-ui,sans-serif" font-size="12"><tspan>Jumper </tspan><tspan font-weight="700">row 16</tspan><tspan> to blue rail (GND)</tspan></text>
+  <circle cx="44" cy="258" r="16" fill="#2E7D32" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="263" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">5</text>
+  <text x="72" y="258" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Plug USB - LED should light</text>
+  <rect x="400" y="48" width="320" height="250" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="560" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Current path</text>
+  <text x="560" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">3V3 - R - LED - GND</text>
+  <line x1="430" y1="135" x2="690" y2="135" stroke="#1565C0" stroke-width="2.5"/>
+  <text x="560" y="162" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">rows 12 - 15 - 16</text>
+  <text x="560" y="195" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">Turn off: unplug jumper</text>
+  <text x="560" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">from row 12 to + rail</text>
+  <text x="560" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#C62828">Do not swap red/black</text>
+  <text x="380" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Five wiring steps for today — row numbers can shift as long as the order stays the same (by Koding Indonesia).</figcaption>
 </figure>
@@ -378,17 +462,30 @@ SVG;
     {
         $bb = $this->breadboardFigureId();
         $jump = $this->jumperFigureId();
+        $led = $this->ledFigureId();
+        $res = $this->resistorFigureId();
         $pin = $this->pinoutFigureId();
         $rail = $this->powerRailSvgId();
         $pol = $this->ledPolaritySvgId();
         $steps = $this->wiringStepsSvgId();
         $circuit = $this->fullCircuitSvgId();
+        $real = $this->realWiringFigureId();
 
         return <<<HTML
 <h2>Pendahuluan — LED menyala tanpa coding?</h2>
 <p>Artikel ini adalah <strong>#79 (ini)</strong> · modul <strong>FS-09</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Di <strong>FS-08</strong> kamu sudah paham kenapa LED butuh resistor 220Ω. Hari ini kamu <strong>merakit rangkaian pertama</strong> di breadboard — LED menyala dari pin <strong>3V3</strong> ESP32, murni wiring, <strong>belum upload sketch</strong>.</p>
 <p><strong>Awam:</strong> modul ini seperti menyalakan lampu kamar dengan saklar di stop kontak — belum pakai remote (program).</p>
 <p><strong>Prasyarat:</strong> FS-08 (pilih resistor) + kenal breadboard dari FS-04 + kebiasaan cabut USB dari FS-05. <strong>Tidak ada Arduino IDE, upload sketch, atau <code>php artisan</code> hari ini</strong> — hanya breadboard, jumper, LED, resistor, dan ESP32 + kabel USB data.</p>
+
+<p><strong>Awam — cara pakai artikel ini (urutan baca):</strong></p>
+<ol>
+<li><strong>Kumpulkan alat</strong> di meja (daftar di bawah) — belum colok USB.</li>
+<li><strong>Baca + lihat gambar</strong> sampai bagian wiring step-by-step.</li>
+<li><strong>Rakit di meja</strong> ikuti baris 12 → 15 → 16.</li>
+<li><strong>Colok USB</strong> → LED menyala → latihan cabut jumper.</li>
+<li><strong>Centang checklist 10/10</strong> di browser (widget interaktif di bawah).</li>
+</ol>
+<p><strong>Tidak perlu hari ini:</strong> Arduino IDE, upload sketch, Serial Monitor, <code>php artisan</code>, Laragon.</p>
 
 <h2>Persiapan — buka &amp; siapkan ini dulu</h2>
 <p><strong>Awam — urutan meja kerja:</strong> jangan langsung colok kabel. Ikuti urutan di bawah supaya tidak bingung.</p>
@@ -404,6 +501,8 @@ SVG;
 
 {$bb}
 {$jump}
+{$led}
+{$res}
 {$pin}
 
 <h2>Kenali power rail breadboard</h2>
@@ -429,6 +528,7 @@ SVG;
 </ol>
 {$pol}
 {$steps}
+{$real}
 
 <h2 id="fsiot-led-circuit-checklist">Praktik — checklist rangkaian LED</h2>
 <p>Centang setiap langkah setelah kamu lakukan di meja. Target: <strong>10/10</strong>. Ada checklist interaktif di bawah; versi kertas tetap tersedia.</p>
@@ -466,17 +566,30 @@ HTML;
     {
         $bb = $this->breadboardFigureEn();
         $jump = $this->jumperFigureEn();
+        $led = $this->ledFigureEn();
+        $res = $this->resistorFigureEn();
         $pin = $this->pinoutFigureEn();
         $rail = $this->powerRailSvgEn();
         $pol = $this->ledPolaritySvgEn();
         $steps = $this->wiringStepsSvgEn();
         $circuit = $this->fullCircuitSvgEn();
+        $real = $this->realWiringFigureEn();
 
         return <<<HTML
 <h2>Introduction — an LED without code?</h2>
 <p>This article is <strong>#79 (this article)</strong> · module <strong>FS-09</strong> on the <em>Full Stack IoT Developer — From Zero</em> track. In <strong>FS-08</strong> you learned why an LED needs a 220Ω resistor. Today you <strong>build your first circuit</strong> on a breadboard — the LED lights from the ESP32 <strong>3V3</strong> pin, wiring only, <strong>no sketch upload yet</strong>.</p>
 <p><strong>Beginner:</strong> this module is like turning on a room light with a wall switch — no remote (program) yet.</p>
 <p><strong>Prerequisites:</strong> FS-08 (pick a resistor) + know the breadboard from FS-04 + unplug-USB habit from FS-05. <strong>No Arduino IDE, sketch upload, or <code>php artisan</code> today</strong> — only breadboard, jumpers, LED, resistor, and ESP32 + data USB cable.</p>
+
+<p><strong>Beginner — how to use this article (read in order):</strong></p>
+<ol>
+<li><strong>Gather tools</strong> on your desk (list below) — do not plug USB yet.</li>
+<li><strong>Read + study images</strong> through the step-by-step wiring section.</li>
+<li><strong>Build on the desk</strong> following rows 12 → 15 → 16.</li>
+<li><strong>Plug USB</strong> → LED lights → practice unplugging the jumper.</li>
+<li><strong>Tick the 10/10 checklist</strong> in the browser (interactive widget below).</li>
+</ol>
+<p><strong>Not needed today:</strong> Arduino IDE, sketch upload, Serial Monitor, <code>php artisan</code>, Laragon.</p>
 
 <h2>Preparation — open &amp; gather these first</h2>
 <p><strong>Beginner — desk order:</strong> do not plug wires in randomly. Follow the order below so you do not get lost.</p>
@@ -492,6 +605,8 @@ HTML;
 
 {$bb}
 {$jump}
+{$led}
+{$res}
 {$pin}
 
 <h2>Know the breadboard power rails</h2>
@@ -517,6 +632,7 @@ HTML;
 </ol>
 {$pol}
 {$steps}
+{$real}
 
 <h2 id="fsiot-led-circuit-checklist">Practice — LED circuit checklist</h2>
 <p>Tick each step after you do it on the desk. Target: <strong>10/10</strong>. An interactive checklist is below; a paper version stays available.</p>

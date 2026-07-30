@@ -46,8 +46,10 @@ check('EN self-ref #79 (this article)', str_contains($en, '#79 (this article)'))
 check('ID Awam >= 5', substr_count($id, 'Awam:') + substr_count($id, 'Awam —') >= 5);
 check('EN Beginner >= 5', substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —') >= 5);
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 6', substr_count($id, '<figure') >= 6 && substr_count($en, '<figure') >= 6);
+check('figures both >= 8', substr_count($id, '<figure') >= 8 && substr_count($en, '<figure') >= 8);
 
+check('beginner read order ID', str_contains($id, 'cara pakai artikel ini'));
+check('beginner read order EN', str_contains($en, 'how to use this article'));
 check('ID Persiapan tools-first', str_contains($id, 'Persiapan') && str_contains($id, 'Cabut USB'));
 check('EN Preparation tools-first', str_contains($en, 'Preparation') && str_contains($en, 'Unplug USB'));
 check('breadboard wiring today ID', str_contains($id, 'Wiring step-by-step') || str_contains($id, 'wiring'));
@@ -55,9 +57,14 @@ check('breadboard wiring today EN', str_contains($en, 'Step-by-step wiring') || 
 check('3V3 pin power ID', str_contains($id, 'pin 3V3') || str_contains($id, 'pin <strong>3V3</strong>'));
 check('3V3 pin power EN', str_contains($en, '3V3 pin') || str_contains($en, '<strong>3V3</strong>'));
 check('row 12 15 16 both', str_contains($id, 'baris 12') && str_contains($id, 'baris 15') && str_contains($en, 'row 12') && str_contains($en, 'row 15'));
-check('kit images', str_contains($id, 'kit-breadboard.jpg') && str_contains($id, 'kit-jumper-wires.jpg') && str_contains($id, 'esp32-devkitc-1-pinlayout.jpg'));
+check('kit images', str_contains($id, 'kit-breadboard.jpg') && str_contains($id, 'kit-jumper-wires.jpg') && str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, 'kit-resistor.jpg') && str_contains($id, 'breadboard-led-example.jpg') && str_contains($id, 'esp32-devkitc-1-pinlayout.jpg'));
 check('SVG wiring + circuit', str_contains($id, 'Buatan Koding Indonesia') && str_contains($id, '220R'));
-check('no tspan in SVG', ! str_contains($id, '<tspan') && ! str_contains($en, '<tspan'));
+preg_match_all('/<svg[\s\S]*?<\/svg>/', $id, $svgIdBlocks);
+preg_match_all('/<svg[\s\S]*?<\/svg>/', $en, $svgEnBlocks);
+$noStrongInSvg = array_reduce($svgIdBlocks[0] ?? [], fn (bool $c, string $s): bool => $c && ! str_contains($s, '<strong>'), true)
+    && array_reduce($svgEnBlocks[0] ?? [], fn (bool $c, string $s): bool => $c && ! str_contains($s, '<strong>'), true);
+check('no strong tags inside SVG', $noStrongInSvg);
+check('wiring SVG uses tspan for emphasis', str_contains($id, '<tspan font-weight="700">baris 12</tspan>'));
 
 check('checklist ul id survives sanitizer', str_contains(app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($id), 'id="fsiot-led-circuit-checklist-items"'));
 check('checklist h2 id survives sanitizer', str_contains(app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($id), 'id="fsiot-led-circuit-checklist"'));
