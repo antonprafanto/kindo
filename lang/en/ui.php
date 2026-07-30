@@ -264,6 +264,16 @@ return [
         'fsiot_sf_incomplete' => 'Some items are still unchecked. Re-read the empty ones, then tick them when you understand.',
         'fsiot_sf_done' => 'Got it',
         'fsiot_sf_todo' => 'Not yet',
+        'fsiot_su_badge' => 'Computer setup checklist',
+        'fsiot_su_hint' => 'Tick each setup step you finished. Target: 10/10.',
+        'fsiot_su_check' => 'Check completeness',
+        'fsiot_su_retry' => 'Clear again',
+        'fsiot_su_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_su_progress' => ':filled of :total checked',
+        'fsiot_su_pass' => 'Complete :filled/:total — PC + board ready to upload! Continue to FS-07 when that module publishes.',
+        'fsiot_su_incomplete' => 'Some steps are still unchecked. Finish them first or write “later” on paper.',
+        'fsiot_su_done' => 'Done',
+        'fsiot_su_todo' => 'Not yet',
     ],
 
     'theme' => [

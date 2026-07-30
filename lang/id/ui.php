@@ -264,6 +264,16 @@ return [
         'fsiot_sf_incomplete' => 'Masih ada yang belum dicentang. Baca ulang poin yang kosong, lalu centang kalau sudah paham.',
         'fsiot_sf_done' => 'Paham',
         'fsiot_sf_todo' => 'Belum',
+        'fsiot_su_badge' => 'Checklist setup komputer',
+        'fsiot_su_hint' => 'Centang tiap langkah setup yang sudah kamu selesaikan. Target: 10/10.',
+        'fsiot_su_check' => 'Cek kelengkapan',
+        'fsiot_su_retry' => 'Kosongkan lagi',
+        'fsiot_su_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_su_progress' => ':filled dari :total tercentang',
+        'fsiot_su_pass' => 'Lengkap :filled/:total — PC + board siap upload! Lanjut FS-07 saat modulnya terbit.',
+        'fsiot_su_incomplete' => 'Masih ada langkah yang belum dicentang. Selesaikan dulu atau catat “nanti” di kertas.',
+        'fsiot_su_done' => 'Selesai',
+        'fsiot_su_todo' => 'Belum',
     ],
 
     'theme' => [
