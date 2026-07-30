@@ -58,7 +58,12 @@ check('pinout image + cite', str_contains($id, 'esp32-devkitc-1-pinlayout.jpg') 
 check('EN overview + pinout', str_contains($en, 'esp32-devkitc-overview.jpg') && str_contains($en, 'esp32-devkitc-1-pinlayout.jpg'));
 
 check('breadboard content', str_contains($id, 'Breadboard') && str_contains($en, 'Breadboard'));
-check('LED polarity', str_contains($id, 'panjang') && str_contains($en, 'long leg'));
+check('LED circle body (sanitizer-safe)', str_contains($id, '<circle') && str_contains($en, '<circle'));
+check('LED polarity labels clear', str_contains($id, 'kaki panjang') && str_contains($id, 'kaki pendek') && str_contains($en, 'long leg'));
+check('breadboard caption no typo', str_contains($id, 'Diagram dalaman breadboard') && ! str_contains($id, 'Inganan'));
+check('breadboard shows trench', str_contains($id, 'parit') && str_contains($en, 'trench'));
+check('no section-number jargon §', ! str_contains($id, '§') && ! str_contains($en, '§'));
+check('no silkscreen jargon', ! str_contains($id, 'silkscreen') && ! str_contains($en, 'silkscreen'));
 check('USB data vs charge', str_contains($id, 'charge-only') || str_contains($id, 'Charge-only'));
 check('EN USB charge-only', str_contains($en, 'charge-only') || str_contains($en, 'Charge-only'));
 check('DHT22 + DHT11 temp OK', str_contains($id, 'DHT22') && str_contains($id, 'DHT11'));

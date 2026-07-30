@@ -100,7 +100,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="Diagram pinout resmi ESP32-DevKitC-1 dari dokumentasi Espressif" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Pinout resmi <strong>ESP32-DevKitC-1</strong>. Cocokkan tulisan di board (silkscreen) dengan gambar ini. <strong>Jangan hafal semua nomor GPIO hari ini</strong> — cukup tahu di mana 3V3, 5V, GND, EN, dan BOOT.
+    Pinout resmi <strong>ESP32-DevKitC-1</strong>. Cocokkan tulisan di board dengan gambar ini. <strong>Jangan hafal semua nomor GPIO hari ini</strong> — cukup tahu di mana 3V3, 5V, GND, EN, dan BOOT.
     <br>Sumber gambar: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif / Arduino-ESP32 — ESP32-DevKitC-1</a> (dokumen resmi).
   </figcaption>
 </figure>
@@ -113,7 +113,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="Official ESP32-DevKitC-1 pinout diagram from Espressif documentation" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Official <strong>ESP32-DevKitC-1</strong> pinout. Match the silkscreen on your board to this picture. <strong>Do not memorize every GPIO number today</strong> — just know where 3V3, 5V, GND, EN, and BOOT are.
+    Official <strong>ESP32-DevKitC-1</strong> pinout. Match the printed labels on your board to this picture. <strong>Do not memorize every GPIO number today</strong> — just know where 3V3, 5V, GND, EN, and BOOT are.
     <br>Image source: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif / Arduino-ESP32 — ESP32-DevKitC-1</a> (official docs).
   </figcaption>
 </figure>
@@ -124,26 +124,33 @@ HTML;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Diagram dalaman breadboard: baris, kolom, dan power rail" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Breadboard connections">
-  <rect x="40" y="30" width="40" height="160" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
-  <rect x="90" y="30" width="40" height="160" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="60" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">+</text>
-  <text x="110" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">−</text>
-  <text x="100" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail (panjang)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" width="100%" height="auto" role="img" aria-label="Breadboard connections">
+  <rect x="30" y="40" width="36" height="150" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="76" y="40" width="36" height="150" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
+  <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
+  <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kiri</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Satu baris = saling nyambung</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
-    <rect x="180" y="50" width="28" height="28"/><rect x="218" y="50" width="28" height="28"/><rect x="256" y="50" width="28" height="28"/><rect x="294" y="50" width="28" height="28"/><rect x="332" y="50" width="28" height="28"/>
-    <rect x="180" y="95" width="28" height="28"/><rect x="218" y="95" width="28" height="28"/><rect x="256" y="95" width="28" height="28"/><rect x="294" y="95" width="28" height="28"/><rect x="332" y="95" width="28" height="28"/>
+    <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
+    <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
-  <text x="270" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Satu baris = saling nyambung</text>
-  <line x1="185" y1="64" x2="355" y2="64" stroke="#E53935" stroke-width="2" stroke-dasharray="4 3"/>
-  <text x="450" y="70" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">← baris A–E (contoh)</text>
-  <text x="270" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Kolom di baris berbeda = TIDAK otomatis nyambung</text>
-  <text x="270" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Ada “parit” tengah: kiri dan kanan terpisah</text>
-  <rect x="520" y="30" width="40" height="160" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
-  <rect x="570" y="30" width="40" height="160" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="565" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kanan</text>
+  <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Contoh baris A–E (5 lubang)</text>
+  <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">parit</text>
+  <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
+    <rect x="420" y="50" width="30" height="30"/><rect x="460" y="50" width="30" height="30"/><rect x="500" y="50" width="30" height="30"/><rect x="540" y="50" width="30" height="30"/><rect x="580" y="50" width="30" height="30"/>
+    <rect x="420" y="100" width="30" height="30"/><rect x="460" y="100" width="30" height="30"/><rect x="500" y="100" width="30" height="30"/><rect x="540" y="100" width="30" height="30"/><rect x="580" y="100" width="30" height="30"/>
+  </g>
+  <rect x="640" y="40" width="36" height="150" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="686" y="40" width="36" height="150" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
+  <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
+  <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kanan</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Baris berbeda = TIDAK otomatis nyambung · parit memisahkan kiri &amp; kanan</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Inganan breadboard sederhana (buatan Koding Indonesia). Jangan mengira semua lubang saling nyambung.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Diagram dalaman breadboard sederhana (buatan Koding Indonesia). Jangan mengira semua lubang saling nyambung.</figcaption>
 </figure>
 SVG;
     }
@@ -152,26 +159,33 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Breadboard internals: rows, columns, and power rails" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Breadboard connections">
-  <rect x="40" y="30" width="40" height="160" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
-  <rect x="90" y="30" width="40" height="160" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="60" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">+</text>
-  <text x="110" y="20" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">−</text>
-  <text x="100" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail (long)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" width="100%" height="auto" role="img" aria-label="Breadboard connections">
+  <rect x="30" y="40" width="36" height="150" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="76" y="40" width="36" height="150" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
+  <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
+  <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Left power rail</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">One row = connected together</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
-    <rect x="180" y="50" width="28" height="28"/><rect x="218" y="50" width="28" height="28"/><rect x="256" y="50" width="28" height="28"/><rect x="294" y="50" width="28" height="28"/><rect x="332" y="50" width="28" height="28"/>
-    <rect x="180" y="95" width="28" height="28"/><rect x="218" y="95" width="28" height="28"/><rect x="256" y="95" width="28" height="28"/><rect x="294" y="95" width="28" height="28"/><rect x="332" y="95" width="28" height="28"/>
+    <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
+    <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
-  <text x="270" y="40" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">One row = connected together</text>
-  <line x1="185" y1="64" x2="355" y2="64" stroke="#E53935" stroke-width="2" stroke-dasharray="4 3"/>
-  <text x="450" y="70" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">← row A–E (example)</text>
-  <text x="270" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Columns across different rows are NOT auto-connected</text>
-  <text x="270" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Center trench: left and right halves are separate</text>
-  <rect x="520" y="30" width="40" height="160" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
-  <rect x="570" y="30" width="40" height="160" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="565" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Right power rail</text>
+  <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Example row A–E (5 holes)</text>
+  <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">trench</text>
+  <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
+    <rect x="420" y="50" width="30" height="30"/><rect x="460" y="50" width="30" height="30"/><rect x="500" y="50" width="30" height="30"/><rect x="540" y="50" width="30" height="30"/><rect x="580" y="50" width="30" height="30"/>
+    <rect x="420" y="100" width="30" height="30"/><rect x="460" y="100" width="30" height="30"/><rect x="500" y="100" width="30" height="30"/><rect x="540" y="100" width="30" height="30"/><rect x="580" y="100" width="30" height="30"/>
+  </g>
+  <rect x="640" y="40" width="36" height="150" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="686" y="40" width="36" height="150" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
+  <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
+  <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Right power rail</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Different rows are NOT auto-connected · trench separates left &amp; right</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Simple breadboard internals (by Koding Indonesia). Do not assume every hole is connected.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Simple breadboard internals diagram (by Koding Indonesia). Do not assume every hole is connected.</figcaption>
 </figure>
 SVG;
     }
@@ -180,19 +194,22 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="LED: kaki panjang anode dan kaki pendek katode" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="100%" height="auto" role="img" aria-label="LED polarity">
-  <ellipse cx="200" cy="70" rx="55" ry="40" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="175" y1="105" x2="175" y2="155" stroke="#1a1a1a" stroke-width="4"/>
-  <line x1="225" y1="105" x2="225" y2="140" stroke="#1a1a1a" stroke-width="4"/>
-  <text x="175" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">panjang = +</text>
-  <text x="225" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">pendek = −</text>
-  <text x="200" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">LED 5mm</text>
-  <rect x="360" y="40" width="220" height="100" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="4"/>
-  <text x="470" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Resistor</text>
-  <text x="470" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">220Ω / 330Ω = rem</text>
-  <text x="470" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">agar LED tidak “terbakar”</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 220" width="100%" height="auto" role="img" aria-label="LED polarity">
+  <text x="160" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">LED 5mm</text>
+  <circle cx="160" cy="78" r="42" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="118" y="78" width="84" height="22" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="130" y1="100" x2="130" y2="155" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="190" y1="100" x2="190" y2="140" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <text x="130" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">kaki panjang</text>
+  <text x="130" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#2E7D32">= + (anode)</text>
+  <text x="190" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">kaki pendek</text>
+  <text x="190" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#C62828">= − (katode)</text>
+  <rect x="360" y="45" width="280" height="120" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="500" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Resistor</text>
+  <text x="500" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">220Ω / 330Ω = “rem” arus</text>
+  <text x="500" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">agar LED tidak “terbakar”</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Polaritas LED + peran resistor (buatan Koding Indonesia). Wiring menyala baru di modul nanti.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Polaritas LED + peran resistor (buatan Koding Indonesia). Menyambung supaya menyala baru di modul nanti — hari ini cukup kenali bentuknya.</figcaption>
 </figure>
 SVG;
     }
@@ -201,19 +218,22 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="LED: long anode leg and short cathode leg" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 180" width="100%" height="auto" role="img" aria-label="LED polarity">
-  <ellipse cx="200" cy="70" rx="55" ry="40" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="175" y1="105" x2="175" y2="155" stroke="#1a1a1a" stroke-width="4"/>
-  <line x1="225" y1="105" x2="225" y2="140" stroke="#1a1a1a" stroke-width="4"/>
-  <text x="175" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">long = +</text>
-  <text x="225" y="172" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">short = −</text>
-  <text x="200" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">5mm LED</text>
-  <rect x="360" y="40" width="220" height="100" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="4"/>
-  <text x="470" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Resistor</text>
-  <text x="470" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">220Ω / 330Ω = brake</text>
-  <text x="470" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">so the LED does not burn out</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 220" width="100%" height="auto" role="img" aria-label="LED polarity">
+  <text x="160" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">5mm LED</text>
+  <circle cx="160" cy="78" r="42" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="118" y="78" width="84" height="22" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="130" y1="100" x2="130" y2="155" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="190" y1="100" x2="190" y2="140" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <text x="130" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">long leg</text>
+  <text x="130" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#2E7D32">= + (anode)</text>
+  <text x="190" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">short leg</text>
+  <text x="190" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#C62828">= − (cathode)</text>
+  <rect x="360" y="45" width="280" height="120" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="500" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Resistor</text>
+  <text x="500" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">220Ω / 330Ω = current “brake”</text>
+  <text x="500" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">so the LED does not burn out</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">LED polarity + resistor role (by Koding Indonesia). Powered wiring comes in later modules.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">LED polarity + resistor role (by Koding Indonesia). Powered wiring comes in later modules — today just recognize the shapes.</figcaption>
 </figure>
 SVG;
     }
@@ -281,7 +301,7 @@ SVG;
 <p><strong>Awam:</strong> kalau kamu hanya punya browser hari ini, tetap bisa belajar dari foto &amp; daftar belanja. Kit fisik bisa menyusul sebelum FS-06.</p>
 
 <h2>Board resmi — ESP32-DevKitC-1</h2>
-<p>Board resmi jalur ini: <strong>ESP32-DevKitC-1</strong>. Di pasaran banyak clone berlabel “DevKitC” / DOIT mirip — <strong>wajib cocokkan silkscreen</strong> dengan diagram resmi, jangan hafal “board tetangga”.</p>
+<p>Board resmi jalur ini: <strong>ESP32-DevKitC-1</strong>. Di pasaran banyak board mirip berlabel “DevKitC” / DOIT — <strong>wajib cocokkan tulisan di board</strong> dengan diagram resmi di bawah, jangan hafal “board tetangga”.</p>
 {$overview}
 <p>Yang perlu kamu temukan hari ini (dengan jari, tanpa kabel program):</p>
 <ul>
@@ -342,17 +362,17 @@ SVG;
 <tr><td>Multimeter</td><td>1</td><td>Rp 50.000–150.000</td></tr>
 </tbody>
 </table>
-<p><strong>Total kasar kit §6.1:</strong> sekitar <strong>Rp 200.000–450.000</strong> tergantung toko &amp; kualitas. Belanja bertahap OK: minimal board + breadboard + jumper + LED + resistor + USB data sebelum latihan lampu.</p>
+<p><strong>Total kasar kit wajib di awal:</strong> sekitar <strong>Rp 200.000–450.000</strong> tergantung toko &amp; kualitas. Belanja bertahap OK: minimal board + breadboard + jumper + LED + resistor + USB data sebelum latihan lampu.</p>
 {$usb}
 <ul>
 <li>Beli di marketplace lokal; baca ulasan “cable data” / “bukan charge only”.</li>
-<li>Komponen §6.2 (PIR, servo, OLED, BME280) belanja nanti sebelum akhir BUILDER.</li>
+<li>Komponen tambahan nanti (PIR, servo, OLED, BME280) belanja sebelum akhir fase BUILDER — belum wajib hari ini.</li>
 <li><strong>Jangan</strong> beli kit beban AC 220V untuk Core.</li>
 </ul>
 <p><strong>Awam:</strong> harga murah bukan selalu jebakan — tapi kabel USB murah sering charge-only. Simpan struk &amp; foto barang agar mudah klaim.</p>
 
 <h2 id="fsiot-kit-checklist">Praktik — checklist kit di meja</h2>
-<p>Susun komponen di meja. Di bawah ada <strong>checklist interaktif</strong>: centang tiap item yang sudah kamu punya / kenali. Versi kertas (label spidol) tetap tersedia. Target: <strong>semua item wajib §6.1 tercentang</strong> (atau ditandai “pesan” di catatan jika menunggu kiriman).</p>
+<p>Susun komponen di meja. Di bawah ada <strong>checklist interaktif</strong>: centang tiap item yang sudah kamu punya / kenali. Versi kertas (label spidol) tetap tersedia. Target: <strong>semua 12 item kit wajib tercentang</strong> (atau tulis “pesan” di catatan jika menunggu kiriman).</p>
 <ul id="fsiot-kit-checklist-items">
 <li>ESP32-DevKitC-1 (cocok diagram resmi)</li>
 <li>Breadboard 830</li>
@@ -385,7 +405,7 @@ SVG;
 <p>Simpan juga <a href="/belajar/fullstack-iot">halaman jalur Full Stack IoT</a> sebagai pintu masuk resmi.</p>
 
 <h2>Kesimpulan</h2>
-<p>Di <strong>#74 (ini)</strong> kamu sudah bisa menyebut nama benda di kit, membedakan indra vs otot, membaca pinout secara awam, dan mencentang checklist §6.1. Board resmi tetap <strong>ESP32-DevKitC-1</strong> — masih pengenalan, belum wiring menyala.</p>
+<p>Di <strong>#74 (ini)</strong> kamu sudah bisa menyebut nama benda di kit, membedakan indra vs otot, membaca pinout secara awam, dan mencentang checklist 12 item. Board resmi tetap <strong>ESP32-DevKitC-1</strong> — masih pengenalan, belum wiring menyala.</p>
 <p><strong>Awam:</strong> kalau kamu bisa menunjuk board, breadboard, LED, resistor, sensor, dan relay sambil bilang “ini apa”, FS-04 selesai. Lanjut ke kebiasaan aman di FS-05 saat modulnya terbit.</p>
 HTML;
     }
@@ -415,7 +435,7 @@ HTML;
 <p><strong>Beginner:</strong> if you only have a browser today, you can still learn from photos and the shopping list. The physical kit can arrive before FS-06.</p>
 
 <h2>Official board — ESP32-DevKitC-1</h2>
-<p>Official board for this path: <strong>ESP32-DevKitC-1</strong>. Many marketplace clones say “DevKitC” / DOIT-like — <strong>match the silkscreen</strong> to the official diagram; do not memorize a neighbor board.</p>
+<p>Official board for this path: <strong>ESP32-DevKitC-1</strong>. Many marketplace boards say “DevKitC” / DOIT-like — <strong>match the printed labels on the board</strong> to the official diagram below; do not memorize a neighbor board.</p>
 {$overview}
 <p>Find these today (with your finger, no programming cable required):</p>
 <ul>
@@ -476,17 +496,17 @@ HTML;
 <tr><td>Multimeter</td><td>1</td><td>Rp 50,000–150,000</td></tr>
 </tbody>
 </table>
-<p><strong>Rough §6.1 kit total:</strong> about <strong>Rp 200,000–450,000</strong> depending on shop &amp; quality. Staged buying is fine: at least board + breadboard + jumpers + LED + resistor + data USB before the first lamp practice.</p>
+<p><strong>Rough required starter kit total:</strong> about <strong>Rp 200,000–450,000</strong> depending on shop &amp; quality. Staged buying is fine: at least board + breadboard + jumpers + LED + resistor + data USB before the first lamp practice.</p>
 {$usb}
 <ul>
 <li>Buy on local marketplaces; read reviews for “data cable” / “not charge only”.</li>
-<li>§6.2 parts (PIR, servo, OLED, BME280) come later before the end of BUILDER.</li>
+<li>Extra parts later (PIR, servo, OLED, BME280) come before the end of BUILDER — not required today.</li>
 <li><strong>Do not</strong> buy AC 220V load kits for Core.</li>
 </ul>
 <p><strong>Beginner:</strong> cheap is not always a trap — but cheap USB cables are often charge-only. Keep receipts and photos for easy claims.</p>
 
 <h2 id="fsiot-kit-checklist">Practice — kit checklist on the desk</h2>
-<p>Lay the parts on the desk. Below is an <strong>interactive checklist</strong>: tick each item you already own / recognize. A paper version (marker labels) stays available. Target: <strong>all required §6.1 items checked</strong> (or mark “ordered” in your notes if waiting on shipping).</p>
+<p>Lay the parts on the desk. Below is an <strong>interactive checklist</strong>: tick each item you already own / recognize. A paper version (marker labels) stays available. Target: <strong>all 12 required kit items checked</strong> (or write “ordered” in your notes if waiting on shipping).</p>
 <ul id="fsiot-kit-checklist-items">
 <li>ESP32-DevKitC-1 (matches official diagram)</li>
 <li>Breadboard 830</li>
@@ -519,7 +539,7 @@ HTML;
 <p>Also bookmark the <a href="/belajar/fullstack-iot">Full Stack IoT path page</a> as the official entry.</p>
 
 <h2>Conclusion</h2>
-<p>In <strong>#74 (this article)</strong> you can name kit parts, tell sense from muscle, read the pinout as a beginner, and tick the §6.1 checklist. The official board remains <strong>ESP32-DevKitC-1</strong> — introduction only, no powered wiring yet.</p>
+<p>In <strong>#74 (this article)</strong> you can name kit parts, tell sense from muscle, read the pinout as a beginner, and tick the 12-item checklist. The official board remains <strong>ESP32-DevKitC-1</strong> — introduction only, no powered wiring yet.</p>
 <p><strong>Beginner:</strong> if you can point at the board, breadboard, LED, resistor, sensor, and relay while saying what each is, FS-04 is done. Continue to safe habits in FS-05 when that module publishes.</p>
 HTML;
     }
