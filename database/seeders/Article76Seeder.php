@@ -74,7 +74,7 @@ class Article76Seeder extends Seeder
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Foto overview board ESP32-DevKitC — cari chip USB di dekat port micro-USB" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Cari chip kecil di dekat <strong>port USB</strong> — biasanya bertuliskan <strong>CP2102</strong> atau <strong>CH340</strong>. Itu penentu driver yang kamu unduh.
+    Cari chip kecil berlabel <strong>(4) USB-to-UART Bridge</strong> di foto — tulisan di chip biasanya <strong>CP2102</strong> atau <strong>CH340</strong>. Itu penentu driver yang kamu unduh.
     <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (dokumen resmi).
   </figcaption>
 </figure>
@@ -87,7 +87,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC board overview — find the USB bridge chip near the micro-USB port" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Look for a small chip near the <strong>USB port</strong> — usually labeled <strong>CP2102</strong> or <strong>CH340</strong>. That decides which driver you download.
+    Look for the small chip labeled <strong>(4) USB-to-UART Bridge</strong> in the photo — the chip text is usually <strong>CP2102</strong> or <strong>CH340</strong>. That decides which driver you download.
     <br>Image source: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (official docs).
   </figcaption>
 </figure>
@@ -212,12 +212,12 @@ SVG;
   <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Dua menu yang wajib kamu hafal</text>
   <rect x="30" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
   <text x="50" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Tools → Board → ESP32 Arduino</text>
-  <text x="50" y="100" font-family="system-ui,sans-serif" font-size="13">→ pilih <tspan font-weight="700">ESP32 Dev Module</tspan></text>
+  <text x="50" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">→ pilih ESP32 Dev Module</text>
   <text x="50" y="130" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Sesuai ESP32-DevKitC-1 di jalur ini</text>
   <rect x="370" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
   <text x="390" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Tools → Port</text>
-  <text x="390" y="100" font-family="system-ui,sans-serif" font-size="13">→ pilih <tspan font-weight="700">COM3</tspan> (Windows)</text>
-  <text x="390" y="120" font-family="system-ui,sans-serif" font-size="13">atau <tspan font-weight="700">/dev/cu.usbserial-…</tspan> (macOS)</text>
+  <text x="390" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">→ pilih COM3 (Windows)</text>
+  <text x="390" y="120" font-family="system-ui,sans-serif" font-size="13" font-weight="700">atau /dev/cu.usbserial-… (macOS)</text>
   <text x="390" y="150" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Nomor port bisa beda tiap PC</text>
   <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — label menu bisa sedikit beda versi IDE</text>
 </svg>
@@ -234,12 +234,12 @@ SVG;
   <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Two menus you must know</text>
   <rect x="30" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
   <text x="50" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Tools → Board → ESP32 Arduino</text>
-  <text x="50" y="100" font-family="system-ui,sans-serif" font-size="13">→ pick <tspan font-weight="700">ESP32 Dev Module</tspan></text>
+  <text x="50" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">→ pick ESP32 Dev Module</text>
   <text x="50" y="130" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Matches ESP32-DevKitC-1 on this path</text>
   <rect x="370" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
   <text x="390" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Tools → Port</text>
-  <text x="390" y="100" font-family="system-ui,sans-serif" font-size="13">→ pick <tspan font-weight="700">COM3</tspan> (Windows)</text>
-  <text x="390" y="120" font-family="system-ui,sans-serif" font-size="13">or <tspan font-weight="700">/dev/cu.usbserial-…</tspan> (macOS)</text>
+  <text x="390" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">→ pick COM3 (Windows)</text>
+  <text x="390" y="120" font-family="system-ui,sans-serif" font-size="13" font-weight="700">or /dev/cu.usbserial-… (macOS)</text>
   <text x="390" y="150" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Port number differs per PC</text>
   <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — menu labels may vary slightly by IDE version</text>
 </svg>

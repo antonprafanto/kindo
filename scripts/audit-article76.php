@@ -62,6 +62,7 @@ check('CH340 driver link', str_contains($id, 'wch-ic.com') && str_contains($en, 
 check('charge-only mention', str_contains($id, 'charge-only') && str_contains($en, 'charge-only'));
 check('overview image + Espressif', str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'Espressif'));
 check('SVG workflow + chip + menu', str_contains($id, 'Alur hari ini') && str_contains($id, 'CP2102') && str_contains($id, 'Tools → Board'));
+check('no tspan in SVG', ! str_contains($id, '<tspan') && ! str_contains($en, '<tspan'));
 
 check('checklist markers', str_contains($id, 'id="fsiot-setup-checklist"') && str_contains($id, 'id="fsiot-setup-checklist-items"'));
 check('EN checklist markers', str_contains($en, 'id="fsiot-setup-checklist"') && str_contains($en, 'id="fsiot-setup-checklist-items"'));
