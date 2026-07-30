@@ -57,6 +57,25 @@ check('overview image + Espressif cite', str_contains($id, 'esp32-devkitc-overvi
 check('pinout image + cite', str_contains($id, 'esp32-devkitc-1-pinlayout.jpg') && str_contains($id, 'ESP32-DevKitC-1.html'));
 check('EN overview + pinout', str_contains($en, 'esp32-devkitc-overview.jpg') && str_contains($en, 'esp32-devkitc-1-pinlayout.jpg'));
 
+$kitFiles = [
+    'kit-breadboard.jpg',
+    'kit-jumper-wires.jpg',
+    'kit-led-5mm.jpg',
+    'kit-resistor.jpg',
+    'kit-tactile-button.jpg',
+    'kit-dht22.jpg',
+    'kit-ldr.jpg',
+    'kit-relay-5v.jpg',
+    'kit-multimeter.jpg',
+];
+foreach ($kitFiles as $kf) {
+    check("ID kit photo {$kf}", str_contains($id, $kf));
+    check("EN kit photo {$kf}", str_contains($en, $kf));
+}
+check('ID Commons citation', str_contains($id, 'commons.wikimedia.org') && str_contains($id, 'CC BY-SA'));
+check('EN Commons citation', str_contains($en, 'commons.wikimedia.org') && str_contains($en, 'CC BY-SA'));
+check('kit photo files on disk', collect($kitFiles)->every(fn ($f) => is_file(__DIR__.'/../public/images/fsiot/'.$f)));
+
 check('breadboard content', str_contains($id, 'Breadboard') && str_contains($en, 'Breadboard'));
 check('LED circle body (sanitizer-safe)', str_contains($id, '<circle') && str_contains($en, '<circle'));
 check('LED polarity labels clear', str_contains($id, 'kaki panjang') && str_contains($id, 'kaki pendek') && str_contains($en, 'long leg'));

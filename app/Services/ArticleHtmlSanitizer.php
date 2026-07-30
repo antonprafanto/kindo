@@ -32,7 +32,7 @@ class ArticleHtmlSanitizer
         'ol'         => ['start', 'style'],
         'li'         => ['style'],
         'a'          => ['href', 'title', 'rel', 'target'],
-        'img'        => ['src', 'alt', 'title', 'width', 'height', 'loading', 'data-id'],
+        'img'        => ['src', 'alt', 'title', 'width', 'height', 'loading', 'data-id', 'style'],
         'figure'     => ['role', 'aria-label', 'style'],
         'figcaption' => ['style'],
         'table'      => [],

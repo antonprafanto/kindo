@@ -68,6 +68,191 @@ class Article74Seeder extends Seeder
         $this->command?->info('✓ Artikel #74 / FS-04 tersimpan sebagai DRAFT: '.$article->title);
     }
 
+    private function kitPhoto(
+        string $file,
+        string $alt,
+        string $captionLead,
+        string $commonsUrl,
+        string $credit,
+        string $license,
+        string $sourceLabel = 'Sumber gambar'
+    ): string {
+        return <<<HTML
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/{$file}" alt="{$alt}" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    {$captionLead}
+    <br>{$sourceLabel}: <a href="{$commonsUrl}" rel="noopener noreferrer" target="_blank">{$credit}</a> · Wikimedia Commons ({$license}).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function kitPhotosId(): array
+    {
+        return [
+            'breadboard' => $this->kitPhoto(
+                'kit-breadboard.jpg',
+                'Foto breadboard solderless putih dengan lubang dan power rail',
+                'Contoh <strong>breadboard</strong> (ukuran di foto boleh setengah; di kit kita pakai yang lebih panjang ~830 lubang). Bentuknya mirip: putih, banyak lubang, garis merah/biru di tepi.',
+                'https://commons.wikimedia.org/wiki/File:400_points_breadboard.jpg',
+                'oomlout — 400 points breadboard',
+                'CC BY-SA 2.0'
+            ),
+            'jumper' => $this->kitPhoto(
+                'kit-jumper-wires.jpg',
+                'Foto beberapa kabel jumper warna-warni untuk breadboard',
+                'Contoh <strong>kabel jumper</strong> (ujung kaku untuk menusuk lubang breadboard). Set M‑M dan M‑F di toko biasanya lebih banyak warna.',
+                'https://commons.wikimedia.org/wiki/File:A_few_Jumper_Wires.jpg',
+                'oomlout — A few Jumper Wires',
+                'CC BY-SA 2.0'
+            ),
+            'led' => $this->kitPhoto(
+                'kit-led-5mm.jpg',
+                'Foto LED 5mm putih dengan dua kaki berbeda panjang',
+                'Contoh <strong>LED 5mm</strong> asli. Perhatikan dua kaki: biasanya satu lebih panjang (= +).',
+                'https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode_White_1480334_5_6HDR_Enhancer.jpg',
+                'Nevit Dilmen — 5mm LED',
+                'CC BY-SA 3.0'
+            ),
+            'resistor' => $this->kitPhoto(
+                'kit-resistor.jpg',
+                'Foto resistor dengan badan silinder dan kaki kawat',
+                'Contoh <strong>resistor</strong> (bentuk silinder + kaki kawat). Di kit kamu biasanya ada cincin warna; nilai 220Ω/330Ω/10kΩ ditulis di kemasan atau dibaca dari tabel warna.',
+                'https://commons.wikimedia.org/wiki/File:Carbon_Composition_Resistor_4K7.png',
+                'YoktoBit — Carbon composition resistor',
+                'CC BY-SA 4.0'
+            ),
+            'button' => $this->kitPhoto(
+                'kit-tactile-button.jpg',
+                'Foto tombol tactile kecil untuk breadboard',
+                'Contoh <strong>tombol tactile</strong> (tekan-lepas). Bentuk kotak kecil dengan tombol di tengah.',
+                'https://commons.wikimedia.org/wiki/File:BUTA-06-X-STAN-01.jpg',
+                'oomlout — 6 mm tactile pushbutton',
+                'CC BY-SA 2.0'
+            ),
+            'dht22' => $this->kitPhoto(
+                'kit-dht22.jpg',
+                'Foto modul sensor DHT22 suhu dan kelembapan',
+                'Contoh modul <strong>DHT22</strong> (kotak biru/putih di PCB). DHT11 bentuknya mirip — bedanya ketelitian.',
+                'https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg',
+                'Suyash Dwivedi — DHT22 module',
+                'CC BY-SA 4.0'
+            ),
+            'ldr' => $this->kitPhoto(
+                'kit-ldr.jpg',
+                'Foto LDR photoresistor berbentuk bulat dengan kisi',
+                'Contoh <strong>LDR</strong> (photoresistor): permukaan bulat dengan kisi — “mata” cahaya.',
+                'https://commons.wikimedia.org/wiki/File:LDR_1480405_6_7_HDR_Enhancer_1.jpg',
+                'Nevit Dilmen — LDR / photoresistor',
+                'CC BY-SA 3.0'
+            ),
+            'relay' => $this->kitPhoto(
+                'kit-relay-5v.jpg',
+                'Foto modul relay 1 channel 5V dengan terminal sekrup',
+                'Contoh <strong>modul relay 1 channel 5V</strong> (kotak biru + terminal sekrup). Di jalur Core: beban DC kecil saja — bukan AC 220V.',
+                'https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg',
+                'Suyash Dwivedi — 5V one-channel relay module',
+                'CC BY-SA 4.0'
+            ),
+            'multimeter' => $this->kitPhoto(
+                'kit-multimeter.jpg',
+                'Foto multimeter digital dengan layar dan probe',
+                'Contoh <strong>multimeter digital</strong> (layar + dua probe). Cara pakainya dipelajari di FS-07 — hari ini cukup kenali bentuknya.',
+                'https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg',
+                'Jacek Halicki — digital multimeter',
+                'CC BY-SA 4.0'
+            ),
+        ];
+    }
+
+    private function kitPhotosEn(): array
+    {
+        return [
+            'breadboard' => $this->kitPhoto(
+                'kit-breadboard.jpg',
+                'Photo of a white solderless breadboard with holes and power rails',
+                'Example <strong>breadboard</strong> (the photo may be a half-size board; our kit uses a longer ~830-hole board). Same idea: white body, many holes, red/blue lines on the edges.',
+                'https://commons.wikimedia.org/wiki/File:400_points_breadboard.jpg',
+                'oomlout — 400 points breadboard',
+                'CC BY-SA 2.0',
+                'Image source'
+            ),
+            'jumper' => $this->kitPhoto(
+                'kit-jumper-wires.jpg',
+                'Photo of several colorful jumper wires for breadboards',
+                'Example <strong>jumper wires</strong> (stiff tips for breadboard holes). Store packs of M‑M and M‑F usually include more colors.',
+                'https://commons.wikimedia.org/wiki/File:A_few_Jumper_Wires.jpg',
+                'oomlout — A few Jumper Wires',
+                'CC BY-SA 2.0',
+                'Image source'
+            ),
+            'led' => $this->kitPhoto(
+                'kit-led-5mm.jpg',
+                'Photo of a white 5mm LED with two legs of different lengths',
+                'Example real <strong>5mm LED</strong>. Notice the two legs: usually one is longer (= +).',
+                'https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode_White_1480334_5_6HDR_Enhancer.jpg',
+                'Nevit Dilmen — 5mm LED',
+                'CC BY-SA 3.0',
+                'Image source'
+            ),
+            'resistor' => $this->kitPhoto(
+                'kit-resistor.jpg',
+                'Photo of a cylindrical resistor with wire leads',
+                'Example <strong>resistor</strong> (cylinder body + wire leads). Your kit parts usually have color bands; 220Ω/330Ω/10kΩ values are on the pack or read from a color chart.',
+                'https://commons.wikimedia.org/wiki/File:Carbon_Composition_Resistor_4K7.png',
+                'YoktoBit — Carbon composition resistor',
+                'CC BY-SA 4.0',
+                'Image source'
+            ),
+            'button' => $this->kitPhoto(
+                'kit-tactile-button.jpg',
+                'Photo of a small tactile pushbutton for breadboards',
+                'Example <strong>tactile button</strong> (press-release). Small square body with a button in the middle.',
+                'https://commons.wikimedia.org/wiki/File:BUTA-06-X-STAN-01.jpg',
+                'oomlout — 6 mm tactile pushbutton',
+                'CC BY-SA 2.0',
+                'Image source'
+            ),
+            'dht22' => $this->kitPhoto(
+                'kit-dht22.jpg',
+                'Photo of a DHT22 temperature and humidity sensor module',
+                'Example <strong>DHT22</strong> module (blue/white sensor on a PCB). DHT11 looks similar — accuracy differs.',
+                'https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg',
+                'Suyash Dwivedi — DHT22 module',
+                'CC BY-SA 4.0',
+                'Image source'
+            ),
+            'ldr' => $this->kitPhoto(
+                'kit-ldr.jpg',
+                'Photo of a round LDR photoresistor with a grid face',
+                'Example <strong>LDR</strong> (photoresistor): round face with a grid — a light “eye”.',
+                'https://commons.wikimedia.org/wiki/File:LDR_1480405_6_7_HDR_Enhancer_1.jpg',
+                'Nevit Dilmen — LDR / photoresistor',
+                'CC BY-SA 3.0',
+                'Image source'
+            ),
+            'relay' => $this->kitPhoto(
+                'kit-relay-5v.jpg',
+                'Photo of a 5V one-channel relay module with screw terminals',
+                'Example <strong>1-channel 5V relay module</strong> (blue cube + screw terminals). On Core: small DC loads only — not AC 220V.',
+                'https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg',
+                'Suyash Dwivedi — 5V one-channel relay module',
+                'CC BY-SA 4.0',
+                'Image source'
+            ),
+            'multimeter' => $this->kitPhoto(
+                'kit-multimeter.jpg',
+                'Photo of a digital multimeter with a display and probes',
+                'Example <strong>digital multimeter</strong> (display + two probes). How to use it comes in FS-07 — today just recognize the shape.',
+                'https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg',
+                'Jacek Halicki — digital multimeter',
+                'CC BY-SA 4.0',
+                'Image source'
+            ),
+        ];
+    }
+
     private function overviewFigureId(): string
     {
         return <<<'HTML'
@@ -283,6 +468,16 @@ SVG;
         $bread = $this->breadboardSvgId();
         $led = $this->ledSvgId();
         $usb = $this->usbSvgId();
+        $p = $this->kitPhotosId();
+        $photoBb = $p['breadboard'];
+        $photoJumper = $p['jumper'];
+        $photoLed = $p['led'];
+        $photoRes = $p['resistor'];
+        $photoBtn = $p['button'];
+        $photoDht = $p['dht22'];
+        $photoLdr = $p['ldr'];
+        $photoRelay = $p['relay'];
+        $photoMm = $p['multimeter'];
 
         return <<<HTML
 <h2>Pendahuluan — kenapa buka kotak dulu?</h2>
@@ -315,6 +510,7 @@ SVG;
 
 <h2>Breadboard — meja percobaan berlubang</h2>
 <p>Breadboard adalah papan berlubang untuk mencoba rangkaian <strong>tanpa solder</strong>. Kunci awam: <strong>tidak semua lubang saling nyambung</strong>.</p>
+{$photoBb}
 {$bread}
 <ul>
 <li><strong>Power rail</strong> (garis +/− di tepi) — biasanya sepanjang papan.</li>
@@ -325,7 +521,11 @@ SVG;
 
 <h2>Jumper, LED, resistor</h2>
 <p><strong>Jumper</strong> = kabel pendek Male‑Male (M‑M) atau Male‑Female (M‑F). Warnanya hanya penanda; yang penting ujungnya masuk lubang dengan kencang.</p>
+{$photoJumper}
+{$photoLed}
 {$led}
+{$photoRes}
+{$photoBtn}
 <ul>
 <li><strong>LED:</strong> kaki <strong>panjang = anode (+)</strong>, kaki <strong>pendek = katode (−)</strong>. Tertukar → sering tidak menyala (nanti saat latihan LED).</li>
 <li><strong>Resistor 220Ω / 330Ω:</strong> “rem” arus untuk LED. Baca warna sederhana cukup: bandingkan dengan tabel di kemasan / aplikasi pembaca warna — detail hitung Ohm di FS-08.</li>
@@ -336,6 +536,9 @@ SVG;
 
 <h2>Sensor vs relay — indra vs otot</h2>
 <p>Di kamus FS-03: sensor ≈ indra, aktuator ≈ otot. Di kotak kit:</p>
+{$photoDht}
+{$photoLdr}
+{$photoRelay}
 <ul>
 <li><strong>DHT22</strong> — sensor suhu &amp; kelembapan (indra). Kalau stok kosong, <strong>DHT11 boleh sementara</strong> — bedanya ketelitian &amp; rentang; sebut saja di catatanmu.</li>
 <li><strong>LDR</strong> — “mata” cahaya (bersama resistor 10k nanti).</li>
@@ -363,6 +566,7 @@ SVG;
 </tbody>
 </table>
 <p><strong>Total kasar kit wajib di awal:</strong> sekitar <strong>Rp 200.000–450.000</strong> tergantung toko &amp; kualitas. Belanja bertahap OK: minimal board + breadboard + jumper + LED + resistor + USB data sebelum latihan lampu.</p>
+{$photoMm}
 {$usb}
 <ul>
 <li>Beli di marketplace lokal; baca ulasan “cable data” / “bukan charge only”.</li>
@@ -417,6 +621,16 @@ HTML;
         $bread = $this->breadboardSvgEn();
         $led = $this->ledSvgEn();
         $usb = $this->usbSvgEn();
+        $p = $this->kitPhotosEn();
+        $photoBb = $p['breadboard'];
+        $photoJumper = $p['jumper'];
+        $photoLed = $p['led'];
+        $photoRes = $p['resistor'];
+        $photoBtn = $p['button'];
+        $photoDht = $p['dht22'];
+        $photoLdr = $p['ldr'];
+        $photoRelay = $p['relay'];
+        $photoMm = $p['multimeter'];
 
         return <<<HTML
 <h2>Introduction — why open the box first?</h2>
@@ -449,6 +663,7 @@ HTML;
 
 <h2>Breadboard — a holey practice table</h2>
 <p>A breadboard lets you try circuits <strong>without soldering</strong>. Beginner key: <strong>not every hole is connected</strong>.</p>
+{$photoBb}
 {$bread}
 <ul>
 <li><strong>Power rails</strong> (+/− strips on the sides) — usually run the length of the board.</li>
@@ -459,7 +674,11 @@ HTML;
 
 <h2>Jumpers, LEDs, resistors</h2>
 <p><strong>Jumpers</strong> = short Male‑Male (M‑M) or Male‑Female (M‑F) wires. Color is just a label; what matters is a firm fit in the hole.</p>
+{$photoJumper}
+{$photoLed}
 {$led}
+{$photoRes}
+{$photoBtn}
 <ul>
 <li><strong>LED:</strong> <strong>long leg = anode (+)</strong>, <strong>short leg = cathode (−)</strong>. Swapped → often stays dark (later, in the LED lesson).</li>
 <li><strong>220Ω / 330Ω resistor:</strong> a current “brake” for the LED. Simple color reading is enough: compare with the pack chart / a color-reader app — Ohm math comes in FS-08.</li>
@@ -470,6 +689,9 @@ HTML;
 
 <h2>Sensor vs relay — sense vs muscle</h2>
 <p>From the FS-03 glossary: sensor ≈ sense, actuator ≈ muscle. In the kit box:</p>
+{$photoDht}
+{$photoLdr}
+{$photoRelay}
 <ul>
 <li><strong>DHT22</strong> — temperature &amp; humidity sensor (sense). If stock is empty, <strong>DHT11 is OK temporarily</strong> — accuracy/range differ; note it in your notes.</li>
 <li><strong>LDR</strong> — a light “eye” (with a 10k resistor later).</li>
@@ -497,6 +719,7 @@ HTML;
 </tbody>
 </table>
 <p><strong>Rough required starter kit total:</strong> about <strong>Rp 200,000–450,000</strong> depending on shop &amp; quality. Staged buying is fine: at least board + breadboard + jumpers + LED + resistor + data USB before the first lamp practice.</p>
+{$photoMm}
 {$usb}
 <ul>
 <li>Buy on local marketplaces; read reviews for “data cable” / “not charge only”.</li>
