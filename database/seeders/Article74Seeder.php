@@ -117,11 +117,11 @@ HTML;
             ),
             'resistor' => $this->kitPhoto(
                 'kit-resistor.jpg',
-                'Foto resistor dengan badan silinder dan kaki kawat',
-                'Contoh <strong>resistor</strong> (bentuk silinder + kaki kawat). Di kit kamu biasanya ada cincin warna; nilai 220Ω/330Ω/10kΩ ditulis di kemasan atau dibaca dari tabel warna.',
-                'https://commons.wikimedia.org/wiki/File:Carbon_Composition_Resistor_4K7.png',
-                'YoktoBit — Carbon composition resistor',
-                'CC BY-SA 4.0'
+                'Foto resistor dengan badan kecil, kaki kawat, dan cincin warna',
+                'Contoh <strong>resistor</strong> (badan kecil + kaki kawat + <strong>cincin warna</strong>). Nilai (220Ω / 330Ω / 10kΩ) dibaca dari cincin warna atau tertulis di kemasan — detail hitung di FS-08.',
+                'https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg',
+                'oomlout — 100Ω axial resistor',
+                'CC BY-SA 2.0'
             ),
             'button' => $this->kitPhoto(
                 'kit-tactile-button.jpg',
@@ -134,7 +134,7 @@ HTML;
             'dht22' => $this->kitPhoto(
                 'kit-dht22.jpg',
                 'Foto modul sensor DHT22 suhu dan kelembapan',
-                'Contoh modul <strong>DHT22</strong> (kotak biru/putih di PCB). DHT11 bentuknya mirip — bedanya ketelitian.',
+                'Contoh modul <strong>DHT22</strong> (sensor putih bergerigi di atas PCB kecil — warna PCB bisa hitam/biru). DHT11 bentuknya mirip — bedanya ketelitian.',
                 'https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg',
                 'Suyash Dwivedi — DHT22 module',
                 'CC BY-SA 4.0'
@@ -198,11 +198,11 @@ HTML;
             ),
             'resistor' => $this->kitPhoto(
                 'kit-resistor.jpg',
-                'Photo of a cylindrical resistor with wire leads',
-                'Example <strong>resistor</strong> (cylinder body + wire leads). Your kit parts usually have color bands; 220Ω/330Ω/10kΩ values are on the pack or read from a color chart.',
-                'https://commons.wikimedia.org/wiki/File:Carbon_Composition_Resistor_4K7.png',
-                'YoktoBit — Carbon composition resistor',
-                'CC BY-SA 4.0',
+                'Photo of a small resistor with wire leads and color bands',
+                'Example <strong>resistor</strong> (small body + wire leads + <strong>color bands</strong>). Read the value (220Ω / 330Ω / 10kΩ) from the color bands or the pack — the math comes in FS-08.',
+                'https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg',
+                'oomlout — 100Ω axial resistor',
+                'CC BY-SA 2.0',
                 'Image source'
             ),
             'button' => $this->kitPhoto(
@@ -217,7 +217,7 @@ HTML;
             'dht22' => $this->kitPhoto(
                 'kit-dht22.jpg',
                 'Photo of a DHT22 temperature and humidity sensor module',
-                'Example <strong>DHT22</strong> module (blue/white sensor on a PCB). DHT11 looks similar — accuracy differs.',
+                'Example <strong>DHT22</strong> module (white ridged sensor on a small PCB — the PCB may be black or blue). DHT11 looks similar — accuracy differs.',
                 'https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg',
                 'Suyash Dwivedi — DHT22 module',
                 'CC BY-SA 4.0',
