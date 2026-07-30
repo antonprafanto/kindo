@@ -1169,6 +1169,28 @@ jobs:
           echo "Article 76 public HTTP status (expect 404): $code"
           test "$code" = "404"
 
+      - name: Seed article 77 draft via deploy hook (required — pre-launch B)
+        run: |
+          set +e
+          for attempt in 1 2 3; do
+            body="$(mktemp)"
+            code=$(curl -sS --max-time 180 -o "$body" -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/seed-article-77-draft" || echo "000")
+            echo "seed-article-77-draft HTTP $code"
+            sed -n '1,120p' "$body" || true
+            [ "$code" = "200" ] && break
+            sleep $((attempt * 5))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::seed-article-77-draft failed after retries (last HTTP $code)"
+            exit 1
+          fi
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/fullstack-iot-multimeter-untuk-awam")
+          echo "Article 77 public HTTP status (expect 404): $code"
+          test "$code" = "404"
+
       - name: Publish article 69 via deploy hook (required)
         run: |
           set +e

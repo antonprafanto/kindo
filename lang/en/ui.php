@@ -274,6 +274,16 @@ return [
         'fsiot_su_incomplete' => 'Some steps are still unchecked. Finish them first or write “later” on paper.',
         'fsiot_su_done' => 'Done',
         'fsiot_su_todo' => 'Not yet',
+        'fsiot_mm_badge' => 'Multimeter checklist',
+        'fsiot_mm_hint' => 'Tick each measuring step you finished. Target: 10/10.',
+        'fsiot_mm_check' => 'Check completeness',
+        'fsiot_mm_retry' => 'Clear again',
+        'fsiot_mm_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_mm_progress' => ':filled of :total checked',
+        'fsiot_mm_pass' => 'Complete :filled/:total — you can read 3.3V & test wires! Continue to FS-08 when that module publishes.',
+        'fsiot_mm_incomplete' => 'Some steps are still unchecked. Re-measure or write “later” on paper.',
+        'fsiot_mm_done' => 'Done',
+        'fsiot_mm_todo' => 'Not yet',
     ],
 
     'theme' => [

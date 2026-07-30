@@ -274,6 +274,16 @@ return [
         'fsiot_su_incomplete' => 'Masih ada langkah yang belum dicentang. Selesaikan dulu atau catat “nanti” di kertas.',
         'fsiot_su_done' => 'Selesai',
         'fsiot_su_todo' => 'Belum',
+        'fsiot_mm_badge' => 'Checklist multimeter',
+        'fsiot_mm_hint' => 'Centang tiap langkah ukur yang sudah kamu selesaikan. Target: 10/10.',
+        'fsiot_mm_check' => 'Cek kelengkapan',
+        'fsiot_mm_retry' => 'Kosongkan lagi',
+        'fsiot_mm_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_mm_progress' => ':filled dari :total tercentang',
+        'fsiot_mm_pass' => 'Lengkap :filled/:total — kamu bisa ukur 3.3V & cek kabel! Lanjut FS-08 saat modulnya terbit.',
+        'fsiot_mm_incomplete' => 'Masih ada langkah yang belum dicentang. Ukur ulang atau catat “nanti” di kertas.',
+        'fsiot_mm_done' => 'Selesai',
+        'fsiot_mm_todo' => 'Belum',
     ],
 
     'theme' => [
