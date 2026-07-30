@@ -57,14 +57,15 @@ check('breadboard wiring today EN', str_contains($en, 'Step-by-step wiring') || 
 check('3V3 pin power ID', str_contains($id, 'pin 3V3') || str_contains($id, 'pin <strong>3V3</strong>'));
 check('3V3 pin power EN', str_contains($en, '3V3 pin') || str_contains($en, '<strong>3V3</strong>'));
 check('row 12 15 16 both', str_contains($id, 'baris 12') && str_contains($id, 'baris 15') && str_contains($en, 'row 12') && str_contains($en, 'row 15'));
-check('kit images', str_contains($id, 'kit-breadboard.jpg') && str_contains($id, 'kit-jumper-wires.jpg') && str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, 'kit-resistor.jpg') && str_contains($id, 'breadboard-led-example.jpg') && str_contains($id, 'esp32-devkitc-1-pinlayout.jpg'));
+check('kit images', str_contains($id, 'kit-breadboard.jpg') && str_contains($id, 'kit-jumper-wires.jpg') && str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, 'kit-resistor.jpg'));
+check('main wiring diagram', str_contains($id, 'Gambar utama') && str_contains($en, 'Main diagram'));
 check('SVG wiring + circuit', str_contains($id, 'Buatan Koding Indonesia') && str_contains($id, '220R'));
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $id, $svgIdBlocks);
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $en, $svgEnBlocks);
 $noStrongInSvg = array_reduce($svgIdBlocks[0] ?? [], fn (bool $c, string $s): bool => $c && ! str_contains($s, '<strong>'), true)
     && array_reduce($svgEnBlocks[0] ?? [], fn (bool $c, string $s): bool => $c && ! str_contains($s, '<strong>'), true);
 check('no strong tags inside SVG', $noStrongInSvg);
-check('wiring SVG uses tspan for emphasis', str_contains($id, '<tspan font-weight="700">baris 12</tspan>'));
+check('main wiring SVG uses tspan for emphasis', str_contains($id, '<tspan font-weight="700">baris 12</tspan>'));
 
 check('checklist ul id survives sanitizer', str_contains(app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($id), 'id="fsiot-led-circuit-checklist-items"'));
 check('checklist h2 id survives sanitizer', str_contains(app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($id), 'id="fsiot-led-circuit-checklist"'));

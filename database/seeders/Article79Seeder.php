@@ -68,79 +68,33 @@ class Article79Seeder extends Seeder
         $this->command?->info('✓ Artikel #79 / FS-09 tersimpan sebagai DRAFT: '.$article->title);
     }
 
-    private function ledFigureId(): string
+    private function ledResistorFigureId(): string
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-led-5mm.jpg" width="1200" height="900" alt="LED 5mm — kaki panjang anoda, kaki pendek katoda" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center">
+    <img src="/images/fsiot/kit-led-5mm.jpg" width="600" height="450" alt="LED 5mm — kaki panjang anoda, kaki pendek katoda" loading="lazy" style="flex:1 1 220px;max-width:320px;height:auto;max-height:240px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+    <img src="/images/fsiot/kit-resistor.jpg" width="600" height="450" alt="Resistor 220 ohm — rem arus untuk LED" loading="lazy" style="flex:1 1 220px;max-width:320px;height:auto;max-height:240px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  </div>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>LED 5mm</strong> dari kit: kaki <strong>panjang = anoda (+)</strong>, kaki <strong>pendek = katoda (-)</strong>. Sebelum dicolok, pegang &amp; cocokkan dengan diagram polaritas di bawah.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — 5mm LED</a> (CC BY-SA 3.0).
+    <strong>LED 5mm</strong> (kaki panjang = +) dan <strong>resistor 220Ω</strong> (330Ω boleh). Lihat diagram polaritas LED di bagian wiring.
+    <br>Sumber: <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — LED</a> · <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — resistor</a>.
   </figcaption>
 </figure>
 HTML;
     }
 
-    private function ledFigureEn(): string
+    private function ledResistorFigureEn(): string
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-led-5mm.jpg" width="1200" height="900" alt="5mm LED — long leg anode, short leg cathode" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;align-items:center">
+    <img src="/images/fsiot/kit-led-5mm.jpg" width="600" height="450" alt="5mm LED — long leg anode, short leg cathode" loading="lazy" style="flex:1 1 220px;max-width:320px;height:auto;max-height:240px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+    <img src="/images/fsiot/kit-resistor.jpg" width="600" height="450" alt="220 ohm resistor — current brake for LED" loading="lazy" style="flex:1 1 220px;max-width:320px;height:auto;max-height:240px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  </div>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>5mm LED</strong> from the kit: <strong>long leg = anode (+)</strong>, <strong>short leg = cathode (-)</strong>. Before plugging in, hold it and match the polarity diagram below.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — 5mm LED</a> (CC BY-SA 3.0).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function resistorFigureId(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-resistor.jpg" width="1200" height="900" alt="Resistor 220 ohm — rem arus untuk LED" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Ambil resistor <strong>220 ohm</strong> (atau 330 ohm) dari kit. Foto ini contoh bentuk resistor — angka di kit kamu 220/330.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function resistorFigureEn(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-resistor.jpg" width="1200" height="900" alt="220 ohm resistor — current brake for LED" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Grab a <strong>220 ohm</strong> (or 330 ohm) resistor from the kit. This photo shows the shape — your kit values are 220/330.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function realWiringFigureId(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/breadboard-led-example.jpg" width="699" height="386" alt="Contoh rangkaian LED dan resistor di breadboard nyata" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Contoh foto nyata</strong> (bukan ESP32): LED + resistor + kabel di breadboard — bentuknya mirip yang akan kamu rakit, bedanya kita pakai pin <strong>3V3</strong> dari ESP32, bukan baterai 9V.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Circuit_with_components_visible_and_breadboard_with_led_and_resistance_and_wire.jpg" rel="noopener noreferrer" target="_blank">T Matheij — breadboard LED circuit</a> · Wikimedia Commons (own work).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function realWiringFigureEn(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/breadboard-led-example.jpg" width="699" height="386" alt="Real example of LED and resistor on a breadboard" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Real photo example</strong> (not ESP32): LED + resistor + wires on a breadboard — similar to what you will build, except we use the ESP32 <strong>3V3</strong> pin, not a 9V battery.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Circuit_with_components_visible_and_breadboard_with_led_and_resistance_and_wire.jpg" rel="noopener noreferrer" target="_blank">T Matheij — breadboard LED circuit</a> · Wikimedia Commons (own work).
+    <strong>5mm LED</strong> (long leg = +) and <strong>220Ω resistor</strong> (330Ω is fine). See the LED polarity diagram in the wiring section.
+    <br>Sources: <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — LED</a> · <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — resistor</a>.
   </figcaption>
 </figure>
 HTML;
@@ -198,262 +152,378 @@ HTML;
 HTML;
     }
 
-    private function pinoutFigureId(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="Pinout ESP32-DevKitC-1 — lokasi 3V3 dan GND" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Cari pin <strong>3V3</strong> dan <strong>GND</strong> di board kamu. Hari ini kita pakai pin <strong>3V3</strong> (bukan GPIO) — LED menyala tanpa program.
-    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a> (dokumen resmi).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function pinoutFigureEn(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="ESP32-DevKitC-1 pinout — 3V3 and GND locations" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Find the <strong>3V3</strong> and <strong>GND</strong> pins on your board. Today we use the <strong>3V3</strong> pin (not GPIO) — the LED lights with no program.
-    <br>Image source: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a> (official docs).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function powerRailSvgId(): string
+    private function pinoutMiniSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Menyambung 3V3 dan GND ke power rail breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" width="100%" height="auto" role="img" aria-label="Power rail wiring">
-  <text x="380" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Langkah 1-2: power rail dulu</text>
-  <rect x="40" y="50" width="120" height="160" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="100" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">ESP32</text>
-  <text x="100" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1565C0">3V3</text>
-  <text x="100" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">GND</text>
-  <rect x="220" y="45" width="28" height="170" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
-  <rect x="258" y="45" width="28" height="170" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="234" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">+</text>
-  <text x="272" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">-</text>
-  <text x="254" y="230" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Power rail</text>
-  <line x1="160" y1="98" x2="220" y2="70" stroke="#C62828" stroke-width="3"/>
-  <text x="175" y="88" font-family="system-ui,sans-serif" font-size="11" fill="#C62828">merah</text>
-  <line x1="160" y1="173" x2="258" y2="200" stroke="#1a1a1a" stroke-width="3"/>
-  <text x="175" y="195" font-family="system-ui,sans-serif" font-size="11">hitam</text>
-  <rect x="360" y="55" width="360" height="150" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="540" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Aturan aman</text>
-  <text x="540" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">1. Cabut USB dulu</text>
-  <text x="540" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">2. Rail + = 3V3</text>
-  <text x="540" y="154" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">3. Rail - = GND</text>
-  <text x="540" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">4. Jangan tukar merah/hitam</text>
-  <text x="380" y="248" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia</text>
+<figure role="img" aria-label="Pin 3V3 dan GND di ESP32-DevKitC-1" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="100%" height="auto" role="img" aria-label="ESP32 3V3 and GND pins">
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Cari 2 pin ini di board kamu</text>
+  <rect x="260" y="50" width="200" height="180" rx="10" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="360" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">ESP32-DevKitC-1</text>
+  <text x="360" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">USB di bawah</text>
+  <circle cx="310" cy="145" r="18" fill="#FFCDD2" stroke="#C62828" stroke-width="2.5"/>
+  <text x="310" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">3V3</text>
+  <circle cx="410" cy="185" r="18" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="410" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">GND</text>
+  <line x1="328" y1="145" x2="80" y2="100" stroke="#C62828" stroke-width="3"/>
+  <rect x="20" y="75" width="110" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="75" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#C62828">3V3</text>
+  <text x="75" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">→ jumper merah</text>
+  <line x1="428" y1="185" x2="590" y2="200" stroke="#1a1a1a" stroke-width="3"/>
+  <rect x="590" y="175" width="110" height="50" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="645" y="198" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">GND</text>
+  <text x="645" y="218" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">→ jumper hitam</text>
+  <text x="360" y="255" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Hari ini pakai pin 3V3 (bukan GPIO) — LED menyala tanpa program</text>
+  <text x="360" y="272" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Pinout lengkap: <tspan fill="#1565C0">Espressif DevKitC-1</tspan> · Buatan Koding Indonesia</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Sambungkan 3V3 ke rail merah (+) dan GND ke rail biru (-) sebelum pasang LED (buatan Koding Indonesia).</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Diagram sederhana — cari tulisan <strong>3V3</strong> dan <strong>GND</strong> di board fisik kamu. Pinout resmi: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a>.</figcaption>
 </figure>
 SVG;
     }
 
-    private function powerRailSvgEn(): string
+    private function pinoutMiniSvgEn(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Connect 3V3 and GND to breadboard power rails" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 260" width="100%" height="auto" role="img" aria-label="Power rail wiring">
-  <text x="380" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Steps 1-2: power rails first</text>
-  <rect x="40" y="50" width="120" height="160" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="100" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">ESP32</text>
-  <text x="100" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#1565C0">3V3</text>
-  <text x="100" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">GND</text>
-  <rect x="220" y="45" width="28" height="170" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
-  <rect x="258" y="45" width="28" height="170" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="234" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">+</text>
-  <text x="272" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">-</text>
-  <text x="254" y="230" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Power rails</text>
-  <line x1="160" y1="98" x2="220" y2="70" stroke="#C62828" stroke-width="3"/>
-  <text x="175" y="88" font-family="system-ui,sans-serif" font-size="11" fill="#C62828">red</text>
-  <line x1="160" y1="173" x2="258" y2="200" stroke="#1a1a1a" stroke-width="3"/>
-  <text x="175" y="195" font-family="system-ui,sans-serif" font-size="11">black</text>
-  <rect x="360" y="55" width="360" height="150" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="540" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Safety rules</text>
-  <text x="540" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">1. Unplug USB first</text>
-  <text x="540" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">2. + rail = 3V3</text>
-  <text x="540" y="154" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">3. - rail = GND</text>
-  <text x="540" y="176" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">4. Do not swap red/black</text>
-  <text x="380" y="248" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
+<figure role="img" aria-label="3V3 and GND pins on ESP32-DevKitC-1" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" width="100%" height="auto" role="img" aria-label="ESP32 3V3 and GND pins">
+  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Find these 2 pins on your board</text>
+  <rect x="260" y="50" width="200" height="180" rx="10" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="360" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">ESP32-DevKitC-1</text>
+  <text x="360" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">USB at bottom</text>
+  <circle cx="310" cy="145" r="18" fill="#FFCDD2" stroke="#C62828" stroke-width="2.5"/>
+  <text x="310" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">3V3</text>
+  <circle cx="410" cy="185" r="18" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="410" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">GND</text>
+  <line x1="328" y1="145" x2="80" y2="100" stroke="#C62828" stroke-width="3"/>
+  <rect x="20" y="75" width="110" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="75" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#C62828">3V3</text>
+  <text x="75" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">→ red jumper</text>
+  <line x1="428" y1="185" x2="590" y2="200" stroke="#1a1a1a" stroke-width="3"/>
+  <rect x="590" y="175" width="110" height="50" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="645" y="198" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">GND</text>
+  <text x="645" y="218" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">→ black jumper</text>
+  <text x="360" y="255" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Today we use the 3V3 pin (not GPIO) — LED lights with no program</text>
+  <text x="360" y="272" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Full pinout: <tspan fill="#1565C0">Espressif DevKitC-1</tspan> · By Koding Indonesia</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Connect 3V3 to the red (+) rail and GND to the blue (-) rail before adding the LED (by Koding Indonesia).</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Simple diagram — find the labels <strong>3V3</strong> and <strong>GND</strong> on your physical board. Official pinout: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a>.</figcaption>
 </figure>
 SVG;
     }
 
-    private function ledPolaritySvgId(): string
+    private function breadboardSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Polaritas LED di breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="LED polarity on breadboard">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">LED: kaki panjang ke arus, pendek ke GND</text>
+<figure role="img" aria-label="Diagram dalaman breadboard: baris, kolom, dan power rail" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" width="100%" height="auto" role="img" aria-label="Breadboard connections">
+  <rect x="30" y="40" width="36" height="150" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="76" y="40" width="36" height="150" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
+  <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
+  <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kiri</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Satu baris = saling nyambung</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
-    <rect x="120" y="80" width="28" height="28"/><rect x="160" y="80" width="28" height="28"/><rect x="200" y="80" width="28" height="28"/><rect x="240" y="80" width="28" height="28"/><rect x="280" y="80" width="28" height="28"/>
+    <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
+    <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
-  <text x="200" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">baris 15</text>
-  <line x1="134" y1="94" x2="134" y2="130" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <line x1="266" y1="94" x2="266" y2="118" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="200" cy="55" r="22" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="90" y="155" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#2E7D32">panjang (+)</text>
-  <text x="310" y="145" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#C62828">pendek (-)</text>
+  <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Contoh baris A–E (5 lubang)</text>
+  <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">parit</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
-    <rect x="120" y="150" width="28" height="28"/><rect x="160" y="150" width="28" height="28"/><rect x="200" y="150" width="28" height="28"/>
+    <rect x="420" y="50" width="30" height="30"/><rect x="460" y="50" width="30" height="30"/><rect x="500" y="50" width="30" height="30"/><rect x="540" y="50" width="30" height="30"/><rect x="580" y="50" width="30" height="30"/>
+    <rect x="420" y="100" width="30" height="30"/><rect x="460" y="100" width="30" height="30"/><rect x="500" y="100" width="30" height="30"/><rect x="540" y="100" width="30" height="30"/><rect x="580" y="100" width="30" height="30"/>
   </g>
-  <text x="200" y="198" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">baris 16 = kaki pendek LED + jumper ke GND</text>
-  <text x="360" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia</text>
+  <rect x="640" y="40" width="36" height="150" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="686" y="40" width="36" height="150" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
+  <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
+  <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kanan</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Baris berbeda = TIDAK otomatis nyambung · parit memisahkan kiri &amp; kanan</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Kaki panjang (anoda) di baris 15 bersama resistor; kaki pendek (katoda) di baris 16 menuju GND (buatan Koding Indonesia).</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Diagram dalaman breadboard (buatan Koding Indonesia). Rail merah (+) ke 3V3, rail biru (-) ke GND.</figcaption>
 </figure>
 SVG;
     }
 
-    private function ledPolaritySvgEn(): string
+    private function breadboardSvgEn(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="LED polarity on a breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="LED polarity on breadboard">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">LED: long leg toward current, short leg toward GND</text>
+<figure role="img" aria-label="Breadboard internals: rows, columns, and power rails" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 280" width="100%" height="auto" role="img" aria-label="Breadboard connections">
+  <rect x="30" y="40" width="36" height="150" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="76" y="40" width="36" height="150" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
+  <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
+  <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Left power rail</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">One row = connected together</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
-    <rect x="120" y="80" width="28" height="28"/><rect x="160" y="80" width="28" height="28"/><rect x="200" y="80" width="28" height="28"/><rect x="240" y="80" width="28" height="28"/><rect x="280" y="80" width="28" height="28"/>
+    <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
+    <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
-  <text x="200" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">row 15</text>
-  <line x1="134" y1="94" x2="134" y2="130" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <line x1="266" y1="94" x2="266" y2="118" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="200" cy="55" r="22" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="90" y="155" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#2E7D32">long (+)</text>
-  <text x="310" y="145" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#C62828">short (-)</text>
+  <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Example row A–E (5 holes)</text>
+  <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">trench</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
-    <rect x="120" y="150" width="28" height="28"/><rect x="160" y="150" width="28" height="28"/><rect x="200" y="150" width="28" height="28"/>
+    <rect x="420" y="50" width="30" height="30"/><rect x="460" y="50" width="30" height="30"/><rect x="500" y="50" width="30" height="30"/><rect x="540" y="50" width="30" height="30"/><rect x="580" y="50" width="30" height="30"/>
+    <rect x="420" y="100" width="30" height="30"/><rect x="460" y="100" width="30" height="30"/><rect x="500" y="100" width="30" height="30"/><rect x="540" y="100" width="30" height="30"/><rect x="580" y="100" width="30" height="30"/>
   </g>
-  <text x="200" y="198" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">row 16 = LED short leg + jumper to GND</text>
-  <text x="360" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
+  <rect x="640" y="40" width="36" height="150" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="686" y="40" width="36" height="150" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
+  <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
+  <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Right power rail</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Different rows are NOT auto-connected · trench separates left &amp; right</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Long leg (anode) in row 15 with the resistor; short leg (cathode) in row 16 toward GND (by Koding Indonesia).</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Breadboard internals diagram (by Koding Indonesia). Red (+) rail to 3V3, blue (-) rail to GND.</figcaption>
 </figure>
 SVG;
     }
 
-    private function wiringStepsSvgId(): string
+    private function ledSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Lima langkah wiring LED resistor" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="100%" height="auto" role="img" aria-label="Five wiring steps">
-  <text x="380" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Urutan wiring (baris 12 - 15 - 16)</text>
-  <circle cx="44" cy="58" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="63" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">1</text>
-  <text x="72" y="54" font-family="system-ui,sans-serif" font-size="12"><tspan>Jumper rail + ke </tspan><tspan font-weight="700">baris 12</tspan></text>
-  <text x="72" y="72" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Cabut kabel ini untuk matikan LED</text>
-  <circle cx="44" cy="108" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="113" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">2</text>
-  <text x="72" y="104" font-family="system-ui,sans-serif" font-size="12"><tspan>Resistor 220 ohm: kaki 1 </tspan><tspan font-weight="700">baris 12</tspan></text>
-  <text x="72" y="120" font-family="system-ui,sans-serif" font-size="12"><tspan>kaki 2 di </tspan><tspan font-weight="700">baris 15</tspan></text>
-  <circle cx="44" cy="158" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="163" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">3</text>
-  <text x="72" y="154" font-family="system-ui,sans-serif" font-size="12"><tspan>LED panjang di </tspan><tspan font-weight="700">baris 15</tspan></text>
-  <text x="72" y="170" font-family="system-ui,sans-serif" font-size="12"><tspan>LED pendek di </tspan><tspan font-weight="700">baris 16</tspan></text>
-  <circle cx="44" cy="208" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="213" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">4</text>
-  <text x="72" y="208" font-family="system-ui,sans-serif" font-size="12"><tspan>Jumper </tspan><tspan font-weight="700">baris 16</tspan><tspan> ke rail biru (GND)</tspan></text>
-  <circle cx="44" cy="258" r="16" fill="#2E7D32" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="263" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">5</text>
-  <text x="72" y="258" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Colok USB - LED harus menyala</text>
-  <rect x="400" y="48" width="320" height="250" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="560" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Alur listrik</text>
-  <text x="560" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">3V3 - R - LED - GND</text>
-  <line x1="430" y1="135" x2="690" y2="135" stroke="#1565C0" stroke-width="2.5"/>
-  <text x="560" y="162" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">baris 12 - 15 - 16</text>
-  <text x="560" y="195" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">Matikan: cabut jumper</text>
-  <text x="560" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">baris 12 dari rail +</text>
-  <text x="560" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#C62828">Jangan tukar merah/hitam</text>
-  <text x="380" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia</text>
+<figure role="img" aria-label="LED: kaki panjang anode dan kaki pendek katode" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="100%" height="auto" role="img" aria-label="LED polarity">
+  <text x="200" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">LED 5mm</text>
+  <circle cx="200" cy="85" r="48" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="152" y="85" width="96" height="26" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="165" y1="111" x2="165" y2="165" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="235" y1="111" x2="235" y2="148" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <text x="95" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">← kaki panjang</text>
+  <text x="95" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#2E7D32">= + (anode)</text>
+  <text x="305" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">kaki pendek →</text>
+  <text x="305" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#C62828">= − (katode)</text>
+  <rect x="400" y="50" width="290" height="130" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="545" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Resistor 220Ω</text>
+  <text x="545" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#4A5568">kaki panjang LED ke baris 15</text>
+  <text x="545" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#4A5568">kaki pendek LED ke baris 16</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Lima langkah wiring yang kita ikuti hari ini — nomor baris boleh digeser asal urutan sama (buatan Koding Indonesia).</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Polaritas LED — cocokkan sebelum dicolok ke breadboard (buatan Koding Indonesia).</figcaption>
 </figure>
 SVG;
     }
 
-    private function wiringStepsSvgEn(): string
+    private function ledSvgEn(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Five LED resistor wiring steps" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 360" width="100%" height="auto" role="img" aria-label="Five wiring steps">
-  <text x="380" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Wiring order (rows 12 - 15 - 16)</text>
-  <circle cx="44" cy="58" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="63" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">1</text>
-  <text x="72" y="54" font-family="system-ui,sans-serif" font-size="12"><tspan>Jumper + rail to </tspan><tspan font-weight="700">row 12</tspan></text>
-  <text x="72" y="72" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Unplug this wire to turn LED off</text>
-  <circle cx="44" cy="108" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="113" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">2</text>
-  <text x="72" y="104" font-family="system-ui,sans-serif" font-size="12"><tspan>220 ohm resistor: leg 1 </tspan><tspan font-weight="700">row 12</tspan></text>
-  <text x="72" y="120" font-family="system-ui,sans-serif" font-size="12"><tspan>leg 2 in </tspan><tspan font-weight="700">row 15</tspan></text>
-  <circle cx="44" cy="158" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="163" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">3</text>
-  <text x="72" y="154" font-family="system-ui,sans-serif" font-size="12"><tspan>LED long leg in </tspan><tspan font-weight="700">row 15</tspan></text>
-  <text x="72" y="170" font-family="system-ui,sans-serif" font-size="12"><tspan>LED short leg in </tspan><tspan font-weight="700">row 16</tspan></text>
-  <circle cx="44" cy="208" r="16" fill="#1565C0" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="213" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">4</text>
-  <text x="72" y="208" font-family="system-ui,sans-serif" font-size="12"><tspan>Jumper </tspan><tspan font-weight="700">row 16</tspan><tspan> to blue rail (GND)</tspan></text>
-  <circle cx="44" cy="258" r="16" fill="#2E7D32" stroke="#1a1a1a" stroke-width="2"/><text x="44" y="263" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="13" font-weight="700">5</text>
-  <text x="72" y="258" font-family="system-ui,sans-serif" font-size="12" font-weight="700">Plug USB - LED should light</text>
-  <rect x="400" y="48" width="320" height="250" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="560" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Current path</text>
-  <text x="560" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">3V3 - R - LED - GND</text>
-  <line x1="430" y1="135" x2="690" y2="135" stroke="#1565C0" stroke-width="2.5"/>
-  <text x="560" y="162" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">rows 12 - 15 - 16</text>
-  <text x="560" y="195" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">Turn off: unplug jumper</text>
-  <text x="560" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">from row 12 to + rail</text>
-  <text x="560" y="250" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#C62828">Do not swap red/black</text>
-  <text x="380" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
+<figure role="img" aria-label="LED: long anode leg and short cathode leg" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="100%" height="auto" role="img" aria-label="LED polarity">
+  <text x="200" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">5mm LED</text>
+  <circle cx="200" cy="85" r="48" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="152" y="85" width="96" height="26" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="165" y1="111" x2="165" y2="165" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="235" y1="111" x2="235" y2="148" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <text x="95" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">← long leg</text>
+  <text x="95" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#2E7D32">= + (anode)</text>
+  <text x="305" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">short leg →</text>
+  <text x="305" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#C62828">= − (cathode)</text>
+  <rect x="400" y="50" width="290" height="130" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="545" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">220Ω resistor</text>
+  <text x="545" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#4A5568">long LED leg in row 15</text>
+  <text x="545" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#4A5568">short LED leg in row 16</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Five wiring steps for today — row numbers can shift as long as the order stays the same (by Koding Indonesia).</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">LED polarity — match this before plugging into the breadboard (by Koding Indonesia).</figcaption>
 </figure>
 SVG;
     }
 
-    private function fullCircuitSvgId(): string
+    private function currentFlowSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Rangkaian lengkap LED resistor di breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" width="100%" height="auto" role="img" aria-label="Full circuit">
-  <text x="360" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Rangkaian lengkap (tanpa coding)</text>
-  <line x1="50" y1="120" x2="130" y2="120" stroke="#1565C0" stroke-width="3"/>
-  <text x="90" y="105" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">3V3</text>
-  <rect x="130" y="102" width="60" height="36" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="160" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">220R</text>
-  <line x1="190" y1="120" x2="260" y2="120" stroke="#1565C0" stroke-width="3"/>
-  <polygon points="270,105 270,135 295,120" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="295" y1="120" x2="380" y2="120" stroke="#1565C0" stroke-width="3"/>
-  <line x1="380" y1="120" x2="380" y2="170" stroke="#1565C0" stroke-width="3"/>
-  <line x1="380" y1="170" x2="50" y2="170" stroke="#1565C0" stroke-width="3"/>
-  <line x1="50" y1="170" x2="50" y2="120" stroke="#1565C0" stroke-width="3"/>
-  <text x="380" y="195" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">GND</text>
-  <text x="230" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">LED ~2V drop</text>
-  <text x="360" y="225" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — pin 3V3, bukan GPIO</text>
+<figure role="img" aria-label="Alur listrik 3V3 ke GND melalui resistor dan LED" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 120" width="100%" height="auto" role="img" aria-label="Current flow">
+  <text x="360" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Alur listrik (gambaran sederhana)</text>
+  <rect x="30" y="45" width="70" height="40" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="65" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">3V3</text>
+  <line x1="100" y1="65" x2="140" y2="65" stroke="#1565C0" stroke-width="3" marker-end="url(#arr)"/>
+  <rect x="140" y="45" width="70" height="40" rx="6" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">220R</text>
+  <line x1="210" y1="65" x2="250" y2="65" stroke="#1565C0" stroke-width="3"/>
+  <polygon points="260,50 260,80 290,65" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="290" y1="65" x2="330" y2="65" stroke="#1565C0" stroke-width="3"/>
+  <rect x="330" y="45" width="70" height="40" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="365" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">GND</text>
+  <text x="360" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Di breadboard: baris 12 → 15 → 16 · Buatan Koding Indonesia</text>
+  <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565C0"/></marker></defs>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Alur listrik: 3V3 → resistor 220 ohm → LED → GND. Nanti di modul coding kita ganti 3V3 dengan GPIO (buatan Koding Indonesia).</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Alur listrik yang akan kamu rakit: <strong>3V3 → resistor 220Ω → LED → GND</strong>. Diagram breadboard lengkap ada di bawah.</figcaption>
 </figure>
 SVG;
     }
 
-    private function fullCircuitSvgEn(): string
+    private function currentFlowSvgEn(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Full LED resistor circuit on breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" width="100%" height="auto" role="img" aria-label="Full circuit">
-  <text x="360" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Full circuit (no code)</text>
-  <line x1="50" y1="120" x2="130" y2="120" stroke="#1565C0" stroke-width="3"/>
-  <text x="90" y="105" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">3V3</text>
-  <rect x="130" y="102" width="60" height="36" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="160" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">220R</text>
-  <line x1="190" y1="120" x2="260" y2="120" stroke="#1565C0" stroke-width="3"/>
-  <polygon points="270,105 270,135 295,120" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="295" y1="120" x2="380" y2="120" stroke="#1565C0" stroke-width="3"/>
-  <line x1="380" y1="120" x2="380" y2="170" stroke="#1565C0" stroke-width="3"/>
-  <line x1="380" y1="170" x2="50" y2="170" stroke="#1565C0" stroke-width="3"/>
-  <line x1="50" y1="170" x2="50" y2="120" stroke="#1565C0" stroke-width="3"/>
-  <text x="380" y="195" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">GND</text>
-  <text x="230" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">LED ~2V drop</text>
-  <text x="360" y="225" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — 3V3 pin, not GPIO</text>
+<figure role="img" aria-label="Current flow from 3V3 to GND through resistor and LED" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 120" width="100%" height="auto" role="img" aria-label="Current flow">
+  <text x="360" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Current path (simple view)</text>
+  <rect x="30" y="45" width="70" height="40" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="65" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">3V3</text>
+  <line x1="100" y1="65" x2="140" y2="65" stroke="#1565C0" stroke-width="3" marker-end="url(#arr2)"/>
+  <rect x="140" y="45" width="70" height="40" rx="6" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="175" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">220R</text>
+  <line x1="210" y1="65" x2="250" y2="65" stroke="#1565C0" stroke-width="3"/>
+  <polygon points="260,50 260,80 290,65" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="290" y1="65" x2="330" y2="65" stroke="#1565C0" stroke-width="3"/>
+  <rect x="330" y="45" width="70" height="40" rx="6" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="365" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">GND</text>
+  <text x="360" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">On breadboard: rows 12 → 15 → 16 · By Koding Indonesia</text>
+  <defs><marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#1565C0"/></marker></defs>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Current path: 3V3 → 220 ohm resistor → LED → GND. In a later coding module we swap 3V3 for GPIO (by Koding Indonesia).</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">The path you will build: <strong>3V3 → 220Ω resistor → LED → GND</strong>. Full breadboard diagram below.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function mainWiringSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Diagram wiring lengkap LED resistor di breadboard baris 12 15 16" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" width="100%" height="auto" role="img" aria-label="Full breadboard wiring">
+  <text x="460" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" font-weight="700">Gambar utama — ikuti nomor ①–⑥</text>
+  <rect x="30" y="55" width="110" height="200" rx="8" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="85" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">ESP32</text>
+  <circle cx="85" cy="120" r="14" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
+  <text x="85" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700">3V3</text>
+  <circle cx="85" cy="200" r="14" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="85" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700">GND</text>
+  <rect x="170" y="45" width="700" height="380" rx="10" fill="#FAFAFA" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="185" y="60" width="24" height="350" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="215" y="60" width="24" height="350" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="197" y="55" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">+</text>
+  <text x="227" y="55" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">−</text>
+  <rect x="280" y="175" width="520" height="18" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="540" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#4A5568">parit (kiri &amp; kanan tidak nyambung)</text>
+  <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.2">
+    <rect x="300" y="95" width="22" height="22"/><rect x="330" y="95" width="22" height="22"/><rect x="360" y="95" width="22" height="22"/><rect x="390" y="95" width="22" height="22"/><rect x="420" y="95" width="22" height="22"/>
+    <rect x="300" y="210" width="22" height="22"/><rect x="330" y="210" width="22" height="22"/><rect x="360" y="210" width="22" height="22"/><rect x="390" y="210" width="22" height="22"/><rect x="420" y="210" width="22" height="22"/>
+    <rect x="300" y="250" width="22" height="22"/><rect x="330" y="250" width="22" height="22"/><rect x="360" y="250" width="22" height="22"/><rect x="390" y="250" width="22" height="22"/><rect x="420" y="250" width="22" height="22"/>
+    <rect x="300" y="290" width="22" height="22"/><rect x="330" y="290" width="22" height="22"/><rect x="360" y="290" width="22" height="22"/><rect x="390" y="290" width="22" height="22"/><rect x="420" y="290" width="22" height="22"/>
+  </g>
+  <rect x="292" y="87" width="158" height="38" fill="#FFF3E0" stroke="#E65100" stroke-width="2" rx="4" opacity="0.85"/>
+  <text x="270" y="112" text-anchor="end" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#E65100">baris 12</text>
+  <rect x="292" y="242" width="158" height="38" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="4" opacity="0.85"/>
+  <text x="270" y="267" text-anchor="end" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#2E7D32">baris 15</text>
+  <rect x="292" y="282" width="158" height="38" fill="#FFEBEE" stroke="#C62828" stroke-width="2" rx="4" opacity="0.85"/>
+  <text x="270" y="307" text-anchor="end" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#C62828">baris 16</text>
+  <line x1="99" y1="120" x2="185" y2="120" stroke="#C62828" stroke-width="4"/>
+  <line x1="185" y1="120" x2="197" y2="90" stroke="#C62828" stroke-width="4"/>
+  <circle cx="175" cy="108" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="112" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">①</text>
+  <line x1="197" y1="90" x2="311" y2="106" stroke="#C62828" stroke-width="4"/>
+  <circle cx="470" cy="106" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="470" y="110" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">②</text>
+  <line x1="311" y1="106" x2="311" y2="261" stroke="#FF8F00" stroke-width="4"/>
+  <rect x="295" y="248" width="70" height="26" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="330" y="266" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">220Ω</text>
+  <circle cx="400" cy="261" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="400" y="265" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">③</text>
+  <line x1="365" y1="261" x2="365" y2="301" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="385" y1="261" x2="385" y2="285" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="385" cy="255" r="16" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="420" y="275" font-family="system-ui,sans-serif" font-size="10" fill="#2E7D32">panjang</text>
+  <text x="420" y="305" font-family="system-ui,sans-serif" font-size="10" fill="#C62828">pendek</text>
+  <circle cx="470" cy="301" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="470" y="305" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">④</text>
+  <line x1="385" y1="301" x2="227" y2="340" stroke="#1a1a1a" stroke-width="4"/>
+  <circle cx="520" cy="340" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="520" y="344" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">⑤</text>
+  <line x1="99" y1="200" x2="185" y2="200" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="185" y1="200" x2="227" y2="340" stroke="#1a1a1a" stroke-width="4"/>
+  <rect x="560" y="70" width="290" height="340" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="705" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Urutan wiring</text>
+  <text x="580" y="130" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">①</tspan> 3V3 → rail merah (+)</text>
+  <text x="580" y="152" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">②</tspan> GND → rail biru (−)</text>
+  <text x="580" y="174" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">③</tspan> Rail + → <tspan font-weight="700">baris 12</tspan> (jumper)</text>
+  <text x="580" y="196" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">④</tspan> Resistor <tspan font-weight="700">12 → 15</tspan></text>
+  <text x="580" y="218" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">⑤</tspan> LED panjang <tspan font-weight="700">15</tspan>, pendek <tspan font-weight="700">16</tspan></text>
+  <text x="580" y="240" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">⑥</tspan> <tspan font-weight="700">Baris 16</tspan> → rail biru</text>
+  <text x="705" y="275" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Matikan LED: cabut jumper</text>
+  <text x="705" y="295" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">baris 12 dari rail +</text>
+  <text x="705" y="330" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1565C0">3V3 → 220R → LED → GND</text>
+  <circle cx="705" cy="370" r="14" fill="#2E7D32" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="705" y="375" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="12" font-weight="700">⑥</text>
+  <text x="705" y="400" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Colok USB → LED menyala</text>
+  <text x="460" y="505" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — nomor baris boleh digeser, urutan harus sama</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;"><strong>Gambar utama</strong> — satu diagram untuk semua wiring. Ikuti nomor ①–⑥; baris 12/15/16 boleh digeser asal urutan sama (buatan Koding Indonesia).</figcaption>
+</figure>
+SVG;
+    }
+
+    private function mainWiringSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Full LED resistor breadboard wiring diagram rows 12 15 16" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" width="100%" height="auto" role="img" aria-label="Full breadboard wiring">
+  <text x="460" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="17" font-weight="700">Main diagram — follow steps ①–⑥</text>
+  <rect x="30" y="55" width="110" height="200" rx="8" fill="#ECEFF1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="85" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">ESP32</text>
+  <circle cx="85" cy="120" r="14" fill="#FFCDD2" stroke="#C62828" stroke-width="2"/>
+  <text x="85" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700">3V3</text>
+  <circle cx="85" cy="200" r="14" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="85" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700">GND</text>
+  <rect x="170" y="45" width="700" height="380" rx="10" fill="#FAFAFA" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="185" y="60" width="24" height="350" fill="#FFCDD2" stroke="#1a1a1a" stroke-width="1.5"/>
+  <rect x="215" y="60" width="24" height="350" fill="#BBDEFB" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="197" y="55" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">+</text>
+  <text x="227" y="55" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">−</text>
+  <rect x="280" y="175" width="520" height="18" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="540" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#4A5568">trench (left &amp; right not connected)</text>
+  <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.2">
+    <rect x="300" y="95" width="22" height="22"/><rect x="330" y="95" width="22" height="22"/><rect x="360" y="95" width="22" height="22"/><rect x="390" y="95" width="22" height="22"/><rect x="420" y="95" width="22" height="22"/>
+    <rect x="300" y="210" width="22" height="22"/><rect x="330" y="210" width="22" height="22"/><rect x="360" y="210" width="22" height="22"/><rect x="390" y="210" width="22" height="22"/><rect x="420" y="210" width="22" height="22"/>
+    <rect x="300" y="250" width="22" height="22"/><rect x="330" y="250" width="22" height="22"/><rect x="360" y="250" width="22" height="22"/><rect x="390" y="250" width="22" height="22"/><rect x="420" y="250" width="22" height="22"/>
+    <rect x="300" y="290" width="22" height="22"/><rect x="330" y="290" width="22" height="22"/><rect x="360" y="290" width="22" height="22"/><rect x="390" y="290" width="22" height="22"/><rect x="420" y="290" width="22" height="22"/>
+  </g>
+  <rect x="292" y="87" width="158" height="38" fill="#FFF3E0" stroke="#E65100" stroke-width="2" rx="4" opacity="0.85"/>
+  <text x="270" y="112" text-anchor="end" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#E65100">row 12</text>
+  <rect x="292" y="242" width="158" height="38" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2" rx="4" opacity="0.85"/>
+  <text x="270" y="267" text-anchor="end" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#2E7D32">row 15</text>
+  <rect x="292" y="282" width="158" height="38" fill="#FFEBEE" stroke="#C62828" stroke-width="2" rx="4" opacity="0.85"/>
+  <text x="270" y="307" text-anchor="end" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#C62828">row 16</text>
+  <line x1="99" y1="120" x2="185" y2="120" stroke="#C62828" stroke-width="4"/>
+  <line x1="185" y1="120" x2="197" y2="90" stroke="#C62828" stroke-width="4"/>
+  <circle cx="175" cy="108" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="175" y="112" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">①</text>
+  <line x1="197" y1="90" x2="311" y2="106" stroke="#C62828" stroke-width="4"/>
+  <circle cx="470" cy="106" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="470" y="110" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">②</text>
+  <line x1="311" y1="106" x2="311" y2="261" stroke="#FF8F00" stroke-width="4"/>
+  <rect x="295" y="248" width="70" height="26" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="330" y="266" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">220Ω</text>
+  <circle cx="400" cy="261" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="400" y="265" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">③</text>
+  <line x1="365" y1="261" x2="365" y2="301" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <line x1="385" y1="261" x2="385" y2="285" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="385" cy="255" r="16" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="420" y="275" font-family="system-ui,sans-serif" font-size="10" fill="#2E7D32">long</text>
+  <text x="420" y="305" font-family="system-ui,sans-serif" font-size="10" fill="#C62828">short</text>
+  <circle cx="470" cy="301" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="470" y="305" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">④</text>
+  <line x1="385" y1="301" x2="227" y2="340" stroke="#1a1a1a" stroke-width="4"/>
+  <circle cx="520" cy="340" r="12" fill="#1565C0" stroke="#1a1a1a" stroke-width="1.5"/>
+  <text x="520" y="344" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="11" font-weight="700">⑤</text>
+  <line x1="99" y1="200" x2="185" y2="200" stroke="#1a1a1a" stroke-width="4"/>
+  <line x1="185" y1="200" x2="227" y2="340" stroke="#1a1a1a" stroke-width="4"/>
+  <rect x="560" y="70" width="290" height="340" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="705" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Wiring order</text>
+  <text x="580" y="130" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">①</tspan> 3V3 → red (+) rail</text>
+  <text x="580" y="152" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">②</tspan> GND → blue (−) rail</text>
+  <text x="580" y="174" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">③</tspan> + rail → <tspan font-weight="700">row 12</tspan> (jumper)</text>
+  <text x="580" y="196" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">④</tspan> Resistor <tspan font-weight="700">12 → 15</tspan></text>
+  <text x="580" y="218" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">⑤</tspan> LED long <tspan font-weight="700">15</tspan>, short <tspan font-weight="700">16</tspan></text>
+  <text x="580" y="240" font-family="system-ui,sans-serif" font-size="12"><tspan font-weight="700">⑥</tspan> <tspan font-weight="700">Row 16</tspan> → blue rail</text>
+  <text x="705" y="275" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Turn off: unplug jumper</text>
+  <text x="705" y="295" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">from row 12 to + rail</text>
+  <text x="705" y="330" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1565C0">3V3 → 220R → LED → GND</text>
+  <circle cx="705" cy="370" r="14" fill="#2E7D32" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="705" y="375" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="12" font-weight="700">⑥</text>
+  <text x="705" y="400" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Plug USB → LED lights</text>
+  <text x="460" y="505" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — row numbers can shift, order must stay the same</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;"><strong>Main diagram</strong> — one image for all wiring. Follow steps ①–⑥; rows 12/15/16 can shift as long as the order stays the same (by Koding Indonesia).</figcaption>
 </figure>
 SVG;
     }
@@ -462,14 +532,12 @@ SVG;
     {
         $bb = $this->breadboardFigureId();
         $jump = $this->jumperFigureId();
-        $led = $this->ledFigureId();
-        $res = $this->resistorFigureId();
-        $pin = $this->pinoutFigureId();
-        $rail = $this->powerRailSvgId();
-        $pol = $this->ledPolaritySvgId();
-        $steps = $this->wiringStepsSvgId();
-        $circuit = $this->fullCircuitSvgId();
-        $real = $this->realWiringFigureId();
+        $ledRes = $this->ledResistorFigureId();
+        $pin = $this->pinoutMiniSvgId();
+        $breadSvg = $this->breadboardSvgId();
+        $flow = $this->currentFlowSvgId();
+        $main = $this->mainWiringSvgId();
+        $ledSvg = $this->ledSvgId();
 
         return <<<HTML
 <h2>Pendahuluan — LED menyala tanpa coding?</h2>
@@ -501,21 +569,21 @@ SVG;
 
 {$bb}
 {$jump}
-{$led}
-{$res}
+{$ledRes}
 {$pin}
 
 <h2>Kenali power rail breadboard</h2>
 <p>Power rail = jalur listrik di tepi breadboard. Rail <strong>merah (+)</strong> kita hubungkan ke <strong>3V3</strong>. Rail <strong>biru (-)</strong> ke <strong>GND</strong>.</p>
 <p><strong>Awam:</strong> bayangkan rail seperti pipa air utama — jumper ke baris tengah seperti cabang pipa ke kran.</p>
-{$rail}
+{$breadSvg}
 
 <h2>Rangkaian yang akan dibuat</h2>
 <p>Alur listrik: <strong>3V3 → resistor 220Ω → LED → GND</strong>. Resistor melindungi LED; polaritas LED harus benar.</p>
-{$circuit}
+{$flow}
+{$main}
 
 <h2>Wiring step-by-step</h2>
-<p><strong>Awam:</strong> nomor baris (12, 15, 16) boleh digeser — yang penting <strong>urutan</strong> sama. Tulis nomor baris di kertas jika perlu.</p>
+<p><strong>Awam:</strong> ikuti <strong>gambar utama</strong> di atas (nomor ①–⑥). Nomor baris (12, 15, 16) boleh digeser — yang penting <strong>urutan</strong> sama.</p>
 <ol>
 <li><strong>Power rail:</strong> jumper merah dari pin <strong>3V3</strong> ESP32 ke rail merah (+). Jumper hitam dari <strong>GND</strong> ke rail biru (-).</li>
 <li><strong>Baris 12:</strong> jumper dari rail merah (+) ke satu lubang di baris 12. <em>Ini kabel yang nanti dicabut untuk mematikan LED.</em></li>
@@ -526,9 +594,7 @@ SVG;
 <li><strong>Colok USB</strong> — LED harus menyala lembut/terang.</li>
 <li><strong>Latihan matikan:</strong> cabut jumper baris 12 dari rail + — LED padam. Pasang lagi — menyala.</li>
 </ol>
-{$pol}
-{$steps}
-{$real}
+{$ledSvg}
 
 <h2 id="fsiot-led-circuit-checklist">Praktik — checklist rangkaian LED</h2>
 <p>Centang setiap langkah setelah kamu lakukan di meja. Target: <strong>10/10</strong>. Ada checklist interaktif di bawah; versi kertas tetap tersedia.</p>
@@ -566,14 +632,12 @@ HTML;
     {
         $bb = $this->breadboardFigureEn();
         $jump = $this->jumperFigureEn();
-        $led = $this->ledFigureEn();
-        $res = $this->resistorFigureEn();
-        $pin = $this->pinoutFigureEn();
-        $rail = $this->powerRailSvgEn();
-        $pol = $this->ledPolaritySvgEn();
-        $steps = $this->wiringStepsSvgEn();
-        $circuit = $this->fullCircuitSvgEn();
-        $real = $this->realWiringFigureEn();
+        $ledRes = $this->ledResistorFigureEn();
+        $pin = $this->pinoutMiniSvgEn();
+        $breadSvg = $this->breadboardSvgEn();
+        $flow = $this->currentFlowSvgEn();
+        $main = $this->mainWiringSvgEn();
+        $ledSvg = $this->ledSvgEn();
 
         return <<<HTML
 <h2>Introduction — an LED without code?</h2>
@@ -605,21 +669,21 @@ HTML;
 
 {$bb}
 {$jump}
-{$led}
-{$res}
+{$ledRes}
 {$pin}
 
 <h2>Know the breadboard power rails</h2>
 <p>Power rails are the supply strips on the breadboard edges. The <strong>red (+)</strong> rail connects to <strong>3V3</strong>. The <strong>blue (-)</strong> rail to <strong>GND</strong>.</p>
 <p><strong>Beginner:</strong> think of rails as main water pipes — jumpers to middle rows are branches to taps.</p>
-{$rail}
+{$breadSvg}
 
 <h2>The circuit we will build</h2>
 <p>Current path: <strong>3V3 → 220Ω resistor → LED → GND</strong>. The resistor protects the LED; LED polarity must be correct.</p>
-{$circuit}
+{$flow}
+{$main}
 
 <h2>Step-by-step wiring</h2>
-<p><strong>Beginner:</strong> row numbers (12, 15, 16) can shift — keep the <strong>order</strong> the same. Write row numbers on paper if needed.</p>
+<p><strong>Beginner:</strong> follow the <strong>main diagram</strong> above (steps ①–⑥). Row numbers (12, 15, 16) can shift — keep the <strong>order</strong> the same.</p>
 <ol>
 <li><strong>Power rails:</strong> red jumper from ESP32 <strong>3V3</strong> to red (+) rail. Black jumper from <strong>GND</strong> to blue (-) rail.</li>
 <li><strong>Row 12:</strong> jumper from red (+) rail to one hole in row 12. <em>This wire gets unplugged to turn the LED off.</em></li>
@@ -630,9 +694,7 @@ HTML;
 <li><strong>Plug USB</strong> — the LED should glow.</li>
 <li><strong>Turn-off practice:</strong> unplug the row-12 jumper from the + rail — LED off. Plug back — on.</li>
 </ol>
-{$pol}
-{$steps}
-{$real}
+{$ledSvg}
 
 <h2 id="fsiot-led-circuit-checklist">Practice — LED circuit checklist</h2>
 <p>Tick each step after you do it on the desk. Target: <strong>10/10</strong>. An interactive checklist is below; a paper version stays available.</p>
