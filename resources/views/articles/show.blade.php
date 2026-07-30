@@ -544,6 +544,8 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotSafetyChecklist();
     initFsiotSetupChecklist();
     initFsiotMultimeterChecklist();
+    initFsiotResistorCalc();
+    initFsiotElectricChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1353,6 +1355,170 @@ function initFsiotChecklistWidget(cfg) {
     });
 
     updateProgress();
+}
+
+function initFsiotResistorCalc() {
+    const labels = {
+        badge: @js(__('ui.articles.fsiot_rc_badge')),
+        hint: @js(__('ui.articles.fsiot_rc_hint')),
+        supply: @js(__('ui.articles.fsiot_rc_label_supply')),
+        vled: @js(__('ui.articles.fsiot_rc_label_vled')),
+        current: @js(__('ui.articles.fsiot_rc_label_current')),
+        calc: @js(__('ui.articles.fsiot_rc_calc')),
+        retry: @js(__('ui.articles.fsiot_rc_retry')),
+        result: @js(__('ui.articles.fsiot_rc_result')),
+        pass: @js(__('ui.articles.fsiot_rc_pass')),
+        invalid: @js(__('ui.articles.fsiot_rc_invalid')),
+    };
+
+    const content = document.getElementById('article-content');
+    if (!content) return;
+
+    const root = content.querySelector('#fsiot-resistor-calc-root');
+    if (!root) return;
+
+    const lang = (document.documentElement.lang || 'id').slice(0, 2);
+    const storageKey = `fsiot-rc-78:${lang}`;
+
+    let saved = {};
+    try {
+        saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+    } catch (_) {
+        saved = {};
+    }
+
+    const widget = document.createElement('div');
+    widget.className = 'fsiot-match-quiz fsiot-resistor-calc';
+    widget.setAttribute('role', 'region');
+    widget.setAttribute('aria-label', labels.badge);
+
+    const head = document.createElement('div');
+    head.className = 'fsiot-match-quiz__head';
+    head.innerHTML = `<span class="fsiot-match-quiz__badge">${labels.badge}</span><p class="fsiot-match-quiz__hint"></p>`;
+    head.querySelector('.fsiot-match-quiz__hint').textContent = labels.hint;
+
+    const body = document.createElement('div');
+    body.className = 'fsiot-match-quiz__body fsiot-resistor-calc__grid';
+
+    function field(label, id, value, step) {
+        const wrap = document.createElement('label');
+        wrap.className = 'fsiot-resistor-calc__field';
+        wrap.htmlFor = id;
+        const span = document.createElement('span');
+        span.textContent = label;
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.id = id;
+        input.className = 'fsiot-resistor-calc__input';
+        input.step = step || '0.1';
+        input.min = '0';
+        input.value = value;
+        wrap.appendChild(span);
+        wrap.appendChild(input);
+        return { wrap, input };
+    }
+
+    const fSupply = field(labels.supply, 'fsiot-rc-supply', saved.vs ?? '3.3', '0.1');
+    const fVled = field(labels.vled, 'fsiot-rc-vled', saved.vl ?? '2.0', '0.1');
+    const fI = field(labels.current, 'fsiot-rc-i', saved.im ?? '10', '1');
+
+    body.appendChild(fSupply.wrap);
+    body.appendChild(fVled.wrap);
+    body.appendChild(fI.wrap);
+
+    const actions = document.createElement('div');
+    actions.className = 'fsiot-match-quiz__actions';
+    const calcBtn = document.createElement('button');
+    calcBtn.type = 'button';
+    calcBtn.className = 'fsiot-match-quiz__btn fsiot-match-quiz__btn--primary';
+    calcBtn.textContent = labels.calc;
+    const retryBtn = document.createElement('button');
+    retryBtn.type = 'button';
+    retryBtn.className = 'fsiot-match-quiz__btn';
+    retryBtn.textContent = labels.retry;
+    actions.appendChild(calcBtn);
+    actions.appendChild(retryBtn);
+
+    const result = document.createElement('p');
+    result.className = 'fsiot-match-quiz__result';
+    result.setAttribute('aria-live', 'polite');
+
+    widget.appendChild(head);
+    widget.appendChild(body);
+    widget.appendChild(actions);
+    widget.appendChild(result);
+    root.appendChild(widget);
+
+    function persist() {
+        localStorage.setItem(storageKey, JSON.stringify({
+            vs: fSupply.input.value,
+            vl: fVled.input.value,
+            im: fI.input.value,
+        }));
+    }
+
+    [fSupply.input, fVled.input, fI.input].forEach(inp => inp.addEventListener('input', persist));
+
+    function pickStandard(r) {
+        if (r > 280) return '330';
+        return '220';
+    }
+
+    calcBtn.addEventListener('click', () => {
+        const vs = parseFloat(fSupply.input.value);
+        const vl = parseFloat(fVled.input.value);
+        const im = parseFloat(fI.input.value);
+        result.className = 'fsiot-match-quiz__result';
+        if (!Number.isFinite(vs) || !Number.isFinite(vl) || !Number.isFinite(im) || im <= 0 || vs <= vl) {
+            result.classList.add('is-warn');
+            result.textContent = labels.invalid;
+            return;
+        }
+        const i = im / 1000;
+        const vRem = vs - vl;
+        const r = Math.round((vRem / i) * 10) / 10;
+        const pick = pickStandard(r);
+        result.classList.add(r >= 100 && r <= 200 ? 'is-pass' : 'is-warn');
+        result.textContent = labels.result
+            .replace(':r', String(r))
+            .replace(':vrem', String(Math.round(vRem * 100) / 100))
+            .replace(':pick', pick);
+        if (r >= 100 && r <= 200) {
+            result.textContent += ' ' + labels.pass;
+        }
+        persist();
+    });
+
+    retryBtn.addEventListener('click', () => {
+        fSupply.input.value = '3.3';
+        fVled.input.value = '2.0';
+        fI.input.value = '10';
+        result.className = 'fsiot-match-quiz__result';
+        result.textContent = '';
+        persist();
+    });
+}
+
+function initFsiotElectricChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-electric-checklist',
+        listId: 'fsiot-electric-checklist-items',
+        storagePrefix: 'fsiot-cl-78',
+        idPrefix: 'fsiot-el',
+        minItems: 8,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_el_badge')),
+            hint: @js(__('ui.articles.fsiot_el_hint')),
+            check: @js(__('ui.articles.fsiot_el_check')),
+            retry: @js(__('ui.articles.fsiot_el_retry')),
+            paper: @js(__('ui.articles.fsiot_el_paper')),
+            progress: @js(__('ui.articles.fsiot_el_progress')),
+            pass: @js(__('ui.articles.fsiot_el_pass')),
+            incomplete: @js(__('ui.articles.fsiot_el_incomplete')),
+            done: @js(__('ui.articles.fsiot_el_done')),
+            todo: @js(__('ui.articles.fsiot_el_todo')),
+        },
+    });
 }
 </script>
 @endpush
