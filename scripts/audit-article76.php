@@ -46,7 +46,7 @@ check('EN self-ref #76 (this article)', str_contains($en, '#76 (this article)'))
 check('ID Awam >= 5', substr_count($id, 'Awam:') + substr_count($id, 'Awam —') >= 5);
 check('EN Beginner >= 5', substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —') >= 5);
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 4', substr_count($id, '<figure') >= 4 && substr_count($en, '<figure') >= 4);
+check('figures both >= 5', substr_count($id, '<figure') >= 5 && substr_count($en, '<figure') >= 5);
 
 check('ID Persiapan tools-first', str_contains($id, 'Persiapan') && str_contains($id, 'Arduino IDE'));
 check('EN Preparation tools-first', str_contains($en, 'Preparation') && str_contains($en, 'Arduino IDE'));
@@ -61,7 +61,8 @@ check('CP210x driver link', str_contains($id, 'silabs.com') && str_contains($en,
 check('CH340 driver link', str_contains($id, 'wch-ic.com') && str_contains($en, 'wch-ic.com'));
 check('charge-only mention', str_contains($id, 'charge-only') && str_contains($en, 'charge-only'));
 check('overview image + Espressif', str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'Espressif'));
-check('SVG workflow + chip + menu', str_contains($id, 'Alur hari ini') && str_contains($id, 'CP2102') && str_contains($id, 'Tools → Board'));
+check('SVG workflow + chip + menu + devmgr', str_contains($id, 'Alur hari ini') && str_contains($id, 'CP2102') && str_contains($id, 'Tools → Board') && str_contains($id, 'devmgmt.msc'));
+check('overview eager load', str_contains($id, 'loading="eager"') && str_contains($en, 'loading="eager"'));
 check('no tspan in SVG', ! str_contains($id, '<tspan') && ! str_contains($en, '<tspan'));
 
 check('checklist markers', str_contains($id, 'id="fsiot-setup-checklist"') && str_contains($id, 'id="fsiot-setup-checklist-items"'));

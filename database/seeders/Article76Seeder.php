@@ -72,7 +72,7 @@ class Article76Seeder extends Seeder
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Foto overview board ESP32-DevKitC — cari chip USB di dekat port micro-USB" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Foto overview ESP32-DevKitC — cari chip berlabel (4) USB-to-UART Bridge" loading="eager" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     Cari chip kecil berlabel <strong>(4) USB-to-UART Bridge</strong> di foto — tulisan di chip biasanya <strong>CP2102</strong> atau <strong>CH340</strong>. Itu penentu driver yang kamu unduh.
     <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (dokumen resmi).
@@ -85,13 +85,51 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC board overview — find the USB bridge chip near the micro-USB port" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
+  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC overview — find the chip labeled (4) USB-to-UART Bridge" loading="eager" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     Look for the small chip labeled <strong>(4) USB-to-UART Bridge</strong> in the photo — the chip text is usually <strong>CP2102</strong> or <strong>CH340</strong>. That decides which driver you download.
     <br>Image source: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (official docs).
   </figcaption>
 </figure>
 HTML;
+    }
+
+    private function deviceManagerSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Contoh Device Manager Windows menampilkan port COM" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Device Manager COM port">
+  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Windows: Device Manager — yang kamu cari</text>
+  <rect x="40" y="45" width="640" height="150" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="60" y="75" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">▾ Device Manager</text>
+  <text x="80" y="100" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">▾ Ports (COM &amp; LPT)</text>
+  <rect x="95" y="110" width="520" height="28" rx="4" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+  <text x="110" y="130" font-family="Consolas,monospace" font-size="13" font-weight="700" fill="#1B5E20">Silicon Labs CP210x USB to UART Bridge (COM5)</text>
+  <text x="360" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buka dengan Win+R → ketik devmgmt.msc → Enter</text>
+  <text x="360" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — nomor COM bisa COM3, COM7, dll.</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Contoh tampilan sukses di Device Manager (buatan Koding Indonesia). Kalau baris seperti ini muncul setelah colok board, driver sudah OK.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function deviceManagerSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Windows Device Manager showing a COM port" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Device Manager COM port">
+  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Windows: Device Manager — what to look for</text>
+  <rect x="40" y="45" width="640" height="150" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="60" y="75" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">▾ Device Manager</text>
+  <text x="80" y="100" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">▾ Ports (COM &amp; LPT)</text>
+  <rect x="95" y="110" width="520" height="28" rx="4" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+  <text x="110" y="130" font-family="Consolas,monospace" font-size="13" font-weight="700" fill="#1B5E20">Silicon Labs CP210x USB to UART Bridge (COM5)</text>
+  <text x="360" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Open with Win+R → type devmgmt.msc → Enter</text>
+  <text x="360" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — your COM number may be COM3, COM7, etc.</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Example success view in Device Manager (by Koding Indonesia). If a row like this appears after plugging in the board, the driver is OK.</figcaption>
+</figure>
+SVG;
     }
 
     private function workflowSvgId(): string
@@ -253,6 +291,7 @@ SVG;
         $overview = $this->overviewFigureId();
         $flow = $this->workflowSvgId();
         $chip = $this->chipSvgId();
+        $devmgr = $this->deviceManagerSvgId();
         $menu = $this->boardMenuSvgId();
 
         return <<<HTML
@@ -287,6 +326,7 @@ SVG;
 <li><strong>CH340 / CH340G</strong> → driver <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" rel="noopener noreferrer" target="_blank">WCH CH341SER</a> (Windows) atau paket distro Linux (<code>brltty</code> kadang bentrok — lihat kesalahan umum).</li>
 </ul>
 <p><strong>Awam — cara menguji driver:</strong> pasang driver → restart PC kalau diminta → colok board → buka Device Manager → lihat <strong>Ports (COM &amp; LPT)</strong>. Kalau muncul <em>Silicon Labs CP210x USB to UART Bridge (COMx)</em> atau <em>USB-SERIAL CH340 (COMx)</em>, driver OK.</p>
+{$devmgr}
 
 <h2>Install Arduino IDE 2.x</h2>
 <ol>
@@ -390,6 +430,7 @@ HTML;
         $overview = $this->overviewFigureEn();
         $flow = $this->workflowSvgEn();
         $chip = $this->chipSvgEn();
+        $devmgr = $this->deviceManagerSvgEn();
         $menu = $this->boardMenuSvgEn();
 
         return <<<HTML
@@ -424,6 +465,7 @@ HTML;
 <li><strong>CH340 / CH340G</strong> → <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" rel="noopener noreferrer" target="_blank">WCH CH341SER</a> driver (Windows) or your Linux distro package (<code>brltty</code> sometimes conflicts — see common mistakes).</li>
 </ul>
 <p><strong>Beginner — how to test the driver:</strong> install driver → restart PC if asked → plug board → open Device Manager → look under <strong>Ports (COM &amp; LPT)</strong>. If you see <em>Silicon Labs CP210x USB to UART Bridge (COMx)</em> or <em>USB-SERIAL CH340 (COMx)</em>, the driver is OK.</p>
+{$devmgr}
 
 <h2>Install Arduino IDE 2.x</h2>
 <ol>
