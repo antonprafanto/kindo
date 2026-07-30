@@ -101,6 +101,7 @@ HTML;
   <img src="/images/fsiot/kit-resistor.jpg" width="1200" height="900" alt="Resistor dengan cincin warna — rem arus untuk LED" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
   Resistor = <strong>rem arus</strong>. Kit biasanya punya <strong>220Ω</strong> dan <strong>330Ω</strong> — nilai ini yang akan kita pilih setelah hitung.
+    <br><strong>Awam:</strong> foto ini contoh resistor 100Ω (cincin warna) — beda angka dari 220/330 di kit, tapi bentuknya sama.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
   </figcaption>
 </figure>
@@ -114,6 +115,7 @@ HTML;
   <img src="/images/fsiot/kit-resistor.jpg" width="1200" height="900" alt="Resistor with color bands — current brake for an LED" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     A resistor is a <strong>current brake</strong>. Kits usually include <strong>220Ω</strong> and <strong>330Ω</strong> — those are what we pick after the math.
+    <br><strong>Beginner:</strong> this photo shows a 100Ω example (color bands) — different value from 220/330 in the kit, but the shape is the same.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
   </figcaption>
 </figure>
