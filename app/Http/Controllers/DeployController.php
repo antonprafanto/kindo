@@ -6528,6 +6528,111 @@ class DeployController extends Controller
         return response('Article 78 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle79Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! $this->ensureSeederClass('database/seeders/Article79Seeder.php', \Database\Seeders\Article79Seeder::class)) {
+            return response('Article79Seeder class not found on server', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article79Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 79 draft seed failed: '.trim(Artisan::output()), 500);
+        }
+
+        $slug = 'fullstack-iot-led-resistor-di-breadboard';
+        $article = Article::where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 79 missing after Article79Seeder draft seed.'));
+
+            return response('Article 79 draft seed incomplete', 500);
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            $article->status = 'draft';
+            $article->published_at = null;
+            $article->save();
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            report(new \RuntimeException('Article 79 refused to stay draft after seed.'));
+
+            return response('Article 79 must remain draft (pre-launch B)', 500);
+        }
+
+        if (Article::published()->where('slug', $slug)->exists()) {
+            report(new \RuntimeException('Article 79 unexpectedly visible via published() scope.'));
+
+            return response('Article 79 leaked into published scope', 500);
+        }
+
+        $body = (string) $article->body;
+        $bodyNeedles = [
+            '#79 (ini)',
+            'FS-09',
+            'kit-breadboard.jpg',
+            'kit-jumper-wires.jpg',
+            'esp32-devkitc-1-pinlayout.jpg',
+            'baris 12',
+            'baris 15',
+            'fsiot-led-circuit-checklist',
+            'FS-10',
+            '/belajar/fullstack-iot',
+            'belum upload sketch',
+            'cabut jumper',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Article 79 body missing expected content after draft seed: '.implode(', ', $missingBody)));
+
+            return response('Article 79 body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 79 English fields are incomplete after draft seed.'));
+
+            return response('Article 79 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        $enNeedles = [
+            '#79 (this article)',
+            'Beginner:',
+            'kit-breadboard.jpg',
+            'row 12',
+            'fsiot-led-circuit-checklist',
+            'FS-10',
+            'no sketch upload',
+            'unplug',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 79 EN body missing expected content after draft seed: '.implode(', ', $missingEn)));
+
+            return response('Article 79 EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 79 seeded as draft (pre-launch B)', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

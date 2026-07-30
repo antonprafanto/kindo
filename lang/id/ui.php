@@ -304,6 +304,16 @@ return [
         'fsiot_el_incomplete' => 'Masih ada poin yang belum dicentang. Baca ulang atau tulis di kertas dulu.',
         'fsiot_el_done' => 'Paham',
         'fsiot_el_todo' => 'Belum',
+        'fsiot_lc_badge' => 'Checklist rangkaian LED',
+        'fsiot_lc_hint' => 'Centang tiap langkah wiring yang sudah kamu lakukan di meja. Target: 10/10.',
+        'fsiot_lc_check' => 'Cek kelengkapan',
+        'fsiot_lc_retry' => 'Kosongkan lagi',
+        'fsiot_lc_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_lc_progress' => ':filled dari :total tercentang',
+        'fsiot_lc_pass' => 'Lengkap :filled/:total — LED menyala di breadboard! Lanjut FS-10 saat modulnya terbit.',
+        'fsiot_lc_incomplete' => 'Masih ada langkah yang belum dicentang. Ulangi wiring atau baca ulang artikel.',
+        'fsiot_lc_done' => 'Selesai',
+        'fsiot_lc_todo' => 'Belum',
     ],
 
     'theme' => [

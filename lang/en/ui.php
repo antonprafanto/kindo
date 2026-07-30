@@ -304,6 +304,16 @@ return [
         'fsiot_el_incomplete' => 'Some items are still unchecked. Re-read or write on paper first.',
         'fsiot_el_done' => 'Got it',
         'fsiot_el_todo' => 'Not yet',
+        'fsiot_lc_badge' => 'LED circuit checklist',
+        'fsiot_lc_hint' => 'Tick each wiring step you completed on the desk. Target: 10/10.',
+        'fsiot_lc_check' => 'Check completeness',
+        'fsiot_lc_retry' => 'Clear again',
+        'fsiot_lc_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_lc_progress' => ':filled of :total checked',
+        'fsiot_lc_pass' => 'Complete :filled/:total — LED on a breadboard! Continue to FS-10 when that module publishes.',
+        'fsiot_lc_incomplete' => 'Some steps are still unchecked. Rewire or reread the article.',
+        'fsiot_lc_done' => 'Done',
+        'fsiot_lc_todo' => 'Not yet',
     ],
 
     'theme' => [
