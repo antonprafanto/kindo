@@ -94,6 +94,32 @@ HTML;
 HTML;
     }
 
+    private function ledPolarityFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/kit-led-5mm.jpg" alt="Foto LED 5mm putih dengan dua kaki berbeda panjang" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Contoh <strong>LED 5mm</strong> — kaki lebih panjang biasanya (+), lebih pendek (−). Modul sensor punya label <strong>VCC/+</strong> dan <strong>GND/−</strong> di PCB.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode_White_1480334_5_6HDR_Enhancer.jpg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — 5mm white LED</a> (CC BY-SA 3.0).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function ledPolarityFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/kit-led-5mm.jpg" alt="Photo of a white 5mm LED with two legs of different lengths" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Example <strong>5mm LED</strong> — the longer leg is usually (+), the shorter (−). Sensor modules label <strong>VCC/+</strong> and <strong>GND/−</strong> on the PCB.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode_White_1480334_5_6HDR_Enhancer.jpg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — 5mm white LED</a> (CC BY-SA 3.0).
+  </figcaption>
+</figure>
+HTML;
+    }
+
     private function multimeterFigureId(): string
     {
         return <<<'HTML'
@@ -309,6 +335,7 @@ SVG;
         $overview = $this->overviewFigureId();
         $short = $this->shortSvgId();
         $volt = $this->voltageSvgId();
+        $ledPol = $this->ledPolarityFigureId();
         $unplug = $this->unplugSvgId();
         $usb = $this->usbSvgId();
         $mm = $this->multimeterFigureId();
@@ -352,6 +379,7 @@ SVG;
 
 <h2>Polaritas &amp; ground bersama</h2>
 <p>Dari FS-04: LED punya kaki panjang (+) dan pendek (−). Sensor/modul sering punya pin <strong>VCC / +</strong>, <strong>GND / −</strong>, dan sinyal. Tertukar polaritas → modul tidak hidup atau rusak.</p>
+{$ledPol}
 <ul>
 <li><strong>Polaritas:</strong> + ke +, − ke − (GND).</li>
 <li><strong>Ground bersama:</strong> kalau pakai sensor di breadboard, sambungkan GND sensor ke GND board.</li>
@@ -419,6 +447,7 @@ HTML;
         $overview = $this->overviewFigureEn();
         $short = $this->shortSvgEn();
         $volt = $this->voltageSvgEn();
+        $ledPol = $this->ledPolarityFigureEn();
         $unplug = $this->unplugSvgEn();
         $usb = $this->usbSvgEn();
         $mm = $this->multimeterFigureEn();
@@ -462,6 +491,7 @@ HTML;
 
 <h2>Polarity &amp; shared ground</h2>
 <p>From FS-04: LEDs have a long leg (+) and a short leg (−). Sensors/modules often have <strong>VCC / +</strong>, <strong>GND / −</strong>, and a signal pin. Swapped polarity → the module stays dead or dies.</p>
+{$ledPol}
 <ul>
 <li><strong>Polarity:</strong> + to +, − to − (GND).</li>
 <li><strong>Shared ground:</strong> if a sensor sits on the breadboard, connect sensor GND to board GND.</li>

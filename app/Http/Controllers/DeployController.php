@@ -6165,6 +6165,7 @@ class DeployController extends Controller
             '/belajar/fullstack-iot',
             'esp32-devkitc-overview.jpg',
             'kit-multimeter.jpg',
+            'kit-led-5mm.jpg',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {

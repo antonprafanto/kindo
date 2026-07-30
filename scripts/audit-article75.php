@@ -61,6 +61,7 @@ check('charge-only both', str_contains($id, 'charge-only') && str_contains($en, 
 check('no GPIO 5V encouragement', str_contains($id, 'jangan') && str_contains($id, 'GPIO'));
 check('overview image + Espressif', str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'Espressif'));
 check('multimeter image + Commons', str_contains($id, 'kit-multimeter.jpg') && str_contains($id, 'commons.wikimedia.org'));
+check('LED polarity image + Commons', str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, '5mm_LED_Light-emitting_diode'));
 check('SVG short + voltage + unplug', str_contains($id, 'Short circuit') && str_contains($id, '3.3V vs 5V') && str_contains($id, 'cabut USB dulu'));
 
 check('checklist markers', str_contains($id, 'id="fsiot-safety-checklist"') && str_contains($id, 'id="fsiot-safety-checklist-items"'));
