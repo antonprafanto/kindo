@@ -254,6 +254,16 @@ return [
         'fsiot_cl_incomplete' => 'Some items are still unchecked. Tick all required items first (or write “ordered” on paper if waiting on shipping).',
         'fsiot_cl_done' => 'Have it',
         'fsiot_cl_todo' => 'Missing',
+        'fsiot_sf_badge' => 'Safety checklist',
+        'fsiot_sf_hint' => 'Tick each safe habit you already understand. Target: 10/10.',
+        'fsiot_sf_check' => 'Check completeness',
+        'fsiot_sf_retry' => 'Clear again',
+        'fsiot_sf_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_sf_progress' => ':filled of :total checked',
+        'fsiot_sf_pass' => 'Complete :filled/:total — pass! Keep the checklist on your desk. Continue to FS-06 when that module publishes.',
+        'fsiot_sf_incomplete' => 'Some items are still unchecked. Re-read the empty ones, then tick them when you understand.',
+        'fsiot_sf_done' => 'Got it',
+        'fsiot_sf_todo' => 'Not yet',
     ],
 
     'theme' => [

@@ -254,6 +254,16 @@ return [
         'fsiot_cl_incomplete' => 'Masih ada yang belum dicentang. Centang semua item wajib dulu (atau catat “pesan” di kertas jika barang menunggu kiriman).',
         'fsiot_cl_done' => 'Ada',
         'fsiot_cl_todo' => 'Belum',
+        'fsiot_sf_badge' => 'Checklist keselamatan',
+        'fsiot_sf_hint' => 'Centang tiap kebiasaan aman yang sudah kamu pahami. Target: 10/10.',
+        'fsiot_sf_check' => 'Cek kelengkapan',
+        'fsiot_sf_retry' => 'Kosongkan lagi',
+        'fsiot_sf_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_sf_progress' => ':filled dari :total tercentang',
+        'fsiot_sf_pass' => 'Lengkap :filled/:total — lulus! Tempel checklist di meja. Lanjut FS-06 saat modulnya terbit.',
+        'fsiot_sf_incomplete' => 'Masih ada yang belum dicentang. Baca ulang poin yang kosong, lalu centang kalau sudah paham.',
+        'fsiot_sf_done' => 'Paham',
+        'fsiot_sf_todo' => 'Belum',
     ],
 
     'theme' => [

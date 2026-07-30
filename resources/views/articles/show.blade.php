@@ -541,6 +541,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotMatchQuiz();
     initFsiotWorksheet();
     initFsiotKitChecklist();
+    initFsiotSafetyChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1091,23 +1092,55 @@ function initFsiotWorksheet() {
 }
 
 function initFsiotKitChecklist() {
-    const labels = {
-        badge: @js(__('ui.articles.fsiot_cl_badge')),
-        hint: @js(__('ui.articles.fsiot_cl_hint')),
-        check: @js(__('ui.articles.fsiot_cl_check')),
-        retry: @js(__('ui.articles.fsiot_cl_retry')),
-        paper: @js(__('ui.articles.fsiot_cl_paper')),
-        progress: @js(__('ui.articles.fsiot_cl_progress')),
-        pass: @js(__('ui.articles.fsiot_cl_pass')),
-        incomplete: @js(__('ui.articles.fsiot_cl_incomplete')),
-        done: @js(__('ui.articles.fsiot_cl_done')),
-        todo: @js(__('ui.articles.fsiot_cl_todo')),
-    };
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-kit-checklist',
+        listId: 'fsiot-kit-checklist-items',
+        storagePrefix: 'fsiot-cl-74',
+        idPrefix: 'fsiot-cl',
+        minItems: 8,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_cl_badge')),
+            hint: @js(__('ui.articles.fsiot_cl_hint')),
+            check: @js(__('ui.articles.fsiot_cl_check')),
+            retry: @js(__('ui.articles.fsiot_cl_retry')),
+            paper: @js(__('ui.articles.fsiot_cl_paper')),
+            progress: @js(__('ui.articles.fsiot_cl_progress')),
+            pass: @js(__('ui.articles.fsiot_cl_pass')),
+            incomplete: @js(__('ui.articles.fsiot_cl_incomplete')),
+            done: @js(__('ui.articles.fsiot_cl_done')),
+            todo: @js(__('ui.articles.fsiot_cl_todo')),
+        },
+    });
+}
 
+function initFsiotSafetyChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-safety-checklist',
+        listId: 'fsiot-safety-checklist-items',
+        storagePrefix: 'fsiot-cl-75',
+        idPrefix: 'fsiot-sf',
+        minItems: 8,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_sf_badge')),
+            hint: @js(__('ui.articles.fsiot_sf_hint')),
+            check: @js(__('ui.articles.fsiot_sf_check')),
+            retry: @js(__('ui.articles.fsiot_sf_retry')),
+            paper: @js(__('ui.articles.fsiot_sf_paper')),
+            progress: @js(__('ui.articles.fsiot_sf_progress')),
+            pass: @js(__('ui.articles.fsiot_sf_pass')),
+            incomplete: @js(__('ui.articles.fsiot_sf_incomplete')),
+            done: @js(__('ui.articles.fsiot_sf_done')),
+            todo: @js(__('ui.articles.fsiot_sf_todo')),
+        },
+    });
+}
+
+function initFsiotChecklistWidget(cfg) {
+    const labels = cfg.labels;
     const content = document.getElementById('article-content');
     if (!content) return;
 
-    const clH2 = content.querySelector('#fsiot-kit-checklist');
+    const clH2 = content.querySelector('#' + cfg.h2Id);
     if (!clH2) return;
 
     const nextH2 = (() => {
@@ -1122,11 +1155,11 @@ function initFsiotKitChecklist() {
         sectionNodes.push(n);
     }
 
-    const list = sectionNodes.find(n => n.id === 'fsiot-kit-checklist-items' || (n.tagName === 'UL' && n.querySelectorAll('li').length >= 8));
+    const list = sectionNodes.find(n => n.id === cfg.listId || (n.tagName === 'UL' && n.querySelectorAll('li').length >= cfg.minItems));
     if (!list) return;
 
     const items = Array.from(list.querySelectorAll('li')).map(li => li.textContent.trim()).filter(Boolean);
-    if (items.length < 8) return;
+    if (items.length < cfg.minItems) return;
 
     const intro = sectionNodes[0] && sectionNodes[0].tagName === 'P' ? sectionNodes[0] : null;
     const howto = sectionNodes.find(n => n.tagName === 'P' && n !== intro && /Awam|Beginner/i.test(n.textContent || ''));
@@ -1149,7 +1182,7 @@ function initFsiotKitChecklist() {
     }
 
     const lang = (document.documentElement.lang || 'id').slice(0, 2);
-    const storageKey = `fsiot-cl-74:${lang}`;
+    const storageKey = `${cfg.storagePrefix}:${lang}`;
 
     const widget = document.createElement('div');
     widget.className = 'fsiot-match-quiz fsiot-kit-checklist';
@@ -1179,7 +1212,7 @@ function initFsiotKitChecklist() {
     const rows = items.map((label, i) => {
         const li = document.createElement('li');
         li.className = 'fsiot-kit-checklist__item';
-        const id = `fsiot-cl-${i}`;
+        const id = `${cfg.idPrefix}-${i}`;
         const cb = document.createElement('input');
         cb.type = 'checkbox';
         cb.id = id;
