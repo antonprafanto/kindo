@@ -28,7 +28,7 @@ class ArticleHtmlSanitizer
         'code'       => ['class'],
         'pre'        => ['class'],
         'blockquote' => [],
-        'ul'         => [],
+        'ul'         => ['id'],
         'ol'         => ['start', 'style'],
         'li'         => ['style'],
         'a'          => ['href', 'title', 'rel', 'target'],
@@ -42,7 +42,7 @@ class ArticleHtmlSanitizer
         'th'         => ['colspan', 'rowspan'],
         'td'         => ['colspan', 'rowspan'],
         'span'       => ['class', 'style'],
-        'div'        => ['class', 'style'],
+        'div'        => ['id', 'class', 'style'],
         // Diagram arsitektur artikel (SVG aman — tanpa script/foreignObject/animate)
         'svg'        => ['xmlns', 'viewbox', 'width', 'height', 'role', 'aria-label', 'style', 'fill', 'stroke'],
         'defs'       => [],

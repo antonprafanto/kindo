@@ -60,7 +60,8 @@ check('LED + resistor images', str_contains($id, 'kit-led-5mm.jpg') && str_conta
 check('SVG water + circuit', str_contains($id, 'Buatan Koding Indonesia') && str_contains($id, '3V3'));
 check('no tspan in SVG', ! str_contains($id, '<tspan') && ! str_contains($en, '<tspan'));
 
-check('calc root marker', str_contains($id, 'id="fsiot-resistor-calc-root"') && str_contains($en, 'id="fsiot-resistor-calc-root"'));
+check('calc root survives sanitizer', str_contains(app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($id), 'id="fsiot-resistor-calc-root"'));
+check('checklist ul id survives sanitizer', str_contains(app(\App\Services\ArticleHtmlSanitizer::class)->sanitize($id), 'id="fsiot-electric-checklist-items"'));
 check('checklist markers', str_contains($id, 'id="fsiot-electric-checklist"') && str_contains($id, 'id="fsiot-electric-checklist-items"'));
 check('checklist has 8 items ID', substr_count(strstr($id, 'fsiot-electric-checklist-items'), '<li>') >= 8);
 check('checklist has 8 items EN', substr_count(strstr($en, 'fsiot-electric-checklist-items'), '<li>') >= 8);
