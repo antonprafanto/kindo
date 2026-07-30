@@ -144,7 +144,7 @@ HTML;
   <text x="580" y="82" font-family="system-ui,sans-serif" font-size="18">→</text>
   <rect x="590" y="45" width="120" height="70" rx="6" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
   <text x="650" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">5 Tabel</text>
-  <text x="650" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#2E7D32">catat angka ✓</text>
+  <text x="650" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#2E7D32">catat angka OK</text>
   <text x="360" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Urutan kerja modul ini (buatan Koding Indonesia). Jangan loncat ke continuity sebelum paham mode V DC.</figcaption>
@@ -176,7 +176,7 @@ SVG;
   <text x="580" y="82" font-family="system-ui,sans-serif" font-size="18">→</text>
   <rect x="590" y="45" width="120" height="70" rx="6" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
   <text x="650" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">5 Table</text>
-  <text x="650" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#2E7D32">write it ✓</text>
+  <text x="650" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#2E7D32">write it OK</text>
   <text x="360" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Work order in this module (by Koding Indonesia). Do not jump to continuity before you understand V DC mode.</figcaption>
@@ -191,16 +191,17 @@ SVG;
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="Dial modes">
   <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Tiga mode yang kamu sentuh hari ini</text>
   <rect x="40" y="50" width="200" height="110" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="140" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">V⎓ / V DC</text>
+  <text x="140" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">V DC</text>
+  <line x1="118" y1="90" x2="162" y2="90" stroke="#2E7D32" stroke-width="2" stroke-dasharray="5,3"/>
   <text x="140" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Ukur tegangan</text>
   <text x="140" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">Range 20V atau AUTO</text>
   <rect x="260" y="50" width="200" height="110" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="360" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">🔊 Continuity</text>
+  <text x="360" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Continuity</text>
   <text x="360" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Cek kabel hidup</text>
-  <text x="360" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">Biasanya simbol gelombang + beep</text>
+  <text x="360" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">Simbol gelombang + beep</text>
   <rect x="480" y="50" width="200" height="110" rx="8" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
-  <text x="580" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">A / mA ✗</text>
-  <text x="580" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">JANGAN hari ini</text>
+  <text x="580" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">A / mA</text>
+  <text x="580" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">JANGAN hari ini</text>
   <text x="580" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">Salah mode = bahaya</text>
   <text x="360" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — label dial bisa sedikit beda merek</text>
 </svg>
@@ -216,16 +217,17 @@ SVG;
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="Dial modes">
   <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Three modes you touch today</text>
   <rect x="40" y="50" width="200" height="110" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="140" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">V⎓ / V DC</text>
+  <text x="140" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">V DC</text>
+  <line x1="118" y1="90" x2="162" y2="90" stroke="#2E7D32" stroke-width="2" stroke-dasharray="5,3"/>
   <text x="140" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Measure voltage</text>
   <text x="140" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">20V range or AUTO</text>
   <rect x="260" y="50" width="200" height="110" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="360" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">🔊 Continuity</text>
+  <text x="360" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Continuity</text>
   <text x="360" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Test a live wire</text>
-  <text x="360" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">Usually wave icon + beep</text>
+  <text x="360" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">Wave icon + beep</text>
   <rect x="480" y="50" width="200" height="110" rx="8" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
-  <text x="580" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">A / mA ✗</text>
-  <text x="580" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">NOT today</text>
+  <text x="580" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">A / mA</text>
+  <text x="580" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">NOT today</text>
   <text x="580" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">Wrong mode = danger</text>
   <text x="360" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — dial labels vary slightly by brand</text>
 </svg>
@@ -272,6 +274,46 @@ SVG;
   <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Probe jacks &amp; safe grip (by Koding Indonesia). Black to GND first, then red to 3V3/5V.</figcaption>
+</figure>
+SVG;
+    }
+
+    private function continuitySvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Tes continuity pada kabel jumper" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" width="100%" height="auto" role="img" aria-label="Continuity jumper test">
+  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Tes jumper — dua probe, satu kabel</text>
+  <line x1="120" y1="100" x2="600" y2="100" stroke="#1565C0" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="120" cy="100" r="10" fill="#1a1a1a" stroke="#fff" stroke-width="2"/>
+  <circle cx="600" cy="100" r="10" fill="#C62828" stroke="#fff" stroke-width="2"/>
+  <text x="120" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Probe hitam</text>
+  <text x="600" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Probe merah</text>
+  <rect x="290" y="70" width="140" height="36" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+  <text x="360" y="94" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">BEEP = kabel OK</text>
+  <text x="360" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — USB board dicabut dulu</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Continuity: sentuh probe di dua ujung kabel jumper yang sama (buatan Koding Indonesia).</figcaption>
+</figure>
+SVG;
+    }
+
+    private function continuitySvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Continuity test on a jumper wire" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" width="100%" height="auto" role="img" aria-label="Continuity jumper test">
+  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Test a jumper — two probes, one wire</text>
+  <line x1="120" y1="100" x2="600" y2="100" stroke="#1565C0" stroke-width="4" stroke-linecap="round"/>
+  <circle cx="120" cy="100" r="10" fill="#1a1a1a" stroke="#fff" stroke-width="2"/>
+  <circle cx="600" cy="100" r="10" fill="#C62828" stroke="#fff" stroke-width="2"/>
+  <text x="120" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Black probe</text>
+  <text x="600" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Red probe</text>
+  <rect x="290" y="70" width="140" height="36" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
+  <text x="360" y="94" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">BEEP = wire OK</text>
+  <text x="360" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — unplug USB from the board first</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Continuity: touch probes on both ends of the same jumper wire (by Koding Indonesia).</figcaption>
 </figure>
 SVG;
     }
@@ -326,6 +368,7 @@ SVG;
         $probe = $this->probeSvgId();
         $pinout = $this->pinoutFigureId();
         $points = $this->measurePointSvgId();
+        $continuity = $this->continuitySvgId();
 
         return <<<HTML
 <h2>Pendahuluan — kenapa multimeter sekarang?</h2>
@@ -358,7 +401,7 @@ SVG;
 
 <h2>Mode V DC — ukur tegangan</h2>
 <ol>
-<li>Putar dial ke <strong>V⎓</strong> / <strong>V DC</strong> (bukan V AC ~ gelombang sinus).</li>
+<li>Putar dial ke <strong>V DC</strong> — cari tulisan <strong>V</strong> dengan garis putus-putus di bawahnya (bukan <strong>V AC</strong> ~ gelombang sinus).</li>
 <li>Pilih range <strong>20V</strong> atau <strong>AUTO</strong> jika ada.</li>
 <li>Probe hitam ke pin <strong>GND</strong>, probe merah ke pin yang mau diukur.</li>
 <li>Baca angka di layar — tunggu 1–2 detik sampai stabil.</li>
@@ -377,6 +420,7 @@ SVG;
 <p><strong>Awam:</strong> 3V3 = “bahasa” pin GPIO ESP32 · 5V = dari jalur USB/charger · GND = referensi nol volt.</p>
 
 <h2>Mode continuity — cek kabel jumper</h2>
+{$continuity}
 <ol>
 <li><strong>Cabut USB board</strong> dulu (lebih aman untuk pemula saat tes kabel).</li>
 <li>Putar dial ke simbol <strong>continuity</strong> (gelombang / speaker / beep).</li>
@@ -450,6 +494,7 @@ HTML;
         $probe = $this->probeSvgEn();
         $pinout = $this->pinoutFigureEn();
         $points = $this->measurePointSvgEn();
+        $continuity = $this->continuitySvgEn();
 
         return <<<HTML
 <h2>Introduction — why a multimeter now?</h2>
@@ -482,7 +527,7 @@ HTML;
 
 <h2>V DC mode — measure voltage</h2>
 <ol>
-<li>Turn the dial to <strong>V⎓</strong> / <strong>V DC</strong> (not V AC ~ sine wave).</li>
+<li>Turn the dial to <strong>V DC</strong> — look for <strong>V</strong> with a dashed line underneath (not <strong>V AC</strong> ~ sine wave).</li>
 <li>Pick <strong>20V</strong> range or <strong>AUTO</strong> if available.</li>
 <li>Black probe on <strong>GND</strong>, red probe on the pin you want to measure.</li>
 <li>Read the display — wait 1–2 seconds until stable.</li>
@@ -501,6 +546,7 @@ HTML;
 <p><strong>Beginner:</strong> 3V3 = GPIO logic language on ESP32 · 5V = from USB/charger path · GND = zero-volt reference.</p>
 
 <h2>Continuity mode — test a jumper wire</h2>
+{$continuity}
 <ol>
 <li><strong>Unplug USB from the board</strong> first (safer for beginners when testing wires).</li>
 <li>Turn the dial to <strong>continuity</strong> (wave / speaker / beep symbol).</li>

@@ -46,7 +46,7 @@ check('EN self-ref #77 (this article)', str_contains($en, '#77 (this article)'))
 check('ID Awam >= 5', substr_count($id, 'Awam:') + substr_count($id, 'Awam —') >= 5);
 check('EN Beginner >= 5', substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —') >= 5);
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 5', substr_count($id, '<figure') >= 5 && substr_count($en, '<figure') >= 5);
+check('figures both >= 6', substr_count($id, '<figure') >= 6 && substr_count($en, '<figure') >= 6);
 
 check('ID Persiapan tools-first', str_contains($id, 'Persiapan') && str_contains($id, 'Multimeter digital'));
 check('EN Preparation tools-first', str_contains($en, 'Preparation') && str_contains($en, 'Digital multimeter'));
@@ -59,7 +59,8 @@ check('5V measure both', str_contains($id, '5V') && str_contains($en, '5V'));
 check('measurement table', str_contains($id, '<table') && str_contains($en, '<table'));
 check('multimeter image + Commons', str_contains($id, 'kit-multimeter.jpg') && str_contains($id, 'commons.wikimedia.org'));
 check('pinout image + Espressif', str_contains($id, 'esp32-devkitc-1-pinlayout.jpg') && str_contains($id, 'ESP32-DevKitC-1.html'));
-check('SVG workflow + dial + probe', str_contains($id, 'Alur hari ini') && str_contains($id, 'V⎓') && str_contains($id, 'Probe — colok'));
+check('SVG workflow + dial + probe + continuity', str_contains($id, 'Alur hari ini') && str_contains($id, 'stroke-dasharray') && str_contains($id, 'Probe — colok') && str_contains($id, 'Tes jumper'));
+check('no broken V glyph', ! str_contains($id, 'V⎓') && ! str_contains($en, 'V⎓'));
 check('no tspan in SVG', ! str_contains($id, '<tspan') && ! str_contains($en, '<tspan'));
 check('no ampere mode encouragement', str_contains($id, 'JANGAN') && str_contains($en, 'NOT today'));
 
