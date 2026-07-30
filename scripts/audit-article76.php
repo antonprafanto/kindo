@@ -61,7 +61,11 @@ check('CP210x driver link', str_contains($id, 'silabs.com') && str_contains($en,
 check('CH340 driver link', str_contains($id, 'wch-ic.com') && str_contains($en, 'wch-ic.com'));
 check('charge-only mention', str_contains($id, 'charge-only') && str_contains($en, 'charge-only'));
 check('overview image + Espressif', str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'Espressif'));
-check('SVG workflow + chip + menu + devmgr', str_contains($id, 'Alur hari ini') && str_contains($id, 'CP2102') && str_contains($id, 'Tools → Board') && str_contains($id, 'devmgmt.msc'));
+check('SVG workflow + chip', str_contains($id, 'Alur hari ini') && str_contains($id, 'CP2102'));
+check('device manager photo', str_contains($id, 'fs06-device-manager-esp32.png') && str_contains($id, 'establish-serial-connection'));
+check('arduino ide board port photo', str_contains($id, 'fs06-arduino-ide-overview.png') && str_contains($id, 'Select Board'));
+check('device manager photo on disk', is_file(__DIR__.'/../public/images/fsiot/fs06-device-manager-esp32.png'));
+check('arduino ide overview on disk', is_file(__DIR__.'/../public/images/fsiot/fs06-arduino-ide-overview.png'));
 check('overview eager load', str_contains($id, 'loading="eager"') && str_contains($en, 'loading="eager"'));
 check('no tspan in SVG', ! str_contains($id, '<tspan') && ! str_contains($en, '<tspan'));
 

@@ -101,6 +101,7 @@ HTML;
   <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="Pinout ESP32-DevKitC-1 — cari label 3V3, 5V, dan GND" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     Hari ini fokus ke tiga label: <strong>3V3</strong>, <strong>5V</strong>, dan <strong>GND</strong> — jangan ukur pin GPIO acak dulu.
+    <br><strong>Ukur tegangan:</strong> probe hitam ke <strong>GND</strong>, merah ke <strong>3V3</strong> (target <strong>3.2–3.4 V</strong>) lalu ke <strong>5V</strong> (target <strong>4.8–5.2 V</strong>). USB board menyala, board diam.
     <br>Sumber gambar: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a> (dokumen resmi).
   </figcaption>
 </figure>
@@ -114,6 +115,7 @@ HTML;
   <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="ESP32-DevKitC-1 pinout — find 3V3, 5V, and GND labels" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     Today focus on three labels: <strong>3V3</strong>, <strong>5V</strong>, and <strong>GND</strong> — do not measure random GPIO pins yet.
+    <br><strong>Measure voltage:</strong> black probe on <strong>GND</strong>, red on <strong>3V3</strong> (target <strong>3.2–3.4 V</strong>) then on <strong>5V</strong> (target <strong>4.8–5.2 V</strong>). USB powered, board idle.
     <br>Image source: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a> (official docs).
   </figcaption>
 </figure>
@@ -236,46 +238,30 @@ SVG;
 SVG;
     }
 
-    private function probeSvgId(): string
+    private function probeFigureId(): string
     {
-        return <<<'SVG'
-<figure role="img" aria-label="Cara pegang probe multimeter" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="Probe grip">
-  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Probe — colok &amp; pegang yang benar</text>
-  <rect x="30" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="50" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Merah → jack VΩmA (atau V/Ω)</text>
-  <text x="50" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Hitam → jack COM</text>
-  <text x="50" y="130" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Jangan tukar jack saat mengukur tegangan</text>
-  <rect x="370" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="390" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Pegang plastik probe, bukan logam</text>
-  <text x="390" y="100" font-family="system-ui,sans-serif" font-size="13">Sentuh ujung logam ke pin board</text>
-  <text x="390" y="130" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Meja kering · tangan tidak basah</text>
-  <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia</text>
-</svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Jack probe &amp; cara pegang aman (buatan Koding Indonesia). Hitam ke GND dulu, baru merah ke 3V3/5V.</figcaption>
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/kit-multimeter.jpg" width="1200" height="900" alt="Jack probe multimeter — merah ke V atau VΩmA, hitam ke COM" loading="lazy" style="width:100%;height:auto;max-height:280px;object-fit:cover;object-position:50% 92%;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Probe — colok &amp; pegang yang benar:</strong> merah → jack <strong>VΩmA</strong> (atau V/Ω) · hitam → jack <strong>COM</strong>. Pegang plastik probe, bukan ujung logam. Hitam ke GND dulu, baru merah ke 3V3/5V.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg" rel="noopener noreferrer" target="_blank">Jacek Halicki — digital multimeter</a> · Wikimedia Commons (CC BY-SA 4.0).
+  </figcaption>
 </figure>
-SVG;
+HTML;
     }
 
-    private function probeSvgEn(): string
+    private function probeFigureEn(): string
     {
-        return <<<'SVG'
-<figure role="img" aria-label="How to hold multimeter probes" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="Probe grip">
-  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Probes — plug in &amp; hold correctly</text>
-  <rect x="30" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="50" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Red → VΩmA jack (or V/Ω)</text>
-  <text x="50" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Black → COM jack</text>
-  <text x="50" y="130" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Do not swap jacks when measuring voltage</text>
-  <rect x="370" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="390" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Hold plastic handles, not metal tips</text>
-  <text x="390" y="100" font-family="system-ui,sans-serif" font-size="13">Touch metal tips to board pins</text>
-  <text x="390" y="130" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Dry desk · dry hands</text>
-  <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
-</svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Probe jacks &amp; safe grip (by Koding Indonesia). Black to GND first, then red to 3V3/5V.</figcaption>
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/kit-multimeter.jpg" width="1200" height="900" alt="Multimeter probe jacks — red to V or VΩmA, black to COM" loading="lazy" style="width:100%;height:auto;max-height:280px;object-fit:cover;object-position:50% 92%;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Probes — plug in &amp; hold correctly:</strong> red → <strong>VΩmA</strong> jack (or V/Ω) · black → <strong>COM</strong> jack. Hold plastic handles, not metal tips. Black to GND first, then red to 3V3/5V.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg" rel="noopener noreferrer" target="_blank">Jacek Halicki — digital multimeter</a> · Wikimedia Commons (CC BY-SA 4.0).
+  </figcaption>
 </figure>
-SVG;
+HTML;
     }
 
     private function continuitySvgId(): string
@@ -318,56 +304,13 @@ SVG;
 SVG;
     }
 
-    private function measurePointSvgId(): string
-    {
-        return <<<'SVG'
-<figure role="img" aria-label="Titik ukur 3V3 dan GND" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" width="100%" height="auto" role="img" aria-label="Measure points">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Ukur tegangan: dua pin saja</text>
-  <rect x="80" y="50" width="240" height="90" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="200" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">3V3 ↔ GND</text>
-  <text x="200" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Target ~3.2 – 3.4 V</text>
-  <text x="200" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Hitam di GND, merah di 3V3</text>
-  <rect x="400" y="50" width="240" height="90" rx="6" fill="#FFF8E1" stroke="#F9A825" stroke-width="2"/>
-  <text x="520" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">5V ↔ GND</text>
-  <text x="520" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Target ~4.8 – 5.2 V</text>
-  <text x="520" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">USB menyala · board diam</text>
-  <text x="360" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — jangan sentuh dua pin sekaligus dengan jari</text>
-</svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Dua pasangan pin untuk latihan hari ini (buatan Koding Indonesia). Lihat pinout resmi untuk lokasi fisiknya.</figcaption>
-</figure>
-SVG;
-    }
-
-    private function measurePointSvgEn(): string
-    {
-        return <<<'SVG'
-<figure role="img" aria-label="3V3 and GND measure points" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" width="100%" height="auto" role="img" aria-label="Measure points">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Measure voltage: two pin pairs only</text>
-  <rect x="80" y="50" width="240" height="90" rx="6" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="200" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">3V3 ↔ GND</text>
-  <text x="200" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Target ~3.2 – 3.4 V</text>
-  <text x="200" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Black on GND, red on 3V3</text>
-  <rect x="400" y="50" width="240" height="90" rx="6" fill="#FFF8E1" stroke="#F9A825" stroke-width="2"/>
-  <text x="520" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">5V ↔ GND</text>
-  <text x="520" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Target ~4.8 – 5.2 V</text>
-  <text x="520" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">USB powered · board idle</text>
-  <text x="360" y="165" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — do not bridge pins with your fingers</text>
-</svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Two pin pairs for today’s practice (by Koding Indonesia). Use the official pinout for physical locations.</figcaption>
-</figure>
-SVG;
-    }
-
     private function body(): string
     {
         $flow = $this->workflowSvgId();
         $meter = $this->multimeterFigureId();
         $dial = $this->dialSvgId();
-        $probe = $this->probeSvgId();
+        $probe = $this->probeFigureId();
         $pinout = $this->pinoutFigureId();
-        $points = $this->measurePointSvgId();
         $continuity = $this->continuitySvgId();
 
         return <<<HTML
@@ -411,7 +354,6 @@ SVG;
 <h2>Di mana pin 3V3, 5V, dan GND?</h2>
 <p>Gunakan pinout resmi DevKitC-1. Hari ini <strong>hanya</strong> tiga label ini:</p>
 {$pinout}
-{$points}
 <ol>
 <li>Colok USB board (LED power menyala).</li>
 <li>Hitam ke <strong>GND</strong>, merah ke <strong>3V3</strong> → catat angka (target <strong>3.2 – 3.4 V</strong>).</li>
@@ -491,9 +433,8 @@ HTML;
         $flow = $this->workflowSvgEn();
         $meter = $this->multimeterFigureEn();
         $dial = $this->dialSvgEn();
-        $probe = $this->probeSvgEn();
+        $probe = $this->probeFigureEn();
         $pinout = $this->pinoutFigureEn();
-        $points = $this->measurePointSvgEn();
         $continuity = $this->continuitySvgEn();
 
         return <<<HTML
@@ -537,7 +478,6 @@ HTML;
 <h2>Where are 3V3, 5V, and GND?</h2>
 <p>Use the official DevKitC-1 pinout. Today <strong>only</strong> these three labels:</p>
 {$pinout}
-{$points}
 <ol>
 <li>Plug USB into the board (power LED on).</li>
 <li>Black on <strong>GND</strong>, red on <strong>3V3</strong> → write the number (target <strong>3.2 – 3.4 V</strong>).</li>

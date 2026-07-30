@@ -94,42 +94,30 @@ HTML;
 HTML;
     }
 
-    private function deviceManagerSvgId(): string
+    private function deviceManagerFigureId(): string
     {
-        return <<<'SVG'
-<figure role="img" aria-label="Contoh Device Manager Windows menampilkan port COM" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Device Manager COM port">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Windows: Device Manager — yang kamu cari</text>
-  <rect x="40" y="45" width="640" height="150" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="60" y="75" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">▾ Device Manager</text>
-  <text x="80" y="100" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">▾ Ports (COM &amp; LPT)</text>
-  <rect x="95" y="110" width="520" height="28" rx="4" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="110" y="130" font-family="Consolas,monospace" font-size="13" font-weight="700" fill="#1B5E20">Silicon Labs CP210x USB to UART Bridge (COM5)</text>
-  <text x="360" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buka dengan Win+R → ketik devmgmt.msc → Enter</text>
-  <text x="360" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — nomor COM bisa COM3, COM7, dll.</text>
-</svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Contoh tampilan sukses di Device Manager (buatan Koding Indonesia). Kalau baris seperti ini muncul setelah colok board, driver sudah OK.</figcaption>
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs06-device-manager-esp32.png" width="900" height="700" alt="Windows Device Manager — Ports (COM &amp; LPT) menampilkan Silicon Labs CP210x USB to UART Bridge" loading="lazy" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Windows Device Manager</strong> — buka dengan <code>Win+R</code> → ketik <code>devmgmt.msc</code> → Enter. Cari <strong>Ports (COM &amp; LPT)</strong> → baris seperti <em>Silicon Labs CP210x USB to UART Bridge (COMx)</em> atau <em>USB-SERIAL CH340 (COMx)</em>. Nomor COM bisa beda tiap PC.
+    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html" rel="noopener noreferrer" target="_blank">Espressif — Establish Serial Connection with ESP32</a> (dokumen resmi).
+  </figcaption>
 </figure>
-SVG;
+HTML;
     }
 
-    private function deviceManagerSvgEn(): string
+    private function deviceManagerFigureEn(): string
     {
-        return <<<'SVG'
-<figure role="img" aria-label="Windows Device Manager showing a COM port" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Device Manager COM port">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Windows: Device Manager — what to look for</text>
-  <rect x="40" y="45" width="640" height="150" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="60" y="75" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">▾ Device Manager</text>
-  <text x="80" y="100" font-family="Consolas,monospace" font-size="13" fill="#1a1a1a">▾ Ports (COM &amp; LPT)</text>
-  <rect x="95" y="110" width="520" height="28" rx="4" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
-  <text x="110" y="130" font-family="Consolas,monospace" font-size="13" font-weight="700" fill="#1B5E20">Silicon Labs CP210x USB to UART Bridge (COM5)</text>
-  <text x="360" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Open with Win+R → type devmgmt.msc → Enter</text>
-  <text x="360" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — your COM number may be COM3, COM7, etc.</text>
-</svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Example success view in Device Manager (by Koding Indonesia). If a row like this appears after plugging in the board, the driver is OK.</figcaption>
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs06-device-manager-esp32.png" width="900" height="700" alt="Windows Device Manager — Ports (COM &amp; LPT) showing Silicon Labs CP210x USB to UART Bridge" loading="lazy" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Windows Device Manager</strong> — open with <code>Win+R</code> → type <code>devmgmt.msc</code> → Enter. Find <strong>Ports (COM &amp; LPT)</strong> → a row like <em>Silicon Labs CP210x USB to UART Bridge (COMx)</em> or <em>USB-SERIAL CH340 (COMx)</em>. Your COM number may differ per PC.
+    <br>Image source: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/get-started/establish-serial-connection.html" rel="noopener noreferrer" target="_blank">Espressif — Establish Serial Connection with ESP32</a> (official docs).
+  </figcaption>
 </figure>
-SVG;
+HTML;
     }
 
     private function workflowSvgId(): string
@@ -242,48 +230,30 @@ SVG;
 SVG;
     }
 
-    private function boardMenuSvgId(): string
+    private function boardMenuFigureId(): string
     {
-        return <<<'SVG'
-<figure role="img" aria-label="Menu Tools di Arduino IDE" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="Arduino IDE menus">
-  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Dua menu yang wajib kamu hafal</text>
-  <rect x="30" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="50" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Tools → Board → ESP32 Arduino</text>
-  <text x="50" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">→ pilih ESP32 Dev Module</text>
-  <text x="50" y="130" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Sesuai ESP32-DevKitC-1 di jalur ini</text>
-  <rect x="370" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="390" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Tools → Port</text>
-  <text x="390" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">→ pilih COM3 (Windows)</text>
-  <text x="390" y="120" font-family="system-ui,sans-serif" font-size="13" font-weight="700">atau /dev/cu.usbserial-… (macOS)</text>
-  <text x="390" y="150" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Nomor port bisa beda tiap PC</text>
-  <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — label menu bisa sedikit beda versi IDE</text>
-</svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Menu Board &amp; Port di Arduino IDE (buatan Koding Indonesia). Board dan port harus dipilih sebelum upload.</figcaption>
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs06-arduino-ide-overview.png" width="1920" height="1080" alt="Arduino IDE 2 — toolbar Select Board &amp; Port di bagian atas" loading="lazy" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Pilih board + port COM:</strong> di toolbar atas Arduino IDE 2, klik dropdown <strong>Select Board &amp; Port</strong>. Pilih <strong>ESP32 Dev Module</strong> (sesuai DevKitC-1) dan port COM/tty yang sama dengan Device Manager. Board dan port harus terpilih sebelum upload.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0).
+  </figcaption>
 </figure>
-SVG;
+HTML;
     }
 
-    private function boardMenuSvgEn(): string
+    private function boardMenuFigureEn(): string
     {
-        return <<<'SVG'
-<figure role="img" aria-label="Arduino IDE Tools menu" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="Arduino IDE menus">
-  <text x="360" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Two menus you must know</text>
-  <rect x="30" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="50" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Tools → Board → ESP32 Arduino</text>
-  <text x="50" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">→ pick ESP32 Dev Module</text>
-  <text x="50" y="130" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Matches ESP32-DevKitC-1 on this path</text>
-  <rect x="370" y="50" width="320" height="120" rx="6" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="390" y="78" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Tools → Port</text>
-  <text x="390" y="100" font-family="system-ui,sans-serif" font-size="13" font-weight="700">→ pick COM3 (Windows)</text>
-  <text x="390" y="120" font-family="system-ui,sans-serif" font-size="13" font-weight="700">or /dev/cu.usbserial-… (macOS)</text>
-  <text x="390" y="150" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Port number differs per PC</text>
-  <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — menu labels may vary slightly by IDE version</text>
-</svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Board &amp; Port menus in Arduino IDE (by Koding Indonesia). Select both before upload.</figcaption>
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs06-arduino-ide-overview.png" width="1920" height="1080" alt="Arduino IDE 2 — Select Board &amp; Port toolbar at the top" loading="lazy" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Pick board + COM port:</strong> in the Arduino IDE 2 top toolbar, click the <strong>Select Board &amp; Port</strong> dropdown. Choose <strong>ESP32 Dev Module</strong> (matches DevKitC-1) and the COM/tty port that matches Device Manager. Select both before upload.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0).
+  </figcaption>
 </figure>
-SVG;
+HTML;
     }
 
     private function body(): string
@@ -291,8 +261,8 @@ SVG;
         $overview = $this->overviewFigureId();
         $flow = $this->workflowSvgId();
         $chip = $this->chipSvgId();
-        $devmgr = $this->deviceManagerSvgId();
-        $menu = $this->boardMenuSvgId();
+        $devmgr = $this->deviceManagerFigureId();
+        $menu = $this->boardMenuFigureId();
 
         return <<<HTML
 <h2>Pendahuluan — kenapa komputer dulu?</h2>
@@ -430,8 +400,8 @@ HTML;
         $overview = $this->overviewFigureEn();
         $flow = $this->workflowSvgEn();
         $chip = $this->chipSvgEn();
-        $devmgr = $this->deviceManagerSvgEn();
-        $menu = $this->boardMenuSvgEn();
+        $devmgr = $this->deviceManagerFigureEn();
+        $menu = $this->boardMenuFigureEn();
 
         return <<<HTML
 <h2>Introduction — why the computer first?</h2>
