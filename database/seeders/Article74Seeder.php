@@ -194,20 +194,20 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="LED: kaki panjang anode dan kaki pendek katode" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 220" width="100%" height="auto" role="img" aria-label="LED polarity">
-  <text x="160" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">LED 5mm</text>
-  <circle cx="160" cy="78" r="42" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
-  <rect x="118" y="78" width="84" height="22" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
-  <line x1="130" y1="100" x2="130" y2="155" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <line x1="190" y1="100" x2="190" y2="140" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <text x="130" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">kaki panjang</text>
-  <text x="130" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#2E7D32">= + (anode)</text>
-  <text x="190" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">kaki pendek</text>
-  <text x="190" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#C62828">= − (katode)</text>
-  <rect x="360" y="45" width="280" height="120" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="6"/>
-  <text x="500" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Resistor</text>
-  <text x="500" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">220Ω / 330Ω = “rem” arus</text>
-  <text x="500" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">agar LED tidak “terbakar”</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="100%" height="auto" role="img" aria-label="LED polarity">
+  <text x="200" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">LED 5mm</text>
+  <circle cx="200" cy="85" r="48" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="152" y="85" width="96" height="26" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="165" y1="111" x2="165" y2="165" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="235" y1="111" x2="235" y2="148" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <text x="95" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">← kaki panjang</text>
+  <text x="95" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#2E7D32">= + (anode)</text>
+  <text x="305" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">kaki pendek →</text>
+  <text x="305" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#C62828">= − (katode)</text>
+  <rect x="400" y="50" width="290" height="130" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="545" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Resistor</text>
+  <text x="545" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#4A5568">220Ω / 330Ω = “rem” arus</text>
+  <text x="545" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#4A5568">agar LED tidak “terbakar”</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Polaritas LED + peran resistor (buatan Koding Indonesia). Menyambung supaya menyala baru di modul nanti — hari ini cukup kenali bentuknya.</figcaption>
 </figure>
@@ -218,20 +218,20 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="LED: long anode leg and short cathode leg" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 220" width="100%" height="auto" role="img" aria-label="LED polarity">
-  <text x="160" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">5mm LED</text>
-  <circle cx="160" cy="78" r="42" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
-  <rect x="118" y="78" width="84" height="22" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
-  <line x1="130" y1="100" x2="130" y2="155" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <line x1="190" y1="100" x2="190" y2="140" stroke="#1a1a1a" stroke-width="5" stroke-linecap="round"/>
-  <text x="130" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">long leg</text>
-  <text x="130" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#2E7D32">= + (anode)</text>
-  <text x="190" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">short leg</text>
-  <text x="190" y="196" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#C62828">= − (cathode)</text>
-  <rect x="360" y="45" width="280" height="120" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="6"/>
-  <text x="500" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Resistor</text>
-  <text x="500" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">220Ω / 330Ω = current “brake”</text>
-  <text x="500" y="138" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">so the LED does not burn out</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" width="100%" height="auto" role="img" aria-label="LED polarity">
+  <text x="200" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">5mm LED</text>
+  <circle cx="200" cy="85" r="48" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="152" y="85" width="96" height="26" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2.5"/>
+  <line x1="165" y1="111" x2="165" y2="165" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <line x1="235" y1="111" x2="235" y2="148" stroke="#1a1a1a" stroke-width="6" stroke-linecap="round"/>
+  <text x="95" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">← long leg</text>
+  <text x="95" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#2E7D32">= + (anode)</text>
+  <text x="305" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">short leg →</text>
+  <text x="305" y="208" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#C62828">= − (cathode)</text>
+  <rect x="400" y="50" width="290" height="130" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2" rx="6"/>
+  <text x="545" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Resistor</text>
+  <text x="545" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#4A5568">220Ω / 330Ω = current “brake”</text>
+  <text x="545" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" fill="#4A5568">so the LED does not burn out</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">LED polarity + resistor role (by Koding Indonesia). Powered wiring comes in later modules — today just recognize the shapes.</figcaption>
 </figure>
