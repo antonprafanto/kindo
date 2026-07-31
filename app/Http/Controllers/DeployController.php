@@ -5722,8 +5722,14 @@ class DeployController extends Controller
             'Persiapan',
             'Kesalahan umum',
             'Tidak ada perintah sintaks hari ini',
+            'cara pakai artikel ini',
             'esp32-devkitc-overview.jpg',
             'Espressif Systems',
+            'kit-tv-remote.jpg',
+            'kit-smart-bulbs.jpg',
+            'kit-smart-plugs.jpg',
+            'Arti awam',
+            'fsiot-iot-checklist',
             '/belajar/fullstack-iot',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
@@ -5747,8 +5753,14 @@ class DeployController extends Controller
             'ESP32-DevKitC-1',
             'Preparation',
             'There is no syntax to run today',
+            'how to use this article',
             'esp32-devkitc-overview.jpg',
             'Espressif Systems',
+            'kit-tv-remote.jpg',
+            'kit-smart-bulbs.jpg',
+            'kit-smart-plugs.jpg',
+            'Beginner meaning',
+            'fsiot-iot-checklist',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {
