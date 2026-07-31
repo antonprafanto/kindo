@@ -162,6 +162,7 @@ jobs:
           server-dir: ${{ steps.ftp.outputs.dir }}public/build/
           state-name: kindo-ftp-build-v3
           log-level: standard
+          timeout: 300000
 
       - name: Deploy build assets to public webroot via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
@@ -176,6 +177,7 @@ jobs:
           server-dir: ${{ steps.public.outputs.dir }}build/
           state-name: kindo-ftp-public-build-v1
           log-level: standard
+          timeout: 300000
 
       - name: Upload deploy marker to public webroot
         run: |
