@@ -82,6 +82,9 @@ check('pull diagram landscape caption EN', str_contains($en, 'green box') && str
 check('wiring H2 Indonesian', str_contains($id, 'Wiring langkah demi langkah'));
 check('button legs SVG', str_contains($id, '4 kaki tombol') && str_contains($en, '4 button legs'));
 check('main wiring diagram', str_contains($id, 'Gambar utama') && str_contains($en, 'Main diagram'));
+check('main wiring photo file', str_contains($id, 'fs10-button-pulldown-wiring.png') && str_contains($en, 'fs10-button-pulldown-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs10-button-pulldown-wiring.png'));
+check('no GPIO wire yet caption', str_contains($id, 'belum ada kabel ke pin GPIO') && str_contains($en, 'no wire to any GPIO'));
+check('still multimeter first', str_contains($id, 'cukup ukur tegangan') && str_contains($en, 'only measure voltage'));
 check('no Arduino upload', str_contains($id, 'Belum upload sketch') && str_contains($en, 'No sketch upload'));
 check('wrong resistor mistake', str_contains($id, '220 Ω (FS-09)') && str_contains($en, '220 Ω (FS-09)'));
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $id, $svgIdBlocks);

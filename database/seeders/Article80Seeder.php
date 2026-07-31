@@ -448,60 +448,28 @@ SVG;
 
     private function wiringSvgId(): string
     {
-        return <<<'SVG'
-<figure role="img" aria-label="Wiring tombol pull-down di breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="auto">
-  <text x="400" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Gambar utama — tombol + pull-down 10 kΩ</text>
-  <rect x="280" y="50" width="240" height="280" fill="#FFFDE7" stroke="#1a1a1a" stroke-width="2" rx="4"/>
-  <rect x="280" y="185" width="240" height="12" fill="#BDBDBD"/>
-  <text x="400" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10">parit</text>
-  <rect x="340" y="120" width="50" height="50" rx="6" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="365" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">BTN</text>
-  <line x1="200" y1="80" x2="340" y2="130" stroke="#E53935" stroke-width="3"/>
-  <text x="250" y="70" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#E53935">① 3V3</text>
-  <line x1="390" y1="145" x2="500" y2="145" stroke="#1565C0" stroke-width="3"/>
-  <text x="510" y="150" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1565C0">② titik sinyal</text>
-  <rect x="500" y="200" width="80" height="24" fill="#FFCC80" stroke="#1a1a1a"/>
-  <text x="540" y="216" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">10 kΩ</text>
-  <line x1="540" y1="145" x2="540" y2="200" stroke="#1565C0" stroke-width="2"/>
-  <line x1="540" y1="224" x2="540" y2="300" stroke="#424242" stroke-width="3"/>
-  <text x="550" y="290" font-family="system-ui,sans-serif" font-size="12" font-weight="700">③ GND</text>
-  <line x1="390" y1="170" x2="340" y2="160" stroke="#1565C0" stroke-width="2"/>
-  <text x="300" y="175" font-family="system-ui,sans-serif" font-size="11">kaki sinyal tombol</text>
-  <text x="400" y="360" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Lepas: sinyal ~0V (LOW) · Tekan: sinyal ~3,3V (HIGH)</text>
-  <text x="400" y="385" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Belum sambung ke pin GPIO — cukup uji dengan multimeter · Buatan Koding Indonesia</text>
-</svg>
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1243" height="809" alt="ESP32 di breadboard dengan tombol tactile dan resistor pull-down 10 kΩ — titik sinyal siap diukur multimeter" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Gambar utama</strong> — ESP32 di breadboard + tombol + <strong>pull-down 10 kΩ</strong>. Alur: jumper merah <strong>3V3 → rail + → tombol</strong>; kaki sisi lain = <strong>titik sinyal</strong> (ukur di sini dengan multimeter); resistor 10 kΩ dari titik sinyal ke <strong>GND</strong>. ESP32 di sini hanya sumber daya — <strong>belum ada kabel ke pin GPIO</strong>; hari ini cukup ukur tegangan, belum coding.
+    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-10).
+  </figcaption>
 </figure>
-SVG;
+HTML;
     }
 
     private function wiringSvgEn(): string
     {
-        return <<<'SVG'
-<figure role="img" aria-label="Pull-down button wiring on breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="auto">
-  <text x="400" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Main diagram — button + 10 kΩ pull-down</text>
-  <rect x="280" y="50" width="240" height="280" fill="#FFFDE7" stroke="#1a1a1a" stroke-width="2" rx="4"/>
-  <rect x="280" y="185" width="240" height="12" fill="#BDBDBD"/>
-  <text x="400" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10">ditch</text>
-  <rect x="340" y="120" width="50" height="50" rx="6" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="365" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">BTN</text>
-  <line x1="200" y1="80" x2="340" y2="130" stroke="#E53935" stroke-width="3"/>
-  <text x="250" y="70" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#E53935">① 3V3</text>
-  <line x1="390" y1="145" x2="500" y2="145" stroke="#1565C0" stroke-width="3"/>
-  <text x="510" y="150" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1565C0">② signal node</text>
-  <rect x="500" y="200" width="80" height="24" fill="#FFCC80" stroke="#1a1a1a"/>
-  <text x="540" y="216" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">10 kΩ</text>
-  <line x1="540" y1="145" x2="540" y2="200" stroke="#1565C0" stroke-width="2"/>
-  <line x1="540" y1="224" x2="540" y2="300" stroke="#424242" stroke-width="3"/>
-  <text x="550" y="290" font-family="system-ui,sans-serif" font-size="12" font-weight="700">③ GND</text>
-  <line x1="390" y1="170" x2="340" y2="160" stroke="#1565C0" stroke-width="2"/>
-  <text x="300" y="175" font-family="system-ui,sans-serif" font-size="11">button signal leg</text>
-  <text x="400" y="360" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Released: signal ~0V (LOW) · Pressed: signal ~3.3V (HIGH)</text>
-  <text x="400" y="385" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">Not wired to GPIO yet — test with a multimeter only · by Koding Indonesia</text>
-</svg>
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1243" height="809" alt="ESP32 on a breadboard with tactile button and 10 kΩ pull-down — signal node ready for multimeter test" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Main diagram</strong> — ESP32 on the breadboard + button + <strong>10 kΩ pull-down</strong>. Path: red jumper <strong>3V3 → + rail → button</strong>; opposite leg = <strong>signal node</strong> (measure here with a multimeter); 10 kΩ from signal node to <strong>GND</strong>. The ESP32 is only the power source here — <strong>no wire to any GPIO pin yet</strong>; today only measure voltage, no coding.
+    <br>Image source: circuit diagram by Koding Indonesia (FS-10).
+  </figcaption>
 </figure>
-SVG;
+HTML;
     }
 
     private function body(): string
@@ -579,18 +547,19 @@ SVG;
 {$pull}
 
 <h2>Rangkaian yang akan dibuat</h2>
-<p>Alur saat <strong>tombol lepas</strong>: titik sinyal terhubung ke GND lewat 10 kΩ → LOW. Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke titik sinyal → HIGH. Titik sinyal nanti disambung ke GPIO (modul berikutnya).</p>
+<p>Alur saat <strong>tombol lepas</strong>: titik sinyal terhubung ke GND lewat 10 kΩ → LOW. Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke titik sinyal → HIGH. Di foto, ESP32 hanya menyuplai <strong>3V3</strong> dan <strong>GND</strong> — <strong>belum ada jumper ke pin GPIO</strong>. Titik sinyal nanti disambung ke GPIO di FS-11; hari ini kita uji dulu dengan multimeter.</p>
 {$wire}
 
 <h2>Wiring langkah demi langkah</h2>
-<p><strong>Awam:</strong> ikuti <strong>gambar utama</strong> di atas. Urutan nomor ① → ② → ③ yang penting — posisi lubang breadboard boleh digeser asalkan jalur sama.</p>
+<p><strong>Awam:</strong> ikuti <strong>gambar utama</strong> di atas (ada ESP32-nya). Posisi lubang boleh digeser — yang penting <strong>urutan listrik</strong> sama.</p>
 <ol>
+<li><strong>Pasang ESP32</strong> di breadboard (melintasi parit) seperti foto, atau sambungkan jumper 3V3/GND dari board di samping.</li>
 <li><strong>Power rail:</strong> jumper merah <strong>3V3</strong> → rail +. Jumper hitam <strong>GND</strong> → rail −.</li>
 <li><strong>Tombol:</strong> pasang melintasi <strong>parit tengah</strong> breadboard (satu sisi atas, satu sisi bawah parit).</li>
 <li><strong>① ke 3V3:</strong> satu kaki tombol → rail merah (+) dengan jumper merah.</li>
-<li><strong>② titik sinyal:</strong> kaki tombol di <strong>sisi berlawanan</strong> (lewat parit) — tarik jumper warna lain ke lubang kosong sebagai <strong>titik ukur multimeter</strong>.</li>
-<li><strong>Resistor 10 kΩ:</strong> satu kaki di <strong>titik sinyal</strong>, kaki lain ke <strong>rail GND</strong> (③).</li>
-<li><strong>Cek visual:</strong> tidak ada short 3V3–GND tanpa lewat tombol/resistor.</li>
+<li><strong>② titik sinyal:</strong> kaki tombol di <strong>sisi berlawanan</strong> (lewat parit) — ini titik yang diukur multimeter. <strong>Jangan sambung ke GPIO dulu.</strong></li>
+<li><strong>Resistor 10 kΩ:</strong> satu kaki di <strong>titik sinyal</strong>, kaki lain ke <strong>rail GND</strong> (③) — cincin coklat-hitam-oranye.</li>
+<li><strong>Cek visual:</strong> tidak ada short 3V3–GND tanpa lewat tombol/resistor. Tombol benar melintasi parit. Tidak ada kabel sinyal ke pin IO.</li>
 <li><strong>Colok USB</strong> — board menyalakan rail (jangan sentuh bagian logam probe).</li>
 </ol>
 
@@ -600,7 +569,7 @@ SVG;
 <p><strong>Awam — langkah ukur:</strong></p>
 <ol>
 <li>Probe <strong>hitam</strong> ke rail GND (atau pin GND board).</li>
-<li>Probe <strong>merah</strong> ke <strong>titik sinyal</strong> (②).</li>
+<li>Probe <strong>merah</strong> ke <strong>titik sinyal</strong> (②) — lubang yang sama dengan kaki resistor di sisi tombol (lihat foto), <strong>bukan</strong> pin GPIO.</li>
 <li><strong>Tombol lepas:</strong> layar ≈ <strong>0 V</strong> (LOW).</li>
 <li><strong>Tombol ditekan:</strong> layar ≈ <strong>3,3 V</strong> (HIGH).</li>
 <li>Catat di kertas: lepas = ___ V · tekan = ___ V.</li>
@@ -736,18 +705,19 @@ HTML;
 {$pull}
 
 <h2>The circuit we will build</h2>
-<p>When the <strong>button is released</strong>: the signal node connects to GND through 10 kΩ → LOW. When <strong>pressed</strong>: 3V3 connects to the signal node → HIGH. This node will later connect to GPIO (next modules).</p>
+<p>When the <strong>button is released</strong>: the signal node connects to GND through 10 kΩ → LOW. When <strong>pressed</strong>: 3V3 connects to the signal node → HIGH. In the photo the ESP32 only supplies <strong>3V3</strong> and <strong>GND</strong> — <strong>no jumper to any GPIO pin yet</strong>. That node will connect to GPIO in FS-11; today we test with a multimeter first.</p>
 {$wire}
 
 <h2>Step-by-step wiring</h2>
-<p><strong>Beginner:</strong> follow the <strong>main diagram</strong> above. Connection order ① → ② → ③ matters — breadboard hole positions can shift as long as the path matches.</p>
+<p><strong>Beginner:</strong> follow the <strong>main diagram</strong> above (it shows the ESP32). Hole positions can shift — keep the <strong>electrical path</strong> the same.</p>
 <ol>
+<li><strong>Mount the ESP32</strong> on the breadboard (across the ditch) like the photo, or jumper 3V3/GND from a board placed beside it.</li>
 <li><strong>Power rails:</strong> red jumper <strong>3V3</strong> → + rail. Black jumper <strong>GND</strong> → − rail.</li>
 <li><strong>Button:</strong> mount across the <strong>center ditch</strong> (one side above, one below the ditch).</li>
 <li><strong>① to 3V3:</strong> one button leg → red (+) rail with a red jumper.</li>
-<li><strong>② signal node:</strong> the button leg on the <strong>opposite side</strong> (across the ditch) — run a colored jumper to an empty hole as your <strong>multimeter measurement point</strong>.</li>
-<li><strong>10 kΩ resistor:</strong> one leg at the <strong>signal node</strong>, the other to the <strong>GND rail</strong> (③).</li>
-<li><strong>Visual check:</strong> no direct 3V3–GND short without going through the button/resistor.</li>
+<li><strong>② signal node:</strong> the button leg on the <strong>opposite side</strong> (across the ditch) — this is where you measure with the multimeter. <strong>Do not wire to GPIO yet.</strong></li>
+<li><strong>10 kΩ resistor:</strong> one leg at the <strong>signal node</strong>, the other to the <strong>GND rail</strong> (③) — brown-black-orange bands.</li>
+<li><strong>Visual check:</strong> no direct 3V3–GND short without going through the button/resistor. Button truly across the ditch. No signal wire to an IO pin.</li>
 <li><strong>Plug USB</strong> — the board powers the rails (do not touch bare probe tips).</li>
 </ol>
 
@@ -757,7 +727,7 @@ HTML;
 <p><strong>Beginner — measurement steps:</strong></p>
 <ol>
 <li><strong>Black</strong> probe on the GND rail (or board GND pin).</li>
-<li><strong>Red</strong> probe on the <strong>signal node</strong> (②).</li>
+<li><strong>Red</strong> probe on the <strong>signal node</strong> (②) — the same hole as the resistor leg on the button side (see the photo), <strong>not</strong> a GPIO pin.</li>
 <li><strong>Button released:</strong> display ≈ <strong>0 V</strong> (LOW).</li>
 <li><strong>Button pressed:</strong> display ≈ <strong>3.3 V</strong> (HIGH).</li>
 <li>Write on paper: released = ___ V · pressed = ___ V.</li>
