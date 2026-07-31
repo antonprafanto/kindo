@@ -150,6 +150,8 @@ jobs:
           echo "Public webroot FTP dir: $pub"
 
       - name: Deploy build assets via FTP
+        id: ftp_build
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -162,9 +164,34 @@ jobs:
           server-dir: ${{ steps.ftp.outputs.dir }}public/build/
           state-name: kindo-ftp-build-v3
           log-level: standard
-          timeout: 300000
+          timeout: 600000
+
+      - name: Pause before build FTP retry
+        if: steps.ftp_build.outcome == 'failure'
+        run: |
+          echo "Build FTP failed — waiting 90s before retry"
+          sleep 90
+
+      - name: Deploy build assets via FTP (retry)
+        id: ftp_build_r1
+        if: steps.ftp_build.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./public/build/
+          server-dir: ${{ steps.ftp.outputs.dir }}public/build/
+          state-name: kindo-ftp-build-v3
+          log-level: standard
+          timeout: 600000
 
       - name: Deploy build assets to public webroot via FTP
+        id: ftp_pub_build
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -177,7 +204,43 @@ jobs:
           server-dir: ${{ steps.public.outputs.dir }}build/
           state-name: kindo-ftp-public-build-v1
           log-level: standard
-          timeout: 300000
+          timeout: 600000
+
+      - name: Pause before public build FTP retry
+        if: steps.ftp_pub_build.outcome == 'failure'
+        run: |
+          echo "Public build FTP failed — waiting 90s before retry"
+          sleep 90
+
+      - name: Deploy build assets to public webroot via FTP (retry)
+        id: ftp_pub_build_r1
+        if: steps.ftp_pub_build.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./public/build/
+          server-dir: ${{ steps.public.outputs.dir }}build/
+          state-name: kindo-ftp-public-build-v1
+          log-level: standard
+          timeout: 600000
+
+      - name: Confirm build asset FTP
+        run: |
+          ok_build=0
+          ok_pub=0
+          [ "${{ steps.ftp_build.outcome }}" = "success" ] || [ "${{ steps.ftp_build_r1.outcome }}" = "success" ] && ok_build=1
+          [ "${{ steps.ftp_pub_build.outcome }}" = "success" ] || [ "${{ steps.ftp_pub_build_r1.outcome }}" = "success" ] && ok_pub=1
+          if [ "$ok_build" -eq 1 ] && [ "$ok_pub" -eq 1 ]; then
+            echo "Build asset FTP OK"
+            exit 0
+          fi
+          echo "::error::Build asset FTP failed after retries (Rumahweb FTPS)"
+          exit 1
 
       - name: Upload deploy marker to public webroot
         run: |
