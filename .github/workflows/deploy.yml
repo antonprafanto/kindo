@@ -18,7 +18,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 90
     environment: antonprafanto
 
     steps:
@@ -221,7 +221,13 @@ jobs:
             echo "::warning::$failed brand asset(s) failed — deploy continues"
           fi
 
+      # Rumahweb FTPS sering Timeout (control socket) pada sync besar — retry + jeda.
+      - name: Pause before main FTP sync
+        run: sleep 45
+
       - name: Deploy via FTP
+        id: ftp_main
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -234,6 +240,7 @@ jobs:
           server-dir: ${{ steps.ftp.outputs.dir }}
           state-name: kindo-ftp-deploy-v3
           log-level: standard
+          timeout: 600000
           exclude: |
             **/.git*
             **/.github/**
@@ -257,6 +264,107 @@ jobs:
             **/public/sitemap.xml
             **/public/build/**
 
+      - name: Pause before FTP retry 1
+        if: steps.ftp_main.outcome == 'failure'
+        run: |
+          echo "Main FTP failed (${{ steps.ftp_main.outcome }}) — waiting 90s before retry 1"
+          sleep 90
+
+      - name: Deploy via FTP (retry 1)
+        id: ftp_main_r1
+        if: steps.ftp_main.outcome == 'failure'
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./
+          server-dir: ${{ steps.ftp.outputs.dir }}
+          state-name: kindo-ftp-deploy-v3
+          log-level: standard
+          timeout: 600000
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/vendor/**
+            **/tests/**
+            **/.env
+            **/.env.*
+            **/.editorconfig
+            **/.cursor/**
+            **/.vscode/**
+            **/.codex/**
+            **/storage/**
+            **/bootstrap/cache/**
+            **/*.md
+            **/phpunit.xml
+            **/docker-compose*
+            **/database/database.sqlite
+            **/public/hot
+            **/public/storage
+            **/public/sitemap.xml
+            **/public/build/**
+
+      - name: Pause before FTP retry 2
+        if: steps.ftp_main.outcome == 'failure' && steps.ftp_main_r1.outcome == 'failure'
+        run: |
+          echo "FTP retry 1 failed — waiting 120s before final retry"
+          sleep 120
+
+      - name: Deploy via FTP (retry 2)
+        id: ftp_main_r2
+        if: steps.ftp_main.outcome == 'failure' && steps.ftp_main_r1.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./
+          server-dir: ${{ steps.ftp.outputs.dir }}
+          state-name: kindo-ftp-deploy-v3
+          log-level: standard
+          timeout: 600000
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/vendor/**
+            **/tests/**
+            **/.env
+            **/.env.*
+            **/.editorconfig
+            **/.cursor/**
+            **/.vscode/**
+            **/.codex/**
+            **/storage/**
+            **/bootstrap/cache/**
+            **/*.md
+            **/phpunit.xml
+            **/docker-compose*
+            **/database/database.sqlite
+            **/public/hot
+            **/public/storage
+            **/public/sitemap.xml
+            **/public/build/**
+
+      - name: Confirm main FTP deploy
+        if: always()
+        run: |
+          if [ "${{ steps.ftp_main.outcome }}" = "success" ] || [ "${{ steps.ftp_main_r1.outcome }}" = "success" ] || [ "${{ steps.ftp_main_r2.outcome }}" = "success" ]; then
+            echo "Main FTP deploy OK"
+            exit 0
+          fi
+          echo "::error::Main FTP deploy failed after retries (control socket / Rumahweb FTPS)"
+          exit 1
+
       - name: Deploy vendor via FTP
         if: inputs.include_vendor == true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
@@ -271,6 +379,7 @@ jobs:
           server-dir: ${{ steps.ftp.outputs.dir }}vendor/
           state-name: kindo-ftp-vendor
           log-level: standard
+          timeout: 600000
 
       - name: Purge remote Laravel cache files (FTP)
         continue-on-error: true
