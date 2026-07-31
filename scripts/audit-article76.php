@@ -43,10 +43,18 @@ check('seed route exists', str_contains($routes, 'seed-article-76-draft'));
 
 check('ID self-ref #76 (ini)', str_contains($id, '#76 (ini)'));
 check('EN self-ref #76 (this article)', str_contains($en, '#76 (this article)'));
-check('ID Awam >= 5', substr_count($id, 'Awam:') + substr_count($id, 'Awam —') >= 5);
-check('EN Beginner >= 5', substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —') >= 5);
+check('no Awam stamp ID', ! str_contains($id, 'Awam:') && ! str_contains($id, 'Awam —'));
+check('no Beginner stamp EN', ! str_contains($en, 'Beginner:') && ! str_contains($en, 'Beginner —'));
+check('no awam word in body ID', ! preg_match('/\bawam\b/i', $id));
+check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
+check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
+check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 5', substr_count($id, '<figure') >= 5 && substr_count($en, '<figure') >= 5);
+check('ID mistakes heading', str_contains($id, 'Kesalahan yang sering terjadi'));
+check('EN mistakes heading', str_contains($en, 'Common mistakes'));
+check('tools-first no PHP today', str_contains($id, 'Tidak perlu hari ini') && str_contains($id, 'Arduino IDE') && str_contains($en, 'Not needed today'));
+check('soft bridge FS-07 plain', str_contains($id, 'multimeter dasar') && str_contains($en, 'basic multimeter'));
 
 check('ID Persiapan tools-first', str_contains($id, 'Persiapan') && str_contains($id, 'Arduino IDE'));
 check('EN Preparation tools-first', str_contains($en, 'Preparation') && str_contains($en, 'Arduino IDE'));
@@ -60,7 +68,7 @@ check('ESP32 Dev Module', str_contains($id, 'ESP32 Dev Module') && str_contains(
 check('CP210x driver link', str_contains($id, 'silabs.com') && str_contains($en, 'silabs.com'));
 check('CH340 driver link', str_contains($id, 'wch-ic.com') && str_contains($en, 'wch-ic.com'));
 check('charge-only mention', str_contains($id, 'charge-only') && str_contains($en, 'charge-only'));
-check('overview image + Espressif', str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'Espressif'));
+check('overview image + Espressif', str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'Espressif') && str_contains($id, 'esp-dev-kits'));
 check('SVG workflow + chip', str_contains($id, 'Alur hari ini') && str_contains($id, 'CP2102'));
 check('device manager photo', str_contains($id, 'fs06-device-manager-esp32.png') && str_contains($id, 'establish-serial-connection'));
 check('arduino ide board port photo', str_contains($id, 'fs06-arduino-ide-overview.png') && str_contains($id, 'Select Board'));
@@ -82,10 +90,10 @@ check('no hardlink FS articles', ! preg_match('#/artikel/fullstack-iot-[a-z0-9-]
 check('no Seri ESP32 prereq link', ! preg_match('#/artikel/(esp32|arduino)#i', $id.$en));
 check('no php artisan in practice', ! str_contains($id, 'php artisan serve') && ! str_contains($en, 'php artisan serve'));
 check('no Soft bridge jargon', ! str_contains($id, 'Soft bridge') && ! str_contains($en, 'soft bridge'));
-check('no Laragon as main tool', ! str_contains($id, 'Laragon') || str_contains($id, 'belum Laragon'));
+check('no Laragon as main tool', ! str_contains($id, 'Laragon') || str_contains($id, 'belum Laragon') || str_contains($id, 'Tidak perlu hari ini'));
 
 $enPlain = strip_tags($en);
-foreach (['Pendahuluan', 'Persiapan', 'Kesalahan umum', 'Kesimpulan', 'Awam:'] as $w) {
+foreach (['Pendahuluan', 'Persiapan', 'Kesalahan yang sering terjadi', 'Kesimpulan', 'Awam:', 'Intinya:'] as $w) {
     check('No residual Indo in EN: '.$w, ! str_contains($enPlain, $w) && ! str_contains($en, '<h2>'.$w));
 }
 

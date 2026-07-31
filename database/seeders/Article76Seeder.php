@@ -43,7 +43,7 @@ class Article76Seeder extends Seeder
                 'title'              => 'Komputer siap: driver USB + Arduino IDE dari nol',
                 'title_en'           => 'Computer ready: USB driver + Arduino IDE from zero',
                 'excerpt'            => 'FS-06 / #76: Driver CP210x/CH340, Arduino IDE 2.x, Board Manager ESP32, pilih COM, upload pertama. Tools-first untuk pemula.',
-                'excerpt_en'         => 'FS-06 / #76: CP210x/CH340 drivers, Arduino IDE 2.x, ESP32 Board Manager, pick COM port, first upload. Tools-first for beginners.',
+                'excerpt_en'         => 'FS-06 / #76: CP210x/CH340 drivers, Arduino IDE 2.x, ESP32 Board Manager, pick COM port, first upload. Tools-first from zero.',
                 'body'               => $this->body(),
                 'body_en'            => $this->bodyEn(),
                 'status'             => 'draft',
@@ -75,7 +75,7 @@ class Article76Seeder extends Seeder
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Foto overview ESP32-DevKitC — cari chip berlabel (4) USB-to-UART Bridge" loading="eager" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     Cari chip kecil berlabel <strong>(4) USB-to-UART Bridge</strong> di foto — tulisan di chip biasanya <strong>CP2102</strong> atau <strong>CH340</strong>. Itu penentu driver yang kamu unduh.
-    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (dokumen resmi).
+    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (dokumen resmi).
   </figcaption>
 </figure>
 HTML;
@@ -88,7 +88,7 @@ HTML;
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC overview — find the chip labeled (4) USB-to-UART Bridge" loading="eager" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     Look for the small chip labeled <strong>(4) USB-to-UART Bridge</strong> in the photo — the chip text is usually <strong>CP2102</strong> or <strong>CH340</strong>. That decides which driver you download.
-    <br>Image source: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (official docs).
+    <br>Image source: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (official docs).
   </figcaption>
 </figure>
 HTML;
@@ -267,7 +267,7 @@ HTML;
         return <<<HTML
 <h2>Pendahuluan — kenapa komputer dulu?</h2>
 <p>Artikel ini adalah <strong>#76 (ini)</strong> · modul <strong>FS-06</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Di <strong>FS-05</strong> kamu sudah punya kebiasaan aman. Hari ini komputer dan <strong>Arduino IDE</strong> disiapkan supaya board ESP32-DevKitC-1 bisa dikenali dan menerima program pertama.</p>
-<p><strong>Awam:</strong> seperti mendaftar SIM sebelum menyetir — tanpa SIM (driver + IDE), mobil (board) tidak “sah” di jalan komputermu.</p>
+<p><strong>Analogi:</strong> seperti mendaftar SIM sebelum menyetir — tanpa SIM (driver + IDE), mobil (board) tidak “sah” di jalan komputermu.</p>
 <p><strong>Prasyarat:</strong> ide dari FS-05 (cabut USB dulu, kabel data, jangan 5V ke GPIO). Kamu perlu <strong>PC/laptop</strong>, board, dan kabel USB <strong>data</strong>.</p>
 
 <h2>Persiapan — alat yang kamu buka hari ini</h2>
@@ -279,7 +279,15 @@ HTML;
 <li><strong>ESP32-DevKitC-1 + kabel USB data</strong> — untuk tes colok setelah driver terpasang.</li>
 <li><strong>Kertas + pena</strong> — catat nomor port COM kamu (misalnya COM5).</li>
 </ul>
-<p><strong>Awam — urutan buka:</strong> (1) baca artikel sampai bagian driver → (2) unduh &amp; pasang driver → (3) unduh &amp; buka Arduino IDE → (4) baru colok board USB. Jangan colok dulu kalau driver belum jelas.</p>
+<p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
+<ol>
+<li><strong>Buka browser</strong> — baca artikel + unduh driver &amp; Arduino IDE dari situs resmi.</li>
+<li><strong>Pasang driver</strong> sesuai chip (CP210x / CH340) → restart PC jika diminta.</li>
+<li><strong>Buka Arduino IDE 2.x</strong> — di sini kamu akan menempel &amp; menguji sketch.</li>
+<li><strong>Buka Device Manager</strong> (<code>Win+R</code> → <code>devmgmt.msc</code>) untuk cek port COM.</li>
+<li><strong>Baru colok board USB data</strong> → pilih board + port → Upload → cari <em>Done uploading</em>.</li>
+</ol>
+<p><strong>Tidak perlu hari ini:</strong> Laragon, terminal web, <code>php artisan</code>, multimeter, wiring breadboard. Sintaks yang diuji = sketch di Arduino IDE (bukan perintah PHP).</p>
 <p><strong>Hasil yang kamu cari hari ini:</strong> di Arduino IDE muncul tulisan <strong>Done uploading</strong> tanpa error port.</p>
 
 {$flow}
@@ -295,7 +303,7 @@ HTML;
 <li><strong>CP2102 / CP210x</strong> → driver <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" rel="noopener noreferrer" target="_blank">Silicon Labs CP210x VCP</a> (pilih Windows / macOS / Linux).</li>
 <li><strong>CH340 / CH340G</strong> → driver <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" rel="noopener noreferrer" target="_blank">WCH CH341SER</a> (Windows) atau paket distro Linux (<code>brltty</code> kadang bentrok — lihat kesalahan umum).</li>
 </ul>
-<p><strong>Awam — cara menguji driver:</strong> pasang driver → restart PC kalau diminta → colok board → buka Device Manager → lihat <strong>Ports (COM &amp; LPT)</strong>. Kalau muncul <em>Silicon Labs CP210x USB to UART Bridge (COMx)</em> atau <em>USB-SERIAL CH340 (COMx)</em>, driver OK.</p>
+<p><strong>Cara menguji driver:</strong> pasang driver → restart PC kalau diminta → colok board → buka Device Manager → lihat <strong>Ports (COM &amp; LPT)</strong>. Kalau muncul <em>Silicon Labs CP210x USB to UART Bridge (COMx)</em> atau <em>USB-SERIAL CH340 (COMx)</em>, driver OK.</p>
 {$devmgr}
 
 <h2>Install Arduino IDE 2.x</h2>
@@ -305,7 +313,7 @@ HTML;
 <li>Jalankan installer → next → finish (default biasanya cukup).</li>
 <li>Buka Arduino IDE — kamu akan lihat editor kosong + tombol Verify (✓) dan Upload (→).</li>
 </ol>
-<p><strong>Awam:</strong> IDE = “Word” untuk sketch Arduino. Sketch = file resep yang nanti di-upload ke board.</p>
+<p><strong>Analogi:</strong> IDE = “Word” untuk sketch Arduino. Sketch = file resep yang nanti di-upload ke board.</p>
 <p><strong>macOS/Linux:</strong> langkah unduh sama; pastikan user kamu punya izin akses port serial (macOS biasanya langsung; Linux kadang perlu grup <code>dialout</code>).</p>
 
 <h2>Tambah paket board ESP32 (Board Manager)</h2>
@@ -320,7 +328,7 @@ HTML;
 <li>Cari <strong>esp32</strong> oleh Espressif Systems → <strong>Install</strong> (unduhan bisa beberapa menit).</li>
 <li>Tunggu sampai status <em>installed</em>.</li>
 </ol>
-<p><strong>Awam — cara menguji:</strong> setelah install, menu <strong>Tools → Board</strong> harus punya submenu <strong>ESP32 Arduino</strong>. Kalau tidak ada, cek URL typo atau internet/firewall.</p>
+<p><strong>Cara menguji Board Manager:</strong> setelah install, menu <strong>Tools → Board</strong> harus punya submenu <strong>ESP32 Arduino</strong>. Kalau tidak ada, cek URL typo atau internet/firewall.</p>
 
 <h2>Pilih board + port COM</h2>
 {$menu}
@@ -330,7 +338,7 @@ HTML;
 <li><strong>Tools → Port</strong> → pilih COM yang baru muncul (Windows) atau <code>/dev/cu.usbserial-*</code> (macOS).</li>
 <li>Catat nomor port di kertas — nanti sering dipakai.</li>
 </ol>
-<p><strong>Awam:</strong> Port = “pintu” ke board. Salah pintu → upload gagal meski sketch benar.</p>
+<p><strong>Intinya:</strong> Port = “pintu” ke board. Salah pintu → upload gagal meski sketch benar.</p>
 
 <h2>Upload pertama — sketch kilat LED</h2>
 <p>Sketch paling sederhana: kedipkan LED built-in (GPIO 2 di banyak DevKit). <strong>Buka Arduino IDE</strong> dulu, lalu:</p>
@@ -355,7 +363,7 @@ void loop() {
 <li>Klik tombol <strong>Upload</strong> (panah →) di toolbar.</li>
 <li>Tunggu bar bawah: target <strong>Done uploading</strong>. LED kecil di board biasanya berkedip 1 detik on / 1 detik off.</li>
 </ol>
-<p><strong>Awam — cara menguji:</strong> kalau ada <em>Done uploading</em> dan LED berkedip, FS-06 lulus. Kalau error, jangan panik — baca pesan merah di bawah, lalu cek bagian kesalahan umum.</p>
+<p><strong>Cara menguji upload:</strong> kalau ada <em>Done uploading</em> dan LED berkedip, FS-06 lulus. Kalau error, jangan panik — baca pesan merah di bawah, lalu cek bagian kesalahan umum.</p>
 <p><strong>Belum wiring breadboard hari ini</strong> — LED built-in di board sudah cukup sebagai bukti upload.</p>
 
 <h2 id="fsiot-setup-checklist">Praktik — checklist setup 10 poin</h2>
@@ -372,9 +380,9 @@ void loop() {
 <li>Saya memilih port COM/tty yang benar dan sudah mencatat nomornya</li>
 <li>Upload sketch contoh berhasil — ada tulisan <strong>Done uploading</strong></li>
 </ul>
-<p><strong>Awam — cara menguji:</strong> kerjakan checklist di browser. Opsional: foto layar Device Manager + Arduino IDE dengan port terpilih. Tidak perlu menjalankan perintah web server apa pun.</p>
+<p><strong>Cara menguji checklist:</strong> kerjakan checklist di browser. Opsional: foto layar Device Manager + Arduino IDE dengan port terpilih. Tidak perlu menjalankan perintah web server apa pun.</p>
 
-<h2>Kesalahan umum awam</h2>
+<h2>Kesalahan yang sering terjadi</h2>
 <ul>
 <li><strong>Port tidak muncul.</strong> Curigai kabel charge-only dulu, lalu driver salah (CP210x vs CH340), lalu colok ke port USB belakang PC.</li>
 <li><strong>Salah board.</strong> Pilih <em>ESP32 Dev Module</em>, bukan Arduino Uno atau ESP8266.</li>
@@ -386,12 +394,12 @@ void loop() {
 </ul>
 
 <h2>Lanjut belajar</h2>
-<p>Setelah FS-06, langkah alami berikutnya adalah <strong>FS-07 — multimeter untuk orang awam</strong> (mengukur 3.3V dengan aman). Artikel itu belum dilink di sini sampai modulnya siap.</p>
+<p>Setelah FS-06, langkah alami berikutnya adalah <strong>FS-07 — multimeter dasar</strong> (mengukur 3.3V dengan aman). Artikel itu belum dilink di sini sampai modulnya siap.</p>
 <p>Simpan juga <a href="/belajar/fullstack-iot">halaman jalur Full Stack IoT</a> sebagai pintu masuk resmi.</p>
 
 <h2>Kesimpulan</h2>
 <p>Di <strong>#76 (ini)</strong> komputermu sudah mengenali ESP32: driver USB, Arduino IDE 2.x, paket board ESP32, board + port dipilih, dan <strong>Done uploading</strong> sekali. Kamu siap masuk dunia sketch — masih belum rangkaian breadboard penuh.</p>
-<p><strong>Awam:</strong> kalau kamu bisa tunjukkan port COM dan bilang “upload sudah Done”, FS-06 selesai. Lanjut ukur tegangan di FS-07 saat modulnya terbit.</p>
+<p><strong>Intinya:</strong> kalau kamu bisa tunjukkan port COM dan bilang “upload sudah Done”, FS-06 selesai. Lanjut ukur tegangan di FS-07 saat modulnya terbit.</p>
 HTML;
     }
 
@@ -406,7 +414,7 @@ HTML;
         return <<<HTML
 <h2>Introduction — why the computer first?</h2>
 <p>This article is <strong>#76 (this article)</strong> · module <strong>FS-06</strong> on the <em>Full Stack IoT Developer — From Zero</em> path. In <strong>FS-05</strong> you learned safe habits. Today we prepare the computer and <strong>Arduino IDE</strong> so your ESP32-DevKitC-1 is recognized and accepts its first program.</p>
-<p><strong>Beginner:</strong> like getting a license before driving — without the license (driver + IDE), the car (board) is not “legal” on your computer’s roads.</p>
+<p><strong>Analogy:</strong> like getting a license before driving — without the license (driver + IDE), the car (board) is not “legal” on your computer’s roads.</p>
 <p><strong>Prerequisites:</strong> ideas from FS-05 (unplug USB first, data cable, no 5V into GPIO). You need a <strong>PC/laptop</strong>, the board, and a USB <strong>data</strong> cable.</p>
 
 <h2>Preparation — tools you open today</h2>
@@ -418,7 +426,15 @@ HTML;
 <li><strong>ESP32-DevKitC-1 + USB data cable</strong> — for plug-in testing after the driver is installed.</li>
 <li><strong>Paper + pen</strong> — write down your COM port number (e.g. COM5).</li>
 </ul>
-<p><strong>Beginner — open order:</strong> (1) read through the driver section → (2) download &amp; install driver → (3) download &amp; open Arduino IDE → (4) only then plug the board in. Do not plug in first if the driver is unclear.</p>
+<p><strong>How to use this article (work order):</strong></p>
+<ol>
+<li><strong>Open a browser</strong> — read the article + download the driver &amp; Arduino IDE from official sites.</li>
+<li><strong>Install the driver</strong> for your chip (CP210x / CH340) → restart the PC if asked.</li>
+<li><strong>Open Arduino IDE 2.x</strong> — this is where you paste and test the sketch.</li>
+<li><strong>Open Device Manager</strong> (<code>Win+R</code> → <code>devmgmt.msc</code>) to check the COM port.</li>
+<li><strong>Only then plug the board with a data USB cable</strong> → pick board + port → Upload → look for <em>Done uploading</em>.</li>
+</ol>
+<p><strong>Not needed today:</strong> Laragon, a web terminal, <code>php artisan</code>, a multimeter, or breadboard wiring. The syntax you test is the sketch in Arduino IDE (not PHP commands).</p>
 <p><strong>What you want today:</strong> Arduino IDE shows <strong>Done uploading</strong> with no port error.</p>
 
 {$flow}
@@ -434,7 +450,7 @@ HTML;
 <li><strong>CP2102 / CP210x</strong> → <a href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers" rel="noopener noreferrer" target="_blank">Silicon Labs CP210x VCP</a> driver (pick Windows / macOS / Linux).</li>
 <li><strong>CH340 / CH340G</strong> → <a href="https://www.wch-ic.com/downloads/CH341SER_EXE.html" rel="noopener noreferrer" target="_blank">WCH CH341SER</a> driver (Windows) or your Linux distro package (<code>brltty</code> sometimes conflicts — see common mistakes).</li>
 </ul>
-<p><strong>Beginner — how to test the driver:</strong> install driver → restart PC if asked → plug board → open Device Manager → look under <strong>Ports (COM &amp; LPT)</strong>. If you see <em>Silicon Labs CP210x USB to UART Bridge (COMx)</em> or <em>USB-SERIAL CH340 (COMx)</em>, the driver is OK.</p>
+<p><strong>How to test the driver:</strong> install driver → restart PC if asked → plug board → open Device Manager → look under <strong>Ports (COM &amp; LPT)</strong>. If you see <em>Silicon Labs CP210x USB to UART Bridge (COMx)</em> or <em>USB-SERIAL CH340 (COMx)</em>, the driver is OK.</p>
 {$devmgr}
 
 <h2>Install Arduino IDE 2.x</h2>
@@ -444,7 +460,7 @@ HTML;
 <li>Run the installer → next → finish (defaults are usually fine).</li>
 <li>Open Arduino IDE — you will see an empty editor plus Verify (✓) and Upload (→) buttons.</li>
 </ol>
-<p><strong>Beginner:</strong> the IDE is like “Word” for Arduino sketches. A sketch is the recipe file you upload to the board.</p>
+<p><strong>Analogy:</strong> the IDE is like “Word” for Arduino sketches. A sketch is the recipe file you upload to the board.</p>
 <p><strong>macOS/Linux:</strong> same download steps; make sure your user can access the serial port (macOS usually works out of the box; Linux may need the <code>dialout</code> group).</p>
 
 <h2>Add the ESP32 board package (Board Manager)</h2>
@@ -459,7 +475,7 @@ HTML;
 <li>Search <strong>esp32</strong> by Espressif Systems → <strong>Install</strong> (download may take several minutes).</li>
 <li>Wait until status shows <em>installed</em>.</li>
 </ol>
-<p><strong>Beginner — how to test:</strong> after install, <strong>Tools → Board</strong> must show an <strong>ESP32 Arduino</strong> submenu. If not, check URL typos or internet/firewall.</p>
+<p><strong>How to test Board Manager:</strong> after install, <strong>Tools → Board</strong> must show an <strong>ESP32 Arduino</strong> submenu. If not, check URL typos or internet/firewall.</p>
 
 <h2>Pick board + COM port</h2>
 {$menu}
@@ -469,7 +485,7 @@ HTML;
 <li><strong>Tools → Port</strong> → pick the new COM port (Windows) or <code>/dev/cu.usbserial-*</code> (macOS).</li>
 <li>Write the port number on paper — you will use it often.</li>
 </ol>
-<p><strong>Beginner:</strong> the port is the “door” to your board. Wrong door → upload fails even if the sketch is correct.</p>
+<p><strong>In short:</strong> the port is the “door” to your board. Wrong door → upload fails even if the sketch is correct.</p>
 
 <h2>First upload — blink the built-in LED</h2>
 <p>Simplest sketch: blink the built-in LED (GPIO 2 on many DevKits). <strong>Open Arduino IDE</strong> first, then:</p>
@@ -494,7 +510,7 @@ void loop() {
 <li>Click the <strong>Upload</strong> button (arrow →) in the toolbar.</li>
 <li>Watch the bottom bar: target <strong>Done uploading</strong>. The small LED on the board should blink 1s on / 1s off.</li>
 </ol>
-<p><strong>Beginner — how to test:</strong> if you see <em>Done uploading</em> and the LED blinks, FS-06 is passed. If there is an error, read the red message below and check common mistakes.</p>
+<p><strong>How to test the upload:</strong> if you see <em>Done uploading</em> and the LED blinks, FS-06 is passed. If there is an error, read the red message below and check common mistakes.</p>
 <p><strong>No breadboard wiring today</strong> — the on-board LED is enough proof of upload.</p>
 
 <h2 id="fsiot-setup-checklist">Practice — 10-point setup checklist</h2>
@@ -511,9 +527,9 @@ void loop() {
 <li>I picked the correct COM/tty port and wrote the number down</li>
 <li>My test sketch upload succeeded — <strong>Done uploading</strong> appeared</li>
 </ul>
-<p><strong>Beginner — how to test:</strong> complete the checklist in the browser. Optional: photo of Device Manager + Arduino IDE with the port selected. No web server commands required.</p>
+<p><strong>How to test the checklist:</strong> complete the checklist in the browser. Optional: photo of Device Manager + Arduino IDE with the port selected. No web server commands required.</p>
 
-<h2>Common beginner mistakes</h2>
+<h2>Common mistakes</h2>
 <ul>
 <li><strong>Port does not appear.</strong> Suspect charge-only cable first, then wrong driver (CP210x vs CH340), then try a rear USB port on the PC.</li>
 <li><strong>Wrong board.</strong> Pick <em>ESP32 Dev Module</em>, not Arduino Uno or ESP8266.</li>
@@ -525,12 +541,12 @@ void loop() {
 </ul>
 
 <h2>Continue learning</h2>
-<p>After FS-06, the natural next step is <strong>FS-07 — multimeter for beginners</strong> (measuring 3.3V safely). That article is not linked here until the module is ready.</p>
+<p>After FS-06, the natural next step is <strong>FS-07 — basic multimeter</strong> (measuring 3.3V safely). That article is not linked here until the module is ready.</p>
 <p>Also bookmark the <a href="/belajar/fullstack-iot">Full Stack IoT path page</a> as the official entry.</p>
 
 <h2>Conclusion</h2>
 <p>In <strong>#76 (this article)</strong> your computer recognizes the ESP32: USB driver, Arduino IDE 2.x, ESP32 board package, board + port selected, and <strong>Done uploading</strong> once. You are ready for sketch world — still no full breadboard circuit.</p>
-<p><strong>Beginner:</strong> if you can point at your COM port and say “upload is Done”, FS-06 is done. Continue to measuring voltage in FS-07 when that module publishes.</p>
+<p><strong>In short:</strong> if you can point at your COM port and say “upload is Done”, FS-06 is done. Continue to measuring voltage in FS-07 when that module publishes.</p>
 HTML;
     }
 }

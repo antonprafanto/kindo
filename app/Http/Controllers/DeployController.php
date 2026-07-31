@@ -6310,6 +6310,11 @@ class DeployController extends Controller
         $bodyNeedles = [
             '#76 (ini)',
             'FS-06',
+            'Cara pakai artikel ini',
+            'Tidak perlu hari ini',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'multimeter dasar',
             'Arduino IDE',
             'Device Manager',
             'package_esp32_index.json',
@@ -6321,6 +6326,7 @@ class DeployController extends Controller
             'FS-07',
             '/belajar/fullstack-iot',
             'esp32-devkitc-overview.jpg',
+            'esp-dev-kits',
             'fs06-device-manager-esp32.png',
             'fs06-arduino-ide-overview.png',
             'silabs.com',
@@ -6342,7 +6348,11 @@ class DeployController extends Controller
         $bodyEn = (string) $article->body_en;
         $enNeedles = [
             '#76 (this article)',
-            'Beginner:',
+            'In short:',
+            'How to use this article',
+            'Common mistakes',
+            'Not needed today',
+            'basic multimeter',
             'Arduino IDE',
             'Device Manager',
             'Done uploading',
