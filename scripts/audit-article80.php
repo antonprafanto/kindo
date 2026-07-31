@@ -48,7 +48,7 @@ check('EN Beginner >= 6', substr_count($en, 'Beginner:') + substr_count($en, 'Be
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 12', substr_count($id, '<figure') >= 12 && substr_count($en, '<figure') >= 12);
 
-check('workflow SVG', str_contains($id, 'Alur hari ini') && str_contains($en, 'Today'));
+check('workflow SVG', str_contains($id, 'Alur hari ini') && str_contains($en, "Today's flow"));
 check('pinout image', str_contains($id, 'esp32-devkitc-1-pinlayout.jpg') && str_contains($en, 'esp32-devkitc-1-pinlayout.jpg'));
 check('jumper image', str_contains($id, 'kit-jumper-wires.jpg') && str_contains($en, 'kit-jumper-wires.jpg'));
 check('multimeter image', str_contains($id, 'kit-multimeter.jpg') && str_contains($en, 'kit-multimeter.jpg'));

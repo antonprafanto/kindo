@@ -6748,7 +6748,7 @@ class DeployController extends Controller
             'fs10-resistor-10k.svg',
             'fs10-pullup-pulldown.svg',
             'Main diagram',
-            "Today's flow",
+            'flow — FS-10',
             'how to use this article',
             'open this tool first',
             'measurement table',

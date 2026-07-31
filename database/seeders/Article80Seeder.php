@@ -288,7 +288,7 @@ SVG;
         return <<<'SVG'
 <figure role="img" aria-label="FS-10 workflow" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 120" width="100%" height="auto">
-  <text x="380" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Today’s flow — FS-10</text>
+  <text x="380" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Today's flow — FS-10</text>
   <rect x="20" y="40" width="110" height="50" rx="6" fill="#FFECB3" stroke="#1a1a1a" stroke-width="2"/><text x="75" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">① Unplug USB</text>
   <rect x="150" y="40" width="110" height="50" rx="6" fill="#E3F2FD" stroke="#1a1a1a" stroke-width="2"/><text x="205" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">② Build wiring</text>
   <rect x="280" y="40" width="110" height="50" rx="6" fill="#C8E6C9" stroke="#1a1a1a" stroke-width="2"/><text x="335" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">③ Plug USB</text>
