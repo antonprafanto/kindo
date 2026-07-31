@@ -39,13 +39,23 @@ check('category iot-smart-device', str_contains($src, 'iot-smart-device'));
 check('tag fullstack-iot', str_contains($src, "'fullstack-iot'"));
 check('title_en + body_en', str_contains($src, "'title_en'") && str_contains($src, "'body_en'"));
 check('no publish hook yet', ! str_contains($routes, 'publish-article-74'));
+check('SEO no belanja awam / beginner shopping', ! str_contains($src, 'belanja awam') && ! str_contains($src, 'beginner shopping'));
+check('SEO shopping guide', str_contains($src, 'panduan belanja') && str_contains($src, 'shopping guide'));
 
 check('ID self-ref #74 (ini)', str_contains($id, '#74 (ini)'));
 check('EN self-ref #74 (this article)', str_contains($en, '#74 (this article)'));
-check('ID Awam >= 5', substr_count($id, 'Awam:') + substr_count($id, 'Awam —') >= 5);
-check('EN Beginner >= 5', substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —') >= 5);
+check('no Awam stamp ID', ! str_contains($id, 'Awam:') && ! str_contains($id, 'Awam —'));
+check('no Beginner stamp EN', ! str_contains($en, 'Beginner:') && ! str_contains($en, 'Beginner —'));
+check('no awam word in body ID', ! preg_match('/\bawam\b/i', $id));
+check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
+check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
+check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 4', substr_count($id, '<figure') >= 4 && substr_count($en, '<figure') >= 4);
+check('ID mistakes heading', str_contains($id, 'Kesalahan yang sering terjadi'));
+check('EN mistakes heading', str_contains($en, 'Common mistakes'));
+check('shopping heading ID', str_contains($id, 'Belanja bertahap'));
+check('shopping heading EN', str_contains($en, 'Shopping in stages'));
 
 check('ID Persiapan + no-syntax', str_contains($id, 'Persiapan') && str_contains($id, 'Tidak ada perintah sintaks hari ini'));
 check('EN Preparation + no-syntax', str_contains($en, 'Preparation') && str_contains($en, 'There is no syntax to run today'));
@@ -86,6 +96,7 @@ check('no silkscreen jargon', ! str_contains($id, 'silkscreen') && ! str_contain
 check('USB data vs charge', str_contains($id, 'charge-only') || str_contains($id, 'Charge-only'));
 check('EN USB charge-only', str_contains($en, 'charge-only') || str_contains($en, 'Charge-only'));
 check('DHT22 + DHT11 temp OK', str_contains($id, 'DHT22') && str_contains($id, 'DHT11'));
+check('EYD kelembapan', str_contains($id, 'kelembapan'));
 check('no AC 220V encouragement', str_contains($id, 'AC 220V') && str_contains($id, 'Jangan'));
 check('price table IDR', str_contains($id, 'Rp ') && str_contains($en, 'Rp '));
 
@@ -106,7 +117,7 @@ check('EN BOOT + EN buttons', str_contains($en, 'BOOT') && str_contains($en, 'EN
 check('ID tombol EN BOOT', str_contains($id, 'EN') && str_contains($id, 'BOOT'));
 
 $enPlain = strip_tags($en);
-foreach (['Pendahuluan', 'Persiapan', 'Kesalahan umum', 'Kesimpulan', 'Awam:'] as $w) {
+foreach (['Pendahuluan', 'Persiapan', 'Kesalahan yang sering terjadi', 'Kesimpulan', 'Awam:', 'Intinya:'] as $w) {
     check('No residual Indo in EN: '.$w, ! str_contains($enPlain, $w) && ! str_contains($en, '<h2>'.$w));
 }
 

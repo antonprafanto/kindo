@@ -6081,6 +6081,10 @@ class DeployController extends Controller
             '#74 (ini)',
             'FS-04',
             'Tidak ada perintah sintaks hari ini',
+            'Cara pakai artikel ini',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'Belanja bertahap',
             'ESP32-DevKitC-1',
             'esp32-devkitc-overview.jpg',
             'esp32-devkitc-1-pinlayout.jpg',
@@ -6110,7 +6114,10 @@ class DeployController extends Controller
         $bodyEn = (string) $article->body_en;
         $enNeedles = [
             '#74 (this article)',
-            'Beginner:',
+            'In short:',
+            'How to use this article',
+            'Common mistakes',
+            'Shopping in stages',
             'There is no syntax to run today',
             'ESP32-DevKitC-1',
             'kit-led-5mm.jpg',
