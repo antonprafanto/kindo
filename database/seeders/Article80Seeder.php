@@ -304,10 +304,10 @@ SVG;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs10-pullup-pulldown.svg" width="900" height="500" alt="Diagram skematik resistor pull-up dan pull-down" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs10-pullup-pulldown.svg" width="920" height="420" alt="Diagram pull-up di kiri dan pull-down di kanan — fokus kotak hijau hari ini" loading="lazy" style="width:100%;height:auto;max-height:440px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Pull-up (PU)</strong> menarik sinyal ke tegangan tinggi; <strong>pull-down (PD)</strong> menarik ke GND. Hari ini kita pakai <strong>pull-down 10 kΩ</strong> (sisi kanan diagram).
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Pullup_and_pulldown_resistors.svg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — Pullup and pulldown resistors</a> · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/User:Omegatron" rel="noopener noreferrer" target="_blank">Omegatron</a>.
+    <strong>Kiri = pull-up</strong> (default HIGH, preview FS-11). <strong>Kanan = pull-down</strong> (default LOW) — <strong>kotak hijau = yang kita rakit hari ini</strong> dengan resistor <strong>10 kΩ</strong>.
+    <br>Sumber gambar: diagram buatan Koding Indonesia (FS-10).
   </figcaption>
 </figure>
 HTML;
@@ -317,10 +317,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs10-pullup-pulldown.svg" width="900" height="500" alt="Schematic diagram of pull-up and pull-down resistors" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs10-pullup-pulldown.svg" width="920" height="420" alt="Side-by-side pull-up (left) and pull-down (right) — green box is today’s focus" loading="lazy" style="width:100%;height:auto;max-height:440px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Pull-up (PU)</strong> pulls the signal high; <strong>pull-down (PD)</strong> pulls it to GND. Today we use a <strong>10 kΩ pull-down</strong> (right side of the diagram).
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Pullup_and_pulldown_resistors.svg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — Pullup and pulldown resistors</a> · CC BY-SA 4.0 · <a href="https://commons.wikimedia.org/wiki/User:Omegatron" rel="noopener noreferrer" target="_blank">Omegatron</a>.
+    <strong>Left = pull-up</strong> (default HIGH, FS-11 preview). <strong>Right = pull-down</strong> (default LOW) — <strong>green box = what we build today</strong> with a <strong>10 kΩ</strong> resistor.
+    <br>Image source: diagram by Koding Indonesia (FS-10).
   </figcaption>
 </figure>
 HTML;
@@ -451,7 +451,7 @@ SVG;
         return <<<'SVG'
 <figure role="img" aria-label="Wiring tombol pull-down di breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="auto">
-  <text x="400" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Gambar utama — tombol + pull-down 10kΩ</text>
+  <text x="400" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Gambar utama — tombol + pull-down 10 kΩ</text>
   <rect x="280" y="50" width="240" height="280" fill="#FFFDE7" stroke="#1a1a1a" stroke-width="2" rx="4"/>
   <rect x="280" y="185" width="240" height="12" fill="#BDBDBD"/>
   <text x="400" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10">parit</text>
@@ -462,7 +462,7 @@ SVG;
   <line x1="390" y1="145" x2="500" y2="145" stroke="#1565C0" stroke-width="3"/>
   <text x="510" y="150" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1565C0">② titik sinyal</text>
   <rect x="500" y="200" width="80" height="24" fill="#FFCC80" stroke="#1a1a1a"/>
-  <text x="540" y="216" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">10kΩ</text>
+  <text x="540" y="216" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">10 kΩ</text>
   <line x1="540" y1="145" x2="540" y2="200" stroke="#1565C0" stroke-width="2"/>
   <line x1="540" y1="224" x2="540" y2="300" stroke="#424242" stroke-width="3"/>
   <text x="550" y="290" font-family="system-ui,sans-serif" font-size="12" font-weight="700">③ GND</text>
@@ -480,7 +480,7 @@ SVG;
         return <<<'SVG'
 <figure role="img" aria-label="Pull-down button wiring on breadboard" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" width="100%" height="auto">
-  <text x="400" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Main diagram — button + 10kΩ pull-down</text>
+  <text x="400" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Main diagram — button + 10 kΩ pull-down</text>
   <rect x="280" y="50" width="240" height="280" fill="#FFFDE7" stroke="#1a1a1a" stroke-width="2" rx="4"/>
   <rect x="280" y="185" width="240" height="12" fill="#BDBDBD"/>
   <text x="400" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10">ditch</text>
@@ -491,7 +491,7 @@ SVG;
   <line x1="390" y1="145" x2="500" y2="145" stroke="#1565C0" stroke-width="3"/>
   <text x="510" y="150" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1565C0">② signal node</text>
   <rect x="500" y="200" width="80" height="24" fill="#FFCC80" stroke="#1a1a1a"/>
-  <text x="540" y="216" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">10kΩ</text>
+  <text x="540" y="216" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11">10 kΩ</text>
   <line x1="540" y1="145" x2="540" y2="200" stroke="#1565C0" stroke-width="2"/>
   <line x1="540" y1="224" x2="540" y2="300" stroke="#424242" stroke-width="3"/>
   <text x="550" y="290" font-family="system-ui,sans-serif" font-size="12" font-weight="700">③ GND</text>
@@ -582,8 +582,8 @@ SVG;
 <p>Alur saat <strong>tombol lepas</strong>: titik sinyal terhubung ke GND lewat 10 kΩ → LOW. Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke titik sinyal → HIGH. Titik sinyal nanti disambung ke GPIO (modul berikutnya).</p>
 {$wire}
 
-<h2>Wiring step-by-step</h2>
-<p><strong>Awam:</strong> ikuti <strong>gambar utama</strong>. Nomor kolom boleh digeser — urutan sambungan yang penting.</p>
+<h2>Wiring langkah demi langkah</h2>
+<p><strong>Awam:</strong> ikuti <strong>gambar utama</strong> di atas. Urutan nomor ① → ② → ③ yang penting — posisi lubang breadboard boleh digeser asalkan jalur sama.</p>
 <ol>
 <li><strong>Power rail:</strong> jumper merah <strong>3V3</strong> → rail +. Jumper hitam <strong>GND</strong> → rail −.</li>
 <li><strong>Tombol:</strong> pasang melintasi <strong>parit tengah</strong> breadboard (satu sisi atas, satu sisi bawah parit).</li>
@@ -740,7 +740,7 @@ HTML;
 {$wire}
 
 <h2>Step-by-step wiring</h2>
-<p><strong>Beginner:</strong> follow the <strong>main diagram</strong>. Column numbers can shift — connection order matters.</p>
+<p><strong>Beginner:</strong> follow the <strong>main diagram</strong> above. Connection order ① → ② → ③ matters — breadboard hole positions can shift as long as the path matches.</p>
 <ol>
 <li><strong>Power rails:</strong> red jumper <strong>3V3</strong> → + rail. Black jumper <strong>GND</strong> → − rail.</li>
 <li><strong>Button:</strong> mount across the <strong>center ditch</strong> (one side above, one below the ditch).</li>

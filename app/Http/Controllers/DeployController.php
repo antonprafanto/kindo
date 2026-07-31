@@ -6705,6 +6705,7 @@ class DeployController extends Controller
             'kit-multimeter.jpg',
             'esp32-devkitc-1-pinlayout.jpg',
             'fs10-resistor-10k.svg',
+            'kotak hijau',
             'fs10-pullup-pulldown.svg',
             'Gambar utama',
             'Alur hari ini',
@@ -6722,6 +6723,7 @@ class DeployController extends Controller
             'FS-11',
             '/belajar/fullstack-iot',
             'Belum upload sketch',
+            'Wiring langkah demi langkah',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -6746,6 +6748,7 @@ class DeployController extends Controller
             'kit-multimeter.jpg',
             'esp32-devkitc-1-pinlayout.jpg',
             'fs10-resistor-10k.svg',
+            'green box',
             'fs10-pullup-pulldown.svg',
             'Main diagram',
             'flow — FS-10',
