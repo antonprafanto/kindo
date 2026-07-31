@@ -5845,12 +5845,18 @@ class DeployController extends Controller
             'Tidak ada perintah sintaks hari ini',
             'ESP32-DevKitC-1',
             '/belajar/fullstack-iot',
-            'hero-desk.jpg',
+            'fs02-real-world-lamp.jpg',
+            'esp32-devkitc-overview.jpg',
+            'Cara pakai artikel ini',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'fondasi dari nol',
             'Perangkat',
             'Penyimpanan',
             'fsiot-worksheet-boxes',
             'fsiot-layer-roles',
             'worksheet interaktif',
+            'perangkat lunak',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -5868,12 +5874,17 @@ class DeployController extends Controller
         $bodyEn = (string) $article->body_en;
         $enNeedles = [
             '#72 (this article)',
-            'Beginner:',
+            'In short:',
+            'How to use this article',
             'ONE PICTURE',
             'Study Room Station',
             'There is no syntax to run today',
             'ESP32-DevKitC-1',
             'you are here',
+            'fs02-real-world-lamp.jpg',
+            'esp32-devkitc-overview.jpg',
+            'Common mistakes',
+            'foundation from zero',
             'fsiot-worksheet-boxes',
             'interactive worksheet',
         ];
