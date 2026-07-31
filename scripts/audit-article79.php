@@ -56,7 +56,8 @@ check('breadboard wiring today ID', str_contains($id, 'Wiring step-by-step') || 
 check('breadboard wiring today EN', str_contains($en, 'Step-by-step wiring') || str_contains($en, 'wiring'));
 check('3V3 pin power ID', str_contains($id, 'pin 3V3') || str_contains($id, 'pin <strong>3V3</strong>'));
 check('3V3 pin power EN', str_contains($en, '3V3 pin') || str_contains($en, '<strong>3V3</strong>'));
-check('column 2 7 both', str_contains($id, 'kolom 2') && str_contains($id, 'kolom 7') && str_contains($en, 'column 2') && str_contains($en, 'column 7'));
+check('column 2 both', str_contains($id, 'kolom 2') && str_contains($en, 'column 2'));
+check('ESP32 on breadboard caption', str_contains($id, 'ESP32 dipasang di breadboard') && str_contains($en, 'ESP32 sits on the breadboard'));
 check('kit images', str_contains($id, 'kit-breadboard.jpg') && str_contains($id, 'kit-jumper-wires.jpg') && str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, 'kit-resistor.jpg'));
 check('pinout photo', str_contains($id, 'esp32-devkitc-1-pinlayout.jpg') && str_contains($en, 'esp32-devkitc-1-pinlayout.jpg'));
 check('find 2 pins caption', str_contains($id, 'Cari 2 pin ini di board kamu') && str_contains($en, 'Find these 2 pins on your board'));
