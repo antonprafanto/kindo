@@ -38,14 +38,27 @@ check('category iot-smart-device', str_contains($src, 'iot-smart-device'));
 check('tag fullstack-iot', str_contains($src, "'fullstack-iot'"));
 check('title_en + body_en', str_contains($src, "'title_en'") && str_contains($src, "'body_en'"));
 check('no publish hook yet', ! str_contains(file_get_contents(__DIR__.'/../routes/web.php'), 'publish-article-73'));
+check('SEO no Awam/Beginner stamp', ! str_contains($src, 'untuk Awam') && ! str_contains($src, 'Beginner Mini'));
 
 check('ID self-ref #73 (ini)', str_contains($id, '#73 (ini)'));
 check('EN self-ref #73 (this article)', str_contains($en, '#73 (this article)'));
-check('ID Awam >= 5', substr_count($id, 'Awam:') + substr_count($id, 'Awam —') >= 5);
-check('EN Beginner >= 5', substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —') >= 5);
+check('no Awam stamp ID', ! str_contains($id, 'Awam:') && ! str_contains($id, 'Awam —'));
+check('no Beginner stamp EN', ! str_contains($en, 'Beginner:') && ! str_contains($en, 'Beginner —'));
+check('no awam word in body ID', ! preg_match('/\bawam\b/i', $id));
+check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
+check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
+check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('SVG figure both (>=2: sense + flow)', substr_count($id, '<figure') >= 2 && substr_count($en, '<figure') >= 2);
+check('figures both (>=3: sense + photos + flow)', substr_count($id, '<figure') >= 3 && substr_count($en, '<figure') >= 3);
 check('flow diagram telemetry/command dir', str_contains($id, 'perangkat → sistem') && str_contains($id, 'sistem → perangkat') && str_contains($en, 'device → system') && str_contains($en, 'system → device'));
+check('example photos + cites', str_contains($id, 'kit-dht22.jpg') && str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg'));
+check('EN example photos', str_contains($en, 'kit-dht22.jpg') && str_contains($en, 'kit-led-5mm.jpg'));
+check('photo files exist', is_file(__DIR__.'/../public/images/fsiot/kit-dht22.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-led-5mm.jpg') && is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg'));
+check('Arti sederhana / Plain meaning', str_contains($id, 'Arti sederhana') && str_contains($en, 'Plain meaning'));
+check('ID mistakes heading', str_contains($id, 'Kesalahan yang sering terjadi'));
+check('EN mistakes heading', str_contains($en, 'Common mistakes'));
+check('EYD perangkat lunak', str_contains($id, 'perangkat lunak'));
+check('EYD praktik', (bool) preg_match('/\bpraktik\b/u', $id) && ! preg_match('/\bpraktek\b/u', $id));
 
 foreach (['Sensor', 'Aktuator', 'Mikrokontroler', 'Firmware', 'GPIO', 'Sketch', 'Upload', 'Serial', 'Telemetry', 'Command', 'Broker', 'Topic', 'API', 'SQLite', 'OTA', 'Flask', 'Node-RED', 'NTP'] as $t) {
     check('ID has '.$t, str_contains($id, $t) || ($t === 'Aktuator' && str_contains($id, 'aktuator')));
@@ -71,7 +84,7 @@ check('no pre blocks', ! str_contains($id, '<pre') && ! str_contains($en, '<pre'
 check('no Soft bridge jargon', ! str_contains($id, 'Soft bridge') && ! str_contains($en, 'soft bridge'));
 
 $enPlain = strip_tags($en);
-foreach (['Pendahuluan', 'Persiapan', 'Kesalahan umum', 'Kesimpulan', 'Awam:'] as $w) {
+foreach (['Pendahuluan', 'Persiapan', 'Kesalahan yang sering terjadi', 'Kesimpulan', 'Awam:', 'Intinya:'] as $w) {
     check('No residual Indo in EN: '.$w, ! str_contains($enPlain, $w) && ! str_contains($en, '<h2>'.$w));
 }
 

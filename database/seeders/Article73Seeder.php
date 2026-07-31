@@ -49,8 +49,8 @@ class Article73Seeder extends Seeder
                 'status'             => 'draft',
                 'is_featured'        => false,
                 'published_at'       => null,
-                'seo_title'          => 'Kamus Mini IoT untuk Awam — Full Stack IoT #73',
-                'seo_title_en'       => 'Beginner Mini IoT Glossary — Full Stack IoT #73',
+                'seo_title'          => 'Kamus Mini IoT — Analogi Sederhana · Full Stack IoT #73',
+                'seo_title_en'       => 'Mini IoT Glossary — Simple Analogies · Full Stack IoT #73',
                 'seo_description'    => 'Kamus mini Full Stack IoT: sensor, GPIO, Serial, MQTT topic, API, SQLite, OTA — dengan analogi. Modul FS-03.',
                 'seo_description_en' => 'Full Stack IoT mini glossary: sensor, GPIO, Serial, MQTT topic, API, SQLite, OTA — with analogies. Module FS-03.',
             ]
@@ -135,7 +135,7 @@ SVG;
   <polygon points="190,165 200,160 200,170" fill="#C62828"/>
   <text x="360" y="188" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#C62828">Command — perintah (sistem → perangkat)</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Arah data: telemetry naik dari perangkat, command turun dari sistem — broker mengantar di tengah, topic jadi alamatnya (buatan Koding Indonesia). Belum praktek di modul ini.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Arah data: telemetry naik dari perangkat, command turun dari sistem — broker mengantar di tengah, topic jadi alamatnya (buatan Koding Indonesia). Belum praktik di modul ini.</figcaption>
 </figure>
 SVG;
     }
@@ -150,7 +150,7 @@ SVG;
   <text x="105" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">board (DevKitC-1)</text>
   <rect x="275" y="70" width="170" height="70" fill="#FFF3E0" stroke="#1a1a1a" stroke-width="2"/>
   <text x="360" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Broker</text>
-  <text x="360" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">message messenger</text>
+  <text x="360" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">message relay</text>
   <rect x="530" y="70" width="170" height="70" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
   <text x="615" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">System</text>
   <text x="615" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">server / phone</text>
@@ -174,10 +174,20 @@ SVG;
         return <<<HTML
 <h2>Pendahuluan — kenapa perlu kamus mini?</h2>
 <p>Artikel ini adalah <strong>#73 (ini)</strong> · modul <strong>FS-03</strong> di jalur <strong>Full Stack IoT Developer — Dari Nol</strong>. Di <strong>#72 (FS-02)</strong> kamu sudah punya peta jalur. Hari ini kita kenalan dengan <strong>kata-kata</strong> yang akan sering muncul — supaya nanti tidak kaget.</p>
-<p><strong>Awam:</strong> kamus ini seperti daftar nama teman baru. Cukup kenal wajah dan satu kalimat “dia siapa”, bukan hafal nomor KTP-nya.</p>
+<p><strong>Analogi:</strong> kamus ini seperti daftar nama teman baru. Cukup kenal wajah dan satu kalimat “dia siapa”, bukan hafal nomor KTP-nya.</p>
 <blockquote>
-  <p><strong>Prasyarat:</strong> sudah lihat peta tujuh lapisan + fase ZERO di FS-02. Belum perlu board, kabel, atau software unduhan.</p>
+  <p><strong>Prasyarat:</strong> sudah lihat peta tujuh lapisan + fase ZERO di FS-02. Belum perlu board, kabel, atau unduhan perangkat lunak.</p>
 </blockquote>
+
+<p><strong>Cara pakai artikel ini (urutan baca):</strong></p>
+<ol>
+<li><strong>Buka browser</strong> — baca artikel di laptop atau HP.</li>
+<li><strong>Siapkan catatan</strong> (opsional) — kertas/Notepad jika lebih suka tulis tangan.</li>
+<li><strong>Baca empat keluarga istilah</strong> + lihat foto contoh + diagram panah.</li>
+<li><strong>Kerjakan kuis interaktif</strong> di browser → Cek skor (target ≥ 12/15).</li>
+<li><strong>Baru buka kunci jawaban</strong> setelah selesai mencoba.</li>
+</ol>
+<p><strong>Tidak perlu hari ini:</strong> Laragon, Arduino IDE, terminal, USB board, <code>php artisan</code>, unggah sketch.</p>
 
 <h2>Persiapan — alat yang kamu buka hari ini</h2>
 <p><strong>Alat yang dipakai di artikel ini</strong> (belum Laragon, belum Arduino IDE, belum USB board, belum terminal):</p>
@@ -189,11 +199,22 @@ SVG;
 
 <h2>Keluarga 1 — indra, otak, otot</h2>
 {$sense}
+<figure style="margin:1.5rem 0;max-width:100%;display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start;justify-content:center">
+  <img src="/images/fsiot/kit-dht22.jpg" width="600" height="450" alt="Modul sensor DHT22 — contoh sensor suhu dan kelembapan" loading="lazy" style="flex:1 1 200px;max-width:280px;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/kit-led-5mm.jpg" width="600" height="450" alt="LED 5mm — contoh aktuator sederhana yang menyala" loading="lazy" style="flex:1 1 200px;max-width:280px;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Board ESP32-DevKitC — contoh mikrokontroler (otak kecil)" loading="lazy" style="flex:1 1 280px;max-width:360px;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="flex:1 1 100%;font-size:0.85rem;margin-top:0.25rem;color:#4A5568;">
+    Contoh nyata (belum dirakit hari ini): <strong>sensor</strong> (DHT22), <strong>aktuator</strong> (LED), <strong>mikrokontroler</strong> (ESP32-DevKitC).
+    <br>Sumber: <a href="https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — DHT22 module</a> ·
+    <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — LED 5mm</a> ·
+    <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC User Guide</a>.
+  </figcaption>
+</figure>
 <table>
   <thead>
     <tr>
       <th>Istilah</th>
-      <th>Arti awam</th>
+      <th>Arti sederhana</th>
       <th>Contoh di Stasiun Ruang Belajar</th>
     </tr>
   </thead>
@@ -220,14 +241,14 @@ SVG;
     </tr>
   </tbody>
 </table>
-<p><strong>Awam:</strong> sensor baca, aktuator bergerak, mikrokontroler putuskan. Firmware = “isi pikiran” otak kecil.</p>
+<p><strong>Intinya:</strong> sensor baca, aktuator bergerak, mikrokontroler putuskan. Firmware = “isi pikiran” otak kecil.</p>
 
 <h2>Keluarga 2 — kaki pin &amp; program di board</h2>
 <table>
   <thead>
     <tr>
       <th>Istilah</th>
-      <th>Arti awam</th>
+      <th>Arti sederhana</th>
       <th>Catatan</th>
     </tr>
   </thead>
@@ -254,7 +275,7 @@ SVG;
     </tr>
   </tbody>
 </table>
-<p><strong>Awam:</strong> GPIO = soket kaki. Sketch = naskah. Upload = kirim naskah ke otak. Serial = papan tulis teks dari board ke layarmu.</p>
+<p><strong>Intinya:</strong> GPIO = soket kaki. Sketch = naskah. Upload = kirim naskah ke otak. Serial = papan tulis teks dari board ke layarmu.</p>
 
 <h2>Keluarga 3 — percakapan data (nanti di fase CONNECTED)</h2>
 <p>Cukup kenal dulu. Detailnya jauh di depan peta.</p>
@@ -263,7 +284,7 @@ SVG;
   <thead>
     <tr>
       <th>Istilah</th>
-      <th>Arti awam</th>
+      <th>Arti sederhana</th>
       <th>Analogi</th>
     </tr>
   </thead>
@@ -290,14 +311,14 @@ SVG;
     </tr>
   </tbody>
 </table>
-<p><strong>Awam:</strong> telemetry = laporan. Command = perintah. Broker = pengantar. Topic = alamat folder pesan. Belum wajib praktek hari ini.</p>
+<p><strong>Intinya:</strong> telemetry = laporan. Command = perintah. Broker = pengantar. Topic = alamat folder pesan. Belum wajib praktik hari ini.</p>
 
 <h2>Keluarga 4 — layar, gudang data, update jauh</h2>
 <table>
   <thead>
     <tr>
       <th>Istilah</th>
-      <th>Arti awam</th>
+      <th>Arti sederhana</th>
       <th>Catatan jalur kita</th>
     </tr>
   </thead>
@@ -324,7 +345,7 @@ SVG;
     </tr>
   </tbody>
 </table>
-<p><strong>Awam:</strong> API = loket. Database = lemari arsip. Dashboard = papan info. OTA = “update aplikasi tanpa cabut kabel” untuk board.</p>
+<p><strong>Intinya:</strong> API = loket. Database = lemari arsip. Dashboard = papan info. OTA = “perbarui program tanpa cabut kabel” untuk board.</p>
 
 <h2>Nama yang cukup dikenal dulu (preview)</h2>
 <p>Tiga nama ini cukup kamu <em>ingat ada</em>. Diperdalam di modulnya masing-masing:</p>
@@ -333,7 +354,7 @@ SVG;
   <li><strong>Node-RED</strong> — alat “susun alur” visual (opsional / edge ringan).</li>
   <li><strong>NTP</strong> — cara board mendapat jam akurat dari internet.</li>
 </ul>
-<p><strong>Awam:</strong> jangan instal apa pun hari ini. Cukup seperti mengenal nama kota di peta sebelum berangkat.</p>
+<p><strong>Tips:</strong> jangan instal apa pun hari ini. Cukup seperti mengenal nama kota di peta sebelum berangkat.</p>
 
 <h2 id="fsiot-kuis-matching">Praktik — kuis matching 15 soal</h2>
 <p>Tutup tabel di atas sebentar. Di bawah ini ada <strong>kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan.</p>
@@ -373,16 +394,16 @@ SVG;
   <li>N. Perintah ke perangkat</li>
   <li>O. Kaki pin serba guna</li>
 </ul>
-<p><strong>Awam — cara menguji:</strong> kerjakan dulu di kuis interaktif, baru buka kunci. Target ≥ <strong>12/15</strong>. Tidak perlu menjalankan perintah komputer apa pun.</p>
+<p><strong>Cara menguji:</strong> kerjakan dulu di kuis interaktif, baru buka kunci. Target ≥ <strong>12/15</strong>. Tidak perlu menjalankan perintah komputer apa pun.</p>
 
 <h2 id="fsiot-kuis-kunci">Kunci jawaban</h2>
 <p>1B · 2E · 3G · 4I · 5O · 6K · 7C · 8M · 9J · 10N · 11L · 12H · 13F · 14A · 15D</p>
 <p>Hitung skormu. Di bawah 12? Baca ulang keluarga yang salah, ulangi matching — itu normal.</p>
 
-<h2>Kesalahan umum awam</h2>
+<h2>Kesalahan yang sering terjadi</h2>
 <ol>
   <li><strong>Hafal istilah tanpa contoh.</strong> Satu analogi + satu contoh stasiun lebih berharga daripada hafalan kosong.</li>
-  <li><strong>Mengira harus praktek MQTT hari ini.</strong> Broker/topic cukup kenal nama di ZERO.</li>
+  <li><strong>Mengira harus praktik MQTT hari ini.</strong> Broker/topic cukup kenal nama di ZERO.</li>
   <li><strong>Mengira Serial = Wi‑Fi.</strong> Serial Monitor biasanya lewat USB lokal dulu.</li>
   <li><strong>Mengira API = website cantik.</strong> API adalah pintu data; dashboard yang “cantik”.</li>
   <li><strong>Mengira OTA wajib dari modul pertama.</strong> OTA di fase HERO.</li>
@@ -395,7 +416,7 @@ SVG;
 
 <h2>Kesimpulan</h2>
 <p>Di <strong>#73 (ini)</strong> kamu punya kamus mini: dari sensor/aktuator sampai API/OTA, plus preview Flask/Node-RED/NTP. Board resmi tetap <strong>ESP32-DevKitC-1</strong> — masih kenalan nama, belum wiring.</p>
-<p><strong>Awam:</strong> kalau skor matching ≥12/15, FS-03 selesai. Lanjut buka kotak kit di FS-04 saat modulnya terbit.</p>
+<p><strong>Intinya:</strong> kalau skor matching ≥12/15, FS-03 selesai. Lanjut buka kotak kit di FS-04 saat modulnya terbit.</p>
 HTML;
     }
 
@@ -407,10 +428,20 @@ HTML;
         return <<<HTML
 <h2>Introduction — why a mini glossary?</h2>
 <p>This article is <strong>#73 (this article)</strong> · module <strong>FS-03</strong> on the <strong>Full Stack IoT Developer — From Zero</strong> path. In <strong>#72 (FS-02)</strong> you already have the path map. Today we meet the <strong>words</strong> you will see often — so they do not surprise you later.</p>
-<p><strong>Beginner:</strong> this glossary is like a list of new friends’ names. Know the face and one sentence about who they are — not their ID number.</p>
+<p><strong>Analogy:</strong> this glossary is like a list of new friends’ names. Know the face and one sentence about who they are — not their ID number.</p>
 <blockquote>
   <p><strong>Prerequisites:</strong> you have seen the seven-layer map + ZERO phase in FS-02. No board, cables, or software downloads yet.</p>
 </blockquote>
+
+<p><strong>How to use this article (reading order):</strong></p>
+<ol>
+<li><strong>Open a browser</strong> — read on a laptop or phone.</li>
+<li><strong>Optional notes</strong> — paper/Notepad if you prefer handwriting.</li>
+<li><strong>Read the four term families</strong> + example photos + arrow diagram.</li>
+<li><strong>Take the interactive quiz</strong> in the browser → Check score (target ≥ 12/15).</li>
+<li><strong>Only then open the answer key</strong> after you try.</li>
+</ol>
+<p><strong>Not needed today:</strong> Laragon, Arduino IDE, terminal, USB board, <code>php artisan</code>, uploading a sketch.</p>
 
 <h2>Preparation — tools you open today</h2>
 <p><strong>Tools used in this article</strong> (no Laragon, no Arduino IDE, no USB board, no terminal yet):</p>
@@ -422,11 +453,22 @@ HTML;
 
 <h2>Family 1 — sense, brain, muscle</h2>
 {$sense}
+<figure style="margin:1.5rem 0;max-width:100%;display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start;justify-content:center">
+  <img src="/images/fsiot/kit-dht22.jpg" width="600" height="450" alt="DHT22 sensor module — example temperature and humidity sensor" loading="lazy" style="flex:1 1 200px;max-width:280px;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/kit-led-5mm.jpg" width="600" height="450" alt="5mm LED — simple actuator example that lights up" loading="lazy" style="flex:1 1 200px;max-width:280px;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC board — microcontroller (small brain) example" loading="lazy" style="flex:1 1 280px;max-width:360px;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="flex:1 1 100%;font-size:0.85rem;margin-top:0.25rem;color:#4A5568;">
+    Real examples (no assembly today): <strong>sensor</strong> (DHT22), <strong>actuator</strong> (LED), <strong>microcontroller</strong> (ESP32-DevKitC).
+    <br>Sources: <a href="https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — DHT22 module</a> ·
+    <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — LED 5mm</a> ·
+    <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC User Guide</a>.
+  </figcaption>
+</figure>
 <table>
   <thead>
     <tr>
       <th>Term</th>
-      <th>Beginner meaning</th>
+      <th>Plain meaning</th>
       <th>Study Room Station example</th>
     </tr>
   </thead>
@@ -453,14 +495,14 @@ HTML;
     </tr>
   </tbody>
 </table>
-<p><strong>Beginner:</strong> sensors read, actuators move, the microcontroller decides. Firmware = the “thoughts” inside the small brain.</p>
+<p><strong>In short:</strong> sensors read, actuators move, the microcontroller decides. Firmware = the “thoughts” inside the small brain.</p>
 
 <h2>Family 2 — pins &amp; programs on the board</h2>
 <table>
   <thead>
     <tr>
       <th>Term</th>
-      <th>Beginner meaning</th>
+      <th>Plain meaning</th>
       <th>Note</th>
     </tr>
   </thead>
@@ -487,7 +529,7 @@ HTML;
     </tr>
   </tbody>
 </table>
-<p><strong>Beginner:</strong> GPIO = pin sockets. Sketch = script. Upload = send the script to the brain. Serial = a text whiteboard from board to your screen.</p>
+<p><strong>In short:</strong> GPIO = pin sockets. Sketch = script. Upload = send the script to the brain. Serial = a text whiteboard from board to your screen.</p>
 
 <h2>Family 3 — data conversation (later in CONNECTED)</h2>
 <p>Know the names first. Details are farther on the map.</p>
@@ -496,7 +538,7 @@ HTML;
   <thead>
     <tr>
       <th>Term</th>
-      <th>Beginner meaning</th>
+      <th>Plain meaning</th>
       <th>Analogy</th>
     </tr>
   </thead>
@@ -523,14 +565,14 @@ HTML;
     </tr>
   </tbody>
 </table>
-<p><strong>Beginner:</strong> telemetry = report. Command = order. Broker = messenger. Topic = message folder address. No practice required today.</p>
+<p><strong>In short:</strong> telemetry = report. Command = order. Broker = messenger. Topic = message folder address. No practice required today.</p>
 
 <h2>Family 4 — screen, data storage, remote update</h2>
 <table>
   <thead>
     <tr>
       <th>Term</th>
-      <th>Beginner meaning</th>
+      <th>Plain meaning</th>
       <th>On our path</th>
     </tr>
   </thead>
@@ -557,7 +599,7 @@ HTML;
     </tr>
   </tbody>
 </table>
-<p><strong>Beginner:</strong> API = a service counter. Database = filing cabinet. Dashboard = info board. OTA = “update the app without unplugging” for the board.</p>
+<p><strong>In short:</strong> API = a service counter. Database = filing cabinet. Dashboard = info board. OTA = “update the program without unplugging” for the board.</p>
 
 <h2>Names to recognize for now (preview)</h2>
 <p>Three names are enough to <em>know they exist</em>. Each deepens in its own module:</p>
@@ -566,7 +608,7 @@ HTML;
   <li><strong>Node-RED</strong> — a visual “flow builder” tool (optional / light edge).</li>
   <li><strong>NTP</strong> — how the board gets accurate time from the internet.</li>
 </ul>
-<p><strong>Beginner:</strong> install nothing today. Just like learning city names on a map before you travel.</p>
+<p><strong>Tip:</strong> install nothing today. Just like learning city names on a map before you travel.</p>
 
 <h2 id="fsiot-kuis-matching">Practice — matching quiz (15 items)</h2>
 <p>Briefly close the tables above. Below is an <strong>interactive quiz</strong>: pick a meaning for each term, then press <strong>Check score</strong>. A paper version stays available as a backup.</p>
@@ -606,13 +648,13 @@ HTML;
   <li>N. An order to a device</li>
   <li>O. General-purpose pins</li>
 </ul>
-<p><strong>Beginner — how to test:</strong> answer in the interactive quiz first, then open the key. Target ≥ <strong>12/15</strong>. You do not need to run any computer command.</p>
+<p><strong>How to test:</strong> answer in the interactive quiz first, then open the key. Target ≥ <strong>12/15</strong>. You do not need to run any computer command.</p>
 
 <h2 id="fsiot-kuis-kunci">Answer key</h2>
 <p>1B · 2E · 3G · 4I · 5O · 6K · 7C · 8M · 9J · 10N · 11L · 12H · 13F · 14A · 15D</p>
 <p>Count your score. Under 12? Re-read the family you missed and match again — that is normal.</p>
 
-<h2>Common beginner mistakes</h2>
+<h2>Common mistakes</h2>
 <ol>
   <li><strong>Memorizing terms without examples.</strong> One analogy + one station example beats empty drilling.</li>
   <li><strong>Thinking you must practice MQTT today.</strong> Broker/topic are name-only in ZERO.</li>
@@ -628,7 +670,7 @@ HTML;
 
 <h2>Conclusion</h2>
 <p>In <strong>#73 (this article)</strong> you have a mini glossary: from sensor/actuator to API/OTA, plus a Flask/Node-RED/NTP name preview. The official board remains <strong>ESP32-DevKitC-1</strong> — name acquaintance only, no wiring yet.</p>
-<p><strong>Beginner:</strong> if your matching score is ≥12/15, FS-03 is done. Continue to open the kit box in FS-04 when that module publishes.</p>
+<p><strong>In short:</strong> if your matching score is ≥12/15, FS-03 is done. Continue to open the kit box in FS-04 when that module publishes.</p>
 HTML;
     }
 }
