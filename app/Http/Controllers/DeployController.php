@@ -6725,6 +6725,9 @@ class DeployController extends Controller
             '/belajar/fullstack-iot',
             'Belum upload sketch',
             'Wiring langkah demi langkah',
+            'kolom kaki atas tombol',
+            'Ke GND',
+            '3V3 → tombol → titik sinyal',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -6768,6 +6771,9 @@ class DeployController extends Controller
             'fsiot-signal-checklist',
             'FS-11',
             'No sketch upload',
+            'top button-leg column',
+            'To GND',
+            '3V3 → button → signal node',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {
