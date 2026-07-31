@@ -75,7 +75,7 @@ class Article75Seeder extends Seeder
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Foto overview board ESP32-DevKitC dari dokumentasi Espressif" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     Kenali lagi letak <strong>USB</strong>, tombol, dan pin di board (masih pengenalan — belum colok untuk latihan).
-    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (dokumen resmi).
+    <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (dokumen resmi).
   </figcaption>
 </figure>
 HTML;
@@ -88,7 +88,7 @@ HTML;
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC board overview photo from Espressif documentation" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     Spot the <strong>USB</strong> socket, buttons, and pins again (introduction only — no practice plug-in yet).
-    <br>Image source: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/hw-reference/esp32/get-started-devkitc.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (official docs).
+    <br>Image source: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif Systems — ESP32-DevKitC User Guide</a> (official docs).
   </figcaption>
 </figure>
 HTML;
@@ -256,10 +256,10 @@ SVG;
   <text x="380" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">Ubah jumper</text>
   <text x="380" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">tanpa hot-plug</text>
   <text x="510" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22">→</text>
-  <rect x="540" y="50" width="160" height="90" rx="6" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="620" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700">3</text>
-  <text x="620" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">Colok lagi</text>
-  <text x="620" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">cek dulu</text>
+  <rect x="530" y="50" width="200" height="90" rx="6" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="630" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700">3</text>
+  <text x="630" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">Colok lagi</text>
+  <text x="630" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">cek dulu</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Urutan aman sebelum mengubah kabel (buatan Koding Indonesia). Hot-plug = mencabut/menyambung saat masih beraliran listrik.</figcaption>
 </figure>
@@ -282,10 +282,10 @@ SVG;
   <text x="380" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">Change jumpers</text>
   <text x="380" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">no hot-plug</text>
   <text x="510" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22">→</text>
-  <rect x="540" y="50" width="160" height="90" rx="6" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="620" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700">3</text>
-  <text x="620" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">Plug back in</text>
-  <text x="620" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">check first</text>
+  <rect x="530" y="50" width="200" height="90" rx="6" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="630" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700">3</text>
+  <text x="630" y="112" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">Plug back in</text>
+  <text x="630" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">check first</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Safe sequence before changing wires (by Koding Indonesia). Hot-plug = plugging/unplugging while power is still on.</figcaption>
 </figure>
@@ -343,8 +343,18 @@ SVG;
         return <<<HTML
 <h2>Pendahuluan — kenapa keselamatan dulu?</h2>
 <p>Artikel ini adalah <strong>#75 (ini)</strong> · modul <strong>FS-05</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Di <strong>FS-04</strong> kamu sudah kenal nama benda di kit. Hari ini kita belajar <strong>kebiasaan aman</strong> sebelum mengalirkan listrik — supaya board, USB, dan kamu sendiri aman.</p>
-<p><strong>Awam:</strong> seperti menyetir — sebelum gas, kamu cek rem &amp; sabuk. Di sini “rem”-nya adalah checklist cabut USB &amp; tidak menyambung pin yang salah.</p>
+<p><strong>Analogi:</strong> seperti menyetir — sebelum gas, kamu cek rem &amp; sabuk. Di sini “rem”-nya adalah checklist cabut USB &amp; tidak menyambung pin yang salah.</p>
 <p><strong>Prasyarat:</strong> ide dari FS-04 (kenal board, breadboard, jumper). Belum wajib sudah punya semua barang — tapi board + beberapa jumper sangat membantu untuk “latihan bayangan” di meja.</p>
+
+<p><strong>Cara pakai artikel ini (urutan baca):</strong></p>
+<ol>
+<li><strong>Buka browser</strong> — baca artikel di laptop atau HP.</li>
+<li><strong>Siapkan kertas</strong> (opsional) — salin checklist 10 poin; tempel di meja.</li>
+<li><strong>Lihat diagram</strong> short circuit, 3.3V vs 5V, polaritas LED, USB, urutan cabut USB.</li>
+<li><strong>Centang checklist interaktif</strong> 10/10 di akhir artikel.</li>
+<li><strong>Ulangi dengan suara</strong>: “cabut dulu, cek 3V3/GND, jangan 5V ke GPIO”.</li>
+</ol>
+<p><strong>Tidak perlu hari ini:</strong> Arduino IDE, driver USB, terminal, Laragon, <code>php artisan</code>, unggah sketch, colok USB untuk latihan, mengukur dengan multimeter.</p>
 
 <h2>Persiapan — alat yang kamu buka hari ini</h2>
 <p><strong>Alat yang dipakai di artikel ini</strong> (belum Arduino IDE, belum driver USB, belum terminal, belum Laragon, belum mengukur dengan multimeter):</p>
@@ -354,14 +364,14 @@ SVG;
 <li><strong>Kertas + spidol</strong> — salin checklist 10 poin; tempel di meja kerja.</li>
 </ul>
 <p><strong>Tidak ada perintah sintaks hari ini.</strong> Tidak ada baris kode, tidak ada <code>php artisan</code>, tidak ada sketch Arduino, tidak ada upload. Cara “menguji” di FS-05 = <strong>baca + sebut ulang + centang checklist</strong>. Belum menyalakan rangkaian latihan.</p>
-<p><strong>Awam:</strong> kalau kamu hanya punya browser hari ini, tetap bisa lulus FS-05 dengan checklist. Kit fisik dipakai lebih intens mulai FS-06–FS-09.</p>
+<p><strong>Tips:</strong> kalau kamu hanya punya browser hari ini, tetap bisa lulus FS-05 dengan checklist. Kit fisik dipakai lebih intens mulai FS-06–FS-09.</p>
 
 {$overview}
 
 <h2>Short circuit — jalan pintas yang merusak</h2>
 <p><strong>Short circuit</strong> (hubungan singkat) = jalur listrik yang terlalu “mudah”, biasanya karena <strong>3V3 tersambung langsung ke GND</strong> (atau 5V ke GND) lewat jumper / kaki komponen yang salah.</p>
 {$short}
-<p><strong>Awam:</strong> bayangkan selang air yang disambung lurus ke saluran buang tanpa keran — air “nggak ada yang menahan”. Di listrik, yang “kebanyakan” adalah arus; chip atau kabel bisa panas.</p>
+<p><strong>Analogi:</strong> bayangkan selang air yang disambung lurus ke saluran buang tanpa keran — air “tidak ada yang menahan”. Di listrik, yang “kebanyakan” adalah arus; chip atau kabel bisa panas.</p>
 <ul>
 <li>Gejala umum: board reset terus, USB komputer “klik”, bau panas, LED power padam.</li>
 <li>Pencegahan: cabut USB dulu, lalu cek tidak ada jumper 3V3↔GND yang tak sengaja.</li>
@@ -375,7 +385,7 @@ SVG;
 <li><strong>5V</strong> biasanya dari USB — untuk beberapa modul yang butuh 5V (misalnya sebagian relay), dengan aturan nanti di modul aktuator.</li>
 <li><strong>GND</strong> = “tanah” bersama. Modul luar harus berbagi GND dengan board.</li>
 </ul>
-<p><strong>Awam:</strong> 3.3V seperti bis kecil; 5V seperti truk. Truk masuk jalur bis → tabrakan. Jangan “asal colok karena lubangnya masuk”.</p>
+<p><strong>Analogi:</strong> 3.3V seperti bis kecil; 5V seperti truk. Truk masuk jalur bis → tabrakan. Jangan “asal colok karena lubangnya masuk”.</p>
 
 <h2>Polaritas &amp; ground bersama</h2>
 <p>Dari FS-04: LED punya kaki panjang (+) dan pendek (−). Sensor/modul sering punya pin <strong>VCC / +</strong>, <strong>GND / −</strong>, dan sinyal. Tertukar polaritas → modul tidak hidup atau rusak.</p>
@@ -385,15 +395,15 @@ SVG;
 <li><strong>Ground bersama:</strong> kalau pakai sensor di breadboard, sambungkan GND sensor ke GND board.</li>
 <li>Belum merakit hari ini — cukup hafal aturan mainnya.</li>
 </ul>
-<p><strong>Awam:</strong> ground bersama seperti “lantai yang sama” supaya dua orang bisa bergandengan tangan. Tanpa lantai yang sama, sinyal “mengambang”.</p>
+<p><strong>Analogi:</strong> ground bersama seperti “lantai yang sama” supaya dua orang bisa bergandengan tangan. Tanpa lantai yang sama, sinyal “mengambang”.</p>
 
 <h2>USB data vs charge-only — pengingat singkat</h2>
 <p>Di FS-04 kamu sudah lihat bedanya. Di sini diulang karena sering jadi “port hilang” saat mulai upload di FS-06.</p>
 {$usb}
-<p><strong>Awam:</strong> kabel murah sering charge-only. Kalau nanti komputer tidak melihat port COM, curigai kabel dulu — bukan chip-mu “rusak”.</p>
+<p><strong>Tips:</strong> kabel murah sering charge-only. Kalau nanti komputer tidak melihat port COM, curigai kabel dulu — bukan chip-mu “rusak”.</p>
 
 <h2>Kebiasaan emas — cabut USB dulu</h2>
-<p><strong>Hot-plug</strong> = mengubah jumper / menusuk kabel saat board masih tersambung USB (masih beraliran). Itu kebiasaan berbahaya untuk pemula.</p>
+<p><strong>Hot-plug</strong> = mengubah jumper / menusuk kabel saat board masih tersambung USB (masih beraliran). Itu kebiasaan berbahaya di awal belajar.</p>
 {$unplug}
 <ol>
 <li>Cabut USB dari board (atau dari komputer).</li>
@@ -401,7 +411,7 @@ SVG;
 <li>Cek sekali lagi (3V3 tidak nempel GND, polaritas OK).</li>
 <li>Baru colok USB lagi.</li>
 </ol>
-<p><strong>Awam:</strong> seperti mengganti baterai remote — kamu cabut dulu, bukan cabut-pasang sambil tombol masih ditekan.</p>
+<p><strong>Analogi:</strong> seperti mengganti baterai remote — kamu cabut dulu, bukan cabut-pasang sambil tombol masih ditekan.</p>
 
 {$mm}
 
@@ -419,9 +429,9 @@ SVG;
 <li>Saya tidak “coba-coba colok” tanpa rencana pin</li>
 <li>Checklist ini akan saya baca ulang sebelum latihan wiring berikutnya</li>
 </ul>
-<p><strong>Awam — cara menguji:</strong> kerjakan checklist interaktif di browser. Opsional: tulis 10 poin di kertas, foto di meja. Tidak perlu menjalankan perintah apa pun. Belum colok USB untuk upload.</p>
+<p><strong>Cara menguji:</strong> kerjakan checklist interaktif di browser. Opsional: tulis 10 poin di kertas, foto di meja. Tidak perlu menjalankan perintah apa pun. Belum colok USB untuk upload.</p>
 
-<h2>Kesalahan umum awam</h2>
+<h2>Kesalahan yang sering terjadi</h2>
 <ul>
 <li><strong>Hot-plug sembarangan.</strong> Ubah kabel saat USB masih colok → risiko short &amp; pin bengkok.</li>
 <li><strong>Menyambung 5V ke pin GPIO.</strong> Logika ESP32 = 3.3V.</li>
@@ -438,7 +448,7 @@ SVG;
 
 <h2>Kesimpulan</h2>
 <p>Di <strong>#75 (ini)</strong> kamu sudah paham short circuit, beda 3.3V vs 5V, polaritas &amp; ground bersama, pengingat USB data, dan kebiasaan <strong>cabut USB dulu</strong>. Checklist 10 poin siap dipakai di modul berikutnya — masih belum wiring menyala.</p>
-<p><strong>Awam:</strong> kalau kamu bisa bilang “cabut dulu, cek 3V3/GND, jangan 5V ke GPIO”, FS-05 selesai. Lanjut ke setup komputer di FS-06 saat modulnya terbit.</p>
+<p><strong>Intinya:</strong> kalau kamu bisa bilang “cabut dulu, cek 3V3/GND, jangan 5V ke GPIO”, FS-05 selesai. Lanjut ke setup komputer di FS-06 saat modulnya terbit.</p>
 HTML;
     }
 
@@ -455,8 +465,18 @@ HTML;
         return <<<HTML
 <h2>Introduction — why safety first?</h2>
 <p>This article is <strong>#75 (this article)</strong> · module <strong>FS-05</strong> on the <em>Full Stack IoT Developer — From Zero</em> path. In <strong>FS-04</strong> you learned the names of kit parts. Today we learn <strong>safe habits</strong> before applying power — so the board, USB, and you stay safe.</p>
-<p><strong>Beginner:</strong> like driving — before you hit the gas, you check brakes and seatbelt. Here the “brake” is the unplug-USB checklist and not wiring the wrong pins.</p>
+<p><strong>Analogy:</strong> like driving — before you hit the gas, you check brakes and seatbelt. Here the “brake” is the unplug-USB checklist and not wiring the wrong pins.</p>
 <p><strong>Prerequisites:</strong> ideas from FS-04 (know the board, breadboard, jumpers). You do not need every part yet — but a board + a few jumpers help for “air practice” on the desk.</p>
+
+<p><strong>How to use this article (reading order):</strong></p>
+<ol>
+<li><strong>Open a browser</strong> — read on a laptop or phone.</li>
+<li><strong>Prepare paper</strong> (optional) — copy the 10-point checklist; keep it on the desk.</li>
+<li><strong>Study the diagrams</strong> for short circuit, 3.3V vs 5V, LED polarity, USB, and unplug order.</li>
+<li><strong>Tick the interactive checklist</strong> 10/10 at the end.</li>
+<li><strong>Say it out loud</strong>: “unplug first, check 3V3/GND, no 5V into GPIO”.</li>
+</ol>
+<p><strong>Not needed today:</strong> Arduino IDE, USB drivers, terminal, Laragon, <code>php artisan</code>, uploading a sketch, plugging USB for practice, or measuring with a multimeter.</p>
 
 <h2>Preparation — tools you open today</h2>
 <p><strong>Tools used in this article</strong> (no Arduino IDE yet, no USB driver, no terminal, no Laragon, no multimeter measuring yet):</p>
@@ -466,14 +486,14 @@ HTML;
 <li><strong>Paper + marker</strong> — copy the 10-point checklist; stick it on your work desk.</li>
 </ul>
 <p><strong>There is no syntax to run today.</strong> No code lines, no <code>php artisan</code>, no Arduino sketch, no upload. How you “test” in FS-05 = <strong>read + restate + tick the checklist</strong>. No practice circuit is powered yet.</p>
-<p><strong>Beginner:</strong> if you only have a browser today, you can still pass FS-05 with the checklist. The physical kit gets used more from FS-06–FS-09.</p>
+<p><strong>Tip:</strong> if you only have a browser today, you can still pass FS-05 with the checklist. The physical kit gets used more from FS-06–FS-09.</p>
 
 {$overview}
 
 <h2>Short circuits — the shortcut that breaks things</h2>
 <p>A <strong>short circuit</strong> is an electrical path that is too “easy”, usually because <strong>3V3 is tied straight to GND</strong> (or 5V to GND) through a jumper or a misplaced component leg.</p>
 {$short}
-<p><strong>Beginner:</strong> picture a water hose dumped straight into a drain with no tap — nothing holds the flow. In electricity, the “too much” is current; the chip or cable can heat up.</p>
+<p><strong>Analogy:</strong> picture a water hose dumped straight into a drain with no tap — nothing holds the flow. In electricity, the “too much” is current; the chip or cable can heat up.</p>
 <ul>
 <li>Common symptoms: board keeps resetting, computer USB “clicks”, hot smell, power LED goes dark.</li>
 <li>Prevention: unplug USB first, then check there is no accidental 3V3↔GND jumper.</li>
@@ -487,7 +507,7 @@ HTML;
 <li><strong>5V</strong> usually comes from USB — for some modules that need 5V (e.g. some relays), with rules later in actuator modules.</li>
 <li><strong>GND</strong> = shared ground. External modules must share GND with the board.</li>
 </ul>
-<p><strong>Beginner:</strong> 3.3V is like a small bus; 5V is like a truck. A truck on the bus lane crashes. Do not “plug it because the hole fits”.</p>
+<p><strong>Analogy:</strong> 3.3V is like a small bus; 5V is like a truck. A truck on the bus lane crashes. Do not “plug it because the hole fits”.</p>
 
 <h2>Polarity &amp; shared ground</h2>
 <p>From FS-04: LEDs have a long leg (+) and a short leg (−). Sensors/modules often have <strong>VCC / +</strong>, <strong>GND / −</strong>, and a signal pin. Swapped polarity → the module stays dead or dies.</p>
@@ -497,15 +517,15 @@ HTML;
 <li><strong>Shared ground:</strong> if a sensor sits on the breadboard, connect sensor GND to board GND.</li>
 <li>We do not build today — just learn the rules of the game.</li>
 </ul>
-<p><strong>Beginner:</strong> shared ground is like standing on the same floor so two people can hold hands. Without a common floor, signals “float”.</p>
+<p><strong>Analogy:</strong> shared ground is like standing on the same floor so two people can hold hands. Without a common floor, signals “float”.</p>
 
 <h2>USB data vs charge-only — a short reminder</h2>
 <p>You saw this in FS-04. We repeat it because it often becomes “missing port” when uploads start in FS-06.</p>
 {$usb}
-<p><strong>Beginner:</strong> cheap cables are often charge-only. If the computer later does not see a COM port, suspect the cable first — not that “your chip is broken”.</p>
+<p><strong>Tip:</strong> cheap cables are often charge-only. If the computer later does not see a COM port, suspect the cable first — not that “your chip is broken”.</p>
 
 <h2>Golden habit — unplug USB first</h2>
-<p><strong>Hot-plug</strong> = changing jumpers / poking wires while the board is still on USB (still powered). That is a dangerous beginner habit.</p>
+<p><strong>Hot-plug</strong> = changing jumpers / poking wires while the board is still on USB (still powered). That is a dangerous habit for newcomers.</p>
 {$unplug}
 <ol>
 <li>Unplug USB from the board (or from the computer).</li>
@@ -513,7 +533,7 @@ HTML;
 <li>Check once more (3V3 not touching GND, polarity OK).</li>
 <li>Only then plug USB back in.</li>
 </ol>
-<p><strong>Beginner:</strong> like changing remote batteries — you remove them first; you do not yank them while holding a button.</p>
+<p><strong>Analogy:</strong> like changing remote batteries — you remove them first; you do not yank them while holding a button.</p>
 
 {$mm}
 
@@ -531,9 +551,9 @@ HTML;
 <li>I will not “plug and hope” without a pin plan</li>
 <li>I will re-read this checklist before the next wiring practice</li>
 </ul>
-<p><strong>Beginner — how to test:</strong> complete the interactive checklist in the browser. Optional: write the 10 points on paper and keep them on the desk. No commands to run. No USB plug-in for upload yet.</p>
+<p><strong>How to test:</strong> complete the interactive checklist in the browser. Optional: write the 10 points on paper and keep them on the desk. No commands to run. No USB plug-in for upload yet.</p>
 
-<h2>Common beginner mistakes</h2>
+<h2>Common mistakes</h2>
 <ul>
 <li><strong>Hot-plugging randomly.</strong> Changing wires while USB is plugged in → short risk &amp; bent pins.</li>
 <li><strong>Feeding 5V into a GPIO pin.</strong> ESP32 logic = 3.3V.</li>
@@ -550,7 +570,7 @@ HTML;
 
 <h2>Conclusion</h2>
 <p>In <strong>#75 (this article)</strong> you understand short circuits, 3.3V vs 5V, polarity &amp; shared ground, the USB-data reminder, and the <strong>unplug USB first</strong> habit. The 10-point checklist is ready for later modules — still no powered wiring.</p>
-<p><strong>Beginner:</strong> if you can say “unplug first, check 3V3/GND, no 5V into GPIO”, FS-05 is done. Continue to computer setup in FS-06 when that module publishes.</p>
+<p><strong>In short:</strong> if you can say “unplug first, check 3V3/GND, no 5V into GPIO”, FS-05 is done. Continue to computer setup in FS-06 when that module publishes.</p>
 HTML;
     }
 }

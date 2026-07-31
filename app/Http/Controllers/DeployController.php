@@ -6197,6 +6197,9 @@ class DeployController extends Controller
             '#75 (ini)',
             'FS-05',
             'Tidak ada perintah sintaks hari ini',
+            'Cara pakai artikel ini',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
             'Short circuit',
             '3.3V',
             '5V',
@@ -6207,6 +6210,7 @@ class DeployController extends Controller
             'FS-06',
             '/belajar/fullstack-iot',
             'esp32-devkitc-overview.jpg',
+            'esp-dev-kits',
             'kit-multimeter.jpg',
             'kit-led-5mm.jpg',
         ];
@@ -6226,7 +6230,9 @@ class DeployController extends Controller
         $bodyEn = (string) $article->body_en;
         $enNeedles = [
             '#75 (this article)',
-            'Beginner:',
+            'In short:',
+            'How to use this article',
+            'Common mistakes',
             'There is no syntax to run today',
             'short circuit',
             'unplug USB',

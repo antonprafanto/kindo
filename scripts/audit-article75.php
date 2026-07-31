@@ -43,10 +43,16 @@ check('seed route exists', str_contains($routes, 'seed-article-75-draft'));
 
 check('ID self-ref #75 (ini)', str_contains($id, '#75 (ini)'));
 check('EN self-ref #75 (this article)', str_contains($en, '#75 (this article)'));
-check('ID Awam >= 5', substr_count($id, 'Awam:') + substr_count($id, 'Awam —') >= 5);
-check('EN Beginner >= 5', substr_count($en, 'Beginner:') + substr_count($en, 'Beginner —') >= 5);
+check('no Awam stamp ID', ! str_contains($id, 'Awam:') && ! str_contains($id, 'Awam —'));
+check('no Beginner stamp EN', ! str_contains($en, 'Beginner:') && ! str_contains($en, 'Beginner —'));
+check('no awam word in body ID', ! preg_match('/\bawam\b/i', $id));
+check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
+check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
+check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 4', substr_count($id, '<figure') >= 4 && substr_count($en, '<figure') >= 4);
+check('ID mistakes heading', str_contains($id, 'Kesalahan yang sering terjadi'));
+check('EN mistakes heading', str_contains($en, 'Common mistakes'));
 
 check('ID Persiapan + no-syntax', str_contains($id, 'Persiapan') && str_contains($id, 'Tidak ada perintah sintaks hari ini'));
 check('EN Preparation + no-syntax', str_contains($en, 'Preparation') && str_contains($en, 'There is no syntax to run today'));
@@ -59,10 +65,12 @@ check('unplug USB habit', str_contains($id, 'cabut USB') && str_contains($en, 'u
 check('hot-plug mentioned', str_contains($id, 'Hot-plug') || str_contains($id, 'hot-plug'));
 check('charge-only both', str_contains($id, 'charge-only') && str_contains($en, 'charge-only'));
 check('no GPIO 5V encouragement', str_contains($id, 'jangan') && str_contains($id, 'GPIO'));
-check('overview image + Espressif', str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'Espressif'));
+check('overview image + Espressif', str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'Espressif') && str_contains($id, 'esp-dev-kits'));
 check('multimeter image + Commons', str_contains($id, 'kit-multimeter.jpg') && str_contains($id, 'commons.wikimedia.org'));
 check('LED polarity image + Commons', str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, '5mm_LED_Light-emitting_diode'));
 check('SVG short + voltage + unplug', str_contains($id, 'Short circuit') && str_contains($id, '3.3V vs 5V') && str_contains($id, 'cabut USB dulu'));
+check('unplug step3 box wide', str_contains($src, 'width="200" height="90" rx="6" fill="#E8F5E9"'));
+check('photo files on disk', is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-multimeter.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-led-5mm.jpg'));
 
 check('checklist markers', str_contains($id, 'id="fsiot-safety-checklist"') && str_contains($id, 'id="fsiot-safety-checklist-items"'));
 check('EN checklist markers', str_contains($en, 'id="fsiot-safety-checklist"') && str_contains($en, 'id="fsiot-safety-checklist-items"'));
@@ -80,7 +88,7 @@ check('no Soft bridge jargon', ! str_contains($id, 'Soft bridge') && ! str_conta
 check('belum power ON practice', str_contains($id, 'belum colok USB') || str_contains($id, 'Belum colok USB'));
 
 $enPlain = strip_tags($en);
-foreach (['Pendahuluan', 'Persiapan', 'Kesalahan umum', 'Kesimpulan', 'Awam:'] as $w) {
+foreach (['Pendahuluan', 'Persiapan', 'Kesalahan yang sering terjadi', 'Kesimpulan', 'Awam:', 'Intinya:'] as $w) {
     check('No residual Indo in EN: '.$w, ! str_contains($enPlain, $w) && ! str_contains($en, '<h2>'.$w));
 }
 
