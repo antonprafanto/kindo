@@ -314,6 +314,16 @@ return [
         'fsiot_lc_incomplete' => 'Masih ada langkah yang belum dicentang. Ulangi wiring atau baca ulang artikel.',
         'fsiot_lc_done' => 'Selesai',
         'fsiot_lc_todo' => 'Belum',
+        'fsiot_sg_badge' => 'Checklist sinyal digital',
+        'fsiot_sg_hint' => 'Centang tiap langkah wiring & ukur multimeter yang sudah kamu lakukan. Target: 10/10.',
+        'fsiot_sg_check' => 'Cek kelengkapan',
+        'fsiot_sg_retry' => 'Kosongkan lagi',
+        'fsiot_sg_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_sg_progress' => ':filled dari :total tercentang',
+        'fsiot_sg_pass' => 'Lengkap :filled/:total — kamu paham HIGH/LOW & pull-down! Lanjut FS-11 saat modulnya terbit.',
+        'fsiot_sg_incomplete' => 'Masih ada langkah yang belum dicentang. Ulangi wiring atau ukur ulang dengan multimeter.',
+        'fsiot_sg_done' => 'Selesai',
+        'fsiot_sg_todo' => 'Belum',
     ],
 
     'theme' => [

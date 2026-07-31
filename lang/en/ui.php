@@ -314,6 +314,16 @@ return [
         'fsiot_lc_incomplete' => 'Some steps are still unchecked. Rewire or reread the article.',
         'fsiot_lc_done' => 'Done',
         'fsiot_lc_todo' => 'Not yet',
+        'fsiot_sg_badge' => 'Digital signal checklist',
+        'fsiot_sg_hint' => 'Tick each wiring & multimeter step you completed. Target: 10/10.',
+        'fsiot_sg_check' => 'Check completeness',
+        'fsiot_sg_retry' => 'Clear again',
+        'fsiot_sg_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_sg_progress' => ':filled of :total checked',
+        'fsiot_sg_pass' => 'Complete :filled/:total — you understand HIGH/LOW & pull-down! Continue to FS-11 when that module publishes.',
+        'fsiot_sg_incomplete' => 'Some steps are still unchecked. Rewire or remeasure with the multimeter.',
+        'fsiot_sg_done' => 'Done',
+        'fsiot_sg_todo' => 'Not yet',
     ],
 
     'theme' => [

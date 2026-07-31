@@ -194,7 +194,7 @@ jobs:
           for f in logo.png favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png og-default.png \
             images/fsiot/hero-desk.jpg images/fsiot/esp32-devkitc-1-pinlayout.jpg images/fsiot/esp32-devkitc-overview.jpg \
             images/fsiot/kit-breadboard.jpg images/fsiot/kit-jumper-wires.jpg images/fsiot/kit-led-5mm.jpg \
-            images/fsiot/kit-resistor.jpg images/fsiot/fs09-led-breadboard-wiring.png images/fsiot/fs06-device-manager-esp32.png images/fsiot/fs06-arduino-ide-overview.png images/fsiot/kit-tactile-button.jpg images/fsiot/kit-dht22.jpg \
+            images/fsiot/kit-resistor.jpg images/fsiot/fs09-led-breadboard-wiring.png images/fsiot/fs06-device-manager-esp32.png images/fsiot/fs06-arduino-ide-overview.png images/fsiot/fs10-pullup-pulldown.svg images/fsiot/fs10-resistor-10k.svg images/fsiot/kit-tactile-button.jpg images/fsiot/kit-dht22.jpg \
             images/fsiot/kit-ldr.jpg images/fsiot/kit-relay-5v.jpg images/fsiot/kit-multimeter.jpg; do
             if [ ! -f "public/$f" ]; then
               echo "::warning::Missing public/$f — skip"
@@ -1233,6 +1233,28 @@ jobs:
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
             "https://kodingindonesia.com/artikel/fullstack-iot-led-resistor-di-breadboard")
           echo "Article 79 public HTTP status (expect 404): $code"
+          test "$code" = "404"
+
+      - name: Seed article 80 draft via deploy hook (required — pre-launch B)
+        run: |
+          set +e
+          for attempt in 1 2 3; do
+            body="$(mktemp)"
+            code=$(curl -sS --max-time 180 -o "$body" -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/seed-article-80-draft" || echo "000")
+            echo "seed-article-80-draft HTTP $code"
+            sed -n '1,120p' "$body" || true
+            [ "$code" = "200" ] && break
+            sleep $((attempt * 5))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::seed-article-80-draft failed after retries (last HTTP $code)"
+            exit 1
+          fi
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/fullstack-iot-digital-analog-high-low-pull-resistor")
+          echo "Article 80 public HTTP status (expect 404): $code"
           test "$code" = "404"
 
       - name: Publish article 69 via deploy hook (required)
