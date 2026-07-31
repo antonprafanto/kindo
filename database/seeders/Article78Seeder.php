@@ -40,8 +40,8 @@ class Article78Seeder extends Seeder
             [
                 'user_id'            => $admin->id,
                 'category_id'        => $iotCat->id,
-                'title'              => 'Listrik mini untuk awam: kenapa LED butuh resistor',
-                'title_en'           => 'Mini electricity for beginners: why an LED needs a resistor',
+                'title'              => 'Listrik mini: kenapa LED butuh resistor',
+                'title_en'           => 'Mini electricity: why an LED needs a resistor',
                 'excerpt'            => 'FS-08 / #78: Analogi air, Ohm sederhana, hitung resistor LED 5mm dari 3.3V, pilih 220Ω atau 330Ω. Kertas + kalkulator HP — tanpa wiring.',
                 'excerpt_en'         => 'FS-08 / #78: Water analogy, simple Ohm\'s law, calculate a 5mm LED resistor from 3.3V, pick 220Ω or 330Ω. Paper + phone calculator — no wiring.',
                 'body'               => $this->body(),
@@ -49,8 +49,8 @@ class Article78Seeder extends Seeder
                 'status'             => 'draft',
                 'is_featured'        => false,
                 'published_at'       => null,
-                'seo_title'          => 'Listrik Mini Awam — Hitung Resistor LED 3.3V — Full Stack IoT #78',
-                'seo_title_en'       => 'Beginner Electricity — Calculate LED Resistor 3.3V — Full Stack IoT #78',
+                'seo_title'          => 'Listrik Mini — Hitung Resistor LED 3.3V — Full Stack IoT #78',
+                'seo_title_en'       => 'Mini Electricity — Calculate LED Resistor 3.3V — Full Stack IoT #78',
                 'seo_description'    => 'Paham V, A, Ω dengan analogi air. Hitung resistor LED 5mm dari 3.3V ESP32, pilih 220Ω atau 330Ω. Modul FS-08 tanpa breadboard.',
                 'seo_description_en' => 'Understand V, A, Ω with a water analogy. Calculate a 5mm LED resistor from 3.3V ESP32, pick 220Ω or 330Ω. FS-08 module, no breadboard.',
             ]
@@ -98,11 +98,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-resistor.jpg" width="1200" height="900" alt="Resistor dengan cincin warna — rem arus untuk LED" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/kit-resistor-220ohm.jpg" width="1200" height="800" alt="Resistor 220 ohm — cincin merah-merah-cokelat-emas" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-  Resistor = <strong>rem arus</strong>. Kit biasanya punya <strong>220Ω</strong> dan <strong>330Ω</strong> — nilai ini yang akan kita pilih setelah hitung.
-    <br><strong>Awam:</strong> foto ini contoh resistor 100Ω (cincin warna) — beda angka dari 220/330 di kit, tapi bentuknya sama.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
+  Resistor = <strong>rem arus</strong>. Foto ini <strong>220Ω</strong> (cincin: merah–merah–cokelat–emas) — pilihan utama setelah hitungan ~130Ω. Kit biasanya juga punya <strong>330Ω</strong>.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:220_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — 220 ohms axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
   </figcaption>
 </figure>
 HTML;
@@ -112,11 +111,37 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-resistor.jpg" width="1200" height="900" alt="Resistor with color bands — current brake for an LED" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/kit-resistor-220ohm.jpg" width="1200" height="800" alt="220 ohm resistor — red-red-brown-gold bands" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    A resistor is a <strong>current brake</strong>. Kits usually include <strong>220Ω</strong> and <strong>330Ω</strong> — those are what we pick after the math.
-    <br><strong>Beginner:</strong> this photo shows a 100Ω example (color bands) — different value from 220/330 in the kit, but the shape is the same.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:100_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
+    A resistor is a <strong>current brake</strong>. This photo is <strong>220Ω</strong> (bands: red–red–brown–gold) — the main pick after ~130Ω math. Kits usually also include <strong>330Ω</strong>.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:220_ohms_5%25_axial_resistor.jpg" rel="noopener noreferrer" target="_blank">oomlout — 220 ohms axial resistor</a> · Wikimedia Commons (CC BY-SA 2.0).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+
+    private function colorCodeFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/resistor-color-code.jpg" width="1100" height="1120" alt="Tabel cincin warna resistor 4 pita dan 5 pita" loading="lazy" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Baca cincin dari ujung yang jauh dari pita emas/perak. Untuk kit kita: <strong>220Ω = merah–merah–cokelat–emas</strong> · <strong>330Ω = oranye–oranye–cokelat–emas</strong>. Hari ini cukup kenali — tidak perlu hafal semua warna.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Resistor_color_code.png" rel="noopener noreferrer" target="_blank">Adim kassn — Resistor color code</a> · Wikimedia Commons (CC BY-SA 3.0).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function colorCodeFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/resistor-color-code.jpg" width="1100" height="1120" alt="4-band and 5-band resistor color code chart" loading="lazy" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    Read bands from the end farthest from the gold/silver band. For our kit: <strong>220Ω = red–red–brown–gold</strong> · <strong>330Ω = orange–orange–brown–gold</strong>. Today just recognize them — no need to memorize every color.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Resistor_color_code.png" rel="noopener noreferrer" target="_blank">Adim kassn — Resistor color code</a> · Wikimedia Commons (CC BY-SA 3.0).
   </figcaption>
 </figure>
 HTML;
@@ -155,7 +180,7 @@ SVG;
         return <<<'SVG'
 <figure role="img" aria-label="Water analogy for V A and Ohm" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" width="100%" height="auto" role="img" aria-label="Water analogy">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Water analogy — three words that confuse beginners</text>
+  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Water analogy — three words that often confuse people</text>
   <rect x="30" y="50" width="200" height="130" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
   <text x="130" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">V = Volt</text>
   <text x="130" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Water pressure</text>
@@ -214,23 +239,25 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Rangkaian LED resistor dari 3V3" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="LED circuit">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Rangkaian yang akan kita rakit di FS-09 (hari ini hanya gambar)</text>
-  <line x1="60" y1="100" x2="140" y2="100" stroke="#1565C0" stroke-width="3"/>
-  <text x="100" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">3V3</text>
-  <polygon points="150,85 150,115 175,100" fill="#F9A825" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="175" y1="100" x2="220" y2="100" stroke="#1565C0" stroke-width="3"/>
-  <rect x="220" y="82" width="70" height="36" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="255" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">220R</text>
-  <line x1="290" y1="100" x2="360" y2="100" stroke="#1565C0" stroke-width="3"/>
-  <line x1="360" y1="100" x2="360" y2="150" stroke="#1565C0" stroke-width="3"/>
-  <line x1="360" y1="150" x2="60" y2="150" stroke="#1565C0" stroke-width="3"/>
-  <line x1="60" y1="150" x2="60" y2="100" stroke="#1565C0" stroke-width="3"/>
-  <text x="360" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">GND</text>
-  <text x="200" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">LED ~2V drop</text>
-  <text x="360" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — belum wiring hari ini</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" width="100%" height="auto" role="img" aria-label="LED circuit">
+  <text x="360" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Rangkaian FS-09 (hari ini hanya gambar — belum dirakit)</text>
+  <line x1="50" y1="105" x2="130" y2="105" stroke="#1565C0" stroke-width="3"/>
+  <text x="90" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">3V3</text>
+  <polygon points="140,90 140,120 168,105" fill="#F9A825" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="168" y1="90" x2="168" y2="120" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="154" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">LED</text>
+  <text x="154" y="156" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">~2.0 V</text>
+  <line x1="168" y1="105" x2="230" y2="105" stroke="#1565C0" stroke-width="3"/>
+  <rect x="230" y="86" width="90" height="38" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="111" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">220Ω</text>
+  <line x1="320" y1="105" x2="400" y2="105" stroke="#1565C0" stroke-width="3"/>
+  <line x1="400" y1="105" x2="400" y2="160" stroke="#1565C0" stroke-width="3"/>
+  <line x1="400" y1="160" x2="50" y2="160" stroke="#1565C0" stroke-width="3"/>
+  <line x1="50" y1="160" x2="50" y2="105" stroke="#1565C0" stroke-width="3"/>
+  <text x="225" y="180" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">GND</text>
+  <text x="360" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — belum wiring hari ini</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Alur listrik: 3V3 → LED → resistor 220Ω → GND (buatan Koding Indonesia). Rakit fisiknya di modul berikutnya.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Alur listrik: <strong>3V3 → LED → resistor 220Ω → GND</strong> (buatan Koding Indonesia). Segitiga kuning = LED; kotak = resistor. Rakit fisiknya di modul berikutnya.</figcaption>
 </figure>
 SVG;
     }
@@ -239,23 +266,25 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="LED resistor circuit from 3V3" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto" role="img" aria-label="LED circuit">
-  <text x="360" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Circuit we will build in FS-09 (diagram only today)</text>
-  <line x1="60" y1="100" x2="140" y2="100" stroke="#1565C0" stroke-width="3"/>
-  <text x="100" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">3V3</text>
-  <polygon points="150,85 150,115 175,100" fill="#F9A825" stroke="#1a1a1a" stroke-width="2"/>
-  <line x1="175" y1="100" x2="220" y2="100" stroke="#1565C0" stroke-width="3"/>
-  <rect x="220" y="82" width="70" height="36" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
-  <text x="255" y="106" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">220R</text>
-  <line x1="290" y1="100" x2="360" y2="100" stroke="#1565C0" stroke-width="3"/>
-  <line x1="360" y1="100" x2="360" y2="150" stroke="#1565C0" stroke-width="3"/>
-  <line x1="360" y1="150" x2="60" y2="150" stroke="#1565C0" stroke-width="3"/>
-  <line x1="60" y1="150" x2="60" y2="100" stroke="#1565C0" stroke-width="3"/>
-  <text x="360" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">GND</text>
-  <text x="200" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">LED ~2V drop</text>
-  <text x="360" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — no physical wiring today</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" width="100%" height="auto" role="img" aria-label="LED circuit">
+  <text x="360" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">FS-09 circuit (diagram only today — not built yet)</text>
+  <line x1="50" y1="105" x2="130" y2="105" stroke="#1565C0" stroke-width="3"/>
+  <text x="90" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">3V3</text>
+  <polygon points="140,90 140,120 168,105" fill="#F9A825" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="168" y1="90" x2="168" y2="120" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="154" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">LED</text>
+  <text x="154" y="156" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">~2.0 V</text>
+  <line x1="168" y1="105" x2="230" y2="105" stroke="#1565C0" stroke-width="3"/>
+  <rect x="230" y="86" width="90" height="38" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="275" y="111" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">220Ω</text>
+  <line x1="320" y1="105" x2="400" y2="105" stroke="#1565C0" stroke-width="3"/>
+  <line x1="400" y1="105" x2="400" y2="160" stroke="#1565C0" stroke-width="3"/>
+  <line x1="400" y1="160" x2="50" y2="160" stroke="#1565C0" stroke-width="3"/>
+  <line x1="50" y1="160" x2="50" y2="105" stroke="#1565C0" stroke-width="3"/>
+  <text x="225" y="180" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">GND</text>
+  <text x="360" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — no physical wiring today</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Current path: 3V3 → LED → 220Ω resistor → GND (by Koding Indonesia). Physical build comes in the next module.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Current path: <strong>3V3 → LED → 220Ω resistor → GND</strong> (by Koding Indonesia). Yellow triangle = LED; box = resistor. Physical build comes in the next module.</figcaption>
 </figure>
 SVG;
     }
@@ -308,13 +337,14 @@ SVG;
         $ohm = $this->ohmSvgId();
         $led = $this->ledFigureId();
         $res = $this->resistorFigureId();
+        $color = $this->colorCodeFigureId();
         $circuit = $this->circuitSvgId();
         $pick = $this->pickResistorSvgId();
 
         return <<<HTML
 <h2>Pendahuluan — kenapa belajar rumus sekarang?</h2>
 <p>Artikel ini adalah <strong>#78 (ini)</strong> · modul <strong>FS-08</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Di <strong>FS-07</strong> kamu sudah bisa membaca 3.3V di board. Hari ini kamu paham <strong>kenapa LED butuh resistor</strong> dan cara memilih 220Ω atau 330Ω — masih di meja, belum menyolder atau merakit breadboard.</p>
-<p><strong>Awam:</strong> modul ini seperti belajar rem mobil sebelum menyetir — supaya LED tidak “kebablasan” arusnya.</p>
+<p><strong>Analogi:</strong> modul ini seperti belajar rem mobil sebelum menyetir — supaya LED tidak “kebablasan” arusnya.</p>
 <p><strong>Prasyarat:</strong> FS-07 (bisa ukur 3V3) + kenal bentuk LED &amp; resistor dari FS-04. <strong>Tidak ada wiring breadboard, Arduino IDE, atau <code>php artisan</code> hari ini</strong> — hanya kertas, kalkulator HP, dan komponen di tangan (belum dicolok).</p>
 
 <h2>Persiapan — alat yang kamu buka hari ini</h2>
@@ -326,7 +356,15 @@ SVG;
 <li><strong>Browser</strong> — buka artikel ini + kalkulator interaktif di bawah.</li>
 <li><strong>Multimeter</strong> (opsional) — kalau mau cek ulang 3V3 seperti FS-07.</li>
 </ul>
-<p><strong>Awam — urutan buka:</strong> (1) baca analogi air → (2) pahami V = I x R → (3) lihat foto LED &amp; resistor → (4) hitung di kertas → (5) cek dengan kalkulator di artikel → (6) checklist 8/8.</p>
+<p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
+<ol>
+<li><strong>Buka browser</strong> — baca artikel + siapkan kalkulator interaktif di bawah.</li>
+<li><strong>Siapkan kertas + pena + kalkulator HP</strong> (Calculator bawaan) — belum Arduino IDE / terminal.</li>
+<li><strong>Pegang LED &amp; resistor 220Ω</strong> dari kit — lihat bentuknya, belum dicolok ke board.</li>
+<li><strong>Baca analogi air + rumus</strong> → hitung di kertas → cocokkan dengan kalkulator di artikel.</li>
+<li><strong>Centang checklist 8/8</strong> di browser.</li>
+</ol>
+<p><strong>Tidak perlu hari ini:</strong> breadboard, jumper, Arduino IDE, sketch, Laragon, <code>php artisan</code>, solder. “Menguji” = menulis hitungan di kertas + memakai kalkulator di halaman ini (bukan perintah sintaks).</p>
 <p><strong>Hasil yang kamu cari hari ini:</strong> bisa tulis “R = (3.3 - 2.0) / 0.01 = 130 ohm → pakai <strong>220Ω</strong>” dengan percaya diri.</p>
 
 <h2>Ingat dulu — dari FS-07</h2>
@@ -339,7 +377,7 @@ SVG;
 <li><strong>Ampere (A / mA)</strong> — “aliran” listrik. LED kecil aman sekitar <strong>10 mA</strong> (0.01 A), bukan maksimum 20 mA.</li>
 <li><strong>Ohm</strong> — “sempitnya jalan”. Resistor membatasi aliran.</li>
 </ul>
-<p><strong>Awam — cara menguji:</strong> jelaskan ke teman non-teknis: “Volt seperti tekanan keran, ampere seperti debit air, ohm seperti keran yang disetengah buka.” Kalau mereka mengangguk, konsep dasar sudah masuk.</p>
+<p><strong>Cara menguji konsep:</strong> jelaskan ke teman non-teknis: “Volt seperti tekanan keran, ampere seperti debit air, ohm seperti keran yang disetengah buka.” Kalau mereka mengangguk, konsep dasar sudah masuk.</p>
 
 <h2>Rumus Ohm — cukup satu baris</h2>
 {$ohm}
@@ -350,8 +388,9 @@ SVG;
 <h2>Kenapa LED butuh resistor?</h2>
 {$led}
 {$res}
+{$color}
 <p>LED hampir seperti kabel pendek saat menyala — tanpa resistor, arus bisa melonjak dan LED panas / rusak. Resistor = rem yang menjaga arus tetap wajar.</p>
-<p><strong>Awam:</strong> jangan pernah colok LED langsung 3V3–GND tanpa resistor. Itu topik kesalahan umum di bawah.</p>
+<p><strong>Intinya:</strong> jangan pernah colok LED langsung 3V3–GND tanpa resistor. Itu topik kesalahan umum di bawah.</p>
 
 <h2>Gambar rangkaian (belum dirakit)</h2>
 {$circuit}
@@ -376,7 +415,7 @@ SVG;
 <tr><td>Pilih resistor</td><td>220Ω (utama) atau 330Ω</td></tr>
 </tbody>
 </table>
-<p><strong>Awam — cara menguji:</strong> foto kertas + kalimat “130 ohm, pakai 220” sudah cukup bukti FS-08 selesai.</p>
+<p><strong>Cara menguji hitungan:</strong> foto kertas + kalimat “130 ohm, pakai 220” sudah cukup bukti FS-08 selesai.</p>
 
 <h2>Daya (W) — secukupnya</h2>
 <p><strong>P = V x I</strong> (Watt). Untuk resistor: P ≈ 1.3 V x 0.01 A = <strong>0.013 W</strong> — sangat kecil. Resistor 1/4 W di kit jauh lebih kuat dari kebutuhan. Tidak perlu hafal lebih dalam sekarang.</p>
@@ -384,7 +423,7 @@ SVG;
 <h2 id="fsiot-resistor-calc">Praktik — kalkulator resistor LED</h2>
 <p>Isi tiga angka di bawah (default sudah benar untuk kit DevKitC-1). Klik hitung — bandingkan dengan kertasmu.</p>
 <div id="fsiot-resistor-calc-root" aria-label="Kalkulator resistor LED interaktif"></div>
-<p><strong>Awam — cara menguji:</strong> ubah I jadi 20 mA, lihat R turun — itu sebabnya kita pilih 10 mA agar aman. Tidak perlu Arduino IDE.</p>
+<p><strong>Cara menguji kalkulator:</strong> ubah I jadi 20 mA, lihat R turun — itu sebabnya kita pilih 10 mA agar aman. Tidak perlu Arduino IDE.</p>
 
 <h2 id="fsiot-electric-checklist">Praktik — checklist paham listrik mini</h2>
 <p>Centang tiap poin setelah kamu paham atau selesai menulis di kertas. Target: <strong>8/8</strong>. Ada checklist interaktif di bawah; versi kertas tetap tersedia.</p>
@@ -398,14 +437,14 @@ SVG;
 <li>Saya tahu 330Ω juga aman (LED sedikit lebih redup)</li>
 <li>Saya tidak takut angka — kalkulator HP cukup</li>
 </ul>
-<p><strong>Awam — cara menguji:</strong> kerjakan checklist di browser. Tidak perlu menjalankan perintah web server atau merakit breadboard.</p>
+<p><strong>Cara menguji checklist:</strong> kerjakan checklist di browser. Tidak perlu menjalankan perintah web server atau merakit breadboard.</p>
 
-<h2>Kesalahan umum awam</h2>
+<h2>Kesalahan yang sering terjadi</h2>
 <ul>
 <li><strong>LED langsung ke 3V3 tanpa resistor.</strong> Arus berlebihan — LED cepat rusak.</li>
 <li><strong>Takut rumus.</strong> Cukup satu: R = (V_supply - V_LED) / I. Kalkulator HP boleh.</li>
 <li><strong>Pakai 20 mA karena “maksimum datasheet”.</strong> 10 mA sudah terang &amp; lebih aman untuk belajar.</li>
-<li><strong>Salah satuan.</strong> 10 mA = 0.01 A — jangan lupa bagi 1000.</li>
+<li><strong>Salah satuan.</strong> 10 mA = 0.01 A — jangan lupa bagi 1.000.</li>
 <li><strong>Resistor di bawah hitungan (mis. 100Ω).</strong> Ambil nilai standar <strong>di atas</strong> hitungan (~130 → 220Ω).</li>
 <li><strong>Langsung wiring breadboard sebelum paham.</strong> Itu modul FS-09 — hari ini teori + hitung saja.</li>
 <li><strong>Membalik LED di kepala.</strong> Kaki panjang ke +, pendek ke -. Wiring fisik nanti.</li>
@@ -417,7 +456,7 @@ SVG;
 
 <h2>Kesimpulan</h2>
 <p>Di <strong>#78 (ini)</strong> kamu sudah paham V, A, Ohm dengan analogi air, menghitung ~130Ω untuk LED dari 3.3V, dan memilih <strong>220Ω</strong> (atau 330Ω) dengan alasan.</p>
-<p><strong>Awam:</strong> kalau kamu bisa tunjukkan kertas hitungan dan bilang “LED butuh rem, saya pakai 220 ohm”, FS-08 selesai. Lanjut merakit LED menyala di FS-09 saat modulnya terbit.</p>
+<p><strong>Intinya:</strong> kalau kamu bisa tunjukkan kertas hitungan dan bilang “LED butuh rem, saya pakai 220 ohm”, FS-08 selesai. Lanjut merakit LED menyala di FS-09 saat modulnya terbit.</p>
 HTML;
     }
 
@@ -427,13 +466,14 @@ HTML;
         $ohm = $this->ohmSvgEn();
         $led = $this->ledFigureEn();
         $res = $this->resistorFigureEn();
+        $color = $this->colorCodeFigureEn();
         $circuit = $this->circuitSvgEn();
         $pick = $this->pickResistorSvgEn();
 
         return <<<HTML
 <h2>Introduction — why learn the formula now?</h2>
 <p>This article is <strong>#78 (this article)</strong> · module <strong>FS-08</strong> on the <em>Full Stack IoT Developer — From Zero</em> path. In <strong>FS-07</strong> you could already read 3.3V on the board. Today you understand <strong>why an LED needs a resistor</strong> and how to pick 220Ω or 330Ω — still at the desk, no soldering or breadboard build yet.</p>
-<p><strong>Beginner:</strong> this module is like learning the brake before driving — so the LED does not get too much current.</p>
+<p><strong>Analogy:</strong> this module is like learning the brake before driving — so the LED does not get too much current.</p>
 <p><strong>Prerequisites:</strong> FS-07 (can measure 3V3) + recognize LED &amp; resistor shapes from FS-04. <strong>No breadboard wiring, Arduino IDE, or <code>php artisan</code> today</strong> — only paper, a phone calculator, and parts in your hand (not plugged in).</p>
 
 <h2>Preparation — tools you open today</h2>
@@ -445,7 +485,15 @@ HTML;
 <li><strong>Browser</strong> — keep this article open + the interactive calculator below.</li>
 <li><strong>Multimeter</strong> (optional) — re-check 3V3 like FS-07 if you want.</li>
 </ul>
-<p><strong>Beginner — open order:</strong> (1) read the water analogy → (2) understand V = I x R → (3) look at LED &amp; resistor photos → (4) calculate on paper → (5) check with the in-article calculator → (6) checklist 8/8.</p>
+<p><strong>How to use this article (work order):</strong></p>
+<ol>
+<li><strong>Open a browser</strong> — read the article + keep the interactive calculator ready below.</li>
+<li><strong>Prepare paper + pen + phone calculator</strong> (built-in Calculator) — no Arduino IDE / terminal yet.</li>
+<li><strong>Hold the LED &amp; 220Ω resistor</strong> from the kit — look at the shape, do not plug into the board.</li>
+<li><strong>Read the water analogy + formula</strong> → calculate on paper → match with the in-article calculator.</li>
+<li><strong>Tick the 8/8 checklist</strong> in the browser.</li>
+</ol>
+<p><strong>Not needed today:</strong> breadboard, jumpers, Arduino IDE, a sketch, Laragon, <code>php artisan</code>, or soldering. “Testing” means writing the math on paper + using the calculator on this page (not typing syntax).</p>
 <p><strong>What you want today:</strong> you can write “R = (3.3 - 2.0) / 0.01 = 130 ohm → use <strong>220Ω</strong>” with confidence.</p>
 
 <h2>Remember first — from FS-07</h2>
@@ -458,7 +506,7 @@ HTML;
 <li><strong>Ampere (A / mA)</strong> — electrical “flow”. A small LED is happy around <strong>10 mA</strong> (0.01 A), not the 20 mA maximum.</li>
 <li><strong>Ohm</strong> — how “narrow” the path is. A resistor limits flow.</li>
 </ul>
-<p><strong>Beginner — how to test:</strong> explain to a non-technical friend: “Volts are like tap pressure, amps are like flow rate, ohms are like a half-closed valve.” If they nod, the basics landed.</p>
+<p><strong>How to test the concept:</strong> explain to a non-technical friend: “Volts are like tap pressure, amps are like flow rate, ohms are like a half-closed valve.” If they nod, the basics landed.</p>
 
 <h2>Ohm's law — one line is enough</h2>
 {$ohm}
@@ -469,8 +517,9 @@ HTML;
 <h2>Why does an LED need a resistor?</h2>
 {$led}
 {$res}
+{$color}
 <p>An LED behaves almost like a short wire when on — without a resistor, current can spike and the LED overheats / dies. The resistor is the brake that keeps flow reasonable.</p>
-<p><strong>Beginner:</strong> never connect an LED straight from 3V3 to GND without a resistor. That is a common mistake below.</p>
+<p><strong>In short:</strong> never connect an LED straight from 3V3 to GND without a resistor. That is a common mistake below.</p>
 
 <h2>Circuit picture (not built yet)</h2>
 {$circuit}
@@ -495,7 +544,7 @@ HTML;
 <tr><td>Pick resistor</td><td>220Ω (main) or 330Ω</td></tr>
 </tbody>
 </table>
-<p><strong>Beginner — how to test:</strong> a photo of your paper + the sentence “130 ohm, use 220” is enough proof FS-08 is done.</p>
+<p><strong>How to test the math:</strong> a photo of your paper + the sentence “130 ohm, use 220” is enough proof FS-08 is done.</p>
 
 <h2>Power (W) — just enough</h2>
 <p><strong>P = V x I</strong> (Watt). For the resistor: P ≈ 1.3 V x 0.01 A = <strong>0.013 W</strong> — tiny. The 1/4 W resistors in the kit are far stronger than needed. No deeper memorization today.</p>
@@ -503,7 +552,7 @@ HTML;
 <h2 id="fsiot-resistor-calc">Practice — LED resistor calculator</h2>
 <p>Fill the three numbers below (defaults are correct for the DevKitC-1 kit). Click calculate — compare with your paper.</p>
 <div id="fsiot-resistor-calc-root" aria-label="Interactive LED resistor calculator"></div>
-<p><strong>Beginner — how to test:</strong> change I to 20 mA and watch R drop — that is why we use 10 mA to stay safe. No Arduino IDE required.</p>
+<p><strong>How to test the calculator:</strong> change I to 20 mA and watch R drop — that is why we use 10 mA to stay safe. No Arduino IDE required.</p>
 
 <h2 id="fsiot-electric-checklist">Practice — mini electricity checklist</h2>
 <p>Tick each point once you understand it or finished writing on paper. Target: <strong>8/8</strong>. An interactive checklist is below; a paper version stays available.</p>
@@ -517,9 +566,9 @@ HTML;
 <li>I know 330Ω is also safe (slightly dimmer LED)</li>
 <li>I am not afraid of the numbers — a phone calculator is enough</li>
 </ul>
-<p><strong>Beginner — how to test:</strong> complete the checklist in the browser. No web server commands or breadboard build required.</p>
+<p><strong>How to test the checklist:</strong> complete the checklist in the browser. No web server commands or breadboard build required.</p>
 
-<h2>Common beginner mistakes</h2>
+<h2>Common mistakes</h2>
 <ul>
 <li><strong>LED straight to 3V3 with no resistor.</strong> Too much current — LED dies fast.</li>
 <li><strong>Fear of formulas.</strong> One is enough: R = (V_supply - V_LED) / I. A phone calculator is fine.</li>
@@ -536,7 +585,7 @@ HTML;
 
 <h2>Conclusion</h2>
 <p>In <strong>#78 (this article)</strong> you understand V, A, and Ohm with a water analogy, calculate ~130Ω for an LED from 3.3V, and pick <strong>220Ω</strong> (or 330Ω) with a reason.</p>
-<p><strong>Beginner:</strong> if you can show your paper and say “the LED needs a brake, I use 220 ohm”, FS-08 is done. Continue to a glowing LED build in FS-09 when that module publishes.</p>
+<p><strong>In short:</strong> if you can show your paper and say “the LED needs a brake, I use 220 ohm”, FS-08 is done. Continue to a glowing LED build in FS-09 when that module publishes.</p>
 HTML;
     }
 }

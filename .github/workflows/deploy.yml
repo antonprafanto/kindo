@@ -260,7 +260,7 @@ jobs:
             images/fsiot/hero-desk.jpg images/fsiot/fs02-real-world-lamp.jpg images/fsiot/esp32-devkitc-1-pinlayout.jpg images/fsiot/esp32-devkitc-overview.jpg \
             images/fsiot/kit-breadboard.jpg images/fsiot/kit-jumper-wires.jpg images/fsiot/kit-led-5mm.jpg \
             images/fsiot/kit-resistor.jpg images/fsiot/fs09-led-breadboard-wiring.png images/fsiot/fs06-device-manager-esp32.png images/fsiot/fs06-arduino-ide-overview.png images/fsiot/fs10-pullup-pulldown.svg images/fsiot/fs10-resistor-10k.svg images/fsiot/fs10-button-pulldown-wiring.png images/fsiot/kit-tactile-button.jpg images/fsiot/kit-dht22.jpg \
-            images/fsiot/kit-ldr.jpg images/fsiot/kit-relay-5v.jpg images/fsiot/kit-multimeter.jpg images/fsiot/kit-multimeter-jacks.jpg images/fsiot/kit-tv-remote.jpg images/fsiot/kit-smart-bulbs.jpg images/fsiot/kit-smart-plugs.jpg; do
+            images/fsiot/kit-ldr.jpg images/fsiot/kit-relay-5v.jpg images/fsiot/kit-multimeter.jpg images/fsiot/kit-multimeter-jacks.jpg images/fsiot/kit-resistor-220ohm.jpg images/fsiot/resistor-color-code.jpg images/fsiot/kit-tv-remote.jpg images/fsiot/kit-smart-bulbs.jpg images/fsiot/kit-smart-plugs.jpg; do
             if [ ! -f "public/$f" ]; then
               echo "::warning::Missing public/$f — skip"
               continue
