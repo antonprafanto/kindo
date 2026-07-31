@@ -40,8 +40,8 @@ class Article77Seeder extends Seeder
             [
                 'user_id'            => $admin->id,
                 'category_id'        => $iotCat->id,
-                'title'              => 'Multimeter untuk orang awam: ukur 3.3V & cek kabel',
-                'title_en'           => 'Multimeter for beginners: measure 3.3V & test wires',
+                'title'              => 'Multimeter dasar: ukur 3.3V & cek kabel',
+                'title_en'           => 'Basic multimeter: measure 3.3V & test wires',
                 'excerpt'            => 'FS-07 / #77: Mode V DC & continuity, pegang probe aman, ukur 3V3/5V di ESP32, tes jumper putus. Tools-first tanpa sketch.',
                 'excerpt_en'         => 'FS-07 / #77: V DC & continuity modes, safe probes, measure 3V3/5V on ESP32, test a jumper wire. Tools-first, no sketch.',
                 'body'               => $this->body(),
@@ -49,8 +49,8 @@ class Article77Seeder extends Seeder
                 'status'             => 'draft',
                 'is_featured'        => false,
                 'published_at'       => null,
-                'seo_title'          => 'Multimeter Awam — Ukur 3.3V ESP32 & Cek Kabel — Full Stack IoT #77',
-                'seo_title_en'       => 'Beginner Multimeter — Measure ESP32 3.3V & Test Wires — Full Stack IoT #77',
+                'seo_title'          => 'Multimeter Dasar — Ukur 3.3V ESP32 & Cek Kabel — Full Stack IoT #77',
+                'seo_title_en'       => 'Basic Multimeter — Measure ESP32 3.3V & Test Wires — Full Stack IoT #77',
                 'seo_description'    => 'Belajar multimeter dari nol: V DC, continuity beep, ukur 3V3 & 5V di DevKitC-1, cek jumper. Modul FS-07 Full Stack IoT.',
                 'seo_description_en' => 'Learn a multimeter from zero: V DC, continuity beep, measure 3V3 & 5V on DevKitC-1, test a jumper. Full Stack IoT FS-07.',
             ]
@@ -100,8 +100,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="Pinout ESP32-DevKitC-1 — cari label 3V3, 5V, dan GND" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Hari ini fokus ke tiga label: <strong>3V3</strong>, <strong>5V</strong>, dan <strong>GND</strong> — jangan ukur pin GPIO acak dulu.
-    <br><strong>Ukur tegangan:</strong> probe hitam ke <strong>GND</strong>, merah ke <strong>3V3</strong> (target <strong>3.2–3.4 V</strong>) lalu ke <strong>5V</strong> (target <strong>4.8–5.2 V</strong>). USB board menyala, board diam.
+    Hari ini fokus ke tiga label: <strong>3V3</strong>, <strong>5V</strong> (kadang tertulis <strong>5V0</strong>), dan <strong>GND</strong> — jangan ukur pin GPIO acak dulu. Modul di tengah bisa tertulis WROOM atau WROVER; yang penting label pin-nya.
+    <br><strong>Ukur tegangan:</strong> probe hitam ke <strong>GND</strong>, merah ke <strong>3V3</strong> (target <strong>3.2–3.4 V</strong>) lalu ke <strong>5V/5V0</strong> (target <strong>4.8–5.2 V</strong>). USB board menyala, board diam.
     <br>Sumber gambar: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a> (dokumen resmi).
   </figcaption>
 </figure>
@@ -114,8 +114,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1200" height="800" alt="ESP32-DevKitC-1 pinout — find 3V3, 5V, and GND labels" loading="lazy" style="width:100%;height:auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    Today focus on three labels: <strong>3V3</strong>, <strong>5V</strong>, and <strong>GND</strong> — do not measure random GPIO pins yet.
-    <br><strong>Measure voltage:</strong> black probe on <strong>GND</strong>, red on <strong>3V3</strong> (target <strong>3.2–3.4 V</strong>) then on <strong>5V</strong> (target <strong>4.8–5.2 V</strong>). USB powered, board idle.
+    Today focus on three labels: <strong>3V3</strong>, <strong>5V</strong> (sometimes printed <strong>5V0</strong>), and <strong>GND</strong> — do not measure random GPIO pins yet. The module may say WROOM or WROVER; the pin labels matter most.
+    <br><strong>Measure voltage:</strong> black probe on <strong>GND</strong>, red on <strong>3V3</strong> (target <strong>3.2–3.4 V</strong>) then on <strong>5V/5V0</strong> (target <strong>4.8–5.2 V</strong>). USB powered, board idle.
     <br>Image source: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a> (official docs).
   </figcaption>
 </figure>
@@ -146,7 +146,7 @@ HTML;
   <text x="580" y="82" font-family="system-ui,sans-serif" font-size="18">→</text>
   <rect x="590" y="45" width="120" height="70" rx="6" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
   <text x="650" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">5 Tabel</text>
-  <text x="650" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#2E7D32">catat angka OK</text>
+  <text x="650" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#2E7D32">catat OK</text>
   <text x="360" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Urutan kerja modul ini (buatan Koding Indonesia). Jangan loncat ke continuity sebelum paham mode V DC.</figcaption>
@@ -178,7 +178,7 @@ SVG;
   <text x="580" y="82" font-family="system-ui,sans-serif" font-size="18">→</text>
   <rect x="590" y="45" width="120" height="70" rx="6" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
   <text x="650" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">5 Table</text>
-  <text x="650" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#2E7D32">write it OK</text>
+  <text x="650" y="92" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#2E7D32">write OK</text>
   <text x="360" y="140" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Work order in this module (by Koding Indonesia). Do not jump to continuity before you understand V DC mode.</figcaption>
@@ -199,7 +199,7 @@ SVG;
   <text x="140" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">Range 20V atau AUTO</text>
   <rect x="260" y="50" width="200" height="110" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
   <text x="360" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Continuity</text>
-  <text x="360" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Cek kabel hidup</text>
+  <text x="360" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Cek kabel menyambung</text>
   <text x="360" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">Simbol gelombang + beep</text>
   <rect x="480" y="50" width="200" height="110" rx="8" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
   <text x="580" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">A / mA</text>
@@ -207,7 +207,7 @@ SVG;
   <text x="580" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">Salah mode = bahaya</text>
   <text x="360" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Buatan Koding Indonesia — label dial bisa sedikit beda merek</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Mode aman vs mode yang ditunda (buatan Koding Indonesia). Pemula cukup V DC + continuity dulu.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Mode aman vs mode yang ditunda (buatan Koding Indonesia). Cukup V DC + continuity dulu.</figcaption>
 </figure>
 SVG;
     }
@@ -225,7 +225,7 @@ SVG;
   <text x="140" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">20V range or AUTO</text>
   <rect x="260" y="50" width="200" height="110" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2"/>
   <text x="360" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Continuity</text>
-  <text x="360" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Test a live wire</text>
+  <text x="360" y="108" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12">Check if wire conducts</text>
   <text x="360" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">Wave icon + beep</text>
   <rect x="480" y="50" width="200" height="110" rx="8" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
   <text x="580" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">A / mA</text>
@@ -233,7 +233,7 @@ SVG;
   <text x="580" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">Wrong mode = danger</text>
   <text x="360" y="185" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">By Koding Indonesia — dial labels vary slightly by brand</text>
 </svg>
-<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Safe modes vs postponed ones (by Koding Indonesia). Beginners only need V DC + continuity first.</figcaption>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Safe modes vs postponed ones (by Koding Indonesia). Only V DC + continuity are needed first.</figcaption>
 </figure>
 SVG;
     }
@@ -242,10 +242,10 @@ SVG;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-multimeter.jpg" width="1200" height="900" alt="Jack probe multimeter — merah ke V atau VΩmA, hitam ke COM" loading="lazy" style="width:100%;height:auto;max-height:280px;object-fit:cover;object-position:50% 92%;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/kit-multimeter-jacks.jpg" width="1152" height="443" alt="Jack probe multimeter — merah ke VΩmA, hitam ke COM; jack 10A dikosongkan" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Probe — colok &amp; pegang yang benar:</strong> merah → jack <strong>VΩmA</strong> (atau V/Ω) · hitam → jack <strong>COM</strong>. Pegang plastik probe, bukan ujung logam. Hitam ke GND dulu, baru merah ke 3V3/5V.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg" rel="noopener noreferrer" target="_blank">Jacek Halicki — digital multimeter</a> · Wikimedia Commons (CC BY-SA 4.0).
+    <strong>Probe — colok &amp; pegang yang benar:</strong> merah → jack <strong>VΩmA</strong> (atau V/Ω) · hitam → jack <strong>COM</strong>. Biarkan jack <strong>10A</strong> kosong hari ini. Pegang plastik probe, bukan ujung logam. Hitam ke GND dulu, baru merah ke 3V3/5V.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg" rel="noopener noreferrer" target="_blank">Jacek Halicki — digital multimeter</a> · Wikimedia Commons (CC BY-SA 4.0) · crop jack oleh Koding Indonesia.
   </figcaption>
 </figure>
 HTML;
@@ -255,10 +255,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-multimeter.jpg" width="1200" height="900" alt="Multimeter probe jacks — red to V or VΩmA, black to COM" loading="lazy" style="width:100%;height:auto;max-height:280px;object-fit:cover;object-position:50% 92%;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/kit-multimeter-jacks.jpg" width="1152" height="443" alt="Multimeter probe jacks — red to VΩmA, black to COM; leave 10A empty" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Probes — plug in &amp; hold correctly:</strong> red → <strong>VΩmA</strong> jack (or V/Ω) · black → <strong>COM</strong> jack. Hold plastic handles, not metal tips. Black to GND first, then red to 3V3/5V.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg" rel="noopener noreferrer" target="_blank">Jacek Halicki — digital multimeter</a> · Wikimedia Commons (CC BY-SA 4.0).
+    <strong>Probes — plug in &amp; hold correctly:</strong> red → <strong>VΩmA</strong> jack (or V/Ω) · black → <strong>COM</strong> jack. Leave the <strong>10A</strong> jack empty today. Hold plastic handles, not metal tips. Black to GND first, then red to 3V3/5V.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg" rel="noopener noreferrer" target="_blank">Jacek Halicki — digital multimeter</a> · Wikimedia Commons (CC BY-SA 4.0) · jack crop by Koding Indonesia.
   </figcaption>
 </figure>
 HTML;
@@ -316,7 +316,7 @@ SVG;
         return <<<HTML
 <h2>Pendahuluan — kenapa multimeter sekarang?</h2>
 <p>Artikel ini adalah <strong>#77 (ini)</strong> · modul <strong>FS-07</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Di <strong>FS-06</strong> komputermu sudah mengenali board. Hari ini kamu belajar <strong>alat ukur</strong> supaya bisa memverifikasi tegangan dan kabel sebelum rangkaian makin rumit.</p>
-<p><strong>Awam:</strong> multimeter = “termometer” listrik — tidak menambah program, hanya membaca kondisi board.</p>
+<p><strong>Analogi:</strong> multimeter = “termometer” listrik — tidak menambah program, hanya membaca kondisi board.</p>
 <p><strong>Prasyarat:</strong> kebiasaan aman FS-05 (kabel data, meja kering) + board sudah dikenali PC (FS-06). <strong>Tidak ada perintah Arduino, terminal, atau <code>php artisan</code> hari ini</strong> — hanya multimeter di tangan.</p>
 
 <h2>Persiapan — alat yang kamu buka hari ini</h2>
@@ -328,7 +328,15 @@ SVG;
 <li><strong>Kertas + pena</strong> — isi tabel ukur di bawah (versi kertas).</li>
 <li><strong>Browser</strong> (opsional) — buka artikel ini di layar kedua supaya pinout tetap terlihat saat mengukur.</li>
 </ul>
-<p><strong>Awam — urutan buka:</strong> (1) baca sampai bagian dial → (2) colok probe ke jack yang benar → (3) putar dial ke <strong>V DC</strong> → (4) colok USB board → (5) ukur 3V3 lalu 5V → (6) ganti ke continuity → (7) tes jumper → (8) isi tabel.</p>
+<p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
+<ol>
+<li><strong>Buka browser</strong> (opsional layar kedua) — baca artikel + lihat pinout saat mengukur.</li>
+<li><strong>Siapkan multimeter + probe</strong> — colok jack COM (hitam) dan VΩmA (merah).</li>
+<li><strong>Putar dial ke V DC</strong> (20V / AUTO) — uji dulu dengan baterai AA jika ada.</li>
+<li><strong>Colok USB board</strong> → ukur 3V3↔GND lalu 5V↔GND → catat di tabel kertas.</li>
+<li><strong>Cabut USB</strong> → mode continuity → tes jumper → centang checklist di browser.</li>
+</ol>
+<p><strong>Tidak perlu hari ini:</strong> Arduino IDE, sketch, Laragon, terminal, <code>php artisan</code>, wiring breadboard. “Menguji” = membaca angka di layar multimeter + beep continuity (bukan perintah sintaks).</p>
 <p><strong>Hasil yang kamu cari hari ini:</strong> layar multimeter menunjukkan angka masuk akal (~3.3V dan ~5V) + jumper berbunyi <em>beep</em> saat mode continuity.</p>
 
 {$flow}
@@ -349,7 +357,7 @@ SVG;
 <li>Probe hitam ke pin <strong>GND</strong>, probe merah ke pin yang mau diukur.</li>
 <li>Baca angka di layar — tunggu 1–2 detik sampai stabil.</li>
 </ol>
-<p><strong>Awam — cara menguji:</strong> sentuh merah &amp; hitam ke dua ujung baterai AA (jika ada) — harus muncul ~1.5V. Kalau layar kosong, cek baterai multimeter atau jack probe.</p>
+<p><strong>Cara menguji dial V DC:</strong> sentuh merah &amp; hitam ke dua ujung baterai AA (jika ada) — harus muncul ~1.5V. Kalau layar kosong, cek baterai multimeter atau jack probe.</p>
 
 <h2>Di mana pin 3V3, 5V, dan GND?</h2>
 <p>Gunakan pinout resmi DevKitC-1. Hari ini <strong>hanya</strong> tiga label ini:</p>
@@ -357,19 +365,19 @@ SVG;
 <ol>
 <li>Colok USB board (LED power menyala).</li>
 <li>Hitam ke <strong>GND</strong>, merah ke <strong>3V3</strong> → catat angka (target <strong>3.2 – 3.4 V</strong>).</li>
-<li>Tetap hitam di <strong>GND</strong>, merah pindah ke <strong>5V</strong> → catat (target <strong>4.8 – 5.2 V</strong>).</li>
+<li>Tetap hitam di <strong>GND</strong>, merah pindah ke <strong>5V</strong> (atau <strong>5V0</strong>) → catat (target <strong>4.8 – 5.2 V</strong>).</li>
 </ol>
-<p><strong>Awam:</strong> 3V3 = “bahasa” pin GPIO ESP32 · 5V = dari jalur USB/charger · GND = referensi nol volt.</p>
+<p><strong>Intinya:</strong> 3V3 = “bahasa” pin GPIO ESP32 · 5V = dari jalur USB/charger · GND = referensi nol volt.</p>
 
 <h2>Mode continuity — cek kabel jumper</h2>
 {$continuity}
 <ol>
-<li><strong>Cabut USB board</strong> dulu (lebih aman untuk pemula saat tes kabel).</li>
+<li><strong>Cabut USB board</strong> dulu (lebih aman saat tes kabel).</li>
 <li>Putar dial ke simbol <strong>continuity</strong> (gelombang / speaker / beep).</li>
 <li>Sentuh probe ke dua ujung <strong>kabel jumper yang sama</strong>.</li>
 <li>Kabel bagus → <strong>beep</strong> + angka mendekati 0 Ω. Kabel putus → tidak beep.</li>
 </ol>
-<p><strong>Awam — cara menguji:</strong> sentuh dua probe langsung (tanpa kabel) — harus beep. Itu bukti mode continuity aktif.</p>
+<p><strong>Cara menguji continuity:</strong> sentuh dua probe langsung (tanpa kabel) — harus beep. Itu bukti mode continuity aktif.</p>
 
 <h2>Praktik — tabel ukur (isi di kertas)</h2>
 <p>Salin tabel ini ke buku catatan. Isi kolom <strong>Hasil kamu</strong> setelah mengukur di meja.</p>
@@ -389,7 +397,7 @@ SVG;
 <tr><td style="padding:0.5rem;border:1px solid #ccc">Jumper putus (simulasi)</td><td style="padding:0.5rem;border:1px solid #ccc">Tidak beep</td><td style="padding:0.5rem;border:1px solid #ccc">☐ diam</td><td style="padding:0.5rem;border:1px solid #ccc">☐</td></tr>
 </tbody>
 </table>
-<p><strong>Awam — cara menguji:</strong> minimal 3 baris pertama terisi angka masuk akal. Opsional: foto layar multimeter + tabel tulisan tangan.</p>
+<p><strong>Cara menguji tabel:</strong> minimal 3 baris pertama terisi angka masuk akal. Opsional: foto layar multimeter + tabel tulisan tangan.</p>
 
 <h2 id="fsiot-multimeter-checklist">Praktik — checklist multimeter 10 poin</h2>
 <p>Centang tiap langkah yang sudah kamu selesaikan. Target: <strong>10/10</strong>. Ada <strong>checklist interaktif</strong> di bawah; versi kertas tetap tersedia.</p>
@@ -405,17 +413,17 @@ SVG;
 <li>Saya tahu beda kabel putus (tidak beep) vs bagus</li>
 <li>Tabel ukur di kertas sudah terisi minimal 3 baris</li>
 </ul>
-<p><strong>Awam — cara menguji:</strong> kerjakan checklist di browser. Tidak perlu menjalankan perintah web server atau Arduino IDE.</p>
+<p><strong>Cara menguji checklist:</strong> kerjakan checklist di browser. Tidak perlu menjalankan perintah web server atau Arduino IDE.</p>
 
-<h2>Kesalahan umum awam</h2>
+<h2>Kesalahan yang sering terjadi</h2>
 <ul>
 <li><strong>Mode A (ampere) untuk ukur tegangan.</strong> Bahaya — hanya mode V DC hari ini.</li>
 <li><strong>Probe di jack salah.</strong> Merah harus V/Ω, hitam COM.</li>
 <li><strong>V AC dipilih untuk board DC.</strong> Angka jadi tidak masuk akal.</li>
 <li><strong>Jari menyentuh logam pin.</strong> Bisa short atau sakit — pegang plastik probe.</li>
-<li><strong>Mengukur sambil hot-plug kabel.</strong> Cabut USB dulu saat ganti wiring.</li>
+<li><strong>Mengukur sambil mencabut-pasang kabel saat board masih menyala.</strong> Cabut USB dulu saat ganti wiring.</li>
 <li><strong>Continuity di board yang masih powered.</strong> Cabut USB dulu untuk tes jumper.</li>
-<li><strong>Panic saat angka 3.28V bukan persis 3.30V.</strong> Normal — yang penting rentang ~3.2–3.4V.</li>
+<li><strong>Panik saat angka 3.28V bukan persis 3.30V.</strong> Normal — yang penting rentang ~3.2–3.4V.</li>
 </ul>
 
 <h2>Lanjut belajar</h2>
@@ -424,7 +432,7 @@ SVG;
 
 <h2>Kesimpulan</h2>
 <p>Di <strong>#77 (ini)</strong> kamu sudah bisa membaca tegangan 3V3 &amp; 5V di DevKitC-1 dan mengetes jumper dengan continuity. Ini fondasi sebelum merangkai LED di breadboard.</p>
-<p><strong>Awam:</strong> kalau kamu bisa tunjukkan foto tabel ukur dan bilang “3.3V kelihatan, jumper beep”, FS-07 selesai. Lanjut teori ringan di FS-08 saat modulnya terbit.</p>
+<p><strong>Intinya:</strong> kalau kamu bisa tunjukkan foto tabel ukur dan bilang “3.3V kelihatan, jumper beep”, FS-07 selesai. Lanjut teori ringan di FS-08 saat modulnya terbit.</p>
 HTML;
     }
 
@@ -440,7 +448,7 @@ HTML;
         return <<<HTML
 <h2>Introduction — why a multimeter now?</h2>
 <p>This article is <strong>#77 (this article)</strong> · module <strong>FS-07</strong> on the <em>Full Stack IoT Developer — From Zero</em> path. In <strong>FS-06</strong> your computer already recognizes the board. Today you learn the <strong>measuring tool</strong> so you can verify voltage and wires before circuits get more complex.</p>
-<p><strong>Beginner:</strong> a multimeter is an “electric thermometer” — it does not add code, it only reads the board’s condition.</p>
+<p><strong>Analogy:</strong> a multimeter is an “electric thermometer” — it does not add code, it only reads the board’s condition.</p>
 <p><strong>Prerequisites:</strong> safe habits from FS-05 (data cable, dry desk) + board recognized by the PC (FS-06). <strong>No Arduino commands, terminal, or <code>php artisan</code> today</strong> — only a multimeter in your hand.</p>
 
 <h2>Preparation — tools you open today</h2>
@@ -452,7 +460,15 @@ HTML;
 <li><strong>Paper + pen</strong> — fill the measurement table below (paper version).</li>
 <li><strong>Browser</strong> (optional) — keep this article open on a second screen so the pinout stays visible while measuring.</li>
 </ul>
-<p><strong>Beginner — open order:</strong> (1) read through the dial section → (2) plug probes into the correct jacks → (3) set dial to <strong>V DC</strong> → (4) plug USB into the board → (5) measure 3V3 then 5V → (6) switch to continuity → (7) test the jumper → (8) fill the table.</p>
+<p><strong>How to use this article (work order):</strong></p>
+<ol>
+<li><strong>Open a browser</strong> (optional second screen) — read the article + keep the pinout visible while measuring.</li>
+<li><strong>Prepare the multimeter + probes</strong> — plug COM (black) and VΩmA (red).</li>
+<li><strong>Set the dial to V DC</strong> (20V / AUTO) — optionally test first with an AA battery.</li>
+<li><strong>Plug USB into the board</strong> → measure 3V3↔GND then 5V↔GND → write results on paper.</li>
+<li><strong>Unplug USB</strong> → continuity mode → test a jumper → tick the checklist in the browser.</li>
+</ol>
+<p><strong>Not needed today:</strong> Arduino IDE, a sketch, Laragon, a terminal, <code>php artisan</code>, or breadboard wiring. “Testing” means reading the multimeter display + continuity beep (not typing syntax).</p>
 <p><strong>What you want today:</strong> the multimeter shows sensible numbers (~3.3V and ~5V) + the jumper <em>beeps</em> in continuity mode.</p>
 
 {$flow}
@@ -473,7 +489,7 @@ HTML;
 <li>Black probe on <strong>GND</strong>, red probe on the pin you want to measure.</li>
 <li>Read the display — wait 1–2 seconds until stable.</li>
 </ol>
-<p><strong>Beginner — how to test:</strong> touch red &amp; black to the ends of an AA battery (if you have one) — you should see ~1.5V. If the display is blank, check the multimeter battery or probe jacks.</p>
+<p><strong>How to test V DC dial:</strong> touch red &amp; black to the ends of an AA battery (if you have one) — you should see ~1.5V. If the display is blank, check the multimeter battery or probe jacks.</p>
 
 <h2>Where are 3V3, 5V, and GND?</h2>
 <p>Use the official DevKitC-1 pinout. Today <strong>only</strong> these three labels:</p>
@@ -481,19 +497,19 @@ HTML;
 <ol>
 <li>Plug USB into the board (power LED on).</li>
 <li>Black on <strong>GND</strong>, red on <strong>3V3</strong> → write the number (target <strong>3.2 – 3.4 V</strong>).</li>
-<li>Keep black on <strong>GND</strong>, move red to <strong>5V</strong> → write it (target <strong>4.8 – 5.2 V</strong>).</li>
+<li>Keep black on <strong>GND</strong>, move red to <strong>5V</strong> (or <strong>5V0</strong>) → write it (target <strong>4.8 – 5.2 V</strong>).</li>
 </ol>
-<p><strong>Beginner:</strong> 3V3 = GPIO logic language on ESP32 · 5V = from USB/charger path · GND = zero-volt reference.</p>
+<p><strong>In short:</strong> 3V3 = GPIO logic language on ESP32 · 5V = from USB/charger path · GND = zero-volt reference.</p>
 
 <h2>Continuity mode — test a jumper wire</h2>
 {$continuity}
 <ol>
-<li><strong>Unplug USB from the board</strong> first (safer for beginners when testing wires).</li>
+<li><strong>Unplug USB from the board</strong> first (safer when testing wires).</li>
 <li>Turn the dial to <strong>continuity</strong> (wave / speaker / beep symbol).</li>
 <li>Touch probes to both ends of the <strong>same jumper wire</strong>.</li>
 <li>Good wire → <strong>beep</strong> + reading near 0 Ω. Broken wire → no beep.</li>
 </ol>
-<p><strong>Beginner — how to test:</strong> touch the two probes together (no wire) — it must beep. That proves continuity mode is active.</p>
+<p><strong>How to test continuity:</strong> touch the two probes together (no wire) — it must beep. That proves continuity mode is active.</p>
 
 <h2>Practice — measurement table (fill on paper)</h2>
 <p>Copy this table into your notebook. Fill <strong>Your result</strong> after measuring at your desk.</p>
@@ -513,7 +529,7 @@ HTML;
 <tr><td style="padding:0.5rem;border:1px solid #ccc">Broken jumper (simulate)</td><td style="padding:0.5rem;border:1px solid #ccc">No beep</td><td style="padding:0.5rem;border:1px solid #ccc">☐ silent</td><td style="padding:0.5rem;border:1px solid #ccc">☐</td></tr>
 </tbody>
 </table>
-<p><strong>Beginner — how to test:</strong> at least the first 3 rows filled with sensible numbers. Optional: photo of the multimeter display + handwritten table.</p>
+<p><strong>How to test the table:</strong> at least the first 3 rows filled with sensible numbers. Optional: photo of the multimeter display + handwritten table.</p>
 
 <h2 id="fsiot-multimeter-checklist">Practice — 10-point multimeter checklist</h2>
 <p>Tick each step you finished. Target: <strong>10/10</strong>. An <strong>interactive checklist</strong> is below; a paper version stays available.</p>
@@ -529,9 +545,9 @@ HTML;
 <li>I know broken wire (no beep) vs good wire</li>
 <li>My paper measurement table has at least 3 rows filled</li>
 </ul>
-<p><strong>Beginner — how to test:</strong> complete the checklist in the browser. No web server commands or Arduino IDE required.</p>
+<p><strong>How to test the checklist:</strong> complete the checklist in the browser. No web server commands or Arduino IDE required.</p>
 
-<h2>Common beginner mistakes</h2>
+<h2>Common mistakes</h2>
 <ul>
 <li><strong>A (ampere) mode for voltage.</strong> Dangerous — only V DC mode today.</li>
 <li><strong>Probes in wrong jacks.</strong> Red must be V/Ω, black COM.</li>
@@ -548,7 +564,7 @@ HTML;
 
 <h2>Conclusion</h2>
 <p>In <strong>#77 (this article)</strong> you can read 3V3 &amp; 5V on the DevKitC-1 and test jumpers with continuity. This is the foundation before wiring an LED on a breadboard.</p>
-<p><strong>Beginner:</strong> if you can show your filled table and say “3.3V looks right, jumper beeps”, FS-07 is done. Continue to light theory in FS-08 when that module publishes.</p>
+<p><strong>In short:</strong> if you can show your filled table and say “3.3V looks right, jumper beeps”, FS-07 is done. Continue to light theory in FS-08 when that module publishes.</p>
 HTML;
     }
 }
