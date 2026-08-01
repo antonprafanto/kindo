@@ -40,8 +40,8 @@ class Article80Seeder extends Seeder
             [
                 'user_id'            => $admin->id,
                 'category_id'        => $iotCat->id,
-                'title'              => 'Digital vs analog: HIGH/LOW & resistor pull-down',
-                'title_en'           => 'Digital vs analog: HIGH/LOW & pull-down resistors',
+                'title'              => 'Digital vs analog untuk awam: HIGH/LOW & resistor pull-down',
+                'title_en'           => 'Digital vs analog for beginners: HIGH/LOW & pull-down resistors',
                 'excerpt'            => 'FS-10 / #80: Paham sinyal on/off (HIGH/LOW), pin mengambang, dan rakit tombol + resistor pull-down 10 kΩ di breadboard. Uji dengan multimeter — belum coding.',
                 'excerpt_en'         => 'FS-10 / #80: Understand on/off signals (HIGH/LOW), floating pins, and build a button + 10 kΩ pull-down on a breadboard. Test with a multimeter — no code yet.',
                 'body'               => $this->body(),
@@ -49,8 +49,8 @@ class Article80Seeder extends Seeder
                 'status'             => 'draft',
                 'is_featured'        => false,
                 'published_at'       => null,
-                'seo_title'          => 'Digital vs Analog — HIGH/LOW & Pull-down — Full Stack IoT #80',
-                'seo_title_en'       => 'Digital vs Analog — HIGH/LOW & Pull-down — Full Stack IoT #80',
+                'seo_title'          => 'Digital vs Analog Awam — HIGH/LOW & Pull-down — Full Stack IoT #80',
+                'seo_title_en'       => 'Beginner Digital vs Analog — HIGH/LOW & Pull-down — Full Stack IoT #80',
                 'seo_description'    => 'Paham sinyal digital HIGH/LOW 3.3V ESP32, pin mengambang, dan wiring tombol + resistor pull-down 10 kΩ. Uji tegangan dengan multimeter. Modul FS-10 tanpa upload sketch.',
                 'seo_description_en' => 'Understand ESP32 3.3V HIGH/LOW digital signals, floating pins, and button + 10 kΩ pull-down wiring. Test voltage with a multimeter. FS-10 module, no sketch upload.',
             ]
@@ -124,10 +124,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="1100" height="520" alt="Resistor 10 kΩ — cincin cokelat hitam oranye di atas kertas milimeter" loading="lazy" style="width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs10-resistor-10k.svg" width="500" height="300" alt="Resistor 10 kΩ — cincin coklat hitam oranye" loading="lazy" style="width:100%;height:auto;max-height:200px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Cari resistor 10 kΩ</strong> di kit — cincin warna umum: <strong>cokelat – hitam – oranye</strong> (+ emas/perak = toleransi). Jangan pakai 220 Ω (FS-09) untuk pull-down.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Ceramic_Composition_Resistor_10k.png" rel="noopener noreferrer" target="_blank">Wikimedia Commons — Ceramic Composition Resistor 10k</a> · CC BY-SA 4.0.
+    <strong>Cari resistor 10 kΩ</strong> di kit — cincin warna umum: <strong>coklat – hitam – oranye</strong> (+ emas = toleransi). Jangan pakai 220 Ω (FS-09) untuk pull-down.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Resistor_Carbon-film_0.25W_Coloured.svg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — 10K resistor (Inductiveload)</a> · Public Domain.
   </figcaption>
 </figure>
 HTML;
@@ -137,10 +137,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="1100" height="520" alt="10 kΩ resistor — brown black orange bands on graph paper" loading="lazy" style="width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs10-resistor-10k.svg" width="500" height="300" alt="10 kΩ resistor — brown black orange bands" loading="lazy" style="width:100%;height:auto;max-height:200px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Find a 10 kΩ resistor</strong> in the kit — common bands: <strong>brown – black – orange</strong> (+ gold/silver = tolerance). Do not use 220 Ω (FS-09) for pull-down.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Ceramic_Composition_Resistor_10k.png" rel="noopener noreferrer" target="_blank">Wikimedia Commons — Ceramic Composition Resistor 10k</a> · CC BY-SA 4.0.
+    <strong>Find a 10 kΩ resistor</strong> in the kit — common bands: <strong>brown – black – orange</strong> (+ gold = tolerance). Do not use 220 Ω (FS-09) for pull-down.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Resistor_Carbon-film_0.25W_Coloured.svg" rel="noopener noreferrer" target="_blank">Wikimedia Commons — 10K resistor (Inductiveload)</a> · Public Domain.
   </figcaption>
 </figure>
 HTML;
@@ -246,7 +246,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/kit-multimeter.jpg" width="1200" height="900" alt="Multimeter digital — putar dial ke mode V DC sebelum mengukur titik sinyal" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Sebelum mengukur:</strong> dial ke <strong>V DC</strong> (bukan A/continuity) · probe hitam di <strong>COM</strong>, merah di <strong>VΩmA</strong> — sama seperti FS-07.
+    <strong>Sebelum mengukur:</strong> dial ke <strong>V⎓ DC</strong> (bukan A/continuity) · probe hitam di <strong>COM</strong>, merah di <strong>VΩmA</strong> — sama seperti FS-07.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg" rel="noopener noreferrer" target="_blank">Jacek Halicki — digital multimeter</a> · Wikimedia Commons (CC BY-SA 4.0).
   </figcaption>
 </figure>
@@ -259,7 +259,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/kit-multimeter.jpg" width="1200" height="900" alt="Digital multimeter — set dial to V DC before measuring the signal node" loading="lazy" style="width:100%;height:auto;max-height:320px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Before measuring:</strong> dial to <strong>V DC</strong> (not A/continuity) · black probe on <strong>COM</strong>, red on <strong>VΩmA</strong> — same as FS-07.
+    <strong>Before measuring:</strong> dial to <strong>V⎓ DC</strong> (not A/continuity) · black probe on <strong>COM</strong>, red on <strong>VΩmA</strong> — same as FS-07.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:2017_Cyfrowy_miernik_uniwersalny.jpg" rel="noopener noreferrer" target="_blank">Jacek Halicki — digital multimeter</a> · Wikimedia Commons (CC BY-SA 4.0).
   </figcaption>
 </figure>
@@ -450,10 +450,10 @@ SVG;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs10-button-pulldown-wiring.svg" width="920" height="520" alt="Skema berlabel: tombol + pull-down 10 kΩ, node sinyal S diukur multimeter V DC — belum ke GPIO" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1243" height="809" alt="ESP32 di breadboard dengan tombol tactile dan resistor pull-down 10 kΩ — titik sinyal siap diukur multimeter" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Gambar utama</strong> — skema berlabel: sumber <strong>3V3</strong> &amp; <strong>GND</strong> dari ESP32 + tombol + <strong>pull-down 10 kΩ</strong>. Alur: jumper merah <strong>3V3 → rail + → kaki A tombol</strong>; kaki B = <strong>node sinyal (S)</strong>; resistor 10 kΩ dari S ke <strong>rail − / GND</strong>. Nomor kolom breadboard boleh digeser asalkan urutan listrik sama — <strong>belum ada kabel ke pin GPIO</strong>; hari ini cukup ukur tegangan di S dengan multimeter, belum coding.
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-10).
+    <strong>Gambar utama</strong> — ESP32 di breadboard (sumber <strong>3V3</strong> &amp; <strong>GND</strong>) + tombol di kiri + <strong>pull-down 10 kΩ</strong>. Alur: jumper merah <strong>3V3 → rail +</strong> → jumper merah ke <strong>kolom kaki atas tombol</strong>; kaki bawah (lewat parit) = <strong>titik sinyal</strong>; resistor 10 kΩ dari titik sinyal ke kanan, lalu jumper hitam ke <strong>rail − / GND</strong>. Ikuti foto; nomor kolom boleh digeser asalkan urutan sama — <strong>belum ada kabel ke pin GPIO</strong>; hari ini cukup ukur tegangan, belum coding.
+    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-10).
   </figcaption>
 </figure>
 HTML;
@@ -463,10 +463,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs10-button-pulldown-wiring.svg" width="920" height="520" alt="Labeled schematic: button + 10 kΩ pull-down, signal node S measured with V DC multimeter — no GPIO yet" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1243" height="809" alt="ESP32 on a breadboard with tactile button and 10 kΩ pull-down — signal node ready for multimeter test" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Main diagram</strong> — labeled schematic: <strong>3V3</strong> &amp; <strong>GND</strong> from the ESP32 + button + <strong>10 kΩ pull-down</strong>. Path: red jumper <strong>3V3 → + rail → button leg A</strong>; leg B = <strong>signal node (S)</strong>; 10 kΩ from S to the <strong>− rail / GND</strong>. Breadboard column numbers may shift if the electrical order stays the same — <strong>no wire to any GPIO pin yet</strong>; today only measure voltage at S with a multimeter, no coding.
-    <br>Image source: labeled diagram by Koding Indonesia (FS-10).
+    <strong>Main diagram</strong> — ESP32 on the breadboard (source of <strong>3V3</strong> &amp; <strong>GND</strong>) + button on the left + <strong>10 kΩ pull-down</strong>. Path: red jumper <strong>3V3 → + rail</strong> → red jumper to the <strong>top button-leg column</strong>; bottom leg (across the ditch) = <strong>signal node</strong>; 10 kΩ from the signal node to the right, then a black jumper to the <strong>− rail / GND</strong>. Follow the photo; column numbers may shift if the order stays the same — <strong>no wire to any GPIO pin yet</strong>; today only measure voltage, no coding.
+    <br>Image source: circuit diagram by Koding Indonesia (FS-10).
   </figcaption>
 </figure>
 HTML;
@@ -491,10 +491,10 @@ HTML;
         return <<<HTML
 <h2>Pendahuluan — bahasa sinyal sebelum coding</h2>
 <p>Artikel ini adalah <strong>#80 (ini)</strong> · modul <strong>FS-10</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Di <strong>FS-09</strong> LED sudah menyala dari wiring. Hari ini kamu belajar <strong>bahasa on/off</strong> yang dipakai pin <strong>GPIO</strong> (<em>General Purpose Input/Output</em> — pin masukan/keluaran umum) ESP32: <strong>HIGH</strong> dan <strong>LOW</strong>, lalu merakit <strong>tombol + resistor pull-down 10 kΩ</strong> di breadboard.</p>
-<p><strong>Analogi:</strong> GPIO seperti telinga board — harus tahu apakah yang didengar “ya” (HIGH) atau “tidak” (LOW). Kalau tidak diatur, telinga itu mendengar angin (pin mengambang).</p>
+<p><strong>Awam:</strong> GPIO seperti telinga board — harus tahu apakah yang didengar “ya” (HIGH) atau “tidak” (LOW). Kalau tidak diatur, telinga itu mendengar angin (pin mengambang).</p>
 <p><strong>Prasyarat:</strong> FS-09 (breadboard + 3V3/GND) + FS-07 (multimeter mode V DC) + kebiasaan <strong>cabut USB dulu</strong> dari FS-05. <strong>Belum upload sketch atau Arduino IDE hari ini</strong> — kita uji tegangan dengan multimeter.</p>
 
-<p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
+<p><strong>Awam — cara pakai artikel ini (urutan baca):</strong></p>
 <ol>
 <li><strong>Kumpulkan alat</strong> di meja — USB belum dicolok.</li>
 <li><strong>Baca konsep</strong> digital/analog, HIGH/LOW, pin mengambang (gambar di bawah).</li>
@@ -502,17 +502,17 @@ HTML;
 <li><strong>Buka multimeter</strong> (mode V DC) → ukur titik sinyal lepas vs tekan.</li>
 <li><strong>Catat angka</strong> di kertas → centang checklist 10/10 di browser.</li>
 </ol>
-<p><strong>Tidak perlu hari ini:</strong> Arduino IDE, <code>pinMode</code>, <code>digitalRead</code>, Serial Monitor, Laragon, <code>php artisan</code>. Hari ini tools-nya: <strong>browser</strong> (artikel + checklist) + kit di meja + <strong>multimeter</strong> (mode V DC).</p>
+<p><strong>Tidak perlu hari ini:</strong> Arduino IDE, <code>pinMode</code>, <code>digitalRead</code>, Serial Monitor, <code>php artisan</code>, Laragon.</p>
 {$flow}
 
 <h2>Persiapan — buka &amp; siapkan ini dulu</h2>
-<p><strong>Urutan meja kerja:</strong> jangan langsung colok USB. Ikuti urutan di bawah supaya tidak bingung.</p>
+<p><strong>Awam — urutan meja kerja:</strong></p>
 <ol>
 <li><strong>Cabut USB</strong> dari ESP32 (wajib sebelum menyentuh jumper).</li>
 <li>Letakkan <strong>breadboard</strong> + <strong>ESP32-DevKitC-1</strong> di meja.</li>
 <li>Siapkan <strong>tombol tactile</strong>, <strong>resistor 10 kΩ</strong> (bukan 220 Ω), jumper <strong>merah &amp; hitam</strong> sesuai gambar utama (power + tombol + kaki resistor ke GND — <strong>belum jumper ke GPIO</strong>).</li>
 <li><strong>Kertas + pena</strong> — untuk mencatat tegangan lepas vs tekan.</li>
-<li><strong>Buka multimeter</strong> — putar dial ke <strong>V DC</strong> (sama seperti FS-07). Probe hitam ke COM, merah ke VΩmA.</li>
+<li><strong>Buka multimeter</strong> — putar dial ke <strong>V⎓ DC</strong> (sama seperti FS-07). Probe hitam ke COM, merah ke VΩmA.</li>
 <li>Colokkan jumper <strong>3V3</strong> dan <strong>GND</strong> ke power rail breadboard (ulang dari FS-09).</li>
 </ol>
 <p><strong>Alat yang dipakai hari ini:</strong> breadboard, jumper, tombol tactile, resistor 10 kΩ, ESP32 + kabel USB data, multimeter, kertas + pena.</p>
@@ -527,7 +527,7 @@ HTML;
 
 <h2>Digital vs analog — bedanya apa?</h2>
 <p><strong>Digital</strong> = dua keadaan jelas: nyala atau mati. <strong>Analog</strong> = nilai bisa di antaranya (misalnya suhu 27,3 °C). Pin GPIO digital ESP32 hanya membaca <strong>HIGH</strong> atau <strong>LOW</strong>.</p>
-<p><strong>Intinya:</strong> digital bukan “lebih canggih” — hanya lebih sederhana untuk komputer (ya/tidak).</p>
+<p><strong>Awam:</strong> digital bukan “lebih canggih” — hanya lebih sederhana untuk komputer (ya/tidak).</p>
 {$dig}
 
 <h2>HIGH dan LOW di ESP32</h2>
@@ -536,46 +536,46 @@ HTML;
 <li><strong>HIGH</strong> ≈ 3,3 V (tegangan mendekati pin 3V3)</li>
 <li><strong>LOW</strong> ≈ 0 V (sama potensial dengan GND)</li>
 </ul>
-<p><strong>Tips:</strong> jangan sambungkan 5 V langsung ke GPIO — itu di luar aturan 3,3 V.</p>
+<p><strong>Awam:</strong> jangan sambungkan 5 V langsung ke GPIO — itu di luar aturan 3,3 V.</p>
 {$hl}
 
 <h2>Pin mengambang &amp; resistor pull-down</h2>
 <p>Kalau pin input tidak disambung ke 3V3 maupun GND, ia <strong>mengambang</strong> — pembacaan bisa loncat-loncat (tombol hantu).</p>
 <p><strong>Resistor pull-down</strong> menarik titik sinyal ke GND lembut lewat resistor 10 kΩ. Saat tombol ditekan, 3V3 “menang” dan sinyal jadi HIGH.</p>
-<p><strong>Intinya — pull-up vs pull-down:</strong> pull-down = default LOW (lepas = 0 V). Pull-up kebalikannya (default HIGH) — ESP32 punya pull-up internal yang akan kita pakai di FS-11; hari ini kita latih pull-down eksternal dulu supaya wiring terlihat jelas.</p>
+<p><strong>Awam — pull-up vs pull-down:</strong> pull-down = default LOW (lepas = 0 V). Pull-up kebalikannya (default HIGH) — ESP32 punya pull-up internal yang akan kita pakai di FS-11; hari ini kita latih pull-down eksternal dulu supaya wiring terlihat jelas.</p>
 {$float}
 {$pull}
 
 <h2>Rangkaian yang akan dibuat</h2>
-<p>Alur saat <strong>tombol lepas</strong>: titik sinyal terhubung ke GND lewat 10 kΩ → LOW. Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke titik sinyal → HIGH. Di skema, ESP32 hanya menyuplai <strong>3V3</strong> dan <strong>GND</strong> lewat rail — <strong>belum ada jumper ke pin GPIO</strong>. Titik sinyal (S) = kolom kaki B tombol (sisi resistor); nanti disambung ke GPIO di FS-11. Hari ini uji dulu dengan multimeter.</p>
+<p>Alur saat <strong>tombol lepas</strong>: titik sinyal terhubung ke GND lewat 10 kΩ → LOW. Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke titik sinyal → HIGH. Di foto, ESP32 hanya menyuplai <strong>3V3</strong> dan <strong>GND</strong> lewat rail — <strong>belum ada jumper ke pin GPIO</strong>. Titik sinyal = kolom kaki bawah tombol (sisi resistor); nanti disambung ke GPIO di FS-11. Hari ini uji dulu dengan multimeter.</p>
 {$wire}
 
 <h2>Wiring langkah demi langkah</h2>
-<p><strong>Tips:</strong> ikuti <strong>gambar utama</strong> di atas (skema berlabel). Nomor kolom boleh digeser — yang penting <strong>urutan</strong> listrik sama: <strong>3V3 → tombol → titik sinyal (S) → 10 kΩ → GND</strong>.</p>
+<p><strong>Awam:</strong> ikuti <strong>gambar utama</strong> di atas (ada ESP32-nya). Nomor kolom boleh digeser — yang penting <strong>urutan</strong> listrik sama: <strong>3V3 → tombol → titik sinyal → 10 kΩ → GND</strong>.</p>
 <ol>
-<li><strong>Pasang ESP32</strong> di breadboard melintasi parit (antena kiri, USB kanan) — hanya untuk menyuplai <strong>3V3</strong> dan <strong>GND</strong>.</li>
+<li><strong>Pasang ESP32</strong> di breadboard melintasi parit seperti foto (antena kiri, USB kanan).</li>
 <li><strong>Power rail:</strong> jumper merah dari pin <strong>3V3</strong> ke rail merah (+). Jumper hitam dari pin <strong>GND</strong> ke rail biru (−).</li>
-<li><strong>Tombol:</strong> pasang di <strong>kiri</strong> ESP32, melintasi <strong>parit tengah</strong> (satu sisi di atas parit = kaki A, satu sisi di bawah = kaki B).</li>
-<li><strong>Ke 3V3:</strong> jumper merah dari rail (+) ke <strong>kolom kaki A tombol</strong> (sisi atas parit).</li>
-<li><strong>Titik sinyal (S):</strong> kolom <strong>kaki B</strong> di sisi bawah parit — di sini kaki kiri resistor dan probe merah nanti. <strong>Jangan sambung ke GPIO dulu.</strong></li>
-<li><strong>Resistor 10 kΩ:</strong> satu kaki di kolom S, kaki lain beberapa kolom ke kanan (cincin cokelat-hitam-oranye).</li>
+<li><strong>Tombol:</strong> pasang di <strong>kiri</strong> ESP32, melintasi <strong>parit tengah</strong> (di foto sekitar kolom 2 dan 4 — satu sisi atas parit, satu sisi bawah).</li>
+<li><strong>Ke 3V3:</strong> jumper merah dari rail (+) ke <strong>kolom kaki atas tombol</strong> (di foto baris J pada kolom kaki kiri atas).</li>
+<li><strong>Titik sinyal:</strong> kaki tombol di <strong>sisi bawah parit</strong> pada kolom yang sama — di sini kaki kiri resistor dan probe merah nanti. <strong>Jangan sambung ke GPIO dulu.</strong></li>
+<li><strong>Resistor 10 kΩ:</strong> satu kaki di kolom titik sinyal, kaki lain beberapa kolom ke kanan (cincin coklat-hitam-oranye).</li>
 <li><strong>Ke GND:</strong> jumper hitam dari kaki kanan resistor ke rail biru (−).</li>
 <li><strong>Cek visual:</strong> tidak ada short langsung 3V3–GND; tombol benar melintasi parit; tidak ada kabel ke pin IO.</li>
 <li><strong>Colok USB</strong> — board menyalakan rail (jangan sentuh bagian logam probe).</li>
 </ol>
 
 <h2>Uji dengan multimeter (mode V DC)</h2>
-<p><strong>Buka alat ini dulu:</strong> ambil multimeter dari FS-07, pastikan dial sudah di mode <strong>V DC</strong>, baru sentuh titik sinyal (S). Ini bukan perintah di terminal — alatnya di meja.</p>
+<p><strong>Awam — buka alat ini dulu:</strong> ambil multimeter dari FS-07, pastikan dial sudah di mode yang benar, baru sentuh titik sinyal.</p>
 {$meter}
-<p><strong>Langkah ukur:</strong></p>
+<p><strong>Awam — langkah ukur:</strong></p>
 <ol>
 <li>Probe <strong>hitam</strong> ke rail GND (atau pin GND board).</li>
-<li>Probe <strong>merah</strong> ke <strong>titik sinyal (S)</strong> — lubang di kolom kaki B tombol / kaki kiri resistor (lihat gambar utama), <strong>bukan</strong> pin GPIO.</li>
+<li>Probe <strong>merah</strong> ke <strong>titik sinyal</strong> — lubang di kolom kaki bawah tombol / kaki kiri resistor (lihat foto), <strong>bukan</strong> pin GPIO.</li>
 <li><strong>Tombol lepas:</strong> layar ≈ <strong>0 V</strong> (LOW).</li>
 <li><strong>Tombol ditekan:</strong> layar ≈ <strong>3,3 V</strong> (HIGH).</li>
 <li>Catat di kertas: lepas = ___ V · tekan = ___ V.</li>
 </ol>
-<p><strong>Tips:</strong> kalau angka acak saat lepas, resistor 10 kΩ mungkin belum ke GND — periksa ulang wiring.</p>
+<p><strong>Awam:</strong> kalau angka acak saat lepas, resistor 10 kΩ mungkin belum ke GND — periksa ulang wiring.</p>
 
 <h2>Praktik — tabel ukur tombol (isi di kertas)</h2>
 <p>Salin tabel ini ke buku catatan. Isi kolom <strong>Hasil kamu</strong> setelah mengukur di meja.</p>
@@ -593,9 +593,9 @@ HTML;
 <tr><td style="padding:0.5rem;border:1px solid #ccc">Ditekan</td><td style="padding:0.5rem;border:1px solid #ccc">3,0 – 3,4 V</td><td style="padding:0.5rem;border:1px solid #ccc">HIGH</td><td style="padding:0.5rem;border:1px solid #ccc">_____ V</td></tr>
 </tbody>
 </table>
-<p><strong>Cara menguji:</strong> kedua baris terisi angka masuk akal = wiring pull-down benar. Opsional: foto layar multimeter saat tekan &amp; lepas. Tidak ada sintaks untuk dijalankan hari ini.</p>
+<p><strong>Awam — cara menguji:</strong> kedua baris terisi angka masuk akal = wiring pull-down benar. Opsional: foto layar multimeter saat tekan &amp; lepas.</p>
 
-<p><strong>Opsional sebelum wiring:</strong> kalau ragu jumper bagus/putus, ulangi tes <strong>continuity</strong> dari FS-07 (USB board tetap dicabut).</p>
+<p><strong>Awam — opsional sebelum wiring:</strong> kalau ragu jumper bagus/putus, ulangi tes <strong>continuity</strong> dari FS-07 (USB board tetap dicabut).</p>
 
 <h2 id="fsiot-signal-checklist">Praktik — checklist sinyal digital 10 poin</h2>
 <p>Centang setiap langkah setelah kamu lakukan di meja. Target: <strong>10/10</strong>. Ada <strong>checklist interaktif</strong> di bawah; versi kertas (tabel di atas) tetap tersedia.</p>
@@ -603,20 +603,20 @@ HTML;
 <li>USB dicabut sebelum mulai wiring</li>
 <li>Tombol terpasang di kiri ESP32, melintasi parit tengah breadboard</li>
 <li>Rail 3V3 dan GND terhubung dari ESP32</li>
-<li>Jumper merah dari rail + ke kolom kaki A tombol</li>
-<li>Resistor 10 kΩ (cokelat-hitam-oranye) dari titik sinyal S (kaki B tombol) ke GND lewat jumper hitam</li>
+<li>Jumper merah dari rail + ke kolom kaki atas tombol</li>
+<li>Resistor 10 kΩ (coklat-hitam-oranye) dari titik sinyal (kaki bawah tombol) ke GND lewat jumper hitam</li>
 <li>Tidak ada short langsung 3V3 ke GND</li>
 <li>Multimeter mode V DC, probe hitam di GND</li>
 <li>Tombol lepas — titik sinyal membaca sekitar 0 V</li>
 <li>Tombol ditekan — titik sinyal membaca sekitar 3,3 V</li>
 <li>Bisa jelaskan kenapa tanpa 10 kΩ sinyal bisa mengambang</li>
 </ul>
-<p><strong>Cara menguji:</strong> kerjakan checklist di browser setelah ukur di meja. Tidak perlu Arduino IDE, terminal, atau <code>php artisan</code> — “menguji” = angka tegangan di multimeter + centang checklist (bukan perintah sintaks).</p>
+<p><strong>Awam — cara menguji:</strong> checklist di browser setelah ukur di meja. Tidak perlu Arduino IDE.</p>
 
-<h2>Kesalahan yang sering terjadi</h2>
+<h2>Kesalahan umum pemula</h2>
 <ul>
 <li><strong>Mengira analog lebih “keren”.</strong> Digital cukup untuk tombol on/off — analog dipakai saat nilai bertahap (sensor suhu, cahaya).</li>
-<li><strong>Salah resistor.</strong> 220 Ω (FS-09) bukan pull-down — pakai <strong>10 kΩ</strong> (cokelat-hitam-oranye).</li>
+<li><strong>Salah resistor.</strong> 220 Ω (FS-09) bukan pull-down — pakai <strong>10 kΩ</strong> (coklat-hitam-oranye).</li>
 <li><strong>Lupa resistor pull-down.</strong> Titik sinyal mengambang → angka acak di multimeter.</li>
 <li><strong>Tombol tidak melintasi parit.</strong> Keempat kaki short sendiri — tombol tidak berfungsi.</li>
 <li><strong>Salah mode multimeter.</strong> Harus <strong>V DC</strong>, bukan A (ampere) atau continuity saat ukur tegangan.</li>
@@ -626,7 +626,7 @@ HTML;
 </ul>
 
 <h2>Selanjutnya</h2>
-<p><strong>Intinya:</strong> kalau lepas ≈ 0 V dan tekan ≈ 3,3 V, FS-10 selesai. Lanjut ke <strong>FS-11</strong> (sketch, <code>setup</code>, <code>loop</code>, tombol dibaca program) saat modulnya terbit.</p>
+<p><strong>Awam:</strong> kalau lepas ≈ 0 V dan tekan ≈ 3,3 V, FS-10 selesai. Lanjut <strong>FS-11</strong> (sketch, <code>setup</code>, <code>loop</code>, tombol dibaca program) saat modulnya terbit.</p>
 <p>Daftar modul: <a href="/belajar/fullstack-iot">/belajar/fullstack-iot</a>.</p>
 HTML;
     }
@@ -650,10 +650,10 @@ HTML;
         return <<<HTML
 <h2>Introduction — signal language before code</h2>
 <p>This article is <strong>#80 (this article)</strong> · module <strong>FS-10</strong> on the <em>Full Stack IoT Developer — From Zero</em> track. In <strong>FS-09</strong> your LED lit from wiring alone. Today you learn the <strong>on/off language</strong> used by ESP32 <strong>GPIO</strong> (<em>General Purpose Input/Output</em> — general input/output pins): <strong>HIGH</strong> and <strong>LOW</strong>, then build a <strong>button + 10 kΩ pull-down resistor</strong> on a breadboard.</p>
-<p><strong>Analogy:</strong> GPIO is like the board’s ear — it must know whether it hears “yes” (HIGH) or “no” (LOW). Without setup, it only hears wind (floating pin).</p>
+<p><strong>Beginner:</strong> GPIO is like the board’s ear — it must know whether it hears “yes” (HIGH) or “no” (LOW). Without setup, it only hears wind (floating pin).</p>
 <p><strong>Prerequisites:</strong> FS-09 (breadboard + 3V3/GND) + FS-07 (multimeter V DC mode) + the <strong>unplug USB first</strong> habit from FS-05. <strong>No sketch upload or Arduino IDE today</strong> — we test voltage with a multimeter.</p>
 
-<p><strong>How to use this article (work order):</strong></p>
+<p><strong>Beginner — how to use this article (read in order):</strong></p>
 <ol>
 <li><strong>Gather tools</strong> on the desk — USB not plugged in yet.</li>
 <li><strong>Read concepts</strong> digital/analog, HIGH/LOW, floating pins (images below).</li>
@@ -661,17 +661,17 @@ HTML;
 <li><strong>Open the multimeter</strong> (V DC mode) → measure the signal node released vs pressed.</li>
 <li><strong>Write numbers</strong> on paper → tick the 10/10 checklist in the browser.</li>
 </ol>
-<p><strong>Not needed today:</strong> Arduino IDE, <code>pinMode</code>, <code>digitalRead</code>, Serial Monitor, Laragon, <code>php artisan</code>. Today’s tools: the <strong>browser</strong> (article + checklist) + kit on the desk + a <strong>multimeter</strong> (V DC mode).</p>
+<p><strong>Not needed today:</strong> Arduino IDE, <code>pinMode</code>, <code>digitalRead</code>, Serial Monitor, <code>php artisan</code>, Laragon.</p>
 {$flow}
 
 <h2>Preparation — open &amp; gather these first</h2>
-<p><strong>Desk order:</strong> do not plug USB yet. Follow the steps below so you do not get lost.</p>
+<p><strong>Beginner — desk order:</strong></p>
 <ol>
 <li><strong>Unplug USB</strong> from the ESP32 (required before touching jumpers).</li>
 <li>Place the <strong>breadboard</strong> + <strong>ESP32-DevKitC-1</strong> on the desk.</li>
 <li>Prepare a <strong>tactile button</strong>, <strong>10 kΩ resistor</strong> (not 220 Ω), <strong>red &amp; black</strong> jumpers matching the main diagram (power + button + resistor leg to GND — <strong>no GPIO jumper yet</strong>).</li>
 <li><strong>Paper + pen</strong> — to record released vs pressed voltage.</li>
-<li><strong>Open the multimeter</strong> — dial to <strong>V DC</strong> (same as FS-07). Black probe to COM, red to VΩmA.</li>
+<li><strong>Open the multimeter</strong> — dial to <strong>V⎓ DC</strong> (same as FS-07). Black probe to COM, red to VΩmA.</li>
 <li>Connect <strong>3V3</strong> and <strong>GND</strong> jumpers to breadboard power rails (repeat from FS-09).</li>
 </ol>
 <p><strong>Tools used today:</strong> breadboard, jumpers, tactile button, 10 kΩ resistor, ESP32 + data USB cable, multimeter, paper + pen.</p>
@@ -686,7 +686,7 @@ HTML;
 
 <h2>Digital vs analog — what is the difference?</h2>
 <p><strong>Digital</strong> = two clear states: on or off. <strong>Analog</strong> = values in between (e.g. 27.3 °C). ESP32 digital GPIO pins only read <strong>HIGH</strong> or <strong>LOW</strong>.</p>
-<p><strong>In short:</strong> digital is not “more advanced” — it is simpler for computers (yes/no).</p>
+<p><strong>Beginner:</strong> digital is not “more advanced” — it is simpler for computers (yes/no).</p>
 {$dig}
 
 <h2>HIGH and LOW on the ESP32</h2>
@@ -695,46 +695,46 @@ HTML;
 <li><strong>HIGH</strong> ≈ 3.3 V (close to the 3V3 pin voltage)</li>
 <li><strong>LOW</strong> ≈ 0 V (same potential as GND)</li>
 </ul>
-<p><strong>Tip:</strong> do not tie 5 V directly to GPIO — that breaks 3.3 V rules.</p>
+<p><strong>Beginner:</strong> do not tie 5 V directly to GPIO — that breaks 3.3 V rules.</p>
 {$hl}
 
 <h2>Floating pins &amp; pull-down resistors</h2>
 <p>If an input pin is connected to neither 3V3 nor GND, it <strong>floats</strong> — readings can jump (ghost button).</p>
 <p>A <strong>pull-down resistor</strong> gently pulls the signal node to GND through 10 kΩ. When the button is pressed, 3V3 “wins” and the signal goes HIGH.</p>
-<p><strong>In short — pull-up vs pull-down:</strong> pull-down = default LOW (released = 0 V). Pull-up is the opposite (default HIGH) — the ESP32 has internal pull-ups we will use in FS-11; today we practice an external pull-down so the wiring is visible.</p>
+<p><strong>Beginner — pull-up vs pull-down:</strong> pull-down = default LOW (released = 0 V). Pull-up is the opposite (default HIGH) — the ESP32 has internal pull-ups we will use in FS-11; today we practice an external pull-down so the wiring is visible.</p>
 {$float}
 {$pull}
 
 <h2>The circuit we will build</h2>
-<p>When the <strong>button is released</strong>: the signal node connects to GND through 10 kΩ → LOW. When <strong>pressed</strong>: 3V3 connects to the signal node → HIGH. In the schematic the ESP32 only supplies <strong>3V3</strong> and <strong>GND</strong> via the rails — <strong>no jumper to any GPIO pin yet</strong>. The signal node (S) is the button leg B column (resistor side); it will connect to GPIO in FS-11. Today we test with a multimeter first.</p>
+<p>When the <strong>button is released</strong>: the signal node connects to GND through 10 kΩ → LOW. When <strong>pressed</strong>: 3V3 connects to the signal node → HIGH. In the photo the ESP32 only supplies <strong>3V3</strong> and <strong>GND</strong> via the rails — <strong>no jumper to any GPIO pin yet</strong>. The signal node is the bottom button-leg column (resistor side); it will connect to GPIO in FS-11. Today we test with a multimeter first.</p>
 {$wire}
 
 <h2>Step-by-step wiring</h2>
-<p><strong>Tip:</strong> follow the <strong>main diagram</strong> above (labeled schematic). Column numbers may shift — keep the <strong>electrical order</strong> the same: <strong>3V3 → button → signal node (S) → 10 kΩ → GND</strong>.</p>
+<p><strong>Beginner:</strong> follow the <strong>main diagram</strong> above (it shows the ESP32). Column numbers may shift — keep the <strong>electrical order</strong> the same: <strong>3V3 → button → signal node → 10 kΩ → GND</strong>.</p>
 <ol>
-<li><strong>Mount the ESP32</strong> on the breadboard across the ditch (antenna left, USB right) — only to supply <strong>3V3</strong> and <strong>GND</strong>.</li>
+<li><strong>Mount the ESP32</strong> on the breadboard across the ditch like the photo (antenna left, USB right).</li>
 <li><strong>Power rails:</strong> red jumper from pin <strong>3V3</strong> to the red (+) rail. Black jumper from pin <strong>GND</strong> to the blue (−) rail.</li>
-<li><strong>Button:</strong> place it to the <strong>left</strong> of the ESP32, across the <strong>center ditch</strong> (one side above = leg A, one side below = leg B).</li>
-<li><strong>To 3V3:</strong> red jumper from the (+) rail to the <strong>button leg A column</strong> (top side of the ditch).</li>
-<li><strong>Signal node (S):</strong> the <strong>leg B</strong> column on the bottom side of the ditch — this is where the left resistor leg and the red probe go. <strong>Do not wire to GPIO yet.</strong></li>
-<li><strong>10 kΩ resistor:</strong> one leg in column S, the other a few columns to the right (brown-black-orange bands).</li>
+<li><strong>Button:</strong> place it to the <strong>left</strong> of the ESP32, across the <strong>center ditch</strong> (in the photo around columns 2 and 4 — one side above the ditch, one below).</li>
+<li><strong>To 3V3:</strong> red jumper from the (+) rail to the <strong>top button-leg column</strong> (in the photo, row J on the upper-left button column).</li>
+<li><strong>Signal node:</strong> the button leg on the <strong>bottom side of the ditch</strong> in that same column — this is where the left resistor leg and the red probe go. <strong>Do not wire to GPIO yet.</strong></li>
+<li><strong>10 kΩ resistor:</strong> one leg in the signal-node column, the other a few columns to the right (brown-black-orange bands).</li>
 <li><strong>To GND:</strong> black jumper from the right resistor leg to the blue (−) rail.</li>
 <li><strong>Visual check:</strong> no direct 3V3–GND short; button truly across the ditch; no wire to an IO pin.</li>
 <li><strong>Plug USB</strong> — the board powers the rails (do not touch bare probe tips).</li>
 </ol>
 
 <h2>Test with a multimeter (V DC mode)</h2>
-<p><strong>Open this tool first:</strong> take the multimeter from FS-07, confirm the dial is in <strong>V DC</strong> mode, then touch the signal node (S). This is not a terminal command — the tool is on your desk.</p>
+<p><strong>Beginner — open this tool first:</strong> take the multimeter from FS-07, confirm the dial mode, then touch the signal node.</p>
 {$meter}
-<p><strong>Measurement steps:</strong></p>
+<p><strong>Beginner — measurement steps:</strong></p>
 <ol>
 <li><strong>Black</strong> probe on the GND rail (or board GND pin).</li>
-<li><strong>Red</strong> probe on the <strong>signal node (S)</strong> — the hole in the button leg B / left resistor column (see the main diagram), <strong>not</strong> a GPIO pin.</li>
+<li><strong>Red</strong> probe on the <strong>signal node</strong> — the hole in the bottom button-leg / left resistor column (see the photo), <strong>not</strong> a GPIO pin.</li>
 <li><strong>Button released:</strong> display ≈ <strong>0 V</strong> (LOW).</li>
 <li><strong>Button pressed:</strong> display ≈ <strong>3.3 V</strong> (HIGH).</li>
 <li>Write on paper: released = ___ V · pressed = ___ V.</li>
 </ol>
-<p><strong>Tip:</strong> if the value drifts when released, the 10 kΩ may not reach GND — recheck wiring.</p>
+<p><strong>Beginner:</strong> if the value drifts when released, the 10 kΩ may not reach GND — recheck wiring.</p>
 
 <h2>Practice — button measurement table (on paper)</h2>
 <p>Copy this table into your notebook. Fill <strong>Your result</strong> after measuring on the desk.</p>
@@ -752,9 +752,9 @@ HTML;
 <tr><td style="padding:0.5rem;border:1px solid #ccc">Pressed</td><td style="padding:0.5rem;border:1px solid #ccc">3.0 – 3.4 V</td><td style="padding:0.5rem;border:1px solid #ccc">HIGH</td><td style="padding:0.5rem;border:1px solid #ccc">_____ V</td></tr>
 </tbody>
 </table>
-<p><strong>How to test:</strong> both rows filled with sensible numbers = correct pull-down wiring. Optional: photo of the multimeter display pressed &amp; released. No syntax to run today.</p>
+<p><strong>Beginner — how to test:</strong> both rows filled with sensible numbers = correct pull-down wiring. Optional: photo of the multimeter display pressed &amp; released.</p>
 
-<p><strong>Optional before wiring:</strong> if you doubt a jumper is good, repeat the <strong>continuity</strong> test from FS-07 (board USB still unplugged).</p>
+<p><strong>Beginner — optional before wiring:</strong> if you doubt a jumper is good, repeat the <strong>continuity</strong> test from FS-07 (board USB still unplugged).</p>
 
 <h2 id="fsiot-signal-checklist">Practice — 10-point digital signal checklist</h2>
 <p>Tick each step after you do it on the desk. Target: <strong>10/10</strong>. An <strong>interactive checklist</strong> is below; the paper version (table above) stays available.</p>
@@ -762,17 +762,17 @@ HTML;
 <li>USB unplugged before wiring</li>
 <li>Button mounted left of the ESP32, across the breadboard center ditch</li>
 <li>3V3 and GND rails connected from the ESP32</li>
-<li>Red jumper from the + rail to the button leg A column</li>
-<li>10 kΩ resistor (brown-black-orange) from signal node S (button leg B) to GND via a black jumper</li>
+<li>Red jumper from the + rail to the top button-leg column</li>
+<li>10 kΩ resistor (brown-black-orange) from the signal node (bottom button leg) to GND via a black jumper</li>
 <li>No direct short from 3V3 to GND</li>
 <li>Multimeter in V DC mode, black probe on GND</li>
 <li>Button released — signal node reads about 0 V</li>
 <li>Button pressed — signal node reads about 3.3 V</li>
 <li>Can explain why the signal floats without the 10 kΩ</li>
 </ul>
-<p><strong>How to test:</strong> use the browser checklist after measuring on the desk. No Arduino IDE, terminal, or <code>php artisan</code> — “testing” means voltage numbers on the multimeter + ticking the checklist (not syntax commands).</p>
+<p><strong>Beginner — how to test:</strong> use the browser checklist after measuring on the desk. No Arduino IDE required.</p>
 
-<h2>Common mistakes</h2>
+<h2>Common beginner mistakes</h2>
 <ul>
 <li><strong>Thinking analog is “cooler”.</strong> Digital is enough for on/off buttons — analog is for gradual values (temperature, light).</li>
 <li><strong>Wrong resistor.</strong> 220 Ω (FS-09) is not a pull-down — use <strong>10 kΩ</strong> (brown-black-orange).</li>
@@ -785,7 +785,7 @@ HTML;
 </ul>
 
 <h2>Next steps</h2>
-<p><strong>In short:</strong> if released ≈ 0 V and pressed ≈ 3.3 V, FS-10 is done. Continue to <strong>FS-11</strong> (sketch, <code>setup</code>, <code>loop</code>, reading the button in code) when that module publishes.</p>
+<p><strong>Beginner:</strong> if released ≈ 0 V and pressed ≈ 3.3 V, FS-10 is done. Continue to <strong>FS-11</strong> (sketch, <code>setup</code>, <code>loop</code>, reading the button in code) when that module publishes.</p>
 <p>Full module list: <a href="/belajar/fullstack-iot">/belajar/fullstack-iot</a>.</p>
 HTML;
     }
