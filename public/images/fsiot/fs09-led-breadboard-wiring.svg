@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 560" role="img" aria-labelledby="t9 d9">
+  <title id="t9">FS-09 - LED + resistor 220 Ohm di breadboard - skema berlabel bernomor</title>
+  <desc id="d9">Nomor 1-7: 3V3 ke rail+, GND ke rail-, saklar kolom 2, resistor 220 Ohm kolom 2 ke 7, LED anoda kolom 7, LED katoda kolom 8, kembali ke GND. Belum coding.</desc>
+  <defs>
+    <style>
+      .bg{fill:#f8fafc}
+      .bb{fill:#e2e8f0;stroke:#94a3b8;stroke-width:1.5}
+      .lab{font-family:Segoe UI,system-ui,sans-serif;fill:#0f172a}
+      .muted{fill:#64748b;font-size:12px}
+      .t{font-size:15px;font-weight:700}
+      .s{font-size:13px}
+      .box{fill:#fff;stroke:#64748b;stroke-width:1.5}
+      .r5{fill:#fff7ed;stroke:#ea580c;stroke-width:1.5}
+      .led{fill:#fee2e2;stroke:#dc2626;stroke-width:1.5}
+      .call{fill:#eff6ff;stroke:#2563eb;stroke-width:1.2}
+      .nb{fill:#1d4ed8;stroke:#1e3a8a;stroke-width:1.5}
+      .nw{fill:#fff;font-size:13px;font-weight:700;font-family:Segoe UI,system-ui,sans-serif}
+    </style>
+  </defs>
+  <rect width="920" height="560" class="bg"/>
+  <text x="24" y="32" class="lab t">FS-09 - LED + 220 Ohm di breadboard (belum coding)</text>
+  <text x="24" y="52" class="lab muted">Nomor 1-7 sama dengan yang bisa kamu tempel di foto Fritzing</text>
+
+  <rect x="40" y="72" width="560" height="300" class="bb" rx="10"/>
+  <text x="56" y="98" class="lab s" font-weight="700">Breadboard (skema berlabel bernomor)</text>
+
+  <rect x="56" y="112" width="528" height="22" fill="#fecaca" opacity="0.55" rx="4"/>
+  <text x="64" y="128" class="lab" font-size="11" fill="#991b1b">Rail + (dari pin 3V3 ESP32)</text>
+  <rect x="56" y="330" width="528" height="22" fill="#bbf7d0" opacity="0.55" rx="4"/>
+  <text x="64" y="346" class="lab" font-size="11" fill="#166534">Rail - (dari pin GND ESP32)</text>
+
+  <!-- 1: 3V3 to rail -->
+  <path d="M80 112 L80 95" stroke="#dc2626" stroke-width="3" fill="none"/>
+  <circle cx="80" cy="95" r="12" class="nb"/>
+  <text x="80" y="99" text-anchor="middle" class="nw">1</text>
+  <text x="96" y="100" class="lab" font-size="11" fill="#b91c1c">3V3 -&gt; rail +</text>
+
+  <!-- 2: GND to rail -->
+  <path d="M520 352 L520 370" stroke="#166534" stroke-width="3" fill="none"/>
+  <circle cx="520" cy="370" r="12" class="nb"/>
+  <text x="520" y="374" text-anchor="middle" class="nw">2</text>
+  <text x="400" y="374" class="lab" font-size="11" fill="#166534">GND -&gt; rail -</text>
+
+  <!-- 3: rail+ to col 2 -->
+  <path d="M140 134 L140 175" stroke="#dc2626" stroke-width="3" fill="none"/>
+  <circle cx="140" cy="160" r="12" class="nb"/>
+  <text x="140" y="164" text-anchor="middle" class="nw">3</text>
+  <text x="156" y="156" class="lab" font-size="11" fill="#b91c1c">rail + -&gt; kolom 2</text>
+  <text x="156" y="172" class="lab muted">(saklar: cabut = LED mati)</text>
+
+  <!-- 4: resistor 2 to 7 -->
+  <rect x="170" y="185" width="150" height="36" class="r5" rx="6"/>
+  <text x="186" y="208" class="lab s" font-weight="700">220 Ohm</text>
+  <path d="M140 203 L170 203" stroke="#ea580c" stroke-width="3" fill="none"/>
+  <path d="M320 203 L360 203" stroke="#ea580c" stroke-width="3" fill="none"/>
+  <circle cx="245" cy="175" r="12" class="nb"/>
+  <text x="245" y="179" text-anchor="middle" class="nw">4</text>
+  <text x="262" y="179" class="lab" font-size="11" fill="#c2410c">kolom 2 -&gt; 7</text>
+  <text x="186" y="238" class="lab muted">merah-merah-cokelat</text>
+
+  <!-- 5+6: LED across ditch -->
+  <rect x="340" y="195" width="90" height="70" class="led" rx="8"/>
+  <polygon points="360,215 385,230 360,245" fill="#dc2626"/>
+  <line x1="385" y1="220" x2="385" y2="240" stroke="#7f1d1d" stroke-width="3"/>
+  <text x="355" y="275" class="lab s" font-weight="700">LED</text>
+  <circle cx="360" cy="188" r="12" class="nb"/>
+  <text x="360" y="192" text-anchor="middle" class="nw">5</text>
+  <text x="376" y="192" class="lab" font-size="11" fill="#b91c1c">anoda + kolom 7</text>
+  <circle cx="400" cy="250" r="12" class="nb"/>
+  <text x="400" y="254" text-anchor="middle" class="nw">6</text>
+  <text x="416" y="254" class="lab" font-size="11" fill="#b91c1d">katoda - kolom 8</text>
+  <text x="340" y="300" class="lab muted">melintasi parit</text>
+
+  <!-- 7: to GND -->
+  <path d="M400 265 L400 340" stroke="#166534" stroke-width="3" fill="none"/>
+  <circle cx="400" cy="310" r="12" class="nb"/>
+  <text x="400" y="314" text-anchor="middle" class="nw">7</text>
+  <text x="416" y="314" class="lab" font-size="11" fill="#166534">kolom 8 -&gt; GND</text>
+
+  <rect x="470" y="150" width="110" height="64" class="call" rx="8"/>
+  <text x="482" y="175" class="lab s" font-weight="700" fill="#1d4ed8">Belum</text>
+  <text x="482" y="195" class="lab s" font-weight="700" fill="#1d4ed8">coding</text>
+  <text x="482" y="215" class="lab muted">FS-10+</text>
+
+  <rect x="620" y="72" width="260" height="300" class="box" rx="12"/>
+  <text x="640" y="102" class="lab t">Legenda nomor</text>
+  <text x="640" y="130" class="lab s">1. Pin 3V3 -&gt; rail +</text>
+  <text x="640" y="154" class="lab s">2. Pin GND -&gt; rail -</text>
+  <text x="640" y="178" class="lab s">3. Rail + -&gt; kolom 2</text>
+  <text x="640" y="202" class="lab s">4. Resistor 220 Ohm (2-&gt;7)</text>
+  <text x="640" y="226" class="lab s">5. LED anoda (+) kolom 7</text>
+  <text x="640" y="250" class="lab s">6. LED katoda (-) kolom 8</text>
+  <text x="640" y="274" class="lab s">7. Kolom 8 -&gt; rail GND</text>
+  <text x="640" y="310" class="lab muted">Tempel nomor sama di foto</text>
+  <text x="640" y="330" class="lab muted">Fritzing agar cocok 1:1</text>
+  <text x="640" y="350" class="lab muted">Alur: 3V3 -&gt; R -&gt; LED -&gt; GND</text>
+
+  <rect x="40" y="396" width="840" height="140" class="box" rx="10"/>
+  <text x="56" y="424" class="lab t">Cara baca + edit foto</text>
+  <text x="56" y="450" class="lab s">Nomor di skema = nomor yang sebaiknya kamu tulis di foto rangkaian (callout 1-7).</text>
+  <text x="56" y="474" class="lab s">Urutan listrik tetap: 3V3 -&gt; resistor -&gt; LED -&gt; GND. Nomor kolom boleh digeser asal urutan sama.</text>
+  <text x="56" y="498" class="lab s">LED harus melintasi parit (kaki panjang atas/kolom 7, kaki pendek bawah/kolom 8).</text>
+  <text x="56" y="522" class="lab muted">Sumber: diagram berlabel Koding Indonesia (FS-09). Foto Fritzing = gambar utama di artikel.</text>
+</svg>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" role="img" aria-labelledby="t d">
-  <title id="t">Rangkaian tombol + resistor pull-down 10 kOhm - uji node sinyal dengan multimeter (belum ke GPIO)</title>
-  <desc id="d">Breadboard: 3V3 ke satu kaki tombol; kaki tombol lain = node sinyal S. Resistor 10 kOhm dari S ke GND. Multimeter V DC: probe merah di S, hitam di GND. Belum ada kabel ke pin ESP32 GPIO.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 580" role="img" aria-labelledby="t10 d10">
+  <title id="t10">FS-10 - Tombol + pull-down 10 kOhm - skema berlabel bernomor</title>
+  <desc id="d10">Nomor 1-8: 3V3 ke rail+, GND ke rail-, tombol lintas parit, rail+ ke kaki A, node S kaki B, resistor 10 kOhm, ke GND, ukur di S dengan multimeter. Belum ke GPIO.</desc>
   <defs>
     <style>
       .bg{fill:#f8fafc}
@@ -10,63 +10,97 @@
       .muted{fill:#64748b;font-size:12px}
       .t{font-size:15px;font-weight:700}
       .s{font-size:13px}
-      .box{fill:#fff;stroke:#64748b;stroke-width:1.5;rx:8}
+      .box{fill:#fff;stroke:#64748b;stroke-width:1.5}
       .r5{fill:#fff7ed;stroke:#ea580c;stroke-width:1.5}
       .mm{fill:#ecfdf5;stroke:#059669;stroke-width:1.5}
       .call{fill:#eff6ff;stroke:#2563eb;stroke-width:1.2}
+      .nb{fill:#1d4ed8;stroke:#1e3a8a;stroke-width:1.5}
+      .nw{fill:#fff;font-size:13px;font-weight:700;font-family:Segoe UI,system-ui,sans-serif}
     </style>
   </defs>
-  <rect width="920" height="520" class="bg"/>
-  <text x="24" y="36" class="lab t">FS-10 - Tombol + pull-down 10 kOhm - uji node sinyal (belum ke GPIO)</text>
-  <text x="24" y="58" class="lab muted">Sumber 3V3 ESP32 - resistor 10 kOhm - tombol - multimeter mode V DC - belum coding</text>
+  <rect width="920" height="580" class="bg"/>
+  <text x="24" y="32" class="lab t">FS-10 - Tombol + pull-down 10 kOhm (belum ke GPIO)</text>
+  <text x="24" y="52" class="lab muted">Nomor 1-8 sama dengan yang bisa kamu tempel di foto Fritzing</text>
 
-  <rect x="40" y="90" width="520" height="280" class="bb" rx="10"/>
-  <text x="56" y="118" class="lab s" font-weight="700">Breadboard (skema berlabel)</text>
+  <rect x="40" y="72" width="520" height="300" class="bb" rx="10"/>
+  <text x="56" y="98" class="lab s" font-weight="700">Breadboard (skema berlabel bernomor)</text>
 
-  <rect x="56" y="130" width="488" height="22" fill="#fecaca" opacity="0.55" rx="4"/>
-  <text x="64" y="146" class="lab" font-size="11" fill="#991b1b">Rail + (dari pin 3V3 ESP32)</text>
+  <rect x="56" y="112" width="488" height="22" fill="#fecaca" opacity="0.55" rx="4"/>
+  <text x="64" y="128" class="lab" font-size="11" fill="#991b1b">Rail + (dari pin 3V3 ESP32)</text>
   <rect x="56" y="330" width="488" height="22" fill="#bbf7d0" opacity="0.55" rx="4"/>
   <text x="64" y="346" class="lab" font-size="11" fill="#166534">Rail - (dari pin GND ESP32)</text>
 
-  <rect x="120" y="180" width="100" height="70" class="box"/>
-  <circle cx="145" cy="215" r="6" fill="#94a3b8"/>
-  <circle cx="195" cy="215" r="6" fill="#94a3b8"/>
-  <rect x="155" y="200" width="30" height="30" rx="4" fill="#334155"/>
-  <text x="145" y="268" class="lab s" font-weight="700">Tombol</text>
+  <!-- 1 -->
+  <circle cx="90" cy="95" r="12" class="nb"/>
+  <text x="90" y="99" text-anchor="middle" class="nw">1</text>
+  <text x="106" y="100" class="lab" font-size="11" fill="#b91c1c">3V3 -&gt; rail +</text>
 
-  <rect x="300" y="195" width="130" height="40" class="r5" rx="6"/>
-  <text x="318" y="220" class="lab s" font-weight="700">10 kOhm pull-down</text>
-  <text x="318" y="252" class="lab muted">cokelat-hitam-oranye</text>
+  <!-- 2 -->
+  <circle cx="500" cy="370" r="12" class="nb"/>
+  <text x="500" y="374" text-anchor="middle" class="nw">2</text>
+  <text x="380" y="374" class="lab" font-size="11" fill="#166534">GND -&gt; rail -</text>
 
-  <circle cx="250" cy="215" r="10" fill="#2563eb" stroke="#1e40af" stroke-width="2"/>
-  <text x="238" y="190" class="lab s" font-weight="700" fill="#1d4ed8">S</text>
-  <text x="220" y="175" class="lab muted">node sinyal</text>
+  <!-- 3 Tombol -->
+  <rect x="120" y="175" width="100" height="70" class="box" rx="6"/>
+  <circle cx="145" cy="210" r="6" fill="#94a3b8"/>
+  <circle cx="195" cy="210" r="6" fill="#94a3b8"/>
+  <rect x="155" y="195" width="30" height="30" rx="4" fill="#334155"/>
+  <text x="145" y="262" class="lab s" font-weight="700">Tombol</text>
+  <circle cx="170" cy="168" r="12" class="nb"/>
+  <text x="170" y="172" text-anchor="middle" class="nw">3</text>
+  <text x="186" y="172" class="lab" font-size="11">lintas parit ~kolom 3+5</text>
 
-  <path d="M170 130 L170 180" stroke="#dc2626" stroke-width="3" fill="none"/>
-  <text x="176" y="158" class="lab" font-size="11" fill="#b91c1c">3V3 ke kaki A</text>
-  <path d="M195 215 L240 215" stroke="#2563eb" stroke-width="3" fill="none"/>
-  <text x="200" y="208" class="lab" font-size="10" fill="#1d4ed8">kaki B</text>
-  <path d="M260 215 L300 215" stroke="#2563eb" stroke-width="3" fill="none"/>
-  <path d="M365 235 L365 340" stroke="#166534" stroke-width="3" fill="none"/>
-  <text x="372" y="290" class="lab" font-size="11" fill="#166534">ke GND</text>
+  <!-- 4 to kaki A -->
+  <path d="M170 134 L170 175" stroke="#dc2626" stroke-width="3" fill="none"/>
+  <circle cx="170" cy="150" r="12" class="nb"/>
+  <text x="170" y="154" text-anchor="middle" class="nw">4</text>
+  <text x="186" y="148" class="lab" font-size="11" fill="#b91c1c">rail + -&gt; kaki A</text>
 
-  <rect x="430" y="175" width="110" height="70" class="call" rx="8"/>
-  <text x="442" y="200" class="lab s" font-weight="700" fill="#1d4ed8">Belum ke</text>
-  <text x="442" y="220" class="lab s" font-weight="700" fill="#1d4ed8">GPIO</text>
-  <text x="442" y="240" class="lab muted">FS-11+</text>
+  <!-- 5 node S -->
+  <circle cx="250" cy="210" r="10" fill="#2563eb" stroke="#1e40af" stroke-width="2"/>
+  <path d="M195 210 L240 210" stroke="#2563eb" stroke-width="3" fill="none"/>
+  <circle cx="250" cy="188" r="12" class="nb"/>
+  <text x="250" y="192" text-anchor="middle" class="nw">5</text>
+  <text x="266" y="192" class="lab" font-size="11" fill="#1d4ed8">node S (kaki B)</text>
 
-  <rect x="600" y="130" width="280" height="220" class="mm" rx="12"/>
-  <text x="620" y="160" class="lab t" fill="#065f46">Multimeter - V DC</text>
-  <text x="620" y="185" class="lab s">Probe merah ke node S</text>
-  <text x="620" y="208" class="lab s">Probe hitam ke GND</text>
-  <rect x="620" y="230" width="240" height="48" fill="#fff" stroke="#059669" stroke-width="1.5" rx="6"/>
-  <text x="640" y="260" class="lab t" fill="#047857">~ 0 V (tombol lepas)</text>
-  <text x="620" y="310" class="lab s">Tekan tombol - ~ 3,3 V</text>
-  <text x="620" y="332" class="lab muted">Itulah HIGH / LOW di dunia nyata</text>
+  <!-- 6 resistor -->
+  <rect x="300" y="190" width="130" height="40" class="r5" rx="6"/>
+  <text x="312" y="215" class="lab s" font-weight="700">10 kOhm</text>
+  <path d="M260 210 L300 210" stroke="#2563eb" stroke-width="3" fill="none"/>
+  <circle cx="365" cy="175" r="12" class="nb"/>
+  <text x="365" y="179" text-anchor="middle" class="nw">6</text>
+  <text x="312" y="248" class="lab muted">cokelat-hitam-oranye</text>
 
-  <rect x="40" y="400" width="840" height="96" class="box"/>
-  <text x="56" y="428" class="lab t">Cara baca skema ini</text>
-  <text x="56" y="452" class="lab s">1. Tombol lepas: S diikat ke GND lewat 10 kOhm - meter baca ~0 V (LOW).</text>
-  <text x="56" y="474" class="lab s">2. Tombol tekan: 3V3 menyambung ke S - meter baca ~3,3 V (HIGH). Resistor membatasi arus ke GND.</text>
-  <text x="56" y="496" class="lab muted">Belum ada kabel dari S ke pin GPIO - itu modul berikutnya. Di sini cukup paham tegangan di titik S.</text>
+  <!-- 7 to GND -->
+  <path d="M365 230 L365 340" stroke="#166534" stroke-width="3" fill="none"/>
+  <circle cx="365" cy="290" r="12" class="nb"/>
+  <text x="365" y="294" text-anchor="middle" class="nw">7</text>
+  <text x="381" y="294" class="lab" font-size="11" fill="#166534">ke GND</text>
+
+  <rect x="430" y="160" width="110" height="70" class="call" rx="8"/>
+  <text x="442" y="185" class="lab s" font-weight="700" fill="#1d4ed8">Belum ke</text>
+  <text x="442" y="205" class="lab s" font-weight="700" fill="#1d4ed8">GPIO</text>
+  <text x="442" y="225" class="lab muted">FS-11+</text>
+
+  <!-- Multimeter panel + 8 -->
+  <rect x="580" y="72" width="300" height="300" class="mm" rx="12"/>
+  <text x="600" y="102" class="lab t" fill="#065f46">Multimeter - V DC</text>
+  <circle cx="612" cy="128" r="12" class="nb"/>
+  <text x="612" y="132" text-anchor="middle" class="nw">8</text>
+  <text x="630" y="132" class="lab s">Ukur di node S</text>
+  <text x="600" y="160" class="lab s">Probe merah -&gt; S (titik 5)</text>
+  <text x="600" y="182" class="lab s">Probe hitam -&gt; GND</text>
+  <rect x="600" y="200" width="260" height="48" fill="#fff" stroke="#059669" stroke-width="1.5" rx="6"/>
+  <text x="620" y="230" class="lab t" fill="#047857">~ 0 V (tombol lepas)</text>
+  <text x="600" y="278" class="lab s">Tekan tombol - ~ 3,3 V</text>
+  <text x="600" y="302" class="lab muted">Itulah HIGH / LOW nyata</text>
+  <text x="600" y="340" class="lab muted">Legenda 1-8: tempel di foto</text>
+  <text x="600" y="358" class="lab muted">Fritzing agar cocok 1:1</text>
+
+  <rect x="40" y="396" width="840" height="160" class="box" rx="10"/>
+  <text x="56" y="424" class="lab t">Legenda nomor (edit foto pakai nomor yang sama)</text>
+  <text x="56" y="450" class="lab s">1. 3V3 -&gt; rail +   2. GND -&gt; rail -   3. Tombol lintas parit   4. Rail + -&gt; kaki A</text>
+  <text x="56" y="474" class="lab s">5. Node S (kaki B / ~kolom 5)   6. Resistor 10 kOhm pull-down   7. Ujung resistor -&gt; GND</text>
+  <text x="56" y="498" class="lab s">8. Multimeter V DC di S: lepas ~0 V (LOW), tekan ~3,3 V (HIGH). Belum ada kabel ke GPIO.</text>
+  <text x="56" y="526" class="lab muted">Sumber: diagram berlabel Koding Indonesia (FS-10). Foto Fritzing = gambar utama di artikel.</text>
 </svg>
