@@ -92,10 +92,8 @@ check('button legs SVG', str_contains($id, '4 kaki tombol') && str_contains($en,
 check('main wiring diagram', str_contains($id, 'Gambar utama') && str_contains($en, 'Main diagram'));
 check('main wiring photo file', str_contains($id, 'fs10-button-pulldown-wiring.png') && str_contains($en, 'fs10-button-pulldown-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs10-button-pulldown-wiring.png'));
 check('label wiring SVG helper', str_contains($id, 'fs10-button-pulldown-wiring.svg') && str_contains($en, 'fs10-button-pulldown-wiring.svg') && is_file(__DIR__.'/../public/images/fsiot/fs10-button-pulldown-wiring.svg'));
-check('label SVG caption ID', str_contains($id, 'Skema berlabel (bantu baca foto)') && str_contains($id, '1–8'));
-check('label SVG caption EN', str_contains($en, 'Labeled schematic (helps read the photo)') && str_contains($en, '1–8'));
-check('numbered points in wiring ID', str_contains($id, '1 + 2 — Power rail') && str_contains($id, '8 — Ukur di S'));
-check('numbered points in wiring EN', str_contains($en, '1 + 2 — Power rails') && str_contains($en, '8 — Measure at S'));
+check('label SVG caption ID', str_contains($id, 'Skema berlabel (bantu baca foto)'));
+check('label SVG caption EN', str_contains($en, 'Labeled schematic (helps read the photo)'));
 check('photo orientation ID', str_contains($id, 'Orientasi foto') && str_contains($id, 'F–J') && str_contains($id, 'A–E'));
 check('photo orientation EN', str_contains($en, 'Photo orientation') && str_contains($en, 'F–J') && str_contains($en, 'A–E'));
 check('photo columns 3 and 5 ID', str_contains($id, 'kolom 3') && str_contains($id, 'kolom 5'));
