@@ -188,13 +188,13 @@ HTML;
   <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kiri</text>
-  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Satu nomor kolom (A–E) = saling nyambung</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Satu baris = saling nyambung</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
     <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
     <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
   <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
-  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Contoh strip A–E (5 lubang)</text>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Contoh baris A–E (5 lubang)</text>
   <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
   <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">parit</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
@@ -206,7 +206,7 @@ HTML;
   <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kanan</text>
-  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Nomor kolom berbeda = TIDAK otomatis nyambung · parit memisahkan atas &amp; bawah</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Baris berbeda = TIDAK otomatis nyambung · parit memisahkan kiri &amp; kanan</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Diagram dalaman breadboard (buatan Koding Indonesia). Rail merah (+) ke 3V3, rail biru (-) ke GND.</figcaption>
 </figure>
@@ -223,15 +223,15 @@ SVG;
   <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Left power rail</text>
-  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">One column number (A–E) = connected together</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">One row = connected together</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
     <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
     <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
   <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
-  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Example A–E strip (5 holes)</text>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Example row A–E (5 holes)</text>
   <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
-  <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">ditch</text>
+  <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">trench</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
     <rect x="420" y="50" width="30" height="30"/><rect x="460" y="50" width="30" height="30"/><rect x="500" y="50" width="30" height="30"/><rect x="540" y="50" width="30" height="30"/><rect x="580" y="50" width="30" height="30"/>
     <rect x="420" y="100" width="30" height="30"/><rect x="460" y="100" width="30" height="30"/><rect x="500" y="100" width="30" height="30"/><rect x="540" y="100" width="30" height="30"/><rect x="580" y="100" width="30" height="30"/>
@@ -241,7 +241,7 @@ SVG;
   <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Right power rail</text>
-  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Different column numbers are NOT auto-connected · ditch separates top &amp; bottom</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Different rows are NOT auto-connected · trench separates left &amp; right</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Breadboard internals diagram (by Koding Indonesia). Red (+) rail to 3V3, blue (-) rail to GND.</figcaption>
 </figure>
@@ -466,7 +466,7 @@ HTML;
 <li><strong>Short power–GND.</strong> Jumper merah dan hitam menyentuh, atau 3V3 &amp; GND di <strong>kolom yang sama</strong> (baris A–E saling nyambung) = panas/board reset. Cabut USB, periksa ulang.</li>
 <li><strong>LED tanpa resistor.</strong> Jangan pernah langsung 3V3 ke LED — ingat FS-08.</li>
 <li><strong>Colok USB saat masih merakit.</strong> Selalu cabut dulu (FS-05).</li>
-<li><strong>Mengira semua lubang nyambung.</strong> Hanya dalam <strong>satu nomor kolom</strong> (5 lubang A–E atau F–J di sisi yang sama) — lihat FS-04.</li>
+<li><strong>Mengira semua lubang nyambung.</strong> Hanya dalam satu baris (sisi yang sama) — lihat FS-04.</li>
 </ul>
 
 <h2>Selanjutnya</h2>
@@ -569,7 +569,7 @@ HTML;
 <li><strong>Power–GND short.</strong> Red and black touching, or 3V3 &amp; GND in the <strong>same column</strong> (rows A–E share a strip) = heat/board reset. Unplug USB and recheck.</li>
 <li><strong>LED without resistor.</strong> Never wire 3V3 straight to an LED — remember FS-08.</li>
 <li><strong>USB plugged while building.</strong> Always unplug first (FS-05).</li>
-<li><strong>Assuming every hole connects.</strong> Only within <strong>one column number</strong> (the 5 holes A–E or F–J on the same side) — see FS-04.</li>
+<li><strong>Assuming every hole connects.</strong> Only within one row (same side) — see FS-04.</li>
 </ul>
 
 <h2>Next steps</h2>

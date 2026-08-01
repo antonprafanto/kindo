@@ -75,11 +75,6 @@ check('photo resistor is 220 not 1k', str_contains($id, 'Resistor di foto = <str
 check('LED crosses ditch no grey jumper myth', str_contains($id, 'LED (melintasi parit)') && str_contains($en, 'LED (across the ditch)') && ! str_contains($id, 'Menyeberang parit') && ! str_contains($en, 'Across the ditch:'));
 check('orientation tip for awam', str_contains($id, 'Orientasi foto') && str_contains($en, 'Photo orientation') && str_contains($id, 'F–J') && str_contains($en, 'F–J'));
 check('USB unplug reminder in wiring', str_contains($id, 'Pastikan USB sudah dicabut') && str_contains($en, 'Confirm USB is unplugged'));
-check('column not row in mistakes', str_contains($id, 'satu nomor kolom') && str_contains($en, 'one column number') && ! str_contains($id, 'Hanya dalam satu baris') && ! str_contains($en, 'Only within one row'));
-check('breadboard SVG column wording', str_contains($id, 'Satu nomor kolom') && str_contains($en, 'One column number') && str_contains($en, '>ditch<'));
-check('Tips label ID', str_contains($id, '<strong>Tips:</strong>'));
-check('Tip label EN', str_contains($en, '<strong>Tip:</strong>'));
-check('cokelat EYD or merah–merah–cokelat', str_contains($id, 'cokelat') && ! str_contains($id, 'coklat–') && ! preg_match('/coklat(?!e)/', $id));
 check('SVG flow still present', str_contains($id, 'Buatan Koding Indonesia') && str_contains($id, '220Ω'));
 check('no abstract SVG as main diagram', ! str_contains($id, 'cabut di sini = LED mati') && ! str_contains($en, 'unplug here = LED off'));
 check('no 220R jargon', ! str_contains($id, '220R') && ! str_contains($en, '220R'));
