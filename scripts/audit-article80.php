@@ -50,7 +50,7 @@ check('no Beginner stamp EN', ! str_contains($en, 'Beginner:') && ! str_contains
 check('neutral tip labels ID', str_contains($id, 'Analogi:') && str_contains($id, 'Intinya:') && str_contains($id, 'Tips:'));
 check('neutral tip labels EN', str_contains($en, 'Analogy:') && str_contains($en, 'In short:') && str_contains($en, 'Tip:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 13', substr_count($id, '<figure') >= 13 && substr_count($en, '<figure') >= 13);
+check('figures both >= 12', substr_count($id, '<figure') >= 12 && substr_count($en, '<figure') >= 12);
 
 check('workflow SVG', str_contains($id, 'Alur hari ini') && str_contains($en, "Today's flow"));
 check('pinout image', str_contains($id, 'esp32-devkitc-1-pinlayout.jpg') && str_contains($en, 'esp32-devkitc-1-pinlayout.jpg'));
@@ -90,14 +90,8 @@ check('pull diagram landscape caption EN', str_contains($en, 'green box') && str
 check('wiring H2 Indonesian', str_contains($id, 'Wiring langkah demi langkah'));
 check('button legs SVG', str_contains($id, '4 kaki tombol') && str_contains($en, '4 button legs'));
 check('main wiring diagram', str_contains($id, 'Gambar utama') && str_contains($en, 'Main diagram'));
-check('main wiring photo file', str_contains($id, 'fs10-button-pulldown-wiring.png') && str_contains($en, 'fs10-button-pulldown-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs10-button-pulldown-wiring.png'));
-check('label wiring SVG helper', str_contains($id, 'fs10-button-pulldown-wiring.svg') && str_contains($en, 'fs10-button-pulldown-wiring.svg') && is_file(__DIR__.'/../public/images/fsiot/fs10-button-pulldown-wiring.svg'));
-check('label SVG caption ID', str_contains($id, 'Skema berlabel (bantu baca foto)'));
-check('label SVG caption EN', str_contains($en, 'Labeled schematic (helps read the photo)'));
-check('photo orientation ID', str_contains($id, 'Orientasi foto') && str_contains($id, 'F–J') && str_contains($id, 'A–E'));
-check('photo orientation EN', str_contains($en, 'Photo orientation') && str_contains($en, 'F–J') && str_contains($en, 'A–E'));
-check('photo columns 3 and 5 ID', str_contains($id, 'kolom 3') && str_contains($id, 'kolom 5'));
-check('photo columns 3 and 5 EN', str_contains($en, 'columns 3') && str_contains($en, 'column 5'));
+check('main wiring SVG file', str_contains($id, 'fs10-button-pulldown-wiring.svg') && str_contains($en, 'fs10-button-pulldown-wiring.svg') && is_file(__DIR__.'/../public/images/fsiot/fs10-button-pulldown-wiring.svg'));
+check('no old fritzing png ref', ! str_contains($id, 'fs10-button-pulldown-wiring.png') && ! str_contains($en, 'fs10-button-pulldown-wiring.png'));
 check('wiring labeled legs ID', str_contains($id, 'kaki A tombol') && str_contains($id, 'Ke GND') && str_contains($id, 'titik sinyal (S)'));
 check('wiring labeled legs EN', str_contains($en, 'button leg A') && str_contains($en, 'To GND') && str_contains($en, 'signal node (S)'));
 check('no abstract circled step numbers in wiring', ! str_contains($id, '① ke 3V3') && ! str_contains($en, '① to 3V3'));
