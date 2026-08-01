@@ -350,7 +350,7 @@ SVG;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs09-led-breadboard-wiring.png" width="1162" height="757" alt="Foto rangkaian: ESP32 di breadboard, LED merah + resistor, jumper 3V3 dan GND — belum coding" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Gambar utama</strong> — ESP32 dipasang di breadboard (sumber <strong>3V3</strong> &amp; <strong>GND</strong>). Ikuti foto: jumper merah <strong>3V3 → rail +</strong> · hitam <strong>GND → rail −</strong> · jumper merah rail + ke <strong>kolom 2</strong> (cabut = LED mati) · resistor dari kolom 2 ke kolom 6 · jumper ke kaki panjang LED · kaki pendek ke rail −. Lingkaran hijau = lubang yang saling nyambung dalam satu kolom. Di foto resistor ≈ <strong>1 kΩ</strong> (cokelat–hitam–merah); <strong>220Ω / 330Ω</strong> dari FS-08 juga boleh (LED lebih terang). Nomor kolom boleh digeser asalkan urutan sama.
+    <strong>Gambar utama</strong> — ESP32 dipasang di breadboard (sumber <strong>3V3</strong> &amp; <strong>GND</strong>). Ikuti foto: jumper merah <strong>3V3 → rail +</strong> · hitam <strong>GND → rail −</strong> · jumper merah rail + ke <strong>kolom 2</strong> (cabut = LED mati) · resistor <strong>220Ω</strong> dari kolom 2 ke kolom 6 · jumper ke kaki panjang LED · kaki pendek ke rail −. Lingkaran hijau = lubang yang saling nyambung dalam satu kolom. Di foto resistor = <strong>220Ω</strong> (±5%; cincin merah–merah–cokelat–emas); <strong>330Ω</strong> juga boleh. Nomor kolom boleh digeser asalkan urutan sama.
     <br><strong>Peringatan:</strong> Jangan sambungkan 3V3 dan GND di kolom yang sama — baris A–E dalam satu nomor kolom saling nyambung (itu short!).
     <br>Sumber gambar: foto rangkaian buatan Koding Indonesia (FS-09).
   </figcaption>
@@ -364,7 +364,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs09-led-breadboard-wiring.png" width="1162" height="757" alt="Photo: ESP32 on breadboard, red LED + resistor, 3V3 and GND jumpers — no code yet" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Main diagram</strong> — ESP32 sits on the breadboard (source of <strong>3V3</strong> &amp; <strong>GND</strong>). Follow the photo: red jumper <strong>3V3 → + rail</strong> · black <strong>GND → − rail</strong> · red jumper from + rail to <strong>column 2</strong> (unplug = LED off) · resistor from column 2 to column 6 · jumper to the LED long leg · short leg to the − rail. Green circles = holes that share one column strip. In the photo the resistor is about <strong>1 kΩ</strong> (brown–black–red); <strong>220Ω / 330Ω</strong> from FS-08 is also fine (brighter LED). Column numbers may shift if the order matches.
+    <strong>Main diagram</strong> — ESP32 sits on the breadboard (source of <strong>3V3</strong> &amp; <strong>GND</strong>). Follow the photo: red jumper <strong>3V3 → + rail</strong> · black <strong>GND → − rail</strong> · red jumper from + rail to <strong>column 2</strong> (unplug = LED off) · <strong>220Ω</strong> resistor from column 2 to column 6 · jumper to the LED long leg · short leg to the − rail. Green circles = holes that share one column strip. In the photo the resistor is <strong>220Ω</strong> (±5%; bands red–red–brown–gold); <strong>330Ω</strong> is also fine. Column numbers may shift if the order matches.
     <br><strong>Warning:</strong> Never put 3V3 and GND in the same column — rows A–E in one column number share a strip (that is a short!).
     <br>Image source: circuit photo by Koding Indonesia (FS-09).
   </figcaption>
@@ -405,7 +405,7 @@ HTML;
 <li><strong>Cabut USB</strong> dari ESP32 (wajib sebelum menyentuh jumper).</li>
 <li>Letakkan <strong>breadboard</strong> di meja datar. ESP32 boleh dipasang di breadboard seperti gambar utama (atau di samping dulu, lalu sambungkan jumper).</li>
 <li>Siapkan <strong>jumper</strong>: minimal merah (3V3), hitam (GND), plus jumper lain sesuai gambar utama.</li>
-<li>Ambil <strong>LED 5mm</strong> + <strong>resistor 220Ω / 330Ω</strong> (atau <strong>1 kΩ</strong> seperti di foto — LED sedikit lebih redup, tetap aman).</li>
+<li>Ambil <strong>LED 5mm</strong> + <strong>resistor 220Ω</strong> (330Ω juga boleh — sama seperti FS-08).</li>
 <li>Buka pinout board — cari tulisan <strong>3V3</strong> dan <strong>GND</strong>.</li>
 </ol>
 <p><strong>Alat yang dipakai hari ini:</strong> breadboard, jumper, LED, resistor, ESP32-DevKitC-1, kabel USB data.</p>
@@ -432,7 +432,7 @@ HTML;
 <li><strong>Pasang ESP32</strong> di breadboard melintasi parit seperti foto (antena/USB menghadap keluar).</li>
 <li><strong>Power rail:</strong> jumper merah dari pin <strong>3V3</strong> ke rail merah (+). Jumper hitam dari pin <strong>GND</strong> ke rail biru (−).</li>
 <li><strong>Kolom 2 (saklar manual):</strong> jumper merah dari rail (+) ke <strong>kolom 2</strong> di sisi atas parit (di foto sekitar baris I/J). <em>Ini kabel yang nanti dicabut untuk mematikan LED.</em></li>
-<li><strong>Resistor:</strong> satu kaki di <strong>kolom 2</strong>, kaki lain di <strong>kolom 6</strong> (baris yang sama). Di foto ≈ <strong>1 kΩ</strong> (cokelat–hitam–merah); <strong>220Ω / 330Ω</strong> dari FS-08 juga boleh.</li>
+<li><strong>Resistor:</strong> satu kaki di <strong>kolom 2</strong>, kaki lain di <strong>kolom 6</strong> (baris yang sama). Di foto = <strong>220Ω</strong> (merah–merah–cokelat–emas); <strong>330Ω</strong> juga boleh.</li>
 <li><strong>Menyeberang parit:</strong> jumper (abu-abu/warna apa saja) dari <strong>kolom 6</strong> sisi atas ke <strong>kolom 6</strong> sisi bawah — menuju kaki panjang LED.</li>
 <li><strong>LED:</strong> kaki <strong>panjang (+)</strong> di kolom yang sama dengan jumper dari resistor; kaki <strong>pendek (−)</strong> di kolom sebelahnya (di foto ≈ <strong>kolom 8</strong>). Polaritas harus benar.</li>
 <li><strong>Ke GND:</strong> jumper hitam dari kolom kaki pendek LED ke rail biru (−).</li>
@@ -448,7 +448,7 @@ HTML;
 <li>USB sudah dicabut sebelum mulai wiring</li>
 <li>Rail merah (+) terhubung ke pin 3V3 ESP32</li>
 <li>Rail biru (-) terhubung ke pin GND ESP32</li>
-<li>Resistor (220Ω / 330Ω / 1 kΩ) terpasang di jalur 3V3 → LED (lihat gambar utama)</li>
+<li>Resistor 220Ω (atau 330Ω) terpasang di jalur 3V3 → LED (lihat gambar utama)</li>
 <li>LED kaki panjang ke sisi resistor, kaki pendek menuju GND</li>
 <li>Jumper dari kaki pendek LED menuju rail GND</li>
 <li>Tidak ada short antara 3V3 dan GND</li>
@@ -507,7 +507,7 @@ HTML;
 <li><strong>Unplug USB</strong> from the ESP32 (required before touching jumpers).</li>
 <li>Place the <strong>breadboard</strong> on a flat desk. The ESP32 can sit on the breadboard like the main diagram (or beside it first, then connect jumpers).</li>
 <li>Prepare <strong>jumpers</strong>: at least red (3V3), black (GND), plus others as in the main diagram.</li>
-<li>Grab a <strong>5mm LED</strong> + <strong>220Ω / 330Ω resistor</strong> (or <strong>1 kΩ</strong> as in the photo — slightly dimmer LED, still safe).</li>
+<li>Grab a <strong>5mm LED</strong> + <strong>220Ω resistor</strong> (330Ω is fine too — same as FS-08).</li>
 <li>Open the board pinout — find <strong>3V3</strong> and <strong>GND</strong>.</li>
 </ol>
 <p><strong>Tools used today:</strong> breadboard, jumpers, LED, resistor, ESP32-DevKitC-1, data USB cable.</p>
@@ -534,7 +534,7 @@ HTML;
 <li><strong>Mount the ESP32</strong> on the breadboard across the ditch like the photo (antenna/USB facing outward).</li>
 <li><strong>Power rails:</strong> red jumper from <strong>3V3</strong> to the red (+) rail. Black jumper from <strong>GND</strong> to the blue (−) rail.</li>
 <li><strong>Column 2 (manual switch):</strong> red jumper from the (+) rail to <strong>column 2</strong> on the top side of the ditch (around row I/J in the photo). <em>This wire gets unplugged to turn the LED off.</em></li>
-<li><strong>Resistor:</strong> one leg in <strong>column 2</strong>, the other in <strong>column 6</strong> (same row). In the photo ≈ <strong>1 kΩ</strong> (brown–black–red); <strong>220Ω / 330Ω</strong> from FS-08 is also fine.</li>
+<li><strong>Resistor:</strong> one leg in <strong>column 2</strong>, the other in <strong>column 6</strong> (same row). In the photo = <strong>220Ω</strong> (red–red–brown–gold); <strong>330Ω</strong> is also fine.</li>
 <li><strong>Across the ditch:</strong> a jumper (grey or any color) from <strong>column 6</strong> on the top side to <strong>column 6</strong> on the bottom side — toward the LED long leg.</li>
 <li><strong>LED:</strong> <strong>long (+)</strong> leg in the same column as the jumper from the resistor; <strong>short (−)</strong> leg in the next column (≈ <strong>column 8</strong> in the photo). Polarity must be correct.</li>
 <li><strong>To GND:</strong> black jumper from the LED short-leg column to the blue (−) rail.</li>
@@ -550,7 +550,7 @@ HTML;
 <li>USB unplugged before wiring</li>
 <li>Red (+) rail connected to ESP32 3V3 pin</li>
 <li>Blue (-) rail connected to ESP32 GND pin</li>
-<li>Resistor (220Ω / 330Ω / 1 kΩ) in the 3V3 → LED path (see main diagram)</li>
+<li>220Ω (or 330Ω) resistor in the 3V3 → LED path (see main diagram)</li>
 <li>LED long leg toward resistor, short leg toward GND</li>
 <li>Jumper from LED short leg to GND rail</li>
 <li>No short between 3V3 and GND</li>

@@ -70,7 +70,8 @@ check('pinout photo', str_contains($id, 'esp32-devkitc-1-pinlayout.jpg') && str_
 check('find 2 pins caption', str_contains($id, 'Cari 2 pin ini di board kamu') && str_contains($en, 'Find these 2 pins on your board'));
 check('main wiring photo file', str_contains($id, 'fs09-led-breadboard-wiring.png') && str_contains($en, 'fs09-led-breadboard-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs09-led-breadboard-wiring.png'));
 check('short warning in main diagram', str_contains($id, 'Jangan sambungkan 3V3 dan GND') && str_contains($en, 'Never put 3V3 and GND'));
-check('photo matches columns 2 and 6', str_contains($id, 'kolom 6') && str_contains($en, 'column 6') && str_contains($id, '1 kΩ') && str_contains($en, '1 kΩ'));
+check('photo matches columns 2 and 6', str_contains($id, 'kolom 6') && str_contains($en, 'column 6') && str_contains($id, '220Ω') && str_contains($en, '220Ω'));
+check('photo resistor is 220 not 1k', str_contains($id, 'Di foto = <strong>220Ω</strong>') && str_contains($en, 'In the photo = <strong>220Ω</strong>') && ! str_contains($id, '1 kΩ') && ! str_contains($en, '1 kΩ'));
 check('SVG flow still present', str_contains($id, 'Buatan Koding Indonesia') && str_contains($id, '220Ω'));
 check('no abstract SVG as main diagram', ! str_contains($id, 'cabut di sini = LED mati') && ! str_contains($en, 'unplug here = LED off'));
 check('no 220R jargon', ! str_contains($id, '220R') && ! str_contains($en, '220R'));
