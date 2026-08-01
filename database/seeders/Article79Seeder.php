@@ -506,10 +506,10 @@ SVG;
 <h2>Wiring langkah demi langkah</h2>
 <p><strong>Tips:</strong> ikuti <strong>gambar utama</strong> di atas (ada ESP32-nya). Nomor kolom boleh digeser — yang penting <strong>urutan</strong> listrik sama: 3V3 → resistor → LED → GND.</p>
 <ol>
-<li><strong>Pasang ESP32</strong> di breadboard (melintasi parit) seperti foto, atau letakkan di samping lalu sambungkan jumper ke rail.</li>
+<li><strong>Pasang ESP32</strong> di breadboard (melintasi parit) seperti gambar utama, atau letakkan di samping lalu sambungkan jumper ke rail.</li>
 <li><strong>Power rail:</strong> jumper merah dari pin <strong>3V3</strong> ke rail merah (+). Jumper hitam dari pin <strong>GND</strong> ke rail biru (−).</li>
 <li><strong>Kolom 2:</strong> jumper merah dari rail merah (+) ke lubang di <strong>kolom 2</strong> (misalnya baris J). <em>Ini kabel yang nanti dicabut untuk mematikan LED.</em></li>
-<li><strong>Resistor:</strong> satu kaki di <strong>kolom 2</strong>, kaki lain di kolom menuju kaki panjang LED (lihat foto — biasanya beberapa kolom di sebelahnya).</li>
+<li><strong>Resistor:</strong> satu kaki di <strong>kolom 2</strong>, kaki lain di kolom menuju kaki panjang LED (lihat gambar utama — biasanya beberapa kolom di sebelahnya).</li>
 <li><strong>LED:</strong> kaki <strong>panjang (+)</strong> ke sisi resistor, kaki <strong>pendek (−)</strong> ke jalur yang menuju GND. Polaritas harus benar.</li>
 <li><strong>Ke GND:</strong> jumper hitam dari kaki pendek LED (atau kolomnya) ke rail biru (−).</li>
 <li><strong>Cek visual:</strong> tidak ada kabel merah menyentuh hitam langsung (short). LED tidak terbalik. Rail + hanya dari 3V3, rail − hanya ke GND.</li>
@@ -607,10 +607,10 @@ HTML;
 <h2>Step-by-step wiring</h2>
 <p><strong>Tip:</strong> follow the <strong>main diagram</strong> above (it shows the ESP32). Column numbers can shift — keep the <strong>electrical order</strong>: 3V3 → resistor → LED → GND.</p>
 <ol>
-<li><strong>Mount the ESP32</strong> on the breadboard (across the ditch) like the photo, or place it beside and jumper to the rails.</li>
+<li><strong>Mount the ESP32</strong> on the breadboard (across the ditch) like the main diagram, or place it beside and jumper to the rails.</li>
 <li><strong>Power rails:</strong> red jumper from <strong>3V3</strong> to the red (+) rail. Black jumper from <strong>GND</strong> to the blue (−) rail.</li>
 <li><strong>Column 2:</strong> red jumper from the red (+) rail to a hole in <strong>column 2</strong> (e.g. row J). <em>This wire gets unplugged to turn the LED off.</em></li>
-<li><strong>Resistor:</strong> one leg in <strong>column 2</strong>, the other toward the LED long leg (see the photo — usually a few columns over).</li>
+<li><strong>Resistor:</strong> one leg in <strong>column 2</strong>, the other toward the LED long leg (see the main diagram — usually a few columns over).</li>
 <li><strong>LED:</strong> <strong>long (+)</strong> leg toward the resistor, <strong>short (−)</strong> leg toward the path to GND. Polarity must be correct.</li>
 <li><strong>To GND:</strong> black jumper from the LED short leg (or its column) to the blue (−) rail.</li>
 <li><strong>Visual check:</strong> no red wire touching black directly (short). LED not reversed. + rail only from 3V3, − rail only to GND.</li>

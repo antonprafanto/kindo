@@ -450,10 +450,10 @@ SVG;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs10-button-pulldown-wiring.svg" width="920" height="520" alt="Skema berlabel: tombol + pull-down 10 kΩ, node sinyal S diukur multimeter V DC — belum ke GPIO" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1243" height="809" alt="Foto rangkaian: ESP32 di breadboard, tombol tactile + resistor pull-down 10 kΩ — uji node sinyal dengan multimeter, belum ke GPIO" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Gambar utama</strong> — skema berlabel: sumber <strong>3V3</strong> &amp; <strong>GND</strong> dari ESP32 + tombol + <strong>pull-down 10 kΩ</strong>. Alur: jumper merah <strong>3V3 → rail + → kaki A tombol</strong>; kaki B = <strong>node sinyal (S)</strong>; resistor 10 kΩ dari S ke <strong>rail − / GND</strong>. Nomor kolom breadboard boleh digeser asalkan urutan listrik sama — <strong>belum ada kabel ke pin GPIO</strong>; hari ini cukup ukur tegangan di S dengan multimeter, belum coding.
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-10).
+    <strong>Gambar utama</strong> — foto rangkaian di breadboard: ESP32 (sumber <strong>3V3</strong> &amp; <strong>GND</strong>) + tombol di kiri (sekitar kolom 3 &amp; 5) + resistor <strong>10 kΩ</strong> (cokelat–hitam–oranye). Alur listrik yang harus sama: <strong>3V3 → kaki A tombol → kaki B = node sinyal (S) → 10 kΩ → GND</strong>. Lingkaran hijau = lubang yang saling nyambung dalam satu nomor kolom. <strong>Belum ada kabel ke pin GPIO</strong> (tidak ada jumper dari S ke IO) — hari ini cukup ukur tegangan di S dengan multimeter saja.
+    <br>Sumber gambar: foto rangkaian buatan Koding Indonesia (FS-10).
   </figcaption>
 </figure>
 HTML;
@@ -463,14 +463,41 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs10-button-pulldown-wiring.svg" width="920" height="520" alt="Labeled schematic: button + 10 kΩ pull-down, signal node S measured with V DC multimeter — no GPIO yet" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1243" height="809" alt="Photo: ESP32 on breadboard, tactile button + 10 kΩ pull-down — measure signal node with multimeter, no GPIO yet" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Main diagram</strong> — labeled schematic: <strong>3V3</strong> &amp; <strong>GND</strong> from the ESP32 + button + <strong>10 kΩ pull-down</strong>. Path: red jumper <strong>3V3 → + rail → button leg A</strong>; leg B = <strong>signal node (S)</strong>; 10 kΩ from S to the <strong>− rail / GND</strong>. Breadboard column numbers may shift if the electrical order stays the same — <strong>no wire to any GPIO pin yet</strong>; today only measure voltage at S with a multimeter, no coding.
+    <strong>Main diagram</strong> — breadboard photo: ESP32 (source of <strong>3V3</strong> &amp; <strong>GND</strong>) + button on the left (about columns 3 &amp; 5) + <strong>10 kΩ</strong> resistor (brown–black–orange). Keep this electrical order: <strong>3V3 → button leg A → leg B = signal node (S) → 10 kΩ → GND</strong>. Green circles = shared holes in the same column number. <strong>No wire to any GPIO</strong> yet (no jumper from S to an IO pin) — today only measure voltage at S with a multimeter.
+    <br>Image source: circuit photo by Koding Indonesia (FS-10).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function wiringLabelSvgId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.svg" width="920" height="520" alt="Skema berlabel: tombol + pull-down 10 kOhm, node S, multimeter V DC — belum ke GPIO" loading="lazy" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Skema berlabel (bantu baca foto)</strong> — tombol lepas ≈ 0 V (LOW) di S · tombol tekan ≈ 3,3 V (HIGH). Probe merah di S, hitam di GND. Belum ke GPIO (FS-11+).
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-10).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function wiringLabelSvgEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.svg" width="920" height="520" alt="Labeled schematic: button + 10 kOhm pull-down, node S, V DC multimeter — no GPIO yet" loading="lazy" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Labeled schematic (helps read the photo)</strong> — button released ≈ 0 V (LOW) at S · pressed ≈ 3.3 V (HIGH). Red probe on S, black on GND. No GPIO yet (FS-11+).
     <br>Image source: labeled diagram by Koding Indonesia (FS-10).
   </figcaption>
 </figure>
 HTML;
     }
+
 
     private function body(): string
     {
@@ -487,6 +514,7 @@ HTML;
         $hl = $this->highLowSvgId();
         $float = $this->floatingSvgId();
         $wire = $this->wiringSvgId();
+        $wireLabel = $this->wiringLabelSvgId();
 
         return <<<HTML
 <h2>Pendahuluan — bahasa sinyal sebelum coding</h2>
@@ -547,21 +575,23 @@ HTML;
 {$pull}
 
 <h2>Rangkaian yang akan dibuat</h2>
-<p>Alur saat <strong>tombol lepas</strong>: titik sinyal terhubung ke GND lewat 10 kΩ → LOW. Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke titik sinyal → HIGH. Di skema, ESP32 hanya menyuplai <strong>3V3</strong> dan <strong>GND</strong> lewat rail — <strong>belum ada jumper ke pin GPIO</strong>. Titik sinyal (S) = kolom kaki B tombol (sisi resistor); nanti disambung ke GPIO di FS-11. Hari ini uji dulu dengan multimeter.</p>
+<p>Alur saat <strong>tombol lepas</strong>: titik sinyal (S) terhubung ke GND lewat 10 kΩ → LOW (~0 V). Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke S → HIGH (~3,3 V). ESP32 hari ini hanya menyuplai <strong>3V3</strong> dan <strong>GND</strong> — <strong>belum ada jumper ke pin GPIO</strong>. Nanti S disambung ke GPIO di FS-11. Hari ini uji dulu dengan multimeter. Ikuti <strong>foto rangkaian</strong> + skema berlabel di bawah.</p>
 {$wire}
+{$wireLabel}
 
 <h2>Wiring langkah demi langkah</h2>
-<p><strong>Tips:</strong> ikuti <strong>gambar utama</strong> di atas (skema berlabel). Nomor kolom boleh digeser — yang penting <strong>urutan</strong> listrik sama: <strong>3V3 → tombol → titik sinyal (S) → 10 kΩ → GND</strong>.</p>
+<p><strong>Tips:</strong> ikuti <strong>gambar utama</strong> (foto) + skema berlabel. Nomor kolom boleh digeser — yang penting <strong>urutan</strong> listrik sama: <strong>3V3 → tombol → titik sinyal (S) → 10 kΩ → GND</strong>.</p>
+<p><strong>Orientasi foto (supaya tidak bingung “atas/bawah”):</strong> <em>parit</em> = celah panjang di tengah breadboard. Baris <strong>F–J</strong> = sisi atas parit · baris <strong>A–E</strong> = sisi bawah parit. Dalam satu nomor kolom, baris A–E saling nyambung; F–J juga — tapi <strong>atas dan bawah parit tidak nyambung</strong>. Tombol harus <strong>melintasi parit</strong>.</p>
 <ol>
-<li><strong>Pasang ESP32</strong> di breadboard melintasi parit (antena kiri, USB kanan) — hanya untuk menyuplai <strong>3V3</strong> dan <strong>GND</strong>.</li>
-<li><strong>Power rail:</strong> jumper merah dari pin <strong>3V3</strong> ke rail merah (+). Jumper hitam dari pin <strong>GND</strong> ke rail biru (−).</li>
-<li><strong>Tombol:</strong> pasang di <strong>kiri</strong> ESP32, melintasi <strong>parit tengah</strong> (satu sisi di atas parit = kaki A, satu sisi di bawah = kaki B).</li>
-<li><strong>Ke 3V3:</strong> jumper merah dari rail (+) ke <strong>kolom kaki A tombol</strong> (sisi atas parit).</li>
-<li><strong>Titik sinyal (S):</strong> kolom <strong>kaki B</strong> di sisi bawah parit — di sini kaki kiri resistor dan probe merah nanti. <strong>Jangan sambung ke GPIO dulu.</strong></li>
-<li><strong>Resistor 10 kΩ:</strong> satu kaki di kolom S, kaki lain beberapa kolom ke kanan (cincin cokelat-hitam-oranye).</li>
-<li><strong>Ke GND:</strong> jumper hitam dari kaki kanan resistor ke rail biru (−).</li>
-<li><strong>Cek visual:</strong> tidak ada short langsung 3V3–GND; tombol benar melintasi parit; tidak ada kabel ke pin IO.</li>
-<li><strong>Colok USB</strong> — board menyalakan rail (jangan sentuh bagian logam probe).</li>
+<li><strong>Pastikan USB sudah dicabut</strong> dari ESP32 (kebiasaan FS-05).</li>
+<li><strong>Pasang ESP32</strong> melintasi parit seperti foto (USB menghadap keluar/kanan; di foto sekitar kolom 10–30).</li>
+<li><strong>Power rail:</strong> jumper <strong>merah</strong> dari pin <strong>3V3</strong> ke rail merah (+). Jumper <strong>hitam</strong> dari pin <strong>GND</strong> ke rail biru (−).</li>
+<li><strong>Tombol:</strong> pasang di <strong>kiri</strong> ESP32, melintasi parit — di foto kaki di sekitar <strong>kolom 3</strong> dan <strong>kolom 5</strong>. Sisi ke 3V3 = <strong>kaki A</strong> · sisi ke resistor = <strong>kaki B / node S</strong>.</li>
+<li><strong>Ke 3V3:</strong> jumper merah dari rail (+) ke kolom <strong>kaki A</strong> (di foto ≈ kolom 3, sisi atas F–J).</li>
+<li><strong>Resistor 10 kΩ:</strong> satu kaki di kolom <strong>kaki B / S</strong> (di foto ≈ kolom 5, sisi bawah A–E), kaki lain beberapa kolom ke kiri/jauh dari ESP32 (di foto menuju ≈ kolom 1). Cincin: <strong>cokelat–hitam–oranye</strong> (+ emas). Jangan pakai 220 Ω dari FS-09.</li>
+<li><strong>Ke GND:</strong> pastikan ujung jauh resistor terhubung ke rail biru (−) — di foto bisa lewat jumper hitam pendek (boleh lewat jalur helper di baris A). Intinya: <strong>S → 10 kΩ → GND</strong>.</li>
+<li><strong>Cek visual:</strong> tidak ada short 3V3–GND di kolom yang sama · tombol benar melintasi parit · <strong>belum ada kabel ke pin GPIO</strong> · lingkaran hijau = jalur yang nyambung.</li>
+<li><strong>Colok USB</strong> — rail bertegangan (jangan sentuh logam probe sembarangan).</li>
 </ol>
 
 <h2>Uji dengan multimeter (mode V DC)</h2>
@@ -570,7 +600,7 @@ HTML;
 <p><strong>Langkah ukur:</strong></p>
 <ol>
 <li>Probe <strong>hitam</strong> ke rail GND (atau pin GND board).</li>
-<li>Probe <strong>merah</strong> ke <strong>titik sinyal (S)</strong> — lubang di kolom kaki B tombol / kaki kiri resistor (lihat gambar utama), <strong>bukan</strong> pin GPIO.</li>
+<li>Probe <strong>merah</strong> ke <strong>titik sinyal (S)</strong> — di foto ≈ kolom 5 (baris A–E), sama kolom dengan kaki B tombol / kaki resistor di sisi S (lihat foto + skema), <strong>bukan</strong> pin GPIO.</li>
 <li><strong>Tombol lepas:</strong> layar ≈ <strong>0 V</strong> (LOW).</li>
 <li><strong>Tombol ditekan:</strong> layar ≈ <strong>3,3 V</strong> (HIGH).</li>
 <li>Catat di kertas: lepas = ___ V · tekan = ___ V.</li>
@@ -646,6 +676,7 @@ HTML;
         $hl = $this->highLowSvgEn();
         $float = $this->floatingSvgEn();
         $wire = $this->wiringSvgEn();
+        $wireLabel = $this->wiringLabelSvgEn();
 
         return <<<HTML
 <h2>Introduction — signal language before code</h2>
@@ -706,21 +737,23 @@ HTML;
 {$pull}
 
 <h2>The circuit we will build</h2>
-<p>When the <strong>button is released</strong>: the signal node connects to GND through 10 kΩ → LOW. When <strong>pressed</strong>: 3V3 connects to the signal node → HIGH. In the schematic the ESP32 only supplies <strong>3V3</strong> and <strong>GND</strong> via the rails — <strong>no jumper to any GPIO pin yet</strong>. The signal node (S) is the button leg B column (resistor side); it will connect to GPIO in FS-11. Today we test with a multimeter first.</p>
+<p>When the <strong>button is released</strong>: the signal node (S) connects to GND through 10 kΩ → LOW (~0 V). When <strong>pressed</strong>: 3V3 connects to S → HIGH (~3.3 V). Today the ESP32 only supplies <strong>3V3</strong> and <strong>GND</strong> — <strong>no jumper to any GPIO pin yet</strong>. S will connect to GPIO in FS-11. Today we test with a multimeter first. Follow the <strong>circuit photo</strong> + labeled schematic below.</p>
 {$wire}
+{$wireLabel}
 
 <h2>Step-by-step wiring</h2>
-<p><strong>Tip:</strong> follow the <strong>main diagram</strong> above (labeled schematic). Column numbers may shift — keep the <strong>electrical order</strong> the same: <strong>3V3 → button → signal node (S) → 10 kΩ → GND</strong>.</p>
+<p><strong>Tip:</strong> follow the <strong>main diagram</strong> (photo) + labeled schematic. Column numbers may shift — keep the <strong>electrical order</strong> the same: <strong>3V3 → button → signal node (S) → 10 kΩ → GND</strong>.</p>
+<p><strong>Photo orientation (so “top/bottom” is clear):</strong> the <em>ditch</em> is the long gap down the middle of the breadboard. Rows <strong>F–J</strong> = top side of the ditch · rows <strong>A–E</strong> = bottom side. Within one column number, A–E share a strip and F–J share a strip — but <strong>top and bottom across the ditch do not connect</strong>. The button must sit <strong>across the ditch</strong>.</p>
 <ol>
-<li><strong>Mount the ESP32</strong> on the breadboard across the ditch (antenna left, USB right) — only to supply <strong>3V3</strong> and <strong>GND</strong>.</li>
+<li><strong>Confirm USB is unplugged</strong> from the ESP32 (FS-05 habit).</li>
+<li><strong>Mount the ESP32</strong> across the ditch as in the photo (USB facing out/right; about columns 10–30 in the photo).</li>
 <li><strong>Power rails:</strong> red jumper from pin <strong>3V3</strong> to the red (+) rail. Black jumper from pin <strong>GND</strong> to the blue (−) rail.</li>
-<li><strong>Button:</strong> place it to the <strong>left</strong> of the ESP32, across the <strong>center ditch</strong> (one side above = leg A, one side below = leg B).</li>
-<li><strong>To 3V3:</strong> red jumper from the (+) rail to the <strong>button leg A column</strong> (top side of the ditch).</li>
-<li><strong>Signal node (S):</strong> the <strong>leg B</strong> column on the bottom side of the ditch — this is where the left resistor leg and the red probe go. <strong>Do not wire to GPIO yet.</strong></li>
-<li><strong>10 kΩ resistor:</strong> one leg in column S, the other a few columns to the right (brown-black-orange bands).</li>
-<li><strong>To GND:</strong> black jumper from the right resistor leg to the blue (−) rail.</li>
-<li><strong>Visual check:</strong> no direct 3V3–GND short; button truly across the ditch; no wire to an IO pin.</li>
-<li><strong>Plug USB</strong> — the board powers the rails (do not touch bare probe tips).</li>
+<li><strong>Button:</strong> place it to the <strong>left</strong> of the ESP32, across the ditch — in the photo legs around <strong>columns 3</strong> and <strong>5</strong>. Side toward 3V3 = <strong>leg A</strong> · side toward the resistor = <strong>leg B / node S</strong>.</li>
+<li><strong>To 3V3:</strong> red jumper from the (+) rail to the <strong>leg A</strong> column (in the photo ≈ column 3, top F–J).</li>
+<li><strong>10 kΩ resistor:</strong> one leg in the <strong>leg B / S</strong> column (in the photo ≈ column 5, bottom A–E), the other a few columns left/away from the ESP32 (toward ≈ column 1 in the photo). Bands: <strong>brown–black–orange</strong> (+ gold). Do not use the 220 Ω from FS-09.</li>
+<li><strong>To GND:</strong> make sure the far resistor end reaches the blue (−) rail — in the photo a short black jumper may help (optionally via a helper path on row A). Core idea: <strong>S → 10 kΩ → GND</strong>.</li>
+<li><strong>Visual check:</strong> no 3V3–GND short in the same column · button truly across the ditch · <strong>no wire to any GPIO</strong> · green circles = connected holes.</li>
+<li><strong>Plug USB</strong> — the rails are live (do not touch bare probe tips).</li>
 </ol>
 
 <h2>Test with a multimeter (V DC mode)</h2>
