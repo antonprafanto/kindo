@@ -372,6 +372,112 @@ HTML;
 HTML;
     }
 
+    private function wiringLabelSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Skema berlabel wiring LED di breadboard dengan ESP32" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" width="100%" height="auto" role="img" aria-label="Labeled LED breadboard wiring schematic">
+  <text x="430" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Skema berlabel — bantu baca foto (belum coding)</text>
+  <!-- breadboard body -->
+  <rect x="40" y="55" width="780" height="260" rx="10" fill="#FAFAFA" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- power rails left -->
+  <rect x="55" y="70" width="22" height="230" fill="#FFCDD2" stroke="#C62828" stroke-width="1.5"/>
+  <rect x="82" y="70" width="22" height="230" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+  <text x="66" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#C62828">+</text>
+  <text x="93" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1565C0">−</text>
+  <!-- ESP32 block -->
+  <rect x="480" y="95" width="280" height="160" rx="8" fill="#263238" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="620" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#fff">ESP32-DevKitC-1</text>
+  <text x="620" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">dipasang melintasi parit</text>
+  <rect x="495" y="175" width="70" height="28" rx="4" fill="#FFCDD2" stroke="#fff" stroke-width="1"/>
+  <text x="530" y="194" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">3V3</text>
+  <rect x="675" y="175" width="70" height="28" rx="4" fill="#BBDEFB" stroke="#fff" stroke-width="1"/>
+  <text x="710" y="194" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">GND</text>
+  <!-- wires 3V3 / GND to rails — DIFFERENT visual paths -->
+  <path d="M530 203 L530 300 L66 300 L66 290" fill="none" stroke="#C62828" stroke-width="3"/>
+  <text x="280" y="292" font-family="system-ui,sans-serif" font-size="11" fill="#C62828" font-weight="700">① 3V3 → rail +</text>
+  <path d="M710 203 L710 320 L93 320 L93 290" fill="none" stroke="#212121" stroke-width="3"/>
+  <text x="400" y="338" font-family="system-ui,sans-serif" font-size="11" fill="#212121" font-weight="700">② GND → rail −</text>
+  <!-- column 2 jumper from + -->
+  <path d="M66 120 L160 120" fill="none" stroke="#C62828" stroke-width="3"/>
+  <circle cx="160" cy="120" r="7" fill="#C62828"/>
+  <text x="160" y="105" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">kolom 2</text>
+  <text x="200" y="88" font-family="system-ui,sans-serif" font-size="11" fill="#C62828" font-weight="700">③ cabut di sini = LED mati</text>
+  <!-- resistor -->
+  <rect x="175" y="108" width="90" height="24" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">220Ω</text>
+  <text x="220" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">④ resistor</text>
+  <!-- LED -->
+  <polygon points="290,110 290,140 320,125" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="320" y1="115" x2="320" y2="135" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="340" y="118" font-family="system-ui,sans-serif" font-size="11" font-weight="700">⑤ LED</text>
+  <text x="340" y="134" font-family="system-ui,sans-serif" font-size="10" fill="#2E7D32">kaki panjang (+)</text>
+  <text x="340" y="148" font-family="system-ui,sans-serif" font-size="10" fill="#C62828">kaki pendek (−)</text>
+  <!-- LED cathode to GND rail -->
+  <path d="M320 125 L380 125 L380 250 L93 250" fill="none" stroke="#212121" stroke-width="3"/>
+  <text x="300" y="240" font-family="system-ui,sans-serif" font-size="11" fill="#212121" font-weight="700">⑥ ke rail −</text>
+  <!-- warning box -->
+  <rect x="120" y="355" width="620" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="430" y="378" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#B71C1C">Jangan sambungkan 3V3 dan GND di kolom yang sama</text>
+  <text x="430" y="398" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Baris A–E dalam satu nomor kolom saling nyambung — itu short!</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+  <strong>Skema berlabel (bantu baca foto)</strong> — ringkas alur: ① 3V3→rail + · ② GND→rail − · ③ jumper ke <strong>kolom 2</strong> (cabut = LED mati) · ④ resistor 220Ω · ⑤ LED (kaki panjang ke resistor) · ⑥ kaki pendek ke rail −. Pakai ini kalau foto kurang jelas; nomor kolom boleh digeser asalkan urutan sama.
+  <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-09).
+</figcaption>
+</figure>
+SVG;
+    }
+
+    private function wiringLabelSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Labeled LED breadboard wiring schematic with ESP32" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" width="100%" height="auto" role="img" aria-label="Labeled LED breadboard wiring schematic">
+  <text x="430" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Labeled schematic — helps read the photo (no code yet)</text>
+  <rect x="40" y="55" width="780" height="260" rx="10" fill="#FAFAFA" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="55" y="70" width="22" height="230" fill="#FFCDD2" stroke="#C62828" stroke-width="1.5"/>
+  <rect x="82" y="70" width="22" height="230" fill="#BBDEFB" stroke="#1565C0" stroke-width="1.5"/>
+  <text x="66" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#C62828">+</text>
+  <text x="93" y="65" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#1565C0">−</text>
+  <rect x="480" y="95" width="280" height="160" rx="8" fill="#263238" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="620" y="130" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#fff">ESP32-DevKitC-1</text>
+  <text x="620" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">mounted across the trench</text>
+  <rect x="495" y="175" width="70" height="28" rx="4" fill="#FFCDD2" stroke="#fff" stroke-width="1"/>
+  <text x="530" y="194" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">3V3</text>
+  <rect x="675" y="175" width="70" height="28" rx="4" fill="#BBDEFB" stroke="#fff" stroke-width="1"/>
+  <text x="710" y="194" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">GND</text>
+  <path d="M530 203 L530 300 L66 300 L66 290" fill="none" stroke="#C62828" stroke-width="3"/>
+  <text x="280" y="292" font-family="system-ui,sans-serif" font-size="11" fill="#C62828" font-weight="700">① 3V3 → + rail</text>
+  <path d="M710 203 L710 320 L93 320 L93 290" fill="none" stroke="#212121" stroke-width="3"/>
+  <text x="400" y="338" font-family="system-ui,sans-serif" font-size="11" fill="#212121" font-weight="700">② GND → − rail</text>
+  <path d="M66 120 L160 120" fill="none" stroke="#C62828" stroke-width="3"/>
+  <circle cx="160" cy="120" r="7" fill="#C62828"/>
+  <text x="160" y="105" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">column 2</text>
+  <text x="210" y="88" font-family="system-ui,sans-serif" font-size="11" fill="#C62828" font-weight="700">③ unplug here = LED off</text>
+  <rect x="175" y="108" width="90" height="24" rx="4" fill="#FFF8E1" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="220" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700">220Ω</text>
+  <text x="220" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" fill="#4A5568">④ resistor</text>
+  <polygon points="290,110 290,140 320,125" fill="#FFEB3B" stroke="#1a1a1a" stroke-width="2"/>
+  <line x1="320" y1="115" x2="320" y2="135" stroke="#1a1a1a" stroke-width="3"/>
+  <text x="340" y="118" font-family="system-ui,sans-serif" font-size="11" font-weight="700">⑤ LED</text>
+  <text x="340" y="134" font-family="system-ui,sans-serif" font-size="10" fill="#2E7D32">long leg (+)</text>
+  <text x="340" y="148" font-family="system-ui,sans-serif" font-size="10" fill="#C62828">short leg (−)</text>
+  <path d="M320 125 L380 125 L380 250 L93 250" fill="none" stroke="#212121" stroke-width="3"/>
+  <text x="300" y="240" font-family="system-ui,sans-serif" font-size="11" fill="#212121" font-weight="700">⑥ to − rail</text>
+  <rect x="120" y="355" width="620" height="50" rx="6" fill="#FFEBEE" stroke="#C62828" stroke-width="2"/>
+  <text x="430" y="378" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#B71C1C">Never put 3V3 and GND in the same column</text>
+  <text x="430" y="398" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Rows A–E in one column number share a strip — that is a short!</text>
+</svg>
+<figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+  <strong>Labeled schematic (helps read the photo)</strong> — quick path: ① 3V3→+ rail · ② GND→− rail · ③ jumper to <strong>column 2</strong> (unplug = LED off) · ④ 220Ω resistor · ⑤ LED (long leg to resistor) · ⑥ short leg to − rail. Use this if the photo is hard to parse; column numbers may shift if the order matches.
+  <br>Image source: labeled diagram by Koding Indonesia (FS-09).
+</figcaption>
+</figure>
+SVG;
+    }
+
+
 
     private function body(): string
     {
@@ -382,6 +488,7 @@ HTML;
         $breadSvg = $this->breadboardSvgId();
         $flow = $this->currentFlowSvgId();
         $main = $this->mainWiringFigureId();
+        $wireLabel = $this->wiringLabelSvgId();
         $ledSvg = $this->ledSvgId();
 
         return <<<HTML
@@ -426,9 +533,10 @@ HTML;
 <p>Alur listrik: <strong>3V3 → resistor 220Ω → LED → GND</strong>. Resistor melindungi LED; polaritas LED harus benar.</p>
 {$flow}
 {$main}
+{$wireLabel}
 
 <h2>Wiring langkah demi langkah</h2>
-<p><strong>Tips:</strong> ikuti <strong>foto rangkaian</strong> di atas (ada ESP32-nya). Nomor kolom boleh digeser — yang penting <strong>urutan</strong> listrik sama: 3V3 → resistor → LED → GND.</p>
+<p><strong>Tips:</strong> ikuti <strong>foto rangkaian</strong> + <strong>skema berlabel</strong> di atas. Nomor kolom boleh digeser — yang penting <strong>urutan</strong> listrik sama: 3V3 → resistor → LED → GND.</p>
 <p><strong>Orientasi foto (supaya tidak bingung “atas/bawah”):</strong> <em>parit</em> = celah panjang di tengah breadboard. Baris <strong>F–J</strong> = sisi atas parit · baris <strong>A–E</strong> = sisi bawah. Dalam satu nomor kolom, A–E saling nyambung; F–J juga — tapi <strong>atas dan bawah parit tidak nyambung</strong>.</p>
 <ol>
 <li><strong>Pastikan USB sudah dicabut</strong> dari ESP32 (kebiasaan FS-05).</li>
@@ -485,6 +593,7 @@ HTML;
         $breadSvg = $this->breadboardSvgEn();
         $flow = $this->currentFlowSvgEn();
         $main = $this->mainWiringFigureEn();
+        $wireLabel = $this->wiringLabelSvgEn();
         $ledSvg = $this->ledSvgEn();
 
         return <<<HTML
@@ -529,9 +638,10 @@ HTML;
 <p>Current path: <strong>3V3 → 220Ω resistor → LED → GND</strong>. The resistor protects the LED; LED polarity must be correct.</p>
 {$flow}
 {$main}
+{$wireLabel}
 
 <h2>Step-by-step wiring</h2>
-<p><strong>Tip:</strong> follow the <strong>circuit photo</strong> above (it shows the ESP32). Column numbers can shift — keep the <strong>electrical order</strong>: 3V3 → resistor → LED → GND.</p>
+<p><strong>Tip:</strong> follow the <strong>circuit photo</strong> + <strong>labeled schematic</strong> above. Column numbers can shift — keep the <strong>electrical order</strong>: 3V3 → resistor → LED → GND.</p>
 <p><strong>Photo orientation (so “top/bottom” is clear):</strong> the <em>ditch</em> is the long gap down the middle of the breadboard. Rows <strong>F–J</strong> = top side of the ditch · rows <strong>A–E</strong> = bottom side. Within one column number, A–E share a strip and F–J share a strip — but <strong>top and bottom across the ditch do not connect</strong>.</p>
 <ol>
 <li><strong>Confirm USB is unplugged</strong> from the ESP32 (FS-05 habit).</li>
