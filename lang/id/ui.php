@@ -364,6 +364,16 @@ return [
         'fsiot_if_incomplete' => 'Masih ada langkah yang belum dicentang. Cek == vs =, Upload ulang, atau baud 115200.',
         'fsiot_if_done' => 'Selesai',
         'fsiot_if_todo' => 'Belum',
+        'fsiot_fw_badge' => 'Checklist for & while',
+        'fsiot_fw_hint' => 'Centang tiap langkah IDE + Serial (hitungan 1–10). Target: 10/10.',
+        'fsiot_fw_check' => 'Cek kelengkapan',
+        'fsiot_fw_retry' => 'Kosongkan lagi',
+        'fsiot_fw_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_fw_progress' => ':filled dari :total tercentang',
+        'fsiot_fw_pass' => 'Lengkap :filled/:total — hitungan 1–10 terbaca! Lanjut FS-16 saat modulnya terbit.',
+        'fsiot_fw_incomplete' => 'Masih ada langkah yang belum dicentang. Cek for/while, baud 115200, atau buka Serial lagi.',
+        'fsiot_fw_done' => 'Selesai',
+        'fsiot_fw_todo' => 'Belum',
     ],
 
     'theme' => [

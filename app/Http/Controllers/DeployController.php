@@ -7379,6 +7379,126 @@ class DeployController extends Controller
         return response('Article 84 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle85Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! $this->ensureSeederClass('database/seeders/Article85Seeder.php', \Database\Seeders\Article85Seeder::class)) {
+            return response('Article85Seeder class not found on server', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article85Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 85 draft seed failed: '.trim(Artisan::output()), 500);
+        }
+
+        $slug = 'fullstack-iot-for-while-loop';
+        $article = Article::where('slug', $slug)->first();
+
+        if (! $article) {
+            report(new \RuntimeException('Article 85 missing after Article85Seeder draft seed.'));
+
+            return response('Article 85 draft seed incomplete', 500);
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            $article->status = 'draft';
+            $article->published_at = null;
+            $article->save();
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            report(new \RuntimeException('Article 85 refused to stay draft after seed.'));
+
+            return response('Article 85 must remain draft (pre-launch B)', 500);
+        }
+
+        if (Article::published()->where('slug', $slug)->exists()) {
+            report(new \RuntimeException('Article 85 unexpectedly visible via published() scope.'));
+
+            return response('Article 85 leaked into published scope', 500);
+        }
+
+        $body = (string) $article->body;
+        $bodyNeedles = [
+            '#85 (ini)',
+            'FS-15',
+            'FS15_hitung',
+            'Arduino IDE',
+            'Serial Monitor',
+            'Tidak perlu hari ini',
+            'Cara pakai artikel ini',
+            'Serial.begin(115200)',
+            'for (int i = 1',
+            'while (n <= 10)',
+            'FS-14',
+            'FS-16',
+            'esp32-devkitc-overview.jpg',
+            'fsiot-fw-checklist',
+            '115200',
+            '/belajar/fullstack-iot',
+            'Analogi:',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'Cara menguji perintah di atas',
+            'millis()',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Article 85 body missing expected content after draft seed: '.implode(', ', $missingBody)));
+
+            return response('Article 85 body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 85 English fields are incomplete after draft seed.'));
+
+            return response('Article 85 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        $enNeedles = [
+            '#85 (this article)',
+            'Analogy:',
+            'How to use this article',
+            'Not needed today',
+            'Arduino IDE',
+            'Serial Monitor',
+            'Serial.begin(115200)',
+            'FS15_hitung',
+            'esp32-devkitc-overview.jpg',
+            'fsiot-fw-checklist',
+            'FS-16',
+            'Common mistakes',
+            'How to test the code above',
+            'while (true)',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 85 EN body missing expected content after draft seed: '.implode(', ', $missingEn)));
+
+            return response('Article 85 EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 85 seeded as draft (pre-launch B)', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

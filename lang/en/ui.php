@@ -364,6 +364,16 @@ return [
         'fsiot_if_incomplete' => 'Some steps are still unchecked. Check == vs =, re-Upload, or baud 115200.',
         'fsiot_if_done' => 'Done',
         'fsiot_if_todo' => 'Not yet',
+        'fsiot_fw_badge' => 'for & while checklist',
+        'fsiot_fw_hint' => 'Tick each IDE + Serial step (counts 1–10). Target: 10/10.',
+        'fsiot_fw_check' => 'Check completeness',
+        'fsiot_fw_retry' => 'Clear again',
+        'fsiot_fw_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_fw_progress' => ':filled of :total checked',
+        'fsiot_fw_pass' => 'Complete :filled/:total — counts 1–10 readable! Continue to FS-16 when that module publishes.',
+        'fsiot_fw_incomplete' => 'Some steps are still unchecked. Check for/while, baud 115200, or reopen Serial.',
+        'fsiot_fw_done' => 'Done',
+        'fsiot_fw_todo' => 'Not yet',
     ],
 
     'theme' => [
