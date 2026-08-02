@@ -324,6 +324,16 @@ return [
         'fsiot_sg_incomplete' => 'Some steps are still unchecked. Rewire or remeasure with the multimeter.',
         'fsiot_sg_done' => 'Done',
         'fsiot_sg_todo' => 'Not yet',
+        'fsiot_sk_badge' => 'Sketch & Upload checklist',
+        'fsiot_sk_hint' => 'Tick each IDE + sketchbook folder step you completed. Target: 10/10.',
+        'fsiot_sk_check' => 'Check completeness',
+        'fsiot_sk_retry' => 'Clear again',
+        'fsiot_sk_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_sk_progress' => ':filled of :total checked',
+        'fsiot_sk_pass' => 'Complete :filled/:total — you understand sketch, setup, loop & Upload! Continue to FS-12 when that module publishes.',
+        'fsiot_sk_incomplete' => 'Some steps are still unchecked. Retry in Arduino IDE or check the sketchbook folder.',
+        'fsiot_sk_done' => 'Done',
+        'fsiot_sk_todo' => 'Not yet',
     ],
 
     'theme' => [

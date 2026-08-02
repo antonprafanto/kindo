@@ -72,17 +72,26 @@ check('sketchbook Documents Arduino', str_contains($id, 'Documents\\Arduino') ||
 check('comment // explained', str_contains($id, '//') && str_contains($id, 'Komentar'));
 
 check('IDE overview image on disk', is_file(__DIR__.'/../public/images/fsiot/fs11-ide-overview-cite.png'));
-check('verify image on disk', is_file(__DIR__.'/../public/images/fsiot/fs11-select-verify.png'));
-check('upload image on disk', is_file(__DIR__.'/../public/images/fsiot/fs11-select-upload.png'));
 check('board overview reused', is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg'));
 check('IDE image in body', str_contains($id, 'fs11-ide-overview-cite.png') && str_contains($en, 'fs11-ide-overview-cite.png'));
-check('verify image cited Commons', str_contains($id, 'Select_verify.png') && str_contains($en, 'Select_verify.png'));
-check('upload image cited Commons', str_contains($id, 'Select_upload_Arduino_IDE.png'));
+check('no misleading IDE 1.8 screenshots', ! str_contains($id, 'fs11-select-verify.png') && ! str_contains($id, 'fs11-select-upload.png') && ! str_contains($en, 'fs11-select-verify.png'));
+check('Verify SVG IDE 2 ID', str_contains($id, 'Verify di Arduino IDE 2') && str_contains($id, 'Done compiling'));
+check('Upload SVG IDE 2 ID', str_contains($id, 'Upload di Arduino IDE 2') && str_contains($id, 'Done uploading'));
+check('Verify SVG IDE 2 EN', str_contains($en, 'Verify in Arduino IDE 2') && str_contains($en, 'Done compiling'));
+check('Upload SVG IDE 2 EN', str_contains($en, 'Upload in Arduino IDE 2') && str_contains($en, 'Done uploading'));
+check('warn not IDE 1.x ID', str_contains($id, 'bukan IDE 1.x'));
+check('warn not IDE 1.x EN', str_contains($en, 'not IDE 1.x'));
 check('IDE overview Commons cite', str_contains($id, 'Ide-2-overview.png') && str_contains($en, 'Ide-2-overview.png'));
 check('Espressif board cite', str_contains($id, 'docs.espressif.com') && str_contains($en, 'docs.espressif.com'));
 check('recipe SVG present', str_contains($id, 'Resep di dapur') && str_contains($en, 'Kitchen recipe'));
 check('flow SVG present', str_contains($id, 'Alur kerja hari ini') && str_contains($en, "Today's workflow"));
 check('sketchbook SVG present', str_contains($id, 'Sketchbook — satu folder') && str_contains($en, 'Sketchbook — one folder'));
+check('ESP32 Dev Module reminder', str_contains($id, 'ESP32 Dev Module') && str_contains($en, 'ESP32 Dev Module'));
+
+$show = file_get_contents(__DIR__.'/../resources/views/articles/show.blade.php');
+check('interactive sketch checklist wired', str_contains($show, 'initFsiotSketchChecklist') && str_contains($show, 'fsiot-sketch-checklist'));
+check('sketch checklist lang ID', str_contains(file_get_contents(__DIR__.'/../lang/id/ui.php'), 'fsiot_sk_badge'));
+check('sketch checklist lang EN', str_contains(file_get_contents(__DIR__.'/../lang/en/ui.php'), 'fsiot_sk_badge'));
 
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $id, $svgIdBlocks);
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $en, $svgEnBlocks);

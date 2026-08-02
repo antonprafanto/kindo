@@ -74,7 +74,7 @@ class Article81Seeder extends Seeder
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — jendela editor dengan toolbar Verify dan Upload di kiri atas" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Arduino IDE 2</strong> — “Word”-nya sketch. Di kiri atas toolbar: tombol <strong>Verify</strong> (centang ✓) dan <strong>Upload</strong> (panah →). Board + port harus sudah dipilih (ulangi kebiasaan FS-06).
+    <strong>Arduino IDE 2</strong> — “Word”-nya sketch (bukan IDE 1.x). Di kiri atas toolbar: tombol <strong>Verify</strong> (centang ✓) dan <strong>Upload</strong> (panah →). Board + port harus sudah dipilih (ulangi kebiasaan FS-06). Abaikan contoh board lain di screenshot — kita pakai <strong>ESP32 Dev Module</strong>.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0) · asal dokumen Arduino.
   </figcaption>
 </figure>
@@ -87,7 +87,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — editor window with Verify and Upload toolbar on the top left" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Arduino IDE 2</strong> — the “Word” for sketches. Top-left toolbar: <strong>Verify</strong> (checkmark ✓) and <strong>Upload</strong> (arrow →). Board + port must already be selected (repeat FS-06 habits).
+    <strong>Arduino IDE 2</strong> — the “Word” for sketches (not IDE 1.x). Top-left toolbar: <strong>Verify</strong> (checkmark ✓) and <strong>Upload</strong> (arrow →). Board + port must already be selected (repeat FS-06 habits). Ignore other boards in the screenshot — we use <strong>ESP32 Dev Module</strong>.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0) · from Arduino docs.
   </figcaption>
 </figure>
@@ -96,55 +96,109 @@ HTML;
 
     private function verifyFigureId(): string
     {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs11-select-verify.png" width="593" height="600" alt="Menu Sketch — perintah Verify/Compile di Arduino IDE" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+        return <<<'SVG'
+<figure role="img" aria-label="Tombol Verify di Arduino IDE 2" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" width="100%" height="auto" role="img" aria-label="Verify centang Done compiling">
+  <text x="430" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Verify di Arduino IDE 2 — cek dulu, belum kirim ke board</text>
+  <rect x="40" y="50" width="360" height="140" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <circle cx="120" cy="120" r="36" fill="#fff" stroke="#2E7D32" stroke-width="3"/>
+  <path d="M102 120 L114 132 L140 106" fill="none" stroke="#2E7D32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="250" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">Verify (centang)</text>
+  <text x="250" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#33691E">Compile / cek error ketik</text>
+  <text x="250" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#2E7D32">Target: Done compiling</text>
+  <rect x="440" y="50" width="380" height="140" rx="12" fill="#FFF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="630" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Di mana tombolnya?</text>
+  <text x="630" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">Toolbar kiri atas IDE 2 (ikon ✓)</text>
+  <text x="630" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">atau menu Sketch → Verify/Compile</text>
+</svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Verify / Compile</strong> = cek ejaan &amp; susunan kode (compile) <em>tanpa</em> mengirim ke board. Target status: <em>Done compiling</em>.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Select_verify.png" rel="noopener noreferrer" target="_blank">Select verify.png</a> · Wikimedia Commons.
+    <strong>Verify / Compile</strong> = cek ejaan &amp; susunan kode <em>tanpa</em> mengirim ke board. Target status di panel bawah: <em>Done compiling</em>.
+    <br>Sumber gambar: diagram buatan Koding Indonesia (FS-11) — selaras tampilan Arduino IDE 2 (bukan IDE 1.x).
   </figcaption>
 </figure>
-HTML;
+SVG;
     }
+
 
     private function verifyFigureEn(): string
     {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs11-select-verify.png" width="593" height="600" alt="Sketch menu — Verify/Compile command in Arduino IDE" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+        return <<<'SVG'
+<figure role="img" aria-label="Verify button in Arduino IDE 2" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" width="100%" height="auto" role="img" aria-label="Verify checkmark Done compiling">
+  <text x="430" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Verify in Arduino IDE 2 — check first, do not send yet</text>
+  <rect x="40" y="50" width="360" height="140" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <circle cx="120" cy="120" r="36" fill="#fff" stroke="#2E7D32" stroke-width="3"/>
+  <path d="M102 120 L114 132 L140 106" fill="none" stroke="#2E7D32" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="250" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">Verify (checkmark)</text>
+  <text x="250" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#33691E">Compile / catch typos</text>
+  <text x="250" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#2E7D32">Target: Done compiling</text>
+  <rect x="440" y="50" width="380" height="140" rx="12" fill="#FFF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="630" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Where is the button?</text>
+  <text x="630" y="125" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">IDE 2 top-left toolbar (✓ icon)</text>
+  <text x="630" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">or Sketch → Verify/Compile</text>
+</svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Verify / Compile</strong> = check spelling &amp; structure (compile) <em>without</em> sending to the board. Target status: <em>Done compiling</em>.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Select_verify.png" rel="noopener noreferrer" target="_blank">Select verify.png</a> · Wikimedia Commons.
+    <strong>Verify / Compile</strong> = check spelling &amp; structure <em>without</em> sending to the board. Target status in the bottom panel: <em>Done compiling</em>.
+    <br>Image source: diagram by Koding Indonesia (FS-11) — matches Arduino IDE 2 (not IDE 1.x).
   </figcaption>
 </figure>
-HTML;
+SVG;
     }
+
 
     private function uploadFigureId(): string
     {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs11-select-upload.png" width="593" height="600" alt="Menu Sketch — perintah Upload di Arduino IDE" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+        return <<<'SVG'
+<figure role="img" aria-label="Tombol Upload di Arduino IDE 2" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" width="100%" height="auto" role="img" aria-label="Upload panah Done uploading">
+  <text x="430" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Upload di Arduino IDE 2 — kirim program ke ESP32</text>
+  <rect x="40" y="50" width="360" height="140" rx="12" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+  <circle cx="120" cy="120" r="36" fill="#fff" stroke="#1565C0" stroke-width="3"/>
+  <path d="M105 120 L135 120 M122 105 L137 120 L122 135" fill="none" stroke="#1565C0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="250" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">Upload (panah)</text>
+  <text x="250" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1565C0">Compile + kirim via USB</text>
+  <text x="250" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1565C0">Target: Done uploading</text>
+  <rect x="440" y="50" width="380" height="140" rx="12" fill="#FFF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="630" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Syarat sebelum Upload</text>
+  <text x="630" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">1) Board: ESP32 Dev Module</text>
+  <text x="630" y="142" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">2) Port COM/tty sudah dipilih</text>
+  <text x="630" y="166" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">3) Kabel USB data tercolok</text>
+</svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Upload</strong> = compile dulu, lalu kirim program ke ESP32 lewat USB. Target status: <em>Done uploading</em>.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Select_upload_Arduino_IDE.png" rel="noopener noreferrer" target="_blank">Select upload Arduino IDE.png</a> · Wikimedia Commons.
+    <br>Sumber gambar: diagram buatan Koding Indonesia (FS-11) — selaras tampilan Arduino IDE 2 (bukan IDE 1.x / Arduino Uno).
   </figcaption>
 </figure>
-HTML;
+SVG;
     }
+
 
     private function uploadFigureEn(): string
     {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs11-select-upload.png" width="593" height="600" alt="Sketch menu — Upload command in Arduino IDE" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+        return <<<'SVG'
+<figure role="img" aria-label="Upload button in Arduino IDE 2" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" width="100%" height="auto" role="img" aria-label="Upload arrow Done uploading">
+  <text x="430" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16" font-weight="700">Upload in Arduino IDE 2 — send the program to the ESP32</text>
+  <rect x="40" y="50" width="360" height="140" rx="12" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+  <circle cx="120" cy="120" r="36" fill="#fff" stroke="#1565C0" stroke-width="3"/>
+  <path d="M105 120 L135 120 M122 105 L137 120 L122 135" fill="none" stroke="#1565C0" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="250" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">Upload (arrow)</text>
+  <text x="250" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1565C0">Compile + send over USB</text>
+  <text x="250" y="152" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1565C0">Target: Done uploading</text>
+  <rect x="440" y="50" width="380" height="140" rx="12" fill="#FFF" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="630" y="90" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Before you Upload</text>
+  <text x="630" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">1) Board: ESP32 Dev Module</text>
+  <text x="630" y="142" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">2) COM/tty port selected</text>
+  <text x="630" y="166" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">3) USB data cable plugged in</text>
+</svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Upload</strong> = compile first, then send the program to the ESP32 over USB. Target status: <em>Done uploading</em>.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Select_upload_Arduino_IDE.png" rel="noopener noreferrer" target="_blank">Select upload Arduino IDE.png</a> · Wikimedia Commons.
+    <br>Image source: diagram by Koding Indonesia (FS-11) — matches Arduino IDE 2 (not IDE 1.x / Arduino Uno).
   </figcaption>
 </figure>
-HTML;
+SVG;
     }
+
 
     private function boardFigureId(): string
     {
@@ -152,7 +206,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="800" alt="ESP32-DevKitC — board yang menerima sketch lewat kabel USB data" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>ESP32-DevKitC</strong> — “dapur” yang memasak resep (sketch). Colok <strong>kabel USB data</strong> (bukan charge-only), pilih board + port seperti FS-06.
+    <strong>ESP32-DevKitC</strong> — “dapur” yang memasak resep (sketch). Colok <strong>kabel USB data</strong> ke port USB di tepi board (bukan charge-only), lalu pilih board + port seperti FS-06.
     <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC user guide</a>.
   </figcaption>
 </figure>
@@ -165,7 +219,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="800" alt="ESP32-DevKitC — the board that receives a sketch over a USB data cable" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>ESP32-DevKitC</strong> — the “kitchen” that cooks the recipe (sketch). Plug a <strong>USB data cable</strong> (not charge-only), then pick board + port as in FS-06.
+    <strong>ESP32-DevKitC</strong> — the “kitchen” that cooks the recipe (sketch). Plug a <strong>USB data cable</strong> into the board-edge USB port (not charge-only), then pick board + port as in FS-06.
     <br>Image source: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC user guide</a>.
   </figcaption>
 </figure>
@@ -457,7 +511,7 @@ void loop() {
 <li><strong>Kabel charge-only.</strong> Port tidak muncul / upload gagal — ganti kabel data.</li>
 <li><strong>Bingung kenapa Serial kosong.</strong> Hari ini kita belum pakai Serial Monitor; itu wajar. Serial dibahas di FS-12/FS-13.</li>
 <li><strong>Mengira Verify = sudah jalan di board.</strong> Verify hanya compile. Butuh Upload supaya board menjalankan.</li>
-<li><strong>Nama folder ≠ nama .ino.</strong> Arduino rewel — samakan keduanya.</li>
+<li><strong>Nama folder ≠ nama .ino.</strong> Arduino teliti soal nama — samakan keduanya.</li>
 </ul>
 
 <h2>Selanjutnya</h2>
@@ -586,7 +640,7 @@ void loop() {
 <li><strong>Charge-only cable.</strong> Port missing / upload fails — swap to a data cable.</li>
 <li><strong>Confused why Serial is empty.</strong> We are not using Serial Monitor today; that is expected. Serial comes in FS-12/FS-13.</li>
 <li><strong>Thinking Verify means it already runs on the board.</strong> Verify only compiles. You need Upload for the board to run it.</li>
-<li><strong>Folder name ≠ .ino name.</strong> Arduino is picky — make them match.</li>
+<li><strong>Folder name ≠ .ino name.</strong> Arduino is strict about names — make them match.</li>
 </ul>
 
 <h2>Next steps</h2>

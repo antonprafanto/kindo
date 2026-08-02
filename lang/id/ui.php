@@ -324,6 +324,16 @@ return [
         'fsiot_sg_incomplete' => 'Masih ada langkah yang belum dicentang. Ulangi wiring atau ukur ulang dengan multimeter.',
         'fsiot_sg_done' => 'Selesai',
         'fsiot_sg_todo' => 'Belum',
+        'fsiot_sk_badge' => 'Checklist sketch & Upload',
+        'fsiot_sk_hint' => 'Centang tiap langkah IDE + folder sketchbook yang sudah kamu lakukan. Target: 10/10.',
+        'fsiot_sk_check' => 'Cek kelengkapan',
+        'fsiot_sk_retry' => 'Kosongkan lagi',
+        'fsiot_sk_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_sk_progress' => ':filled dari :total tercentang',
+        'fsiot_sk_pass' => 'Lengkap :filled/:total — kamu paham sketch, setup, loop & Upload! Lanjut FS-12 saat modulnya terbit.',
+        'fsiot_sk_incomplete' => 'Masih ada langkah yang belum dicentang. Ulangi di Arduino IDE atau cek folder sketchbook.',
+        'fsiot_sk_done' => 'Selesai',
+        'fsiot_sk_todo' => 'Belum',
     ],
 
     'theme' => [
