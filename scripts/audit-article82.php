@@ -67,14 +67,16 @@ check('Serial.println present', str_contains($id, 'Serial.println') && str_conta
 check('types int float bool String', str_contains($id, 'int') && str_contains($id, 'float') && str_contains($id, 'bool') && str_contains($id, 'String'));
 check('FS12_hello both', str_contains($id, 'FS12_hello') && str_contains($en, 'FS12_hello'));
 check('baud 115200 both', str_contains($id, '115200') && str_contains($en, '115200'));
-check('no IDE 1.x serial screenshots', ! str_contains($id, 'fs12-open-serial') && ! str_contains($id, 'fs12-serial-monitor-feedback'));
-check('IDE overview reused', str_contains($id, 'fs11-ide-overview-cite.png') && is_file(__DIR__.'/../public/images/fsiot/fs11-ide-overview-cite.png'));
+check('no misleading IDE Commons screenshot', ! str_contains($id, 'fs11-ide-overview-cite.png') && ! str_contains($en, 'fs11-ide-overview-cite.png'));
 check('board overview reused', str_contains($id, 'esp32-devkitc-overview.jpg') && is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg'));
+check('serial finder SVG', str_contains($id, 'Open Serial Monitor') && str_contains($id, 'Samakan baud') && str_contains($en, 'Match the baud'));
 check('boxes SVG', str_contains($id, 'Variabel = kotak bernama') && str_contains($en, 'A variable = a named box'));
 check('serial SVG', str_contains($id, 'Serial Monitor (IDE 2)') && str_contains($en, 'Serial Monitor (IDE 2)'));
 check('workflow SVG', str_contains($id, 'Urutan kerja hari ini') && str_contains($en, "Today's work order"));
-check('Commons IDE cite', str_contains($id, 'Ide-2-overview.png') && str_contains($en, 'Ide-2-overview.png'));
+check('warn against 9600 screenshot', str_contains($id, '9600') && str_contains($id, 'screenshot') && str_contains($en, '9600'));
 check('Espressif cite', str_contains($id, 'docs.espressif.com') && str_contains($en, 'docs.espressif.com'));
+check('KI diagram cite', str_contains($id, 'buatan Koding Indonesia') && str_contains($en, 'diagram by Koding Indonesia'));
+check('no Ide-2-overview commons', ! str_contains($id, 'Ide-2-overview.png') && ! str_contains($en, 'Ide-2-overview.png'));
 
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $id, $svgIdBlocks);
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $en, $svgEnBlocks);
