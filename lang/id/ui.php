@@ -344,6 +344,16 @@ return [
         'fsiot_vr_incomplete' => 'Masih ada langkah yang belum dicentang. Cek baud 115200 atau buka Serial Monitor lagi.',
         'fsiot_vr_done' => 'Selesai',
         'fsiot_vr_todo' => 'Belum',
+        'fsiot_sm_badge' => 'Checklist Serial sahabat debug',
+        'fsiot_sm_hint' => 'Centang tiap langkah IDE + Serial Monitor (detak 1 detik). Target: 10/10.',
+        'fsiot_sm_check' => 'Cek kelengkapan',
+        'fsiot_sm_retry' => 'Kosongkan lagi',
+        'fsiot_sm_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_sm_progress' => ':filled dari :total tercentang',
+        'fsiot_sm_pass' => 'Lengkap :filled/:total — log detak terbaca! Lanjut FS-14 saat modulnya terbit.',
+        'fsiot_sm_incomplete' => 'Masih ada langkah yang belum dicentang. Cek baud 115200, delay, atau port Serial.',
+        'fsiot_sm_done' => 'Selesai',
+        'fsiot_sm_todo' => 'Belum',
     ],
 
     'theme' => [

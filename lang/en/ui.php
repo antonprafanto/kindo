@@ -344,6 +344,16 @@ return [
         'fsiot_vr_incomplete' => 'Some steps are still unchecked. Check baud 115200 or reopen Serial Monitor.',
         'fsiot_vr_done' => 'Done',
         'fsiot_vr_todo' => 'Not yet',
+        'fsiot_sm_badge' => 'Serial debug-friend checklist',
+        'fsiot_sm_hint' => 'Tick each IDE + Serial Monitor step (1-second tick). Target: 10/10.',
+        'fsiot_sm_check' => 'Check completeness',
+        'fsiot_sm_retry' => 'Clear again',
+        'fsiot_sm_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_sm_progress' => ':filled of :total checked',
+        'fsiot_sm_pass' => 'Complete :filled/:total — tick logs readable! Continue to FS-14 when that module publishes.',
+        'fsiot_sm_incomplete' => 'Some steps are still unchecked. Check baud 115200, delay, or the Serial port.',
+        'fsiot_sm_done' => 'Done',
+        'fsiot_sm_todo' => 'Not yet',
     ],
 
     'theme' => [
