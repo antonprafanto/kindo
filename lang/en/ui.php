@@ -354,6 +354,16 @@ return [
         'fsiot_sm_incomplete' => 'Some steps are still unchecked. Check baud 115200, delay, or the Serial port.',
         'fsiot_sm_done' => 'Done',
         'fsiot_sm_todo' => 'Not yet',
+        'fsiot_if_badge' => 'if/else checklist',
+        'fsiot_if_hint' => 'Tick each IDE + Serial step (dummy temperature). Target: 10/10.',
+        'fsiot_if_check' => 'Check completeness',
+        'fsiot_if_retry' => 'Clear again',
+        'fsiot_if_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_if_progress' => ':filled of :total checked',
+        'fsiot_if_pass' => 'Complete :filled/:total — if/else decisions readable! Continue to FS-15 when that module publishes.',
+        'fsiot_if_incomplete' => 'Some steps are still unchecked. Check == vs =, re-Upload, or baud 115200.',
+        'fsiot_if_done' => 'Done',
+        'fsiot_if_todo' => 'Not yet',
     ],
 
     'theme' => [

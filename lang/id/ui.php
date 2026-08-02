@@ -354,6 +354,16 @@ return [
         'fsiot_sm_incomplete' => 'Masih ada langkah yang belum dicentang. Cek baud 115200, delay, atau port Serial.',
         'fsiot_sm_done' => 'Selesai',
         'fsiot_sm_todo' => 'Belum',
+        'fsiot_if_badge' => 'Checklist if/else',
+        'fsiot_if_hint' => 'Centang tiap langkah IDE + Serial (suhu dummy). Target: 10/10.',
+        'fsiot_if_check' => 'Cek kelengkapan',
+        'fsiot_if_retry' => 'Kosongkan lagi',
+        'fsiot_if_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_if_progress' => ':filled dari :total tercentang',
+        'fsiot_if_pass' => 'Lengkap :filled/:total — keputusan if/else terbaca! Lanjut FS-15 saat modulnya terbit.',
+        'fsiot_if_incomplete' => 'Masih ada langkah yang belum dicentang. Cek == vs =, Upload ulang, atau baud 115200.',
+        'fsiot_if_done' => 'Selesai',
+        'fsiot_if_todo' => 'Belum',
     ],
 
     'theme' => [
