@@ -67,6 +67,10 @@ check('FS14_panas both', str_contains($id, 'FS14_panas') && str_contains($en, 'F
 check('if else if else ID', str_contains($id, 'else if') && str_contains($id, 'PANAS') && str_contains($id, 'NORMAL'));
 check('if else if else EN', str_contains($en, 'else if') && (str_contains($en, 'HOT') || str_contains($en, 'PANAS')));
 check('= vs == teaching', str_contains($id, '==') && str_contains($id, 'SALAH') && str_contains($en, 'WRONG'));
+check('equals SVG clear wording ID', str_contains($id, 'satu tanda = artinya mengisi') && str_contains($id, 'dua tanda == artinya'));
+check('equals SVG clear wording EN', str_contains($en, 'one = sign means') && str_contains($en, 'two == signs mean'));
+check('fork labels benar/salah', str_contains($id, 'benar →') && str_contains($id, '← salah'));
+check('serial shows NORMAL', str_contains($id, 'NORMAL') && str_contains($en, 'NORMAL'));
 check('dummy suhu both', str_contains($id, 'dummy') && str_contains($en, 'dummy'));
 check('board overview reused', str_contains($id, 'esp32-devkitc-overview.jpg') && is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg'));
 check('Espressif cite', str_contains($id, 'docs.espressif.com') && str_contains($en, 'docs.espressif.com'));

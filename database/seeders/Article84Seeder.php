@@ -101,10 +101,10 @@ HTML;
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" width="100%" height="auto" role="img" aria-label="decision fork">
   <text x="430" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Analogi: if = simpang jalan — pilih satu arah</text>
   <rect x="300" y="50" width="260" height="60" rx="12" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-  <text x="430" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">Kondisi? (true / false)</text>
-  <text x="430" y="98" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1565C0">contoh: suhu &gt; 30</text>
-  <text x="250" y="145" text-anchor="middle" font-size="20" fill="#2E7D32">↙ true</text>
-  <text x="610" y="145" text-anchor="middle" font-size="20" fill="#C62828">false ↘</text>
+  <text x="430" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">Kondisi? benar atau salah</text>
+  <text x="430" y="96" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1565C0">contoh: suhu &gt; 30</text>
+  <text x="250" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#2E7D32">benar →</text>
+  <text x="610" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#C62828">← salah</text>
   <rect x="80" y="165" width="280" height="80" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
   <text x="220" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">blok if { … }</text>
   <text x="220" y="225" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">jalankan hanya jika benar</text>
@@ -127,10 +127,10 @@ SVG;
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" width="100%" height="auto" role="img" aria-label="decision fork">
   <text x="430" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Analogy: if = a fork in the road — pick one way</text>
   <rect x="300" y="50" width="260" height="60" rx="12" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-  <text x="430" y="78" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">Condition? (true / false)</text>
-  <text x="430" y="98" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1565C0">example: temp &gt; 30</text>
-  <text x="250" y="145" text-anchor="middle" font-size="20" fill="#2E7D32">↙ true</text>
-  <text x="610" y="145" text-anchor="middle" font-size="20" fill="#C62828">false ↘</text>
+  <text x="430" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">Condition? true or false</text>
+  <text x="430" y="96" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1565C0">example: temp &gt; 30</text>
+  <text x="250" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#2E7D32">true →</text>
+  <text x="610" y="145" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#C62828">← false</text>
   <rect x="80" y="165" width="280" height="80" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
   <text x="220" y="200" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">if { … } block</text>
   <text x="220" y="225" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">runs only when true</text>
@@ -155,13 +155,13 @@ SVG;
   <rect x="40" y="50" width="380" height="180" rx="12" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
   <text x="230" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">SALAH untuk membandingkan</text>
   <text x="230" y="125" text-anchor="middle" font-family="Consolas,monospace" font-size="18" font-weight="700" fill="#C62828">if (suhu = 30)</text>
-  <text x="230" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#B71C1C">satu = = mengisi / menyimpan</text>
+  <text x="230" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#B71C1C">satu tanda = artinya mengisi</text>
   <text x="230" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">bukan pertanyaan “apakah sama?”</text>
   <rect x="440" y="50" width="380" height="180" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
   <text x="630" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">BENAR untuk membandingkan</text>
   <text x="630" y="125" text-anchor="middle" font-family="Consolas,monospace" font-size="18" font-weight="700" fill="#2E7D32">if (suhu == 30)</text>
-  <text x="630" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1B5E20">dua == = bertanya “sama?”</text>
-  <text x="630" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">hasilnya true atau false</text>
+  <text x="630" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1B5E20">dua tanda == artinya “sama?”</text>
+  <text x="630" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">hasilnya benar atau salah</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Tips:</strong> untuk “lebih besar / lebih kecil” pakai <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code>. Untuk “sama?” pakai <code>==</code>.
@@ -180,12 +180,12 @@ SVG;
   <rect x="40" y="50" width="380" height="180" rx="12" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
   <text x="230" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">WRONG for comparing</text>
   <text x="230" y="125" text-anchor="middle" font-family="Consolas,monospace" font-size="18" font-weight="700" fill="#C62828">if (temp = 30)</text>
-  <text x="230" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#B71C1C">one = assigns / stores</text>
+  <text x="230" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#B71C1C">one = sign means assign / store</text>
   <text x="230" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">not the question “are they equal?”</text>
   <rect x="440" y="50" width="380" height="180" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
   <text x="630" y="85" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">RIGHT for comparing</text>
   <text x="630" y="125" text-anchor="middle" font-family="Consolas,monospace" font-size="18" font-weight="700" fill="#2E7D32">if (temp == 30)</text>
-  <text x="630" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1B5E20">two == asks “equal?”</text>
+  <text x="630" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#1B5E20">two == signs mean “equal?”</text>
   <text x="630" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">result is true or false</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
@@ -207,10 +207,10 @@ SVG;
   <text x="430" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">cek pertama</text>
   <rect x="60" y="125" width="740" height="60" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
   <text x="430" y="153" text-anchor="middle" font-family="Consolas,monospace" font-size="14" fill="#F57F17">else if (suhu &lt;= 30) → NORMAL</text>
-  <text x="430" y="173" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#F9A825">cek kedua (hanya jika yang pertama false)</text>
+  <text x="430" y="173" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#F9A825">cek kedua (hanya jika yang pertama salah)</text>
   <rect x="60" y="200" width="740" height="60" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
   <text x="430" y="228" text-anchor="middle" font-family="Consolas,monospace" font-size="14" fill="#B71C1C">else → PANAS</text>
-  <text x="430" y="248" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">sisanya (bila kedua di atas false)</text>
+  <text x="430" y="248" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">sisanya (bila kedua di atas salah)</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Intinya:</strong> board berhenti di cabang pertama yang benar. Indentasi (spasi ke dalam) membantu mata mengikuti blok <code>{ }</code>.
@@ -248,21 +248,26 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Serial berubah saat angka suhu diganti" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" width="100%" height="auto" role="img" aria-label="Serial PANAS NORMAL">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Ubah angka suhu → Upload lagi → teks Serial berubah</text>
-  <rect x="40" y="45" width="370" height="220" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="225" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">suhu = 18  · baud 115200</text>
-  <text x="70" y="120" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">suhu dummy = 18</text>
-  <text x="70" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#81D4FA">DINGIN</text>
-  <text x="70" y="200" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">karena 18 &lt; 20</text>
-  <rect x="450" y="45" width="370" height="220" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="635" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">suhu = 36  · baud 115200</text>
-  <text x="480" y="120" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">suhu dummy = 36</text>
-  <text x="480" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#EF9A9A">PANAS</text>
-  <text x="480" y="200" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">karena bukan &lt;20 dan bukan &lt;=30</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="100%" height="auto" role="img" aria-label="Serial DINGIN NORMAL PANAS">
+  <text x="450" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Ubah angka suhu → Upload lagi → teks Serial berubah</text>
+  <rect x="20" y="45" width="270" height="200" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="155" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">suhu = 18</text>
+  <text x="40" y="120" font-family="Consolas,monospace" font-size="13" fill="#A5D6A7">suhu dummy = 18</text>
+  <text x="40" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#81D4FA">DINGIN</text>
+  <text x="40" y="195" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">karena 18 &lt; 20</text>
+  <rect x="315" y="45" width="270" height="200" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="450" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">suhu = 25</text>
+  <text x="335" y="120" font-family="Consolas,monospace" font-size="13" fill="#A5D6A7">suhu dummy = 25</text>
+  <text x="335" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#FFE082">NORMAL</text>
+  <text x="335" y="195" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">karena 20…30</text>
+  <rect x="610" y="45" width="270" height="200" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="745" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">suhu = 36</text>
+  <text x="630" y="120" font-family="Consolas,monospace" font-size="13" fill="#A5D6A7">suhu dummy = 36</text>
+  <text x="630" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#EF9A9A">PANAS</text>
+  <text x="630" y="195" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">karena di atas 30</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Intinya:</strong> belum ada sensor — kamu ganti angka di kode, Upload, lalu baca Serial Monitor (sama seperti FS-13).
+    <strong>Intinya:</strong> belum ada sensor — kamu ganti angka di kode, Upload, lalu baca Serial Monitor baud <strong>115200</strong> (sama seperti FS-13).
     <br>Sumber gambar: diagram buatan Koding Indonesia (FS-14). Panduan Serial: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor (IDE 2)</a>.
   </figcaption>
 </figure>
@@ -273,21 +278,26 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Serial changes when the temperature number changes" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" width="100%" height="auto" role="img" aria-label="Serial HOT NORMAL">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Change the number → Upload again → Serial text changes</text>
-  <rect x="40" y="45" width="370" height="220" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="225" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">temp = 18  · baud 115200</text>
-  <text x="70" y="120" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">dummy temp = 18</text>
-  <text x="70" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#81D4FA">COLD</text>
-  <text x="70" y="200" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">because 18 &lt; 20</text>
-  <rect x="450" y="45" width="370" height="220" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="635" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">temp = 36  · baud 115200</text>
-  <text x="480" y="120" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">dummy temp = 36</text>
-  <text x="480" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#EF9A9A">HOT</text>
-  <text x="480" y="200" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">because not &lt;20 and not &lt;=30</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="100%" height="auto" role="img" aria-label="Serial COLD NORMAL HOT">
+  <text x="450" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Change the number → Upload again → Serial text changes</text>
+  <rect x="20" y="45" width="270" height="200" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="155" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">temp = 18</text>
+  <text x="40" y="120" font-family="Consolas,monospace" font-size="13" fill="#A5D6A7">dummy temp = 18</text>
+  <text x="40" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#81D4FA">COLD</text>
+  <text x="40" y="195" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">because 18 &lt; 20</text>
+  <rect x="315" y="45" width="270" height="200" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="450" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">temp = 25</text>
+  <text x="335" y="120" font-family="Consolas,monospace" font-size="13" fill="#A5D6A7">dummy temp = 25</text>
+  <text x="335" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#FFE082">NORMAL</text>
+  <text x="335" y="195" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">because 20…30</text>
+  <rect x="610" y="45" width="270" height="200" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="745" y="75" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">temp = 36</text>
+  <text x="630" y="120" font-family="Consolas,monospace" font-size="13" fill="#A5D6A7">dummy temp = 36</text>
+  <text x="630" y="155" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#EF9A9A">HOT</text>
+  <text x="630" y="195" font-family="system-ui,sans-serif" font-size="12" fill="#90A4AE">because above 30</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>In short:</strong> no sensor yet — change the number in code, Upload, then read Serial Monitor (same as FS-13).
+    <strong>In short:</strong> no sensor yet — change the number in code, Upload, then read Serial Monitor at baud <strong>115200</strong> (same as FS-13).
     <br>Image source: diagram by Koding Indonesia (FS-14). Serial guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor (IDE 2)</a>.
   </figcaption>
 </figure>
@@ -332,9 +342,9 @@ SVG;
 <h2>Kondisi true/false dan if / else</h2>
 {$fork}
 <ul>
-<li>Kondisi yang benar → <strong>true</strong> → blok <code>if</code> jalan.</li>
-<li>Kondisi yang salah → <strong>false</strong> → blok <code>else</code> jalan (jika ada).</li>
-<li>Perbandingan umum: <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> <code>==</code>.</li>
+<li>Kondisi yang benar → <strong>benar (true)</strong> → blok <code>if</code> jalan.</li>
+<li>Kondisi yang salah → <strong>salah (false)</strong> → blok <code>else</code> jalan (jika ada).</li>
+<li>Perbandingan umum: <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> dan <code>==</code> (sama?).</li>
 </ul>
 
 <h2>Kesalahan klasik: = vs ==</h2>
@@ -457,7 +467,7 @@ HTML;
 <ul>
 <li>True condition → <strong>true</strong> → the <code>if</code> block runs.</li>
 <li>False condition → <strong>false</strong> → the <code>else</code> block runs (if present).</li>
-<li>Common comparisons: <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> <code>==</code>.</li>
+<li>Common comparisons: <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> and <code>==</code> (equal?).</li>
 </ul>
 
 <h2>Classic mistake: = vs ==</h2>
