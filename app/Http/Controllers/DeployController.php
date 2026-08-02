@@ -7451,6 +7451,8 @@ class DeployController extends Controller
             'Kesalahan yang sering terjadi',
             'Cara menguji perintah di atas',
             'millis()',
+            'EN (7)',
+            'Simpan sebagai',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
