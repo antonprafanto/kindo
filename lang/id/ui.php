@@ -384,6 +384,16 @@ return [
         'fsiot_fn_incomplete' => 'Masih ada langkah yang belum dicentang. Cek letak fungsi, baud 115200, atau buka Serial lagi.',
         'fsiot_fn_done' => 'Selesai',
         'fsiot_fn_todo' => 'Belum',
+        'fsiot_pin_badge' => 'Checklist peta pin',
+        'fsiot_pin_hint' => 'Centang tiap langkah cocokkan board + diagram. Target: 10/10.',
+        'fsiot_pin_check' => 'Cek kelengkapan',
+        'fsiot_pin_retry' => 'Kosongkan lagi',
+        'fsiot_pin_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_pin_progress' => ':filled dari :total tercentang',
+        'fsiot_pin_pass' => 'Lengkap :filled/:total — peta pin DevKitC-1 dikuasai! Lanjut FS-18 saat modulnya terbit.',
+        'fsiot_pin_incomplete' => 'Masih ada langkah yang belum dicentang. Cocokkan silkscreen, IO6–IO11, atau GPIO 2/27 lagi.',
+        'fsiot_pin_done' => 'Selesai',
+        'fsiot_pin_todo' => 'Belum',
     ],
 
     'theme' => [

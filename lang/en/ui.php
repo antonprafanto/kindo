@@ -384,6 +384,16 @@ return [
         'fsiot_fn_incomplete' => 'Some steps are still unchecked. Check function placement, baud 115200, or reopen Serial.',
         'fsiot_fn_done' => 'Done',
         'fsiot_fn_todo' => 'Not yet',
+        'fsiot_pin_badge' => 'Pin map checklist',
+        'fsiot_pin_hint' => 'Tick each board + diagram matching step. Target: 10/10.',
+        'fsiot_pin_check' => 'Check completeness',
+        'fsiot_pin_retry' => 'Clear again',
+        'fsiot_pin_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_pin_progress' => ':filled of :total checked',
+        'fsiot_pin_pass' => 'Complete :filled/:total — DevKitC-1 pin map mastered! Continue to FS-18 when that module publishes.',
+        'fsiot_pin_incomplete' => 'Some steps are still unchecked. Rematch silkscreen, IO6–IO11, or GPIO 2/27.',
+        'fsiot_pin_done' => 'Done',
+        'fsiot_pin_todo' => 'Not yet',
     ],
 
     'theme' => [
