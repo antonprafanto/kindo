@@ -374,6 +374,16 @@ return [
         'fsiot_fw_incomplete' => 'Some steps are still unchecked. Check for/while, baud 115200, or reopen Serial.',
         'fsiot_fw_done' => 'Done',
         'fsiot_fw_todo' => 'Not yet',
+        'fsiot_fn_badge' => 'Function checklist',
+        'fsiot_fn_hint' => 'Tick each IDE + Serial step (printStatus). Target: 10/10.',
+        'fsiot_fn_check' => 'Check completeness',
+        'fsiot_fn_retry' => 'Clear again',
+        'fsiot_fn_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_fn_progress' => ':filled of :total checked',
+        'fsiot_fn_pass' => 'Complete :filled/:total — printStatus works! Continue to FS-17 when that module publishes.',
+        'fsiot_fn_incomplete' => 'Some steps are still unchecked. Check function placement, baud 115200, or reopen Serial.',
+        'fsiot_fn_done' => 'Done',
+        'fsiot_fn_todo' => 'Not yet',
     ],
 
     'theme' => [

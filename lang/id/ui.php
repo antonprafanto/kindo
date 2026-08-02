@@ -374,6 +374,16 @@ return [
         'fsiot_fw_incomplete' => 'Masih ada langkah yang belum dicentang. Cek for/while, baud 115200, atau buka Serial lagi.',
         'fsiot_fw_done' => 'Selesai',
         'fsiot_fw_todo' => 'Belum',
+        'fsiot_fn_badge' => 'Checklist fungsi',
+        'fsiot_fn_hint' => 'Centang tiap langkah IDE + Serial (cetakStatus). Target: 10/10.',
+        'fsiot_fn_check' => 'Cek kelengkapan',
+        'fsiot_fn_retry' => 'Kosongkan lagi',
+        'fsiot_fn_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_fn_progress' => ':filled dari :total tercentang',
+        'fsiot_fn_pass' => 'Lengkap :filled/:total — fungsi cetakStatus jalan! Lanjut FS-17 saat modulnya terbit.',
+        'fsiot_fn_incomplete' => 'Masih ada langkah yang belum dicentang. Cek letak fungsi, baud 115200, atau buka Serial lagi.',
+        'fsiot_fn_done' => 'Selesai',
+        'fsiot_fn_todo' => 'Belum',
     ],
 
     'theme' => [
