@@ -52,7 +52,12 @@ check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
 check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 5', substr_count($id, '<figure') >= 5 && substr_count($en, '<figure') >= 5);
+check('figures both >= 6', substr_count($id, '<figure') >= 6 && substr_count($en, '<figure') >= 6);
+check('starter three labels ID', str_contains($id, 'Mulai dari 3 label') || str_contains($id, 'tiga label'));
+check('starter three labels EN', str_contains($en, 'Start with only 3 labels') || str_contains($en, 'three starter'));
+check('GPIO2 not dual-listed as aman contoh 2,', ! preg_match('/contoh: 2,/', $id));
+check('proses menyala boot wording', str_contains($id, 'proses menyala') && str_contains($en, 'power-on'));
+
 check('ID mistakes heading', str_contains($id, 'Kesalahan yang sering terjadi'));
 check('EN mistakes heading', str_contains($en, 'Common mistakes'));
 check('tools-first no PHP today', str_contains($id, 'Tidak perlu hari ini') && str_contains($en, 'Not needed today') && str_contains($id, 'browser'));

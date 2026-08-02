@@ -7702,6 +7702,8 @@ class DeployController extends Controller
             'Cara menguji pemahaman di atas',
             'EN (7)',
             'boards/ESP32-DevKitC-1.html',
+            'Mulai dari 3 label',
+            'proses menyala',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -7731,6 +7733,8 @@ class DeployController extends Controller
             'EN (7)',
             'boards/ESP32-DevKitC-1.html',
             'input-only',
+            'Start with only 3 labels',
+            'power-on',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

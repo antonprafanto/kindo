@@ -72,9 +72,9 @@ class Article87Seeder extends Seeder
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1400" height="955" alt="Peta pin resmi ESP32-DevKitC-1 — silkscreen kiri dan kanan board" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1400" height="955" alt="Peta pin resmi ESP32-DevKitC-1 — silkscreen kiri dan kanan board" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Pinout resmi FSIOT</strong> — ini peta yang kita pakai sepanjang jalur. Bandingkan tulisan di board kamu (silkscreen) dengan diagram ini. Kalau beda, jangan hafal “board tetangga”.
+    <strong>Pinout resmi FSIOT</strong> — peta lengkap. Jangan hafal semua sekaligus: cari dulu label yang kamu butuhkan (GND / 3V3 / GPIO). Bandingkan silkscreen board kamu. Kalau beda jauh, jangan hafal “board tetangga”.
     <br>Sumber gambar: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1 (Arduino ESP32 docs)</a> · © Espressif.
   </figcaption>
 </figure>
@@ -85,13 +85,61 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1400" height="955" alt="Official ESP32-DevKitC-1 pin map — left and right silkscreen" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/esp32-devkitc-1-pinlayout.jpg" width="1400" height="955" alt="Official ESP32-DevKitC-1 pin map — left and right silkscreen" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Official FSIOT pinout</strong> — this is the map we use for the whole path. Match the text on your board (silkscreen) to this diagram. If it differs, do not memorize a “neighbor board”.
+    <strong>Official FSIOT pinout</strong> — the full map. Do not memorize everything at once: first find the labels you need (GND / 3V3 / GPIO). Match your board silkscreen. If it differs a lot, do not memorize a “neighbor board”.
     <br>Image source: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1 (Arduino ESP32 docs)</a> · © Espressif.
   </figcaption>
 </figure>
 HTML;
+    }
+
+    private function starterSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="tiga label yang dicari dulu" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 175" width="100%" height="auto" role="img" aria-label="three starter labels">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Mulai dari 3 label saja (sebelum peta penuh)</text>
+  <rect x="40" y="42" width="240" height="90" rx="10" fill="#ECEFF1" stroke="#455A64" stroke-width="2.5"/>
+  <text x="160" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#263238">1. GND</text>
+  <text x="160" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">tanah bersama</text>
+  <rect x="310" y="42" width="240" height="90" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="430" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">2. 3V3</text>
+  <text x="430" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">daya logika 3,3 V</text>
+  <rect x="580" y="42" width="240" height="90" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+  <text x="700" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">3. GPIO 2</text>
+  <text x="700" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">LED belajar FSIOT</text>
+  <text x="430" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">Tunjuk tiga label ini di board dulu — baru buka diagram lengkap di bawah</text>
+</svg>
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Intinya:</strong> tidak perlu hafal semua pin sekaligus. Sumber gambar: diagram buatan Koding Indonesia (FS-17).
+  </figcaption>
+</figure>
+SVG;
+    }
+
+    private function starterSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="three starter labels to find first" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 175" width="100%" height="auto" role="img" aria-label="three starter labels">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Start with only 3 labels (before the full map)</text>
+  <rect x="40" y="42" width="240" height="90" rx="10" fill="#ECEFF1" stroke="#455A64" stroke-width="2.5"/>
+  <text x="160" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#263238">1. GND</text>
+  <text x="160" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">shared ground</text>
+  <rect x="310" y="42" width="240" height="90" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="430" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">2. 3V3</text>
+  <text x="430" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">3.3 V logic power</text>
+  <rect x="580" y="42" width="240" height="90" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+  <text x="700" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">3. GPIO 2</text>
+  <text x="700" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">FSIOT practice LED</text>
+  <text x="430" y="158" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">Point to these three on the board first — then open the full diagram below</text>
+</svg>
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>In short:</strong> you do not need to memorize every pin at once. Image source: diagram by Koding Indonesia (FS-17).
+  </figcaption>
+</figure>
+SVG;
     }
 
     private function boardFigureId(): string
@@ -128,21 +176,21 @@ HTML;
   <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Empat jenis pin yang wajib kamu kenali</text>
   <rect x="20" y="40" width="195" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
   <text x="117" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1B5E20">1. Aman latihan</text>
-  <text x="117" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">contoh: 2, 4, 13</text>
-  <text x="117" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">27, 25, 26, 21, 22</text>
+  <text x="117" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">contoh: 4, 13, 27</text>
+  <text x="117" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">25, 26, 21, 22</text>
   <rect x="230" y="40" width="195" height="120" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
   <text x="327" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#0D47A1">2. Input-only</text>
   <text x="327" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1565C0">34, 35, 36, 39</text>
   <text x="327" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">bisa baca, bukan output</text>
   <rect x="440" y="40" width="195" height="120" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
-  <text x="537" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#F57F17">3. Strap (hati-hati)</text>
+  <text x="537" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#F57F17">3. Strap / hati-hati</text>
   <text x="537" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#F9A825">0, 2, 12, 15, 5</text>
   <text x="537" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#F9A825">bisa ganggu boot</text>
   <rect x="650" y="40" width="190" height="120" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
   <text x="745" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#B71C1C">4. TERLARANG</text>
-  <text x="745" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#C62828">IO6 … IO11</text>
+  <text x="745" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#C62828">IO6 s/d IO11</text>
   <text x="745" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">flash — jangan pakai</text>
-  <text x="430" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">Intinya: pilih dari kolom hijau dulu; merah = larangan mutlak di jalur ini</text>
+  <text x="430" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">LED belajar FSIOT = GPIO 2 (ada di kolom strap, tetap dipakai khusus LED)</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Intinya:</strong> tidak semua lubang pin “sama saja”. Referensi board: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — DevKitC-1</a>.
@@ -160,21 +208,21 @@ SVG;
   <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Four pin kinds you must recognize</text>
   <rect x="20" y="40" width="195" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
   <text x="117" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#1B5E20">1. Safe to practice</text>
-  <text x="117" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">e.g. 2, 4, 13</text>
-  <text x="117" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">27, 25, 26, 21, 22</text>
+  <text x="117" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">e.g. 4, 13, 27</text>
+  <text x="117" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">25, 26, 21, 22</text>
   <rect x="230" y="40" width="195" height="120" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
   <text x="327" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#0D47A1">2. Input-only</text>
   <text x="327" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1565C0">34, 35, 36, 39</text>
   <text x="327" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">read OK, not output</text>
   <rect x="440" y="40" width="195" height="120" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
-  <text x="537" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#F57F17">3. Strap (careful)</text>
+  <text x="537" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#F57F17">3. Strap / careful</text>
   <text x="537" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#F9A825">0, 2, 12, 15, 5</text>
   <text x="537" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#F9A825">can disturb boot</text>
   <rect x="650" y="40" width="190" height="120" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
   <text x="745" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#B71C1C">4. FORBIDDEN</text>
-  <text x="745" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#C62828">IO6 … IO11</text>
+  <text x="745" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#C62828">IO6 to IO11</text>
   <text x="745" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">flash — do not use</text>
-  <text x="430" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">In short: start with the green column; red is an absolute ban on this path</text>
+  <text x="430" y="190" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">FSIOT practice LED = GPIO 2 (strap column, still used only for the LED)</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>In short:</strong> not every hole is the same. Board reference: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — DevKitC-1</a>.
@@ -314,6 +362,7 @@ SVG;
     {
         $pinlayout = $this->pinlayoutFigureId();
         $board = $this->boardFigureId();
+        $starter = $this->starterSvgId();
         $kinds = $this->kindsSvgId();
         $power = $this->powerSvgId();
         $map = $this->mapSvgId();
@@ -327,7 +376,7 @@ SVG;
 <ol>
 <li><strong>Siapkan board di tangan</strong> (DevKitC-1 atau clone yang silkscreen-nya cocok diagram resmi).</li>
 <li><strong>Buka artikel ini di browser</strong> — hari ini kita membaca peta, bukan menulis sketch baru.</li>
-<li>Cocokkan silkscreen board dengan diagram pinout resmi di bawah.</li>
+<li>Cari dulu 3 label: <strong>GND</strong>, <strong>3V3</strong>, <strong>GPIO 2</strong> — baru buka diagram penuh.</li>
 <li>Catat empat jenis pin: aman, input-only, strap, terlarang.</li>
 <li>Centang checklist 10/10 di browser.</li>
 </ol>
@@ -346,13 +395,14 @@ SVG;
 {$board}
 
 <h2>Cocokkan board dengan diagram resmi</h2>
+{$starter}
 {$pinlayout}
 <p><strong>Langkah praktis:</strong> putar board di tangan sampai arah USB sama dengan diagram. Lalu tunjuk satu nomor di silkscreen (misalnya <code>GND</code> atau <code>3V3</code>) dan temukan pasangan yang sama di gambar. Kalau banyak label beda jauh, itu bukan peta yang kita pakai — cari board yang cocok DevKitC-1.</p>
 
 <h2>Empat jenis pin</h2>
 {$kinds}
 <p><strong>Input-only (34 / 35 / 36 / 39):</strong> boleh dipakai untuk membaca sensor analog (ADC), tetapi <strong>jangan</strong> dipakai sebagai output LED/relay.</p>
-<p><strong>Strap (0, 2, 12, 15, 5):</strong> pin ini ikut “ritual boot”. Di jalur FSIOT kita tetap boleh memakai <strong>GPIO 2</strong> untuk LED belajar (sudah dikunci di tabel global), tetapi hindari GPIO0 untuk tombol latihan.</p>
+<p><strong>Strap (0, 2, 12, 15, 5):</strong> pin ini ikut proses menyala (boot) board. Di jalur FSIOT kita tetap memakai <strong>GPIO 2</strong> untuk LED belajar (sudah dikunci di tabel global), tetapi hindari GPIO0 untuk tombol latihan.</p>
 <p><strong>IO6–IO11:</strong> terhubung ke flash/PSRAM. <strong>Jangan pernah</strong> wiring ke situ di Core.</p>
 
 <h2>GND, 3V3, dan 5V</h2>
@@ -385,12 +435,12 @@ SVG;
 <ul id="fsiot-pin-checklist-items">
 <li>Board ada di tangan saat membaca artikel</li>
 <li>Browser menampilkan diagram pinout resmi</li>
+<li>Sudah cari 3 label dulu: GND, 3V3, GPIO 2</li>
 <li>Silkscreen board sudah dicocokkan dengan diagram Espressif</li>
 <li>Paham: IO6–IO11 terlarang (flash)</li>
 <li>Paham: 34/35/36/39 = input-only</li>
-<li>Paham: strap pin bisa ganggu boot</li>
-<li>Bisa tunjuk label GND di board</li>
-<li>Bisa tunjuk label 3V3 di board</li>
+<li>Paham: strap pin bisa ganggu boot; GPIO 2 khusus LED</li>
+<li>Bisa tunjuk label GND dan 3V3 di board</li>
 <li>Hafal LED belajar = GPIO 2 dan tombol = GPIO 27</li>
 <li>Sadar: satu jalur = satu tabel pin (jangan ganti nomor sesuka hati)</li>
 </ul>
@@ -418,6 +468,7 @@ HTML;
     {
         $pinlayout = $this->pinlayoutFigureEn();
         $board = $this->boardFigureEn();
+        $starter = $this->starterSvgEn();
         $kinds = $this->kindsSvgEn();
         $power = $this->powerSvgEn();
         $map = $this->mapSvgEn();
@@ -431,7 +482,7 @@ HTML;
 <ol>
 <li><strong>Have the board in hand</strong> (DevKitC-1 or a clone whose silkscreen matches the official diagram).</li>
 <li><strong>Open this article in the browser</strong> — today we read a map; we do not write a new sketch.</li>
-<li>Match your board silkscreen to the official pinout diagram below.</li>
+<li>Find 3 labels first: <strong>GND</strong>, <strong>3V3</strong>, <strong>GPIO 2</strong> — then open the full diagram.</li>
 <li>Note the four pin kinds: safe, input-only, strap, forbidden.</li>
 <li>Tick the 10/10 checklist in the browser.</li>
 </ol>
@@ -450,13 +501,14 @@ HTML;
 {$board}
 
 <h2>Match your board to the official diagram</h2>
+{$starter}
 {$pinlayout}
 <p><strong>Practical step:</strong> rotate the board until the USB direction matches the diagram. Then point to one silkscreen label (for example <code>GND</code> or <code>3V3</code>) and find the same pair in the image. If many labels differ a lot, that is not our map — find a board that matches DevKitC-1.</p>
 
 <h2>Four kinds of pins</h2>
 {$kinds}
 <p><strong>Input-only (34 / 35 / 36 / 39):</strong> fine for reading analog sensors (ADC), but <strong>do not</strong> use them as LED/relay outputs.</p>
-<p><strong>Strap (0, 2, 12, 15, 5):</strong> these pins take part in boot. On the FSIOT path we still use <strong>GPIO 2</strong> for the practice LED (locked in the global table), but avoid GPIO0 for practice buttons.</p>
+<p><strong>Strap (0, 2, 12, 15, 5):</strong> these pins take part in the board power-on (boot) process. On the FSIOT path we still use <strong>GPIO 2</strong> for the practice LED (locked in the global table), but avoid GPIO0 for practice buttons.</p>
 <p><strong>IO6–IO11:</strong> tied to flash/PSRAM. <strong>Never</strong> wire to them in Core.</p>
 
 <h2>GND, 3V3, and 5V</h2>
@@ -489,12 +541,12 @@ HTML;
 <ul id="fsiot-pin-checklist-items">
 <li>Board is in hand while reading the article</li>
 <li>Browser shows the official pinout diagram</li>
+<li>I found 3 labels first: GND, 3V3, GPIO 2</li>
 <li>Board silkscreen matched to the Espressif diagram</li>
 <li>I know: IO6–IO11 are forbidden (flash)</li>
 <li>I know: 34/35/36/39 are input-only</li>
-<li>I know: strap pins can disturb boot</li>
-<li>I can point to the GND label on the board</li>
-<li>I can point to the 3V3 label on the board</li>
+<li>I know: strap pins can disturb boot; GPIO 2 is for the LED only</li>
+<li>I can point to GND and 3V3 on the board</li>
 <li>I remember practice LED = GPIO 2 and button = GPIO 27</li>
 <li>I know: one path = one pin table (do not change numbers freely)</li>
 </ul>
