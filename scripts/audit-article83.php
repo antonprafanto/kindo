@@ -72,8 +72,11 @@ check('setup vs loop SVG', str_contains($id, 'setup vs loop') || str_contains($i
 check('flood SVG', str_contains($id, 'delay(1000)') && str_contains($id, 'banjir'));
 check('port SVG', str_contains($id, 'satu port') || str_contains($id, 'Satu kabel USB'));
 check('panel SVG', str_contains($id, 'contoh log detak') || str_contains($id, 'Serial Monitor (IDE 2)'));
-check('Espressif cite', str_contains($id, 'docs.espressif.com') && str_contains($en, 'docs.espressif.com'));
-check('KI diagram cite', str_contains($id, 'buatan Koding Indonesia') && str_contains($en, 'diagram by Koding Indonesia'));
+check('Arduino Docs Serial cite', str_contains($id, 'docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor') && str_contains($en, 'docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor'));
+check('ID H2 no English flood alone', str_contains($id, 'Jangan banjir teks') && ! str_contains($id, '<h2>Jangan flood'));
+check('port SVG SALAH/BENAR labels', str_contains($id, '>SALAH</text>') && str_contains($id, '>BENAR</text>'));
+check('EN port WRONG/RIGHT labels', str_contains($en, '>WRONG</text>') && str_contains($en, '>RIGHT</text>'));
+check('board caption highlights USB (6)', str_contains($id, '(6)') && str_contains($id, 'EN (7)'));
 
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $id, $svgIdBlocks);
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $en, $svgEnBlocks);
