@@ -7438,7 +7438,8 @@ class DeployController extends Controller
             'Cara pakai artikel ini',
             'Serial.begin(115200)',
             'for (int i = 1',
-            'while (n <= 10)',
+            // After ArticleHtmlSanitizer/DOM, raw "<=" becomes "&lt;="
+            'while (n &lt;= 10)',
             'FS-14',
             'FS-16',
             'esp32-devkitc-overview.jpg',
