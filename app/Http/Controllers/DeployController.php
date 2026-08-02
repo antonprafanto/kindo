@@ -7564,6 +7564,7 @@ class DeployController extends Controller
             'FS-15',
             'FS-17',
             'esp32-devkitc-overview.jpg',
+            'fs11-ide-overview-cite.png',
             'fsiot-fn-checklist',
             '115200',
             '/belajar/fullstack-iot',
@@ -7575,6 +7576,8 @@ class DeployController extends Controller
             'EN (7)',
             'BENAR',
             'SALAH',
+            'sejajar dengan',
+            'status: PANAS',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -7601,6 +7604,7 @@ class DeployController extends Controller
             'FS16_status',
             'printStatus(int temp)',
             'esp32-devkitc-overview.jpg',
+            'fs11-ide-overview-cite.png',
             'fsiot-fn-checklist',
             'FS-17',
             'Common mistakes',
@@ -7608,6 +7612,7 @@ class DeployController extends Controller
             'CORRECT',
             'WRONG',
             'EN (7)',
+            'status: HOT',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

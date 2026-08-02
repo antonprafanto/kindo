@@ -68,6 +68,32 @@ class Article86Seeder extends Seeder
         $this->command?->info('✓ Artikel #86 / FS-16 tersimpan sebagai DRAFT: '.$article->title);
     }
 
+    private function ideFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — toolbar Verify, Upload, dan ikon Serial Monitor di kanan atas" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Arduino IDE 2</strong> — tempat menguji sintaks hari ini. Kiri atas: <strong>Verify</strong> (✓) lalu <strong>Upload</strong> (→). Kanan atas: buka <strong>Serial Monitor</strong> untuk membaca <code>status: …</code>. Abaikan board lain di screenshot — kita pakai <strong>ESP32 Dev Module</strong>.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0) · asal dokumen Arduino. Panduan Serial: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor (IDE 2)</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function ideFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — Verify, Upload toolbar and Serial Monitor icon top-right" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Arduino IDE 2</strong> — where today’s syntax is tested. Top-left: <strong>Verify</strong> (✓) then <strong>Upload</strong> (→). Top-right: open <strong>Serial Monitor</strong> to read <code>status: …</code>. Ignore other boards in the screenshot — we use <strong>ESP32 Dev Module</strong>.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0) · from Arduino docs. Serial guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor (IDE 2)</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
     private function boardFigureId(): string
     {
         return <<<'HTML'
@@ -98,20 +124,21 @@ HTML;
     {
         return <<<'SVG'
 <figure role="img" aria-label="fungsi seperti resep bernama" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 200" width="100%" height="auto" role="img" aria-label="function analogy">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Fungsi = resep bernama yang bisa dipanggil ulang</text>
-  <rect x="40" y="48" width="240" height="120" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-  <text x="160" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">Resep: cetakStatus</text>
-  <text x="160" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">bahan: angka suhu</text>
-  <text x="160" y="144" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">hasil: teks di Serial</text>
-  <text x="310" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">→</text>
-  <rect x="340" y="48" width="220" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="450" y="95" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1B5E20">cetakStatus(18)</text>
-  <text x="450" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">panggil sekali</text>
-  <text x="590" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">→</text>
-  <rect x="620" y="48" width="200" height="120" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
-  <text x="720" y="95" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#F57F17">cetakStatus(32)</text>
-  <text x="720" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#F9A825">panggil lagi</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 185" width="100%" height="auto" role="img" aria-label="function analogy">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Fungsi = resep bernama yang bisa dipanggil ulang</text>
+  <rect x="30" y="40" width="230" height="100" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+  <text x="145" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#0D47A1">1. Definisi: cetakStatus</text>
+  <text x="145" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">bahan: angka suhu</text>
+  <text x="145" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">hasil: teks di Serial</text>
+  <text x="290" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">→</text>
+  <rect x="320" y="40" width="220" height="100" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="430" y="78" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1B5E20">cetakStatus(18)</text>
+  <text x="430" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">2. panggil sekali</text>
+  <text x="570" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">→</text>
+  <rect x="600" y="40" width="230" height="100" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
+  <text x="715" y="78" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#F57F17">cetakStatus(32)</text>
+  <text x="715" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#F9A825">3. panggil lagi</text>
+  <text x="430" y="168" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">Alur: tulis sekali → panggil → panggil lagi (tanpa salin-tempel ulang)</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Intinya:</strong> tulis sekali, panggil berkali-kali. Referensi: <a href="https://docs.arduino.cc/learn/programming/functions/" rel="noopener noreferrer" target="_blank">Arduino Docs — Functions</a>.
@@ -125,20 +152,21 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="a function is a named recipe" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 200" width="100%" height="auto" role="img" aria-label="function analogy">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">A function = a named recipe you can call again</text>
-  <rect x="40" y="48" width="240" height="120" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-  <text x="160" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">Recipe: printStatus</text>
-  <text x="160" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">ingredient: a number</text>
-  <text x="160" y="144" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">result: Serial text</text>
-  <text x="310" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">→</text>
-  <rect x="340" y="48" width="220" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="450" y="95" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1B5E20">printStatus(18)</text>
-  <text x="450" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">call once</text>
-  <text x="590" y="115" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">→</text>
-  <rect x="620" y="48" width="200" height="120" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
-  <text x="720" y="95" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#F57F17">printStatus(32)</text>
-  <text x="720" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#F9A825">call again</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 185" width="100%" height="auto" role="img" aria-label="function analogy">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">A function = a named recipe you can call again</text>
+  <rect x="30" y="40" width="230" height="100" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+  <text x="145" y="70" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700" fill="#0D47A1">1. Define: printStatus</text>
+  <text x="145" y="98" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">ingredient: a number</text>
+  <text x="145" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">result: Serial text</text>
+  <text x="290" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">→</text>
+  <rect x="320" y="40" width="220" height="100" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="430" y="78" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1B5E20">printStatus(18)</text>
+  <text x="430" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">2. call once</text>
+  <text x="570" y="95" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="700" fill="#1a1a1a">→</text>
+  <rect x="600" y="40" width="230" height="100" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
+  <text x="715" y="78" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#F57F17">printStatus(32)</text>
+  <text x="715" y="110" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#F9A825">3. call again</text>
+  <text x="430" y="168" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">Flow: write once → call → call again (no copy-paste)</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>In short:</strong> write once, call many times. Reference: <a href="https://docs.arduino.cc/learn/programming/functions/" rel="noopener noreferrer" target="_blank">Arduino Docs — Functions</a>.
@@ -152,21 +180,21 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="bagian fungsi nama parameter return" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" width="100%" height="auto" role="img" aria-label="function parts">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Tiga bagian yang sering dipakai hari ini</text>
-  <rect x="30" y="48" width="250" height="130" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-  <text x="155" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">1. Nama</text>
-  <text x="155" y="118" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1565C0">cetakStatus</text>
-  <text x="155" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">supaya mudah dipanggil</text>
-  <rect x="305" y="48" width="250" height="130" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="430" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">2. Parameter</text>
-  <text x="430" y="118" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#2E7D32">int suhu</text>
-  <text x="430" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">data yang dikirim masuk</text>
-  <rect x="580" y="48" width="250" height="130" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2.5"/>
-  <text x="705" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#6A1B9A">3. return</text>
-  <text x="705" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#7B1FA2">opsional hari ini</text>
-  <text x="705" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#7B1FA2">boleh void (tanpa nilai)</text>
-  <text x="430" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">void = fungsi bekerja (cetak) tanpa mengembalikan angka</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 195" width="100%" height="auto" role="img" aria-label="function parts">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Tiga bagian yang sering dipakai hari ini</text>
+  <rect x="30" y="40" width="250" height="105" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+  <text x="155" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">1. Nama</text>
+  <text x="155" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1565C0">cetakStatus</text>
+  <text x="155" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">supaya mudah dipanggil</text>
+  <rect x="305" y="40" width="250" height="105" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="430" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">2. Parameter</text>
+  <text x="430" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#2E7D32">int suhu</text>
+  <text x="430" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">data yang dikirim masuk</text>
+  <rect x="580" y="40" width="250" height="105" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2.5"/>
+  <text x="705" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#6A1B9A">3. return</text>
+  <text x="705" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#7B1FA2">opsional hari ini</text>
+  <text x="705" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#7B1FA2">boleh void (tanpa nilai)</text>
+  <text x="430" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">void = fungsi bekerja (cetak) tanpa mengembalikan angka</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Tips:</strong> mulai dari <code>void nama(...)</code>. Nanti baru sering pakai <code>return</code> untuk mengembalikan nilai.
@@ -180,21 +208,21 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="function name parameter return" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" width="100%" height="auto" role="img" aria-label="function parts">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Three parts we use today</text>
-  <rect x="30" y="48" width="250" height="130" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-  <text x="155" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">1. Name</text>
-  <text x="155" y="118" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1565C0">printStatus</text>
-  <text x="155" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">easy to call later</text>
-  <rect x="305" y="48" width="250" height="130" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="430" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">2. Parameter</text>
-  <text x="430" y="118" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#2E7D32">int temp</text>
-  <text x="430" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">data you pass in</text>
-  <rect x="580" y="48" width="250" height="130" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2.5"/>
-  <text x="705" y="88" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#6A1B9A">3. return</text>
-  <text x="705" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#7B1FA2">optional today</text>
-  <text x="705" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#7B1FA2">void = no value back</text>
-  <text x="430" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">void = the function works (prints) without returning a number</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 195" width="100%" height="auto" role="img" aria-label="function parts">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Three parts we use today</text>
+  <rect x="30" y="40" width="250" height="105" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+  <text x="155" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">1. Name</text>
+  <text x="155" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#1565C0">printStatus</text>
+  <text x="155" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#1565C0">easy to call later</text>
+  <rect x="305" y="40" width="250" height="105" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="430" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">2. Parameter</text>
+  <text x="430" y="100" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#2E7D32">int temp</text>
+  <text x="430" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">data you pass in</text>
+  <rect x="580" y="40" width="250" height="105" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2.5"/>
+  <text x="705" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#6A1B9A">3. return</text>
+  <text x="705" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#7B1FA2">optional today</text>
+  <text x="705" y="126" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#7B1FA2">void = no value back</text>
+  <text x="430" y="175" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">void = the function works (prints) without returning a number</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Tip:</strong> start with <code>void name(...)</code>. Later you will use <code>return</code> more often to send a value back.
@@ -208,21 +236,22 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="letak fungsi di sketch Arduino" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 240" width="100%" height="auto" role="img" aria-label="where to put functions">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Di mana menulis fungsi? (penting)</text>
-  <rect x="40" y="48" width="360" height="160" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="220" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">BENAR</text>
-  <text x="220" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#2E7D32">tulis di luar setup/loop</text>
-  <text x="220" y="148" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1B5E20">void cetakStatus(...) { }</text>
-  <text x="220" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">lalu panggil dari loop()</text>
-  <rect x="460" y="48" width="360" height="160" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
-  <text x="640" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">SALAH</text>
-  <text x="640" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#C62828">jangan di dalam setup()</text>
-  <text x="640" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#C62828">atau di dalam loop()</text>
-  <text x="640" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">Verify biasanya gagal / bingung</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" width="100%" height="auto" role="img" aria-label="where to put functions">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Di mana menulis fungsi? (penting)</text>
+  <rect x="40" y="40" width="360" height="140" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="220" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">BENAR</text>
+  <text x="220" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#2E7D32">tulis di luar setup/loop</text>
+  <text x="220" y="132" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1B5E20">void cetakStatus(...) { }</text>
+  <text x="220" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">lalu panggil dari loop()</text>
+  <rect x="460" y="40" width="360" height="140" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
+  <text x="640" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">SALAH</text>
+  <text x="640" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#C62828">jangan di dalam setup()</text>
+  <text x="640" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#C62828">atau di dalam loop()</text>
+  <text x="640" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">Verify sering error; compiler bingung</text>
+  <text x="430" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">Fungsi sejajar dengan setup/loop — bukan isinya</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Intinya:</strong> fungsi “teman” <code>setup</code>/<code>loop</code>, bukan isinya. Referensi: <a href="https://docs.arduino.cc/learn/programming/functions/" rel="noopener noreferrer" target="_blank">Arduino Docs — Functions</a>.
+    <strong>Intinya:</strong> fungsi sejajar dengan <code>setup</code>/<code>loop</code>, bukan isinya. Referensi: <a href="https://docs.arduino.cc/learn/programming/functions/" rel="noopener noreferrer" target="_blank">Arduino Docs — Functions</a>.
     <br>Sumber gambar: diagram buatan Koding Indonesia (FS-16).
   </figcaption>
 </figure>
@@ -233,18 +262,19 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="where to put functions in Arduino sketch" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 240" width="100%" height="auto" role="img" aria-label="where to put functions">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Where do you write a function? (important)</text>
-  <rect x="40" y="48" width="360" height="160" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-  <text x="220" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">CORRECT</text>
-  <text x="220" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#2E7D32">outside setup/loop</text>
-  <text x="220" y="148" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1B5E20">void printStatus(...) { }</text>
-  <text x="220" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">then call it from loop()</text>
-  <rect x="460" y="48" width="360" height="160" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
-  <text x="640" y="82" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">WRONG</text>
-  <text x="640" y="118" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#C62828">not inside setup()</text>
-  <text x="640" y="148" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#C62828">or inside loop()</text>
-  <text x="640" y="178" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">Verify often fails / confuses</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 220" width="100%" height="auto" role="img" aria-label="where to put functions">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Where do you write a function? (important)</text>
+  <rect x="40" y="40" width="360" height="140" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+  <text x="220" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">CORRECT</text>
+  <text x="220" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#2E7D32">outside setup/loop</text>
+  <text x="220" y="132" text-anchor="middle" font-family="Consolas,monospace" font-size="12" fill="#1B5E20">void printStatus(...) { }</text>
+  <text x="220" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#2E7D32">then call it from loop()</text>
+  <rect x="460" y="40" width="360" height="140" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
+  <text x="640" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">WRONG</text>
+  <text x="640" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#C62828">not inside setup()</text>
+  <text x="640" y="132" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#C62828">or inside loop()</text>
+  <text x="640" y="160" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#C62828">Verify often errors; compiler confused</text>
+  <text x="430" y="205" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">A function sits beside setup/loop — not inside them</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>In short:</strong> a function sits beside <code>setup</code>/<code>loop</code>, not inside them. Reference: <a href="https://docs.arduino.cc/learn/programming/functions/" rel="noopener noreferrer" target="_blank">Arduino Docs — Functions</a>.
@@ -258,16 +288,20 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Serial menampilkan status dari fungsi" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" width="100%" height="auto" role="img" aria-label="Serial status from function">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Serial Monitor — cetakStatus di loop (baud 115200)</text>
-  <rect x="80" y="45" width="700" height="220" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="110" y="80" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">FS16_status siap</text>
-  <text x="110" y="115" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">status: DINGIN</text>
-  <text x="110" y="145" font-family="Consolas,monospace" font-size="14" fill="#90A4AE">(loop menunggu 2 detik…)</text>
-  <text x="110" y="180" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">status: DINGIN</text>
-  <text x="110" y="215" font-family="Consolas,monospace" font-size="14" fill="#FFE082">ganti angka suhu → Upload → label berubah</text>
-  <rect x="520" y="70" width="220" height="36" rx="6" fill="#1565C0"/>
-  <text x="630" y="93" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">Baud: 115200</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" width="100%" height="auto" role="img" aria-label="Serial status from function">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Serial Monitor — cetakStatus di loop (baud 115200)</text>
+  <rect x="80" y="40" width="700" height="200" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="110" y="72" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">FS16_status siap</text>
+  <text x="110" y="102" font-family="Consolas,monospace" font-size="14" fill="#81C784">status: DINGIN</text>
+  <text x="360" y="102" font-family="system-ui,sans-serif" font-size="11" fill="#90A4AE">← suhu 18</text>
+  <text x="110" y="132" font-family="Consolas,monospace" font-size="14" fill="#FFF59D">status: NORMAL</text>
+  <text x="360" y="132" font-family="system-ui,sans-serif" font-size="11" fill="#90A4AE">← suhu 25</text>
+  <text x="110" y="162" font-family="Consolas,monospace" font-size="14" fill="#FFAB91">status: PANAS</text>
+  <text x="360" y="162" font-family="system-ui,sans-serif" font-size="11" fill="#90A4AE">← suhu 35</text>
+  <text x="110" y="200" font-family="Consolas,monospace" font-size="13" fill="#FFE082">ganti angka suhu → Upload → label berubah</text>
+  <rect x="520" y="60" width="220" height="36" rx="6" fill="#1565C0"/>
+  <text x="630" y="83" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">Baud: 115200</text>
+  <text x="430" y="262" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">Contoh tiga label setelah ganti angka lalu Upload ulang</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Intinya:</strong> <code>loop()</code> hanya memanggil fungsi — isi detail ada di <code>cetakStatus</code>. Panduan Serial: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor (IDE 2)</a>.
@@ -281,16 +315,20 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Serial shows status from a function" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 300" width="100%" height="auto" role="img" aria-label="Serial status from function">
-  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Serial Monitor — printStatus in loop (baud 115200)</text>
-  <rect x="80" y="45" width="700" height="220" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
-  <text x="110" y="80" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">FS16_status ready</text>
-  <text x="110" y="115" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">status: COLD</text>
-  <text x="110" y="145" font-family="Consolas,monospace" font-size="14" fill="#90A4AE">(loop waits 2 seconds…)</text>
-  <text x="110" y="180" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">status: COLD</text>
-  <text x="110" y="215" font-family="Consolas,monospace" font-size="14" fill="#FFE082">change the number → Upload → label changes</text>
-  <rect x="520" y="70" width="220" height="36" rx="6" fill="#1565C0"/>
-  <text x="630" y="93" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">Baud: 115200</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 280" width="100%" height="auto" role="img" aria-label="Serial status from function">
+  <text x="430" y="22" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Serial Monitor — printStatus in loop (baud 115200)</text>
+  <rect x="80" y="40" width="700" height="200" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <text x="110" y="72" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">FS16_status ready</text>
+  <text x="110" y="102" font-family="Consolas,monospace" font-size="14" fill="#81C784">status: COLD</text>
+  <text x="340" y="102" font-family="system-ui,sans-serif" font-size="11" fill="#90A4AE">← temp 18</text>
+  <text x="110" y="132" font-family="Consolas,monospace" font-size="14" fill="#FFF59D">status: NORMAL</text>
+  <text x="360" y="132" font-family="system-ui,sans-serif" font-size="11" fill="#90A4AE">← temp 25</text>
+  <text x="110" y="162" font-family="Consolas,monospace" font-size="14" fill="#FFAB91">status: HOT</text>
+  <text x="340" y="162" font-family="system-ui,sans-serif" font-size="11" fill="#90A4AE">← temp 35</text>
+  <text x="110" y="200" font-family="Consolas,monospace" font-size="13" fill="#FFE082">change the number → Upload → label changes</text>
+  <rect x="520" y="60" width="220" height="36" rx="6" fill="#1565C0"/>
+  <text x="630" y="83" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">Baud: 115200</text>
+  <text x="430" y="262" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#546E7A">Three labels after you change the number and Upload again</text>
 </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>In short:</strong> <code>loop()</code> only calls the function — the details live in <code>printStatus</code>. Serial guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor (IDE 2)</a>.
@@ -302,6 +340,7 @@ SVG;
 
     private function body(): string
     {
+        $ide = $this->ideFigureId();
         $board = $this->boardFigureId();
         $analogy = $this->analogySvgId();
         $parts = $this->partsSvgId();
@@ -317,8 +356,8 @@ SVG;
 <ol>
 <li><strong>Buka Arduino IDE</strong> dulu (bukan Laragon / terminal web).</li>
 <li>Baca: apa itu fungsi, parameter, dan di mana menulisnya.</li>
-<li>Buat sketch <code>FS16_status</code> → <strong>Upload</strong>.</li>
-<li><strong>Buka Serial Monitor</strong> → baud <strong>115200</strong> → lihat baris <code>status: …</code>.</li>
+<li>Buat sketch <code>FS16_status</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
+<li><strong>Buka Serial Monitor</strong> (ikon di kanan atas IDE 2) → baud <strong>115200</strong> → lihat baris <code>status: …</code>.</li>
 <li>Centang checklist 10/10 di browser.</li>
 </ol>
 <p><strong>Tidak perlu hari ini:</strong> sensor nyata, Wi-Fi, Laragon, <code>php artisan</code>, wiring baru. Tools hari ini: <strong>Arduino IDE</strong> + <strong>Serial Monitor</strong> + ESP32 + kabel USB data + <strong>browser</strong> (checklist).</p>
@@ -329,15 +368,16 @@ SVG;
 <li>Buka <strong>Arduino IDE 2.x</strong>.</li>
 <li>Board <strong>ESP32 Dev Module</strong> + port COM/tty sudah dipilih.</li>
 <li>Siapkan ESP32 + kabel USB data.</li>
-<li>Serial Monitor siap di baud 115200.</li>
+<li>Siapkan Serial Monitor (baud 115200) — tombolnya di kanan atas IDE.</li>
 </ol>
 <p><strong>Alat yang dipakai hari ini:</strong> Arduino IDE, Serial Monitor, ESP32, USB data, browser.</p>
 <p><strong>Tidak dipakai hari ini:</strong> Laragon, <code>php artisan</code>, sensor, multimeter, PuTTY.</p>
+{$ide}
 {$board}
 
 <h2>Fungsi itu apa?</h2>
 {$analogy}
-<p>Tanpa fungsi, kamu bisa menyalin-tempel blok yang sama berkali-kali. Itu cepat kacau. Dengan fungsi, <code>loop()</code> tetap pendek: cukup memanggil nama fungsi.</p>
+<p>Tanpa fungsi, kamu bisa <strong>salin-tempel</strong> blok yang sama berkali-kali. Itu cepat kacau. Dengan fungsi, <code>loop()</code> tetap pendek: cukup memanggil nama fungsi.</p>
 
 <h2>Nama, parameter, dan return</h2>
 {$parts}
@@ -364,11 +404,11 @@ SVG;
 {$panel}
 <p>Tujuan: <code>loop()</code> memanggil <code>cetakStatus(suhu)</code>, dan Serial menampilkan label (DINGIN / NORMAL / PANAS) berulang.</p>
 <ol>
-<li>Arduino IDE → <strong>File → New Sketch</strong> → <strong>Simpan sebagai</strong> <code>FS16_status</code>.</li>
+<li>Arduino IDE → <strong>File → New Sketch</strong> → <strong>Simpan sebagai</strong> (<em>Save As</em>) <code>FS16_status</code>.</li>
 <li>Ganti isi dengan kode di bawah (salin utuh).</li>
-<li><strong>Verify</strong> → <strong>Upload</strong> → tunggu <em>Done uploading</em>.</li>
-<li>Klik <strong>Open Serial Monitor</strong> (toolbar kanan atas IDE 2) → set <strong>115200</strong>.</li>
-<li>Amati baris <code>status: …</code>. Ganti angka <code>suhu</code> → Upload lagi → label berubah. Jika perlu, tekan tombol <strong>EN (7)</strong>.</li>
+<li><strong>Verify</strong> (✓) → <strong>Upload</strong> (→) → tunggu <em>Done uploading</em>.</li>
+<li>Klik <strong>Open Serial Monitor</strong> (toolbar kanan atas IDE 2) → set baud <strong>115200</strong>.</li>
+<li>Amati baris <code>status: …</code>. Ganti angka <code>suhu</code> (misalnya 18 / 25 / 35) → Upload lagi → label berubah (DINGIN / NORMAL / PANAS). Jika perlu, tekan tombol <strong>EN (7)</strong>.</li>
 </ol>
 <pre><code class="language-cpp">// FS16_status — Full Stack IoT FS-16
 // Fungsi cetakStatus(int suhu) dipanggil dari loop.
@@ -434,6 +474,7 @@ HTML;
 
     private function bodyEn(): string
     {
+        $ide = $this->ideFigureEn();
         $board = $this->boardFigureEn();
         $analogy = $this->analogySvgEn();
         $parts = $this->partsSvgEn();
@@ -449,8 +490,8 @@ HTML;
 <ol>
 <li><strong>Open Arduino IDE</strong> first (not Laragon / a web terminal).</li>
 <li>Read: what a function is, parameters, and where to write it.</li>
-<li>Create sketch <code>FS16_status</code> → <strong>Upload</strong>.</li>
-<li><strong>Open Serial Monitor</strong> → baud <strong>115200</strong> → watch <code>status: …</code> lines.</li>
+<li>Create sketch <code>FS16_status</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
+<li><strong>Open Serial Monitor</strong> (top-right icon in IDE 2) → baud <strong>115200</strong> → watch <code>status: …</code> lines.</li>
 <li>Tick the 10/10 checklist in the browser.</li>
 </ol>
 <p><strong>Not needed today:</strong> real sensors, Wi-Fi, Laragon, <code>php artisan</code>, new wiring. Today's tools: <strong>Arduino IDE</strong> + <strong>Serial Monitor</strong> + ESP32 + USB data cable + <strong>browser</strong> (checklist).</p>
@@ -461,10 +502,11 @@ HTML;
 <li>Open <strong>Arduino IDE 2.x</strong>.</li>
 <li><strong>ESP32 Dev Module</strong> board + COM/tty port are selected.</li>
 <li>Prepare the ESP32 + USB data cable.</li>
-<li>Have Serial Monitor ready at baud 115200.</li>
+<li>Have Serial Monitor ready (baud 115200) — button is top-right in the IDE.</li>
 </ol>
 <p><strong>Tools used today:</strong> Arduino IDE, Serial Monitor, ESP32, USB data, browser.</p>
 <p><strong>Not used today:</strong> Laragon, <code>php artisan</code>, sensors, multimeter, PuTTY.</p>
+{$ide}
 {$board}
 
 <h2>What is a function?</h2>
@@ -498,9 +540,9 @@ HTML;
 <ol>
 <li>Arduino IDE → <strong>File → New Sketch</strong> → <strong>Save as</strong> <code>FS16_status</code>.</li>
 <li>Replace the contents with the code below (copy it whole).</li>
-<li><strong>Verify</strong> → <strong>Upload</strong> → wait for <em>Done uploading</em>.</li>
-<li>Click <strong>Open Serial Monitor</strong> (top-right toolbar in IDE 2) → set <strong>115200</strong>.</li>
-<li>Watch <code>status: …</code>. Change the <code>temp</code> number → Upload again → the label changes. Press <strong>EN (7)</strong> if needed.</li>
+<li><strong>Verify</strong> (✓) → <strong>Upload</strong> (→) → wait for <em>Done uploading</em>.</li>
+<li>Click <strong>Open Serial Monitor</strong> (top-right toolbar in IDE 2) → set baud <strong>115200</strong>.</li>
+<li>Watch <code>status: …</code>. Change the <code>temp</code> number (e.g. 18 / 25 / 35) → Upload again → the label changes (COLD / NORMAL / HOT). Press <strong>EN (7)</strong> if needed.</li>
 </ol>
 <pre><code class="language-cpp">// FS16_status — Full Stack IoT FS-16
 // Function printStatus(int temp) called from loop.
