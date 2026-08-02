@@ -334,6 +334,16 @@ return [
         'fsiot_sk_incomplete' => 'Some steps are still unchecked. Retry in Arduino IDE or check the sketchbook folder.',
         'fsiot_sk_done' => 'Done',
         'fsiot_sk_todo' => 'Not yet',
+        'fsiot_vr_badge' => 'Variables & Serial checklist',
+        'fsiot_vr_hint' => 'Tick each IDE + Serial Monitor step you completed. Target: 10/10.',
+        'fsiot_vr_check' => 'Check completeness',
+        'fsiot_vr_retry' => 'Clear again',
+        'fsiot_vr_paper' => 'Paper version (notes / no clicks)',
+        'fsiot_vr_progress' => ':filled of :total checked',
+        'fsiot_vr_pass' => 'Complete :filled/:total — variables readable on Serial! Continue to FS-13 when that module publishes.',
+        'fsiot_vr_incomplete' => 'Some steps are still unchecked. Check baud 115200 or reopen Serial Monitor.',
+        'fsiot_vr_done' => 'Done',
+        'fsiot_vr_todo' => 'Not yet',
     ],
 
     'theme' => [

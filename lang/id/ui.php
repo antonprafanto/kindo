@@ -334,6 +334,16 @@ return [
         'fsiot_sk_incomplete' => 'Masih ada langkah yang belum dicentang. Ulangi di Arduino IDE atau cek folder sketchbook.',
         'fsiot_sk_done' => 'Selesai',
         'fsiot_sk_todo' => 'Belum',
+        'fsiot_vr_badge' => 'Checklist variabel & Serial',
+        'fsiot_vr_hint' => 'Centang tiap langkah IDE + Serial Monitor yang sudah kamu lakukan. Target: 10/10.',
+        'fsiot_vr_check' => 'Cek kelengkapan',
+        'fsiot_vr_retry' => 'Kosongkan lagi',
+        'fsiot_vr_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_vr_progress' => ':filled dari :total tercentang',
+        'fsiot_vr_pass' => 'Lengkap :filled/:total — variabel terbaca di Serial! Lanjut FS-13 saat modulnya terbit.',
+        'fsiot_vr_incomplete' => 'Masih ada langkah yang belum dicentang. Cek baud 115200 atau buka Serial Monitor lagi.',
+        'fsiot_vr_done' => 'Selesai',
+        'fsiot_vr_todo' => 'Belum',
     ],
 
     'theme' => [
