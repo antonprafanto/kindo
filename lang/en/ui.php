@@ -424,6 +424,16 @@ return [
         'fsiot_pwm_incomplete' => 'Some steps are still unchecked. Recheck GPIO 2 wiring, analogWrite, or Serial fade.',
         'fsiot_pwm_done' => 'Done',
         'fsiot_pwm_todo' => 'Not yet',
+        'fsiot_dht_badge' => 'DHT22 sensor checklist',
+        'fsiot_dht_hint' => 'Tick each IDE + Library Manager + GPIO 4 + Serial step. Target: 10/10.',
+        'fsiot_dht_check' => 'Check completeness',
+        'fsiot_dht_retry' => 'Clear again',
+        'fsiot_dht_paper' => 'Paper version (no clicks)',
+        'fsiot_dht_progress' => ':filled of :total checked',
+        'fsiot_dht_pass' => 'Complete :filled/:total — DHT22 temperature & humidity on GPIO 4 reads in Serial! Continue to FS-22 when that module publishes.',
+        'fsiot_dht_incomplete' => 'Some steps are still unchecked. Recheck GPIO 4 wiring, DHT library install, or Serial output.',
+        'fsiot_dht_done' => 'Done',
+        'fsiot_dht_todo' => 'Not yet',
     ],
 
     'theme' => [

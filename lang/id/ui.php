@@ -424,6 +424,16 @@ return [
         'fsiot_pwm_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring GPIO 2, analogWrite, atau Serial fade lagi.',
         'fsiot_pwm_done' => 'Selesai',
         'fsiot_pwm_todo' => 'Belum',
+        'fsiot_dht_badge' => 'Checklist sensor DHT22',
+        'fsiot_dht_hint' => 'Centang tiap langkah IDE + Library Manager + GPIO 4 + Serial. Target: 10/10.',
+        'fsiot_dht_check' => 'Cek kelengkapan',
+        'fsiot_dht_retry' => 'Kosongkan lagi',
+        'fsiot_dht_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_dht_progress' => ':filled dari :total tercentang',
+        'fsiot_dht_pass' => 'Lengkap :filled/:total — suhu & kelembapan DHT22 GPIO 4 terbaca di Serial! Lanjut FS-22 saat modulnya terbit.',
+        'fsiot_dht_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring GPIO 4, Library Manager DHT, atau Serial lagi.',
+        'fsiot_dht_done' => 'Selesai',
+        'fsiot_dht_todo' => 'Belum',
     ],
 
     'theme' => [
