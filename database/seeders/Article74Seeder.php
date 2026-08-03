@@ -135,8 +135,8 @@ HTML;
                 'kit-dht22.jpg',
                 'Foto modul sensor DHT22 suhu dan kelembapan',
                 'Contoh modul <strong>DHT22</strong> (sensor putih bergerigi di atas PCB kecil — warna PCB bisa hitam/biru). DHT11 bentuknya mirip — bedanya ketelitian.',
-                'https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg',
-                'Suyash Dwivedi — DHT22 module',
+                'https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg',
+                'L293D — AM2302 DHT22 Sensor',
                 'CC BY-SA 4.0'
             ),
             'ldr' => $this->kitPhoto(
@@ -218,8 +218,8 @@ HTML;
                 'kit-dht22.jpg',
                 'Photo of a DHT22 temperature and humidity sensor module',
                 'Example <strong>DHT22</strong> module (white ridged sensor on a small PCB — the PCB may be black or blue). DHT11 looks similar — accuracy differs.',
-                'https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg',
-                'Suyash Dwivedi — DHT22 module',
+                'https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg',
+                'L293D — AM2302 DHT22 Sensor',
                 'CC BY-SA 4.0',
                 'Image source'
             ),

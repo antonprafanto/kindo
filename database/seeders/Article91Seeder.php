@@ -145,8 +145,8 @@ HTML;
     </div>
   </div>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Komponen hari ini:</strong> modul DHT22 + resistor 10 kΩ (kalau modul belum punya pull-up). DHT11 boleh sementara — ketelitian berbeda; tulis di catatanmu.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg" rel="noopener noreferrer" target="_blank">DHT22 module</a> · Wikimedia Commons (CC BY-SA 4.0) · Suyash Dwivedi · foto resistor kit Koding Indonesia.
+    <strong>Komponen hari ini:</strong> modul DHT22 / AM2302 + resistor 10 kΩ (kalau modul belum punya pull-up). DHT11 boleh sementara — ketelitian berbeda; tulis di catatanmu. <strong>Baca label silkscreen</strong> di modulmu — urutan kaki (VCC / DATA / GND) bisa beda antar merek.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" rel="noopener noreferrer" target="_blank">AM2302 DHT22 Sensor</a> · Wikimedia Commons (CC BY-SA 4.0) · L293D · foto resistor kit Koding Indonesia.
   </figcaption>
 </figure>
 HTML;
@@ -167,8 +167,8 @@ HTML;
     </div>
   </div>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Parts today:</strong> DHT22 module + 10 kΩ resistor (if the module has no onboard pull-up). DHT11 is OK temporarily — accuracy differs; note it.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg" rel="noopener noreferrer" target="_blank">DHT22 module</a> · Wikimedia Commons (CC BY-SA 4.0) · Suyash Dwivedi · Koding Indonesia resistor kit photo.
+    <strong>Parts today:</strong> DHT22 / AM2302 module + 10 kΩ resistor (if the module has no onboard pull-up). DHT11 is OK temporarily — accuracy differs; note it. <strong>Read the silkscreen</strong> on your module — pin order (VCC / DATA / GND) can differ by brand.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" rel="noopener noreferrer" target="_blank">AM2302 DHT22 Sensor</a> · Wikimedia Commons (CC BY-SA 4.0) · L293D · Koding Indonesia resistor kit photo.
   </figcaption>
 </figure>
 HTML;
@@ -391,7 +391,7 @@ SVG;
 {$main}
 
 <h2>Wiring DHT22 (bahasa manusia)</h2>
-<p>Modul kit biasanya 3 kaki: <strong>VCC</strong>, <strong>DATA</strong>, <strong>GND</strong>. Sambungkan VCC ke <strong>3V3</strong> (level ESP32), DATA ke <strong>GPIO 4</strong>, GND ke <strong>GND</strong>. Pasang resistor <strong>10 kΩ</strong> antara DATA dan 3V3 (pull-up). Banyak modul sudah punya pull-up di PCB — jika bacaan gagal terus, pasang 10 kΩ eksternal.</p>
+<p>Modul kit biasanya 3 kaki: <strong>VCC</strong>, <strong>DATA</strong> (kadang tertulis <strong>DAT</strong> / <strong>OUT</strong>), dan <strong>GND</strong>. Sambungkan VCC ke <strong>3V3</strong> (level ESP32), DATA ke <strong>GPIO 4</strong>, GND ke <strong>GND</strong>. Pasang resistor <strong>10 kΩ</strong> antara DATA dan 3V3 (pull-up). Banyak modul sudah punya pull-up di PCB — jika bacaan gagal terus, pasang 10 kΩ eksternal. <strong>Baca label silkscreen di modulmu</strong> — urutan kaki bisa beda antar merek; jangan hanya meniru foto.</p>
 <p>Referensi wiring: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a>.</p>
 
 <h2>Library Manager — pasang “penerjemah” sensor</h2>
@@ -523,7 +523,7 @@ HTML;
 {$main}
 
 <h2>DHT22 wiring (human language)</h2>
-<p>Kit modules usually have 3 pins: <strong>VCC</strong>, <strong>DATA</strong>, <strong>GND</strong>. Wire VCC to <strong>3V3</strong> (ESP32 level), DATA to <strong>GPIO 4</strong>, GND to <strong>GND</strong>. Add a <strong>10 kΩ</strong> resistor between DATA and 3V3 (pull-up). Many modules already include a pull-up — if reads keep failing, add an external 10 kΩ.</p>
+<p>Kit modules usually have 3 pins: <strong>VCC</strong>, <strong>DATA</strong> (sometimes labeled <strong>DAT</strong> / <strong>OUT</strong>), and <strong>GND</strong>. Wire VCC to <strong>3V3</strong> (ESP32 level), DATA to <strong>GPIO 4</strong>, GND to <strong>GND</strong>. Add a <strong>10 kΩ</strong> resistor between DATA and 3V3 (pull-up). Many modules already include a pull-up — if reads keep failing, add an external 10 kΩ. <strong>Read the silkscreen on your module</strong> — pin order can differ by brand; do not copy a photo blindly.</p>
 <p>Wiring reference: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a>.</p>
 
 <h2>Library Manager — install the sensor “translator”</h2>

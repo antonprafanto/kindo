@@ -51,7 +51,7 @@ check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both (>=3: sense + photos + flow)', substr_count($id, '<figure') >= 3 && substr_count($en, '<figure') >= 3);
 check('flow diagram telemetry/command dir', str_contains($id, 'perangkat → sistem') && str_contains($id, 'sistem → perangkat') && str_contains($en, 'device → system') && str_contains($en, 'system → device'));
-check('example photos + cites', str_contains($id, 'kit-dht22.jpg') && str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg'));
+check('example photos + cites', str_contains($id, 'kit-dht22.jpg') && str_contains($id, 'kit-led-5mm.jpg') && str_contains($id, 'esp32-devkitc-overview.jpg') && str_contains($id, 'DHT_22_Sensor.jpg'));
 check('EN example photos', str_contains($en, 'kit-dht22.jpg') && str_contains($en, 'kit-led-5mm.jpg'));
 check('photo files exist', is_file(__DIR__.'/../public/images/fsiot/kit-dht22.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-led-5mm.jpg') && is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg'));
 check('Arti sederhana / Plain meaning', str_contains($id, 'Arti sederhana') && str_contains($en, 'Plain meaning'));

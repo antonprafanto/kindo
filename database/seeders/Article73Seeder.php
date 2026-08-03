@@ -205,7 +205,7 @@ SVG;
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="Board ESP32-DevKitC — contoh mikrokontroler (otak kecil)" loading="lazy" style="flex:1 1 280px;max-width:360px;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="flex:1 1 100%;font-size:0.85rem;margin-top:0.25rem;color:#4A5568;">
     Contoh nyata (belum dirakit hari ini): <strong>sensor</strong> (DHT22), <strong>aktuator</strong> (LED), <strong>mikrokontroler</strong> (ESP32-DevKitC).
-    <br>Sumber: <a href="https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — DHT22 module</a> ·
+    <br>Sumber: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — AM2302 DHT22 Sensor (L293D)</a> ·
     <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — LED 5mm</a> ·
     <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC User Guide</a>.
   </figcaption>
@@ -459,7 +459,7 @@ HTML;
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="519" alt="ESP32-DevKitC board — microcontroller (small brain) example" loading="lazy" style="flex:1 1 280px;max-width:360px;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="flex:1 1 100%;font-size:0.85rem;margin-top:0.25rem;color:#4A5568;">
     Real examples (no assembly today): <strong>sensor</strong> (DHT22), <strong>actuator</strong> (LED), <strong>microcontroller</strong> (ESP32-DevKitC).
-    <br>Sources: <a href="https://commons.wikimedia.org/wiki/File:DHT22_digital_temperature_and_humidity_sensor_module_pcb.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — DHT22 module</a> ·
+    <br>Sources: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — AM2302 DHT22 Sensor (L293D)</a> ·
     <a href="https://commons.wikimedia.org/wiki/File:5mm_LED_Light-emitting_diode.jpg" rel="noopener noreferrer" target="_blank">Wikimedia — LED 5mm</a> ·
     <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC User Guide</a>.
   </figcaption>
