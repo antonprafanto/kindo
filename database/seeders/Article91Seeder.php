@@ -177,9 +177,9 @@ HTML;
     private function mainWiringFigureId(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1040" height="620" alt="Gambar utama — wiring DHT22 ke GPIO 4 dengan pull-up 10 kOhm" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="720" alt="Gambar utama — wiring DHT22 ke GPIO 4 dengan pull-up 10 kOhm" loading="eager" style="width:100%;height:auto;max-height:580px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Gambar utama — wiring DHT22.</strong> VCC → <strong>3V3</strong> · DATA → <strong>GPIO 4</strong> · GND → <strong>GND</strong> · resistor <strong>10 kΩ</strong> antara DATA dan 3V3. Cocokkan label silkscreen di board kamu.
     <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-21). Panduan koneksi: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a>.
   </figcaption>
@@ -190,9 +190,9 @@ HTML;
     private function mainWiringFigureEn(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1040" height="620" alt="Main figure — DHT22 wiring to GPIO 4 with 10 kOhm pull-up" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="720" alt="Main figure — DHT22 wiring to GPIO 4 with 10 kOhm pull-up" loading="eager" style="width:100%;height:auto;max-height:580px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Main figure — DHT22 wiring.</strong> VCC → <strong>3V3</strong> · DATA → <strong>GPIO 4</strong> · GND → <strong>GND</strong> · <strong>10 kΩ</strong> between DATA and 3V3. Match silkscreen labels on your board.
     <br>Image source: labeled diagram by Koding Indonesia (FS-21). Connection guide: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a>.
   </figcaption>
