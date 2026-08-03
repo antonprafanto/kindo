@@ -259,8 +259,9 @@ jobs:
           for f in logo.png favicon.ico favicon-16x16.png favicon-32x32.png apple-touch-icon.png og-default.png \
             images/fsiot/hero-desk.jpg images/fsiot/fs02-real-world-lamp.jpg images/fsiot/esp32-devkitc-1-pinlayout.jpg images/fsiot/esp32-devkitc-overview.jpg \
             images/fsiot/kit-breadboard.jpg images/fsiot/kit-jumper-wires.jpg images/fsiot/kit-led-5mm.jpg \
-            images/fsiot/kit-resistor.jpg images/fsiot/fs09-led-breadboard-wiring.png images/fsiot/fs18-led-gpio2-breadboard.png images/fsiot/fs19-btn-gpio4-breadboard.png images/fsiot/fs19-button-pullup-wiring.png images/fsiot/fs19-button-pullup-wiring.svg images/fsiot/fs19-cover-button-led.jpg images/fsiot/fs20-duty-cycle-examples.png images/fsiot/fs20-pwm-5steps.png images/fsiot/fs20-cover-pwm-led.jpg images/fsiot/fs06-device-manager-esp32.png images/fsiot/fs06-arduino-ide-overview.png images/fsiot/fs11-ide-overview-cite.png images/fsiot/fs10-pullup-pulldown.svg images/fsiot/kit-resistor-10kohm.jpg images/fsiot/fs10-button-pulldown-wiring.png images/fsiot/fs10-button-pulldown-wiring.svg images/fsiot/kit-tactile-button.jpg images/fsiot/kit-dht22.jpg images/fsiot/fs21-dht22-wiring.png images/fsiot/fs21-dht22-breadboard.png images/fsiot/fs21-cover-dht22.jpg \
-            images/fsiot/kit-ldr.jpg images/fsiot/kit-relay-5v.jpg images/fsiot/kit-multimeter.jpg images/fsiot/kit-multimeter-jacks.jpg images/fsiot/kit-resistor-220ohm.jpg images/fsiot/resistor-color-code.jpg images/fsiot/kit-tv-remote.jpg images/fsiot/kit-smart-bulbs.jpg images/fsiot/kit-smart-plugs.jpg; do
+            images/fsiot/kit-resistor.jpg images/fsiot/fs09-led-breadboard-wiring.png images/fsiot/fs18-led-gpio2-breadboard.png images/fsiot/fs19-btn-gpio4-breadboard.png images/fsiot/fs19-button-pullup-wiring.png images/fsiot/fs19-button-pullup-wiring.svg images/fsiot/fs19-cover-button-led.jpg images/fsiot/fs20-duty-cycle-examples.png images/fsiot/fs20-pwm-5steps.png images/fsiot/fs20-cover-pwm-led.jpg images/fsiot/fs06-device-manager-esp32.png images/fsiot/fs06-arduino-ide-overview.png images/fsiot/fs11-ide-overview-cite.png images/fsiot/fs10-pullup-pulldown.svg images/fsiot/kit-resistor-10kohm.jpg images/fsiot/fs10-button-pulldown-wiring.png images/fsiot/fs10-button-pulldown-wiring.svg images/fsiot/kit-tactile-button.jpg             images/fsiot/kit-dht22.jpg images/fsiot/fs21-dht22-wiring.png images/fsiot/fs21-dht22-breadboard.png images/fsiot/fs21-cover-dht22.jpg \
+            images/fsiot/kit-ldr.jpg images/fsiot/fs22-ldr-wiring.png images/fsiot/fs22-ldr-principle.png images/fsiot/fs22-cover-ldr.jpg images/fsiot/fs22-voltage-divider.svg \
+            images/fsiot/kit-relay-5v.jpg images/fsiot/kit-multimeter.jpg images/fsiot/kit-multimeter-jacks.jpg images/fsiot/kit-resistor-220ohm.jpg images/fsiot/resistor-color-code.jpg images/fsiot/kit-tv-remote.jpg images/fsiot/kit-smart-bulbs.jpg images/fsiot/kit-smart-plugs.jpg; do
             if [ ! -f "public/$f" ]; then
               echo "::warning::Missing public/$f — skip"
               continue
@@ -1671,6 +1672,28 @@ jobs:
           code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
             "https://kodingindonesia.com/artikel/fullstack-iot-sensor-dht22-serial")
           echo "Article 91 public HTTP status (expect 404): $code"
+          test "$code" = "404"
+
+      - name: Seed article 92 draft via deploy hook (required, pre-launch B)
+        run: |
+          set +e
+          for attempt in 1 2 3; do
+            body="$(mktemp)"
+            code=$(curl -sS --max-time 180 -o "$body" -w "%{http_code}" \
+              -H "X-Deploy-Token: ${{ secrets.DEPLOY_HOOK_TOKEN }}" \
+              "https://kodingindonesia.com/deploy/seed-article-92-draft" || echo "000")
+            echo "seed-article-92-draft HTTP $code"
+            sed -n '1,120p' "$body" || true
+            [ "$code" = "200" ] && break
+            sleep $((attempt * 5))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::seed-article-92-draft failed after retries (last HTTP $code)"
+            exit 1
+          fi
+          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
+            "https://kodingindonesia.com/artikel/fullstack-iot-ldr-adc-seberapa-terang")
+          echo "Article 92 public HTTP status (expect 404): $code"
           test "$code" = "404"
 
       - name: Publish article 69 via deploy hook (required)
