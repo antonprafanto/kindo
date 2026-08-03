@@ -35,7 +35,7 @@
 
   <rect x="280" y="390" width="620" height="100" rx="8" fill="#fff" stroke="#1a1a1a" stroke-width="2"/>
   <text x="300" y="420" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#1a1a1a">Cara baca diagram:</text>
-  <text x="300" y="445" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">1) Satu kaki tombol ke GPIO 27 · kaki pasangan ke GND (INPUT_PULLUP di kode).</text>
+  <text x="300" y="445" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">1) Satu kaki tombol ke GPIO 27  -  kaki pasangan ke GND (INPUT_PULLUP di kode).</text>
   <text x="300" y="468" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">2-3) LED + resistor 220 ohm tetap di GPIO 2 seperti FS-18.</text>
   <text x="300" y="491" font-family="Segoe UI,sans-serif" font-size="13" fill="#B71C1C">Jangan wiring tombol ke GPIO 0 (bisa masuk mode download).</text>
 </svg>
