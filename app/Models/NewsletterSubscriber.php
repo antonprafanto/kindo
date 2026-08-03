@@ -43,6 +43,11 @@ class NewsletterSubscriber extends Model
         $this->save();
     }
 
+    public function scopePendingOlderThan($query, int $days)
+    {
+        return $query->pending()->where('created_at', '<', now()->subDays($days));
+    }
+
     public function activate(): void
     {
         $this->update([

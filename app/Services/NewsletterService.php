@@ -86,6 +86,34 @@ class NewsletterService
         });
     }
 
+    /**
+     * Admin/manual: regenerate token and resend confirmation for a pending subscriber.
+     */
+    public function resendConfirmation(NewsletterSubscriber $subscriber): bool
+    {
+        if ($subscriber->status !== 'pending') {
+            return false;
+        }
+
+        $subscriber->regenerateConfirmationToken();
+        $subscriber->refresh();
+        $this->sendConfirmationEmail($subscriber);
+
+        return true;
+    }
+
+    /**
+     * Remove pending signups that never confirmed (stale double opt-in).
+     *
+     * @return int Number of deleted rows
+     */
+    public function purgeStalePending(int $days = 30): int
+    {
+        $days = max(7, $days);
+
+        return NewsletterSubscriber::pendingOlderThan($days)->delete();
+    }
+
     public function sendWelcomeEmail(NewsletterSubscriber $subscriber): void
     {
         $unsubscribeUrl = route('newsletter.unsubscribe', $subscriber->unsubscribe_token);

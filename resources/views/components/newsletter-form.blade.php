@@ -36,6 +36,11 @@
     </button>
 
     <p class="text-xs theme-muted">
+        Setelah daftar, cek email kamu (termasuk folder <strong>spam/promosi</strong>) lalu klik link konfirmasi.
+        Baru setelah itu kamu berstatus aktif dan menerima artikel baru.
+    </p>
+
+    <p class="text-xs theme-muted">
         Dengan berlangganan, kamu setuju menerima email dari kami.
         <a href="{{ route('privacy') }}" class="underline">Kebijakan Privasi</a>
     </p>
