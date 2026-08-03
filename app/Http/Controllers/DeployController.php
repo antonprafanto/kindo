@@ -7828,7 +7828,9 @@ class DeployController extends Controller
             'functions/digital-io/digitalwrite',
             'kit-led-5mm.jpg',
             'kit-resistor-220ohm.jpg',
+            'fs09-led-breadboard-wiring.png',
             'fs11-ide-overview-cite.png',
+            'polaritas LED',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {

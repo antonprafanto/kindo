@@ -124,12 +124,18 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:stretch">
-    <img src="/images/fsiot/kit-led-5mm.jpg" width="640" height="480" alt="LED 5 mm — kaki panjang = anode (+)" loading="eager" style="width:100%;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.4rem">
-    <img src="/images/fsiot/kit-resistor-220ohm.jpg" width="640" height="480" alt="Resistor 220 ohm untuk LED" loading="eager" style="width:100%;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.4rem">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start">
+    <div>
+      <img src="/images/fsiot/kit-led-5mm.jpg" width="900" height="900" alt="LED 5 mm — kaki panjang = anode (+)" loading="eager" style="display:block;width:100%;height:auto;aspect-ratio:1/1;max-height:280px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>LED 5 mm</strong> — kaki panjang = +</p>
+    </div>
+    <div>
+      <img src="/images/fsiot/kit-resistor-220ohm.jpg" width="1200" height="800" alt="Resistor 220 ohm untuk LED" loading="eager" style="display:block;width:100%;height:auto;aspect-ratio:1/1;max-height:280px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>Resistor 220 Ω</strong> — wajib dipasang</p>
+    </div>
   </div>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Komponen hari ini:</strong> LED 5 mm (kaki panjang = anode / +) + resistor <strong>220 Ω</strong>. Jangan wiring LED langsung tanpa resistor.
+    <strong>Komponen hari ini:</strong> LED 5 mm + resistor <strong>220 Ω</strong>. Jangan wiring LED langsung tanpa resistor.
     <br>Sumber gambar: foto kit Koding Indonesia (FS-09 / FS-18). Referensi pin board: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a>.
   </figcaption>
 </figure>
@@ -140,13 +146,95 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:stretch">
-    <img src="/images/fsiot/kit-led-5mm.jpg" width="640" height="480" alt="5 mm LED — long lead = anode (+)" loading="eager" style="width:100%;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.4rem">
-    <img src="/images/fsiot/kit-resistor-220ohm.jpg" width="640" height="480" alt="220 ohm resistor for an LED" loading="eager" style="width:100%;height:auto;max-height:220px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.4rem">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start">
+    <div>
+      <img src="/images/fsiot/kit-led-5mm.jpg" width="900" height="900" alt="5 mm LED — long lead = anode (+)" loading="eager" style="display:block;width:100%;height:auto;aspect-ratio:1/1;max-height:280px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>5 mm LED</strong> — long lead = +</p>
+    </div>
+    <div>
+      <img src="/images/fsiot/kit-resistor-220ohm.jpg" width="1200" height="800" alt="220 ohm resistor for an LED" loading="eager" style="display:block;width:100%;height:auto;aspect-ratio:1/1;max-height:280px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>220 Ω resistor</strong> — required</p>
+    </div>
   </div>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Parts today:</strong> 5 mm LED (long lead = anode / +) + <strong>220 Ω</strong> resistor. Never wire an LED with no resistor.
+    <strong>Parts today:</strong> 5 mm LED + <strong>220 Ω</strong> resistor. Never wire an LED with no resistor.
     <br>Image source: Koding Indonesia kit photos (FS-09 / FS-18). Board pin reference: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC-1</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function polaritySvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Polaritas LED: kaki panjang anode plus, kaki pendek cathode minus" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 190" width="100%" height="auto" style="display:block;max-height:220px">
+    <text x="430" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Baca polaritas LED sebelum menusuk breadboard</text>
+    <ellipse cx="220" cy="95" rx="48" ry="58" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+    <line x1="200" y1="150" x2="200" y2="175" stroke="#333" stroke-width="3"/>
+    <line x1="240" y1="150" x2="240" y2="168" stroke="#333" stroke-width="3"/>
+    <text x="200" y="72" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#0D47A1">LED</text>
+    <text x="120" y="172" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#2E7D32">panjang = +</text>
+    <text x="300" y="172" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#C62828">pendek = −</text>
+    <text x="430" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" fill="#1a1a1a">→</text>
+    <rect x="500" y="55" width="300" height="100" rx="8" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
+    <text x="650" y="90" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#F57F17">Ingat singkat</text>
+    <text x="650" y="118" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">kaki panjang ke sisi GPIO / resistor</text>
+    <text x="650" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">kaki pendek ke GND</text>
+  </svg>
+  <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
+    <strong>Intinya:</strong> salah polaritas = LED diam meski kode sudah benar. Sumber gambar: diagram buatan Koding Indonesia (FS-18).
+  </figcaption>
+</figure>
+SVG;
+    }
+
+    private function polaritySvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="LED polarity: long lead anode plus, short lead cathode minus" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 190" width="100%" height="auto" style="display:block;max-height:220px">
+    <text x="430" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Read LED polarity before plugging the breadboard</text>
+    <ellipse cx="220" cy="95" rx="48" ry="58" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+    <line x1="200" y1="150" x2="200" y2="175" stroke="#333" stroke-width="3"/>
+    <line x1="240" y1="150" x2="240" y2="168" stroke="#333" stroke-width="3"/>
+    <text x="200" y="72" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#0D47A1">LED</text>
+    <text x="120" y="172" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#2E7D32">long = +</text>
+    <text x="300" y="172" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#C62828">short = −</text>
+    <text x="430" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" fill="#1a1a1a">→</text>
+    <rect x="500" y="55" width="300" height="100" rx="8" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
+    <text x="650" y="90" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#F57F17">Quick reminder</text>
+    <text x="650" y="118" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">long lead toward GPIO / resistor</text>
+    <text x="650" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">short lead to GND</text>
+  </svg>
+  <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
+    <strong>In short:</strong> wrong polarity = a dark LED even when the code is right. Image source: diagram by Koding Indonesia (FS-18).
+  </figcaption>
+</figure>
+SVG;
+    }
+
+    private function breadboardPhotoId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs09-led-breadboard-wiring.png" width="1200" height="900" alt="Contoh LED dan resistor di breadboard — pola FS-09, cabang daya diganti ke GPIO 2" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Gambar acuan breadboard</strong> (dari FS-09). Pola komponen sama: LED + 220 Ω di breadboard. <strong>Bedanya hari ini:</strong> cabang yang dulu ke <code>3V3</code> diganti ke label <strong>GPIO 2</strong> (saklar dari kode). Cathode tetap ke <strong>GND</strong>.
+    <br>Sumber gambar: foto rangkaian Koding Indonesia (FS-09). Dipakai ulang di FS-18 dengan catatan ganti cabang daya.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function breadboardPhotoEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs09-led-breadboard-wiring.png" width="1200" height="900" alt="Example LED and resistor on a breadboard — FS-09 pattern, power branch swapped to GPIO 2" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Breadboard reference photo</strong> (from FS-09). Same parts layout: LED + 220 Ω on the breadboard. <strong>Today’s difference:</strong> the branch that used to go to <code>3V3</code> now goes to the <strong>GPIO 2</strong> label (a switch from code). The cathode still goes to <strong>GND</strong>.
+    <br>Image source: Koding Indonesia circuit photo (FS-09). Reused in FS-18 with a note to swap the power branch.
   </figcaption>
 </figure>
 HTML;
@@ -227,7 +315,7 @@ SVG;
     <text x="430" y="182" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">Catatan: beberapa board punya LED onboard di GPIO 2 — boleh ikut berkedip; wiring luar tetap dilatih.</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>Intinya:</strong> cari label <strong>GPIO 2</strong> dan <strong>GND</strong> di silkscreen (peta FS-17). Sumber gambar: diagram buatan Koding Indonesia (FS-18). Foto rangkaian 3V3 (FS-09, beda jalur daya): <a href="/images/fsiot/fs09-led-breadboard-wiring.png" rel="noopener noreferrer" target="_blank">fs09-led-breadboard-wiring.png</a> — pakai sebagai pola breadboard, ganti cabang 3V3 jadi GPIO 2.
+    <strong>Intinya:</strong> cari label <strong>GPIO 2</strong> dan <strong>GND</strong> di silkscreen (peta FS-17). Sumber gambar: diagram buatan Koding Indonesia (FS-18).
   </figcaption>
 </figure>
 SVG;
@@ -258,7 +346,7 @@ SVG;
     <text x="430" y="182" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">Note: some boards have an onboard LED on GPIO 2 — it may blink too; still practice the external wire.</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>In short:</strong> find <strong>GPIO 2</strong> and <strong>GND</strong> on the silkscreen (FS-17 map). Image source: diagram by Koding Indonesia (FS-18). FS-09 breadboard photo (3V3 path): <a href="/images/fsiot/fs09-led-breadboard-wiring.png" rel="noopener noreferrer" target="_blank">fs09-led-breadboard-wiring.png</a> — reuse the breadboard pattern, swap the 3V3 branch for GPIO 2.
+    <strong>In short:</strong> find <strong>GPIO 2</strong> and <strong>GND</strong> on the silkscreen (FS-17 map). Image source: diagram by Koding Indonesia (FS-18).
   </figcaption>
 </figure>
 SVG;
@@ -309,8 +397,10 @@ SVG;
         $ide = $this->ideFigureId();
         $board = $this->boardFigureId();
         $kit = $this->kitFigureId();
+        $polarity = $this->polaritySvgId();
         $switch = $this->switchSvgId();
         $wiring = $this->wiringSvgId();
+        $breadboard = $this->breadboardPhotoId();
         $timeline = $this->timelineSvgId();
 
         return <<<HTML
@@ -343,6 +433,7 @@ SVG;
 {$ide}
 {$board}
 {$kit}
+{$polarity}
 
 <h2>GPIO sebagai saklar</h2>
 {$switch}
@@ -351,6 +442,7 @@ SVG;
 
 <h2>Wiring LED ke GPIO 2</h2>
 {$wiring}
+{$breadboard}
 <p><strong>Langkah cepat (ulang pola FS-09, ganti cabang daya):</strong></p>
 <ol>
 <li>Anode LED (kaki panjang) → salah satu kaki resistor 220 Ω.</li>
@@ -433,8 +525,10 @@ HTML;
         $ide = $this->ideFigureEn();
         $board = $this->boardFigureEn();
         $kit = $this->kitFigureEn();
+        $polarity = $this->polaritySvgEn();
         $switch = $this->switchSvgEn();
         $wiring = $this->wiringSvgEn();
+        $breadboard = $this->breadboardPhotoEn();
         $timeline = $this->timelineSvgEn();
 
         return <<<HTML
@@ -467,6 +561,7 @@ HTML;
 {$ide}
 {$board}
 {$kit}
+{$polarity}
 
 <h2>GPIO as a switch</h2>
 {$switch}
@@ -475,6 +570,7 @@ HTML;
 
 <h2>Wire the LED to GPIO 2</h2>
 {$wiring}
+{$breadboard}
 <p><strong>Quick steps (reuse the FS-09 pattern, change the power branch):</strong></p>
 <ol>
 <li>LED anode (long lead) → one leg of the 220 Ω resistor.</li>

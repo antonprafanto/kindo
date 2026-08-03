@@ -52,7 +52,7 @@ check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
 check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 5', substr_count($id, '<figure') >= 5 && substr_count($en, '<figure') >= 5);
+check('figures both >= 7', substr_count($id, '<figure') >= 7 && substr_count($en, '<figure') >= 7);
 
 check('ID mistakes heading', str_contains($id, 'Kesalahan yang sering terjadi'));
 check('EN mistakes heading', str_contains($en, 'Common mistakes'));
@@ -66,6 +66,9 @@ check('IDE asset', str_contains($id, 'fs11-ide-overview-cite.png') && is_file(__
 check('board overview', str_contains($id, 'esp32-devkitc-overview.jpg') && is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg'));
 check('kit LED asset', str_contains($id, 'kit-led-5mm.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-led-5mm.jpg'));
 check('kit resistor asset', str_contains($id, 'kit-resistor-220ohm.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-resistor-220ohm.jpg'));
+check('breadboard photo reused', str_contains($id, 'fs09-led-breadboard-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs09-led-breadboard-wiring.png'));
+check('polarity SVG ID', str_contains($id, 'polaritas LED') || str_contains($id, 'kaki panjang'));
+check('polarity SVG EN', str_contains($en, 'LED polarity') || str_contains($en, 'long lead'));
 check('Arduino pinMode cite', str_contains($id, 'functions/digital-io/pinmode') && str_contains($en, 'functions/digital-io/pinmode'));
 check('Arduino digitalWrite cite', str_contains($id, 'functions/digital-io/digitalwrite') && str_contains($en, 'functions/digital-io/digitalwrite'));
 check('Espressif DevKitC-1 cite', str_contains($id, 'boards/ESP32-DevKitC-1.html') && str_contains($en, 'boards/ESP32-DevKitC-1.html'));
