@@ -178,10 +178,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="740" alt="Gambar utama — wiring DHT22 ke GPIO 4 (modul kit, 3 kabel)" loading="eager" style="width:100%;height:auto;max-height:600px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs21-dht22-breadboard.png" width="1238" height="741" alt="Gambar utama — rangkaian DHT22 di breadboard ke GPIO 4 (IO4)" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — wiring DHT22 (modul kit).</strong> Cukup tiga kabel: VCC → <strong>3V3</strong> · DATA → <strong>GPIO 4</strong> · GND → <strong>GND</strong>. Pull-up eksternal biasanya <strong>tidak perlu</strong>. Cocokkan label silkscreen di modulmu.
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-21). Panduan: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a> · catatan modul: <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a>.
+    <strong>Gambar utama — rangkaian DHT22 di breadboard.</strong> Tiga kabel saja: <strong>+</strong> (VCC) → <strong>3V3</strong> (merah) · pin tengah (DATA) → <strong>IO4 / GPIO 4</strong> (biru) · <strong>−</strong> (GND) → <strong>GND</strong> (hitam). Cocokkan label di modul &amp; silkscreen board kamu. Pull-up eksternal biasanya tidak perlu.
+    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-21).
   </figcaption>
 </figure>
 HTML;
@@ -191,10 +191,36 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="740" alt="Main figure — DHT22 wiring to GPIO 4 (kit module, 3 wires)" loading="eager" style="width:100%;height:auto;max-height:600px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs21-dht22-breadboard.png" width="1238" height="741" alt="Main figure — DHT22 breadboard wiring to GPIO 4 (IO4)" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — DHT22 wiring (kit module).</strong> Three wires are enough: VCC → <strong>3V3</strong> · DATA → <strong>GPIO 4</strong> · GND → <strong>GND</strong>. An external pull-up is usually <strong>not needed</strong>. Match the silkscreen on your module.
-    <br>Image source: labeled diagram by Koding Indonesia (FS-21). Guide: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a> · module note: <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a>.
+    <strong>Main figure — DHT22 on a breadboard.</strong> Three wires only: <strong>+</strong> (VCC) → <strong>3V3</strong> (red) · middle pin (DATA) → <strong>IO4 / GPIO 4</strong> (blue) · <strong>−</strong> (GND) → <strong>GND</strong> (black). Match labels on your module and board silkscreen. An external pull-up is usually not needed.
+    <br>Image source: wiring diagram by Koding Indonesia (FS-21).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="740" alt="Skema bantu — ringkasan pin DHT22 ke ESP32 GPIO 4" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Skema bantu (ringkas).</strong> Sama dengan gambar utama: VCC → 3V3 · DATA → GPIO 4 · GND → GND. Gunakan ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-21). Panduan: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a> · <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="740" alt="Helper schematic — DHT22 pins to ESP32 GPIO 4" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Helper schematic.</strong> Same as the main figure: VCC → 3V3 · DATA → GPIO 4 · GND → GND. Use this if you prefer labeled pin boxes over the breadboard photo.
+    <br>Image source: labeled diagram by Koding Indonesia (FS-21). Guide: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a> · <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a>.
   </figcaption>
 </figure>
 HTML;
@@ -352,6 +378,7 @@ SVG;
         $board = $this->boardFigureId();
         $kit = $this->kitFigureId();
         $main = $this->mainWiringFigureId();
+        $schema = $this->schemaWiringFigureId();
         $sense = $this->senseSvgId();
         $lib = $this->librarySvgId();
         $nan = $this->nanSvgId();
@@ -364,7 +391,7 @@ SVG;
 <p><strong>Prasyarat:</strong> FS-18 (pernah Upload sketch) · FS-17 (GPIO 4 di tabel global) · Arduino IDE sudah bisa Upload ke ESP32.</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li>Siapkan wiring DHT22 di <strong>GPIO 4</strong> (modul kit: biasanya 3 kabel saja). Cocokkan <strong>gambar utama</strong>.</li>
+<li>Siapkan wiring DHT22 di <strong>GPIO 4</strong> (modul kit: biasanya 3 kabel saja). Cocokkan <strong>gambar utama</strong> (foto breadboard).</li>
 <li><strong>Buka Arduino IDE</strong> (bukan Laragon / terminal web).</li>
 <li>Install library lewat <strong>Library Manager</strong> (langkah di bawah).</li>
 <li>Buat sketch <code>FS21_dht22_serial</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
@@ -389,6 +416,7 @@ SVG;
 {$board}
 {$kit}
 {$main}
+{$schema}
 
 <h2>Wiring DHT22 (bahasa manusia)</h2>
 <p>Modul kit biasanya 3 kaki: <strong>VCC</strong>, <strong>DATA</strong> (kadang tertulis <strong>DAT</strong> / <strong>OUT</strong>), dan <strong>GND</strong>. Sambungkan VCC ke <strong>3V3</strong>, DATA ke <strong>GPIO 4</strong>, GND ke <strong>GND</strong> — <strong>tiga kabel saja</strong> untuk kasus paling umum.</p>
@@ -485,6 +513,7 @@ HTML;
         $board = $this->boardFigureEn();
         $kit = $this->kitFigureEn();
         $main = $this->mainWiringFigureEn();
+        $schema = $this->schemaWiringFigureEn();
         $sense = $this->senseSvgEn();
         $lib = $this->librarySvgEn();
         $nan = $this->nanSvgEn();
@@ -497,7 +526,7 @@ HTML;
 <p><strong>Prerequisites:</strong> FS-18 (you have Uploaded a sketch) · FS-17 (GPIO 4 in the global table) · Arduino IDE can Upload to the ESP32.</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
-<li>Wire the DHT22 on <strong>GPIO 4</strong> (kit module: usually just 3 wires). Match the <strong>main figure</strong>.</li>
+<li>Wire the DHT22 on <strong>GPIO 4</strong> (kit module: usually just 3 wires). Match the <strong>main figure</strong> (breadboard photo).</li>
 <li><strong>Open Arduino IDE</strong> (not Laragon / a web terminal).</li>
 <li>Install libraries via <strong>Library Manager</strong> (steps below).</li>
 <li>Create sketch <code>FS21_dht22_serial</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
@@ -522,6 +551,7 @@ HTML;
 {$board}
 {$kit}
 {$main}
+{$schema}
 
 <h2>DHT22 wiring (human language)</h2>
 <p>Kit modules usually have 3 pins: <strong>VCC</strong>, <strong>DATA</strong> (sometimes labeled <strong>DAT</strong> / <strong>OUT</strong>), and <strong>GND</strong>. Wire VCC to <strong>3V3</strong>, DATA to <strong>GPIO 4</strong>, GND to <strong>GND</strong> — <strong>three wires only</strong> for the common case.</p>
