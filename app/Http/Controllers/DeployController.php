@@ -7965,7 +7965,7 @@ class DeployController extends Controller
             'fs19-btn-gpio4-breadboard.png',
             'fs19-button-pullup-wiring.png',
             'Gambar utama',
-            'fs10-button-pulldown-wiring.png',
+            'Catatan pola FS-10',
             'parit tengah',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
@@ -7973,6 +7973,12 @@ class DeployController extends Controller
             report(new \RuntimeException('Article 89 body missing expected content after draft seed: '.implode(', ', $missingBody)));
 
             return response('Article 89 body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (str_contains($body, 'fs10-button-pulldown-wiring')) {
+            report(new \RuntimeException('Article 89 still embeds confusing FS-10 GPIO0 reference photo.'));
+
+            return response('Article 89 must not embed fs10-button-pulldown-wiring', 500);
         }
 
         if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
@@ -8003,7 +8009,7 @@ class DeployController extends Controller
             'Main figure',
             'fs19-btn-gpio4-breadboard.png',
             'fs19-button-pullup-wiring.png',
-            'fs10-button-pulldown-wiring.png',
+            'FS-10 pattern note',
             'center ditch',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
@@ -8011,6 +8017,12 @@ class DeployController extends Controller
             report(new \RuntimeException('Article 89 EN body missing expected content after draft seed: '.implode(', ', $missingEn)));
 
             return response('Article 89 EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (str_contains($bodyEn, 'fs10-button-pulldown-wiring')) {
+            report(new \RuntimeException('Article 89 EN still embeds confusing FS-10 GPIO0 reference photo.'));
+
+            return response('Article 89 EN must not embed fs10-button-pulldown-wiring', 500);
         }
 
         Artisan::call('view:clear');

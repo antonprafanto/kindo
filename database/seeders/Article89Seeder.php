@@ -227,29 +227,17 @@ HTML;
 HTML;
     }
 
-    private function fs10RefFigureId(): string
+    private function fs10NoteId(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1200" height="800" alt="Foto acuan FS-10 — tombol di breadboard dengan resistor pull-down" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Foto acuan (pola lain):</strong> di FS-10 tombol memakai resistor pull-down eksternal. Hari ini lebih sederhana: <strong>INPUT_PULLUP</strong> (tanpa 10 kΩ), tapi bentuk fisik tombol di breadboard tetap sama — kaki melintasi <em>parit tengah</em>.
-    <br>Sumber gambar: foto rangkaian Koding Indonesia (FS-10).
-  </figcaption>
-</figure>
+<p><strong>Catatan pola FS-10:</strong> modul lama memakai resistor pull-down eksternal (dan foto latihannya sempat memakai GPIO 0 — <em>jangan ditiru</em>). Hari ini cukup <strong>INPUT_PULLUP</strong> + wiring ke <strong>GPIO 4</strong> seperti <strong>gambar utama</strong> di atas — tanpa 10 kΩ ekstra.</p>
 HTML;
     }
 
-    private function fs10RefFigureEn(): string
+    private function fs10NoteEn(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1200" height="800" alt="FS-10 reference photo — breadboard button with pull-down resistor" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Reference photo (other pattern):</strong> FS-10 used an external pull-down resistor. Today is simpler: <strong>INPUT_PULLUP</strong> (no 10 kΩ), but the physical button on the breadboard looks the same — legs across the <em>center ditch</em>.
-    <br>Image source: Koding Indonesia wiring photo (FS-10).
-  </figcaption>
-</figure>
+<p><strong>FS-10 pattern note:</strong> the older module used an external pull-down resistor (and its practice photo even used GPIO 0 — <em>do not copy that</em>). Today just use <strong>INPUT_PULLUP</strong> + wire to <strong>GPIO 4</strong> like the <strong>main figure</strong> above — no extra 10 kΩ.</p>
 HTML;
     }
 
@@ -428,7 +416,7 @@ SVG;
         $kit = $this->kitFigureId();
         $main = $this->mainWiringFigureId();
         $schematic = $this->schematicFigureId();
-        $fs10 = $this->fs10RefFigureId();
+        $fs10 = $this->fs10NoteId();
         $wiring = $this->wiringSvgId();
         $bounce = $this->bounceSvgId();
         $millis = $this->millisSvgId();
@@ -593,7 +581,7 @@ HTML;
         $kit = $this->kitFigureEn();
         $main = $this->mainWiringFigureEn();
         $schematic = $this->schematicFigureEn();
-        $fs10 = $this->fs10RefFigureEn();
+        $fs10 = $this->fs10NoteEn();
         $wiring = $this->wiringSvgEn();
         $bounce = $this->bounceSvgEn();
         $millis = $this->millisSvgEn();
