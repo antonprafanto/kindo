@@ -66,7 +66,9 @@ check('IDE asset', str_contains($id, 'fs11-ide-overview-cite.png') && is_file(__
 check('board overview', str_contains($id, 'esp32-devkitc-overview.jpg') && is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg'));
 check('kit LED asset', str_contains($id, 'kit-led-5mm.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-led-5mm.jpg'));
 check('kit resistor asset', str_contains($id, 'kit-resistor-220ohm.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-resistor-220ohm.jpg'));
-check('breadboard photo reused', str_contains($id, 'fs09-led-breadboard-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs09-led-breadboard-wiring.png'));
+check('breadboard photo reused', str_contains($id, 'fs18-led-gpio2-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs18-led-gpio2-breadboard.png'));
+check('main wiring figure label ID', str_contains($id, 'Gambar utama'));
+check('main wiring figure label EN', str_contains($en, 'Main figure'));
 check('polarity SVG ID', str_contains($id, 'polaritas LED') || str_contains($id, 'kaki panjang'));
 check('polarity SVG EN', str_contains($en, 'LED polarity') || str_contains($en, 'long lead'));
 check('Arduino pinMode cite', str_contains($id, 'functions/digital-io/pinmode') && str_contains($en, 'functions/digital-io/pinmode'));

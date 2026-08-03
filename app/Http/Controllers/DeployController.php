@@ -7828,7 +7828,8 @@ class DeployController extends Controller
             'functions/digital-io/digitalwrite',
             'kit-led-5mm.jpg',
             'kit-resistor-220ohm.jpg',
-            'fs09-led-breadboard-wiring.png',
+            'fs18-led-gpio2-breadboard.png',
+            'Gambar utama',
             'fs11-ide-overview-cite.png',
             'polaritas LED',
         ];
@@ -7862,6 +7863,8 @@ class DeployController extends Controller
             'EN (7)',
             'functions/digital-io/pinmode',
             'functions/digital-io/digitalwrite',
+            'fs18-led-gpio2-breadboard.png',
+            'Main figure',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

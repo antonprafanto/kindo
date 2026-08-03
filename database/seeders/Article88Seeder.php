@@ -218,10 +218,10 @@ SVG;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs09-led-breadboard-wiring.png" width="1200" height="900" alt="Contoh LED dan resistor di breadboard — pola FS-09, cabang daya diganti ke GPIO 2" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs18-led-gpio2-breadboard.png" width="1299" height="799" alt="Gambar utama — ESP32 di breadboard: GPIO 2 ke resistor ke LED ke GND" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Gambar acuan breadboard</strong> (dari FS-09). Pola komponen sama: LED + 220 Ω di breadboard. <strong>Bedanya hari ini:</strong> cabang yang dulu ke <code>3V3</code> diganti ke label <strong>GPIO 2</strong> (saklar dari kode). Cathode tetap ke <strong>GND</strong>.
-    <br>Sumber gambar: foto rangkaian Koding Indonesia (FS-09). Dipakai ulang di FS-18 dengan catatan ganti cabang daya.
+    <strong>Gambar utama — wiring GPIO 2.</strong> Ikuti alur: label <strong>IO2 / GPIO 2</strong> → resistor → kaki panjang LED (+) → kaki pendek LED (−) → <strong>GND</strong>. Cocokkan <em>label silkscreen</em> di board kamu (clone boleh beda bentuk, nomor pin yang dicari sama).
+    <br>Catatan resistor: di foto latihan boleh 220 Ω–1 kΩ; di artikel ini kita pakai <strong>220 Ω</strong> (aman untuk LED 5 mm). Sumber gambar: diagram rangkaian Koding Indonesia (FS-18).
   </figcaption>
 </figure>
 HTML;
@@ -231,10 +231,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs09-led-breadboard-wiring.png" width="1200" height="900" alt="Example LED and resistor on a breadboard — FS-09 pattern, power branch swapped to GPIO 2" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs18-led-gpio2-breadboard.png" width="1299" height="799" alt="Main figure — ESP32 on a breadboard: GPIO 2 to resistor to LED to GND" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Breadboard reference photo</strong> (from FS-09). Same parts layout: LED + 220 Ω on the breadboard. <strong>Today’s difference:</strong> the branch that used to go to <code>3V3</code> now goes to the <strong>GPIO 2</strong> label (a switch from code). The cathode still goes to <strong>GND</strong>.
-    <br>Image source: Koding Indonesia circuit photo (FS-09). Reused in FS-18 with a note to swap the power branch.
+    <strong>Main figure — GPIO 2 wiring.</strong> Follow the path: <strong>IO2 / GPIO 2</strong> label → resistor → LED long lead (+) → LED short lead (−) → <strong>GND</strong>. Match the <em>silkscreen labels</em> on your board (clones may look different; the pin names you hunt for are the same).
+    <br>Resistor note: practice photos may show 220 Ω–1 kΩ; this article standardizes on <strong>220 Ω</strong> (safe for a 5 mm LED). Image source: Koding Indonesia wiring diagram (FS-18).
   </figcaption>
 </figure>
 HTML;
@@ -443,10 +443,10 @@ SVG;
 <h2>Wiring LED ke GPIO 2</h2>
 {$wiring}
 {$breadboard}
-<p><strong>Langkah cepat (ulang pola FS-09, ganti cabang daya):</strong></p>
+<p><strong>Langkah cepat (cocokkan dengan gambar utama di atas):</strong></p>
 <ol>
 <li>Anode LED (kaki panjang) → salah satu kaki resistor 220 Ω.</li>
-<li>Kaki resistor lainnya → jumper ke <strong>GPIO 2</strong> di board.</li>
+<li>Kaki resistor lainnya → jumper ke <strong>GPIO 2</strong> (label <code>IO2</code> di banyak board) di board.</li>
 <li>Cathode LED (kaki pendek) → jumper ke <strong>GND</strong>.</li>
 <li>Jangan sambungkan LED ke 5V. Level logika ESP32 = 3,3 V.</li>
 </ol>
@@ -571,10 +571,10 @@ HTML;
 <h2>Wire the LED to GPIO 2</h2>
 {$wiring}
 {$breadboard}
-<p><strong>Quick steps (reuse the FS-09 pattern, change the power branch):</strong></p>
+<p><strong>Quick steps (match the main figure above):</strong></p>
 <ol>
 <li>LED anode (long lead) → one leg of the 220 Ω resistor.</li>
-<li>Other resistor leg → jumper to <strong>GPIO 2</strong> on the board.</li>
+<li>Other resistor leg → jumper to <strong>GPIO 2</strong> (often labeled <code>IO2</code>) on the board.</li>
 <li>LED cathode (short lead) → jumper to <strong>GND</strong>.</li>
 <li>Do not connect the LED to 5V. ESP32 logic level is 3.3 V.</li>
 </ol>
