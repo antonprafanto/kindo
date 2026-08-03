@@ -133,20 +133,20 @@ HTML;
     private function kitFigureId(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start">
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:0.75rem;align-items:start">
     <div>
-      <img src="/images/fsiot/kit-dht22.jpg" width="900" height="600" alt="Modul sensor DHT22" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>DHT22</strong> — suhu &amp; kelembapan</p>
+      <img src="/images/fsiot/kit-dht22.jpg" width="900" height="600" alt="Modul sensor DHT22 / AM2302" loading="eager" style="display:block;width:100%;height:auto;max-height:280px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#1a1a1a;text-align:center"><strong>DHT22 / AM2302</strong> — komponen utama hari ini</p>
     </div>
     <div>
-      <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="800" height="600" alt="Resistor 10 kOhm untuk pull-up data" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>10 kΩ</strong> — pull-up jalur data</p>
+      <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="800" height="600" alt="Resistor 10 kOhm opsional untuk pull-up" loading="eager" style="display:block;width:100%;height:auto;max-height:220px;object-fit:contain;border:2.5px dashed #888;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto;opacity:0.95">
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#1a1a1a;text-align:center"><strong>10 kΩ</strong> — <em>opsional</em> (bukan wajib modul kit)</p>
     </div>
   </div>
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Komponen hari ini:</strong> modul DHT22 / AM2302 + resistor 10 kΩ (kalau modul belum punya pull-up). DHT11 boleh sementara — ketelitian berbeda; tulis di catatanmu. <strong>Baca label silkscreen</strong> di modulmu — urutan kaki (VCC / DATA / GND) bisa beda antar merek.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" rel="noopener noreferrer" target="_blank">AM2302 DHT22 Sensor</a> · Wikimedia Commons (CC BY-SA 4.0) · L293D · foto resistor kit Koding Indonesia.
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Komponen hari ini:</strong> modul DHT22 / AM2302 (+ jumper). Resistor 10 kΩ <strong>tidak wajib</strong> untuk modul kit zaman sekarang — pull-up biasanya sudah ada di PCB. Simpan resistor untuk kasus sensor mentah / baca gagal. DHT11 boleh sementara — ketelitian berbeda. <strong>Baca label silkscreen</strong> — urutan kaki bisa beda antar merek.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" rel="noopener noreferrer" target="_blank">AM2302 DHT22 Sensor</a> · Wikimedia Commons (CC BY-SA 4.0) · L293D · foto resistor kit Koding Indonesia. Acuan: <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a> (modul ber-pull-up internal).
   </figcaption>
 </figure>
 HTML;
@@ -155,20 +155,20 @@ HTML;
     private function kitFigureEn(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start">
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr;gap:0.75rem;align-items:start">
     <div>
-      <img src="/images/fsiot/kit-dht22.jpg" width="900" height="600" alt="DHT22 sensor module" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>DHT22</strong> — temperature &amp; humidity</p>
+      <img src="/images/fsiot/kit-dht22.jpg" width="900" height="600" alt="DHT22 / AM2302 sensor module" loading="eager" style="display:block;width:100%;height:auto;max-height:280px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#1a1a1a;text-align:center"><strong>DHT22 / AM2302</strong> — main part today</p>
     </div>
     <div>
-      <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="800" height="600" alt="10 kOhm resistor for data pull-up" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>10 kΩ</strong> — data-line pull-up</p>
+      <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="800" height="600" alt="Optional 10 kOhm pull-up resistor" loading="eager" style="display:block;width:100%;height:auto;max-height:220px;object-fit:contain;border:2.5px dashed #888;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto;opacity:0.95">
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#1a1a1a;text-align:center"><strong>10 kΩ</strong> — <em>optional</em> (not required for kit modules)</p>
     </div>
   </div>
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Parts today:</strong> DHT22 / AM2302 module + 10 kΩ resistor (if the module has no onboard pull-up). DHT11 is OK temporarily — accuracy differs; note it. <strong>Read the silkscreen</strong> on your module — pin order (VCC / DATA / GND) can differ by brand.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" rel="noopener noreferrer" target="_blank">AM2302 DHT22 Sensor</a> · Wikimedia Commons (CC BY-SA 4.0) · L293D · Koding Indonesia resistor kit photo.
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Parts today:</strong> DHT22 / AM2302 module (+ jumpers). A 10 kΩ resistor is <strong>not required</strong> for typical modern kit modules — pull-up is usually already on the PCB. Keep one handy for bare sensors / failed reads. DHT11 is OK temporarily — accuracy differs. <strong>Read the silkscreen</strong> — pin order can differ by brand.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" rel="noopener noreferrer" target="_blank">AM2302 DHT22 Sensor</a> · Wikimedia Commons (CC BY-SA 4.0) · L293D · Koding Indonesia resistor kit photo. Reference: <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a> (module with internal pull-up).
   </figcaption>
 </figure>
 HTML;
@@ -178,10 +178,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="720" alt="Gambar utama — wiring DHT22 ke GPIO 4 dengan pull-up 10 kOhm" loading="eager" style="width:100%;height:auto;max-height:580px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="740" alt="Gambar utama — wiring DHT22 ke GPIO 4 (modul kit, 3 kabel)" loading="eager" style="width:100%;height:auto;max-height:600px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — wiring DHT22.</strong> VCC → <strong>3V3</strong> · DATA → <strong>GPIO 4</strong> · GND → <strong>GND</strong> · resistor <strong>10 kΩ</strong> antara DATA dan 3V3. Cocokkan label silkscreen di board kamu.
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-21). Panduan koneksi: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a>.
+    <strong>Gambar utama — wiring DHT22 (modul kit).</strong> Cukup tiga kabel: VCC → <strong>3V3</strong> · DATA → <strong>GPIO 4</strong> · GND → <strong>GND</strong>. Pull-up eksternal biasanya <strong>tidak perlu</strong>. Cocokkan label silkscreen di modulmu.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-21). Panduan: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a> · catatan modul: <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a>.
   </figcaption>
 </figure>
 HTML;
@@ -191,10 +191,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="720" alt="Main figure — DHT22 wiring to GPIO 4 with 10 kOhm pull-up" loading="eager" style="width:100%;height:auto;max-height:580px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs21-dht22-wiring.png" width="1100" height="740" alt="Main figure — DHT22 wiring to GPIO 4 (kit module, 3 wires)" loading="eager" style="width:100%;height:auto;max-height:600px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — DHT22 wiring.</strong> VCC → <strong>3V3</strong> · DATA → <strong>GPIO 4</strong> · GND → <strong>GND</strong> · <strong>10 kΩ</strong> between DATA and 3V3. Match silkscreen labels on your board.
-    <br>Image source: labeled diagram by Koding Indonesia (FS-21). Connection guide: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a>.
+    <strong>Main figure — DHT22 wiring (kit module).</strong> Three wires are enough: VCC → <strong>3V3</strong> · DATA → <strong>GPIO 4</strong> · GND → <strong>GND</strong>. An external pull-up is usually <strong>not needed</strong>. Match the silkscreen on your module.
+    <br>Image source: labeled diagram by Koding Indonesia (FS-21). Guide: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a> · module note: <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a>.
   </figcaption>
 </figure>
 HTML;
@@ -364,26 +364,26 @@ SVG;
 <p><strong>Prasyarat:</strong> FS-18 (pernah Upload sketch) · FS-17 (GPIO 4 di tabel global) · Arduino IDE sudah bisa Upload ke ESP32.</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li>Siapkan wiring DHT22 di <strong>GPIO 4</strong> (+ pull-up 10 kΩ). Cocokkan <strong>gambar utama</strong>.</li>
+<li>Siapkan wiring DHT22 di <strong>GPIO 4</strong> (modul kit: biasanya 3 kabel saja). Cocokkan <strong>gambar utama</strong>.</li>
 <li><strong>Buka Arduino IDE</strong> (bukan Laragon / terminal web).</li>
 <li>Install library lewat <strong>Library Manager</strong> (langkah di bawah).</li>
 <li>Buat sketch <code>FS21_dht22_serial</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Buka Serial Monitor baud <strong>115200</strong> — lihat suhu &amp; RH tiap ±3 detik.</li>
 <li>Centang checklist 10/10 di browser.</li>
 </ol>
-<p><strong>Tidak perlu hari ini:</strong> Wi-Fi, MQTT, database, Laragon, <code>php artisan</code>, OLED. Tools hari ini: <strong>Arduino IDE</strong> + <strong>Library Manager</strong> + <strong>Upload</strong> + ESP32 + DHT22 + 10 kΩ + <strong>Serial Monitor</strong> + <strong>browser</strong>.</p>
+<p><strong>Tidak perlu hari ini:</strong> Wi-Fi, MQTT, database, Laragon, <code>php artisan</code>, OLED. Tools hari ini: <strong>Arduino IDE</strong> + <strong>Library Manager</strong> + <strong>Upload</strong> + ESP32 + DHT22 + jumper + <strong>Serial Monitor</strong> + <strong>browser</strong>. Resistor 10 kΩ hanya cadangan (opsional).</p>
 
 <h2>Persiapan — buka &amp; siapkan ini dulu</h2>
 <p><strong>Urutan meja kerja:</strong> wiring sensor → install library di IDE → Upload → baca Serial.</p>
 <ol>
 <li>Buka <strong>Arduino IDE 2.x</strong> · board <strong>ESP32 Dev Module</strong> + port.</li>
 <li>Siapkan ESP32 + USB data.</li>
-<li>Siapkan modul DHT22 + resistor 10 kΩ + jumper.</li>
+<li>Siapkan modul DHT22 + jumper. Resistor 10 kΩ cukup disiapkan sebagai cadangan.</li>
 <li>Cari label <strong>GPIO 4</strong>, <strong>3V3</strong>, dan <strong>GND</strong> di silkscreen.</li>
 <li>Lepas tombol FS-19 dari GPIO 4 jika masih terpasang — hari ini pin itu untuk sensor.</li>
 <li>Siapkan Serial Monitor baud <strong>115200</strong>.</li>
 </ol>
-<p><strong>Alat yang dipakai hari ini:</strong> Arduino IDE, Library Manager, Upload, ESP32, USB data, DHT22, 10 kΩ, jumper, Serial Monitor, browser.</p>
+<p><strong>Alat yang dipakai hari ini:</strong> Arduino IDE, Library Manager, Upload, ESP32, USB data, DHT22, jumper, Serial Monitor, browser. (10 kΩ = opsional.)</p>
 <p><strong>Tidak dipakai hari ini:</strong> Laragon, <code>php artisan</code>, LED PWM, tombol, multimeter (opsional), PuTTY.</p>
 {$ide}
 {$board}
@@ -391,8 +391,9 @@ SVG;
 {$main}
 
 <h2>Wiring DHT22 (bahasa manusia)</h2>
-<p>Modul kit biasanya 3 kaki: <strong>VCC</strong>, <strong>DATA</strong> (kadang tertulis <strong>DAT</strong> / <strong>OUT</strong>), dan <strong>GND</strong>. Sambungkan VCC ke <strong>3V3</strong> (level ESP32), DATA ke <strong>GPIO 4</strong>, GND ke <strong>GND</strong>. Pasang resistor <strong>10 kΩ</strong> antara DATA dan 3V3 (pull-up). Banyak modul sudah punya pull-up di PCB — jika bacaan gagal terus, pasang 10 kΩ eksternal. <strong>Baca label silkscreen di modulmu</strong> — urutan kaki bisa beda antar merek; jangan hanya meniru foto.</p>
-<p>Referensi wiring: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a>.</p>
+<p>Modul kit biasanya 3 kaki: <strong>VCC</strong>, <strong>DATA</strong> (kadang tertulis <strong>DAT</strong> / <strong>OUT</strong>), dan <strong>GND</strong>. Sambungkan VCC ke <strong>3V3</strong>, DATA ke <strong>GPIO 4</strong>, GND ke <strong>GND</strong> — <strong>tiga kabel saja</strong> untuk kasus paling umum.</p>
+<p><strong>Soal pull-up:</strong> jalur data DHT memang butuh resistor pull-up, tetapi <strong>modul kit / AM2302 zaman sekarang biasanya sudah punya di PCB</strong> (sering ≈4,7–5,1 kΩ). Jadi kamu <strong>tidak perlu</strong> menambah 10 kΩ eksternal kecuali: sensor mentah (chip 4 kaki tanpa papan), kabel panjang, atau Serial sering <code>isnan</code>. Acuan: <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a> (pull-up internal) · <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx</a> (sensor mentah → tambah pull-up).</p>
+<p><strong>Baca label silkscreen di modulmu</strong> — urutan kaki bisa beda antar merek; jangan hanya meniru foto.</p>
 
 <h2>Library Manager — pasang “penerjemah” sensor</h2>
 {$lib}
@@ -450,7 +451,7 @@ void loop() {
 <li>Arduino IDE sudah terbuka sebelum menulis kode</li>
 <li>Board ESP32 Dev Module + port sudah dipilih</li>
 <li>Library DHT (Adafruit) + Unified Sensor terpasang</li>
-<li>Wiring DHT22: VCC 3V3, DATA GPIO 4, GND, pull-up 10 kΩ</li>
+<li>Wiring DHT22: VCC 3V3, DATA GPIO 4, GND (modul kit: 3 kabel; pull-up ekstra opsional)</li>
 <li>Paham: isnan = gagal baca (bukan “suhu nol”)</li>
 <li>Paham: jeda baca ≥ ±2 detik</li>
 <li>Sketch disimpan sebagai FS21_dht22_serial</li>
@@ -465,7 +466,7 @@ void loop() {
 <li><strong>Library salah / belum Unified Sensor.</strong> Install keduanya lewat Library Manager.</li>
 <li><strong>Interval terlalu cepat.</strong> DHT22 butuh jeda; pakai ±3 detik seperti sketch.</li>
 <li><strong>DATA ke pin salah.</strong> FSIOT kunci latihan di <strong>GPIO 4</strong> (bukan GPIO 0).</li>
-<li><strong>Lupa pull-up.</strong> Tambah 10 kΩ DATA↔3V3 jika modul tidak punya.</li>
+<li><strong>Bingung soal pull-up.</strong> Modul kit biasanya sudah punya di PCB — jangan merasa wajib pasang 10 kΩ. Tambah eksternal hanya jika sensor mentah / baca gagal terus.</li>
 <li><strong>Power ke 5V tanpa perlu.</strong> Mulai dari <strong>3V3</strong>; banyak modul kit cukup di situ.</li>
 <li><strong>Mengira nan = suhu 0.</strong> <code>isnan</code> = gagal baca, bukan dingin ekstrem.</li>
 <li><strong>Menguji di terminal web.</strong> Sketch hanya jalan di board lewat IDE Upload.</li>
@@ -496,26 +497,26 @@ HTML;
 <p><strong>Prerequisites:</strong> FS-18 (you have Uploaded a sketch) · FS-17 (GPIO 4 in the global table) · Arduino IDE can Upload to the ESP32.</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
-<li>Wire the DHT22 on <strong>GPIO 4</strong> (+ 10 kΩ pull-up). Match the <strong>main figure</strong>.</li>
+<li>Wire the DHT22 on <strong>GPIO 4</strong> (kit module: usually just 3 wires). Match the <strong>main figure</strong>.</li>
 <li><strong>Open Arduino IDE</strong> (not Laragon / a web terminal).</li>
 <li>Install libraries via <strong>Library Manager</strong> (steps below).</li>
 <li>Create sketch <code>FS21_dht22_serial</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Open Serial Monitor at baud <strong>115200</strong> — watch temperature &amp; RH every ≈3 seconds.</li>
 <li>Tick the 10/10 checklist in the browser.</li>
 </ol>
-<p><strong>Not needed today:</strong> Wi-Fi, MQTT, databases, Laragon, <code>php artisan</code>, OLED. Today's tools: <strong>Arduino IDE</strong> + <strong>Library Manager</strong> + <strong>Upload</strong> + ESP32 + DHT22 + 10 kΩ + <strong>Serial Monitor</strong> + <strong>browser</strong>.</p>
+<p><strong>Not needed today:</strong> Wi-Fi, MQTT, databases, Laragon, <code>php artisan</code>, OLED. Today's tools: <strong>Arduino IDE</strong> + <strong>Library Manager</strong> + <strong>Upload</strong> + ESP32 + DHT22 + jumpers + <strong>Serial Monitor</strong> + <strong>browser</strong>. A 10 kΩ resistor is only a spare (optional).</p>
 
 <h2>Preparation — open &amp; gather these first</h2>
 <p><strong>Desk order:</strong> sensor wiring → install libraries in the IDE → Upload → read Serial.</p>
 <ol>
 <li>Open <strong>Arduino IDE 2.x</strong> · <strong>ESP32 Dev Module</strong> board + port.</li>
 <li>Prepare the ESP32 + USB data cable.</li>
-<li>Prepare a DHT22 module + 10 kΩ resistor + jumpers.</li>
+<li>Prepare a DHT22 module + jumpers. Keep a 10 kΩ resistor only as a spare.</li>
 <li>Find <strong>GPIO 4</strong>, <strong>3V3</strong>, and <strong>GND</strong> on the silkscreen.</li>
 <li>Remove the FS-19 button from GPIO 4 if still attached — today that pin is for the sensor.</li>
 <li>Have Serial Monitor ready at baud <strong>115200</strong>.</li>
 </ol>
-<p><strong>Tools used today:</strong> Arduino IDE, Library Manager, Upload, ESP32, USB data, DHT22, 10 kΩ, jumpers, Serial Monitor, browser.</p>
+<p><strong>Tools used today:</strong> Arduino IDE, Library Manager, Upload, ESP32, USB data, DHT22, jumpers, Serial Monitor, browser. (10 kΩ = optional.)</p>
 <p><strong>Not used today:</strong> Laragon, <code>php artisan</code>, PWM LED, button, multimeter (optional), PuTTY.</p>
 {$ide}
 {$board}
@@ -523,8 +524,9 @@ HTML;
 {$main}
 
 <h2>DHT22 wiring (human language)</h2>
-<p>Kit modules usually have 3 pins: <strong>VCC</strong>, <strong>DATA</strong> (sometimes labeled <strong>DAT</strong> / <strong>OUT</strong>), and <strong>GND</strong>. Wire VCC to <strong>3V3</strong> (ESP32 level), DATA to <strong>GPIO 4</strong>, GND to <strong>GND</strong>. Add a <strong>10 kΩ</strong> resistor between DATA and 3V3 (pull-up). Many modules already include a pull-up — if reads keep failing, add an external 10 kΩ. <strong>Read the silkscreen on your module</strong> — pin order can differ by brand; do not copy a photo blindly.</p>
-<p>Wiring reference: <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx sensor</a>.</p>
+<p>Kit modules usually have 3 pins: <strong>VCC</strong>, <strong>DATA</strong> (sometimes labeled <strong>DAT</strong> / <strong>OUT</strong>), and <strong>GND</strong>. Wire VCC to <strong>3V3</strong>, DATA to <strong>GPIO 4</strong>, GND to <strong>GND</strong> — <strong>three wires only</strong> for the common case.</p>
+<p><strong>About the pull-up:</strong> the DHT data line does need a pull-up, but <strong>modern kit / AM2302 modules usually already include one on the PCB</strong> (often ≈4.7–5.1 kΩ). So you <strong>do not need</strong> an extra 10 kΩ unless you have a bare 4-pin sensor, a long cable, or Serial keeps showing <code>isnan</code>. Refs: <a href="https://www.adafruit.com/product/393" rel="noopener noreferrer" target="_blank">Adafruit AM2302</a> (internal pull-up) · <a href="https://learn.adafruit.com/dht/connecting-to-a-dhtxx-sensor" rel="noopener noreferrer" target="_blank">Adafruit — Connecting to a DHTxx</a> (bare sensor → add a pull-up).</p>
+<p><strong>Read the silkscreen on your module</strong> — pin order can differ by brand; do not copy a photo blindly.</p>
 
 <h2>Library Manager — install the sensor “translator”</h2>
 {$lib}
@@ -582,7 +584,7 @@ void loop() {
 <li>Arduino IDE is open before writing code</li>
 <li>ESP32 Dev Module board + port are selected</li>
 <li>DHT (Adafruit) + Unified Sensor libraries are installed</li>
-<li>DHT22 wiring: VCC 3V3, DATA GPIO 4, GND, 10 kΩ pull-up</li>
+<li>DHT22 wiring: VCC 3V3, DATA GPIO 4, GND (kit module: 3 wires; extra pull-up optional)</li>
 <li>I understand: isnan = failed read (not “zero degrees”)</li>
 <li>I understand: read interval ≥ ≈2 seconds</li>
 <li>Sketch saved as FS21_dht22_serial</li>
@@ -597,7 +599,7 @@ void loop() {
 <li><strong>Wrong library / missing Unified Sensor.</strong> Install both via Library Manager.</li>
 <li><strong>Interval too fast.</strong> DHT22 needs a pause; use ≈3 seconds like the sketch.</li>
 <li><strong>DATA on the wrong pin.</strong> FSIOT locks practice to <strong>GPIO 4</strong> (not GPIO 0).</li>
-<li><strong>Missing pull-up.</strong> Add 10 kΩ DATA↔3V3 if the module has none.</li>
+<li><strong>Confused about the pull-up.</strong> Kit modules usually already have one on the PCB — an extra 10 kΩ is not mandatory. Add external only for a bare sensor / persistent failed reads.</li>
 <li><strong>Powering from 5V unnecessarily.</strong> Start from <strong>3V3</strong>; many kit modules are fine there.</li>
 <li><strong>Thinking nan means 0 °C.</strong> <code>isnan</code> = failed read, not extreme cold.</li>
 <li><strong>Testing in a web terminal.</strong> The sketch runs on the board via IDE Upload only.</li>
