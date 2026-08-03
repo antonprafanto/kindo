@@ -394,6 +394,16 @@ return [
         'fsiot_pin_incomplete' => 'Masih ada langkah yang belum dicentang. Cocokkan silkscreen, IO6–IO11, atau GPIO 2/27 lagi.',
         'fsiot_pin_done' => 'Selesai',
         'fsiot_pin_todo' => 'Belum',
+        'fsiot_blink_badge' => 'Checklist LED dari kode',
+        'fsiot_blink_hint' => 'Centang tiap langkah IDE + wiring GPIO 2 + blink. Target: 10/10.',
+        'fsiot_blink_check' => 'Cek kelengkapan',
+        'fsiot_blink_retry' => 'Kosongkan lagi',
+        'fsiot_blink_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_blink_progress' => ':filled dari :total tercentang',
+        'fsiot_blink_pass' => 'Lengkap :filled/:total — LED GPIO 2 berkedip dari kode! Lanjut FS-19 saat modulnya terbit.',
+        'fsiot_blink_incomplete' => 'Masih ada langkah yang belum dicentang. Cek pinMode, resistor 220 Ω, atau Serial 115200 lagi.',
+        'fsiot_blink_done' => 'Selesai',
+        'fsiot_blink_todo' => 'Belum',
     ],
 
     'theme' => [

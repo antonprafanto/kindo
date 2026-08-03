@@ -394,6 +394,16 @@ return [
         'fsiot_pin_incomplete' => 'Some steps are still unchecked. Rematch silkscreen, IO6–IO11, or GPIO 2/27.',
         'fsiot_pin_done' => 'Done',
         'fsiot_pin_todo' => 'Not yet',
+        'fsiot_blink_badge' => 'LED-from-code checklist',
+        'fsiot_blink_hint' => 'Tick each IDE + GPIO 2 wiring + blink step. Target: 10/10.',
+        'fsiot_blink_check' => 'Check completeness',
+        'fsiot_blink_retry' => 'Clear again',
+        'fsiot_blink_paper' => 'Paper version (no clicks)',
+        'fsiot_blink_progress' => ':filled of :total checked',
+        'fsiot_blink_pass' => 'Complete :filled/:total — GPIO 2 LED blinks from code! Continue to FS-19 when that module publishes.',
+        'fsiot_blink_incomplete' => 'Some steps are still unchecked. Recheck pinMode, the 220 Ω resistor, or Serial at 115200.',
+        'fsiot_blink_done' => 'Done',
+        'fsiot_blink_todo' => 'Not yet',
     ],
 
     'theme' => [
