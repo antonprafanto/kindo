@@ -69,6 +69,7 @@ check('kit resistor asset', str_contains($id, 'kit-resistor-220ohm.jpg') && is_f
 check('breadboard photo reused', str_contains($id, 'fs18-led-gpio2-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs18-led-gpio2-breadboard.png'));
 check('main wiring figure label ID', str_contains($id, 'Gambar utama'));
 check('main wiring figure label EN', str_contains($en, 'Main figure'));
+check('FTP allowlist includes fs18 breadboard', str_contains(file_get_contents(__DIR__.'/../.github/workflows/deploy.yml'), 'fs18-led-gpio2-breadboard.png'));
 check('polarity SVG ID', str_contains($id, 'polaritas LED') || str_contains($id, 'kaki panjang'));
 check('polarity SVG EN', str_contains($en, 'LED polarity') || str_contains($en, 'long lead'));
 check('Arduino pinMode cite', str_contains($id, 'functions/digital-io/pinmode') && str_contains($en, 'functions/digital-io/pinmode'));
