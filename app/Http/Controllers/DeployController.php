@@ -7962,7 +7962,7 @@ class DeployController extends Controller
             'kit-led-5mm.jpg',
             'fs11-ide-overview-cite.png',
             'esp32-devkitc-overview.jpg',
-            'fs19-button-pullup-wiring.svg',
+            'fs19-button-pullup-wiring.png',
             'Gambar utama',
             'fs10-button-pulldown-wiring.png',
             'parit tengah',
@@ -8000,7 +8000,7 @@ class DeployController extends Controller
             'functions/time/millis',
             'kit-tactile-button.jpg',
             'Main figure',
-            'fs19-button-pullup-wiring.svg',
+            'fs19-button-pullup-wiring.png',
             'fs10-button-pulldown-wiring.png',
             'center ditch',
         ];

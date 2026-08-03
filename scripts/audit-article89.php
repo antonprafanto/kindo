@@ -53,7 +53,7 @@ check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($i
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 8', substr_count($id, '<figure') >= 8 && substr_count($en, '<figure') >= 8);
-check('main wiring SVG asset', str_contains($id, 'fs19-button-pullup-wiring.svg') && is_file(__DIR__.'/../public/images/fsiot/fs19-button-pullup-wiring.svg'));
+check('main wiring PNG asset', str_contains($id, 'fs19-button-pullup-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs19-button-pullup-wiring.png'));
 check('Gambar utama label ID', str_contains($id, 'Gambar utama'));
 check('Main figure label EN', str_contains($en, 'Main figure'));
 check('FS-10 photo embedded', str_contains($id, 'fs10-button-pulldown-wiring.png') && str_contains($en, 'fs10-button-pulldown-wiring.png'));

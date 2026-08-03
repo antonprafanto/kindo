@@ -179,7 +179,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs19-button-pullup-wiring.svg" width="960" height="520" alt="Gambar utama — wiring tombol GPIO 27 INPUT_PULLUP dan LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
+  <img src="/images/fsiot/fs19-button-pullup-wiring.png" width="960" height="520" alt="Gambar utama — wiring tombol GPIO 27 INPUT_PULLUP dan LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Gambar utama:</strong> jalur tombol <strong>GPIO 27 → tombol → GND</strong> (pakai <code>INPUT_PULLUP</code> di kode) + LED di <strong>GPIO 2</strong>.
     <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-19).
@@ -192,7 +192,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs19-button-pullup-wiring.svg" width="960" height="520" alt="Main figure — GPIO 27 INPUT_PULLUP button wiring and GPIO 2 LED" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
+  <img src="/images/fsiot/fs19-button-pullup-wiring.png" width="960" height="520" alt="Main figure — GPIO 27 INPUT_PULLUP button wiring and GPIO 2 LED" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
     <strong>Main figure:</strong> button path <strong>GPIO 27 → button → GND</strong> (use <code>INPUT_PULLUP</code> in code) + LED on <strong>GPIO 2</strong>.
     <br>Image source: labeled diagram by Koding Indonesia (FS-19).
