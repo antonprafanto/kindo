@@ -404,6 +404,16 @@ return [
         'fsiot_blink_incomplete' => 'Some steps are still unchecked. Recheck pinMode, the 220 Ω resistor, or Serial at 115200.',
         'fsiot_blink_done' => 'Done',
         'fsiot_blink_todo' => 'Not yet',
+        'fsiot_btn_badge' => 'Button + debounce checklist',
+        'fsiot_btn_hint' => 'Tick each IDE + GPIO 27 wiring + debounce step. Target: 10/10.',
+        'fsiot_btn_check' => 'Check completeness',
+        'fsiot_btn_retry' => 'Clear again',
+        'fsiot_btn_paper' => 'Paper version (no clicks)',
+        'fsiot_btn_progress' => ':filled of :total checked',
+        'fsiot_btn_pass' => 'Complete :filled/:total — GPIO 27 button reliable + millis ready! Continue to FS-20 when that module publishes.',
+        'fsiot_btn_incomplete' => 'Some steps are still unchecked. Recheck INPUT_PULLUP, 50 ms debounce, or Serial ticks.',
+        'fsiot_btn_done' => 'Done',
+        'fsiot_btn_todo' => 'Not yet',
     ],
 
     'theme' => [
