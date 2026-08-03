@@ -7962,6 +7962,10 @@ class DeployController extends Controller
             'kit-led-5mm.jpg',
             'fs11-ide-overview-cite.png',
             'esp32-devkitc-overview.jpg',
+            'fs19-button-pullup-wiring.svg',
+            'Gambar utama',
+            'fs10-button-pulldown-wiring.png',
+            'parit tengah',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -7995,6 +7999,10 @@ class DeployController extends Controller
             'functions/digital-io/digitalread',
             'functions/time/millis',
             'kit-tactile-button.jpg',
+            'Main figure',
+            'fs19-button-pullup-wiring.svg',
+            'fs10-button-pulldown-wiring.png',
+            'center ditch',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

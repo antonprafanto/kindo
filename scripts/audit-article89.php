@@ -52,7 +52,15 @@ check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
 check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 6', substr_count($id, '<figure') >= 6 && substr_count($en, '<figure') >= 6);
+check('figures both >= 8', substr_count($id, '<figure') >= 8 && substr_count($en, '<figure') >= 8);
+check('main wiring SVG asset', str_contains($id, 'fs19-button-pullup-wiring.svg') && is_file(__DIR__.'/../public/images/fsiot/fs19-button-pullup-wiring.svg'));
+check('Gambar utama label ID', str_contains($id, 'Gambar utama'));
+check('Main figure label EN', str_contains($en, 'Main figure'));
+check('FS-10 photo embedded', str_contains($id, 'fs10-button-pulldown-wiring.png') && str_contains($en, 'fs10-button-pulldown-wiring.png'));
+check('parit tengah explained ID', str_contains($id, 'parit tengah'));
+check('center ditch explained EN', str_contains($en, 'center ditch'));
+check('cover asset exists', is_file(__DIR__.'/../public/images/fsiot/fs19-cover-button-led.jpg'));
+check('cover set-if-blank in seeder', str_contains($src, 'fs19-cover-button-led.jpg') && str_contains($src, 'cover_image'));
 
 check('ID mistakes heading', str_contains($id, 'Kesalahan yang sering terjadi'));
 check('EN mistakes heading', str_contains($en, 'Common mistakes'));

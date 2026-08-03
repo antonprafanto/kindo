@@ -65,6 +65,17 @@ class Article89Seeder extends Seeder
         $tagIds = Tag::whereIn('slug', ['fullstack-iot', 'iot', 'esp32'])->pluck('id');
         $article->tags()->sync($tagIds);
 
+        // Cover hanya diisi jika masih kosong — jangan timpa cover yang sudah di-upload manual.
+        if (blank($article->cover_image)) {
+            $src = public_path('images/fsiot/fs19-cover-button-led.jpg');
+            if (is_file($src)) {
+                $dest = 'articles/covers/fs19-cover-button-led.jpg';
+                \Illuminate\Support\Facades\Storage::disk('public')->put($dest, file_get_contents($src));
+                $article->cover_image = $dest;
+                $article->save();
+            }
+        }
+
         $this->command?->info('✓ Artikel #89 / FS-19 tersimpan sebagai DRAFT: '.$article->title);
     }
 
@@ -127,7 +138,7 @@ HTML;
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start">
     <div>
       <img src="/images/fsiot/kit-tactile-button.jpg" width="800" height="600" alt="Tombol tactile 4 kaki" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>Tombol tactile</strong> — 4 kaki, lintasi parit</p>
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>Tombol tactile</strong> — 4 kaki, lintasi parit tengah breadboard</p>
     </div>
     <div>
       <img src="/images/fsiot/kit-led-5mm.jpg" width="900" height="900" alt="LED 5 mm untuk toggle GPIO 2" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
@@ -149,7 +160,7 @@ HTML;
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start">
     <div>
       <img src="/images/fsiot/kit-tactile-button.jpg" width="800" height="600" alt="4-leg tactile button" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>Tactile button</strong> — 4 legs, across the ditch</p>
+      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#4A5568;text-align:center"><strong>Tactile button</strong> — 4 legs, across the breadboard center ditch</p>
     </div>
     <div>
       <img src="/images/fsiot/kit-led-5mm.jpg" width="900" height="900" alt="5 mm LED for GPIO 2 toggle" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
@@ -164,31 +175,93 @@ HTML;
 HTML;
     }
 
+    private function mainWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs19-button-pullup-wiring.svg" width="960" height="520" alt="Gambar utama — wiring tombol GPIO 27 INPUT_PULLUP dan LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Gambar utama:</strong> jalur tombol <strong>GPIO 27 → tombol → GND</strong> (pakai <code>INPUT_PULLUP</code> di kode) + LED di <strong>GPIO 2</strong>.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-19).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function mainWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs19-button-pullup-wiring.svg" width="960" height="520" alt="Main figure — GPIO 27 INPUT_PULLUP button wiring and GPIO 2 LED" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Main figure:</strong> button path <strong>GPIO 27 → button → GND</strong> (use <code>INPUT_PULLUP</code> in code) + LED on <strong>GPIO 2</strong>.
+    <br>Image source: labeled diagram by Koding Indonesia (FS-19).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function fs10RefFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1200" height="800" alt="Foto acuan FS-10 — tombol di breadboard dengan resistor pull-down" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Foto acuan (pola lain):</strong> di FS-10 tombol memakai resistor pull-down eksternal. Hari ini lebih sederhana: <strong>INPUT_PULLUP</strong> (tanpa 10 kΩ), tapi bentuk fisik tombol di breadboard tetap sama — kaki melintasi <em>parit tengah</em>.
+    <br>Sumber gambar: foto rangkaian Koding Indonesia (FS-10).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function fs10RefFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs10-button-pulldown-wiring.png" width="1200" height="800" alt="FS-10 reference photo — breadboard button with pull-down resistor" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Reference photo (other pattern):</strong> FS-10 used an external pull-down resistor. Today is simpler: <strong>INPUT_PULLUP</strong> (no 10 kΩ), but the physical button on the breadboard looks the same — legs across the <em>center ditch</em>.
+    <br>Image source: Koding Indonesia wiring photo (FS-10).
+  </figcaption>
+</figure>
+HTML;
+    }
+
     private function wiringSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Wiring INPUT_PULLUP: GPIO 27 ke tombol ke GND, LED tetap di GPIO 2" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 210" width="100%" height="auto" style="display:block;max-height:240px">
-    <text x="430" y="26" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Wiring hari ini — INPUT_PULLUP (sederhana)</text>
-    <rect x="40" y="50" width="170" height="70" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-    <text x="125" y="80" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#0D47A1">GPIO 27</text>
-    <text x="125" y="102" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">baca tombol</text>
-    <text x="230" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
-    <rect x="250" y="50" width="170" height="70" rx="8" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2.5"/>
-    <text x="335" y="80" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#E65100">Tombol</text>
-    <text x="335" y="102" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">lintasi parit</text>
-    <text x="440" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
-    <rect x="460" y="50" width="150" height="70" rx="8" fill="#ECEFF1" stroke="#455A64" stroke-width="2.5"/>
-    <text x="535" y="80" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#263238">GND</text>
-    <text x="535" y="102" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">tanah</text>
-    <rect x="640" y="50" width="180" height="70" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-    <text x="730" y="80" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#1B5E20">LED GPIO 2</text>
-    <text x="730" y="102" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">+ 220 Ω (FS-18)</text>
-    <text x="430" y="155" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#444">Lepas = HIGH (pull-up internal). Tekan = LOW (tersambung GND). Jangan pakai GPIO 0.</text>
-    <text x="430" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">Alternatif FS-10: pull-down eksternal 10 kΩ + sinyal ke GPIO 27 — tetap valid, lebih banyak kabel.</text>
+<figure role="img" aria-label="Ringkasan dua jalur: tombol GPIO 27 dan LED GPIO 2" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 240" width="100%" height="auto" style="display:block;max-height:280px">
+    <text x="430" y="26" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Ringkasan dua jalur (baca dari kiri ke kanan)</text>
+    <text x="40" y="58" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#0D47A1">Jalur A — tombol</text>
+    <rect x="40" y="68" width="170" height="54" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+    <text x="125" y="92" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#0D47A1">GPIO 27</text>
+    <text x="125" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">baca tombol</text>
+    <text x="230" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
+    <rect x="250" y="68" width="170" height="54" rx="8" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2.5"/>
+    <text x="335" y="92" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#E65100">Tombol</text>
+    <text x="335" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">parit tengah</text>
+    <text x="440" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
+    <rect x="460" y="68" width="150" height="54" rx="8" fill="#ECEFF1" stroke="#455A64" stroke-width="2.5"/>
+    <text x="535" y="92" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#263238">GND</text>
+    <text x="535" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">tanah</text>
+    <text x="640" y="100" font-family="Segoe UI,sans-serif" font-size="12" fill="#555">lepas=HIGH · tekan=LOW</text>
+    <text x="40" y="158" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#1B5E20">Jalur B — LED (dari FS-18)</text>
+    <rect x="40" y="168" width="170" height="54" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+    <text x="125" y="192" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#1B5E20">GPIO 2</text>
+    <text x="125" y="210" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">keluaran</text>
+    <text x="230" y="200" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
+    <rect x="250" y="168" width="170" height="54" rx="8" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
+    <text x="335" y="192" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#F57F17">220 ohm</text>
+    <text x="335" y="210" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">batas arus</text>
+    <text x="440" y="200" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
+    <rect x="460" y="168" width="150" height="54" rx="8" fill="#FFECB3" stroke="#FF8F00" stroke-width="2.5"/>
+    <text x="535" y="192" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#E65100">LED</text>
+    <text x="535" y="210" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">lalu ke GND</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>Intinya:</strong> satu jalur tombol ke <strong>GPIO 27</strong>, LED tetap di <strong>GPIO 2</strong>. Sumber gambar: diagram buatan Koding Indonesia (FS-19). Acuan pull-down FS-10: <a href="/images/fsiot/fs10-button-pulldown-wiring.png" rel="noopener noreferrer" target="_blank">fs10-button-pulldown-wiring.png</a>.
+    <strong>Intinya:</strong> dua jalur terpisah — tombol di GPIO 27, LED di GPIO 2. Jangan pakai GPIO 0 untuk tombol.
+    <br>Sumber gambar: diagram buatan Koding Indonesia (FS-19).
   </figcaption>
 </figure>
 SVG;
@@ -197,28 +270,38 @@ SVG;
     private function wiringSvgEn(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="INPUT_PULLUP wiring: GPIO 27 to button to GND, LED still on GPIO 2" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 210" width="100%" height="auto" style="display:block;max-height:240px">
-    <text x="430" y="26" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Wiring today — INPUT_PULLUP (simple)</text>
-    <rect x="40" y="50" width="170" height="70" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-    <text x="125" y="80" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#0D47A1">GPIO 27</text>
-    <text x="125" y="102" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">read button</text>
-    <text x="230" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
-    <rect x="250" y="50" width="170" height="70" rx="8" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2.5"/>
-    <text x="335" y="80" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#E65100">Button</text>
-    <text x="335" y="102" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">across the ditch</text>
-    <text x="440" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
-    <rect x="460" y="50" width="150" height="70" rx="8" fill="#ECEFF1" stroke="#455A64" stroke-width="2.5"/>
-    <text x="535" y="80" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#263238">GND</text>
-    <text x="535" y="102" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">ground</text>
-    <rect x="640" y="50" width="180" height="70" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-    <text x="730" y="80" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#1B5E20">LED GPIO 2</text>
-    <text x="730" y="102" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">+ 220 Ω (FS-18)</text>
-    <text x="430" y="155" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#444">Released = HIGH (internal pull-up). Pressed = LOW (tied to GND). Do not use GPIO 0.</text>
-    <text x="430" y="180" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">FS-10 alternative: external 10 kΩ pull-down + signal to GPIO 27 — still valid, more wires.</text>
+<figure role="img" aria-label="Two-path summary: GPIO 27 button and GPIO 2 LED" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 240" width="100%" height="auto" style="display:block;max-height:280px">
+    <text x="430" y="26" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Two-path summary (read left to right)</text>
+    <text x="40" y="58" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#0D47A1">Path A — button</text>
+    <rect x="40" y="68" width="170" height="54" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+    <text x="125" y="92" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#0D47A1">GPIO 27</text>
+    <text x="125" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">read button</text>
+    <text x="230" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
+    <rect x="250" y="68" width="170" height="54" rx="8" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2.5"/>
+    <text x="335" y="92" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#E65100">Button</text>
+    <text x="335" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">center ditch</text>
+    <text x="440" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
+    <rect x="460" y="68" width="150" height="54" rx="8" fill="#ECEFF1" stroke="#455A64" stroke-width="2.5"/>
+    <text x="535" y="92" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#263238">GND</text>
+    <text x="535" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">ground</text>
+    <text x="640" y="100" font-family="Segoe UI,sans-serif" font-size="12" fill="#555">release=HIGH · press=LOW</text>
+    <text x="40" y="158" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#1B5E20">Path B — LED (from FS-18)</text>
+    <rect x="40" y="168" width="170" height="54" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+    <text x="125" y="192" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#1B5E20">GPIO 2</text>
+    <text x="125" y="210" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">output</text>
+    <text x="230" y="200" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
+    <rect x="250" y="168" width="170" height="54" rx="8" fill="#FFF8E1" stroke="#F9A825" stroke-width="2.5"/>
+    <text x="335" y="192" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#F57F17">220 ohm</text>
+    <text x="335" y="210" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">current limit</text>
+    <text x="440" y="200" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
+    <rect x="460" y="168" width="150" height="54" rx="8" fill="#FFECB3" stroke="#FF8F00" stroke-width="2.5"/>
+    <text x="535" y="192" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#E65100">LED</text>
+    <text x="535" y="210" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">then to GND</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>In short:</strong> one button path to <strong>GPIO 27</strong>, LED still on <strong>GPIO 2</strong>. Image source: diagram by Koding Indonesia (FS-19). FS-10 pull-down reference: <a href="/images/fsiot/fs10-button-pulldown-wiring.png" rel="noopener noreferrer" target="_blank">fs10-button-pulldown-wiring.png</a>.
+    <strong>In short:</strong> two separate paths — button on GPIO 27, LED on GPIO 2. Do not use GPIO 0 for the button.
+    <br>Image source: diagram by Koding Indonesia (FS-19).
   </figcaption>
 </figure>
 SVG;
@@ -228,16 +311,16 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Bounce tombol: sinyal bergetar vs sinyal bersih setelah debounce" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 185" width="100%" height="auto" style="display:block;max-height:210px">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 210" width="100%" height="auto" style="display:block;max-height:240px">
     <text x="430" y="26" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Bounce = getaran mekanik singkat</text>
-    <rect x="40" y="50" width="360" height="90" rx="8" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
-    <text x="220" y="78" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">Tanpa debounce</text>
-    <text x="220" y="104" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#333">HLHLHL… (banyak tepi)</text>
-    <text x="220" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">LED bisa double-toggle</text>
-    <rect x="460" y="50" width="360" height="90" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-    <text x="640" y="78" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">Dengan debounce millis</text>
-    <text x="640" y="104" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#333">H ——— L (satu tepi bersih)</text>
-    <text x="640" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">satu tekan = satu aksi</text>
+    <rect x="40" y="45" width="360" height="130" rx="8" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
+    <text x="220" y="70" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">Tanpa debounce</text>
+    <polyline points="70,150 100,70 120,140 140,75 160,135 180,80 210,70 320,70" fill="none" stroke="#C62828" stroke-width="3"/>
+    <text x="220" y="165" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">banyak tepi → LED bisa double-toggle</text>
+    <rect x="460" y="45" width="360" height="130" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+    <text x="640" y="70" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">Dengan debounce millis</text>
+    <polyline points="490,70 560,70 580,150 740,150" fill="none" stroke="#2E7D32" stroke-width="3"/>
+    <text x="640" y="165" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">satu tepi bersih → satu tekan = satu aksi</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
     <strong>Intinya:</strong> tunggu sinyal stabil ±50 ms sebelum percaya “baru ditekan”. Sumber gambar: diagram buatan Koding Indonesia (FS-19).
@@ -250,16 +333,16 @@ SVG;
     {
         return <<<'SVG'
 <figure role="img" aria-label="Button bounce: noisy edges versus clean edge after debounce" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 185" width="100%" height="auto" style="display:block;max-height:210px">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 210" width="100%" height="auto" style="display:block;max-height:240px">
     <text x="430" y="26" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Bounce = a short mechanical chatter</text>
-    <rect x="40" y="50" width="360" height="90" rx="8" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
-    <text x="220" y="78" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">Without debounce</text>
-    <text x="220" y="104" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#333">HLHLHL… (many edges)</text>
-    <text x="220" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">LED may double-toggle</text>
-    <rect x="460" y="50" width="360" height="90" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-    <text x="640" y="78" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">With millis debounce</text>
-    <text x="640" y="104" text-anchor="middle" font-family="Consolas,monospace" font-size="13" fill="#333">H ——— L (one clean edge)</text>
-    <text x="640" y="126" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">one press = one action</text>
+    <rect x="40" y="45" width="360" height="130" rx="8" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
+    <text x="220" y="70" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#B71C1C">Without debounce</text>
+    <polyline points="70,150 100,70 120,140 140,75 160,135 180,80 210,70 320,70" fill="none" stroke="#C62828" stroke-width="3"/>
+    <text x="220" y="165" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">many edges → LED may double-toggle</text>
+    <rect x="460" y="45" width="360" height="130" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+    <text x="640" y="70" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#1B5E20">With millis debounce</text>
+    <polyline points="490,70 560,70 580,150 740,150" fill="none" stroke="#2E7D32" stroke-width="3"/>
+    <text x="640" y="165" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">one clean edge → one press = one action</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
     <strong>In short:</strong> wait until the signal stays stable ~50 ms before trusting a “new press”. Image source: diagram by Koding Indonesia (FS-19).
@@ -317,6 +400,8 @@ SVG;
         $ide = $this->ideFigureId();
         $board = $this->boardFigureId();
         $kit = $this->kitFigureId();
+        $main = $this->mainWiringFigureId();
+        $fs10 = $this->fs10RefFigureId();
         $wiring = $this->wiringSvgId();
         $bounce = $this->bounceSvgId();
         $millis = $this->millisSvgId();
@@ -328,7 +413,7 @@ SVG;
 <p><strong>Prasyarat:</strong> FS-18 (LED GPIO 2) · FS-10 (kenal pull-up/pull-down) · FS-15 (pernah lihat pengulangan).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li>Siapkan wiring: tombol <strong>GPIO 27 ↔ GND</strong> + LED <strong>GPIO 2</strong> (pola FS-18).</li>
+<li>Siapkan wiring: tombol <strong>GPIO 27 ↔ GND</strong> + LED <strong>GPIO 2</strong> (pola FS-18). Cocokkan dengan <strong>gambar utama</strong> di bawah.</li>
 <li><strong>Buka Arduino IDE</strong> (bukan Laragon / terminal web).</li>
 <li>Baca singkat: <code>digitalRead</code>, bounce, <code>millis</code> vs <code>delay</code>.</li>
 <li>Buat sketch <code>FS19_btn_debounce</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
@@ -351,18 +436,21 @@ SVG;
 {$ide}
 {$board}
 {$kit}
+{$main}
 
 <h2>digitalRead dan INPUT_PULLUP</h2>
 {$wiring}
 <p><code>digitalRead(pin)</code> mengembalikan <code>HIGH</code> atau <code>LOW</code>. Dengan <code>pinMode(BTN, INPUT_PULLUP)</code>, chip memasang resistor internal ke 3,3 V — lepas = HIGH, tekan ke GND = LOW.</p>
 <p>Referensi: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalread/" rel="noopener noreferrer" target="_blank">Arduino — digitalRead</a> · <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/pinmode/" rel="noopener noreferrer" target="_blank">Arduino — pinMode</a>.</p>
-<p><strong>Langkah wiring cepat:</strong></p>
+<p><strong>Langkah wiring cepat (cocokkan dengan gambar utama):</strong></p>
 <ol>
+<li>Pasang tombol melintasi <strong>parit tengah</strong> breadboard (celah memanjang di tengah papan).</li>
 <li>Satu kaki tombol → <strong>GPIO 27</strong>.</li>
-<li>Kaki diagonal/pasangan tombol → <strong>GND</strong> (pastikan melintasi parit breadboard).</li>
+<li>Kaki pasangan/diagonal tombol → <strong>GND</strong>.</li>
 <li>LED + 220 Ω tetap di <strong>GPIO 2</strong> seperti FS-18.</li>
 <li>Jangan wiring tombol ke GPIO 0 (bisa masuk mode download).</li>
 </ol>
+{$fs10}
 
 <h2>Bounce dan debounce</h2>
 {$bounce}
@@ -475,6 +563,8 @@ HTML;
         $ide = $this->ideFigureEn();
         $board = $this->boardFigureEn();
         $kit = $this->kitFigureEn();
+        $main = $this->mainWiringFigureEn();
+        $fs10 = $this->fs10RefFigureEn();
         $wiring = $this->wiringSvgEn();
         $bounce = $this->bounceSvgEn();
         $millis = $this->millisSvgEn();
@@ -486,7 +576,7 @@ HTML;
 <p><strong>Prerequisites:</strong> FS-18 (LED on GPIO 2) · FS-10 (know pull-up/pull-down) · FS-15 (you have seen loops).</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
-<li>Prepare wiring: button <strong>GPIO 27 ↔ GND</strong> + LED on <strong>GPIO 2</strong> (FS-18 pattern).</li>
+<li>Prepare wiring: button <strong>GPIO 27 ↔ GND</strong> + LED on <strong>GPIO 2</strong> (FS-18 pattern). Match the <strong>main figure</strong> below.</li>
 <li><strong>Open Arduino IDE</strong> (not Laragon / a web terminal).</li>
 <li>Skim: <code>digitalRead</code>, bounce, <code>millis</code> vs <code>delay</code>.</li>
 <li>Create sketch <code>FS19_btn_debounce</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
@@ -509,18 +599,21 @@ HTML;
 {$ide}
 {$board}
 {$kit}
+{$main}
 
 <h2>digitalRead and INPUT_PULLUP</h2>
 {$wiring}
 <p><code>digitalRead(pin)</code> returns <code>HIGH</code> or <code>LOW</code>. With <code>pinMode(BTN, INPUT_PULLUP)</code>, the chip enables an internal resistor to 3.3 V — released = HIGH, pressed to GND = LOW.</p>
 <p>References: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalread/" rel="noopener noreferrer" target="_blank">Arduino — digitalRead</a> · <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/pinmode/" rel="noopener noreferrer" target="_blank">Arduino — pinMode</a>.</p>
-<p><strong>Quick wiring steps:</strong></p>
+<p><strong>Quick wiring steps (match the main figure):</strong></p>
 <ol>
+<li>Place the button across the breadboard <strong>center ditch</strong> (the long gap down the middle).</li>
 <li>One button leg → <strong>GPIO 27</strong>.</li>
-<li>The paired/diagonal leg → <strong>GND</strong> (across the breadboard ditch).</li>
+<li>The paired/diagonal leg → <strong>GND</strong>.</li>
 <li>LED + 220 Ω stay on <strong>GPIO 2</strong> like FS-18.</li>
 <li>Do not wire the button to GPIO 0 (download mode risk).</li>
 </ol>
+{$fs10}
 
 <h2>Bounce and debounce</h2>
 {$bounce}
