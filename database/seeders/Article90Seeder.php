@@ -236,7 +236,7 @@ SVG;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs20-duty-cycle-examples.png" width="542" height="342" alt="Contoh duty cycle 25 persen, 50 persen, dan 75 persen" loading="eager" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Duty cycle</strong> = berapa lama sinyal “tinggi” dalam satu periode. 25% = lebih sering mati (redup); 75% = lebih sering nyala (terang).
+    <strong>Duty cycle</strong> = berapa lama sinyal “tinggi” dalam satu periode. Untuk LED: 25% biasanya terasa lebih redup; 75% lebih terang. Angka di sketch kita (0–255) adalah cara menulis rasio itu.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Duty_Cycle_Examples.png" rel="noopener noreferrer" target="_blank">Duty Cycle Examples</a> · Wikimedia Commons (CC BY-SA 4.0) · Thewrightstuff.
   </figcaption>
 </figure>
@@ -249,7 +249,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs20-duty-cycle-examples.png" width="542" height="342" alt="Duty cycle examples at 25 percent, 50 percent, and 75 percent" loading="eager" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Duty cycle</strong> = how long the signal stays “high” in one period. 25% = off more often (dim); 75% = on more often (bright).
+    <strong>Duty cycle</strong> = how long the signal stays “high” in one period. For an LED: 25% usually looks dimmer; 75% looks brighter. The 0–255 numbers in our sketch write that ratio.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Duty_Cycle_Examples.png" rel="noopener noreferrer" target="_blank">Duty Cycle Examples</a> · Wikimedia Commons (CC BY-SA 4.0) · Thewrightstuff.
   </figcaption>
 </figure>
@@ -260,10 +260,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs20-pwm-5steps.png" width="400" height="438" alt="Diagram PWM Arduino: 0, 25, 50, 75, dan 100 persen" loading="eager" style="width:100%;height:auto;max-height:400px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs20-pwm-5steps.png" width="900" height="720" alt="Tangga PWM ESP32: 0 sampai 255 dengan level 3,3 V" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Tangga terang:</strong> 0% = mati · 50% = setengah · 100% = penuh. Di sketch kita, angka <code>0</code>–<code>255</code> mewakili tangga itu.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Pwm_5steps.gif" rel="noopener noreferrer" target="_blank">Pwm 5steps</a> · Wikimedia Commons (CC BY-SA 3.0) · tim Arduino.cc · asal <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogwrite/" rel="noopener noreferrer" target="_blank">Arduino — analogWrite</a>.
+    <strong>Tangga terang ESP32:</strong> <code>0</code> = mati · <code>127</code> ≈ setengah · <code>255</code> = penuh. Level HIGH di ESP32 ≈ <strong>3,3 V</strong> (bukan 5 V seperti Arduino Uno klasik).
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-20). Konsep nilai 0–255: <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogwrite/" rel="noopener noreferrer" target="_blank">Arduino — analogWrite</a>.
   </figcaption>
 </figure>
 HTML;
@@ -273,10 +273,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs20-pwm-5steps.png" width="400" height="438" alt="Arduino PWM diagram: 0, 25, 50, 75, and 100 percent" loading="eager" style="width:100%;height:auto;max-height:400px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs20-pwm-5steps.png" width="900" height="720" alt="ESP32 PWM ladder: 0 to 255 at 3.3 V logic level" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Brightness steps:</strong> 0% = off · 50% = half · 100% = full. In our sketch, numbers <code>0</code>–<code>255</code> map that ladder.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Pwm_5steps.gif" rel="noopener noreferrer" target="_blank">Pwm 5steps</a> · Wikimedia Commons (CC BY-SA 3.0) · Arduino.cc team · from <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogwrite/" rel="noopener noreferrer" target="_blank">Arduino — analogWrite</a>.
+    <strong>ESP32 brightness ladder:</strong> <code>0</code> = off · <code>127</code> ≈ half · <code>255</code> = full. ESP32 HIGH is about <strong>3.3 V</strong> (not 5 V like a classic Arduino Uno).
+    <br>Image source: labeled diagram by Koding Indonesia (FS-20). Value range 0–255: <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogwrite/" rel="noopener noreferrer" target="_blank">Arduino — analogWrite</a>.
   </figcaption>
 </figure>
 HTML;
@@ -376,6 +376,7 @@ SVG;
 <p><strong>PWM</strong> (pulse-width modulation) = mengatur lebar “denyut” nyala dalam waktu sangat singkat. <strong>Duty cycle</strong> = rasio waktu nyala terhadap satu periode (0% mati total · 100% nyala penuh).</p>
 {$duty}
 {$steps}
+<p><strong>Catatan penting untuk ESP32:</strong> di banyak diagram Arduino klasik tertulis 5 V. Board kita memakai logika ≈ <strong>3,3 V</strong>. Jangan menyambungkan LED latihan ke pin 5V board — tetap jalur <strong>GPIO 2 → resistor → LED → GND</strong> seperti gambar utama.</p>
 <p>Di Arduino klasik dan di <strong>Arduino-ESP32 v3.x</strong>, kita memakai <code>analogWrite(pin, nilai)</code> dengan nilai <strong>0–255</strong> (8 bit). Tidak perlu menghafal nama channel LEDC dulu — itu boleh dipelajari nanti di dokumentasi lanjut.</p>
 <p>Referensi: <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogwrite/" rel="noopener noreferrer" target="_blank">Arduino — analogWrite</a> · <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html" rel="noopener noreferrer" target="_blank">Espressif — LEDC / PWM (Arduino-ESP32)</a>.</p>
 
@@ -503,6 +504,7 @@ HTML;
 <p><strong>PWM</strong> (pulse-width modulation) = controlling how wide the “on” pulse is in a very short period. <strong>Duty cycle</strong> = the on-time ratio in one period (0% fully off · 100% fully on).</p>
 {$duty}
 {$steps}
+<p><strong>Important ESP32 note:</strong> many classic Arduino diagrams show 5 V. Our board uses ≈ <strong>3.3 V</strong> logic. Do not wire the practice LED to the board’s 5V pin — keep <strong>GPIO 2 → resistor → LED → GND</strong> like the main figure.</p>
 <p>On classic Arduino and on <strong>Arduino-ESP32 v3.x</strong>, we use <code>analogWrite(pin, value)</code> with <strong>0–255</strong> (8-bit). You do not need to memorize LEDC channel names yet — that can wait for advanced docs.</p>
 <p>References: <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogwrite/" rel="noopener noreferrer" target="_blank">Arduino — analogWrite</a> · <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/ledc.html" rel="noopener noreferrer" target="_blank">Espressif — LEDC / PWM (Arduino-ESP32)</a>.</p>
 

@@ -74,7 +74,9 @@ check('Arduino analogWrite cite', str_contains($id, 'functions/analog-io/analogw
 check('Espressif LEDC cite', str_contains($id, 'api/ledc.html') && str_contains($en, 'api/ledc.html'));
 check('KI diagram cite', str_contains($id, 'buatan Koding Indonesia') && str_contains($en, 'diagram by Koding Indonesia'));
 check('Commons duty cycle cite', str_contains($id, 'commons.wikimedia.org/wiki/File:Duty_Cycle_Examples.png') && str_contains($en, 'commons.wikimedia.org/wiki/File:Duty_Cycle_Examples.png'));
-check('Commons pwm 5steps cite', str_contains($id, 'commons.wikimedia.org/wiki/File:Pwm_5steps.gif') && str_contains($en, 'commons.wikimedia.org/wiki/File:Pwm_5steps.gif'));
+check('ESP32 3.3V note ID', str_contains($id, '3,3 V'));
+check('ESP32 3.3V note EN', str_contains($en, '3.3 V'));
+check('no misleading Uno 5V Commons PWM gif', ! str_contains($id, 'Pwm_5steps.gif') && ! str_contains($en, 'Pwm_5steps.gif'));
 
 check('sketch FS20_led_fade', str_contains($id, 'FS20_led_fade') && str_contains($en, 'FS20_led_fade'));
 check('analogWrite', str_contains($id, 'analogWrite') && str_contains($en, 'analogWrite'));
