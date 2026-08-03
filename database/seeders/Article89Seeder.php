@@ -42,8 +42,8 @@ class Article89Seeder extends Seeder
                 'category_id'        => $iotCat->id,
                 'title'              => 'Tombol + debounce — digitalRead & millis',
                 'title_en'           => 'Button + debounce — digitalRead & millis',
-                'excerpt'            => 'FS-19 / #89: tombol GPIO 27 andal. Uji di Arduino IDE: digitalRead + debounce millis, toggle LED GPIO 2 tanpa double-klik.',
-                'excerpt_en'         => 'FS-19 / #89: reliable GPIO 27 button. Test in Arduino IDE: digitalRead + millis debounce, toggle LED GPIO 2 without double-clicks.',
+                'excerpt'            => 'FS-19 / #89: tombol GPIO 4 andal. Uji di Arduino IDE: digitalRead + debounce millis, toggle LED GPIO 2 tanpa double-klik.',
+                'excerpt_en'         => 'FS-19 / #89: reliable GPIO 4 button. Test in Arduino IDE: digitalRead + millis debounce, toggle LED GPIO 2 without double-clicks.',
                 'body'               => $this->body(),
                 'body_en'            => $this->bodyEn(),
                 'status'             => 'draft',
@@ -111,7 +111,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="800" alt="ESP32-DevKitC — USB (6) dan EN (7)" loading="eager" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>ESP32-DevKitC</strong> — USB data di <strong>(6)</strong>, reset di <strong>EN (7)</strong>. Tombol latihan FSIOT = <strong>GPIO 27</strong> (bukan GPIO 0). LED tetap <strong>GPIO 2</strong> (FS-18).
+    <strong>ESP32-DevKitC</strong> — USB data di <strong>(6)</strong>, reset di <strong>EN (7)</strong>. Tombol latihan FSIOT = <strong>GPIO 4</strong> (bukan GPIO 0). LED tetap <strong>GPIO 2</strong> (FS-18).
     <br>Sumber gambar: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC user guide</a>. Pin board: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">ESP32-DevKitC-1</a>.
   </figcaption>
 </figure>
@@ -124,7 +124,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/esp32-devkitc-overview.jpg" width="1200" height="800" alt="ESP32-DevKitC — USB (6) and EN (7)" loading="eager" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>ESP32-DevKitC</strong> — USB data at <strong>(6)</strong>, reset on <strong>EN (7)</strong>. FSIOT practice button = <strong>GPIO 27</strong> (not GPIO 0). LED stays <strong>GPIO 2</strong> (FS-18).
+    <strong>ESP32-DevKitC</strong> — USB data at <strong>(6)</strong>, reset on <strong>EN (7)</strong>. FSIOT practice button = <strong>GPIO 4</strong> (not GPIO 0). LED stays <strong>GPIO 2</strong> (FS-18).
     <br>Image source: <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32/esp32-devkitc/user_guide.html" rel="noopener noreferrer" target="_blank">Espressif — ESP32-DevKitC user guide</a>. Board pins: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/boards/ESP32-DevKitC-1.html" rel="noopener noreferrer" target="_blank">ESP32-DevKitC-1</a>.
   </figcaption>
 </figure>
@@ -179,10 +179,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs19-button-pullup-wiring.png" width="1040" height="600" alt="Gambar utama — wiring tombol GPIO 27 INPUT_PULLUP dan LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
+  <img src="/images/fsiot/fs19-btn-gpio4-breadboard.png" width="1287" height="709" alt="Gambar utama — ESP32 di breadboard: tombol GPIO 4 ke GND + LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Gambar utama:</strong> jalur tombol <strong>GPIO 27 → tombol → GND</strong> (pakai <code>INPUT_PULLUP</code> di kode) + LED di <strong>GPIO 2</strong>.
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-19).
+    <strong>Gambar utama — wiring GPIO 4 + GPIO 2.</strong> Ikuti alur: label <strong>IO4 / GPIO 4</strong> → tombol (lintasi parit tengah) → <strong>GND</strong>; LED tetap <strong>IO2 / GPIO 2</strong> → resistor → LED → GND. Cocokkan <em>label silkscreen</em> di board kamu.
+    <br>Sumber gambar: diagram rangkaian Koding Indonesia (FS-19).
   </figcaption>
 </figure>
 HTML;
@@ -192,9 +192,35 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/fs19-button-pullup-wiring.png" width="1040" height="600" alt="Main figure — GPIO 27 INPUT_PULLUP button wiring and GPIO 2 LED" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
+  <img src="/images/fsiot/fs19-btn-gpio4-breadboard.png" width="1287" height="709" alt="Main figure — ESP32 on breadboard: GPIO 4 button to GND + GPIO 2 LED" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Main figure:</strong> button path <strong>GPIO 27 → button → GND</strong> (use <code>INPUT_PULLUP</code> in code) + LED on <strong>GPIO 2</strong>.
+    <strong>Main figure — GPIO 4 + GPIO 2 wiring.</strong> Follow: <strong>IO4 / GPIO 4</strong> → button (across the center ditch) → <strong>GND</strong>; LED stays on <strong>IO2 / GPIO 2</strong> → resistor → LED → GND. Match the <em>silkscreen labels</em> on your board.
+    <br>Image source: Koding Indonesia wiring diagram (FS-19).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schematicFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs19-button-pullup-wiring.png" width="1040" height="600" alt="Diagram berlabel — tombol GPIO 4 INPUT_PULLUP dan LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Diagram berlabel (bantu baca):</strong> jalur tombol <strong>GPIO 4 → tombol → GND</strong> (pakai <code>INPUT_PULLUP</code> di kode) + LED di <strong>GPIO 2</strong>.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-19).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schematicFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%">
+  <img src="/images/fsiot/fs19-button-pullup-wiring.png" width="1040" height="600" alt="Labeled diagram — GPIO 4 INPUT_PULLUP button and GPIO 2 LED" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#F5F5F0;padding:0.35rem">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Labeled diagram (helper):</strong> button path <strong>GPIO 4 → button → GND</strong> (use <code>INPUT_PULLUP</code> in code) + LED on <strong>GPIO 2</strong>.
     <br>Image source: labeled diagram by Koding Indonesia (FS-19).
   </figcaption>
 </figure>
@@ -230,12 +256,12 @@ HTML;
     private function wiringSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Ringkasan dua jalur: tombol GPIO 27 dan LED GPIO 2" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+<figure role="img" aria-label="Ringkasan dua jalur: tombol GPIO 4 dan LED GPIO 2" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 240" width="100%" height="auto" style="display:block;max-height:280px">
     <text x="430" y="26" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Ringkasan dua jalur (baca dari kiri ke kanan)</text>
     <text x="40" y="58" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#0D47A1">Jalur A — tombol</text>
     <rect x="40" y="68" width="170" height="54" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-    <text x="125" y="92" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#0D47A1">GPIO 27</text>
+    <text x="125" y="92" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#0D47A1">GPIO 4</text>
     <text x="125" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">baca tombol</text>
     <text x="230" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
     <rect x="250" y="68" width="170" height="54" rx="8" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2.5"/>
@@ -260,7 +286,7 @@ HTML;
     <text x="535" y="210" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">lalu ke GND</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>Intinya:</strong> dua jalur terpisah — tombol di GPIO 27, LED di GPIO 2. Jangan pakai GPIO 0 untuk tombol.
+    <strong>Intinya:</strong> dua jalur terpisah — tombol di GPIO 4, LED di GPIO 2. Jangan pakai GPIO 0 untuk tombol.
     <br>Sumber gambar: diagram buatan Koding Indonesia (FS-19).
   </figcaption>
 </figure>
@@ -270,12 +296,12 @@ SVG;
     private function wiringSvgEn(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Two-path summary: GPIO 27 button and GPIO 2 LED" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+<figure role="img" aria-label="Two-path summary: GPIO 4 button and GPIO 2 LED" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 240" width="100%" height="auto" style="display:block;max-height:280px">
     <text x="430" y="26" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Two-path summary (read left to right)</text>
     <text x="40" y="58" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#0D47A1">Path A — button</text>
     <rect x="40" y="68" width="170" height="54" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
-    <text x="125" y="92" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#0D47A1">GPIO 27</text>
+    <text x="125" y="92" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#0D47A1">GPIO 4</text>
     <text x="125" y="110" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">read button</text>
     <text x="230" y="100" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" fill="#1a1a1a">→</text>
     <rect x="250" y="68" width="170" height="54" rx="8" fill="#FFF3E0" stroke="#EF6C00" stroke-width="2.5"/>
@@ -300,7 +326,7 @@ SVG;
     <text x="535" y="210" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="11" fill="#333">then to GND</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>In short:</strong> two separate paths — button on GPIO 27, LED on GPIO 2. Do not use GPIO 0 for the button.
+    <strong>In short:</strong> two separate paths — button on GPIO 4, LED on GPIO 2. Do not use GPIO 0 for the button.
     <br>Image source: diagram by Koding Indonesia (FS-19).
   </figcaption>
 </figure>
@@ -401,6 +427,7 @@ SVG;
         $board = $this->boardFigureId();
         $kit = $this->kitFigureId();
         $main = $this->mainWiringFigureId();
+        $schematic = $this->schematicFigureId();
         $fs10 = $this->fs10RefFigureId();
         $wiring = $this->wiringSvgId();
         $bounce = $this->bounceSvgId();
@@ -408,12 +435,12 @@ SVG;
 
         return <<<HTML
 <h2>Pendahuluan — tombol yang andal</h2>
-<p>Artikel ini adalah <strong>#89 (ini)</strong> · modul <strong>FS-19</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Di <strong>FS-18</strong> LED dikendalikan dari kode. Hari ini kita <strong>membaca</strong> dunia nyata: tombol di <strong>GPIO 27</strong>, plus kenalan <code>millis()</code>.</p>
+<p>Artikel ini adalah <strong>#89 (ini)</strong> · modul <strong>FS-19</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Di <strong>FS-18</strong> LED dikendalikan dari kode. Hari ini kita <strong>membaca</strong> dunia nyata: tombol di <strong>GPIO 4</strong>, plus kenalan <code>millis()</code>.</p>
 <p><strong>Analogi:</strong> tombol mekanik sering “getar” sepersekian detik (bounce) — seperti saklar rumah yang berbunyi klik-klik. Debounce = tunggu sampai getaran reda, baru percaya satu tekan.</p>
 <p><strong>Prasyarat:</strong> FS-18 (LED GPIO 2) · FS-10 (kenal pull-up/pull-down) · FS-15 (pernah lihat pengulangan).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li>Siapkan wiring: tombol <strong>GPIO 27 ↔ GND</strong> + LED <strong>GPIO 2</strong> (pola FS-18). Cocokkan dengan <strong>gambar utama</strong> di bawah.</li>
+<li>Siapkan wiring: tombol <strong>GPIO 4 ↔ GND</strong> + LED <strong>GPIO 2</strong> (pola FS-18). Cocokkan dengan <strong>gambar utama</strong> di bawah.</li>
 <li><strong>Buka Arduino IDE</strong> (bukan Laragon / terminal web).</li>
 <li>Baca singkat: <code>digitalRead</code>, bounce, <code>millis</code> vs <code>delay</code>.</li>
 <li>Buat sketch <code>FS19_btn_debounce</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
@@ -428,7 +455,7 @@ SVG;
 <li>Buka <strong>Arduino IDE 2.x</strong> · board <strong>ESP32 Dev Module</strong> + port.</li>
 <li>Siapkan ESP32 + USB data.</li>
 <li>Siapkan tombol tactile + LED + resistor 220 Ω (dari FS-18).</li>
-<li>Cari label <strong>GPIO 27</strong>, <strong>GND</strong>, dan <strong>GPIO 2</strong> di silkscreen.</li>
+<li>Cari label <strong>GPIO 4</strong>, <strong>GND</strong>, dan <strong>GPIO 2</strong> di silkscreen.</li>
 <li>Siapkan Serial Monitor baud <strong>115200</strong>.</li>
 </ol>
 <p><strong>Alat yang dipakai hari ini:</strong> Arduino IDE, Upload, ESP32, USB data, tombol, LED, 220 Ω, jumper, Serial Monitor, browser.</p>
@@ -437,6 +464,7 @@ SVG;
 {$board}
 {$kit}
 {$main}
+{$schematic}
 
 <h2>digitalRead dan INPUT_PULLUP</h2>
 {$wiring}
@@ -445,7 +473,7 @@ SVG;
 <p><strong>Langkah wiring cepat (cocokkan dengan gambar utama):</strong></p>
 <ol>
 <li>Pasang tombol melintasi <strong>parit tengah</strong> breadboard (celah memanjang di tengah papan).</li>
-<li>Satu kaki tombol → <strong>GPIO 27</strong>.</li>
+<li>Satu kaki tombol → <strong>GPIO 4</strong>.</li>
 <li>Kaki pasangan/diagonal tombol → <strong>GND</strong>.</li>
 <li>LED + 220 Ω tetap di <strong>GPIO 2</strong> seperti FS-18.</li>
 <li>Jangan wiring tombol ke GPIO 0 (bisa masuk mode download).</li>
@@ -470,10 +498,10 @@ SVG;
 <li>Tekan tombol pelan: LED berubah sekali; Serial mencetak <code>TOMBOL: toggle</code> dan <code>detak …</code> terus berjalan. Tekan <strong>EN (7)</strong> bila perlu restart.</li>
 </ol>
 <pre><code class="language-cpp">// FS19_btn_debounce — Full Stack IoT FS-19
-// Tombol GPIO 27 (INPUT_PULLUP) + debounce millis + toggle LED GPIO 2
+// Tombol GPIO 4 (INPUT_PULLUP) + debounce millis + toggle LED GPIO 2
 
 const int LED_PIN = 2;
-const int BTN_PIN = 27;
+const int BTN_PIN = 4;
 const unsigned long DEBOUNCE_MS = 50;
 const unsigned long TICK_MS = 500;
 
@@ -529,7 +557,7 @@ void loop() {
 <ul id="fsiot-btn-checklist-items">
 <li>Arduino IDE sudah terbuka sebelum menulis kode</li>
 <li>Board ESP32 Dev Module + port sudah dipilih</li>
-<li>Tombol terhubung GPIO 27 dan GND (INPUT_PULLUP)</li>
+<li>Tombol terhubung GPIO 4 dan GND (INPUT_PULLUP)</li>
 <li>LED + 220 Ω masih di GPIO 2</li>
 <li>Paham: bounce bisa bikin double-toggle</li>
 <li>Paham: millis() bukan jam internet</li>
@@ -545,7 +573,7 @@ void loop() {
 <li><strong>Floating pin.</strong> Tanpa pull-up/pull-down, bacaan bergoyang. Pakai <code>INPUT_PULLUP</code> atau resistor eksternal (FS-10).</li>
 <li><strong>Baca di loop tanpa debounce.</strong> Satu tekan bisa jadi banyak toggle.</li>
 <li><strong>Pakai <code>delay</code> panjang untuk “tunggu tombol”.</strong> Loop membeku — detak dan aksi lain berhenti.</li>
-<li><strong>Tombol di GPIO 0.</strong> Bisa masuk mode download. Pakai <strong>GPIO 27</strong>.</li>
+<li><strong>Tombol di GPIO 0.</strong> Bisa masuk mode download. Pakai <strong>GPIO 4</strong>.</li>
 <li><strong>Salah kaki tombol.</strong> Pastikan dua kaki yang terhubung internal saat ditekan (biasanya seberang parit).</li>
 <li><strong>Baud Serial salah.</strong> Samakan 115200.</li>
 <li><strong>Menguji di terminal web.</strong> Sketch hanya jalan di board lewat IDE Upload.</li>
@@ -564,6 +592,7 @@ HTML;
         $board = $this->boardFigureEn();
         $kit = $this->kitFigureEn();
         $main = $this->mainWiringFigureEn();
+        $schematic = $this->schematicFigureEn();
         $fs10 = $this->fs10RefFigureEn();
         $wiring = $this->wiringSvgEn();
         $bounce = $this->bounceSvgEn();
@@ -571,12 +600,12 @@ HTML;
 
         return <<<HTML
 <h2>Introduction — a reliable button</h2>
-<p>This is article <strong>#89 (this article)</strong> · module <strong>FS-19</strong> on the <em>Full Stack IoT Developer — From Zero</em> path (<strong>BUILDER</strong> phase). In <strong>FS-18</strong> the LED was driven from code. Today we <strong>read</strong> the real world: a button on <strong>GPIO 27</strong>, plus a first look at <code>millis()</code>.</p>
+<p>This is article <strong>#89 (this article)</strong> · module <strong>FS-19</strong> on the <em>Full Stack IoT Developer — From Zero</em> path (<strong>BUILDER</strong> phase). In <strong>FS-18</strong> the LED was driven from code. Today we <strong>read</strong> the real world: a button on <strong>GPIO 4</strong>, plus a first look at <code>millis()</code>.</p>
 <p><strong>Analogy:</strong> a mechanical button often “chatters” for a split second (bounce) — like a light switch that click-clicks. Debounce = wait until the chatter settles, then trust one press.</p>
 <p><strong>Prerequisites:</strong> FS-18 (LED on GPIO 2) · FS-10 (know pull-up/pull-down) · FS-15 (you have seen loops).</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
-<li>Prepare wiring: button <strong>GPIO 27 ↔ GND</strong> + LED on <strong>GPIO 2</strong> (FS-18 pattern). Match the <strong>main figure</strong> below.</li>
+<li>Prepare wiring: button <strong>GPIO 4 ↔ GND</strong> + LED on <strong>GPIO 2</strong> (FS-18 pattern). Match the <strong>main figure</strong> below.</li>
 <li><strong>Open Arduino IDE</strong> (not Laragon / a web terminal).</li>
 <li>Skim: <code>digitalRead</code>, bounce, <code>millis</code> vs <code>delay</code>.</li>
 <li>Create sketch <code>FS19_btn_debounce</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
@@ -591,7 +620,7 @@ HTML;
 <li>Open <strong>Arduino IDE 2.x</strong> · <strong>ESP32 Dev Module</strong> board + port.</li>
 <li>Prepare the ESP32 + USB data cable.</li>
 <li>Prepare a tactile button + LED + 220 Ω resistor (from FS-18).</li>
-<li>Find <strong>GPIO 27</strong>, <strong>GND</strong>, and <strong>GPIO 2</strong> on the silkscreen.</li>
+<li>Find <strong>GPIO 4</strong>, <strong>GND</strong>, and <strong>GPIO 2</strong> on the silkscreen.</li>
 <li>Have Serial Monitor ready at baud <strong>115200</strong>.</li>
 </ol>
 <p><strong>Tools used today:</strong> Arduino IDE, Upload, ESP32, USB data, button, LED, 220 Ω, jumpers, Serial Monitor, browser.</p>
@@ -600,6 +629,7 @@ HTML;
 {$board}
 {$kit}
 {$main}
+{$schematic}
 
 <h2>digitalRead and INPUT_PULLUP</h2>
 {$wiring}
@@ -608,7 +638,7 @@ HTML;
 <p><strong>Quick wiring steps (match the main figure):</strong></p>
 <ol>
 <li>Place the button across the breadboard <strong>center ditch</strong> (the long gap down the middle).</li>
-<li>One button leg → <strong>GPIO 27</strong>.</li>
+<li>One button leg → <strong>GPIO 4</strong>.</li>
 <li>The paired/diagonal leg → <strong>GND</strong>.</li>
 <li>LED + 220 Ω stay on <strong>GPIO 2</strong> like FS-18.</li>
 <li>Do not wire the button to GPIO 0 (download mode risk).</li>
@@ -633,10 +663,10 @@ HTML;
 <li>Press the button gently: the LED changes once; Serial prints <code>BUTTON: toggle</code> and <code>tick …</code> keeps running. Press <strong>EN (7)</strong> if you need a restart.</li>
 </ol>
 <pre><code class="language-cpp">// FS19_btn_debounce — Full Stack IoT FS-19
-// Button GPIO 27 (INPUT_PULLUP) + millis debounce + toggle LED GPIO 2
+// Button GPIO 4 (INPUT_PULLUP) + millis debounce + toggle LED GPIO 2
 
 const int LED_PIN = 2;
-const int BTN_PIN = 27;
+const int BTN_PIN = 4;
 const unsigned long DEBOUNCE_MS = 50;
 const unsigned long TICK_MS = 500;
 
@@ -692,7 +722,7 @@ void loop() {
 <ul id="fsiot-btn-checklist-items">
 <li>Arduino IDE is open before writing code</li>
 <li>ESP32 Dev Module board + port are selected</li>
-<li>Button connects GPIO 27 and GND (INPUT_PULLUP)</li>
+<li>Button connects GPIO 4 and GND (INPUT_PULLUP)</li>
 <li>LED + 220 Ω still on GPIO 2</li>
 <li>Understood: bounce can cause double-toggles</li>
 <li>Understood: millis() is not internet time</li>
@@ -708,7 +738,7 @@ void loop() {
 <li><strong>Floating pin.</strong> Without pull-up/pull-down, readings wander. Use <code>INPUT_PULLUP</code> or an external resistor (FS-10).</li>
 <li><strong>Reading in the loop with no debounce.</strong> One press can become many toggles.</li>
 <li><strong>Long <code>delay</code> to “wait for the button”.</strong> The loop freezes — ticks and other actions stop.</li>
-<li><strong>Button on GPIO 0.</strong> Can enter download mode. Use <strong>GPIO 27</strong>.</li>
+<li><strong>Button on GPIO 0.</strong> Can enter download mode. Use <strong>GPIO 4</strong>.</li>
 <li><strong>Wrong button legs.</strong> Use the pair that connects when pressed (usually across the ditch).</li>
 <li><strong>Wrong Serial baud.</strong> Match 115200.</li>
 <li><strong>Testing in a web terminal.</strong> The sketch only runs on the board via IDE Upload.</li>

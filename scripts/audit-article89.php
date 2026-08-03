@@ -53,7 +53,8 @@ check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($i
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 8', substr_count($id, '<figure') >= 8 && substr_count($en, '<figure') >= 8);
-check('main wiring PNG asset', str_contains($id, 'fs19-button-pullup-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs19-button-pullup-wiring.png'));
+check('main breadboard PNG asset', str_contains($id, 'fs19-btn-gpio4-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs19-btn-gpio4-breadboard.png'));
+check('schematic PNG helper', str_contains($id, 'fs19-button-pullup-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs19-button-pullup-wiring.png'));
 check('Gambar utama label ID', str_contains($id, 'Gambar utama'));
 check('Main figure label EN', str_contains($en, 'Main figure'));
 check('FS-10 photo embedded', str_contains($id, 'fs10-button-pulldown-wiring.png') && str_contains($en, 'fs10-button-pulldown-wiring.png'));
@@ -81,7 +82,8 @@ check('sketch FS19_btn_debounce', str_contains($id, 'FS19_btn_debounce') && str_
 check('digitalRead', str_contains($id, 'digitalRead') && str_contains($en, 'digitalRead'));
 check('INPUT_PULLUP', str_contains($id, 'INPUT_PULLUP') && str_contains($en, 'INPUT_PULLUP'));
 check('millis debounce', str_contains($id, 'millis') && str_contains($id, 'DEBOUNCE'));
-check('GPIO 27 button', str_contains($id, 'GPIO 27') && str_contains($en, 'GPIO 27'));
+check('GPIO 4 button', str_contains($id, 'GPIO 4') && str_contains($en, 'GPIO 4') && str_contains($id, 'BTN_PIN = 4'));
+check('no leftover GPIO 27', ! str_contains($id, 'GPIO 27') && ! str_contains($en, 'GPIO 27'));
 check('GPIO 2 LED', str_contains($id, 'GPIO 2') && str_contains($en, 'GPIO 2'));
 check('BUILDER soft via FS-18', str_contains($id, 'FS-18') && str_contains($en, 'FS-18'));
 
