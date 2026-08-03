@@ -557,6 +557,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotPinChecklist();
     initFsiotBlinkChecklist();
     initFsiotBtnChecklist();
+    initFsiotPwmChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1770,6 +1771,28 @@ function initFsiotBtnChecklist() {
             incomplete: @js(__('ui.articles.fsiot_btn_incomplete')),
             done: @js(__('ui.articles.fsiot_btn_done')),
             todo: @js(__('ui.articles.fsiot_btn_todo')),
+        },
+    });
+}
+
+function initFsiotPwmChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-pwm-checklist',
+        listId: 'fsiot-pwm-checklist-items',
+        storagePrefix: 'fsiot-cl-90',
+        idPrefix: 'fsiot-pwm',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_pwm_badge')),
+            hint: @js(__('ui.articles.fsiot_pwm_hint')),
+            check: @js(__('ui.articles.fsiot_pwm_check')),
+            retry: @js(__('ui.articles.fsiot_pwm_retry')),
+            paper: @js(__('ui.articles.fsiot_pwm_paper')),
+            progress: @js(__('ui.articles.fsiot_pwm_progress')),
+            pass: @js(__('ui.articles.fsiot_pwm_pass')),
+            incomplete: @js(__('ui.articles.fsiot_pwm_incomplete')),
+            done: @js(__('ui.articles.fsiot_pwm_done')),
+            todo: @js(__('ui.articles.fsiot_pwm_todo')),
         },
     });
 }

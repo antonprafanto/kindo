@@ -414,6 +414,16 @@ return [
         'fsiot_btn_incomplete' => 'Some steps are still unchecked. Recheck INPUT_PULLUP, 50 ms debounce, or Serial ticks.',
         'fsiot_btn_done' => 'Done',
         'fsiot_btn_todo' => 'Not yet',
+        'fsiot_pwm_badge' => 'PWM / breathing LED checklist',
+        'fsiot_pwm_hint' => 'Tick each IDE + GPIO 2 + analogWrite fade step. Target: 10/10.',
+        'fsiot_pwm_check' => 'Check completeness',
+        'fsiot_pwm_retry' => 'Clear again',
+        'fsiot_pwm_paper' => 'Paper version (no clicks)',
+        'fsiot_pwm_progress' => ':filled of :total checked',
+        'fsiot_pwm_pass' => 'Complete :filled/:total — GPIO 2 LED breathes smoothly with analogWrite! Continue to FS-21 when that module publishes.',
+        'fsiot_pwm_incomplete' => 'Some steps are still unchecked. Recheck GPIO 2 wiring, analogWrite, or Serial fade.',
+        'fsiot_pwm_done' => 'Done',
+        'fsiot_pwm_todo' => 'Not yet',
     ],
 
     'theme' => [

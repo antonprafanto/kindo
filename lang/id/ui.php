@@ -414,6 +414,16 @@ return [
         'fsiot_btn_incomplete' => 'Masih ada langkah yang belum dicentang. Cek INPUT_PULLUP, debounce 50 ms, atau Serial detak lagi.',
         'fsiot_btn_done' => 'Selesai',
         'fsiot_btn_todo' => 'Belum',
+        'fsiot_pwm_badge' => 'Checklist PWM / napas LED',
+        'fsiot_pwm_hint' => 'Centang tiap langkah IDE + GPIO 2 + analogWrite fade. Target: 10/10.',
+        'fsiot_pwm_check' => 'Cek kelengkapan',
+        'fsiot_pwm_retry' => 'Kosongkan lagi',
+        'fsiot_pwm_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_pwm_progress' => ':filled dari :total tercentang',
+        'fsiot_pwm_pass' => 'Lengkap :filled/:total — LED GPIO 2 bernapas halus dengan analogWrite! Lanjut FS-21 saat modulnya terbit.',
+        'fsiot_pwm_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring GPIO 2, analogWrite, atau Serial fade lagi.',
+        'fsiot_pwm_done' => 'Selesai',
+        'fsiot_pwm_todo' => 'Belum',
     ],
 
     'theme' => [
