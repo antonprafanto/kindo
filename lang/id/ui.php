@@ -454,6 +454,16 @@ return [
         'fsiot_relay_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring 5V/GND/GPIO 26, aktif LOW/HIGH, atau Serial lagi.',
         'fsiot_relay_done' => 'Selesai',
         'fsiot_relay_todo' => 'Belum',
+        'fsiot_auto_badge' => 'Checklist otomasi lokal',
+        'fsiot_auto_hint' => 'Centang tiap langkah IDE + DHT GPIO 4 + relay GPIO 26 + histeresis + Serial. Target: 10/10.',
+        'fsiot_auto_check' => 'Cek kelengkapan',
+        'fsiot_auto_retry' => 'Kosongkan lagi',
+        'fsiot_auto_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_auto_progress' => ':filled dari :total tercentang',
+        'fsiot_auto_pass' => 'Lengkap :filled/:total — suhu nyata menggerakkan relay dengan histeresis! Lanjut FS-25 (PIR) saat modulnya terbit.',
+        'fsiot_auto_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring GPIO 4/26, library DHT, ambang ON/OFF, atau Serial lagi.',
+        'fsiot_auto_done' => 'Selesai',
+        'fsiot_auto_todo' => 'Belum',
     ],
 
     'theme' => [

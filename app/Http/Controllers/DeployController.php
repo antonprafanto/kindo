@@ -8529,6 +8529,127 @@ class DeployController extends Controller
         return response('Article 93 seeded as draft (pre-launch B)', 200);
     }
 
+
+    public function seedArticle94Draft(): Response
+    {
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article94Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 94 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-otomasi-lokal-panas-relay';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article) {
+            report(new \RuntimeException('Article 94 missing after draft seed.'));
+
+            return response('Article 94 not found after draft seed', 500);
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            report(new \RuntimeException('Article 94 refused to stay draft after seed.'));
+
+            return response('Article 94 must remain draft (pre-launch B)', 500);
+        }
+
+        if (Article::published()->where('slug', $slug)->exists()) {
+            report(new \RuntimeException('Article 94 unexpectedly visible via published() scope.'));
+
+            return response('Article 94 leaked into published scope', 500);
+        }
+
+        $body = (string) $article->body;
+        $bodyNeedles = [
+            '#94 (ini)',
+            'FS-24',
+            'BUILDER',
+            'FS24_panas_relay',
+            'GPIO 4',
+            'GPIO 26',
+            'Tidak perlu hari ini',
+            'Cara pakai artikel ini',
+            'fsiot-auto-checklist',
+            'FS-21',
+            'FS-23',
+            'FS-14',
+            'FS-25',
+            '/belajar/fullstack-iot',
+            'Analogi:',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'Cara menguji perintah di atas',
+            'histeresis',
+            'AMBANG_ON',
+            'kit-dht22.jpg',
+            'kit-relay-5v.jpg',
+            'fs24-otomasi-wiring.png',
+            'Gambar utama',
+            'AnalogReadSerial',
+            'Baud: 115200',
+            '220V',
+            'AKTIF_LOW',
+            'Buka Arduino IDE dulu',
+            'Arduino Docs',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Article 94 body missing expected content after draft seed: '.implode(', ', $missingBody)));
+
+            return response('Article 94 body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 94 English fields are incomplete after draft seed.'));
+
+            return response('Article 94 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        $enNeedles = [
+            '#94 (this article)',
+            'Analogy:',
+            'How to use this article',
+            'Not needed today',
+            'BUILDER',
+            'FS24_panas_relay',
+            'GPIO 4',
+            'GPIO 26',
+            'fsiot-auto-checklist',
+            'FS-25',
+            'Common mistakes',
+            'How to test the commands above',
+            'Main figure',
+            'fs24-otomasi-wiring.png',
+            'AnalogReadSerial',
+            'Baud: 115200',
+            'ACTIVE_LOW',
+            'hysteresis',
+            'Open Arduino IDE first',
+            '220V',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 94 EN body missing expected content after draft seed: '.implode(', ', $missingEn)));
+
+            return response('Article 94 EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 94 seeded as draft (pre-launch B)', 200);
+    }
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

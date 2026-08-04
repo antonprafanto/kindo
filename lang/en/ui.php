@@ -454,6 +454,16 @@ return [
         'fsiot_relay_incomplete' => 'Some steps are still unchecked. Recheck 5V/GND/GPIO 26 wiring, active LOW/HIGH, or Serial output.',
         'fsiot_relay_done' => 'Done',
         'fsiot_relay_todo' => 'Not yet',
+        'fsiot_auto_badge' => 'Local-automation checklist',
+        'fsiot_auto_hint' => 'Tick each IDE + DHT GPIO 4 + relay GPIO 26 + hysteresis + Serial step. Target: 10/10.',
+        'fsiot_auto_check' => 'Check completeness',
+        'fsiot_auto_retry' => 'Clear again',
+        'fsiot_auto_paper' => 'Paper version (no clicks)',
+        'fsiot_auto_progress' => ':filled of :total checked',
+        'fsiot_auto_pass' => 'Complete :filled/:total — real temperature drives the relay with hysteresis! Continue to FS-25 (PIR) when that module publishes.',
+        'fsiot_auto_incomplete' => 'Some steps are still unchecked. Recheck GPIO 4/26 wiring, DHT library, ON/OFF thresholds, or Serial output.',
+        'fsiot_auto_done' => 'Done',
+        'fsiot_auto_todo' => 'Not yet',
     ],
 
     'theme' => [
