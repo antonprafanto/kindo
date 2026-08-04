@@ -134,14 +134,14 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start">
-    <div>
-      <img src="/images/fsiot/kit-ldr.jpg" width="900" height="600" alt="Komponen LDR / photoresistor" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#1a1a1a;text-align:center"><strong>LDR</strong> — “mata” cahaya (photoresistor)</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:stretch">
+    <div style="background:#fff;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.5rem;display:flex;flex-direction:column">
+      <img src="/images/fsiot/kit-ldr.jpg" width="900" height="600" alt="Komponen LDR / photoresistor" loading="eager" style="display:block;width:100%;height:220px;object-fit:contain;margin:0 auto;background:#fff">
+      <p style="font-size:0.8rem;margin:0.5rem 0 0;color:#1a1a1a;text-align:center"><strong>LDR</strong> — “mata” cahaya (photoresistor)</p>
     </div>
-    <div>
-      <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="800" height="600" alt="Resistor 10 kOhm untuk pembagi tegangan" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#1a1a1a;text-align:center"><strong>10 kΩ</strong> — pasangan pembagi tegangan (wajib di latihan ini)</p>
+    <div style="background:#fff;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.5rem;display:flex;flex-direction:column">
+      <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="800" height="600" alt="Resistor 10 kOhm untuk pembagi tegangan" loading="eager" style="display:block;width:100%;height:220px;object-fit:contain;margin:0 auto;background:#fff">
+      <p style="font-size:0.8rem;margin:0.5rem 0 0;color:#1a1a1a;text-align:center"><strong>10 kΩ</strong> — pasangan pembagi tegangan (wajib di latihan ini)</p>
     </div>
   </div>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
@@ -156,14 +156,14 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:start">
-    <div>
-      <img src="/images/fsiot/kit-ldr.jpg" width="900" height="600" alt="LDR / photoresistor component" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#1a1a1a;text-align:center"><strong>LDR</strong> — light “eye” (photoresistor)</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;align-items:stretch">
+    <div style="background:#fff;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.5rem;display:flex;flex-direction:column">
+      <img src="/images/fsiot/kit-ldr.jpg" width="900" height="600" alt="LDR / photoresistor component" loading="eager" style="display:block;width:100%;height:220px;object-fit:contain;margin:0 auto;background:#fff">
+      <p style="font-size:0.8rem;margin:0.5rem 0 0;color:#1a1a1a;text-align:center"><strong>LDR</strong> — light “eye” (photoresistor)</p>
     </div>
-    <div>
-      <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="800" height="600" alt="10 kOhm resistor for voltage divider" loading="eager" style="display:block;width:100%;height:auto;max-height:260px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem;margin:0 auto">
-      <p style="font-size:0.8rem;margin:0.35rem 0 0;color:#1a1a1a;text-align:center"><strong>10 kΩ</strong> — voltage-divider partner (required in this lesson)</p>
+    <div style="background:#fff;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.5rem;display:flex;flex-direction:column">
+      <img src="/images/fsiot/kit-resistor-10kohm.jpg" width="800" height="600" alt="10 kOhm resistor for voltage divider" loading="eager" style="display:block;width:100%;height:220px;object-fit:contain;margin:0 auto;background:#fff">
+      <p style="font-size:0.8rem;margin:0.5rem 0 0;color:#1a1a1a;text-align:center"><strong>10 kΩ</strong> — voltage-divider partner (required in this lesson)</p>
     </div>
   </div>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
@@ -230,10 +230,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <img src="/images/fsiot/fs22-ldr-principle.png" width="544" height="318" alt="Prinsip photoresistor / LDR" loading="eager" style="display:block;width:100%;max-width:560px;height:auto;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs22-ldr-principle.png" width="900" height="520" alt="Prinsip LDR — cahaya mengubah hambatan di jalur zigzag" loading="eager" style="display:block;width:100%;max-width:720px;height:auto;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Intinya:</strong> LDR mengubah hambatan saat cahaya berubah — chip tidak “melihat” hambatan langsung, melainkan tegangan dari pembagi.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:LDR-1.png" rel="noopener noreferrer" target="_blank">LDR-1.png</a> · Wikimedia Commons (CC0) · TSE3A.
+    <br>Sumber gambar: diagram konsep buatan Koding Indonesia (FS-22), terinspirasi bentuk permukaan photoresistor.
   </figcaption>
 </figure>
 HTML;
@@ -243,10 +243,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <img src="/images/fsiot/fs22-ldr-principle.png" width="544" height="318" alt="Photoresistor / LDR principle" loading="eager" style="display:block;width:100%;max-width:560px;height:auto;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs22-ldr-principle.png" width="900" height="520" alt="LDR principle — light changes resistance on the zigzag track" loading="eager" style="display:block;width:100%;max-width:720px;height:auto;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>In short:</strong> an LDR changes resistance with light — the chip does not “see” resistance directly; it reads voltage from the divider.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:LDR-1.png" rel="noopener noreferrer" target="_blank">LDR-1.png</a> · Wikimedia Commons (CC0) · TSE3A.
+    <br>Image source: concept diagram by Koding Indonesia (FS-22), inspired by a photoresistor surface shape.
   </figcaption>
 </figure>
 HTML;

@@ -75,6 +75,8 @@ check('IDE asset', str_contains($id, 'fs11-ide-overview-cite.png') && is_file(__
 check('board overview', str_contains($id, 'esp32-devkitc-overview.jpg') && is_file(__DIR__.'/../public/images/fsiot/esp32-devkitc-overview.jpg'));
 check('Commons LDR cite', str_contains($id, 'commons.wikimedia.org') && str_contains($en, 'commons.wikimedia.org'));
 check('KI diagram cite', str_contains($id, 'buatan Koding Indonesia') && str_contains($en, 'diagram by Koding Indonesia'));
+check('helper title not main in PNG path', str_contains($id, 'Skema bantu') && str_contains($en, 'Helper schematic'));
+check('no awam in wiring body', ! str_contains($id, '(awam)') && ! str_contains($en, '(awam)'));
 check('Arduino analogRead cite', str_contains($id, 'analogRead') && str_contains($en, 'analogRead'));
 
 check('sketch FS22_ldr_adc', str_contains($id, 'FS22_ldr_adc') && str_contains($en, 'FS22_ldr_adc'));
