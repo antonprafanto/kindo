@@ -84,7 +84,7 @@ class Article93Seeder extends Seeder
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — Verify, Upload, dan Serial Monitor" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Arduino IDE 2</strong> — tempat menguji sintaks hari ini. Tidak perlu Library Manager baru: cukup <strong>Verify</strong> → <strong>Upload</strong> → buka <strong>Serial Monitor</strong> (baud 115200). Board: <strong>ESP32 Dev Module</strong>.
+    <strong>Arduino IDE 2</strong> — tempat menguji sintaks hari ini. Tidak perlu Library Manager baru: cukup <strong>Verify</strong> → <strong>Upload</strong> → buka <strong>Serial Monitor</strong> (baud <strong>115200</strong>). Board: <strong>ESP32 Dev Module</strong>. <em>Catatan gambar:</em> screenshot Commons di atas masih menampilkan contoh AnalogReadSerial + baud 9600 — <strong>abaikan</strong> isi sketch itu; untuk FS-23 pakai kode di bawah + baud 115200.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0). Panduan Serial: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor</a>. Fungsi <code>digitalWrite</code>: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/" rel="noopener noreferrer" target="_blank">Arduino Docs — digitalWrite</a>.
   </figcaption>
 </figure>
@@ -97,7 +97,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — Verify, Upload, and Serial Monitor" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Arduino IDE 2</strong> — where today’s syntax is tested. No new Library Manager install: just <strong>Verify</strong> → <strong>Upload</strong> → open <strong>Serial Monitor</strong> (baud 115200). Board: <strong>ESP32 Dev Module</strong>.
+    <strong>Arduino IDE 2</strong> — where today’s syntax is tested. No new Library Manager install: just <strong>Verify</strong> → <strong>Upload</strong> → open <strong>Serial Monitor</strong> (baud <strong>115200</strong>). Board: <strong>ESP32 Dev Module</strong>. <em>Image note:</em> the Commons screenshot still shows AnalogReadSerial + baud 9600 — <strong>ignore</strong> that sample sketch; for FS-23 use the code below + baud 115200.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0). Serial guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor</a>. <code>digitalWrite</code>: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/" rel="noopener noreferrer" target="_blank">Arduino Docs — digitalWrite</a>.
   </figcaption>
 </figure>
@@ -136,7 +136,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/kit-relay-5v.jpg" width="900" height="600" alt="Modul relay 1 channel 5V dengan terminal sekrup" loading="eager" style="display:block;width:100%;max-width:520px;height:auto;max-height:320px;object-fit:contain;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Komponen hari ini:</strong> modul <strong>relay 1 channel 5V</strong> (kotak biru + 3 pin VCC/GND/IN + terminal sekrup). Di jalur Core: beban <strong>DC kecil</strong> saja — bukan AC 220V.
+    <strong>Komponen hari ini:</strong> modul <strong>relay 1 channel 5V</strong> (kotak biru + 3 pin <strong>S / + / −</strong> — alias IN / VCC / GND — + terminal sekrup NC/COM/NO). Di jalur Core: beban <strong>DC kecil</strong> saja — bukan AC 220V.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg" rel="noopener noreferrer" target="_blank">SRD-05VDC-SL-C 5V one-channel relay module</a> · Wikimedia Commons (CC BY-SA 4.0) · Suyash Dwivedi.
   </figcaption>
 </figure>
@@ -149,7 +149,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/kit-relay-5v.jpg" width="900" height="600" alt="5V one-channel relay module with screw terminals" loading="eager" style="display:block;width:100%;max-width:520px;height:auto;max-height:320px;object-fit:contain;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Parts today:</strong> a <strong>1-channel 5V relay module</strong> (blue cube + VCC/GND/IN pins + screw terminals). On the Core path: <strong>small DC</strong> loads only — not AC mains.
+    <strong>Parts today:</strong> a <strong>1-channel 5V relay module</strong> (blue cube + pins <strong>S / + / −</strong> — aliases IN / VCC / GND — + NC/COM/NO screw terminals). On the Core path: <strong>small DC</strong> loads only — not AC mains.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg" rel="noopener noreferrer" target="_blank">SRD-05VDC-SL-C 5V one-channel relay module</a> · Wikimedia Commons (CC BY-SA 4.0) · Suyash Dwivedi.
   </figcaption>
 </figure>
@@ -188,7 +188,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs23-relay-wiring.png" width="1100" height="780" alt="Skema bantu — ringkasan pin relay ke ESP32 GPIO 26" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Skema bantu (ringkas).</strong> Sama dengan gambar utama: 5V → VCC/+ · GPIO 26 → IN/S · GND → GND/−. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard. Terminal beban: belum AC 220V.
+    <strong>Skema bantu (ringkas).</strong> Sama dengan gambar utama: 5V → VCC/+ · GPIO 26 → IN/S · GND → GND/−. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada gambar breadboard. Terminal beban: belum AC 220V.
     <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-23). Fungsi keluaran digital: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/" rel="noopener noreferrer" target="_blank">Arduino Docs — digitalWrite</a>.
   </figcaption>
 </figure>
@@ -201,11 +201,127 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs23-relay-wiring.png" width="1100" height="780" alt="Helper schematic — relay pins to ESP32 GPIO 26" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Helper schematic.</strong> Same as the main figure: 5V → VCC/+ · GPIO 26 → IN/S · GND → GND/−. Use this if you prefer labeled pin boxes over the breadboard photo. Load terminals: no AC mains yet.
+    <strong>Helper schematic.</strong> Same as the main figure: 5V → VCC/+ · GPIO 26 → IN/S · GND → GND/−. Use this if you prefer labeled pin boxes over the breadboard diagram. Load terminals: no AC mains yet.
     <br>Image source: labeled diagram by Koding Indonesia (FS-23). Digital output: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/" rel="noopener noreferrer" target="_blank">Arduino Docs — digitalWrite</a>.
   </figcaption>
 </figure>
 HTML;
+    }
+
+
+    private function serialPanelSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Contoh log RELAY ON/OFF di Serial Monitor baud 115200" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 340" width="100%" height="auto" role="img" aria-label="Serial Monitor relay">
+  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Serial Monitor (IDE 2) — contoh sukses FS-23</text>
+  <rect x="40" y="40" width="780" height="44" rx="8" fill="#2D2D2D" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="60" y="68" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">Toolbar IDE 2</text>
+  <rect x="520" y="48" width="280" height="28" rx="6" fill="#1565C0"/>
+  <text x="660" y="67" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">Open Serial Monitor →</text>
+  <rect x="40" y="96" width="780" height="210" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="40" y="96" width="780" height="36" rx="10" fill="#2D2D2D"/>
+  <rect x="40" y="118" width="780" height="14" fill="#2D2D2D"/>
+  <text x="60" y="120" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">Output dari ESP32</text>
+  <rect x="560" y="104" width="240" height="26" rx="6" fill="#0D47A1"/>
+  <text x="680" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">Baud: 115200</text>
+  <text x="70" y="165" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">FS23_relay_klik siap</text>
+  <text x="70" y="195" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">RELAY ON</text>
+  <text x="70" y="225" font-family="Consolas,monospace" font-size="14" fill="#FFAB91">RELAY OFF</text>
+  <text x="70" y="255" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">RELAY ON</text>
+  <text x="70" y="285" font-family="Consolas,monospace" font-size="14" fill="#81C784">(plus klik bergantian di modul)</text>
+</svg>
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>Intinya:</strong> setelah Upload, buka Serial Monitor dan set baud <strong>115200</strong> (sama dengan kode). Sukses = teks ON/OFF bergantian + klik relay. Sumber gambar: diagram buatan Koding Indonesia (FS-23) — meniru panel IDE 2 (bukan screenshot baud 9600). Panduan: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor</a>.
+  </figcaption>
+</figure>
+SVG;
+    }
+
+
+    private function serialPanelSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Sample RELAY ON/OFF log in Serial Monitor at 115200 baud" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 340" width="100%" height="auto" role="img" aria-label="Serial Monitor relay">
+  <text x="430" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700" fill="#1a1a1a">Serial Monitor (IDE 2) — FS-23 success sample</text>
+  <rect x="40" y="40" width="780" height="44" rx="8" fill="#2D2D2D" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="60" y="68" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">IDE 2 toolbar</text>
+  <rect x="520" y="48" width="280" height="28" rx="6" fill="#1565C0"/>
+  <text x="660" y="67" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">Open Serial Monitor →</text>
+  <rect x="40" y="96" width="780" height="210" rx="10" fill="#1E1E1E" stroke="#1a1a1a" stroke-width="2.5"/>
+  <rect x="40" y="96" width="780" height="36" rx="10" fill="#2D2D2D"/>
+  <rect x="40" y="118" width="780" height="14" fill="#2D2D2D"/>
+  <text x="60" y="120" font-family="system-ui,sans-serif" font-size="12" fill="#B0BEC5">Output from ESP32</text>
+  <rect x="560" y="104" width="240" height="26" rx="6" fill="#0D47A1"/>
+  <text x="680" y="122" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#fff">Baud: 115200</text>
+  <text x="70" y="165" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">FS23_relay_klik ready</text>
+  <text x="70" y="195" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">RELAY ON</text>
+  <text x="70" y="225" font-family="Consolas,monospace" font-size="14" fill="#FFAB91">RELAY OFF</text>
+  <text x="70" y="255" font-family="Consolas,monospace" font-size="14" fill="#A5D6A7">RELAY ON</text>
+  <text x="70" y="285" font-family="Consolas,monospace" font-size="14" fill="#81C784">(plus alternating clicks on the module)</text>
+</svg>
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
+    <strong>In short:</strong> after Upload, open Serial Monitor and set baud <strong>115200</strong> (same as the code). Success = alternating ON/OFF text + relay clicks. Image source: diagram by Koding Indonesia (FS-23) — mimics the IDE 2 panel (not a baud-9600 screenshot). Guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor</a>.
+  </figcaption>
+</figure>
+SVG;
+    }
+
+
+    private function terminalsSvgId(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Arti terminal NC COM NO pada modul relay" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 250" width="100%" height="auto" style="display:block;max-height:280px">
+    <text x="430" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Terminal sekrup: NC · COM · NO (hari ini boleh kosong)</text>
+    <rect x="40" y="55" width="240" height="130" rx="12" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
+    <text x="160" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#B71C1C">NC</text>
+    <text x="160" y="125" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">Normally Closed</text>
+    <text x="160" y="155" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">tersambung saat OFF</text>
+    <rect x="310" y="55" width="240" height="130" rx="12" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+    <text x="430" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#0D47A1">COM</text>
+    <text x="430" y="125" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">Common</text>
+    <text x="430" y="155" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">kaki bersama beban</text>
+    <rect x="580" y="55" width="240" height="130" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+    <text x="700" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#1B5E20">NO</text>
+    <text x="700" y="125" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">Normally Open</text>
+    <text x="700" y="155" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">tersambung saat ON</text>
+    <text x="430" y="225" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">Latihan ini: kosongkan dulu. Nanti beban DC kecil biasanya di COM + NO.</text>
+  </svg>
+  <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
+    <strong>Intinya:</strong> NC/COM/NO adalah jalur <em>beban</em>, bukan pin ke ESP32. Hari ini fokususkan klik + LED indikator. Sumber gambar: diagram buatan Koding Indonesia (FS-23). Simbol saklar relay (referensi): <a href="https://commons.wikimedia.org/wiki/File:SPST-NO_relay_symbol.svg" rel="noopener noreferrer" target="_blank">SPST-NO relay symbol</a> · Wikimedia Commons.
+  </figcaption>
+</figure>
+SVG;
+    }
+
+
+    private function terminalsSvgEn(): string
+    {
+        return <<<'SVG'
+<figure role="img" aria-label="Meaning of NC COM NO screw terminals on a relay module" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 250" width="100%" height="auto" style="display:block;max-height:280px">
+    <text x="430" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Screw terminals: NC · COM · NO (may stay empty today)</text>
+    <rect x="40" y="55" width="240" height="130" rx="12" fill="#FFEBEE" stroke="#C62828" stroke-width="2.5"/>
+    <text x="160" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#B71C1C">NC</text>
+    <text x="160" y="125" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">Normally Closed</text>
+    <text x="160" y="155" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">connected when OFF</text>
+    <rect x="310" y="55" width="240" height="130" rx="12" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
+    <text x="430" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#0D47A1">COM</text>
+    <text x="430" y="125" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">Common</text>
+    <text x="430" y="155" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">shared load leg</text>
+    <rect x="580" y="55" width="240" height="130" rx="12" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+    <text x="700" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" font-weight="700" fill="#1B5E20">NO</text>
+    <text x="700" y="125" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">Normally Open</text>
+    <text x="700" y="155" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">connected when ON</text>
+    <text x="430" y="225" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">This practice: leave empty first. Later, small DC loads usually use COM + NO.</text>
+  </svg>
+  <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
+    <strong>In short:</strong> NC/COM/NO is the <em>load</em> path, not the ESP32 control pins. Today focus on the click + indicator LED. Image source: diagram by Koding Indonesia (FS-23). Relay switch symbol (reference): <a href="https://commons.wikimedia.org/wiki/File:SPST-NO_relay_symbol.svg" rel="noopener noreferrer" target="_blank">SPST-NO relay symbol</a> · Wikimedia Commons.
+  </figcaption>
+</figure>
+SVG;
     }
 
     private function senseSvgId(): string
@@ -311,6 +427,8 @@ SVG;
         $kit = $this->kitFigureId();
         $main = $this->mainWiringFigureId();
         $schema = $this->schemaWiringFigureId();
+        $serial = $this->serialPanelSvgId();
+        $terminals = $this->terminalsSvgId();
         $sense = $this->senseSvgId();
         $active = $this->activeSvgId();
 
@@ -323,8 +441,8 @@ SVG;
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
 <li>Baca peringatan aman: <strong>belum AC 220V / PLN</strong>.</li>
-<li>Rakit 3 kabel: 5V · GND · <strong>GPIO 26</strong>. Cocokkan <strong>gambar utama</strong> (foto breadboard).</li>
-<li><strong>Buka Arduino IDE</strong> (bukan Laragon / terminal web).</li>
+<li>Rakit 3 kabel: 5V · GND · <strong>GPIO 26</strong>. Cocokkan <strong>gambar utama</strong> (rangkaian breadboard).</li>
+<li><strong>Buka Arduino IDE dulu</strong> (bukan Laragon / terminal web) — baru setelah itu salin kode.</li>
 <li>Buat sketch <code>FS23_relay_klik</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Dengarkan klik + lihat LED indikator + baca Serial baud <strong>115200</strong>.</li>
 <li>Centang checklist 10/10 di browser.</li>
@@ -343,10 +461,12 @@ SVG;
 <p><strong>Alat yang dipakai hari ini:</strong> Arduino IDE, Upload, ESP32, USB data, modul relay 5V, jumper, Serial Monitor, browser.</p>
 <p><strong>Tidak dipakai hari ini:</strong> Laragon, <code>php artisan</code>, Library Manager baru, DHT22, LDR, colokan AC 220V.</p>
 {$ide}
+{$serial}
 {$board}
 {$kit}
 {$main}
 {$schema}
+{$terminals}
 
 <h2>Wiring relay (bahasa manusia)</h2>
 <p><strong>Rangkaian kontrol (3 kabel):</strong></p>
@@ -355,8 +475,8 @@ SVG;
 <li><strong>GND</strong> / pin <strong>−</strong> modul → <strong>GND</strong> ESP32</li>
 <li><strong>IN</strong> / pin <strong>S</strong> modul → <strong>GPIO 26</strong> (sering tertulis <strong>IO26</strong>)</li>
 </ul>
-<p><strong>Kenapa GPIO 26?</strong> Itu pin relay di tabel global FS-17 — konsisten sampai automasi lokal berikutnya.</p>
-<p><strong>Terminal sekrup (COM / NO / NC):</strong> itu jalur <em>beban</em>. Di latihan pertama, boleh kosong. Kalau mau uji ekstra aman: LED + resistor 220 Ω di sisi DC kecil saja — <strong>bukan</strong> kabel PLN.</p>
+<p><strong>Kenapa GPIO 26?</strong> Itu pin relay di tabel global FS-17 — konsisten sampai otomasi lokal berikutnya.</p>
+<p><strong>Terminal sekrup (COM / NO / NC):</strong> itu jalur <em>beban</em> (bukan pin ke ESP32). Di latihan pertama, boleh kosong — lihat diagram NC/COM/NO di atas. Kalau mau uji ekstra aman: LED + resistor 220 Ω di sisi DC kecil saja — <strong>bukan</strong> kabel PLN.</p>
 
 <h2>Praktik — sketch FS23_relay_klik</h2>
 {$active}
@@ -408,14 +528,14 @@ void loop() {
 <ul id="fsiot-relay-checklist-items">
 <li>Arduino IDE sudah terbuka sebelum menulis kode</li>
 <li>Board ESP32 Dev Module + port sudah dipilih</li>
-<li>Wiring: 5V–VCC, GND–GND, GPIO 26–IN</li>
+<li>Wiring: 5V–VCC/+, GND–GND/−, GPIO 26–IN/S</li>
 <li>Paham: hari ini belum boleh AC 220V / PLN</li>
 <li>Paham: aktif LOW vs aktif HIGH bisa beda antar modul</li>
 <li>Sketch disimpan sebagai FS23_relay_klik</li>
 <li>Upload berhasil — Done uploading</li>
 <li>Relay berbunyi klik bergantian</li>
 <li>Serial menampilkan ON/OFF selaras dengan perilaku</li>
-<li>Sadar: ini fondasi aktuator sebelum automasi lokal FS-24</li>
+<li>Sadar: ini fondasi aktuator sebelum otomasi lokal FS-24</li>
 </ul>
 <p><strong>Cara menguji checklist:</strong> centang di browser setelah praktik di IDE + board. Tidak perlu <code>php artisan</code>.</p>
 
@@ -443,6 +563,8 @@ HTML;
         $kit = $this->kitFigureEn();
         $main = $this->mainWiringFigureEn();
         $schema = $this->schemaWiringFigureEn();
+        $serial = $this->serialPanelSvgEn();
+        $terminals = $this->terminalsSvgEn();
         $sense = $this->senseSvgEn();
         $active = $this->activeSvgEn();
 
@@ -455,8 +577,8 @@ HTML;
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
 <li>Read the safety note: <strong>no AC mains / 220V yet</strong>.</li>
-<li>Build 3 wires: 5V · GND · <strong>GPIO 26</strong>. Match the <strong>main figure</strong> (breadboard photo).</li>
-<li><strong>Open Arduino IDE</strong> (not Laragon / a web terminal).</li>
+<li>Build 3 wires: 5V · GND · <strong>GPIO 26</strong>. Match the <strong>main figure</strong> (breadboard wiring diagram).</li>
+<li><strong>Open Arduino IDE first</strong> (not Laragon / a web terminal) — only then copy the code.</li>
 <li>Create sketch <code>FS23_relay_klik</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Listen for the click + watch the indicator LED + read Serial at baud <strong>115200</strong>.</li>
 <li>Tick the 10/10 checklist in the browser.</li>
@@ -475,10 +597,12 @@ HTML;
 <p><strong>Tools used today:</strong> Arduino IDE, Upload, ESP32, USB data, 5V relay module, jumpers, Serial Monitor, browser.</p>
 <p><strong>Not used today:</strong> Laragon, <code>php artisan</code>, a new Library Manager install, DHT22, LDR, AC 220V plugs.</p>
 {$ide}
+{$serial}
 {$board}
 {$kit}
 {$main}
 {$schema}
+{$terminals}
 
 <h2>Relay wiring (human language)</h2>
 <p><strong>Control wiring (3 wires):</strong></p>
@@ -487,8 +611,8 @@ HTML;
 <li>Module <strong>GND</strong> / <strong>−</strong> → ESP32 <strong>GND</strong></li>
 <li>Module <strong>IN</strong> / <strong>S</strong> → <strong>GPIO 26</strong> (often labeled <strong>IO26</strong>)</li>
 </ul>
-<p><strong>Why GPIO 26?</strong> That is the relay pin in the FS-17 global table — consistent through the next local-automation modules.</p>
-<p><strong>Screw terminals (COM / NO / NC):</strong> that is the <em>load</em> path. For the first practice they may stay empty. Extra-safe optional test: a small DC LED + 220 Ω only — <strong>not</strong> mains cable.</p>
+<p><strong>Why GPIO 26?</strong> That is the relay pin in the FS-17 global table — consistent through the next local automation modules.</p>
+<p><strong>Screw terminals (COM / NO / NC):</strong> that is the <em>load</em> path (not the ESP32 control pins). For the first practice they may stay empty — see the NC/COM/NO diagram above. Extra-safe optional test: a small DC LED + 220 Ω only — <strong>not</strong> mains cable.</p>
 
 <h2>Practice — sketch FS23_relay_klik</h2>
 {$active}
@@ -540,7 +664,7 @@ void loop() {
 <ul id="fsiot-relay-checklist-items">
 <li>Arduino IDE is open before writing code</li>
 <li>ESP32 Dev Module board + port are selected</li>
-<li>Wiring: 5V–VCC, GND–GND, GPIO 26–IN</li>
+<li>Wiring: 5V–VCC/+, GND–GND/−, GPIO 26–IN/S</li>
 <li>I understand: no AC mains / 220V today</li>
 <li>I understand: active LOW vs active HIGH can differ by module</li>
 <li>Sketch saved as FS23_relay_klik</li>
