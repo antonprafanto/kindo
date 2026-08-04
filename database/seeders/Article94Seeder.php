@@ -214,7 +214,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="820" alt="Skema bantu — ringkasan pin DHT GPIO 4 + relay GPIO 26" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="860" alt="Skema bantu — ringkasan pin DHT GPIO 4 + relay GPIO 26" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama; <strong>warna kabel juga diselaraskan</strong> (kuning = GPIO 4 · oranye = 3V3 · biru = GPIO 26 · merah = 5V · abu = GND). DHT 3V3/GPIO 4/GND · relay 5V/GPIO 26/GND · histeresis ON 30 °C / OFF 28 °C. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
     <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-24).
@@ -227,7 +227,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="820" alt="Helper schematic — DHT GPIO 4 + relay GPIO 26 pin summary" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="860" alt="Helper schematic — DHT GPIO 4 + relay GPIO 26 pin summary" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Helper schematic.</strong> Same pins as the main figure; <strong>wire colors match too</strong> (yellow = GPIO 4 · orange = 3V3 · blue = GPIO 26 · red = 5V · gray = GND). DHT 3V3/GPIO 4/GND · relay 5V/GPIO 26/GND · hysteresis ON 30 °C / OFF 28 °C. Use this if you prefer labeled pin boxes over the breadboard photo.
     <br>Image source: labeled diagram by Koding Indonesia (FS-24).
@@ -236,58 +236,6 @@ HTML;
 HTML;
     }
 
-
-    private function helperDhtFigureId(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs21-dht22-breadboard.png" width="1238" height="741" alt="Acuan fisik DHT22 (FS-21) — breadboard ke GPIO 4" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#fff">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Acuan fisik DHT22 (FS-21).</strong> Sama seperti latihan sensor sebelumnya: VCC → 3V3 · DATA → GPIO 4 · GND → GND. Pakai ini jika gambar utama terlalu ramai — fokus dulu ke cabang sensor.
-    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-21).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function helperDhtFigureEn(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs21-dht22-breadboard.png" width="1238" height="741" alt="Physical DHT22 reference (FS-21) — breadboard to GPIO 4" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#fff">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Physical DHT22 reference (FS-21).</strong> Same as the earlier sensor practice: VCC → 3V3 · DATA → GPIO 4 · GND → GND. Use this if the main figure feels crowded — focus on the sensor branch first.
-    <br>Image source: wiring diagram by Koding Indonesia (FS-21).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function helperRelayFigureId(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs23-relay-breadboard.png" width="1236" height="756" alt="Acuan fisik relay (FS-23) — breadboard ke GPIO 26" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#fff">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Acuan fisik relay (FS-23).</strong> 5V → +/VCC · GPIO 26 → S/IN · GND → −. Terminal beban boleh kosong. Ingat: “kipas” hari ini = klik + LED — <strong>bukan colokan AC 220V</strong>.
-    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-23).
-  </figcaption>
-</figure>
-HTML;
-    }
-
-    private function helperRelayFigureEn(): string
-    {
-        return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs23-relay-breadboard.png" width="1236" height="756" alt="Physical relay reference (FS-23) — breadboard to GPIO 26" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#fff">
-  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Physical relay reference (FS-23).</strong> 5V → +/VCC · GPIO 26 → S/IN · GND → −. Load terminals may stay empty. Remember: today’s “fan” = click + LED — <strong>not an AC 220V plug</strong>.
-    <br>Image source: wiring diagram by Koding Indonesia (FS-23).
-  </figcaption>
-</figure>
-HTML;
-    }
 
     private function senseSvgId(): string
     {
@@ -455,8 +403,6 @@ SVG;
         $kitRelay = $this->kitRelayFigureId();
         $main = $this->mainWiringFigureId();
         $schema = $this->schemaWiringFigureId();
-        $helperDht = $this->helperDhtFigureId();
-        $helperRelay = $this->helperRelayFigureId();
         $sense = $this->senseSvgId();
         $hyst = $this->hystSvgId();
         $serial = $this->serialPanelSvgId();
@@ -496,9 +442,6 @@ SVG;
 {$kitRelay}
 {$main}
 {$schema}
-{$helperDht}
-{$helperRelay}
-
 <h2>Wiring (bahasa manusia)</h2>
 <p><strong>Blok DHT22 (indra):</strong></p>
 <ul>
@@ -627,8 +570,6 @@ HTML;
         $kitRelay = $this->kitRelayFigureEn();
         $main = $this->mainWiringFigureEn();
         $schema = $this->schemaWiringFigureEn();
-        $helperDht = $this->helperDhtFigureEn();
-        $helperRelay = $this->helperRelayFigureEn();
         $sense = $this->senseSvgEn();
         $hyst = $this->hystSvgEn();
         $serial = $this->serialPanelSvgEn();
@@ -668,9 +609,6 @@ HTML;
 {$kitRelay}
 {$main}
 {$schema}
-{$helperDht}
-{$helperRelay}
-
 <h2>Wiring (human language)</h2>
 <p><strong>DHT22 block (sense):</strong></p>
 <ul>
