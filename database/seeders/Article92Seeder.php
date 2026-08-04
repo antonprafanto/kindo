@@ -230,9 +230,9 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <img src="/images/fsiot/fs22-ldr-principle.png" width="900" height="540" alt="Prinsip LDR — cahaya mengubah hambatan di jalur zigzag" loading="eager" style="display:block;width:100%;max-width:720px;height:auto;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs22-ldr-principle.png" width="960" height="560" alt="Prinsip LDR — cahaya mengubah hambatan di jalur zigzag" loading="eager" style="display:block;width:100%;max-width:720px;height:auto;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Intinya:</strong> LDR mengubah hambatan saat cahaya berubah — chip tidak “melihat” hambatan langsung, melainkan tegangan dari pembagi.
+    <strong>Intinya:</strong> LDR mengubah hambatan saat cahaya berubah — chip tidak “melihat” hambatan langsung, melainkan tegangan dari pembagi (LDR + 10 kΩ).
     <br>Sumber gambar: diagram konsep buatan Koding Indonesia (FS-22), terinspirasi bentuk permukaan photoresistor.
   </figcaption>
 </figure>
@@ -243,9 +243,9 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <img src="/images/fsiot/fs22-ldr-principle.png" width="900" height="540" alt="LDR principle — light changes resistance on the zigzag track" loading="eager" style="display:block;width:100%;max-width:720px;height:auto;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/fs22-ldr-principle.png" width="960" height="560" alt="LDR principle — light changes resistance on the zigzag track" loading="eager" style="display:block;width:100%;max-width:720px;height:auto;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>In short:</strong> an LDR changes resistance with light — the chip does not “see” resistance directly; it reads voltage from the divider.
+    <strong>In short:</strong> an LDR changes resistance with light — the chip does not “see” resistance directly; it reads voltage from the divider (LDR + 10 kΩ).
     <br>Image source: concept diagram by Koding Indonesia (FS-22), inspired by a photoresistor surface shape.
   </figcaption>
 </figure>
