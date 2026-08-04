@@ -188,7 +188,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs24-otomasi-breadboard.png" width="1472" height="762" alt="Gambar utama — rangkaian otomasi DHT GPIO 4 + relay GPIO 26 di breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — rangkaian otomasi di breadboard.</strong> Kuning: <strong>IO4 / GPIO 4</strong> → DATA sensor · oranye: <strong>3V3</strong> → VCC sensor · biru: <strong>IO26 / GPIO 26</strong> → pin <strong>S</strong> relay · merah: <strong>5V</strong> → pin <strong>+</strong> relay · hitam: <strong>GND</strong> bersama. Terminal NC/COM/NO boleh kosong. Bentuk sensor di diagram bisa mirip DHT11/DHT22 — cocokkan silkscreen modulmu; sketch default = <strong>DHT22</strong> (ubah <code>DHTTYPE</code> jika DHT11).
+    <strong>Gambar utama — rangkaian otomasi di breadboard.</strong> Legenda warna: <strong>kuning</strong> = <strong>IO4 / GPIO 4</strong> → DATA sensor · <strong>oranye</strong> = <strong>3V3</strong> → VCC sensor · <strong>biru</strong> = <strong>IO26 / GPIO 26</strong> → pin <strong>S</strong> relay · <strong>merah</strong> = <strong>5V</strong> → pin <strong>+</strong> relay · <strong>hitam</strong> = <strong>GND</strong> bersama. Terminal NC/COM/NO boleh kosong.
+    <br><em>Tip:</em> nomor kolom breadboard (mis. “25”) <strong>bukan</strong> nomor GPIO — ikuti label silkscreen <strong>IO4</strong> / <strong>IO26</strong>. Jangan satukan <strong>3V3</strong> dan <strong>5V</strong> di satu rail merah yang kontinu (bisa merusak board); di foto ini VCC sensor memakai jumper oranye khusus dari pin 3V3. Bentuk sensor di diagram bisa mirip DHT11/DHT22 — cocokkan silkscreen; sketch default = <strong>DHT22</strong> (ubah <code>DHTTYPE</code> jika DHT11).
     <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-24).
   </figcaption>
 </figure>
@@ -201,7 +202,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs24-otomasi-breadboard.png" width="1472" height="762" alt="Main figure — DHT GPIO 4 + relay GPIO 26 breadboard automation" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — local automation on a breadboard.</strong> Yellow: <strong>IO4 / GPIO 4</strong> → sensor DATA · orange: <strong>3V3</strong> → sensor VCC · blue: <strong>IO26 / GPIO 26</strong> → relay <strong>S</strong> · red: <strong>5V</strong> → relay <strong>+</strong> · black: shared <strong>GND</strong>. NC/COM/NO may stay empty. The sensor part may look like DHT11 or DHT22 — match your module silkscreen; sketch default = <strong>DHT22</strong> (change <code>DHTTYPE</code> for DHT11).
+    <strong>Main figure — local automation on a breadboard.</strong> Color key: <strong>yellow</strong> = <strong>IO4 / GPIO 4</strong> → sensor DATA · <strong>orange</strong> = <strong>3V3</strong> → sensor VCC · <strong>blue</strong> = <strong>IO26 / GPIO 26</strong> → relay <strong>S</strong> · <strong>red</strong> = <strong>5V</strong> → relay <strong>+</strong> · <strong>black</strong> = shared <strong>GND</strong>. NC/COM/NO may stay empty.
+    <br><em>Tip:</em> breadboard column numbers (e.g. “25”) are <strong>not</strong> GPIO numbers — follow silkscreen <strong>IO4</strong> / <strong>IO26</strong>. Do not tie <strong>3V3</strong> and <strong>5V</strong> onto one continuous red rail (can damage the board); here sensor VCC uses a dedicated orange jumper from the 3V3 pin. The sensor part may look like DHT11 or DHT22 — match silkscreen; sketch default = <strong>DHT22</strong> (change <code>DHTTYPE</code> for DHT11).
     <br>Image source: wiring diagram by Koding Indonesia (FS-24).
   </figcaption>
 </figure>
@@ -214,7 +216,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="820" alt="Skema bantu — ringkasan pin DHT GPIO 4 + relay GPIO 26" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Skema bantu (ringkas).</strong> Sama dengan gambar utama: DHT 3V3/GPIO 4/GND · relay 5V/GPIO 26/GND · histeresis ON 30 °C / OFF 28 °C. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
+    <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama; <strong>warna kabel juga diselaraskan</strong> (kuning = GPIO 4 · oranye = 3V3 · biru = GPIO 26 · merah = 5V · abu = GND). DHT 3V3/GPIO 4/GND · relay 5V/GPIO 26/GND · histeresis ON 30 °C / OFF 28 °C. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
     <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-24).
   </figcaption>
 </figure>
@@ -227,7 +229,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="820" alt="Helper schematic — DHT GPIO 4 + relay GPIO 26 pin summary" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Helper schematic.</strong> Same as the main figure: DHT 3V3/GPIO 4/GND · relay 5V/GPIO 26/GND · hysteresis ON 30 °C / OFF 28 °C. Use this if you prefer labeled pin boxes over the breadboard photo.
+    <strong>Helper schematic.</strong> Same pins as the main figure; <strong>wire colors match too</strong> (yellow = GPIO 4 · orange = 3V3 · blue = GPIO 26 · red = 5V · gray = GND). DHT 3V3/GPIO 4/GND · relay 5V/GPIO 26/GND · hysteresis ON 30 °C / OFF 28 °C. Use this if you prefer labeled pin boxes over the breadboard photo.
     <br>Image source: labeled diagram by Koding Indonesia (FS-24).
   </figcaption>
 </figure>
@@ -511,6 +513,7 @@ SVG;
 <li><strong>GND</strong> / pin <strong>−</strong> → <strong>GND</strong> ESP32 (sama tanah dengan DHT)</li>
 </ul>
 <p><strong>Kenapa ground bersama?</strong> Sinyal GPIO hanya “ketemu” jika ESP32, sensor, dan modul relay memakai tanah yang sama. Tanpa GND bersama, baca DHT bisa gagal atau relay tidak klik.</p>
+<p><strong>Dua tegangan di satu papan:</strong> DHT memakai <strong>3V3</strong>, relay memakai <strong>5V</strong>. Jangan hubungkan keduanya ke satu rail merah yang masih menyambung end-to-end — itu seperti “memaksa” dua sumber listrik bertemu. Ikuti gambar utama (jumper oranye khusus untuk 3V3 sensor; rail merah untuk 5V relay) atau cabut jumper power-rail di tengah jika breadboardmu punya celah.</p>
 <p><strong>Terminal sekrup (COM / NO / NC):</strong> jalur beban — hari ini boleh kosong. “Kipas” = klik + LED indikator. <strong>Jangan</strong> colok AC 220V / PLN.</p>
 
 <h2>Ambang &amp; histeresis</h2>
@@ -604,6 +607,7 @@ void loop() {
 <li><strong>Lupa install library DHT.</strong> Verify gagal di <code>#include &lt;DHT.h&gt;</code> — buka Library Manager dulu.</li>
 <li><strong>Pin tertukar (GPIO 4 vs 26).</strong> DHT di 4, relay di 26 — cocokkan silkscreen IO4 / IO26.</li>
 <li><strong>VCC DHT ke 5V pada clone 3V3-only.</strong> Banyak modul kit aman di 3V3; jangan paksa 5V jika silkscreen bilang 3,3 V.</li>
+<li><strong>3V3 dan 5V disatukan di rail.</strong> Bisa merusak regulator ESP32 — pakai jalur terpisah seperti gambar utama.</li>
 <li><strong>Ground tidak bersama.</strong> ESP32 + DHT + relay harus satu GND.</li>
 <li><strong>Menguji di terminal web.</strong> Sketch hanya jalan di board lewat IDE Upload — bukan Laragon.</li>
 </ul>
@@ -681,6 +685,7 @@ HTML;
 <li>Module <strong>GND</strong> / <strong>−</strong> → ESP32 <strong>GND</strong> (same ground as the DHT)</li>
 </ul>
 <p><strong>Why a shared ground?</strong> GPIO signals only “meet” when the ESP32, sensor, and relay module share one return path. Without shared GND, DHT reads can fail or the relay won’t click.</p>
+<p><strong>Two voltages on one board:</strong> DHT uses <strong>3V3</strong>, relay uses <strong>5V</strong>. Don’t tie both onto one continuous red rail — that forces two power sources together. Follow the main figure (dedicated orange jumper for sensor 3V3; red rail for relay 5V) or remove the mid-rail jumper if your breadboard has a gap.</p>
 <p><strong>Screw terminals (COM / NO / NC):</strong> the load path — may stay empty today. “Fan” = click + indicator LED. <strong>Do not</strong> plug in AC mains / 220V.</p>
 
 <h2>Threshold &amp; hysteresis</h2>
@@ -774,6 +779,7 @@ void loop() {
 <li><strong>Forgetting the DHT library.</strong> Verify fails on <code>#include &lt;DHT.h&gt;</code> — open Library Manager first.</li>
 <li><strong>Swapped pins (GPIO 4 vs 26).</strong> DHT on 4, relay on 26 — match silkscreen IO4 / IO26.</li>
 <li><strong>DHT VCC on 5V on a 3V3-only clone.</strong> Many kit modules are fine on 3V3; don’t force 5V if the silkscreen says 3.3 V.</li>
+<li><strong>3V3 and 5V tied on one rail.</strong> Can damage the ESP32 regulator — keep separate paths like the main figure.</li>
 <li><strong>Missing shared ground.</strong> ESP32 + DHT + relay must share one GND.</li>
 <li><strong>Testing in a web terminal.</strong> The sketch runs on the board via IDE Upload only — not Laragon.</li>
 </ul>

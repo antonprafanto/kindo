@@ -64,17 +64,26 @@ W, H = 1100, 820
 img = Image.new("RGB", (W, H), "#F5F5F0")
 d = ImageDraw.Draw(img)
 box(d, (20, 16, W - 20, 88), "#FFFFFF", "#1a1a1a", 3)
-center(d, W // 2, 38, "Gambar utama — otomasi lokal panas → relay (FS-24)", FT)
-center(d, W // 2, 68, "DHT22 @ GPIO 4 (3V3) + relay @ GPIO 26 (5V). Hari ini: klik/“kipas” DC — belum AC 220V.", FS, "#333")
+center(d, W // 2, 38, "Skema bantu — otomasi lokal panas → relay (FS-24)", FT)
+center(
+    d,
+    W // 2,
+    68,
+    "Warna = sama gambar utama breadboard · DHT @ GPIO 4 (3V3) + relay @ GPIO 26 (5V) · belum AC 220V",
+    FS,
+    "#333",
+)
 
+# Warna mengikuti foto breadboard user:
+# kuning = GPIO 4/DATA · oranye = 3V3/VCC · biru = GPIO 26/S · merah = 5V/+ · abu = GND
 # ESP32 center-left
 box(d, (60, 120, 380, 420), "#FFFFFF", "#2E7D32", 3)
 center(d, 220, 145, "ESP32 DevKitC-1", FH, "#1B5E20")
 for y, (lab, fill, out) in zip(
     [185, 245, 305, 365],
     [
-        ("3V3", "#FFECB3", "#F9A825"),
-        ("GPIO 4", "#FFE0B2", "#EF6C00"),
+        ("3V3", "#FFE0B2", "#EF6C00"),  # oranye — sama breadboard
+        ("GPIO 4", "#FFF59D", "#F9A825"),  # kuning — sama breadboard
         ("GPIO 26", "#BBDEFB", "#1565C0"),
         ("GND", "#E0E0E0", "#424242"),
     ],
@@ -88,8 +97,8 @@ center(d, 590, 145, "DHT22 (modul kit)", FH, "#E65100")
 for y, (lab, fill, out) in zip(
     [185, 235, 285],
     [
-        ("VCC → 3V3", "#FFECB3", "#F9A825"),
-        ("DATA → GPIO 4", "#FFE0B2", "#EF6C00"),
+        ("VCC → 3V3", "#FFE0B2", "#EF6C00"),  # oranye
+        ("DATA → GPIO 4", "#FFF59D", "#F9A825"),  # kuning
         ("GND → GND", "#E0E0E0", "#424242"),
     ],
 ):
@@ -112,15 +121,15 @@ for y, (lab, fill, out) in zip(
 box(d, (810, 335, 1010, 365), "#0D47A1", "#0D47A1", 2)
 center(d, 910, 350, "klik / “kipas” DC", FS, "#fff")
 
-# wires (simple)
-d.line([(380, 205), (460, 205)], fill="#F9A825", width=4)
-d.line([(380, 265), (460, 255)], fill="#EF6C00", width=4)
-d.line([(380, 385), (460, 305)], fill="#424242", width=4)
-d.line([(380, 325), (780, 255)], fill="#1565C0", width=4)
+# wires — warna sama breadboard
+d.line([(380, 205), (460, 205)], fill="#EF6C00", width=5)  # 3V3 oranye
+d.line([(380, 265), (460, 255)], fill="#F9A825", width=5)  # GPIO4 kuning
+d.line([(380, 385), (460, 305)], fill="#424242", width=5)  # GND
+d.line([(380, 325), (780, 255)], fill="#1565C0", width=5)  # GPIO26 biru
 # note 5V from ESP - show small callout
 box(d, (60, 440, 380, 500), "#FFCDD2", "#C62828", 2)
 center(d, 220, 470, "Juga: pin 5V ESP32 → + relay (coil)", FS, "#B71C1C")
-d.line([(380, 470), (780, 205)], fill="#C62828", width=4)
+d.line([(380, 470), (780, 205)], fill="#C62828", width=5)
 
 # bottom info
 box(d, (40, 520, 420, 780), "#FFF8E1", "#F9A825", 3)
@@ -148,13 +157,14 @@ for i, ln in enumerate(
         "2) Relay: 5V · GPIO 26 · GND",
         "   (seperti FS-23).",
         "3) GND bersama wajib.",
-        "4) Terminal beban boleh kosong",
+        "4) Jangan satukan 3V3+5V",
+        "   di satu rail kontinu.",
+        "5) Terminal beban boleh kosong",
         "   — fokus klik + Serial.",
-        "5) Library DHT sudah terpasang",
-        "   (Library Manager).",
+        "6) Library DHT di Library Manager.",
     ]
 ):
-    d.text((460, 580 + i * 20), ln, font=FX, fill="#333")
+    d.text((460, 575 + i * 18), ln, font=FX, fill="#333")
 
 box(d, (780, 520, 1060, 780), "#FFEBEE", "#C62828", 3)
 d.text((800, 540), "Peringatan", font=FH, fill="#B71C1C")

@@ -114,6 +114,11 @@ check('interactive auto checklist wired', str_contains($show, 'initFsiotAutoChec
 check('auto checklist lang ID', str_contains(file_get_contents(__DIR__.'/../lang/id/ui.php'), 'fsiot_auto_badge'));
 check('auto checklist lang EN', str_contains(file_get_contents(__DIR__.'/../lang/en/ui.php'), 'fsiot_auto_badge'));
 
+check('dual voltage tip ID', str_contains($id, 'Dua tegangan di satu papan') && str_contains($id, '3V3 dan 5V'));
+check('dual voltage tip EN', str_contains($en, 'Two voltages on one board') && str_contains($en, '3V3 and 5V'));
+check('skema warna diselaraskan', str_contains($id, 'warna kabel juga diselaraskan') && str_contains($en, 'wire colors match too'));
+check('column != GPIO tip', str_contains($id, 'nomor kolom breadboard') && str_contains($en, 'breadboard column numbers'));
+
 check('soft bridge FS-25', str_contains($id, 'FS-25') && str_contains($en, 'FS-25'));
 check('jalur page link', str_contains($id, '/belajar/fullstack-iot') && str_contains($en, '/belajar/fullstack-iot'));
 check('kesalahan >= 5', substr_count($id, '<li><strong>') >= 5);
