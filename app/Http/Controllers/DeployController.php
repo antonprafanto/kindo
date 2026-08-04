@@ -8347,8 +8347,10 @@ class DeployController extends Controller
             'Cara menguji perintah di atas',
             'EN (7)',
             'kit-ldr.jpg',
+            'fs22-ldr-breadboard.png',
             'fs22-ldr-wiring.png',
             'Gambar utama',
+            'Skema bantu',
             'GELAP',
             'Arduino Docs',
         ];
@@ -8381,6 +8383,8 @@ class DeployController extends Controller
             'Common mistakes',
             'How to test the commands above',
             'Main figure',
+            'Helper schematic',
+            'fs22-ldr-breadboard.png',
             'fs22-ldr-wiring.png',
             'DARK',
         ];

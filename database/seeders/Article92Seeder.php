@@ -178,10 +178,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs22-ldr-wiring.png" width="1100" height="780" alt="Gambar utama — pembagi tegangan LDR ke GPIO 34" loading="eager" style="width:100%;height:auto;max-height:600px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs22-ldr-breadboard.png" width="1276" height="767" alt="Gambar utama — rangkaian LDR + 10 kΩ di breadboard ke GPIO 34 (IO34)" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — pembagi tegangan LDR.</strong> 3V3 → LDR → titik baca (<strong>GPIO 34</strong>) → 10 kΩ → GND. Pin 34 = ADC input-only.
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-22). Konsep ADC: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc_oneshot.html" rel="noopener noreferrer" target="_blank">Espressif — ADC</a> · <code>analogRead</code>: <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/" rel="noopener noreferrer" target="_blank">Arduino Docs</a>.
+    <strong>Gambar utama — rangkaian LDR di breadboard.</strong> Merah: <strong>3V3</strong> → kaki LDR · biru: titik baca (LDR bertemu 10 kΩ) → <strong>IO34 / GPIO 34</strong> · hitam: kaki 10 kΩ tersisa → <strong>GND</strong> (lewat rail breadboard). Resistor pita coklat–hitam–oranye–emas ≈ <strong>10 kΩ</strong>. Cocokkan <em>label silkscreen</em> di board kamu (clone boleh beda bentuk).
+    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-22).
   </figcaption>
 </figure>
 HTML;
@@ -191,9 +191,35 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs22-ldr-wiring.png" width="1100" height="780" alt="Main figure — LDR voltage divider to GPIO 34" loading="eager" style="width:100%;height:auto;max-height:600px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs22-ldr-breadboard.png" width="1276" height="767" alt="Main figure — LDR + 10 kΩ breadboard wiring to GPIO 34 (IO34)" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — LDR voltage divider.</strong> 3V3 → LDR → sense node (<strong>GPIO 34</strong>) → 10 kΩ → GND. Pin 34 = ADC input-only.
+    <strong>Main figure — LDR on a breadboard.</strong> Red: <strong>3V3</strong> → LDR leg · blue: sense node (LDR meets 10 kΩ) → <strong>IO34 / GPIO 34</strong> · black: remaining 10 kΩ leg → <strong>GND</strong> (via breadboard rail). Brown–black–orange–gold bands ≈ <strong>10 kΩ</strong>. Match the <em>silkscreen labels</em> on your board (clones may look different).
+    <br>Image source: wiring diagram by Koding Indonesia (FS-22).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs22-ldr-wiring.png" width="1100" height="780" alt="Skema bantu — ringkasan pembagi tegangan LDR ke GPIO 34" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Skema bantu (ringkas).</strong> Sama dengan gambar utama: 3V3 → LDR → titik baca (<strong>GPIO 34</strong>) → 10 kΩ → GND. Pin 34 = ADC input-only. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-22). Konsep ADC: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc_oneshot.html" rel="noopener noreferrer" target="_blank">Espressif — ADC</a> · <code>analogRead</code>: <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/" rel="noopener noreferrer" target="_blank">Arduino Docs</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs22-ldr-wiring.png" width="1100" height="780" alt="Helper schematic — LDR voltage divider to GPIO 34" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Helper schematic.</strong> Same as the main figure: 3V3 → LDR → sense node (<strong>GPIO 34</strong>) → 10 kΩ → GND. Pin 34 = ADC input-only. Use this if you prefer labeled pin boxes over the breadboard photo.
     <br>Image source: labeled diagram by Koding Indonesia (FS-22). ADC concept: <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/peripherals/adc_oneshot.html" rel="noopener noreferrer" target="_blank">Espressif — ADC</a> · <code>analogRead</code>: <a href="https://docs.arduino.cc/language-reference/en/functions/analog-io/analogRead/" rel="noopener noreferrer" target="_blank">Arduino Docs</a>.
   </figcaption>
 </figure>
@@ -330,6 +356,7 @@ SVG;
         $board = $this->boardFigureId();
         $kit = $this->kitFigureId();
         $main = $this->mainWiringFigureId();
+        $schema = $this->schemaWiringFigureId();
         $principle = $this->principleFigureId();
         $sense = $this->senseSvgId();
         $scale = $this->scaleSvgId();
@@ -342,7 +369,7 @@ SVG;
 <p><strong>Prasyarat:</strong> FS-18 (pernah Upload) · FS-17 (GPIO 34 di tabel global) · Arduino IDE sudah bisa Upload ke ESP32. FS-21 membantu, tapi hari ini tidak wajib Library Manager baru.</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li>Rakit pembagi tegangan LDR + 10 kΩ ke <strong>GPIO 34</strong>. Cocokkan <strong>gambar utama</strong>.</li>
+<li>Rakit pembagi tegangan LDR + 10 kΩ ke <strong>GPIO 34</strong>. Cocokkan <strong>gambar utama</strong> (foto breadboard).</li>
 <li><strong>Buka Arduino IDE</strong> (bukan Laragon / terminal web).</li>
 <li>Buat sketch <code>FS22_ldr_adc</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Buka Serial Monitor baud <strong>115200</strong> — tutup/buka LDR, lihat angka &amp; label berubah.</li>
@@ -366,9 +393,10 @@ SVG;
 {$kit}
 {$principle}
 {$main}
+{$schema}
 
 <h2>Wiring LDR (bahasa manusia)</h2>
-<p><strong>Rangkaian:</strong> 3V3 → satu kaki <strong>LDR</strong> → kaki LDR lainnya bertemu satu kaki <strong>10 kΩ</strong> (titik baca) → kaki 10 kΩ tersisa ke <strong>GND</strong>. Dari <strong>titik baca</strong> tarik kabel ke <strong>GPIO 34</strong>.</p>
+<p><strong>Rangkaian:</strong> 3V3 → satu kaki <strong>LDR</strong> → kaki LDR lainnya bertemu satu kaki <strong>10 kΩ</strong> (titik baca) → kaki 10 kΩ tersisa ke <strong>GND</strong>. Dari <strong>titik baca</strong> tarik kabel ke <strong>GPIO 34</strong> (di silkscreen sering tertulis <strong>IO34</strong>).</p>
 <p><strong>Kenapa GPIO 34?</strong> Pin itu ADC <strong>input-only</strong> (tabel FS-17). Cocok untuk membaca tegangan, tidak dipakai untuk LED/relay.</p>
 <p><strong>Arah angka:</strong> dengan susunan di atas, cahaya lebih terang biasanya membuat angka <code>analogRead</code> <strong>naik</strong>; menutup LDR biasanya <strong>turun</strong>. Kalau di board-mu terbalik, tukar posisi LDR dan 10 kΩ — atau cukup balik logika label di kode.</p>
 
@@ -459,6 +487,7 @@ HTML;
         $board = $this->boardFigureEn();
         $kit = $this->kitFigureEn();
         $main = $this->mainWiringFigureEn();
+        $schema = $this->schemaWiringFigureEn();
         $principle = $this->principleFigureEn();
         $sense = $this->senseSvgEn();
         $scale = $this->scaleSvgEn();
@@ -471,7 +500,7 @@ HTML;
 <p><strong>Prerequisites:</strong> FS-18 (you have Uploaded) · FS-17 (GPIO 34 in the global table) · Arduino IDE can Upload to the ESP32. FS-21 helps, but today you do not need a new Library Manager install.</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
-<li>Build the LDR + 10 kΩ voltage divider on <strong>GPIO 34</strong>. Match the <strong>main figure</strong>.</li>
+<li>Build the LDR + 10 kΩ voltage divider on <strong>GPIO 34</strong>. Match the <strong>main figure</strong> (breadboard photo).</li>
 <li><strong>Open Arduino IDE</strong> (not Laragon / a web terminal).</li>
 <li>Create sketch <code>FS22_ldr_adc</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Open Serial Monitor at baud <strong>115200</strong> — cover/uncover the LDR and watch numbers &amp; labels change.</li>
@@ -495,9 +524,10 @@ HTML;
 {$kit}
 {$principle}
 {$main}
+{$schema}
 
 <h2>LDR wiring (human language)</h2>
-<p><strong>Circuit:</strong> 3V3 → one LDR leg → the other LDR leg meets one 10 kΩ leg (sense node) → the remaining 10 kΩ leg to <strong>GND</strong>. From the <strong>sense node</strong>, run a wire to <strong>GPIO 34</strong>.</p>
+<p><strong>Circuit:</strong> 3V3 → one LDR leg → the other LDR leg meets one 10 kΩ leg (sense node) → the remaining 10 kΩ leg to <strong>GND</strong>. From the <strong>sense node</strong>, run a wire to <strong>GPIO 34</strong> (often labeled <strong>IO34</strong> on the silkscreen).</p>
 <p><strong>Why GPIO 34?</strong> That pin is an <strong>input-only</strong> ADC (FS-17 table). Good for reading voltage; not used for LEDs/relays.</p>
 <p><strong>Number direction:</strong> with the layout above, brighter light usually makes <code>analogRead</code> <strong>rise</strong>; covering the LDR usually makes it <strong>fall</strong>. If yours is reversed, swap LDR and 10 kΩ — or simply flip the label logic in code.</p>
 
