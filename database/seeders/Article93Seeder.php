@@ -160,10 +160,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs23-relay-wiring.png" width="1100" height="780" alt="Gambar utama — wiring relay GPIO 26 ke modul 5V" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs23-relay-breadboard.png" width="1236" height="756" alt="Gambar utama — rangkaian relay di breadboard ke GPIO 26 (IO26)" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — wiring relay aman.</strong> Merah: <strong>5V</strong> → VCC modul · biru: <strong>GPIO 26</strong> → IN · hitam: <strong>GND</strong> bersama. Terminal sekrup beban hari ini boleh kosong — yang penting klik + LED indikator.
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-23). Fungsi keluaran digital: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/" rel="noopener noreferrer" target="_blank">Arduino Docs — digitalWrite</a>.
+    <strong>Gambar utama — rangkaian relay di breadboard.</strong> Merah: <strong>5V</strong> → pin <strong>+</strong> (VCC) modul · biru: <strong>IO26 / GPIO 26</strong> → pin <strong>S</strong> (IN) · hitam: <strong>GND</strong> → pin <strong>−</strong>. Terminal sekrup NC/COM/NO hari ini boleh kosong — yang penting klik + LED <em>ON</em>. Cocokkan label di modul &amp; silkscreen board kamu (clone boleh beda bentuk).
+    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-23).
   </figcaption>
 </figure>
 HTML;
@@ -173,9 +173,35 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs23-relay-wiring.png" width="1100" height="780" alt="Main figure — relay wiring GPIO 26 to 5V module" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs23-relay-breadboard.png" width="1236" height="756" alt="Main figure — relay breadboard wiring to GPIO 26 (IO26)" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — safe relay wiring.</strong> Red: <strong>5V</strong> → module VCC · blue: <strong>GPIO 26</strong> → IN · black: shared <strong>GND</strong>. Load screw terminals may stay empty today — the click + indicator LED matter most.
+    <strong>Main figure — relay on a breadboard.</strong> Red: <strong>5V</strong> → module <strong>+</strong> (VCC) · blue: <strong>IO26 / GPIO 26</strong> → <strong>S</strong> (IN) · black: <strong>GND</strong> → <strong>−</strong>. NC/COM/NO screw terminals may stay empty today — the click + <em>ON</em> LED matter most. Match labels on your module and board silkscreen (clones may look different).
+    <br>Image source: wiring diagram by Koding Indonesia (FS-23).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs23-relay-wiring.png" width="1100" height="780" alt="Skema bantu — ringkasan pin relay ke ESP32 GPIO 26" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Skema bantu (ringkas).</strong> Sama dengan gambar utama: 5V → VCC/+ · GPIO 26 → IN/S · GND → GND/−. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard. Terminal beban: belum AC 220V.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-23). Fungsi keluaran digital: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/" rel="noopener noreferrer" target="_blank">Arduino Docs — digitalWrite</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs23-relay-wiring.png" width="1100" height="780" alt="Helper schematic — relay pins to ESP32 GPIO 26" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Helper schematic.</strong> Same as the main figure: 5V → VCC/+ · GPIO 26 → IN/S · GND → GND/−. Use this if you prefer labeled pin boxes over the breadboard photo. Load terminals: no AC mains yet.
     <br>Image source: labeled diagram by Koding Indonesia (FS-23). Digital output: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/" rel="noopener noreferrer" target="_blank">Arduino Docs — digitalWrite</a>.
   </figcaption>
 </figure>
@@ -284,6 +310,7 @@ SVG;
         $board = $this->boardFigureId();
         $kit = $this->kitFigureId();
         $main = $this->mainWiringFigureId();
+        $schema = $this->schemaWiringFigureId();
         $sense = $this->senseSvgId();
         $active = $this->activeSvgId();
 
@@ -296,7 +323,7 @@ SVG;
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
 <li>Baca peringatan aman: <strong>belum AC 220V / PLN</strong>.</li>
-<li>Rakit 3 kabel: 5V · GND · <strong>GPIO 26</strong>. Cocokkan <strong>gambar utama</strong>.</li>
+<li>Rakit 3 kabel: 5V · GND · <strong>GPIO 26</strong>. Cocokkan <strong>gambar utama</strong> (foto breadboard).</li>
 <li><strong>Buka Arduino IDE</strong> (bukan Laragon / terminal web).</li>
 <li>Buat sketch <code>FS23_relay_klik</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Dengarkan klik + lihat LED indikator + baca Serial baud <strong>115200</strong>.</li>
@@ -319,13 +346,14 @@ SVG;
 {$board}
 {$kit}
 {$main}
+{$schema}
 
 <h2>Wiring relay (bahasa manusia)</h2>
 <p><strong>Rangkaian kontrol (3 kabel):</strong></p>
 <ul>
-<li><strong>VCC</strong> modul → pin <strong>5V</strong> ESP32</li>
-<li><strong>GND</strong> modul → <strong>GND</strong> ESP32</li>
-<li><strong>IN</strong> modul → <strong>GPIO 26</strong> (sering tertulis <strong>IO26</strong>)</li>
+<li><strong>VCC</strong> / pin <strong>+</strong> modul → pin <strong>5V</strong> ESP32</li>
+<li><strong>GND</strong> / pin <strong>−</strong> modul → <strong>GND</strong> ESP32</li>
+<li><strong>IN</strong> / pin <strong>S</strong> modul → <strong>GPIO 26</strong> (sering tertulis <strong>IO26</strong>)</li>
 </ul>
 <p><strong>Kenapa GPIO 26?</strong> Itu pin relay di tabel global FS-17 — konsisten sampai automasi lokal berikutnya.</p>
 <p><strong>Terminal sekrup (COM / NO / NC):</strong> itu jalur <em>beban</em>. Di latihan pertama, boleh kosong. Kalau mau uji ekstra aman: LED + resistor 220 Ω di sisi DC kecil saja — <strong>bukan</strong> kabel PLN.</p>
@@ -414,6 +442,7 @@ HTML;
         $board = $this->boardFigureEn();
         $kit = $this->kitFigureEn();
         $main = $this->mainWiringFigureEn();
+        $schema = $this->schemaWiringFigureEn();
         $sense = $this->senseSvgEn();
         $active = $this->activeSvgEn();
 
@@ -426,7 +455,7 @@ HTML;
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
 <li>Read the safety note: <strong>no AC mains / 220V yet</strong>.</li>
-<li>Build 3 wires: 5V · GND · <strong>GPIO 26</strong>. Match the <strong>main figure</strong>.</li>
+<li>Build 3 wires: 5V · GND · <strong>GPIO 26</strong>. Match the <strong>main figure</strong> (breadboard photo).</li>
 <li><strong>Open Arduino IDE</strong> (not Laragon / a web terminal).</li>
 <li>Create sketch <code>FS23_relay_klik</code> → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Listen for the click + watch the indicator LED + read Serial at baud <strong>115200</strong>.</li>
@@ -449,13 +478,14 @@ HTML;
 {$board}
 {$kit}
 {$main}
+{$schema}
 
 <h2>Relay wiring (human language)</h2>
 <p><strong>Control wiring (3 wires):</strong></p>
 <ul>
-<li>Module <strong>VCC</strong> → ESP32 <strong>5V</strong></li>
-<li>Module <strong>GND</strong> → ESP32 <strong>GND</strong></li>
-<li>Module <strong>IN</strong> → <strong>GPIO 26</strong> (often labeled <strong>IO26</strong>)</li>
+<li>Module <strong>VCC</strong> / <strong>+</strong> → ESP32 <strong>5V</strong></li>
+<li>Module <strong>GND</strong> / <strong>−</strong> → ESP32 <strong>GND</strong></li>
+<li>Module <strong>IN</strong> / <strong>S</strong> → <strong>GPIO 26</strong> (often labeled <strong>IO26</strong>)</li>
 </ul>
 <p><strong>Why GPIO 26?</strong> That is the relay pin in the FS-17 global table — consistent through the next local-automation modules.</p>
 <p><strong>Screw terminals (COM / NO / NC):</strong> that is the <em>load</em> path. For the first practice they may stay empty. Extra-safe optional test: a small DC LED + 220 Ω only — <strong>not</strong> mains cable.</p>
