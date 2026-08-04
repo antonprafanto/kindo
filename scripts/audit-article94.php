@@ -55,12 +55,16 @@ check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 9', substr_count($id, '<figure') >= 9 && substr_count($en, '<figure') >= 9);
 
 check('wiring PNG asset', str_contains($id, 'fs24-otomasi-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs24-otomasi-wiring.png'));
+check('breadboard PNG asset', str_contains($id, 'fs24-otomasi-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs24-otomasi-breadboard.png'));
 check('helper DHT breadboard', str_contains($id, 'fs21-dht22-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs21-dht22-breadboard.png'));
 check('helper relay breadboard', str_contains($id, 'fs23-relay-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs23-relay-breadboard.png'));
 check('Gambar utama label ID', str_contains($id, 'Gambar utama'));
 check('Main figure label EN', str_contains($en, 'Main figure'));
+check('Skema bantu ID', str_contains($id, 'Skema bantu'));
+check('Helper schematic EN', str_contains($en, 'Helper schematic'));
 check('Acuan fisik ID', str_contains($id, 'Acuan fisik'));
 check('Physical reference EN', str_contains($en, 'Physical'));
+check('DHTTYPE tip for DHT11', str_contains($id, 'DHTTYPE') && str_contains($en, 'DHTTYPE'));
 check('S/+/- aliases ID', str_contains($id, 'S / + / −'));
 check('IDE caption warns AnalogReadSerial', str_contains($id, 'AnalogReadSerial') && str_contains($en, 'AnalogReadSerial'));
 check('Serial panel SVG 115200', str_contains($id, 'Baud: 115200') && (str_contains($id, 'kipas=') || str_contains($id, 'ON')));

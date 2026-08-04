@@ -186,9 +186,9 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="820" alt="Gambar utama — rangkaian otomasi DHT22 GPIO 4 + relay GPIO 26" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
+  <img src="/images/fsiot/fs24-otomasi-breadboard.png" width="1472" height="762" alt="Gambar utama — rangkaian otomasi DHT GPIO 4 + relay GPIO 26 di breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — otomasi lokal di breadboard.</strong> DHT22: <strong>3V3</strong> → VCC · <strong>GPIO 4 / IO4</strong> → DATA · <strong>GND</strong> → GND. Relay: <strong>5V</strong> → pin <strong>+</strong> (VCC) · <strong>GPIO 26 / IO26</strong> → pin <strong>S</strong> (IN) · <strong>GND</strong> → pin <strong>−</strong>. Ground ESP32, DHT, dan relay <strong>bersama</strong>. Terminal sekrup NC/COM/NO boleh kosong — yang penting klik + LED <em>ON</em> saat “panas”.
+    <strong>Gambar utama — rangkaian otomasi di breadboard.</strong> Kuning: <strong>IO4 / GPIO 4</strong> → DATA sensor · oranye: <strong>3V3</strong> → VCC sensor · biru: <strong>IO26 / GPIO 26</strong> → pin <strong>S</strong> relay · merah: <strong>5V</strong> → pin <strong>+</strong> relay · hitam: <strong>GND</strong> bersama. Terminal NC/COM/NO boleh kosong. Bentuk sensor di diagram bisa mirip DHT11/DHT22 — cocokkan silkscreen modulmu; sketch default = <strong>DHT22</strong> (ubah <code>DHTTYPE</code> jika DHT11).
     <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-24).
   </figcaption>
 </figure>
@@ -199,14 +199,41 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="820" alt="Main figure — automation wiring DHT22 GPIO 4 + relay GPIO 26" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
+  <img src="/images/fsiot/fs24-otomasi-breadboard.png" width="1472" height="762" alt="Main figure — DHT GPIO 4 + relay GPIO 26 breadboard automation" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — local automation on a breadboard.</strong> DHT22: <strong>3V3</strong> → VCC · <strong>GPIO 4 / IO4</strong> → DATA · <strong>GND</strong> → GND. Relay: <strong>5V</strong> → module <strong>+</strong> (VCC) · <strong>GPIO 26 / IO26</strong> → <strong>S</strong> (IN) · <strong>GND</strong> → <strong>−</strong>. ESP32, DHT, and relay share one <strong>common ground</strong>. NC/COM/NO screw terminals may stay empty — the click + <em>ON</em> LED when “hot” matter most.
+    <strong>Main figure — local automation on a breadboard.</strong> Yellow: <strong>IO4 / GPIO 4</strong> → sensor DATA · orange: <strong>3V3</strong> → sensor VCC · blue: <strong>IO26 / GPIO 26</strong> → relay <strong>S</strong> · red: <strong>5V</strong> → relay <strong>+</strong> · black: shared <strong>GND</strong>. NC/COM/NO may stay empty. The sensor part may look like DHT11 or DHT22 — match your module silkscreen; sketch default = <strong>DHT22</strong> (change <code>DHTTYPE</code> for DHT11).
     <br>Image source: wiring diagram by Koding Indonesia (FS-24).
   </figcaption>
 </figure>
 HTML;
     }
+
+    private function schemaWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="820" alt="Skema bantu — ringkasan pin DHT GPIO 4 + relay GPIO 26" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Skema bantu (ringkas).</strong> Sama dengan gambar utama: DHT 3V3/GPIO 4/GND · relay 5V/GPIO 26/GND · histeresis ON 30 °C / OFF 28 °C. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-24).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs24-otomasi-wiring.png" width="1100" height="820" alt="Helper schematic — DHT GPIO 4 + relay GPIO 26 pin summary" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Helper schematic.</strong> Same as the main figure: DHT 3V3/GPIO 4/GND · relay 5V/GPIO 26/GND · hysteresis ON 30 °C / OFF 28 °C. Use this if you prefer labeled pin boxes over the breadboard photo.
+    <br>Image source: labeled diagram by Koding Indonesia (FS-24).
+  </figcaption>
+</figure>
+HTML;
+    }
+
 
     private function helperDhtFigureId(): string
     {
@@ -425,6 +452,7 @@ SVG;
         $kitDht = $this->kitDhtFigureId();
         $kitRelay = $this->kitRelayFigureId();
         $main = $this->mainWiringFigureId();
+        $schema = $this->schemaWiringFigureId();
         $helperDht = $this->helperDhtFigureId();
         $helperRelay = $this->helperRelayFigureId();
         $sense = $this->senseSvgId();
@@ -439,7 +467,7 @@ SVG;
 <p><strong>Prasyarat:</strong> FS-21 (DHT22 ke Serial) · FS-23 (relay klik aman) · FS-14 (kebiasaan Upload + Serial Monitor). Pin mengikuti tabel FS-16 / FS-17.</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li>Rakit wiring DHT <strong>dan</strong> relay (lihat gambar utama).</li>
+<li>Rakit wiring DHT <strong>dan</strong> relay (cocokkan gambar utama (foto breadboard)).</li>
 <li><strong>Buka Arduino IDE dulu</strong> (bukan Laragon / terminal web).</li>
 <li>Pastikan library DHT ada di <strong>Library Manager</strong> (kalau belum, install seperti FS-21).</li>
 <li>Buat sketch <code>FS24_panas_relay</code> → salin kode → <strong>Verify</strong> → <strong>Upload</strong>.</li>
@@ -465,6 +493,7 @@ SVG;
 {$kitDht}
 {$kitRelay}
 {$main}
+{$schema}
 {$helperDht}
 {$helperRelay}
 
@@ -593,6 +622,7 @@ HTML;
         $kitDht = $this->kitDhtFigureEn();
         $kitRelay = $this->kitRelayFigureEn();
         $main = $this->mainWiringFigureEn();
+        $schema = $this->schemaWiringFigureEn();
         $helperDht = $this->helperDhtFigureEn();
         $helperRelay = $this->helperRelayFigureEn();
         $sense = $this->senseSvgEn();
@@ -633,6 +663,7 @@ HTML;
 {$kitDht}
 {$kitRelay}
 {$main}
+{$schema}
 {$helperDht}
 {$helperRelay}
 
