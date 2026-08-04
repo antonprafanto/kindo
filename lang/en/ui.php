@@ -464,6 +464,16 @@ return [
         'fsiot_auto_incomplete' => 'Some steps are still unchecked. Recheck GPIO 4/26 wiring, DHT library, ON/OFF thresholds, or Serial output.',
         'fsiot_auto_done' => 'Done',
         'fsiot_auto_todo' => 'Not yet',
+        'fsiot_pir_badge' => 'PIR checklist',
+        'fsiot_pir_hint' => 'Tick each IDE + PIR GPIO 25 + LED GPIO 2 + settle + Serial step. Target: 10/10.',
+        'fsiot_pir_check' => 'Check completeness',
+        'fsiot_pir_retry' => 'Clear again',
+        'fsiot_pir_paper' => 'Paper version (no clicks)',
+        'fsiot_pir_progress' => ':filled of :total checked',
+        'fsiot_pir_pass' => 'Complete :filled/:total — hand motion drives the LED! Continue to FS-26 (servo) when that module publishes.',
+        'fsiot_pir_incomplete' => 'Some steps are still unchecked. Recheck GPIO 25/2 wiring, settle time, H/L jumper, or Serial output.',
+        'fsiot_pir_done' => 'Done',
+        'fsiot_pir_todo' => 'Not yet',
     ],
 
     'theme' => [

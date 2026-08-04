@@ -464,6 +464,16 @@ return [
         'fsiot_auto_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring GPIO 4/26, library DHT, ambang ON/OFF, atau Serial lagi.',
         'fsiot_auto_done' => 'Selesai',
         'fsiot_auto_todo' => 'Belum',
+        'fsiot_pir_badge' => 'Checklist PIR',
+        'fsiot_pir_hint' => 'Centang tiap langkah IDE + PIR GPIO 25 + LED GPIO 2 + settle + Serial. Target: 10/10.',
+        'fsiot_pir_check' => 'Cek kelengkapan',
+        'fsiot_pir_retry' => 'Kosongkan lagi',
+        'fsiot_pir_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_pir_progress' => ':filled dari :total tercentang',
+        'fsiot_pir_pass' => 'Lengkap :filled/:total — gerak tangan menggerakkan LED! Lanjut FS-26 (servo) saat modulnya terbit.',
+        'fsiot_pir_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring GPIO 25/2, settle, jumper H/L, atau Serial lagi.',
+        'fsiot_pir_done' => 'Selesai',
+        'fsiot_pir_todo' => 'Belum',
     ],
 
     'theme' => [
