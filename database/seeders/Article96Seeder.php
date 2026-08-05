@@ -160,11 +160,11 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs26-servo-wiring.png" width="1100" height="860" alt="Gambar utama — rangkaian servo SG90 GPIO 13 ke ESP32" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs26-servo-breadboard.png" width="1238" height="737" alt="Gambar utama — rangkaian servo SG90 GPIO 13 di breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — servo SG90 ke ESP32.</strong> Merah: <strong>5V</strong> → VCC servo · oranye: <strong>IO13 / GPIO 13</strong> → Signal · abu/hitam: <strong>GND</strong> bersama. Jangan isi VCC dari <strong>3V3</strong>.
-    <br><em>Tip:</em> nomor kolom breadboard ≠ nomor GPIO. Pasang horn/lengan kecil supaya gerakan sudut terlihat jelas. Kalau board sering reset saat servo bergerak, pindahkan daya servo ke adaptor 5V terpisah (GND tetap bersama).
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-26).
+    <strong>Gambar utama — rangkaian servo di breadboard.</strong> Merah: <strong>5V</strong> → VCC servo · kuning/oranye: <strong>Signal</strong> → <strong>IO13 / GPIO 13</strong> · hitam: <strong>GND</strong> bersama (rail biru). Jangan isi VCC dari <strong>3V3</strong>.
+    <br><em>Tip:</em> nomor kolom breadboard ≠ nomor GPIO. Warna kabel dari badan servo (cokelat/merah/kuning) boleh beda dari jumper — ikuti fungsi VCC / Signal / GND. Kalau ESP32 reset saat lengan bergerak, pindahkan daya servo ke adaptor 5V terpisah (GND tetap bersama).
+    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-26).
   </figcaption>
 </figure>
 HTML;
@@ -174,15 +174,42 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs26-servo-wiring.png" width="1100" height="860" alt="Main figure — SG90 servo GPIO 13 wiring to ESP32" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs26-servo-breadboard.png" width="1238" height="737" alt="Main figure — SG90 servo GPIO 13 on a breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — SG90 servo to ESP32.</strong> Red: <strong>5V</strong> → servo VCC · orange: <strong>IO13 / GPIO 13</strong> → Signal · grey/black: shared <strong>GND</strong>. Do not power VCC from <strong>3V3</strong>.
-    <br><em>Tip:</em> breadboard column numbers ≠ GPIO numbers. Fit a small horn/arm so angular motion is easy to see. If the board resets when the servo moves, move servo power to a separate 5V supply (keep a common GND).
+    <strong>Main figure — servo circuit on a breadboard.</strong> Red: <strong>5V</strong> → servo VCC · yellow/orange: <strong>Signal</strong> → <strong>IO13 / GPIO 13</strong> · black: shared <strong>GND</strong> (blue rail). Do not power VCC from <strong>3V3</strong>.
+    <br><em>Tip:</em> breadboard column numbers ≠ GPIO numbers. Servo lead colors (brown/red/yellow) may differ from jumpers — follow VCC / Signal / GND. If the ESP32 resets when the arm moves, move servo power to a separate 5V supply (keep a common GND).
+    <br>Image source: wiring diagram by Koding Indonesia (FS-26).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs26-servo-wiring.png" width="1100" height="860" alt="Skema bantu — ringkasan pin servo SG90 GPIO 13" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama: Signal GPIO 13 · VCC 5V · GND bersama · sapu 0°/90°/180°. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-26).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs26-servo-wiring.png" width="1100" height="860" alt="Helper schematic — SG90 servo GPIO 13 pin summary" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Helper schematic.</strong> Same pins as the main figure: Signal GPIO 13 · VCC 5V · shared GND · sweep 0°/90°/180°. Use this if you prefer labeled pin boxes over the breadboard photo.
     <br>Image source: labeled diagram by Koding Indonesia (FS-26).
   </figcaption>
 </figure>
 HTML;
     }
+
 
     private function flowSvgId(): string
     {
@@ -292,6 +319,7 @@ HTML;
         $board = $this->boardFigureId();
         $kit = $this->kitServoFigureId();
         $main = $this->mainWiringFigureId();
+        $schema = $this->schemaWiringFigureId();
         $flow = $this->flowSvgId();
         $serial = $this->serialPanelSvgId();
 
@@ -330,6 +358,7 @@ HTML;
 <h2>Wiring (bahasa manusia)</h2>
 {$kit}
 {$main}
+{$schema}
 <p><strong>Blok servo:</strong></p>
 <ul>
 <li><strong>VCC</strong> (merah) → pin <strong>5V</strong> ESP32 — <strong>jangan</strong> 3V3</li>
@@ -415,6 +444,7 @@ HTML;
         $board = $this->boardFigureEn();
         $kit = $this->kitServoFigureEn();
         $main = $this->mainWiringFigureEn();
+        $schema = $this->schemaWiringFigureEn();
         $flow = $this->flowSvgEn();
         $serial = $this->serialPanelSvgEn();
 
@@ -453,6 +483,7 @@ HTML;
 <h2>Wiring (human language)</h2>
 {$kit}
 {$main}
+{$schema}
 <p><strong>Servo block:</strong></p>
 <ul>
 <li><strong>VCC</strong> (red) → ESP32 <strong>5V</strong> — <strong>not</strong> 3V3</li>

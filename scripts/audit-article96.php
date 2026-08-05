@@ -39,7 +39,7 @@ check('published_at null', str_contains($src, "'published_at'") && str_contains(
 check('slug fullstack-iot-servo-pwm', str_contains($src, 'fullstack-iot-servo-pwm'));
 check('seed route exists', str_contains($routes, 'seed-article-96-draft'));
 check('deploy seed step', str_contains($deploy, 'seed-article-96-draft'));
-check('ftp allowlist fs26', str_contains($deploy, 'fs26-servo-wiring.png') && str_contains($deploy, 'kit-servo-sg90.jpg') && str_contains($deploy, 'fs26-cover-servo.jpg'));
+check('ftp allowlist fs26', str_contains($deploy, 'fs26-servo-wiring.png') && str_contains($deploy, 'fs26-servo-breadboard.png') && str_contains($deploy, 'kit-servo-sg90.jpg') && str_contains($deploy, 'fs26-cover-servo.jpg'));
 
 check('ID self-ref #96 (ini)', str_contains($id, '#96 (ini)'));
 check('EN self-ref #96 (this article)', str_contains($en, '#96 (this article)'));
@@ -52,11 +52,14 @@ check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 5', substr_count($id, '<figure') >= 5 && substr_count($en, '<figure') >= 5);
 
+check('breadboard PNG asset', str_contains($id, 'fs26-servo-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs26-servo-breadboard.png'));
 check('wiring PNG asset', str_contains($id, 'fs26-servo-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs26-servo-wiring.png'));
 check('kit servo asset', str_contains($id, 'kit-servo-sg90.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-servo-sg90.jpg'));
 check('cover asset', is_file(__DIR__.'/../public/images/fsiot/fs26-cover-servo.jpg'));
-check('Gambar utama label ID', str_contains($id, 'Gambar utama'));
-check('Main figure label EN', str_contains($en, 'Main figure'));
+check('Gambar utama label ID', str_contains($id, 'Gambar utama') && str_contains($id, 'fs26-servo-breadboard.png'));
+check('Skema bantu label ID', str_contains($id, 'Skema bantu') && str_contains($id, 'fs26-servo-wiring.png'));
+check('Main figure label EN', str_contains($en, 'Main figure') && str_contains($en, 'fs26-servo-breadboard.png'));
+check('Helper schematic label EN', str_contains($en, 'Helper schematic') && str_contains($en, 'fs26-servo-wiring.png'));
 check('Commons cite SG90', str_contains($id, 'commons.wikimedia.org') && str_contains($id, 'Tower_Pro_SG90'));
 check('IDE caption warns AnalogReadSerial', str_contains($id, 'AnalogReadSerial') && str_contains($en, 'AnalogReadSerial'));
 check('Serial panel SVG 115200', str_contains($id, 'Baud: 115200'));

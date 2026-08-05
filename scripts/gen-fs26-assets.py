@@ -67,12 +67,12 @@ C_SIG = "#F9A825"
 C_GND = "#424242"
 
 box(d, (20, 14, W - 20, 86), "#FFFFFF", "#1a1a1a", 3)
-center(d, W // 2, 36, "Gambar utama — Servo SG90 + ESP32 (FS-26)", FT)
+center(d, W // 2, 36, "Skema bantu — Servo SG90 + ESP32 (FS-26)", FT)
 center(
     d,
     W // 2,
     64,
-    "Signal @ GPIO 13 · VCC 5V (bukan 3V3) · GND bersama · sapu 0°→90°→180° · belum Wi-Fi",
+    "Sama gambar utama: Signal GPIO 13 · VCC 5V · GND bersama · sapu 0°→90°→180° · belum Wi-Fi",
     FS,
     "#333",
 )
