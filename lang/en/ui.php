@@ -474,6 +474,17 @@ return [
         'fsiot_pir_incomplete' => 'Some steps are still unchecked. Recheck GPIO 25/2 wiring, settle time, H/L jumper, or Serial output.',
         'fsiot_pir_done' => 'Done',
         'fsiot_pir_todo' => 'Not yet',
+        'fsiot_servo_badge' => 'Servo checklist',
+        'fsiot_servo_hint' => 'Tick each IDE step + ESP32Servo library + GPIO 13 + angle Serial. Target: 10/10.',
+        'fsiot_servo_check' => 'Check completeness',
+        'fsiot_servo_retry' => 'Clear again',
+        'fsiot_servo_paper' => 'Paper version (no clicks)',
+        'fsiot_servo_progress' => ':filled of :total checked',
+        'fsiot_servo_pass' => 'Complete :filled/:total — the arm follows the angle! Continue to FS-27 (buses) when that module ships.',
+        'fsiot_servo_incomplete' => 'Some steps are still unchecked. Recheck ESP32Servo, 5V/GPIO 13 wiring, or Serial.',
+        'fsiot_servo_done' => 'Done',
+        'fsiot_servo_todo' => 'Not yet',
+
     ],
 
     'theme' => [

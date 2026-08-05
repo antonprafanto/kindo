@@ -8776,6 +8776,122 @@ class DeployController extends Controller
         return response('Article 95 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle96Draft(): Response
+    {
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article96Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 96 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-servo-pwm';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article) {
+            report(new \RuntimeException('Article 96 missing after draft seed.'));
+
+            return response('Article 96 not found after draft seed', 500);
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            report(new \RuntimeException('Article 96 refused to stay draft after seed.'));
+
+            return response('Article 96 must remain draft (pre-launch B)', 500);
+        }
+
+        if (Article::published()->where('slug', $slug)->exists()) {
+            report(new \RuntimeException('Article 96 unexpectedly visible via published() scope.'));
+
+            return response('Article 96 leaked into published scope', 500);
+        }
+
+        $body = (string) $article->body;
+        $bodyNeedles = [
+            '#96 (ini)',
+            'FS-26',
+            'BUILDER',
+            'FS26_servo_sudut',
+            'GPIO 13',
+            'ESP32Servo',
+            'Tidak perlu hari ini',
+            'Cara pakai artikel ini',
+            'fsiot-servo-checklist',
+            'FS-20',
+            'FS-14',
+            'FS-27',
+            '/belajar/fullstack-iot',
+            'Analogi:',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'Cara menguji perintah di atas',
+            'Library Manager',
+            'kit-servo-sg90.jpg',
+            'fs26-servo-wiring.png',
+            'Gambar utama',
+            'AnalogReadSerial',
+            'Baud: 115200',
+            'Buka Arduino IDE dulu',
+            'SG90',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Article 96 body missing expected content after draft seed: '.implode(', ', $missingBody)));
+
+            return response('Article 96 body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 96 English fields are incomplete after draft seed.'));
+
+            return response('Article 96 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        $enNeedles = [
+            '#96 (this article)',
+            'Analogy:',
+            'How to use this article',
+            'Not needed today',
+            'BUILDER',
+            'FS26_servo_sudut',
+            'GPIO 13',
+            'ESP32Servo',
+            'fsiot-servo-checklist',
+            'FS-27',
+            'Common mistakes',
+            'How to test the commands above',
+            'Main figure',
+            'fs26-servo-wiring.png',
+            'Library Manager',
+            'AnalogReadSerial',
+            'Baud: 115200',
+            'Open Arduino IDE first',
+            'SG90',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 96 EN body missing expected content after draft seed: '.implode(', ', $missingEn)));
+
+            return response('Article 96 EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 96 seeded as draft (pre-launch B)', 200);
+    }
+
+
+
     private function runDuplicateBme280Cleanup(): void
     {
         Artisan::call('db:seed', [

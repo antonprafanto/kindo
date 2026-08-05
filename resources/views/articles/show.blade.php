@@ -563,6 +563,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotRelayChecklist();
     initFsiotAutoChecklist();
     initFsiotPirChecklist();
+    initFsiotServoChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1847,6 +1848,29 @@ function initFsiotLdrChecklist() {
 }
 
 
+
+
+function initFsiotServoChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-servo-checklist',
+        listId: 'fsiot-servo-checklist-items',
+        storagePrefix: 'fsiot-cl-96',
+        idPrefix: 'fsiot-servo',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_servo_badge')),
+            hint: @js(__('ui.articles.fsiot_servo_hint')),
+            check: @js(__('ui.articles.fsiot_servo_check')),
+            retry: @js(__('ui.articles.fsiot_servo_retry')),
+            paper: @js(__('ui.articles.fsiot_servo_paper')),
+            progress: @js(__('ui.articles.fsiot_servo_progress')),
+            pass: @js(__('ui.articles.fsiot_servo_pass')),
+            incomplete: @js(__('ui.articles.fsiot_servo_incomplete')),
+            done: @js(__('ui.articles.fsiot_servo_done')),
+            todo: @js(__('ui.articles.fsiot_servo_todo')),
+        },
+    });
+}
 
 function initFsiotPirChecklist() {
     initFsiotChecklistWidget({

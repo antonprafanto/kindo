@@ -473,7 +473,18 @@ return [
         'fsiot_pir_pass' => 'Lengkap :filled/:total — gerak tangan menggerakkan LED! Lanjut FS-26 (servo) saat modulnya terbit.',
         'fsiot_pir_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring GPIO 25/2, settle, jumper H/L, atau Serial lagi.',
         'fsiot_pir_done' => 'Selesai',
-        'fsiot_pir_todo' => 'Belum',
+                'fsiot_pir_todo' => 'Belum',
+        'fsiot_servo_badge' => 'Checklist servo',
+        'fsiot_servo_hint' => 'Centang tiap langkah IDE + Library ESP32Servo + GPIO 13 + Serial sudut. Target: 10/10.',
+        'fsiot_servo_check' => 'Cek kelengkapan',
+        'fsiot_servo_retry' => 'Kosongkan lagi',
+        'fsiot_servo_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_servo_progress' => ':filled dari :total tercentang',
+        'fsiot_servo_pass' => 'Lengkap :filled/:total — lengan mengikuti sudut! Lanjut FS-27 (bus) saat modulnya terbit.',
+        'fsiot_servo_incomplete' => 'Masih ada langkah yang belum dicentang. Cek library ESP32Servo, wiring 5V/GPIO 13, atau Serial lagi.',
+        'fsiot_servo_done' => 'Selesai',
+        'fsiot_servo_todo' => 'Belum',
+
     ],
 
     'theme' => [
