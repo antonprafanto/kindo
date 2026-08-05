@@ -484,6 +484,17 @@ return [
         'fsiot_servo_incomplete' => 'Some steps are still unchecked. Recheck ESP32Servo, 5V/GPIO 13 wiring, or Serial.',
         'fsiot_servo_done' => 'Done',
         'fsiot_servo_todo' => 'Not yet',
+        'fsiot_bus_badge' => 'Bus checklist',
+        'fsiot_bus_hint' => 'Tick each UART/I2C/SPI decision + OLED/BME280/microSD. Target: 10/10.',
+        'fsiot_bus_check' => 'Check completeness',
+        'fsiot_bus_retry' => 'Clear again',
+        'fsiot_bus_paper' => 'Paper version (no clicks)',
+        'fsiot_bus_progress' => ':filled of :total checked',
+        'fsiot_bus_pass' => 'Complete :filled/:total — you can choose a bus! Continue to FS-28 (I2C) when that module ships.',
+        'fsiot_bus_incomplete' => 'Some steps are still unchecked. Recheck UART/I2C/SPI analogies or the decision table.',
+        'fsiot_bus_done' => 'Done',
+        'fsiot_bus_todo' => 'Not yet',
+
 
     ],
 

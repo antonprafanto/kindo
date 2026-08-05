@@ -484,6 +484,17 @@ return [
         'fsiot_servo_incomplete' => 'Masih ada langkah yang belum dicentang. Cek library ESP32Servo, wiring 5V/GPIO 13, atau Serial lagi.',
         'fsiot_servo_done' => 'Selesai',
         'fsiot_servo_todo' => 'Belum',
+        'fsiot_bus_badge' => 'Checklist bus',
+        'fsiot_bus_hint' => 'Centang tiap keputusan UART/I2C/SPI + OLED/BME280/microSD. Target: 10/10.',
+        'fsiot_bus_check' => 'Cek kelengkapan',
+        'fsiot_bus_retry' => 'Kosongkan lagi',
+        'fsiot_bus_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_bus_progress' => ':filled dari :total tercentang',
+        'fsiot_bus_pass' => 'Lengkap :filled/:total — kamu bisa pilih bus! Lanjut FS-28 (I2C) saat modulnya terbit.',
+        'fsiot_bus_incomplete' => 'Masih ada langkah yang belum dicentang. Cek analogi UART/I2C/SPI atau tabel keputusan lagi.',
+        'fsiot_bus_done' => 'Selesai',
+        'fsiot_bus_todo' => 'Belum',
+
 
     ],
 

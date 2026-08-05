@@ -564,6 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotAutoChecklist();
     initFsiotPirChecklist();
     initFsiotServoChecklist();
+    initFsiotBusChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1849,6 +1850,29 @@ function initFsiotLdrChecklist() {
 
 
 
+
+
+function initFsiotBusChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-bus-checklist',
+        listId: 'fsiot-bus-checklist-items',
+        storagePrefix: 'fsiot-cl-97',
+        idPrefix: 'fsiot-bus',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_bus_badge')),
+            hint: @js(__('ui.articles.fsiot_bus_hint')),
+            check: @js(__('ui.articles.fsiot_bus_check')),
+            retry: @js(__('ui.articles.fsiot_bus_retry')),
+            paper: @js(__('ui.articles.fsiot_bus_paper')),
+            progress: @js(__('ui.articles.fsiot_bus_progress')),
+            pass: @js(__('ui.articles.fsiot_bus_pass')),
+            incomplete: @js(__('ui.articles.fsiot_bus_incomplete')),
+            done: @js(__('ui.articles.fsiot_bus_done')),
+            todo: @js(__('ui.articles.fsiot_bus_todo')),
+        },
+    });
+}
 
 function initFsiotServoChecklist() {
     initFsiotChecklistWidget({
