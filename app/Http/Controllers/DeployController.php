@@ -8832,12 +8832,16 @@ class DeployController extends Controller
             'kit-servo-sg90.jpg',
             'fs26-servo-breadboard.png',
             'fs26-servo-wiring.png',
+            'fs26-library-manager.png',
+            'fs26-servo-timing.png',
             'Gambar utama',
             'Skema bantu',
             'AnalogReadSerial',
             'Baud: 115200',
             'Buka Arduino IDE dulu',
             'SG90',
+            'Wajib sebelum Verify',
+            'mikro servo',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -8870,11 +8874,14 @@ class DeployController extends Controller
             'Helper schematic',
             'fs26-servo-breadboard.png',
             'fs26-servo-wiring.png',
+            'fs26-library-manager.png',
+            'fs26-servo-timing.png',
             'Library Manager',
             'AnalogReadSerial',
             'Baud: 115200',
             'Open Arduino IDE first',
             'SG90',
+            'Required before Verify',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

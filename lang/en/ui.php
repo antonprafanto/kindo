@@ -480,7 +480,7 @@ return [
         'fsiot_servo_retry' => 'Clear again',
         'fsiot_servo_paper' => 'Paper version (no clicks)',
         'fsiot_servo_progress' => ':filled of :total checked',
-        'fsiot_servo_pass' => 'Complete :filled/:total — the arm follows the angle! Continue to FS-27 (buses) when that module ships.',
+        'fsiot_servo_pass' => 'Complete :filled/:total — the arm follows the angle! Continue to FS-27 (UART/I2C/SPI) when that module ships.',
         'fsiot_servo_incomplete' => 'Some steps are still unchecked. Recheck ESP32Servo, 5V/GPIO 13 wiring, or Serial.',
         'fsiot_servo_done' => 'Done',
         'fsiot_servo_todo' => 'Not yet',

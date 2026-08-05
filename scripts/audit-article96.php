@@ -39,7 +39,7 @@ check('published_at null', str_contains($src, "'published_at'") && str_contains(
 check('slug fullstack-iot-servo-pwm', str_contains($src, 'fullstack-iot-servo-pwm'));
 check('seed route exists', str_contains($routes, 'seed-article-96-draft'));
 check('deploy seed step', str_contains($deploy, 'seed-article-96-draft'));
-check('ftp allowlist fs26', str_contains($deploy, 'fs26-servo-wiring.png') && str_contains($deploy, 'fs26-servo-breadboard.png') && str_contains($deploy, 'kit-servo-sg90.jpg') && str_contains($deploy, 'fs26-cover-servo.jpg'));
+check('ftp allowlist fs26', str_contains($deploy, 'fs26-servo-wiring.png') && str_contains($deploy, 'fs26-servo-breadboard.png') && str_contains($deploy, 'kit-servo-sg90.jpg') && str_contains($deploy, 'fs26-cover-servo.jpg') && str_contains($deploy, 'fs26-library-manager.png') && str_contains($deploy, 'fs26-servo-timing.png'));
 
 check('ID self-ref #96 (ini)', str_contains($id, '#96 (ini)'));
 check('EN self-ref #96 (this article)', str_contains($en, '#96 (this article)'));
@@ -50,10 +50,12 @@ check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
 check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 5', substr_count($id, '<figure') >= 5 && substr_count($en, '<figure') >= 5);
+check('figures both >= 7', substr_count($id, '<figure') >= 7 && substr_count($en, '<figure') >= 7);
 
 check('breadboard PNG asset', str_contains($id, 'fs26-servo-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs26-servo-breadboard.png'));
 check('wiring PNG asset', str_contains($id, 'fs26-servo-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs26-servo-wiring.png'));
+check('library manager PNG asset', str_contains($id, 'fs26-library-manager.png') && is_file(__DIR__.'/../public/images/fsiot/fs26-library-manager.png'));
+check('timing PNG asset', str_contains($id, 'fs26-servo-timing.png') && is_file(__DIR__.'/../public/images/fsiot/fs26-servo-timing.png'));
 check('kit servo asset', str_contains($id, 'kit-servo-sg90.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-servo-sg90.jpg'));
 check('cover asset', is_file(__DIR__.'/../public/images/fsiot/fs26-cover-servo.jpg'));
 check('Gambar utama label ID', str_contains($id, 'Gambar utama') && str_contains($id, 'fs26-servo-breadboard.png'));
@@ -61,10 +63,14 @@ check('Skema bantu label ID', str_contains($id, 'Skema bantu') && str_contains($
 check('Main figure label EN', str_contains($en, 'Main figure') && str_contains($en, 'fs26-servo-breadboard.png'));
 check('Helper schematic label EN', str_contains($en, 'Helper schematic') && str_contains($en, 'fs26-servo-wiring.png'));
 check('Commons cite SG90', str_contains($id, 'commons.wikimedia.org') && str_contains($id, 'Tower_Pro_SG90'));
+check('Library Manager docs cite', str_contains($id, 'ide-v2-installing-a-library') && str_contains($en, 'ide-v2-installing-a-library'));
+check('EYD sinyal / mikro servo in kit caption ID', str_contains($id, 'mikro servo') && str_contains($id, 'oranye/kuning = sinyal') && ! str_contains($id, 'micro servo <strong>SG90</strong>') && ! str_contains($id, 'kuning/oranye: <strong>Signal</strong>'));
 check('IDE caption warns AnalogReadSerial', str_contains($id, 'AnalogReadSerial') && str_contains($en, 'AnalogReadSerial'));
 check('Serial panel SVG 115200', str_contains($id, 'Baud: 115200'));
 check('open IDE first wording', str_contains($id, 'Buka Arduino IDE dulu') && str_contains($en, 'Open Arduino IDE first'));
 check('Library Manager ESP32Servo', str_contains($id, 'Library Manager') && str_contains($id, 'ESP32Servo') && str_contains($en, 'ESP32Servo'));
+check('Wajib sebelum Verify', str_contains($id, 'Wajib sebelum Verify') && str_contains($en, 'Required before Verify'));
+check('sapu explained', str_contains($id, 'bergerak berurutan') && str_contains($en, 'move in sequence'));
 check('how to test IDE Upload ID', str_contains($id, 'Cara menguji perintah di atas') && str_contains($id, 'Arduino IDE'));
 check('how to test IDE Upload EN', str_contains($en, 'How to test the commands above') && str_contains($en, 'Arduino IDE'));
 check('sketch FS26_servo_sudut', str_contains($id, 'FS26_servo_sudut') && str_contains($en, 'FS26_servo_sudut'));
@@ -74,6 +80,7 @@ check('5V not 3V3 warning', str_contains($id, 'jangan</strong> 3V3') || str_cont
 check('prereq soft FS-20 FS-14', str_contains($id, 'FS-20') && str_contains($id, 'FS-14'));
 check('soft bridge FS-27', str_contains($id, 'FS-27') && str_contains($en, 'FS-27'));
 check('EYD otomasi not automasi', ! str_contains($id, 'automasi'));
+check('checklist soft FS-27 wording', str_contains($id, 'perbandingan bus') && str_contains($en, 'bus comparison'));
 
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $id, $svgIdBlocks);
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $en, $svgEnBlocks);

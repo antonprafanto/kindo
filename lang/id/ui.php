@@ -480,7 +480,7 @@ return [
         'fsiot_servo_retry' => 'Kosongkan lagi',
         'fsiot_servo_paper' => 'Versi catatan (kertas / tanpa klik)',
         'fsiot_servo_progress' => ':filled dari :total tercentang',
-        'fsiot_servo_pass' => 'Lengkap :filled/:total — lengan mengikuti sudut! Lanjut FS-27 (bus) saat modulnya terbit.',
+        'fsiot_servo_pass' => 'Lengkap :filled/:total — lengan mengikuti sudut! Lanjut FS-27 (UART/I2C/SPI) saat modulnya terbit.',
         'fsiot_servo_incomplete' => 'Masih ada langkah yang belum dicentang. Cek library ESP32Servo, wiring 5V/GPIO 13, atau Serial lagi.',
         'fsiot_servo_done' => 'Selesai',
         'fsiot_servo_todo' => 'Belum',

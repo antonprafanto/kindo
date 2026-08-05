@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Generate FS-26 cover + servo wiring schematic (Gambar utama)."""
+"""Generate FS-26 cover, wiring, Library Manager steps, and servo timing diagram."""
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
 
@@ -43,8 +43,8 @@ try:
     kit = Image.open(OUT / "kit-servo-sg90.jpg").convert("RGB")
     kit.thumbnail((420, 360))
     left.paste(kit, ((520 - kit.width) // 2, 90))
-    ld.text((40, 40), "SG90 micro servo", font=FH, fill="#0D47A1")
-    ld.text((40, 470), "Signal → GPIO 13", font=FS, fill="#333")
+    ld.text((40, 40), "SG90 mikro servo", font=FH, fill="#0D47A1")
+    ld.text((40, 470), "Sinyal → GPIO 13", font=FS, fill="#333")
 except Exception as e:
     ld.text((40, 240), f"(servo photo) {e}", font=F, fill="#666")
 
@@ -57,7 +57,7 @@ center(d, 860, 490, "ESP32Servo · tanpa Wi-Fi", FX, "#E3F2FD")
 cover.save(OUT / "fs26-cover-servo.jpg", quality=88, optimize=True)
 print("cover", (OUT / "fs26-cover-servo.jpg").stat().st_size)
 
-# --- Wiring schematic as Gambar utama ---
+# --- Wiring schematic as Skema bantu ---
 W, H = 1100, 860
 img = Image.new("RGB", (W, H), "#F5F5F0")
 d = ImageDraw.Draw(img)
@@ -72,7 +72,7 @@ center(
     d,
     W // 2,
     64,
-    "Sama gambar utama: Signal GPIO 13 · VCC 5V · GND bersama · sapu 0°→90°→180° · belum Wi-Fi",
+    "Sama gambar utama: sinyal GPIO 13 · VCC 5V · GND bersama · sapu 0°→90°→180° · belum Wi-Fi",
     FS,
     "#333",
 )
@@ -94,7 +94,7 @@ box(d, (560, 130, 1040, 400), "#FFFFFF", "#1565C0", 3)
 center(d, 800, 152, "Servo SG90 — “tangan kecil”", FH, "#0D47A1")
 for y, lab, fill, out in [
     (190, "Merah (VCC) → 5V", "#FFCDD2", C_5V),
-    (250, "Oranye/kuning (Signal) → GPIO 13", "#FFF59D", C_SIG),
+    (250, "Oranye/kuning (sinyal) → GPIO 13", "#FFF59D", C_SIG),
     (310, "Cokelat/hitam (GND) → GND", "#E0E0E0", C_GND),
 ]:
     box(d, (590, y, 1010, y + 42), fill, out, 2)
@@ -111,7 +111,7 @@ center(
     d,
     545,
     475,
-    "Legenda: merah 5V · oranye sinyal/GPIO 13 · abu GND · warna kabel clone bisa beda — ikuti VCC / Signal / GND",
+    "Legenda: merah 5V · oranye sinyal/GPIO 13 · abu GND · warna kabel clone bisa beda — ikuti VCC / sinyal / GND",
     FS,
     "#333",
 )
@@ -122,7 +122,7 @@ d.text((58, 540), "Cara baca modul", font=FH, fill="#1B5E20")
 for i, ln in enumerate(
     [
         "1) VCC servo → 5V (jangan 3V3)",
-        "2) Signal → GPIO 13 / IO13",
+        "2) Sinyal → GPIO 13 / IO13",
         "3) GND bersama ESP32",
         "4) Pasang horn/lengan kecil",
         "   agar gerakan terlihat",
@@ -170,4 +170,99 @@ for i, ln in enumerate(
 
 img.save(OUT / "fs26-servo-wiring.png", optimize=True)
 print("wiring", (OUT / "fs26-servo-wiring.png").stat().st_size)
+
+# --- Library Manager steps (tools-first visual) ---
+LM_W, LM_H = 1100, 520
+lm = Image.new("RGB", (LM_W, LM_H), "#F5F5F0")
+d = ImageDraw.Draw(lm)
+box(d, (20, 16, LM_W - 20, 90), "#FFFFFF", "#1a1a1a", 3)
+center(d, LM_W // 2, 40, "Library Manager — pasang ESP32Servo dulu (FS-26)", FT)
+center(
+    d,
+    LM_W // 2,
+    68,
+    "Tanpa langkah ini, Verify sering gagal di #include <ESP32Servo.h>",
+    FS,
+    "#333",
+)
+
+steps = [
+    ("1", "Buka Library Manager", "IDE 2: ikon buku di\nkiri · atau Sketch →\nInclude Library →\nManage Libraries…", "#E8F5E9", "#2E7D32"),
+    ("2", "Cari ESP32Servo", "Ketik ESP32Servo\ndi kotak pencarian.\nPilih yang untuk ESP32\n(bukan Servo Uno saja).", "#E3F2FD", "#1565C0"),
+    ("3", "Install → Verify", "Klik Install.\nLalu Verify sketch\nFS26_servo_sudut.\nBaru Upload ke board.", "#FFF8E1", "#F9A825"),
+]
+for i, (num, title, body, fill, out) in enumerate(steps):
+    x0 = 40 + i * 350
+    box(d, (x0, 120, x0 + 320, 430), fill, out, 3)
+    box(d, (x0 + 20, 140, x0 + 70, 190), "#FFFFFF", out, 2)
+    center(d, x0 + 45, 165, num, FT, out)
+    d.text((x0 + 90, 155), title, font=FH, fill="#1a1a1a")
+    for j, ln in enumerate(body.split("\n")):
+        d.text((x0 + 24, 220 + j * 28), ln, font=FS, fill="#333")
+    if i < 2:
+        center(d, x0 + 335, 275, "→", FT, "#1a1a1a")
+
+box(d, (40, 450, LM_W - 40, 500), "#FFFFFF", "#1a1a1a", 2)
+center(
+    d,
+    LM_W // 2,
+    475,
+    "Acuan menu: Arduino Docs — Installing a library · library: ESP32Servo (Library Manager)",
+    FS,
+    "#333",
+)
+lm.save(OUT / "fs26-library-manager.png", optimize=True)
+print("library", (OUT / "fs26-library-manager.png").stat().st_size)
+
+# --- Servo timing / angle (PWM ≠ terang) ---
+TM_W, TM_H = 1100, 560
+tm = Image.new("RGB", (TM_W, TM_H), "#F5F5F0")
+d = ImageDraw.Draw(tm)
+box(d, (20, 16, TM_W - 20, 90), "#FFFFFF", "#1a1a1a", 3)
+center(d, TM_W // 2, 40, "PWM servo = lebar pulsa → sudut (bukan terang LED)", FT)
+center(
+    d,
+    TM_W // 2,
+    68,
+    "Periode tipikal ~20 ms · pulsa pendek ≈ 0° · pulsa lebih panjang ≈ 180° · library yang mengurus detailnya",
+    FS,
+    "#333",
+)
+
+pulses = [
+    ("write(0)", "~1 ms HIGH", "Lengan ≈ 0°", 90),
+    ("write(90)", "~1,5 ms HIGH", "Lengan ≈ 90°", 150),
+    ("write(180)", "~2 ms HIGH", "Lengan ≈ 180°", 210),
+]
+for i, (cmd, pulse, angle, high_w) in enumerate(pulses):
+    x0 = 50 + i * 350
+    box(d, (x0, 120, x0 + 320, 420), "#FFFFFF", "#1565C0", 3)
+    center(d, x0 + 160, 150, cmd, FH, "#0D47A1")
+    # waveform box
+    wx0, wy0, wx1, wy1 = x0 + 30, 190, x0 + 290, 300
+    box(d, (wx0, wy0, wx1, wy1), "#ECEFF1", "#90A4AE", 2)
+    # baseline + pulse
+    mid_y = (wy0 + wy1) // 2 + 20
+    high_y = wy0 + 25
+    d.line([(wx0 + 20, mid_y), (wx1 - 20, mid_y)], fill="#455A64", width=2)
+    px = wx0 + 40
+    d.line([(px, mid_y), (px, high_y), (px + high_w, high_y), (px + high_w, mid_y)], fill="#F9A825", width=4)
+    d.line([(px + high_w, mid_y), (wx1 - 30, mid_y)], fill="#F9A825", width=4)
+    center(d, x0 + 160, 340, pulse, FS, "#333")
+    center(d, x0 + 160, 375, angle, FH, "#1B5E20")
+    if i < 2:
+        center(d, x0 + 335, 270, "→", FT, "#1a1a1a")
+
+box(d, (40, 450, TM_W - 40, 530), "#E8F5E9", "#2E7D32", 2)
+center(d, TM_W // 2, 475, "Intinya: di FS-20 angka 0–255 = terang. Di FS-26 angka 0 / 90 / 180 = posisi sudut.", FS, "#1B5E20")
+center(
+    d,
+    TM_W // 2,
+    505,
+    "Konsep: Arduino Docs — Servo Motors · diagram buatan Koding Indonesia (FS-26)",
+    FX,
+    "#333",
+)
+tm.save(OUT / "fs26-servo-timing.png", optimize=True)
+print("timing", (OUT / "fs26-servo-timing.png").stat().st_size)
 print("done")

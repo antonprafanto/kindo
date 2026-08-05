@@ -65,14 +65,12 @@ class Article96Seeder extends Seeder
         $tagIds = Tag::whereIn('slug', ['fullstack-iot', 'iot', 'esp32'])->pluck('id');
         $article->tags()->sync($tagIds);
 
-        if (blank($article->cover_image)) {
-            $src = public_path('images/fsiot/fs26-cover-servo.jpg');
-            if (is_file($src)) {
-                $dest = 'articles/covers/fs26-cover-servo.jpg';
-                \Illuminate\Support\Facades\Storage::disk('public')->put($dest, file_get_contents($src));
-                $article->cover_image = $dest;
-                $article->save();
-            }
+        $src = public_path('images/fsiot/fs26-cover-servo.jpg');
+        if (is_file($src)) {
+            $dest = 'articles/covers/fs26-cover-servo.jpg';
+            \Illuminate\Support\Facades\Storage::disk('public')->put($dest, file_get_contents($src));
+            $article->cover_image = $dest;
+            $article->save();
         }
 
         $this->command?->info('✓ Artikel #96 / FS-26 tersimpan sebagai DRAFT: '.$article->title);
@@ -85,7 +83,33 @@ class Article96Seeder extends Seeder
   <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — Verify, Upload, dan Serial Monitor" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Arduino IDE 2</strong> — tempat menguji sintaks hari ini. Urutan tools: buka IDE → <strong>Library Manager</strong> pasang <strong>ESP32Servo</strong> → <strong>Verify</strong> → <strong>Upload</strong> → buka <strong>Serial Monitor</strong> (baud <strong>115200</strong>). Board: <strong>ESP32 Dev Module</strong>. <em>Catatan gambar:</em> screenshot Commons masih menampilkan AnalogReadSerial + baud 9600 — <strong>abaikan</strong>; untuk FS-26 pakai kode di bawah + baud 115200.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0). Panduan Serial: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor</a>. Konsep servo: <a href="https://docs.arduino.cc/learn/electronics/servo-motors/" rel="noopener noreferrer" target="_blank">Arduino Docs — Servo Motors</a>.
+    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0). Panduan Serial: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor</a>. Pasang library: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" rel="noopener noreferrer" target="_blank">Arduino Docs — Installing a library</a>. Konsep servo: <a href="https://docs.arduino.cc/learn/electronics/servo-motors/" rel="noopener noreferrer" target="_blank">Arduino Docs — Servo Motors</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function libraryManagerFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs26-library-manager.png" width="1100" height="520" alt="Tiga langkah Library Manager memasang ESP32Servo" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Wajib sebelum Verify:</strong> buka <strong>Library Manager</strong> → cari <strong>ESP32Servo</strong> → <strong>Install</strong>. Kalau langkah ini dilewati, baris <code>#include &lt;ESP32Servo.h&gt;</code> sering merah / gagal Compile.
+    <br>Sumber gambar: diagram langkah buatan Koding Indonesia (FS-26). Panduan menu: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" rel="noopener noreferrer" target="_blank">Arduino Docs — Installing a library</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function libraryManagerFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs26-library-manager.png" width="1100" height="520" alt="Three Library Manager steps to install ESP32Servo" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Required before Verify:</strong> open <strong>Library Manager</strong> → search <strong>ESP32Servo</strong> → <strong>Install</strong>. Skip this and <code>#include &lt;ESP32Servo.h&gt;</code> often fails to compile.
+    <br>Image source: step diagram by Koding Indonesia (FS-26). Menu guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" rel="noopener noreferrer" target="_blank">Arduino Docs — Installing a library</a>.
   </figcaption>
 </figure>
 HTML;
@@ -98,7 +122,7 @@ HTML;
   <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — Verify, Upload, and Serial Monitor" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Arduino IDE 2</strong> — where today’s syntax is tested. Tool order: open the IDE → <strong>Library Manager</strong> install <strong>ESP32Servo</strong> → <strong>Verify</strong> → <strong>Upload</strong> → open <strong>Serial Monitor</strong> (baud <strong>115200</strong>). Board: <strong>ESP32 Dev Module</strong>. <em>Image note:</em> the Commons screenshot still shows AnalogReadSerial + baud 9600 — <strong>ignore</strong> it; for FS-26 use the code below + baud 115200.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0). Serial guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor</a>. Servo concept: <a href="https://docs.arduino.cc/learn/electronics/servo-motors/" rel="noopener noreferrer" target="_blank">Arduino Docs — Servo Motors</a>.
+    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0). Serial guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Arduino Docs — Serial Monitor</a>. Install a library: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" rel="noopener noreferrer" target="_blank">Arduino Docs — Installing a library</a>. Servo concept: <a href="https://docs.arduino.cc/learn/electronics/servo-motors/" rel="noopener noreferrer" target="_blank">Arduino Docs — Servo Motors</a>.
   </figcaption>
 </figure>
 HTML;
@@ -136,7 +160,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/kit-servo-sg90.jpg" width="1200" height="800" alt="Micro servo Tower Pro SG90 dengan kabel 3 warna" loading="eager" style="display:block;width:100%;max-width:520px;height:auto;max-height:360px;object-fit:contain;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Otot hari ini:</strong> micro servo <strong>SG90</strong> (sering ada tulisan Tower Pro). Tiga kabel tipikal: <strong>merah = VCC (5V)</strong> · <strong>oranye/kuning = Signal</strong> → <strong>GPIO 13</strong> · <strong>cokelat/hitam = GND</strong>. Warna clone bisa beda — pastikan urutan di konektor 3 pin.
+    <strong>Otot hari ini:</strong> mikro servo <strong>SG90</strong> (sering ada tulisan Tower Pro). Tiga kabel tipikal: <strong>merah = VCC (5V)</strong> · <strong>oranye/kuning = sinyal</strong> → <strong>GPIO 13</strong> · <strong>cokelat/hitam = GND</strong>. Warna clone bisa beda — pastikan urutan di konektor 3 pin.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Tower_Pro_SG90_micro_servo_motor.jpg" rel="noopener noreferrer" target="_blank">Tower Pro SG90 micro servo motor.jpg</a> · Wikimedia Commons (CC BY-SA 4.0) · Suyash Dwivedi. Acuan konsep: <a href="https://docs.arduino.cc/learn/electronics/servo-motors/" rel="noopener noreferrer" target="_blank">Arduino Docs — Servo Motors</a>.
   </figcaption>
 </figure>
@@ -162,8 +186,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs26-servo-breadboard.png" width="1238" height="737" alt="Gambar utama — rangkaian servo SG90 GPIO 13 di breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — rangkaian servo di breadboard.</strong> Merah: <strong>5V</strong> → VCC servo · kuning/oranye: <strong>Signal</strong> → <strong>IO13 / GPIO 13</strong> · hitam: <strong>GND</strong> bersama (rail biru). Jangan isi VCC dari <strong>3V3</strong>.
-    <br><em>Tip:</em> nomor kolom breadboard ≠ nomor GPIO. Warna kabel dari badan servo (cokelat/merah/kuning) boleh beda dari jumper — ikuti fungsi VCC / Signal / GND. Kalau ESP32 reset saat lengan bergerak, pindahkan daya servo ke adaptor 5V terpisah (GND tetap bersama).
+    <strong>Gambar utama — rangkaian servo di breadboard.</strong> Merah: <strong>5V</strong> → VCC servo · kuning/oranye: <strong>sinyal</strong> → <strong>IO13 / GPIO 13</strong> · hitam: <strong>GND</strong> bersama (rail biru). Jangan isi VCC dari <strong>3V3</strong>.
+    <br><em>Tip:</em> nomor kolom breadboard ≠ nomor GPIO. Warna kabel dari badan servo (cokelat/merah/kuning) boleh beda dari jumper — ikuti fungsi VCC / sinyal / GND. Kalau ESP32 reset saat lengan bergerak, pindahkan daya servo ke adaptor 5V terpisah (GND tetap bersama).
     <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-26).
   </figcaption>
 </figure>
@@ -190,7 +214,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs26-servo-wiring.png" width="1100" height="860" alt="Skema bantu — ringkasan pin servo SG90 GPIO 13" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama: Signal GPIO 13 · VCC 5V · GND bersama · sapu 0°/90°/180°. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
+    <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama: sinyal GPIO 13 · VCC 5V · GND bersama · sapu 0°/90°/180°. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
     <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-26).
   </figcaption>
 </figure>
@@ -205,6 +229,32 @@ HTML;
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Helper schematic.</strong> Same pins as the main figure: Signal GPIO 13 · VCC 5V · shared GND · sweep 0°/90°/180°. Use this if you prefer labeled pin boxes over the breadboard photo.
     <br>Image source: labeled diagram by Koding Indonesia (FS-26).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function timingFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs26-servo-timing.png" width="1100" height="560" alt="PWM servo: lebar pulsa menjadi sudut 0 90 180" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Kenapa bukan “terang”?</strong> Di LED (FS-20) PWM mengatur seberapa lama pin menyala → mata melihat terang. Di servo, lebar pulsa (kira-kira 1–2 ms dalam periode ~20 ms) mengatur <em>sudut</em>. Kamu cukup panggil <code>write(0/90/180)</code> — library yang mengurus detail pulsa.
+    <br>Sumber gambar: diagram buatan Koding Indonesia (FS-26). Konsep: <a href="https://docs.arduino.cc/learn/electronics/servo-motors/" rel="noopener noreferrer" target="_blank">Arduino Docs — Servo Motors</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function timingFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs26-servo-timing.png" width="1100" height="560" alt="Servo PWM: pulse width becomes angle 0 90 180" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Why not “brightness”?</strong> For an LED (FS-20) PWM sets how long the pin is on → the eye sees brightness. For a servo, pulse width (about 1–2 ms inside a ~20 ms period) sets the <em>angle</em>. You just call <code>write(0/90/180)</code> — the library handles the pulse details.
+    <br>Image source: diagram by Koding Indonesia (FS-26). Concept: <a href="https://docs.arduino.cc/learn/electronics/servo-motors/" rel="noopener noreferrer" target="_blank">Arduino Docs — Servo Motors</a>.
   </figcaption>
 </figure>
 HTML;
@@ -316,10 +366,12 @@ HTML;
     private function body(): string
     {
         $ide = $this->ideFigureId();
+        $lib = $this->libraryManagerFigureId();
         $board = $this->boardFigureId();
         $kit = $this->kitServoFigureId();
         $main = $this->mainWiringFigureId();
         $schema = $this->schemaWiringFigureId();
+        $timing = $this->timingFigureId();
         $flow = $this->flowSvgId();
         $serial = $this->serialPanelSvgId();
 
@@ -328,15 +380,16 @@ HTML;
 <p>Artikel ini adalah <strong>#96 (ini)</strong> · modul <strong>FS-26</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Di <strong>FS-20</strong> kamu mengatur terang LED dengan PWM. Hari ini PWM dipakai untuk <strong>posisi</strong>: lengan servo bergerak ke sudut tertentu.</p>
 <p><strong>Analogi:</strong> seperti jarum jam yang bisa kamu suruh “menghadap jam 3 / jam 6 / jam 9”. Bukan kipas yang berputar terus — tapi “tangan kecil” yang berhenti di sudut.</p>
 {$flow}
+{$timing}
 <p><strong>Prasyarat:</strong> FS-20 (PWM / <code>analogWrite</code>) · FS-14 (Upload + Serial Monitor). Pin mengikuti tabel FS-16 / FS-17 (<strong>sinyal servo = GPIO 13</strong>).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
 <li>Rakit wiring servo (cocokkan gambar utama).</li>
 <li><strong>Buka Arduino IDE dulu</strong> (bukan Laragon / terminal web).</li>
-<li><strong>Library Manager</strong> → cari <strong>ESP32Servo</strong> → Install.</li>
+<li><strong>Library Manager</strong> → cari <strong>ESP32Servo</strong> → Install (lihat gambar langkah di bawah).</li>
 <li>Buat sketch <code>FS26_servo_sudut</code> → salin kode → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Buka <strong>Serial Monitor</strong> baud <strong>115200</strong>.</li>
-<li>Lihat lengan sapu 0° → 90° → 180° selaras baris <code>sudut=…</code>.</li>
+<li>Lihat lengan <em>sapu</em> (bergerak berurutan) 0° → 90° → 180° selaras baris <code>sudut=…</code>.</li>
 <li>Centang checklist 10/10 di browser.</li>
 </ol>
 <p><strong>Tidak perlu hari ini:</strong> Wi-Fi, MQTT, Laragon, <code>php artisan</code>, beban AC, motor DC besar. Tools hari ini: <strong>Arduino IDE</strong> + <strong>Library Manager (ESP32Servo)</strong> + <strong>Upload</strong> + ESP32 + servo SG90 + jumper + <strong>Serial Monitor</strong> + <strong>browser</strong>.</p>
@@ -344,6 +397,7 @@ HTML;
 <h2>Persiapan — buka &amp; siapkan ini dulu</h2>
 <p><strong>Urutan meja kerja:</strong> wiring → buka IDE → pasang library → Upload → Serial → amati sudut.</p>
 {$ide}
+{$lib}
 <ul>
 <li>Buka <strong>Arduino IDE 2.x</strong> · board <strong>ESP32 Dev Module</strong> + port.</li>
 <li>Siapkan ESP32 + USB data.</li>
@@ -362,7 +416,7 @@ HTML;
 <p><strong>Blok servo:</strong></p>
 <ul>
 <li><strong>VCC</strong> (merah) → pin <strong>5V</strong> ESP32 — <strong>jangan</strong> 3V3</li>
-<li><strong>Signal</strong> (oranye/kuning) → <strong>GPIO 13</strong> (sering tertulis <strong>IO13</strong>)</li>
+<li><strong>Sinyal</strong> (oranye/kuning) → <strong>GPIO 13</strong> (sering tertulis <strong>IO13</strong>)</li>
 <li><strong>GND</strong> (cokelat/hitam) → <strong>GND</strong> ESP32</li>
 </ul>
 <p><strong>Kenapa 5V?</strong> SG90 dirancang sekitar 4,8–6 V. Pin 3V3 sering membuat gerak lemah atau board “ngambek”. Satu SG90 ringan dari 5V USB biasanya cukup untuk latihan; kalau ESP32 reset saat lengan bergerak, pindahkan daya servo ke adaptor 5V terpisah dan sambungkan GND bersama.</p>
@@ -417,7 +471,7 @@ void loop() {
 <li>Serial baud 115200 menampilkan sudut=0/90/180</li>
 <li>Lengan servo bergerak selaras Serial</li>
 <li>Paham: PWM di sini = posisi, bukan terang LED</li>
-<li>Sadar: fondasi aktuator sudut sebelum bus I2C FS-27</li>
+<li>Sadar: setelah ini siap lanjut ke perbandingan bus (UART / I2C / SPI) di FS-27</li>
 </ul>
 <p><strong>Cara menguji checklist:</strong> centang di browser setelah praktik di IDE + board. Tidak perlu <code>php artisan</code>.</p>
 
@@ -441,10 +495,12 @@ HTML;
     private function bodyEn(): string
     {
         $ide = $this->ideFigureEn();
+        $lib = $this->libraryManagerFigureEn();
         $board = $this->boardFigureEn();
         $kit = $this->kitServoFigureEn();
         $main = $this->mainWiringFigureEn();
         $schema = $this->schemaWiringFigureEn();
+        $timing = $this->timingFigureEn();
         $flow = $this->flowSvgEn();
         $serial = $this->serialPanelSvgEn();
 
@@ -453,15 +509,16 @@ HTML;
 <p>This is article <strong>#96 (this article)</strong> · module <strong>FS-26</strong> on the <em>Full Stack IoT Developer — From Zero</em> path (<strong>BUILDER</strong> phase). In <strong>FS-20</strong> you set LED brightness with PWM. Today PWM means <strong>position</strong>: a servo arm moves to a chosen angle.</p>
 <p><strong>Analogy:</strong> like a clock hand you can tell to “face 3 o’clock / 6 / 9”. Not a fan that spins forever — a small arm that stops at an angle.</p>
 {$flow}
+{$timing}
 <p><strong>Prerequisites:</strong> FS-20 (PWM / <code>analogWrite</code>) · FS-14 (Upload + Serial Monitor). Pins follow the FS-16 / FS-17 table (<strong>servo signal = GPIO 13</strong>).</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
 <li>Wire the servo (match the main figure).</li>
 <li><strong>Open Arduino IDE first</strong> (not Laragon / a web terminal).</li>
-<li><strong>Library Manager</strong> → search <strong>ESP32Servo</strong> → Install.</li>
+<li><strong>Library Manager</strong> → search <strong>ESP32Servo</strong> → Install (see the step figure below).</li>
 <li>Create sketch <code>FS26_servo_sudut</code> → paste the code → <strong>Verify</strong> → <strong>Upload</strong>.</li>
 <li>Open <strong>Serial Monitor</strong> at baud <strong>115200</strong>.</li>
-<li>Watch the arm sweep 0° → 90° → 180° matching <code>angle=…</code> lines.</li>
+<li>Watch the arm <em>sweep</em> (move in sequence) 0° → 90° → 180° matching <code>angle=…</code> lines.</li>
 <li>Tick the 10/10 checklist in the browser.</li>
 </ol>
 <p><strong>Not needed today:</strong> Wi-Fi, MQTT, Laragon, <code>php artisan</code>, AC loads, big DC motors. Today's tools: <strong>Arduino IDE</strong> + <strong>Library Manager (ESP32Servo)</strong> + <strong>Upload</strong> + ESP32 + SG90 servo + jumpers + <strong>Serial Monitor</strong> + <strong>browser</strong>.</p>
@@ -469,6 +526,7 @@ HTML;
 <h2>Prep — open &amp; set these up first</h2>
 <p><strong>Desk order:</strong> wiring → open IDE → install library → Upload → Serial → watch the angle.</p>
 {$ide}
+{$lib}
 <ul>
 <li>Open <strong>Arduino IDE 2.x</strong> · board <strong>ESP32 Dev Module</strong> + port.</li>
 <li>Prepare the ESP32 + a data USB cable.</li>
@@ -542,7 +600,7 @@ void loop() {
 <li>Serial at 115200 shows angle=0/90/180</li>
 <li>Servo arm motion matches Serial</li>
 <li>I understand: PWM here means position, not LED brightness</li>
-<li>I know this is the angle-actuator foundation before I2C bus FS-27</li>
+<li>I know this prepares the next bus comparison (UART / I2C / SPI) in FS-27</li>
 </ul>
 <p><strong>How to test the checklist:</strong> tick in the browser after practicing on the IDE + board. No <code>php artisan</code> needed.</p>
 
