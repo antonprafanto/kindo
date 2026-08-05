@@ -123,7 +123,7 @@ center(
     d,
     545,
     510,
-    "Legenda: merah 5V · biru OUT/GPIO 25 · kuning LED/GPIO 2 · abu GND · jumper H (ulang) disarankan",
+    "Legenda: merah 5V · biru OUT/GPIO 25 · oranye LED/GPIO 2 · abu GND · jumper H (ulang) disarankan",
     FS,
     "#333",
 )
@@ -146,7 +146,7 @@ for i, ln in enumerate(
     d.text((58, 598 + i * 20), ln, font=FX, fill="#333")
 
 box(d, (420, 545, 720, 800), "#FFF8E1", "#F9A825", 3)
-d.text((438, 560), "Potensio & jumper", font=FH, fill="#E65100")
+d.text((438, 560), "Potensiometer & jumper", font=FH, fill="#E65100")
 for i, ln in enumerate(
     [
         "• Sensitivity: jarak deteksi",
@@ -154,7 +154,7 @@ for i, ln in enumerate(
         "• Time delay: lama OUT HIGH",
         "  setelah gerak",
         "• Jumper H = ulangi trigger",
-        "  (lebihkan awam)",
+        "  (lebih nyaman latihan)",
         "• Jumper L = sekali lalu diam",
         "  sampai delay habis",
         "Jangan putar ekstrem dulu.",

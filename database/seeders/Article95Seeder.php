@@ -136,7 +136,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/kit-pir-hcsr501.jpg" width="900" height="900" alt="Modul PIR HC-SR501 dengan lensa Fresnel putih" loading="eager" style="display:block;width:100%;max-width:420px;height:auto;max-height:360px;object-fit:contain;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Indra hari ini:</strong> modul <strong>PIR HC-SR501</strong> (lensa putih bulat = Fresnel). Tiga pin: <strong>VCC</strong> · <strong>OUT</strong> · <strong>GND</strong>. Di belakang ada 2 potensio (sensitivity &amp; time) + jumper H/L. OUT → <strong>GPIO 25</strong>, VCC → <strong>5V</strong>.
+    <strong>Indra hari ini:</strong> modul <strong>PIR HC-SR501</strong> (lensa putih bulat = Fresnel). Tiga pin: <strong>VCC</strong> · <strong>OUT</strong> · <strong>GND</strong>. Di belakang ada 2 <strong>potensiometer</strong> (sensitivity &amp; time) + jumper H/L. OUT → <strong>GPIO 25</strong>, VCC → <strong>5V</strong>.
+    <br><em>Tip:</em> foto Commons menampilkan sisi belakang + label bahasa Inggris — urutan pin pada clone bisa beda. <strong>Jangan tebak dari warna kabel foto</strong>; cocokkan tulisan silkscreen <strong>VCC / OUT / GND</strong> di modulmu.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:PIR-inexpensive.jpg" rel="noopener noreferrer" target="_blank">PIR-inexpensive.jpg</a> · Wikimedia Commons (CC BY-SA 4.0) · Lethalattraction. Acuan pinout: <a href="https://learn.adafruit.com/pir-passive-infrared-proximity-motion-sensor" rel="noopener noreferrer" target="_blank">Adafruit — PIR motion sensors</a>.
   </figcaption>
 </figure>
@@ -149,7 +150,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/kit-pir-hcsr501.jpg" width="900" height="900" alt="HC-SR501 PIR module with white Fresnel lens" loading="eager" style="display:block;width:100%;max-width:420px;height:auto;max-height:360px;object-fit:contain;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Sense today:</strong> an <strong>HC-SR501 PIR</strong> module (round white Fresnel lens). Three pins: <strong>VCC</strong> · <strong>OUT</strong> · <strong>GND</strong>. On the back: two pots (sensitivity &amp; time) + H/L jumper. OUT → <strong>GPIO 25</strong>, VCC → <strong>5V</strong>.
+    <strong>Sense today:</strong> an <strong>HC-SR501 PIR</strong> module (round white Fresnel lens). Three pins: <strong>VCC</strong> · <strong>OUT</strong> · <strong>GND</strong>. On the back: two <strong>potentiometers</strong> (sensitivity &amp; time) + H/L jumper. OUT → <strong>GPIO 25</strong>, VCC → <strong>5V</strong>.
+    <br><em>Tip:</em> the Commons photo shows the back with English labels — pin order can differ on clones. <strong>Do not guess from the photo wire colors</strong>; match the <strong>VCC / OUT / GND</strong> silkscreen on your module.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:PIR-inexpensive.jpg" rel="noopener noreferrer" target="_blank">PIR-inexpensive.jpg</a> · Wikimedia Commons (CC BY-SA 4.0) · Lethalattraction. Pinout guide: <a href="https://learn.adafruit.com/pir-passive-infrared-proximity-motion-sensor" rel="noopener noreferrer" target="_blank">Adafruit — PIR motion sensors</a>.
   </figcaption>
 </figure>
@@ -163,7 +165,7 @@ HTML;
   <img src="/images/fsiot/fs25-pir-breadboard.png" width="1374" height="766" alt="Gambar utama — rangkaian PIR GPIO 25 + LED GPIO 2 di breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Gambar utama — rangkaian PIR di breadboard.</strong> Merah: <strong>5V</strong> → VCC PIR · kuning/biru: <strong>OUT</strong> → <strong>IO25 / GPIO 25</strong> · oranye: <strong>IO2 / GPIO 2</strong> → anoda LED · hitam: <strong>GND</strong> bersama (katoda LED lewat resistor ke rail GND). Bentuk modul PIR bisa beda (lensa + kabel vs PCB 3 pin) — sambungan yang sama: VCC / OUT / GND.
-    <br><em>Tip:</em> nomor kolom breadboard ≠ nomor GPIO. Setelah colok USB, tunggu <strong>30–60 detik</strong> (settle) sebelum menilai false trigger.
+    <br><em>Tip:</em> nomor kolom breadboard ≠ nomor GPIO. Resistor LED di gambar boleh ~220 Ω–1 kΩ — yang penting LED tidak langsung ke GPIO tanpa resistor. Setelah colok USB, tunggu <strong>30–60 detik</strong> (settle) sebelum menilai false trigger.
     <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-25).
   </figcaption>
 </figure>
@@ -177,7 +179,7 @@ HTML;
   <img src="/images/fsiot/fs25-pir-breadboard.png" width="1374" height="766" alt="Main figure — PIR GPIO 25 + LED GPIO 2 on a breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Main figure — PIR circuit on a breadboard.</strong> Red: <strong>5V</strong> → PIR VCC · yellow/blue: <strong>OUT</strong> → <strong>IO25 / GPIO 25</strong> · orange: <strong>IO2 / GPIO 2</strong> → LED anode · black: shared <strong>GND</strong> (LED cathode via resistor to the GND rail). PIR module shape can differ (dome+wires vs 3-pin PCB) — same three connections: VCC / OUT / GND.
-    <br><em>Tip:</em> breadboard column numbers ≠ GPIO numbers. After plugging USB in, wait <strong>30–60 seconds</strong> (settle) before judging false triggers.
+    <br><em>Tip:</em> breadboard column numbers ≠ GPIO numbers. The LED resistor in the figure may be ~220 Ω–1 kΩ — just do not wire the LED straight to a GPIO with no resistor. After plugging USB in, wait <strong>30–60 seconds</strong> (settle) before judging false triggers.
     <br>Image source: wiring diagram by Koding Indonesia (FS-25).
   </figcaption>
 </figure>
@@ -190,7 +192,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs25-pir-wiring.png" width="1100" height="820" alt="Skema bantu — ringkasan pin PIR GPIO 25 + LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama: PIR 5V/GPIO 25/GND · LED GPIO 2/GND · settle 30–60 dtk. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
+    <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama: PIR 5V/GPIO 25/GND · LED GPIO 2/GND · settle 30–60 dtk. Warna di skema: <strong>merah</strong>=5V · <strong>biru</strong>=OUT · <strong>oranye</strong>=LED · abu=GND (di breadboard, OUT sering kuning lalu biru ke IO25).
     <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-25).
   </figcaption>
 </figure>
@@ -203,7 +205,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs25-pir-wiring.png" width="1100" height="820" alt="Helper schematic — PIR GPIO 25 + LED GPIO 2 pin summary" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Helper schematic.</strong> Same pins as the main figure: PIR 5V/GPIO 25/GND · LED GPIO 2/GND · settle 30–60 s. Use this if you prefer labeled pin boxes over the breadboard photo.
+    <strong>Helper schematic.</strong> Same pins as the main figure: PIR 5V/GPIO 25/GND · LED GPIO 2/GND · settle 30–60 s. Schematic colors: <strong>red</strong>=5V · <strong>blue</strong>=OUT · <strong>orange</strong>=LED · grey=GND (on the breadboard, OUT is often yellow then blue into IO25).
     <br>Image source: labeled diagram by Koding Indonesia (FS-25).
   </figcaption>
 </figure>
@@ -355,11 +357,10 @@ HTML;
 <p><strong>Alat yang dipakai hari ini:</strong> Arduino IDE, Upload, ESP32, USB data, PIR HC-SR501, jumper, Serial Monitor, browser. LED eksternal opsional (banyak board punya LED di GPIO 2).</p>
 <p><strong>Tidak dipakai hari ini:</strong> Laragon, <code>php artisan</code>, Library Manager (tidak ada library baru), Wi-Fi, MQTT.</p>
 
+<h2>Wiring (bahasa manusia)</h2>
 {$kit}
 {$main}
 {$schema}
-
-<h2>Wiring (bahasa manusia)</h2>
 <p><strong>Blok PIR (indra):</strong></p>
 <ul>
 <li><strong>VCC</strong> modul → pin <strong>5V</strong> ESP32 (HC-SR501 biasanya butuh 5V — jangan paksa 3V3)</li>
@@ -368,10 +369,10 @@ HTML;
 </ul>
 <p><strong>Blok LED (“lampu meja”):</strong></p>
 <ul>
-<li>LED onboard GPIO 2 <em>atau</em> LED eksternal: anoda (+ resistor ~220 Ω) → <strong>GPIO 2</strong>, katoda → <strong>GND</strong></li>
+<li>LED onboard GPIO 2 <em>atau</em> LED eksternal: anoda (+ resistor ~220 Ω, 1 kΩ juga boleh) → <strong>GPIO 2</strong>, katoda → <strong>GND</strong></li>
 </ul>
 <p><strong>Kenapa settle?</strong> Setelah power, chip PIR butuh waktu “tenang” sebelum bacaannya stabil. Di menit pertama, false trigger (LED kedip sendiri) masih wajar — tunggu dulu, baru uji tangan.</p>
-<p><strong>Jumper H/L:</strong> untuk latihan, set ke <strong>H</strong> (ulang/repeatable) supaya gerak terus-menerus tetap terdeteksi. Potensio putar pelan — jangan ekstrem di awal.</p>
+<p><strong>Jumper H/L:</strong> untuk latihan, set ke <strong>H</strong> (ulang/repeatable) supaya gerak terus-menerus tetap terdeteksi. Potensiometer putar pelan — jangan ekstrem di awal.</p>
 
 <h2>Praktik — sketch FS25_pir_gerak</h2>
 <p>Tujuan: baca <code>digitalRead(25)</code>; jika HIGH → nyalakan LED GPIO 2; cetak <code>gerak=YA/tidak</code> ke Serial.</p>
@@ -485,11 +486,10 @@ HTML;
 <p><strong>Tools used today:</strong> Arduino IDE, Upload, ESP32, USB data, HC-SR501 PIR, jumpers, Serial Monitor, browser. External LED optional (many boards already have an LED on GPIO 2).</p>
 <p><strong>Not used today:</strong> Laragon, <code>php artisan</code>, Library Manager (no new library), Wi-Fi, MQTT.</p>
 
+<h2>Wiring (human language)</h2>
 {$kit}
 {$main}
 {$schema}
-
-<h2>Wiring (human language)</h2>
 <p><strong>PIR block (sense):</strong></p>
 <ul>
 <li>Module <strong>VCC</strong> → ESP32 <strong>5V</strong> (HC-SR501 usually needs 5V — don’t force 3V3)</li>
@@ -498,10 +498,10 @@ HTML;
 </ul>
 <p><strong>LED block (“desk lamp”):</strong></p>
 <ul>
-<li>Onboard LED on GPIO 2 <em>or</em> external LED: anode (+ ~220 Ω resistor) → <strong>GPIO 2</strong>, cathode → <strong>GND</strong></li>
+<li>Onboard LED on GPIO 2 <em>or</em> external LED: anode (+ ~220 Ω resistor; 1 kΩ is fine too) → <strong>GPIO 2</strong>, cathode → <strong>GND</strong></li>
 </ul>
 <p><strong>Why settle?</strong> After power-up the PIR chip needs quiet time before readings stabilize. In the first minute, false triggers (LED blinking alone) are still normal — wait, then test with your hand.</p>
-<p><strong>H/L jumper:</strong> for practice, set <strong>H</strong> (repeatable) so continuous motion keeps retriggering. Turn pots gently — avoid extremes at first.</p>
+<p><strong>H/L jumper:</strong> for practice, set <strong>H</strong> (repeatable) so continuous motion keeps retriggering. Turn the potentiometers gently — avoid extremes at first.</p>
 
 <h2>Practice — sketch FS25_pir_gerak</h2>
 <p>Goal: read <code>digitalRead(25)</code>; if HIGH → turn on LED GPIO 2; print <code>motion=YES/no</code> to Serial.</p>

@@ -74,6 +74,12 @@ check('Commons cite PIR', str_contains($id, 'commons.wikimedia.org') && str_cont
 check('prereq soft FS-19 FS-14', str_contains($id, 'FS-19') && str_contains($id, 'FS-14'));
 check('soft bridge FS-26', str_contains($id, 'FS-26') && str_contains($en, 'FS-26'));
 check('EYD otomasi not automasi', ! str_contains($id, 'automasi'));
+check('EYD potensiometer not potensio', str_contains($id, 'potensiometer') && ! preg_match('/(?<![a-z])potensio(?!meter)/i', $id));
+check('no awam in wiring PNG recipe', ! str_contains(file_get_contents(__DIR__.'/../scripts/gen-fs25-assets.py'), 'awam'));
+check('schema legend orange LED', str_contains(file_get_contents(__DIR__.'/../scripts/gen-fs25-assets.py'), 'oranye LED/GPIO 2'));
+check('kit silkscreen tip ID', str_contains($id, 'Jangan tebak dari warna kabel foto') && str_contains($id, 'silkscreen'));
+check('figures under Wiring H2', strpos($id, 'Wiring (bahasa manusia)') < strpos($id, 'kit-pir-hcsr501.jpg'));
+check('schema color legend caption', str_contains($id, 'Warna di skema') && str_contains($id, 'oranye'));
 
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $id, $svgIdBlocks);
 preg_match_all('/<svg[\s\S]*?<\/svg>/', $en, $svgEnBlocks);

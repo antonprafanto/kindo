@@ -8713,6 +8713,8 @@ class DeployController extends Controller
             'fs25-pir-wiring.png',
             'Gambar utama',
             'Skema bantu',
+            'potensiometer',
+            'Jangan tebak dari warna kabel foto',
             'AnalogReadSerial',
             'Baud: 115200',
             'Buka Arduino IDE dulu',
