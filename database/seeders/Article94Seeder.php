@@ -186,7 +186,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs24-otomasi-breadboard.png" width="1472" height="762" alt="Gambar utama — rangkaian otomasi DHT GPIO 4 + relay GPIO 26 di breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
+  <img src="/images/fsiot/fs24-otomasi-breadboard.png" width="1539" height="769" alt="Gambar utama — rangkaian otomasi DHT GPIO 4 + relay GPIO 26 di breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Gambar utama — rangkaian otomasi di breadboard.</strong> Legenda warna: <strong>kuning</strong> = <strong>IO4 / GPIO 4</strong> → DATA sensor · <strong>oranye</strong> = <strong>3V3</strong> → VCC sensor · <strong>biru</strong> = <strong>IO26 / GPIO 26</strong> → pin <strong>S</strong> relay · <strong>merah</strong> = <strong>5V</strong> → pin <strong>+</strong> relay · <strong>hitam</strong> = <strong>GND</strong> bersama. Terminal NC/COM/NO boleh kosong.
     <br><em>Tip:</em> nomor kolom breadboard (mis. “25”) <strong>bukan</strong> nomor GPIO — ikuti label silkscreen <strong>IO4</strong> / <strong>IO26</strong>. Jangan satukan <strong>3V3</strong> dan <strong>5V</strong> di satu rail merah yang kontinu (bisa merusak board); di foto ini VCC sensor memakai jumper oranye khusus dari pin 3V3. Bentuk sensor di diagram bisa mirip DHT11/DHT22 — cocokkan silkscreen; sketch default = <strong>DHT22</strong> (ubah <code>DHTTYPE</code> jika DHT11).
@@ -200,7 +200,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs24-otomasi-breadboard.png" width="1472" height="762" alt="Main figure — DHT GPIO 4 + relay GPIO 26 breadboard automation" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
+  <img src="/images/fsiot/fs24-otomasi-breadboard.png" width="1539" height="769" alt="Main figure — DHT GPIO 4 + relay GPIO 26 breadboard automation" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Main figure — local automation on a breadboard.</strong> Color key: <strong>yellow</strong> = <strong>IO4 / GPIO 4</strong> → sensor DATA · <strong>orange</strong> = <strong>3V3</strong> → sensor VCC · <strong>blue</strong> = <strong>IO26 / GPIO 26</strong> → relay <strong>S</strong> · <strong>red</strong> = <strong>5V</strong> → relay <strong>+</strong> · <strong>black</strong> = shared <strong>GND</strong>. NC/COM/NO may stay empty.
     <br><em>Tip:</em> breadboard column numbers (e.g. “25”) are <strong>not</strong> GPIO numbers — follow silkscreen <strong>IO4</strong> / <strong>IO26</strong>. Do not tie <strong>3V3</strong> and <strong>5V</strong> onto one continuous red rail (can damage the board); here sensor VCC uses a dedicated orange jumper from the 3V3 pin. The sensor part may look like DHT11 or DHT22 — match silkscreen; sketch default = <strong>DHT22</strong> (change <code>DHTTYPE</code> for DHT11).
