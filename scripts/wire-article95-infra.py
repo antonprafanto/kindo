@@ -82,8 +82,10 @@ if "seedArticle95Draft" not in t:
             'Cara menguji perintah di atas',
             'settle',
             'kit-pir-hcsr501.jpg',
+            'fs25-pir-breadboard.png',
             'fs25-pir-wiring.png',
             'Gambar utama',
+            'Skema bantu',
             'AnalogReadSerial',
             'Baud: 115200',
             'Buka Arduino IDE dulu',
@@ -118,6 +120,8 @@ if "seedArticle95Draft" not in t:
             'Common mistakes',
             'How to test the commands above',
             'Main figure',
+            'Helper schematic',
+            'fs25-pir-breadboard.png',
             'fs25-pir-wiring.png',
             'AnalogReadSerial',
             'Baud: 115200',
@@ -247,7 +251,7 @@ if "fs25-pir-wiring.png" not in t:
     needle = "images/fsiot/fs24-otomasi-wiring.png images/fsiot/fs24-otomasi-breadboard.png images/fsiot/fs24-cover-otomasi.jpg \\"
     repl = needle.replace(
         "fs24-cover-otomasi.jpg \\",
-        "fs24-cover-otomasi.jpg images/fsiot/kit-pir-hcsr501.jpg images/fsiot/fs25-pir-wiring.png images/fsiot/fs25-cover-pir.jpg \\",
+        "fs24-cover-otomasi.jpg images/fsiot/kit-pir-hcsr501.jpg images/fsiot/fs25-pir-wiring.png images/fsiot/fs25-pir-breadboard.png images/fsiot/fs25-cover-pir.jpg \\",
     )
     if needle not in t:
         raise SystemExit("ftp allowlist needle missing")

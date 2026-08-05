@@ -68,12 +68,12 @@ C_GND = "#424242"
 C_LED = "#F9A825"
 
 box(d, (20, 14, W - 20, 86), "#FFFFFF", "#1a1a1a", 3)
-center(d, W // 2, 36, "Gambar utama — PIR HC-SR501 + LED (FS-25)", FT)
+center(d, W // 2, 36, "Skema bantu — PIR HC-SR501 + LED (FS-25)", FT)
 center(
     d,
     W // 2,
     64,
-    "PIR OUT @ GPIO 25 (5V) · LED @ GPIO 2 · settle ~30–60 dtk setelah power · belum Wi-Fi",
+    "Sama gambar utama: PIR OUT GPIO 25 (5V) · LED GPIO 2 · settle 30–60 dtk · belum Wi-Fi",
     FS,
     "#333",
 )

@@ -160,11 +160,11 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs25-pir-wiring.png" width="1100" height="820" alt="Gambar utama — wiring PIR GPIO 25 + LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs25-pir-breadboard.png" width="1374" height="766" alt="Gambar utama — rangkaian PIR GPIO 25 + LED GPIO 2 di breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — wiring PIR + LED.</strong> Merah: <strong>5V</strong> → VCC PIR · biru: <strong>GPIO 25</strong> → OUT · kuning: <strong>GPIO 2</strong> → LED · abu: <strong>GND</strong> bersama. LED onboard DevKit sering sudah di GPIO 2 — kalau menyala tanpa LED eksternal, itu normal.
-    <br><em>Tip:</em> setelah colok USB, tunggu <strong>30–60 detik</strong> sebelum menilai “false trigger”. Nomor kolom breadboard ≠ nomor GPIO.
-    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-25).
+    <strong>Gambar utama — rangkaian PIR di breadboard.</strong> Merah: <strong>5V</strong> → VCC PIR · kuning/biru: <strong>OUT</strong> → <strong>IO25 / GPIO 25</strong> · oranye: <strong>IO2 / GPIO 2</strong> → anoda LED · hitam: <strong>GND</strong> bersama (katoda LED lewat resistor ke rail GND). Bentuk modul PIR bisa beda (lensa + kabel vs PCB 3 pin) — sambungan yang sama: VCC / OUT / GND.
+    <br><em>Tip:</em> nomor kolom breadboard ≠ nomor GPIO. Setelah colok USB, tunggu <strong>30–60 detik</strong> (settle) sebelum menilai false trigger.
+    <br>Sumber gambar: diagram rangkaian buatan Koding Indonesia (FS-25).
   </figcaption>
 </figure>
 HTML;
@@ -174,15 +174,42 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs25-pir-wiring.png" width="1100" height="820" alt="Main figure — PIR GPIO 25 + LED GPIO 2 wiring" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs25-pir-breadboard.png" width="1374" height="766" alt="Main figure — PIR GPIO 25 + LED GPIO 2 on a breadboard" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — PIR + LED wiring.</strong> Red: <strong>5V</strong> → PIR VCC · blue: <strong>GPIO 25</strong> → OUT · yellow: <strong>GPIO 2</strong> → LED · gray: shared <strong>GND</strong>. Many DevKits already have an onboard LED on GPIO 2 — if it lights without an external LED, that is normal.
-    <br><em>Tip:</em> after plugging USB in, wait <strong>30–60 seconds</strong> before judging “false triggers”. Breadboard column numbers ≠ GPIO numbers.
+    <strong>Main figure — PIR circuit on a breadboard.</strong> Red: <strong>5V</strong> → PIR VCC · yellow/blue: <strong>OUT</strong> → <strong>IO25 / GPIO 25</strong> · orange: <strong>IO2 / GPIO 2</strong> → LED anode · black: shared <strong>GND</strong> (LED cathode via resistor to the GND rail). PIR module shape can differ (dome+wires vs 3-pin PCB) — same three connections: VCC / OUT / GND.
+    <br><em>Tip:</em> breadboard column numbers ≠ GPIO numbers. After plugging USB in, wait <strong>30–60 seconds</strong> (settle) before judging false triggers.
+    <br>Image source: wiring diagram by Koding Indonesia (FS-25).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs25-pir-wiring.png" width="1100" height="820" alt="Skema bantu — ringkasan pin PIR GPIO 25 + LED GPIO 2" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama: PIR 5V/GPIO 25/GND · LED GPIO 2/GND · settle 30–60 dtk. Pakai ini jika kamu lebih nyaman membaca kotak pin daripada foto breadboard.
+    <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-25).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs25-pir-wiring.png" width="1100" height="820" alt="Helper schematic — PIR GPIO 25 + LED GPIO 2 pin summary" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Helper schematic.</strong> Same pins as the main figure: PIR 5V/GPIO 25/GND · LED GPIO 2/GND · settle 30–60 s. Use this if you prefer labeled pin boxes over the breadboard photo.
     <br>Image source: labeled diagram by Koding Indonesia (FS-25).
   </figcaption>
 </figure>
 HTML;
     }
+
 
     private function flowSvgId(): string
     {
@@ -292,6 +319,7 @@ HTML;
         $board = $this->boardFigureId();
         $kit = $this->kitPirFigureId();
         $main = $this->mainWiringFigureId();
+        $schema = $this->schemaWiringFigureId();
         $flow = $this->flowSvgId();
         $serial = $this->serialPanelSvgId();
 
@@ -329,6 +357,7 @@ HTML;
 
 {$kit}
 {$main}
+{$schema}
 
 <h2>Wiring (bahasa manusia)</h2>
 <p><strong>Blok PIR (indra):</strong></p>
@@ -420,6 +449,7 @@ HTML;
         $board = $this->boardFigureEn();
         $kit = $this->kitPirFigureEn();
         $main = $this->mainWiringFigureEn();
+        $schema = $this->schemaWiringFigureEn();
         $flow = $this->flowSvgEn();
         $serial = $this->serialPanelSvgEn();
 
@@ -457,6 +487,7 @@ HTML;
 
 {$kit}
 {$main}
+{$schema}
 
 <h2>Wiring (human language)</h2>
 <p><strong>PIR block (sense):</strong></p>

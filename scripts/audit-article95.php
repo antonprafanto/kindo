@@ -39,7 +39,7 @@ check('published_at null', str_contains($src, "'published_at'") && str_contains(
 check('slug fullstack-iot-pir-gerak', str_contains($src, 'fullstack-iot-pir-gerak'));
 check('seed route exists', str_contains($routes, 'seed-article-95-draft'));
 check('deploy seed step', str_contains($deploy, 'seed-article-95-draft'));
-check('ftp allowlist fs25', str_contains($deploy, 'fs25-pir-wiring.png') && str_contains($deploy, 'kit-pir-hcsr501.jpg'));
+check('ftp allowlist fs25', str_contains($deploy, 'fs25-pir-wiring.png') && str_contains($deploy, 'fs25-pir-breadboard.png') && str_contains($deploy, 'kit-pir-hcsr501.jpg'));
 
 check('ID self-ref #95 (ini)', str_contains($id, '#95 (ini)'));
 check('EN self-ref #95 (this article)', str_contains($en, '#95 (this article)'));
@@ -52,11 +52,14 @@ check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 6', substr_count($id, '<figure') >= 6 && substr_count($en, '<figure') >= 6);
 
+check('breadboard PNG asset', str_contains($id, 'fs25-pir-breadboard.png') && is_file(__DIR__.'/../public/images/fsiot/fs25-pir-breadboard.png'));
 check('wiring PNG asset', str_contains($id, 'fs25-pir-wiring.png') && is_file(__DIR__.'/../public/images/fsiot/fs25-pir-wiring.png'));
 check('kit PIR asset', str_contains($id, 'kit-pir-hcsr501.jpg') && is_file(__DIR__.'/../public/images/fsiot/kit-pir-hcsr501.jpg'));
 check('cover asset', is_file(__DIR__.'/../public/images/fsiot/fs25-cover-pir.jpg'));
-check('Gambar utama label ID', str_contains($id, 'Gambar utama'));
-check('Main figure label EN', str_contains($en, 'Main figure'));
+check('Gambar utama label ID', str_contains($id, 'Gambar utama') && str_contains($id, 'fs25-pir-breadboard.png'));
+check('Skema bantu label ID', str_contains($id, 'Skema bantu') && str_contains($id, 'fs25-pir-wiring.png'));
+check('Main figure label EN', str_contains($en, 'Main figure') && str_contains($en, 'fs25-pir-breadboard.png'));
+check('Helper schematic label EN', str_contains($en, 'Helper schematic') && str_contains($en, 'fs25-pir-wiring.png'));
 check('IDE caption warns AnalogReadSerial', str_contains($id, 'AnalogReadSerial') && str_contains($en, 'AnalogReadSerial'));
 check('Serial panel SVG 115200', str_contains($id, 'Baud: 115200'));
 check('open IDE first wording', str_contains($id, 'Buka Arduino IDE dulu') && str_contains($en, 'Open Arduino IDE first'));
