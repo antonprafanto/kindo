@@ -65,12 +65,27 @@ class Article97Seeder extends Seeder
         $tagIds = Tag::whereIn('slug', ['fullstack-iot', 'iot', 'esp32'])->pluck('id');
         $article->tags()->sync($tagIds);
 
-        $src = public_path('images/fsiot/fs27-cover-bus.jpg');
-        if (is_file($src)) {
-            $dest = 'articles/covers/fs27-cover-bus.jpg';
-            \Illuminate\Support\Facades\Storage::disk('public')->put($dest, file_get_contents($src));
+        $srcWebp = public_path('images/fsiot/fs27-cover-bus.webp');
+        $srcJpg = public_path('images/fsiot/fs27-cover-bus.jpg');
+        if (is_file($srcWebp)) {
+            $dest = 'articles/covers/fs27-cover-bus.webp';
+            \Illuminate\Support\Facades\Storage::disk('public')->put($dest, file_get_contents($srcWebp));
             $article->cover_image = $dest;
             $article->save();
+        } elseif (is_file($srcJpg)) {
+            $dest = 'articles/covers/fs27-cover-bus.jpg';
+            \Illuminate\Support\Facades\Storage::disk('public')->put($dest, file_get_contents($srcJpg));
+            $article->cover_image = $dest;
+            $article->save();
+            try {
+                $webp = app(\App\Services\ImageService::class)->processCoverImage($dest);
+                if ($webp !== $dest) {
+                    $article->cover_image = $webp;
+                    $article->save();
+                }
+            } catch (\Throwable) {
+                // Keep JPG if WebP conversion unavailable on host.
+            }
         }
 
         $this->command?->info('✓ Artikel #97 / FS-27 tersimpan sebagai DRAFT: '.$article->title);
@@ -157,11 +172,11 @@ HTML;
     private function i2cCommonsFigureId(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <img src="/images/fsiot/kit-i2c-bus.png" width="960" height="400" alt="Skema I2C: satu master banyak slave di bus bersama" loading="eager" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs27-i2c-labeled.png" width="1100" height="520" alt="Skema bantu I2C: SDA SCL dan alamat perangkat" loading="eager" style="width:100%;height:auto;max-height:400px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Skema bantu I2C (Commons):</strong> satu <em>master</em> (mikrokontroler) bisa bicara ke beberapa <em>slave</em> lewat bus bersama — tiap slave punya alamat. Di jalur kita: ESP32 = master · BME280 + OLED = slave.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:I2C.svg" rel="noopener noreferrer" target="_blank">I2C.svg</a> · Wikimedia Commons (GFDL / CC-BY-SA) · Cburnett. Acuan: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>.
+    <strong>Skema bantu I2C (berlabel Indonesia).</strong> Dua kabel bersama: <strong>SDA</strong> (data) + <strong>SCL</strong> (jam). ESP32 = pengendali · BME280/OLED = perangkat dengan <strong>alamat</strong>. Pin jalur ini: <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong>.
+    <br>Sumber gambar: diagram buatan Koding Indonesia (FS-27). Inspirasi struktur: <a href="https://commons.wikimedia.org/wiki/File:I2C.svg" rel="noopener noreferrer" target="_blank">I2C.svg</a> · Wikimedia Commons (Cburnett). Acuan: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>.
   </figcaption>
 </figure>
 HTML;
@@ -170,11 +185,11 @@ HTML;
     private function i2cCommonsFigureEn(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <img src="/images/fsiot/kit-i2c-bus.png" width="960" height="400" alt="I2C schematic: one master many slaves on a shared bus" loading="eager" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs27-i2c-labeled.png" width="1100" height="520" alt="Helper I2C schematic: SDA SCL and device addresses" loading="eager" style="width:100%;height:auto;max-height:400px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Helper I2C schematic (Commons):</strong> one <em>master</em> (microcontroller) can talk to several <em>slaves</em> on a shared bus — each slave has an address. On our path: ESP32 = master · BME280 + OLED = slaves.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:I2C.svg" rel="noopener noreferrer" target="_blank">I2C.svg</a> · Wikimedia Commons (GFDL / CC-BY-SA) · Cburnett. Guide: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>.
+    <strong>Helper I2C schematic (labeled).</strong> Two shared wires: <strong>SDA</strong> (data) + <strong>SCL</strong> (clock). ESP32 = controller · BME280/OLED = devices with <strong>addresses</strong>. Path pins: <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong>.
+    <br>Image source: diagram by Koding Indonesia (FS-27). Structure inspired by <a href="https://commons.wikimedia.org/wiki/File:I2C.svg" rel="noopener noreferrer" target="_blank">I2C.svg</a> · Wikimedia Commons (Cburnett). Guide: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>.
   </figcaption>
 </figure>
 HTML;
@@ -183,11 +198,11 @@ HTML;
     private function spiCommonsFigureId(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <img src="/images/fsiot/kit-spi-bus.png" width="960" height="400" alt="Skema SPI: master ke satu slave dengan CS" loading="eager" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs27-spi-labeled.png" width="1100" height="520" alt="Skema bantu SPI: SCK MOSI MISO CS ke microSD" loading="eager" style="width:100%;height:auto;max-height:400px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Skema bantu SPI (Commons):</strong> master ↔ slave memakai jam bersama (SCK) + jalur data · tiap slave butuh garis <strong>CS</strong> (chip select) sendiri. Itu sebab microSD sering SPI, bukan I2C.
-    <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:SPI_single_slave.svg" rel="noopener noreferrer" target="_blank">SPI_single_slave.svg</a> · Wikimedia Commons. Acuan: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html" rel="noopener noreferrer" target="_blank">Analog Devices — Introduction to SPI</a>.
+    <strong>Skema bantu SPI (berlabel Indonesia).</strong> Empat sinyal tipikal: <strong>SCK</strong> · <strong>MOSI</strong> · <strong>MISO</strong> · <strong>CS</strong> (Chip Select; di beberapa buku ditulis <strong>SS</strong>). Cocok untuk microSD karena butuh kecepatan + CS khusus.
+    <br>Sumber gambar: diagram buatan Koding Indonesia (FS-27). Inspirasi struktur: <a href="https://commons.wikimedia.org/wiki/File:SPI_single_slave.svg" rel="noopener noreferrer" target="_blank">SPI_single_slave.svg</a> · Wikimedia Commons. Acuan: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html" rel="noopener noreferrer" target="_blank">Analog Devices — Introduction to SPI</a>.
   </figcaption>
 </figure>
 HTML;
@@ -196,11 +211,11 @@ HTML;
     private function spiCommonsFigureEn(): string
     {
         return <<<'HTML'
-<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
-  <img src="/images/fsiot/kit-spi-bus.png" width="960" height="400" alt="SPI schematic: master to one slave with CS" loading="eager" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs27-spi-labeled.png" width="1100" height="520" alt="Helper SPI schematic: SCK MOSI MISO CS to microSD" loading="eager" style="width:100%;height:auto;max-height:400px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Helper SPI schematic (Commons):</strong> master ↔ slave share a clock (SCK) + data lines · each slave needs its own <strong>CS</strong> (chip select). That’s why microSD is usually SPI, not I2C.
-    <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:SPI_single_slave.svg" rel="noopener noreferrer" target="_blank">SPI_single_slave.svg</a> · Wikimedia Commons. Guide: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html" rel="noopener noreferrer" target="_blank">Analog Devices — Introduction to SPI</a>.
+    <strong>Helper SPI schematic (labeled).</strong> Four typical signals: <strong>SCK</strong> · <strong>MOSI</strong> · <strong>MISO</strong> · <strong>CS</strong> (Chip Select; some books write <strong>SS</strong>). Fits microSD because it needs speed + a dedicated CS.
+    <br>Image source: diagram by Koding Indonesia (FS-27). Structure inspired by <a href="https://commons.wikimedia.org/wiki/File:SPI_single_slave.svg" rel="noopener noreferrer" target="_blank">SPI_single_slave.svg</a> · Wikimedia Commons. Guide: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html" rel="noopener noreferrer" target="_blank">Analog Devices — Introduction to SPI</a>.
   </figcaption>
 </figure>
 HTML;

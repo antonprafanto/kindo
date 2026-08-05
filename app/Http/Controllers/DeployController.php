@@ -8961,8 +8961,10 @@ class DeployController extends Controller
             'BME280',
             'OLED',
             'microSD',
-            'kit-i2c-bus.png',
-            'kit-spi-bus.png',
+            'fs27-i2c-labeled.png',
+            'fs27-spi-labeled.png',
+            'pengendali',
+            'Chip Select',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -8996,8 +8998,9 @@ class DeployController extends Controller
             'SPI',
             'GPIO 21',
             'GPIO 22',
-            'kit-i2c-bus.png',
-            'kit-spi-bus.png',
+            'fs27-i2c-labeled.png',
+            'fs27-spi-labeled.png',
+            'Chip Select',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

@@ -39,7 +39,7 @@ check('published_at null', str_contains($src, "'published_at'") && str_contains(
 check('slug fullstack-iot-bus-uart-i2c-spi', str_contains($src, 'fullstack-iot-bus-uart-i2c-spi'));
 check('seed route exists', str_contains($routes, 'seed-article-97-draft'));
 check('deploy seed step', str_contains($deploy, 'seed-article-97-draft'));
-check('ftp allowlist fs27', str_contains($deploy, 'fs27-bus-compare.png') && str_contains($deploy, 'fs27-decision-table.png') && str_contains($deploy, 'fs27-tools-browser.png') && str_contains($deploy, 'fs27-cover-bus.jpg') && str_contains($deploy, 'kit-i2c-bus.png') && str_contains($deploy, 'kit-spi-bus.png'));
+check('ftp allowlist fs27', str_contains($deploy, 'fs27-bus-compare.png') && str_contains($deploy, 'fs27-decision-table.png') && str_contains($deploy, 'fs27-tools-browser.png') && str_contains($deploy, 'fs27-cover-bus.jpg') && str_contains($deploy, 'fs27-i2c-labeled.png') && str_contains($deploy, 'fs27-spi-labeled.png') && str_contains($deploy, 'fs27-cover-bus.webp'));
 
 check('ID self-ref #97 (ini)', str_contains($id, '#97 (ini)'));
 check('EN self-ref #97 (this article)', str_contains($en, '#97 (this article)'));
@@ -55,13 +55,17 @@ check('figures both >= 6', substr_count($id, '<figure') >= 6 && substr_count($en
 check('compare PNG asset', str_contains($id, 'fs27-bus-compare.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-bus-compare.png'));
 check('decision PNG asset', str_contains($id, 'fs27-decision-table.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-decision-table.png'));
 check('tools PNG asset', str_contains($id, 'fs27-tools-browser.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-tools-browser.png'));
-check('i2c commons asset', str_contains($id, 'kit-i2c-bus.png') && is_file(__DIR__.'/../public/images/fsiot/kit-i2c-bus.png'));
-check('spi commons asset', str_contains($id, 'kit-spi-bus.png') && is_file(__DIR__.'/../public/images/fsiot/kit-spi-bus.png'));
-check('cover asset', is_file(__DIR__.'/../public/images/fsiot/fs27-cover-bus.jpg'));
+check('i2c labeled asset', str_contains($id, 'fs27-i2c-labeled.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-i2c-labeled.png'));
+check('spi labeled asset', str_contains($id, 'fs27-spi-labeled.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-spi-labeled.png'));
+check('cover jpg asset', is_file(__DIR__.'/../public/images/fsiot/fs27-cover-bus.jpg'));
+check('cover webp asset', is_file(__DIR__.'/../public/images/fsiot/fs27-cover-bus.webp'));
+check('cover seeder prefers webp', str_contains($src, 'fs27-cover-bus.webp'));
 check('Gambar utama label ID', str_contains($id, 'Gambar utama') && str_contains($id, 'fs27-bus-compare.png'));
 check('Main figure label EN', str_contains($en, 'Main figure') && str_contains($en, 'fs27-bus-compare.png'));
 check('Commons cite I2C', str_contains($id, 'commons.wikimedia.org') && str_contains($id, 'I2C.svg'));
 check('Commons cite SPI', str_contains($id, 'SPI_single_slave.svg') && str_contains($en, 'SPI_single_slave.svg'));
+check('CS equals SS explained', str_contains($id, 'Chip Select') && str_contains($id, 'SS'));
+check('pengendali wording ID', str_contains($id, 'pengendali'));
 check('open browser first wording', str_contains($id, 'Buka artikel ini di browser') && str_contains($en, 'Open this article in the browser'));
 check('no Upload today', str_contains($id, 'tanpa Upload') || str_contains($id, 'Tidak perlu hari ini'));
 check('how to test worksheet ID', str_contains($id, 'Cara menguji pemahaman di atas') && str_contains($id, 'browser'));
