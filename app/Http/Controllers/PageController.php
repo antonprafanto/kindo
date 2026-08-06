@@ -19,6 +19,13 @@ class PageController extends Controller
         return view('privacy');
     }
 
+    public function beasiswa(): View
+    {
+        return view('beasiswa', [
+            'awsRegisterUrl' => config('kindo.scholarships.aws_ai_academy_url'),
+        ]);
+    }
+
     public function fullstackIot(): View
     {
         $isPublic = (bool) config('kindo.fsiot_public');

@@ -32,9 +32,9 @@
         <div class="flex items-center justify-between h-14 sm:h-16">
 
             {{-- Logo --}}
-            <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3 no-underline min-w-0">
+            <a href="{{ route('home') }}" class="flex items-center gap-2 sm:gap-3 no-underline shrink-0">
                 <x-logo size="md" class="border-2 border-black flex-shrink-0" style="box-shadow: 2px 2px 0 #000;" />
-                <span class="font-bold theme-heading text-base sm:text-lg truncate" style="letter-spacing:-0.02em;">
+                <span class="font-bold theme-heading text-base sm:text-lg whitespace-nowrap" style="letter-spacing:-0.02em;">
                     <span class="sm:hidden">Koding</span>
                     <span class="hidden sm:inline">Koding Indonesia</span>
                 </span>
@@ -93,6 +93,11 @@
                 <a href="{{ route('about') }}"
                    class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('about') ? 'bg-black text-white' : '' }}">
                     {{ __('ui.nav.about') }}
+                </a>
+
+                <a href="{{ route('beasiswa') }}"
+                   class="px-4 py-2 font-semibold text-sm hover:bg-black hover:text-white transition-colors {{ request()->routeIs('beasiswa') ? 'bg-black text-white' : '' }}">
+                    {{ __('ui.nav.scholarship') }}
                 </a>
 
                 <a href="{{ route('authors.index') }}"
@@ -161,6 +166,7 @@
                     @endforeach
                 </div>
                 <a href="{{ route('about') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">{{ __('ui.nav.about') }}</a>
+                <a href="{{ route('beasiswa') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">{{ __('ui.nav.scholarship') }}</a>
                 <a href="{{ route('authors.index') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm border-b border-black/10 dark:border-white/10 hover:bg-black hover:text-white">{{ __('ui.nav.authors') }}</a>
                 <a href="{{ route('contact') }}" @click="open=false" class="px-4 py-3 font-semibold text-sm hover:bg-black hover:text-white">{{ __('ui.nav.contact') }}</a>
             </div>

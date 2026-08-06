@@ -25,7 +25,11 @@ class AppServiceProvider extends ServiceProvider
         Category::observe(CategoryObserver::class);
 
         View::composer(['components.navbar', 'components.footer'], function ($view) {
-            $view->with('navCategories', Category::orderBy('sort_order')->limit(10)->get());
+            try {
+                $view->with('navCategories', Category::orderBy('sort_order')->limit(10)->get());
+            } catch (\Throwable) {
+                $view->with('navCategories', collect());
+            }
         });
     }
 }

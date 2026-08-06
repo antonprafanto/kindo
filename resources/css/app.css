@@ -642,6 +642,177 @@ html.theme-animate footer {
         .fsiot-soon-dot { animation: none; }
     }
 
+    /* Beasiswa — geometric hero + free/open badges */
+    .beasiswa-hero-pattern {
+        background-color: transparent;
+        background-image:
+            repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 12px,
+                color-mix(in srgb, #2979FF 9%, transparent) 12px,
+                color-mix(in srgb, #2979FF 9%, transparent) 24px
+            ),
+            radial-gradient(ellipse 70% 60% at 100% 0%, color-mix(in srgb, #FF7A2F 18%, transparent), transparent 55%);
+    }
+    html.dark .beasiswa-hero-pattern {
+        background-image:
+            repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 12px,
+                color-mix(in srgb, #2979FF 14%, transparent) 12px,
+                color-mix(in srgb, #2979FF 14%, transparent) 24px
+            ),
+            radial-gradient(ellipse 70% 60% at 100% 0%, color-mix(in srgb, #FF7A2F 22%, transparent), transparent 55%);
+    }
+
+    .beasiswa-free-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4rem 0.85rem;
+        /* Darker brand blue for WCAG AA text contrast (~4.6:1 with white) */
+        background-color: #1565C0;
+        color: #fff;
+        border: 2.5px solid #000;
+        box-shadow: 3px 3px 0 #000;
+        font-family: var(--font-sans);
+        font-size: 0.8125rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        line-height: 1.2;
+    }
+    html.dark .beasiswa-free-badge {
+        box-shadow: 3px 3px 0 #0d47a1;
+    }
+
+    /* Beasiswa CTAs: same darker blue for readable white labels */
+    .beasiswa-page .btn-primary {
+        background-color: #1565C0;
+        color: #fff;
+    }
+
+    .beasiswa-deadline {
+        color: #2D3748;
+        font-family: 'Inter', sans-serif;
+        line-height: 1.45;
+    }
+    html.dark .beasiswa-deadline {
+        color: #CBD5E0;
+    }
+
+    .beasiswa-stage-status {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.15rem 0.45rem;
+        border: 1.5px solid #000;
+        font-size: 0.65rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        line-height: 1.2;
+    }
+    .beasiswa-stage-status--closed {
+        background: #E2E8F0;
+        color: #1A202C;
+    }
+    .beasiswa-stage-status--active {
+        background: #FFD600;
+        color: #0a0a0a;
+    }
+    .beasiswa-stage-status--open {
+        background: #EBF4FF;
+        color: #1565C0;
+    }
+    html.dark .beasiswa-stage-status--closed {
+        background: #4A5568;
+        color: #F7FAFC;
+        border-color: #A0AEC0;
+    }
+    html.dark .beasiswa-stage-status--open {
+        background: color-mix(in srgb, #1565C0 35%, #12121a);
+        color: #90CAF9;
+        border-color: #90CAF9;
+    }
+
+    .beasiswa-open-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.4rem 0.85rem;
+        background-color: #FFD600;
+        color: #0a0a0a;
+        border: 2.5px solid #000;
+        box-shadow: 3px 3px 0 #000;
+        font-family: var(--font-sans);
+        font-size: 0.8125rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        line-height: 1.2;
+    }
+    html.dark .beasiswa-open-badge {
+        border-color: #FFF3B0;
+        box-shadow: 3px 3px 0 #8a6d00;
+    }
+
+    .beasiswa-open-dot {
+        width: 0.55rem;
+        height: 0.55rem;
+        border-radius: 9999px;
+        background-color: #C62828;
+        border: 2px solid #000;
+        flex-shrink: 0;
+        animation: beasiswa-open-pulse 1.6s ease-in-out infinite;
+    }
+    @keyframes beasiswa-open-pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.35); opacity: 0.55; }
+    }
+
+    .beasiswa-card {
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .beasiswa-card:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 8px 8px 0 #000 !important;
+    }
+    .beasiswa-card-accent {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        background: linear-gradient(180deg, #2979FF 0%, #FF7A2F 100%);
+    }
+    .beasiswa-fact {
+        transition: transform 0.18s ease;
+    }
+    .beasiswa-fact:hover {
+        transform: translate(-1px, -1px);
+    }
+    .beasiswa-stage {
+        transition: transform 0.15s ease;
+    }
+    .beasiswa-stage:hover {
+        transform: translateX(3px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .beasiswa-open-dot { animation: none; }
+        .beasiswa-card,
+        .beasiswa-card:hover,
+        .beasiswa-fact,
+        .beasiswa-fact:hover,
+        .beasiswa-stage,
+        .beasiswa-stage:hover {
+            transition: none;
+            transform: none;
+        }
+    }
+
     /* Soft success callout — readable in light + dark */
     .theme-success {
         background-color: color-mix(in srgb, #166534 18%, var(--color-paper));

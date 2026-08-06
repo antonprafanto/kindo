@@ -21,4 +21,16 @@ return [
     */
     'fsiot_public' => (bool) env('FSIOT_PUBLIC', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Beasiswa eksternal — tautan daftar
+    |--------------------------------------------------------------------------
+    */
+    'scholarships' => [
+        'aws_ai_academy_url' => env(
+            'AWS_AI_ACADEMY_REGISTER_URL',
+            'https://aws.dicoding.com/register?ref=11428'
+        ),
+    ],
+
 ];

@@ -27,6 +27,7 @@
                     <li><a href="{{ route('belajar.fullstack-iot') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.iot_path') }}</a></li>
                     <li><a href="{{ route('search') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.search') }}</a></li>
                     <li><a href="{{ route('about') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.about') }}</a></li>
+                    <li><a href="{{ route('beasiswa') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.scholarship') }}</a></li>
                     <li><a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.support') }}</a></li>
                     <li><a href="{{ route('authors.index') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.authors') }}</a></li>
                     <li><a href="{{ route('contributor.apply') }}" class="hover:text-[#2979FF] transition-colors" style="color:#CBD5E0;">{{ __('ui.footer.contributor') }}</a></li>
