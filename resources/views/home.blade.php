@@ -100,32 +100,7 @@
     <section
         class="py-8 sm:py-10 border-b-4 border-black"
         style="background: var(--color-surface);"
-        x-data="{
-            i: 0,
-            n: 2,
-            timer: null,
-            reduce: false,
-            init() {
-                this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                this.start();
-            },
-            start() {
-                this.stop();
-                if (this.reduce) return;
-                this.timer = setInterval(() => { this.i = (this.i + 1) % this.n; }, 5500);
-            },
-            stop() {
-                if (this.timer) { clearInterval(this.timer); this.timer = null; }
-            },
-            go(idx) { this.i = idx; this.start(); },
-            prev() { this.i = (this.i - 1 + this.n) % this.n; this.start(); },
-            next() { this.i = (this.i + 1) % this.n; this.start(); },
-            destroy() { this.stop(); },
-        }"
-        @mouseenter="stop()"
-        @mouseleave="start()"
-        @focusin="stop()"
-        @focusout="start()"
+        x-data="homePromoCarousel()"
         aria-roledescription="carousel"
         aria-label="{{ __('ui.home.promo_carousel_label') }}"
     >
@@ -186,7 +161,20 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-t-2 border-black theme-paper">
+                {{-- Autoplays progress (resets each slide) --}}
+                <div class="home-promo-progress" aria-hidden="true" x-show="!reduce">
+                    <template x-if="progressOn">
+                        <div class="home-promo-progress-bar" :class="paused ? 'is-paused' : ''"></div>
+                    </template>
+                </div>
+
+                <div
+                    class="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-t-2 border-black theme-paper"
+                    @mouseenter="pause()"
+                    @mouseleave="resume()"
+                    @focusin="pause()"
+                    @focusout="resume()"
+                >
                     <div class="flex items-center gap-2" role="tablist" aria-label="{{ __('ui.home.promo_carousel_label') }}">
                         <button
                             type="button"

@@ -844,8 +844,34 @@ html.theme-animate footer {
         background: #FFD600;
         border-color: #000;
     }
+    .home-promo-progress {
+        height: 4px;
+        background: color-mix(in srgb, #000 12%, transparent);
+        overflow: hidden;
+    }
+    html.dark .home-promo-progress {
+        background: color-mix(in srgb, #fff 14%, transparent);
+    }
+    .home-promo-progress-bar {
+        height: 100%;
+        width: 100%;
+        transform-origin: left center;
+        background: #1565C0;
+        animation: home-promo-progress 5s linear forwards;
+    }
+    html.dark .home-promo-progress-bar {
+        background: #FFD600;
+    }
+    .home-promo-progress-bar.is-paused {
+        animation-play-state: paused;
+    }
+    @keyframes home-promo-progress {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+    }
     @media (prefers-reduced-motion: reduce) {
         .home-promo-track--animate { transition: none; }
+        .home-promo-progress-bar { animation: none; transform: scaleX(0); }
     }
 
     /* Soft success callout — readable in light + dark */

@@ -124,6 +124,80 @@ document.addEventListener('alpine:init', () => {
     });
 });
 
+/** Homepage Beasiswa + FSIOT promo carousel */
+window.homePromoCarousel = function homePromoCarousel() {
+    const INTERVAL_MS = 5000;
+
+    return {
+        i: 0,
+        n: 2,
+        timer: null,
+        reduce: false,
+        paused: false,
+        progressOn: true,
+
+        init() {
+            this.reduce = prefersReducedMotion();
+            this.start();
+        },
+
+        start() {
+            this.stopTimer();
+            if (this.reduce || this.paused) {
+                return;
+            }
+            this.bumpProgress();
+            this.timer = window.setInterval(() => {
+                this.i = (this.i + 1) % this.n;
+                this.bumpProgress();
+            }, INTERVAL_MS);
+        },
+
+        stopTimer() {
+            if (this.timer) {
+                window.clearInterval(this.timer);
+                this.timer = null;
+            }
+        },
+
+        bumpProgress() {
+            this.progressOn = false;
+            this.$nextTick(() => {
+                this.progressOn = !this.reduce;
+            });
+        },
+
+        pause() {
+            this.paused = true;
+            this.stopTimer();
+        },
+
+        resume() {
+            this.paused = false;
+            this.start();
+        },
+
+        go(idx) {
+            this.i = idx;
+            this.start();
+        },
+
+        prev() {
+            this.i = (this.i - 1 + this.n) % this.n;
+            this.start();
+        },
+
+        next() {
+            this.i = (this.i + 1) % this.n;
+            this.start();
+        },
+
+        destroy() {
+            this.stopTimer();
+        },
+    };
+};
+
 window.Alpine = Alpine;
 Alpine.start();
 
