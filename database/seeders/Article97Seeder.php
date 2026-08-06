@@ -261,16 +261,16 @@ HTML;
 <figure role="img" aria-label="Analogi manusia untuk UART I2C SPI" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 210" width="100%" height="auto" style="display:block;max-height:260px">
     <rect width="900" height="210" fill="#F5F5F0"/>
-    <text x="450" y="34" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" font-weight="700" fill="#1a1a1a">Analogi cepat (ingat ini dulu)</text>
+    <text x="450" y="28" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="20" font-weight="700" fill="#1a1a1a">Analogi cepat (ingat ini dulu)</text>
     <rect x="30" y="55" width="260" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-    <text x="160" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">UART = telepon 1↔1</text>
-    <text x="160" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">TX / RX / GND</text>
+    <text x="160" y="100" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">UART = telepon 1↔1</text>
+    <text x="160" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">TX / RX / GND</text>
     <rect x="320" y="55" width="260" height="120" rx="10" fill="#BBDEFB" stroke="#1565C0" stroke-width="2.5"/>
-    <text x="450" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">I2C = rapat + nama</text>
-    <text x="450" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SDA / SCL + alamat</text>
+    <text x="450" y="100" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">I2C = rapat + nama</text>
+    <text x="450" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SDA / SCL + alamat</text>
     <rect x="610" y="55" width="260" height="120" rx="10" fill="#FFF59D" stroke="#F9A825" stroke-width="2.5"/>
-    <text x="740" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#F57F17">SPI = kurir cepat</text>
-    <text x="740" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SCK / MOSI / MISO / CS</text>
+    <text x="740" y="100" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#F57F17">SPI = kurir cepat</text>
+    <text x="740" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SCK / MOSI / MISO / CS</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Intinya:</strong> jangan hafalkan singkatan dulu — ingat analoginya. Detail pin dilatih di FS-28 (I2C) dan FS-36 (SPI). Sumber gambar: diagram buatan Koding Indonesia (FS-27).
@@ -285,16 +285,16 @@ HTML;
 <figure role="img" aria-label="Human analogies for UART I2C SPI" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 210" width="100%" height="auto" style="display:block;max-height:260px">
     <rect width="900" height="210" fill="#F5F5F0"/>
-    <text x="450" y="34" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" font-weight="700" fill="#1a1a1a">Quick analogies (remember these first)</text>
+    <text x="450" y="28" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="20" font-weight="700" fill="#1a1a1a">Quick analogies (remember these first)</text>
     <rect x="30" y="55" width="260" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-    <text x="160" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">UART = 1↔1 phone call</text>
-    <text x="160" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">TX / RX / GND</text>
+    <text x="160" y="100" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">UART = 1↔1 phone call</text>
+    <text x="160" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">TX / RX / GND</text>
     <rect x="320" y="55" width="260" height="120" rx="10" fill="#BBDEFB" stroke="#1565C0" stroke-width="2.5"/>
-    <text x="450" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">I2C = meeting + names</text>
-    <text x="450" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SDA / SCL + address</text>
+    <text x="450" y="100" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">I2C = meeting + names</text>
+    <text x="450" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SDA / SCL + address</text>
     <rect x="610" y="55" width="260" height="120" rx="10" fill="#FFF59D" stroke="#F9A825" stroke-width="2.5"/>
-    <text x="740" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#F57F17">SPI = fast courier</text>
-    <text x="740" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SCK / MOSI / MISO / CS</text>
+    <text x="740" y="100" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#F57F17">SPI = fast courier</text>
+    <text x="740" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SCK / MOSI / MISO / CS</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>In short:</strong> don’t memorize acronyms first — keep the analogies. Pin details are practiced in FS-28 (I2C) and FS-36 (SPI). Image source: diagram by Koding Indonesia (FS-27).

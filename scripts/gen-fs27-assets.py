@@ -18,8 +18,11 @@ except OSError:
 
 
 def center(d, cx, cy, text, font, fill="#1a1a1a"):
-    b = d.textbbox((0, 0), text, font=font)
-    d.text((cx - (b[2] - b[0]) / 2, cy - (b[3] - b[1]) / 2), text, font=font, fill=fill)
+    """True geometric + slight optical nudge for Segoe on raster badges."""
+    # Thin digit "1" looks right-heavy; shift left a hair.
+    ox = -1.0 if len(text) == 1 and text.isdigit() else 0
+    # Caps with anchor=mm still read ~1px low on these pill heights.
+    d.text((cx + ox, cy - 1), text, font=font, fill=fill, anchor="mm")
 
 
 def box(d, xy, fill, outline, w=4, r=14):

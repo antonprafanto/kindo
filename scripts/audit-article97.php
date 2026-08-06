@@ -65,6 +65,9 @@ check('cover webp asset', is_file(__DIR__.'/../public/images/fsiot/fs27-cover-bu
 check('cover seeder prefers webp', str_contains($src, 'fs27-cover-bus.webp'));
 check('Gambar utama label ID', str_contains($id, 'Gambar utama') && str_contains($id, 'fs27-bus-compare.png'));
 check('Main figure label EN', str_contains($en, 'Main figure') && str_contains($en, 'fs27-bus-compare.png'));
+$gen = file_get_contents(__DIR__.'/gen-fs27-assets.py');
+check('diagram text uses PIL anchor mm', str_contains($gen, 'anchor="mm"') || str_contains($gen, "anchor='mm'"));
+check('analogy SVG dominant-baseline', str_contains($id, 'dominant-baseline="central"') && str_contains($en, 'dominant-baseline="central"'));
 check('Commons cite I2C', str_contains($id, 'commons.wikimedia.org') && str_contains($id, 'I2C.svg'));
 check('Commons cite SPI', str_contains($id, 'SPI_single_slave.svg') && str_contains($en, 'SPI_single_slave.svg'));
 check('CS equals SS explained', str_contains($id, 'Chip Select') && str_contains($id, 'SS'));
