@@ -96,56 +96,119 @@
         </div>
     </section>
 
-    {{-- Beasiswa highlight --}}
-    <section class="py-10 sm:py-14 border-b-4 border-black theme-paper">
+    {{-- Promo carousel: Beasiswa + FSIOT --}}
+    <section
+        class="py-8 sm:py-10 border-b-4 border-black"
+        style="background: var(--color-surface);"
+        x-data="{
+            i: 0,
+            n: 2,
+            timer: null,
+            reduce: false,
+            init() {
+                this.reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                this.start();
+            },
+            start() {
+                this.stop();
+                if (this.reduce) return;
+                this.timer = setInterval(() => { this.i = (this.i + 1) % this.n; }, 5500);
+            },
+            stop() {
+                if (this.timer) { clearInterval(this.timer); this.timer = null; }
+            },
+            go(idx) { this.i = idx; this.start(); },
+            prev() { this.i = (this.i - 1 + this.n) % this.n; this.start(); },
+            next() { this.i = (this.i + 1) % this.n; this.start(); },
+            destroy() { this.stop(); },
+        }"
+        @mouseenter="stop()"
+        @mouseleave="start()"
+        @focusin="stop()"
+        @focusout="start()"
+        aria-roledescription="carousel"
+        aria-label="{{ __('ui.home.promo_carousel_label') }}"
+    >
         <div class="max-w-6xl mx-auto px-4">
-            <div class="beasiswa-page relative overflow-hidden p-6 sm:p-8 theme-paper border-2 border-black" style="box-shadow: 6px 6px 0 #000;">
-                <div class="beasiswa-hero-pattern absolute inset-0 pointer-events-none opacity-80" aria-hidden="true"></div>
-                <div class="relative">
-                    <div class="flex flex-wrap items-center gap-2 mb-4">
-                        <span class="beasiswa-free-badge">{{ __('ui.home.beasiswa_badge_free') }}</span>
-                        <span class="beasiswa-open-badge">
-                            <span class="beasiswa-open-dot" aria-hidden="true"></span>
-                            {{ __('ui.home.beasiswa_badge_open') }}
-                        </span>
+            <div class="relative theme-paper border-2 border-black overflow-hidden" style="box-shadow: 6px 6px 0 #000;">
+                <div
+                    class="home-promo-track flex"
+                    :class="reduce ? '' : 'home-promo-track--animate'"
+                    :style="'transform:translateX(-' + (i * 100) + '%)'"
+                >
+                    {{-- Slide 1: Beasiswa --}}
+                    <div class="home-promo-slide beasiswa-page relative w-full shrink-0 p-5 sm:p-7" :aria-hidden="i !== 0 ? 'true' : 'false'">
+                        <div class="beasiswa-hero-pattern absolute inset-0 pointer-events-none opacity-80" aria-hidden="true"></div>
+                        <div class="relative max-w-3xl">
+                            <div class="flex flex-wrap items-center gap-2 mb-3">
+                                <span class="beasiswa-free-badge">{{ __('ui.home.beasiswa_badge_free') }}</span>
+                                <span class="beasiswa-open-badge">
+                                    <span class="beasiswa-open-dot" aria-hidden="true"></span>
+                                    {{ __('ui.home.beasiswa_badge_open') }}
+                                </span>
+                            </div>
+                            <h2 class="text-xl sm:text-2xl font-black mb-2 theme-heading" style="letter-spacing:-0.02em;">
+                                {{ __('ui.home.beasiswa_title') }}
+                            </h2>
+                            <p class="theme-body text-sm max-w-2xl mb-4" style="font-family:'Inter',sans-serif; line-height:1.65;">
+                                {{ __('ui.home.beasiswa_body') }}
+                            </p>
+                            <div class="flex flex-wrap gap-2 sm:gap-3">
+                                <a href="{{ route('beasiswa') }}" class="btn-brutal btn-primary px-5 py-2.5 text-sm">{{ __('ui.home.beasiswa_cta') }}</a>
+                                <a
+                                    href="{{ config('kindo.scholarships.aws_ai_academy_url') }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="btn-brutal btn-dark px-5 py-2.5 text-sm inline-flex no-underline"
+                                >{{ __('ui.home.beasiswa_secondary') }}</a>
+                            </div>
+                        </div>
                     </div>
-                    <h2 class="text-2xl sm:text-3xl font-black mb-3 theme-heading" style="letter-spacing:-0.02em;">
-                        {{ __('ui.home.beasiswa_title') }}
-                    </h2>
-                    <p class="theme-body text-sm sm:text-base max-w-2xl mb-6" style="font-family:'Inter',sans-serif; line-height:1.7;">
-                        {{ __('ui.home.beasiswa_body') }}
-                    </p>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="{{ route('beasiswa') }}" class="btn-brutal btn-primary px-6 py-3 text-sm">{{ __('ui.home.beasiswa_cta') }}</a>
-                        <a
-                            href="{{ config('kindo.scholarships.aws_ai_academy_url') }}"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn-brutal btn-dark px-6 py-3 text-sm inline-flex no-underline"
-                        >{{ __('ui.home.beasiswa_secondary') }}</a>
+
+                    {{-- Slide 2: FSIOT --}}
+                    <div class="home-promo-slide relative w-full shrink-0 p-5 sm:p-7" :aria-hidden="i !== 1 ? 'true' : 'false'">
+                        <div class="relative max-w-3xl">
+                            <p class="fsiot-soon-badge mb-3">
+                                <span class="fsiot-soon-dot" aria-hidden="true"></span>
+                                {{ __('ui.home.fsiot_badge') }}
+                            </p>
+                            <h2 class="text-xl sm:text-2xl font-black mb-2 theme-heading" style="letter-spacing:-0.02em;">
+                                {{ __('ui.home.fsiot_title') }}
+                            </h2>
+                            <p class="theme-body text-sm max-w-2xl mb-4" style="font-family:'Inter',sans-serif; line-height:1.65;">
+                                {{ __('ui.home.fsiot_body') }}
+                            </p>
+                            <div class="flex flex-wrap gap-2 sm:gap-3">
+                                <a href="{{ route('belajar.fullstack-iot') }}" class="btn-brutal btn-primary px-5 py-2.5 text-sm">{{ __('ui.home.fsiot_cta') }}</a>
+                                <a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="btn-brutal btn-outline px-5 py-2.5 text-sm">{{ __('ui.home.fsiot_support') }}</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    {{-- Jalur Full Stack IoT --}}
-    <section class="py-10 sm:py-14 border-b-4 border-black" style="background: var(--color-surface);">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="p-6 sm:p-8 theme-paper border-2 border-black" style="box-shadow: 6px 6px 0 #000;">
-                <p class="fsiot-soon-badge mb-4">
-                    <span class="fsiot-soon-dot" aria-hidden="true"></span>
-                    {{ __('ui.home.fsiot_badge') }}
-                </p>
-                <h2 class="text-2xl sm:text-3xl font-black mb-3 theme-heading" style="letter-spacing:-0.02em;">
-                    {{ __('ui.home.fsiot_title') }}
-                </h2>
-                <p class="theme-body text-sm sm:text-base max-w-2xl mb-6" style="font-family:'Inter',sans-serif; line-height:1.7;">
-                    {{ __('ui.home.fsiot_body') }}
-                </p>
-                <div class="flex flex-wrap gap-3">
-                    <a href="{{ route('belajar.fullstack-iot') }}" class="btn-brutal btn-primary px-6 py-3 text-sm">{{ __('ui.home.fsiot_cta') }}</a>
-                    <a href="{{ config('kindo.trakteer_tip_url') }}" target="_blank" rel="noopener noreferrer" class="btn-brutal btn-outline px-6 py-3 text-sm">{{ __('ui.home.fsiot_support') }}</a>
+                <div class="flex items-center justify-between gap-3 px-4 sm:px-5 py-3 border-t-2 border-black theme-paper">
+                    <div class="flex items-center gap-2" role="tablist" aria-label="{{ __('ui.home.promo_carousel_label') }}">
+                        <button
+                            type="button"
+                            class="home-promo-dot"
+                            :class="i === 0 && 'is-active'"
+                            aria-label="{{ __('ui.home.promo_carousel_goto', ['num' => 1]) }}"
+                            :aria-current="i === 0 ? 'true' : 'false'"
+                            @click="go(0)"
+                        ></button>
+                        <button
+                            type="button"
+                            class="home-promo-dot"
+                            :class="i === 1 && 'is-active'"
+                            aria-label="{{ __('ui.home.promo_carousel_goto', ['num' => 2]) }}"
+                            :aria-current="i === 1 ? 'true' : 'false'"
+                            @click="go(1)"
+                        ></button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button type="button" class="btn-brutal btn-outline px-3 py-1.5 text-xs" @click="prev()" aria-label="{{ __('ui.home.promo_carousel_prev') }}">←</button>
+                        <button type="button" class="btn-brutal btn-outline px-3 py-1.5 text-xs" @click="next()" aria-label="{{ __('ui.home.promo_carousel_next') }}">→</button>
+                    </div>
                 </div>
             </div>
         </div>

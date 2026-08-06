@@ -813,6 +813,41 @@ html.theme-animate footer {
         }
     }
 
+    /* Home promo carousel — Beasiswa + FSIOT in one compact strip */
+    .home-promo-track {
+        width: 100%;
+    }
+    .home-promo-track--animate {
+        transition: transform 0.5s ease-out;
+    }
+    .home-promo-slide {
+        min-height: 11.5rem;
+    }
+    .home-promo-dot {
+        width: 0.75rem;
+        height: 0.75rem;
+        border: 2px solid #000;
+        background: #fff;
+        box-shadow: 1px 1px 0 #000;
+        padding: 0;
+        cursor: pointer;
+    }
+    .home-promo-dot.is-active {
+        background: #1565C0;
+    }
+    html.dark .home-promo-dot {
+        background: #2D3748;
+        border-color: #fff;
+        box-shadow: 1px 1px 0 #000;
+    }
+    html.dark .home-promo-dot.is-active {
+        background: #FFD600;
+        border-color: #000;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .home-promo-track--animate { transition: none; }
+    }
+
     /* Soft success callout — readable in light + dark */
     .theme-success {
         background-color: color-mix(in srgb, #166534 18%, var(--color-paper));
