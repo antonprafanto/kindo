@@ -121,7 +121,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs27-bus-compare.png" width="1200" height="860" alt="Gambar utama — perbandingan UART I2C SPI bahasa manusia" loading="eager" style="width:100%;height:auto;max-height:780px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs27-bus-compare.png" width="1200" height="920" alt="Gambar utama — perbandingan UART I2C SPI bahasa manusia" loading="eager" style="width:100%;height:auto;max-height:820px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Gambar utama — tiga cara ngobrol antar chip.</strong> UART = 1 lawan 1 · I2C = banyak alat di 2 kabel + alamat · SPI = lebih cepat, lebih banyak pin. Pilih sebelum merakit.
     <br>Sumber gambar: diagram perbandingan buatan Koding Indonesia (FS-27). Acuan konsep: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a> · <a href="https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html" rel="noopener noreferrer" target="_blank">Analog Devices — Introduction to SPI</a>.
@@ -134,7 +134,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs27-bus-compare.png" width="1200" height="860" alt="Main figure — UART I2C SPI comparison in human language" loading="eager" style="width:100%;height:auto;max-height:780px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs27-bus-compare.png" width="1200" height="920" alt="Main figure — UART I2C SPI comparison in human language" loading="eager" style="width:100%;height:auto;max-height:820px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Main figure — three ways chips talk.</strong> UART = one-to-one · I2C = many devices on 2 wires + addresses · SPI = faster, more pins. Choose before you wire.
     <br>Image source: comparison diagram by Koding Indonesia (FS-27). Concept guides: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a> · <a href="https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html" rel="noopener noreferrer" target="_blank">Analog Devices — Introduction to SPI</a>.
@@ -147,7 +147,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs27-decision-table.png" width="1200" height="720" alt="Tabel keputusan bus untuk OLED BME280 microSD" loading="eager" style="width:100%;height:auto;max-height:720px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs27-decision-table.png" width="1200" height="760" alt="Tabel keputusan bus untuk OLED BME280 microSD" loading="eager" style="width:100%;height:auto;max-height:760px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Worksheet visual:</strong> OLED + BME280 → <strong>I2C</strong> · microSD → <strong>SPI</strong> · UART tetap untuk Serial Monitor (debug). Ini jawaban yang akan kamu pakai di FS-28 / FS-36.
     <br>Sumber gambar: tabel keputusan buatan Koding Indonesia (FS-27). Pin I2C jalur ini (tabel FS-17): <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong>.
@@ -160,7 +160,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs27-decision-table.png" width="1200" height="720" alt="Bus decision table for OLED BME280 microSD" loading="eager" style="width:100%;height:auto;max-height:720px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs27-decision-table.png" width="1200" height="760" alt="Bus decision table for OLED BME280 microSD" loading="eager" style="width:100%;height:auto;max-height:760px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Visual worksheet:</strong> OLED + BME280 → <strong>I2C</strong> · microSD → <strong>SPI</strong> · UART stays for Serial Monitor (debug). These are the answers you’ll use in FS-28 / FS-36.
     <br>Image source: decision table by Koding Indonesia (FS-27). Path I2C pins (FS-17 table): <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong>.
@@ -173,7 +173,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs27-i2c-labeled.png" width="1200" height="580" alt="Skema bantu I2C: SDA SCL dan alamat perangkat" loading="eager" style="width:100%;height:auto;max-height:580px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs27-i2c-labeled.png" width="1200" height="620" alt="Skema bantu I2C: SDA SCL dan alamat perangkat" loading="eager" style="width:100%;height:auto;max-height:620px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Skema bantu I2C (berlabel Indonesia).</strong> Dua kabel bersama: <strong>SDA</strong> (data) + <strong>SCL</strong> (jam). ESP32 = pengendali · BME280/OLED = perangkat dengan <strong>alamat</strong>. Pin jalur ini: <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong>.
     <br>Sumber gambar: diagram buatan Koding Indonesia (FS-27). Inspirasi struktur: <a href="https://commons.wikimedia.org/wiki/File:I2C.svg" rel="noopener noreferrer" target="_blank">I2C.svg</a> · Wikimedia Commons (Cburnett). Acuan: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>.
@@ -186,7 +186,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs27-i2c-labeled.png" width="1200" height="580" alt="Helper I2C schematic: SDA SCL and device addresses" loading="eager" style="width:100%;height:auto;max-height:580px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs27-i2c-labeled.png" width="1200" height="620" alt="Helper I2C schematic: SDA SCL and device addresses" loading="eager" style="width:100%;height:auto;max-height:620px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Helper I2C schematic (labeled).</strong> Two shared wires: <strong>SDA</strong> (data) + <strong>SCL</strong> (clock). ESP32 = controller · BME280/OLED = devices with <strong>addresses</strong>. Path pins: <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong>.
     <br>Image source: diagram by Koding Indonesia (FS-27). Structure inspired by <a href="https://commons.wikimedia.org/wiki/File:I2C.svg" rel="noopener noreferrer" target="_blank">I2C.svg</a> · Wikimedia Commons (Cburnett). Guide: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>.
@@ -199,9 +199,9 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs27-spi-labeled.png" width="1200" height="580" alt="Skema bantu SPI: SCK MOSI MISO CS ke microSD" loading="eager" style="width:100%;height:auto;max-height:580px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs27-spi-labeled.png" width="1200" height="640" alt="Skema bantu SPI: SCK MOSI MISO CS ke microSD" loading="eager" style="width:100%;height:auto;max-height:640px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Skema bantu SPI (berlabel Indonesia).</strong> Empat sinyal tipikal: <strong>SCK</strong> · <strong>MOSI</strong> · <strong>MISO</strong> · <strong>CS</strong> (Chip Select; di beberapa buku ditulis <strong>SS</strong>). Cocok untuk microSD karena butuh kecepatan + CS khusus.
+    <strong>Skema bantu SPI (berlabel Indonesia).</strong> Empat sinyal tipikal: <strong>SCK</strong> · <strong>MOSI</strong> · <strong>MISO</strong> · <strong>CS</strong> (Chip Select; di beberapa buku ditulis <strong>SS</strong>). Panah <strong>MISO</strong> balik ke ESP32 (masuk). Cocok untuk microSD karena butuh kecepatan + CS khusus.
     <br>Sumber gambar: diagram buatan Koding Indonesia (FS-27). Inspirasi struktur: <a href="https://commons.wikimedia.org/wiki/File:SPI_single_slave.svg" rel="noopener noreferrer" target="_blank">SPI_single_slave.svg</a> · Wikimedia Commons. Acuan: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html" rel="noopener noreferrer" target="_blank">Analog Devices — Introduction to SPI</a>.
   </figcaption>
 </figure>
@@ -212,10 +212,44 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs27-spi-labeled.png" width="1200" height="580" alt="Helper SPI schematic: SCK MOSI MISO CS to microSD" loading="eager" style="width:100%;height:auto;max-height:580px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs27-spi-labeled.png" width="1200" height="640" alt="Helper SPI schematic: SCK MOSI MISO CS to microSD" loading="eager" style="width:100%;height:auto;max-height:640px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Helper SPI schematic (labeled).</strong> Four typical signals: <strong>SCK</strong> · <strong>MOSI</strong> · <strong>MISO</strong> · <strong>CS</strong> (Chip Select; some books write <strong>SS</strong>). Fits microSD because it needs speed + a dedicated CS.
+    <strong>Helper SPI schematic (labeled).</strong> Four typical signals: <strong>SCK</strong> · <strong>MOSI</strong> · <strong>MISO</strong> · <strong>CS</strong> (Chip Select; some books write <strong>SS</strong>). The <strong>MISO</strong> arrow points back into the ESP32. Fits microSD because it needs speed + a dedicated CS.
     <br>Image source: diagram by Koding Indonesia (FS-27). Structure inspired by <a href="https://commons.wikimedia.org/wiki/File:SPI_single_slave.svg" rel="noopener noreferrer" target="_blank">SPI_single_slave.svg</a> · Wikimedia Commons. Guide: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html" rel="noopener noreferrer" target="_blank">Analog Devices — Introduction to SPI</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function modulContohFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs27-modul-contoh.png" width="1400" height="620" alt="Contoh modul OLED BME280 microSD — I2C vs SPI" loading="eager" style="width:100%;height:auto;max-height:620px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Kenali bentuk modulnya dulu</strong> (bukan wiring hari ini). OLED + BME280 biasanya I2C · microSD biasanya SPI. Foto hanya contoh bentuk.
+    <br>Sumber foto (Wikimedia Commons):
+    <a href="https://commons.wikimedia.org/wiki/File:Meshtastic_FakeTec_node_with_display_P1089966.jpg" rel="noopener noreferrer" target="_blank">Meshtastic node + OLED</a> (CC BY-SA) ·
+    <a href="https://commons.wikimedia.org/wiki/File:SparkFun_Atmospheric_Sensor_Breakout_-_BME280_13676.jpg" rel="noopener noreferrer" target="_blank">SparkFun BME280</a> (CC BY 2.0) ·
+    <a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" rel="noopener noreferrer" target="_blank">microSD + adapter</a> (CC BY-SA).
+    Kolase label: Koding Indonesia (FS-27).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function modulContohFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs27-modul-contoh.png" width="1400" height="620" alt="Example OLED BME280 microSD modules — I2C vs SPI" loading="eager" style="width:100%;height:auto;max-height:620px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Recognize the modules first</strong> (no wiring today). OLED + BME280 are typically I2C · microSD is typically SPI. Photos are shape examples only.
+    <br>Photo sources (Wikimedia Commons):
+    <a href="https://commons.wikimedia.org/wiki/File:Meshtastic_FakeTec_node_with_display_P1089966.jpg" rel="noopener noreferrer" target="_blank">Meshtastic node + OLED</a> (CC BY-SA) ·
+    <a href="https://commons.wikimedia.org/wiki/File:SparkFun_Atmospheric_Sensor_Breakout_-_BME280_13676.jpg" rel="noopener noreferrer" target="_blank">SparkFun BME280</a> (CC BY 2.0) ·
+    <a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" rel="noopener noreferrer" target="_blank">microSD + adapter</a> (CC BY-SA).
+    Label collage: Koding Indonesia (FS-27).
   </figcaption>
 </figure>
 HTML;
@@ -225,18 +259,18 @@ HTML;
     {
         return <<<'HTML'
 <figure role="img" aria-label="Analogi manusia untuk UART I2C SPI" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 170" width="100%" height="auto" style="display:block;max-height:200px">
-    <rect width="900" height="170" fill="#F5F5F0"/>
-    <text x="450" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Analogi cepat (ingat ini dulu)</text>
-    <rect x="30" y="50" width="260" height="90" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-    <text x="160" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#1B5E20">UART = telepon 1↔1</text>
-    <text x="160" y="112" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">TX / RX / GND</text>
-    <rect x="320" y="50" width="260" height="90" rx="10" fill="#BBDEFB" stroke="#1565C0" stroke-width="2.5"/>
-    <text x="450" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#0D47A1">I2C = rapat + nama</text>
-    <text x="450" y="112" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">SDA / SCL + alamat</text>
-    <rect x="610" y="50" width="260" height="90" rx="10" fill="#FFF59D" stroke="#F9A825" stroke-width="2.5"/>
-    <text x="740" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#F57F17">SPI = kurir cepat</text>
-    <text x="740" y="112" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">SCK / MOSI / MISO / CS</text>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 210" width="100%" height="auto" style="display:block;max-height:260px">
+    <rect width="900" height="210" fill="#F5F5F0"/>
+    <text x="450" y="34" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" font-weight="700" fill="#1a1a1a">Analogi cepat (ingat ini dulu)</text>
+    <rect x="30" y="55" width="260" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+    <text x="160" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">UART = telepon 1↔1</text>
+    <text x="160" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">TX / RX / GND</text>
+    <rect x="320" y="55" width="260" height="120" rx="10" fill="#BBDEFB" stroke="#1565C0" stroke-width="2.5"/>
+    <text x="450" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">I2C = rapat + nama</text>
+    <text x="450" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SDA / SCL + alamat</text>
+    <rect x="610" y="55" width="260" height="120" rx="10" fill="#FFF59D" stroke="#F9A825" stroke-width="2.5"/>
+    <text x="740" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#F57F17">SPI = kurir cepat</text>
+    <text x="740" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SCK / MOSI / MISO / CS</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Intinya:</strong> jangan hafalkan singkatan dulu — ingat analoginya. Detail pin dilatih di FS-28 (I2C) dan FS-36 (SPI). Sumber gambar: diagram buatan Koding Indonesia (FS-27).
@@ -249,18 +283,18 @@ HTML;
     {
         return <<<'HTML'
 <figure role="img" aria-label="Human analogies for UART I2C SPI" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 170" width="100%" height="auto" style="display:block;max-height:200px">
-    <rect width="900" height="170" fill="#F5F5F0"/>
-    <text x="450" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Quick analogies (remember these first)</text>
-    <rect x="30" y="50" width="260" height="90" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
-    <text x="160" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#1B5E20">UART = 1↔1 phone call</text>
-    <text x="160" y="112" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">TX / RX / GND</text>
-    <rect x="320" y="50" width="260" height="90" rx="10" fill="#BBDEFB" stroke="#1565C0" stroke-width="2.5"/>
-    <text x="450" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#0D47A1">I2C = meeting + names</text>
-    <text x="450" y="112" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">SDA / SCL + address</text>
-    <rect x="610" y="50" width="260" height="90" rx="10" fill="#FFF59D" stroke="#F9A825" stroke-width="2.5"/>
-    <text x="740" y="88" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="15" font-weight="700" fill="#F57F17">SPI = fast courier</text>
-    <text x="740" y="112" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">SCK / MOSI / MISO / CS</text>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 210" width="100%" height="auto" style="display:block;max-height:260px">
+    <rect width="900" height="210" fill="#F5F5F0"/>
+    <text x="450" y="34" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="20" font-weight="700" fill="#1a1a1a">Quick analogies (remember these first)</text>
+    <rect x="30" y="55" width="260" height="120" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
+    <text x="160" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">UART = 1↔1 phone call</text>
+    <text x="160" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">TX / RX / GND</text>
+    <rect x="320" y="55" width="260" height="120" rx="10" fill="#BBDEFB" stroke="#1565C0" stroke-width="2.5"/>
+    <text x="450" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">I2C = meeting + names</text>
+    <text x="450" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SDA / SCL + address</text>
+    <rect x="610" y="55" width="260" height="120" rx="10" fill="#FFF59D" stroke="#F9A825" stroke-width="2.5"/>
+    <text x="740" y="105" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#F57F17">SPI = fast courier</text>
+    <text x="740" y="140" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" fill="#333">SCK / MOSI / MISO / CS</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>In short:</strong> don’t memorize acronyms first — keep the analogies. Pin details are practiced in FS-28 (I2C) and FS-36 (SPI). Image source: diagram by Koding Indonesia (FS-27).
@@ -274,6 +308,7 @@ HTML;
         $tools = $this->toolsFigureId();
         $main = $this->mainCompareFigureId();
         $decision = $this->decisionFigureId();
+        $modul = $this->modulContohFigureId();
         $i2c = $this->i2cCommonsFigureId();
         $spi = $this->spiCommonsFigureId();
         $analogy = $this->analogySvgId();
@@ -288,14 +323,14 @@ HTML;
 <ol>
 <li><strong>Buka artikel ini di browser</strong> (bukan Laragon / terminal).</li>
 <li>Baca tiga analogi UART / I2C / SPI.</li>
-<li>Lihat gambar utama + tabel keputusan OLED / BME280 / microSD.</li>
+<li>Lihat gambar utama + contoh modul + tabel keputusan OLED / BME280 / microSD.</li>
 <li>Centang checklist worksheet 10/10 di browser.</li>
 <li>Simpan keputusan: I2C untuk sensor+layar · SPI untuk microSD · UART untuk debug Serial.</li>
 </ol>
 <p><strong>Tidak perlu hari ini:</strong> Arduino IDE Upload, Library Manager baru, Wi-Fi, MQTT, Laragon, <code>php artisan</code>, breadboard baru. Tools hari ini: <strong>browser</strong> + (opsional) catatan.</p>
 
 <h2>Persiapan — buka &amp; siapkan ini dulu</h2>
-<p><strong>Urutan meja kerja:</strong> buka browser → baca analogi → tabel keputusan → centang checklist. Tidak ada langkah Upload.</p>
+<p><strong>Urutan meja kerja:</strong> buka browser → baca analogi → kenali contoh modul → tabel keputusan → centang checklist. Tidak ada langkah Upload.</p>
 {$tools}
 <ul>
 <li>Buka artikel ini di tab browser (mode pratinjau / nanti live).</li>
@@ -312,6 +347,7 @@ HTML;
 <p><strong>SPI</strong> — lebih cepat, tetapi butuh lebih banyak kabel; tiap chip sering punya garis <strong>CS</strong> sendiri. Cocok untuk microSD / memori cepat (FS-36).</p>
 {$i2c}
 {$spi}
+{$modul}
 
 <h2>Praktik — worksheet keputusan</h2>
 <p>Tujuan: untuk tiga modul di jalur, kamu bisa menjawab “pakai bus apa?” tanpa menebak.</p>
@@ -366,6 +402,7 @@ HTML;
         $tools = $this->toolsFigureEn();
         $main = $this->mainCompareFigureEn();
         $decision = $this->decisionFigureEn();
+        $modul = $this->modulContohFigureEn();
         $i2c = $this->i2cCommonsFigureEn();
         $spi = $this->spiCommonsFigureEn();
         $analogy = $this->analogySvgEn();
@@ -380,14 +417,14 @@ HTML;
 <ol>
 <li><strong>Open this article in the browser</strong> (not Laragon / a terminal).</li>
 <li>Read the three UART / I2C / SPI analogies.</li>
-<li>Study the main figure + OLED / BME280 / microSD decision table.</li>
+<li>Study the main figure + module examples + OLED / BME280 / microSD decision table.</li>
 <li>Tick the 10/10 worksheet checklist in the browser.</li>
 <li>Keep the decisions: I2C for sensor+display · SPI for microSD · UART for Serial debug.</li>
 </ol>
 <p><strong>Not needed today:</strong> Arduino IDE Upload, a new Library Manager install, Wi-Fi, MQTT, Laragon, <code>php artisan</code>, a new breadboard. Today's tools: the <strong>browser</strong> + (optional) notes.</p>
 
 <h2>Prep — open &amp; set these up first</h2>
-<p><strong>Desk order:</strong> open the browser → read analogies → decision table → tick the checklist. No Upload step.</p>
+<p><strong>Desk order:</strong> open the browser → read analogies → recognize example modules → decision table → tick the checklist. No Upload step.</p>
 {$tools}
 <ul>
 <li>Open this article in a browser tab (preview mode / later live).</li>
@@ -404,6 +441,7 @@ HTML;
 <p><strong>SPI</strong> — faster, but more wires; each chip often gets its own <strong>CS</strong> line. Fits microSD / fast memory (FS-36).</p>
 {$i2c}
 {$spi}
+{$modul}
 
 <h2>Practice — decision worksheet</h2>
 <p>Goal: for three path modules, you can answer “which bus?” without guessing.</p>

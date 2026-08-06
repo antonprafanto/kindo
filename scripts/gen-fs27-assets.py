@@ -5,13 +5,14 @@ from pathlib import Path
 
 OUT = Path("public/images/fsiot")
 OUT.mkdir(parents=True, exist_ok=True)
+TMP = Path("tmp-qa97")
 
 try:
-    FT = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 48)   # title
-    FH = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 34)   # heading
-    FB = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 30)   # bold body
-    F = ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 28)     # body
-    FS = ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 26)    # secondary
+    FT = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 44)   # title
+    FH = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 32)   # heading
+    FB = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 28)   # bold body
+    F = ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 26)     # body
+    FS = ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 24)    # secondary
 except OSError:
     FT = FH = FB = F = FS = ImageFont.load_default()
 
@@ -23,6 +24,14 @@ def center(d, cx, cy, text, font, fill="#1a1a1a"):
 
 def box(d, xy, fill, outline, w=4, r=14):
     d.rounded_rectangle(xy, radius=r, fill=fill, outline=outline, width=w)
+
+
+def fit_cover(src: Path, size=(340, 260)) -> Image.Image:
+    im = Image.open(src).convert("RGB")
+    im.thumbnail(size, Image.Resampling.LANCZOS)
+    canvas = Image.new("RGB", size, "#FFFFFF")
+    canvas.paste(im, ((size[0] - im.width) // 2, (size[1] - im.height) // 2))
+    return canvas
 
 
 # --- Cover ---
@@ -37,26 +46,26 @@ cards = [
     (780, "#FFF8E1", "#F9A825", "SPI", "cepat ·\nlebih kabel"),
 ]
 for x, fill, out, title, body in cards:
-    box(d, (x, 80, x + 340, 360), fill, out, 4, 14)
-    center(d, x + 170, 140, title, FT, out)
+    box(d, (x, 60, x + 340, 320), fill, out, 4, 14)
+    center(d, x + 170, 120, title, FT, out)
     for j, ln in enumerate(body.split("\n")):
-        center(d, x + 170, 220 + j * 40, ln, FH, "#1a1a1a")
+        center(d, x + 170, 195 + j * 42, ln, FH, "#1a1a1a")
 
-center(d, 600, 430, "FS-27", FT, "#C8E6C9")
-center(d, 600, 500, "Bus: UART · I2C · SPI", FT, "#FFFFFF")
-center(d, 600, 565, "bahasa manusia · worksheet keputusan", F, "#E8F5E9")
-center(d, 600, 620, "tanpa Upload sketch hari ini", FS, "#A5D6A7")
+center(d, 600, 390, "FS-27", FT, "#C8E6C9")
+center(d, 600, 460, "Bus: UART · I2C · SPI", FT, "#FFFFFF")
+center(d, 600, 535, "bahasa manusia · worksheet keputusan", FB, "#E8F5E9")
+center(d, 600, 600, "tanpa Upload sketch hari ini", FH, "#C8E6C9")
 cover.save(OUT / "fs27-cover-bus.jpg", quality=88, optimize=True)
 cover.save(OUT / "fs27-cover-bus.webp", "WEBP", quality=85)
 print("cover", (OUT / "fs27-cover-bus.jpg").stat().st_size)
 
-# --- Main compare (taller for larger text) ---
-W, H = 1200, 860
+# --- Main compare ---
+W, H = 1200, 920
 img = Image.new("RGB", (W, H), "#F5F5F0")
 d = ImageDraw.Draw(img)
-box(d, (20, 16, W - 20, 100), "#FFFFFF", "#1a1a1a", 4)
-center(d, W // 2, 42, "Gambar utama — tiga cara ngobrol antar chip (FS-27)", FT)
-center(d, W // 2, 78, "Pilih bus sebelum merakit · praktik di browser (worksheet)", F, "#333")
+box(d, (20, 16, W - 20, 130), "#FFFFFF", "#1a1a1a", 4)
+center(d, W // 2, 50, "Gambar utama — tiga cara ngobrol antar chip (FS-27)", FT)
+center(d, W // 2, 100, "Pilih bus sebelum merakit · praktik di browser (worksheet)", F, "#333")
 
 cols = [
     (40, "#E8F5E9", "#2E7D32", "UART", [
@@ -105,16 +114,16 @@ cols = [
     ]),
 ]
 for x, fill, out, title, lines in cols:
-    box(d, (x, 120, x + 360, 760), fill, out, 4)
-    center(d, x + 180, 165, title, FT, out)
+    box(d, (x, 150, x + 360, 800), fill, out, 4)
+    center(d, x + 180, 195, title, FT, out)
     for i, ln in enumerate(lines):
-        d.text((x + 36, 210 + i * 38), ln, font=F, fill="#1a1a1a")
+        d.text((x + 36, 245 + i * 38), ln, font=F, fill="#1a1a1a")
 
-box(d, (40, 780, W - 40, 840), "#FFFFFF", "#1a1a1a", 3)
+box(d, (40, 825, W - 40, 895), "#FFFFFF", "#1a1a1a", 3)
 center(
     d,
     W // 2,
-    810,
+    860,
     "UART = 1 lawan 1 · I2C = banyak alat + alamat · SPI = cepat, pin lebih banyak",
     F,
     "#1B5E20",
@@ -122,18 +131,18 @@ center(
 img.save(OUT / "fs27-bus-compare.png", optimize=True)
 print("compare", (OUT / "fs27-bus-compare.png").stat().st_size)
 
-# --- Decision table (larger) ---
-W2, H2 = 1200, 720
+# --- Decision table ---
+W2, H2 = 1200, 760
 dec = Image.new("RGB", (W2, H2), "#F5F5F0")
 d = ImageDraw.Draw(dec)
-box(d, (20, 16, W2 - 20, 100), "#FFFFFF", "#1a1a1a", 4)
-center(d, W2 // 2, 42, "Worksheet — kapan pakai bus apa? (FS-27)", FT)
-center(d, W2 // 2, 78, "OLED · BME280 · microSD — pilih bus sebelum wiring", F, "#333")
+box(d, (20, 16, W2 - 20, 130), "#FFFFFF", "#1a1a1a", 4)
+center(d, W2 // 2, 50, "Worksheet — kapan pakai bus apa? (FS-27)", FT)
+center(d, W2 // 2, 100, "OLED · BME280 · microSD — pilih bus sebelum wiring", F, "#333")
 
-box(d, (30, 120, W2 - 30, 180), "#ECEFF1", "#1a1a1a", 3)
-d.text((55, 138), "Modul", font=FH, fill="#1a1a1a")
-d.text((320, 138), "Pilih bus", font=FH, fill="#1a1a1a")
-d.text((560, 138), "Kenapa (bahasa manusia)", font=FH, fill="#1a1a1a")
+box(d, (30, 150, W2 - 30, 215), "#ECEFF1", "#1a1a1a", 3)
+d.text((55, 168), "Modul", font=FH, fill="#1a1a1a")
+d.text((320, 168), "Pilih bus", font=FH, fill="#1a1a1a")
+d.text((560, 168), "Kenapa (bahasa manusia)", font=FH, fill="#1a1a1a")
 
 rows = [
     ("OLED 0,96\"", "I2C", "Layar kecil + sensor lain\nbisa berbagi 2 kabel\n(SDA / SCL).", "#E3F2FD", "#1565C0"),
@@ -141,27 +150,27 @@ rows = [
     ("microSD", "SPI", "Kartu memori butuh\nkecepatan; SPI punya\nCS khusus per chip.", "#FFF8E1", "#F9A825"),
 ]
 for i, (mod, bus, why, fill, out) in enumerate(rows):
-    y0 = 195 + i * 140
-    box(d, (30, y0, W2 - 30, y0 + 128), fill, out, 3)
-    d.text((55, y0 + 48), mod, font=FH, fill="#1a1a1a")
+    y0 = 235 + i * 145
+    box(d, (30, y0, W2 - 30, y0 + 132), fill, out, 3)
+    d.text((55, y0 + 50), mod, font=FH, fill="#1a1a1a")
     box(d, (300, y0 + 30, 500, y0 + 100), "#FFFFFF", out, 3)
     center(d, 400, y0 + 65, bus, FT, out)
     for j, ln in enumerate(why.split("\n")):
-        d.text((560, y0 + 28 + j * 30), ln, font=F, fill="#333")
+        d.text((560, y0 + 28 + j * 32), ln, font=F, fill="#333")
 
-box(d, (30, 620, W2 - 30, 690), "#E8F5E9", "#2E7D32", 3)
+box(d, (30, 670, W2 - 30, 735), "#E8F5E9", "#2E7D32", 3)
 center(
     d,
     W2 // 2,
-    655,
-    "UART tetap penting: Serial Monitor = jendela debug (FS-14) — bukan “bus sensor banyak”.",
+    702,
+    "UART tetap penting: Serial Monitor = jendela debug (FS-14) — bukan bus sensor banyak",
     F,
     "#1B5E20",
 )
 dec.save(OUT / "fs27-decision-table.png", optimize=True)
 print("decision", (OUT / "fs27-decision-table.png").stat().st_size)
 
-# --- Tools-first (large readable text) ---
+# --- Tools-first ---
 LM_W, LM_H = 1400, 720
 tl = Image.new("RGB", (LM_W, LM_H), "#F5F5F0")
 d = ImageDraw.Draw(tl)
@@ -193,17 +202,17 @@ tl.save(OUT / "fs27-tools-browser.png", optimize=True)
 print("tools", (OUT / "fs27-tools-browser.png").stat().st_size)
 
 # --- I2C labeled ---
-W, H = 1200, 580
+W, H = 1200, 620
 img = Image.new("RGB", (W, H), "#F5F5F0")
 d = ImageDraw.Draw(img)
-box(d, (20, 16, W - 20, 100), "#FFFFFF", "#1a1a1a", 4)
-center(d, W // 2, 42, "I2C — banyak perangkat di 2 kabel (SDA + SCL)", FT)
-center(d, W // 2, 78, "ESP32 = pengendali · tiap alat punya alamat · pin jalur: SDA 21 · SCL 22", F, "#333")
+box(d, (20, 16, W - 20, 120), "#FFFFFF", "#1a1a1a", 4)
+center(d, W // 2, 48, "I2C — banyak perangkat di 2 kabel (SDA + SCL)", FT)
+center(d, W // 2, 92, "ESP32 = pengendali · tiap alat punya alamat · pin: SDA 21 · SCL 22", F, "#333")
 
-d.line([(100, 210), (1100, 210)], fill="#1565C0", width=7)
-d.line([(100, 280), (1100, 280)], fill="#2E7D32", width=7)
-d.text((40, 190), "SDA", font=FH, fill="#1565C0")
-d.text((40, 260), "SCL", font=FH, fill="#2E7D32")
+d.line([(100, 220), (1100, 220)], fill="#1565C0", width=7)
+d.line([(100, 290), (1100, 290)], fill="#2E7D32", width=7)
+d.text((40, 200), "SDA", font=FH, fill="#1565C0")
+d.text((40, 270), "SCL", font=FH, fill="#2E7D32")
 
 nodes = [
     (200, "ESP32", "pengendali", "#FFECB3", "#F9A825"),
@@ -212,52 +221,89 @@ nodes = [
     (1020, "(nanti)", "perangkat lain", "#E0E0E0", "#616161"),
 ]
 for x, title, sub, fill, out in nodes:
-    box(d, (x - 100, 330, x + 100, 460), fill, out, 4)
-    center(d, x, 375, title, FH, out)
-    center(d, x, 420, sub, F, "#333")
-    d.line([(x, 330), (x, 280)], fill="#2E7D32", width=5)
-    d.line([(x, 330), (x, 210)], fill="#1565C0", width=5)
+    box(d, (x - 100, 340, x + 100, 480), fill, out, 4)
+    center(d, x, 385, title, FH, out)
+    center(d, x, 435, sub, F, "#333")
+    d.line([(x, 340), (x, 290)], fill="#2E7D32", width=5)
+    d.line([(x, 340), (x, 220)], fill="#1565C0", width=5)
 
-box(d, (40, 490, W - 40, 555), "#E3F2FD", "#1565C0", 3)
-center(d, W // 2, 522, "2 kabel bersama + panggil alamat · inspirasi Commons I2C.svg · Koding Indonesia (FS-27)", F, "#0D47A1")
+box(d, (40, 510, W - 40, 595), "#E3F2FD", "#1565C0", 3)
+center(d, W // 2, 540, "2 kabel bersama + panggil alamat (bukan telepon 1 lawan 1)", F, "#0D47A1")
+center(d, W // 2, 575, "Inspirasi Commons I2C.svg · Koding Indonesia (FS-27)", FS, "#0D47A1")
 img.save(OUT / "fs27-i2c-labeled.png", optimize=True)
 print("i2c", (OUT / "fs27-i2c-labeled.png").stat().st_size)
 
-# --- SPI labeled ---
-W, H = 1200, 580
+# --- SPI labeled (MISO arrow points device → ESP32) ---
+W, H = 1200, 640
 img = Image.new("RGB", (W, H), "#F5F5F0")
 d = ImageDraw.Draw(img)
-box(d, (20, 16, W - 20, 100), "#FFFFFF", "#1a1a1a", 4)
-center(d, W // 2, 42, "SPI — cepat, tapi pin lebih banyak (CS per chip)", FT)
-center(d, W // 2, 78, "CS = Chip Select (di buku lama sering tertulis SS) · cocok microSD", F, "#333")
+box(d, (20, 16, W - 20, 120), "#FFFFFF", "#1a1a1a", 4)
+center(d, W // 2, 48, "SPI — cepat, tapi pin lebih banyak (CS per chip)", FT)
+center(d, W // 2, 92, "CS = Chip Select (di buku lama sering tertulis SS) · cocok microSD", F, "#333")
 
-box(d, (80, 140, 460, 450), "#FFF8E1", "#F9A825", 4)
+box(d, (80, 145, 460, 470), "#FFF8E1", "#F9A825", 4)
 center(d, 270, 185, "ESP32 (pengendali)", FH, "#F57F17")
 for i, (lab, col) in enumerate(
     [("SCK  — jam", "#455A64"), ("MOSI — keluar", "#1565C0"), ("MISO — masuk", "#2E7D32"), ("CS   — pilih chip", "#C62828")]
 ):
-    y = 230 + i * 48
-    box(d, (110, y, 430, y + 40), "#FFFFFF", col, 3)
-    center(d, 270, y + 20, lab, F, col)
+    y = 230 + i * 52
+    box(d, (110, y, 430, y + 42), "#FFFFFF", col, 3)
+    center(d, 270, y + 21, lab, F, col)
 
-box(d, (740, 140, 1120, 450), "#E8F5E9", "#2E7D32", 4)
+box(d, (740, 145, 1120, 470), "#E8F5E9", "#2E7D32", 4)
 center(d, 930, 185, "microSD (perangkat)", FH, "#1B5E20")
 for i, (lab, col) in enumerate(
     [("SCK", "#455A64"), ("MOSI", "#1565C0"), ("MISO", "#2E7D32"), ("CS", "#C62828")]
 ):
-    y = 230 + i * 48
-    box(d, (770, y, 1090, y + 40), "#FFFFFF", col, 3)
-    center(d, 930, y + 20, lab, F, col)
+    y = 230 + i * 52
+    box(d, (770, y, 1090, y + 42), "#FFFFFF", col, 3)
+    center(d, 930, y + 21, lab, F, col)
 
+# SCK, MOSI, CS: ESP32 → microSD ; MISO: microSD → ESP32
 for i, col in enumerate(["#455A64", "#1565C0", "#2E7D32", "#C62828"]):
-    y = 250 + i * 48
+    y = 251 + i * 52
     d.line([(460, y), (740, y)], fill=col, width=5)
-    d.polygon([(740, y), (715, y - 10), (715, y + 10)], fill=col)
+    if i == 2:  # MISO: arrow on the left (into ESP32)
+        d.polygon([(460, y), (485, y - 10), (485, y + 10)], fill=col)
+    else:
+        d.polygon([(740, y), (715, y - 10), (715, y + 10)], fill=col)
 
-box(d, (40, 480, W - 40, 550), "#FFF8E1", "#F9A825", 3)
-center(d, W // 2, 515, "Tiap perangkat SPI butuh CS sendiri · inspirasi Commons SPI_single_slave.svg · Koding Indonesia (FS-27)", F, "#E65100")
+box(d, (40, 500, W - 40, 615), "#FFF8E1", "#F9A825", 3)
+center(d, W // 2, 540, "Tiap perangkat SPI butuh CS sendiri · panah MISO balik ke ESP32", F, "#E65100")
+center(d, W // 2, 580, "Inspirasi Commons SPI_single_slave.svg · Koding Indonesia (FS-27)", FS, "#E65100")
 img.save(OUT / "fs27-spi-labeled.png", optimize=True)
 print("spi", (OUT / "fs27-spi-labeled.png").stat().st_size)
 
-# Update seeder figure dimensions for tools/compare if needed — keep max-height CSS
+# --- Module collage (Commons photos + labels) ---
+MW, MH = 1400, 620
+mod = Image.new("RGB", (MW, MH), "#F5F5F0")
+d = ImageDraw.Draw(mod)
+box(d, (20, 16, MW - 20, 120), "#FFFFFF", "#1a1a1a", 4)
+center(d, MW // 2, 48, "Contoh modul di jalur — kenali dulu, wiring di FS-28/FS-36", FT)
+center(d, MW // 2, 92, "BME280 + OLED → I2C · microSD → SPI  (foto Commons, ber-sitasi di caption)", F, "#333")
+
+panels = [
+    (40, TMP / "oled.jpg", "OLED (contoh layar I2C)", "Bus: I2C", "#E3F2FD", "#1565C0"),
+    (480, TMP / "bme280.jpg", "BME280 (sensor I2C)", "Bus: I2C", "#E3F2FD", "#1565C0"),
+    (920, TMP / "microsd.jpg", "microSD (+ adapter)", "Bus: SPI", "#FFF8E1", "#F9A825"),
+]
+for x, src, title, bus, fill, out in panels:
+    box(d, (x, 145, x + 420, 505), fill, out, 4)
+    photo = fit_cover(src, (380, 240))
+    mod.paste(photo, (x + 20, 160))
+    center(d, x + 210, 430, title, FB, "#1a1a1a")
+    center(d, x + 210, 475, bus, FH, out)
+
+box(d, (40, 530, MW - 40, 590), "#FFFFFF", "#1a1a1a", 3)
+center(
+    d,
+    MW // 2,
+    560,
+    "Ini contoh bentuk modul — bukan wiring hari ini. Sitasi lengkap di caption artikel.",
+    F,
+    "#333",
+)
+mod.save(OUT / "fs27-modul-contoh.png", optimize=True)
+print("modul", (OUT / "fs27-modul-contoh.png").stat().st_size)
+
 print("done")

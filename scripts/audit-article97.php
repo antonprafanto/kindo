@@ -39,7 +39,10 @@ check('published_at null', str_contains($src, "'published_at'") && str_contains(
 check('slug fullstack-iot-bus-uart-i2c-spi', str_contains($src, 'fullstack-iot-bus-uart-i2c-spi'));
 check('seed route exists', str_contains($routes, 'seed-article-97-draft'));
 check('deploy seed step', str_contains($deploy, 'seed-article-97-draft'));
-check('ftp allowlist fs27', str_contains($deploy, 'fs27-bus-compare.png') && str_contains($deploy, 'fs27-decision-table.png') && str_contains($deploy, 'fs27-tools-browser.png') && str_contains($deploy, 'fs27-cover-bus.jpg') && str_contains($deploy, 'fs27-i2c-labeled.png') && str_contains($deploy, 'fs27-spi-labeled.png') && str_contains($deploy, 'fs27-cover-bus.webp'));
+check('modul contoh asset', str_contains($id, 'fs27-modul-contoh.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-modul-contoh.png'));
+check('modul commons cites', str_contains($id, 'SparkFun_Atmospheric_Sensor_Breakout') && str_contains($id, '2015_Karta_microSD') && str_contains($id, 'Meshtastic_FakeTec'));
+check('MISO arrow explained', str_contains($id, 'MISO') && str_contains($id, 'balik'));
+check('ftp allowlist fs27', str_contains($deploy, 'fs27-bus-compare.png') && str_contains($deploy, 'fs27-decision-table.png') && str_contains($deploy, 'fs27-tools-browser.png') && str_contains($deploy, 'fs27-cover-bus.jpg') && str_contains($deploy, 'fs27-i2c-labeled.png') && str_contains($deploy, 'fs27-spi-labeled.png') && str_contains($deploy, 'fs27-cover-bus.webp') && str_contains($deploy, 'fs27-modul-contoh.png'));
 
 check('ID self-ref #97 (ini)', str_contains($id, '#97 (ini)'));
 check('EN self-ref #97 (this article)', str_contains($en, '#97 (this article)'));
@@ -50,7 +53,7 @@ check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
 check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 6', substr_count($id, '<figure') >= 6 && substr_count($en, '<figure') >= 6);
+check('figures both >= 7', substr_count($id, '<figure') >= 7 && substr_count($en, '<figure') >= 7);
 
 check('compare PNG asset', str_contains($id, 'fs27-bus-compare.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-bus-compare.png'));
 check('decision PNG asset', str_contains($id, 'fs27-decision-table.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-decision-table.png'));
