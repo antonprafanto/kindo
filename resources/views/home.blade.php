@@ -96,6 +96,39 @@
         </div>
     </section>
 
+    {{-- Beasiswa highlight --}}
+    <section class="py-10 sm:py-14 border-b-4 border-black theme-paper">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="beasiswa-page relative overflow-hidden p-6 sm:p-8 theme-paper border-2 border-black" style="box-shadow: 6px 6px 0 #000;">
+                <div class="beasiswa-hero-pattern absolute inset-0 pointer-events-none opacity-80" aria-hidden="true"></div>
+                <div class="relative">
+                    <div class="flex flex-wrap items-center gap-2 mb-4">
+                        <span class="beasiswa-free-badge">{{ __('ui.home.beasiswa_badge_free') }}</span>
+                        <span class="beasiswa-open-badge">
+                            <span class="beasiswa-open-dot" aria-hidden="true"></span>
+                            {{ __('ui.home.beasiswa_badge_open') }}
+                        </span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black mb-3 theme-heading" style="letter-spacing:-0.02em;">
+                        {{ __('ui.home.beasiswa_title') }}
+                    </h2>
+                    <p class="theme-body text-sm sm:text-base max-w-2xl mb-6" style="font-family:'Inter',sans-serif; line-height:1.7;">
+                        {{ __('ui.home.beasiswa_body') }}
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="{{ route('beasiswa') }}" class="btn-brutal btn-primary px-6 py-3 text-sm">{{ __('ui.home.beasiswa_cta') }}</a>
+                        <a
+                            href="{{ config('kindo.scholarships.aws_ai_academy_url') }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="btn-brutal btn-dark px-6 py-3 text-sm inline-flex no-underline"
+                        >{{ __('ui.home.beasiswa_secondary') }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     {{-- Jalur Full Stack IoT --}}
     <section class="py-10 sm:py-14 border-b-4 border-black" style="background: var(--color-surface);">
         <div class="max-w-6xl mx-auto px-4">
