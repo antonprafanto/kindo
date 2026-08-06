@@ -7,11 +7,11 @@ OUT = Path("public/images/fsiot")
 OUT.mkdir(parents=True, exist_ok=True)
 
 try:
-    FT = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 42)   # title
-    FH = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 28)   # heading
-    FB = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 24)   # bold body
-    F = ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 22)     # body
-    FS = ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 20)    # secondary
+    FT = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 48)   # title
+    FH = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 34)   # heading
+    FB = ImageFont.truetype("C:/Windows/Fonts/segoeuib.ttf", 30)   # bold body
+    F = ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 28)     # body
+    FS = ImageFont.truetype("C:/Windows/Fonts/segoeui.ttf", 26)    # secondary
 except OSError:
     FT = FH = FB = F = FS = ImageFont.load_default()
 
@@ -115,8 +115,8 @@ center(
     d,
     W // 2,
     810,
-    "Intinya: UART = 1 lawan 1 · I2C = banyak alat 2 kabel + alamat · SPI = cepat tapi pin lebih banyak",
-    FS,
+    "UART = 1 lawan 1 · I2C = banyak alat + alamat · SPI = cepat, pin lebih banyak",
+    F,
     "#1B5E20",
 )
 img.save(OUT / "fs27-bus-compare.png", optimize=True)
@@ -162,12 +162,12 @@ dec.save(OUT / "fs27-decision-table.png", optimize=True)
 print("decision", (OUT / "fs27-decision-table.png").stat().st_size)
 
 # --- Tools-first (large readable text) ---
-LM_W, LM_H = 1200, 600
+LM_W, LM_H = 1400, 720
 tl = Image.new("RGB", (LM_W, LM_H), "#F5F5F0")
 d = ImageDraw.Draw(tl)
-box(d, (20, 16, LM_W - 20, 120), "#FFFFFF", "#1a1a1a", 4)
-center(d, LM_W // 2, 48, "Tools hari ini — bukan Arduino Upload", FT)
-center(d, LM_W // 2, 92, "FS-27 = pilih bus di kepala dulu · praktik wiring I2C di FS-28", FB, "#333")
+box(d, (20, 16, LM_W - 20, 140), "#FFFFFF", "#1a1a1a", 4)
+center(d, LM_W // 2, 55, "Tools hari ini — bukan Arduino Upload", FT)
+center(d, LM_W // 2, 108, "FS-27 = pilih bus di kepala dulu · praktik wiring I2C di FS-28", FB, "#333")
 
 steps = [
     ("1", "Buka artikel\ndi browser", "Baca analogi +\ntabel keputusan.", "#E8F5E9", "#2E7D32"),
@@ -175,20 +175,20 @@ steps = [
     ("3", "Siap FS-28", "Nanti: IDE +\nLibrary Manager\n+ Upload I2C.", "#FFF8E1", "#F9A825"),
 ]
 for i, (num, title, body, fill, out) in enumerate(steps):
-    x0 = 50 + i * 380
-    box(d, (x0, 150, x0 + 350, 440), fill, out, 4)
-    box(d, (x0 + 24, 175, x0 + 90, 241), "#FFFFFF", out, 3)
-    center(d, x0 + 57, 208, num, FT, out)
+    x0 = 40 + i * 450
+    box(d, (x0, 170, x0 + 420, 520), fill, out, 4)
+    box(d, (x0 + 28, 195, x0 + 108, 275), "#FFFFFF", out, 3)
+    center(d, x0 + 68, 235, num, FT, out)
     for j, ln in enumerate(title.split("\n")):
-        d.text((x0 + 108, 180 + j * 34), ln, font=FH, fill="#1a1a1a")
+        d.text((x0 + 128, 205 + j * 42), ln, font=FH, fill="#1a1a1a")
     for j, ln in enumerate(body.split("\n")):
-        d.text((x0 + 32, 295 + j * 34), ln, font=F, fill="#333")
+        d.text((x0 + 36, 340 + j * 40), ln, font=F, fill="#333")
     if i < 2:
-        center(d, x0 + 365, 295, "→", FT, "#1a1a1a")
+        center(d, x0 + 435, 345, "→", FT, "#1a1a1a")
 
-box(d, (40, 470, LM_W - 40, 570), "#FFFFFF", "#1a1a1a", 3)
-center(d, LM_W // 2, 505, "Tidak perlu hari ini:", FH, "#1a1a1a")
-center(d, LM_W // 2, 545, "Laragon  ·  php artisan  ·  Upload sketch  ·  Library Manager baru", FB, "#333")
+box(d, (40, 555, LM_W - 40, 690), "#FFFFFF", "#1a1a1a", 3)
+center(d, LM_W // 2, 600, "Tidak perlu hari ini:", FH, "#1a1a1a")
+center(d, LM_W // 2, 655, "Laragon  ·  php artisan  ·  Upload sketch  ·  Library Manager baru", FB, "#333")
 tl.save(OUT / "fs27-tools-browser.png", optimize=True)
 print("tools", (OUT / "fs27-tools-browser.png").stat().st_size)
 
@@ -219,7 +219,7 @@ for x, title, sub, fill, out in nodes:
     d.line([(x, 330), (x, 210)], fill="#1565C0", width=5)
 
 box(d, (40, 490, W - 40, 555), "#E3F2FD", "#1565C0", 3)
-center(d, W // 2, 522, "Intinya: 2 kabel bersama + panggil nama (alamat). Inspirasi Commons I2C.svg · Koding Indonesia (FS-27)", FS, "#0D47A1")
+center(d, W // 2, 522, "2 kabel bersama + panggil alamat · inspirasi Commons I2C.svg · Koding Indonesia (FS-27)", F, "#0D47A1")
 img.save(OUT / "fs27-i2c-labeled.png", optimize=True)
 print("i2c", (OUT / "fs27-i2c-labeled.png").stat().st_size)
 
@@ -255,7 +255,7 @@ for i, col in enumerate(["#455A64", "#1565C0", "#2E7D32", "#C62828"]):
     d.polygon([(740, y), (715, y - 10), (715, y + 10)], fill=col)
 
 box(d, (40, 480, W - 40, 550), "#FFF8E1", "#F9A825", 3)
-center(d, W // 2, 515, "Intinya: tiap perangkat SPI butuh CS sendiri. Inspirasi Commons SPI_single_slave.svg · Koding Indonesia (FS-27)", FS, "#E65100")
+center(d, W // 2, 515, "Tiap perangkat SPI butuh CS sendiri · inspirasi Commons SPI_single_slave.svg · Koding Indonesia (FS-27)", F, "#E65100")
 img.save(OUT / "fs27-spi-labeled.png", optimize=True)
 print("spi", (OUT / "fs27-spi-labeled.png").stat().st_size)
 
