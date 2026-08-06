@@ -40,7 +40,13 @@ check('slug fullstack-iot-bus-uart-i2c-spi', str_contains($src, 'fullstack-iot-b
 check('seed route exists', str_contains($routes, 'seed-article-97-draft'));
 check('deploy seed step', str_contains($deploy, 'seed-article-97-draft'));
 check('modul contoh asset', str_contains($id, 'fs27-modul-contoh.png') && is_file(__DIR__.'/../public/images/fsiot/fs27-modul-contoh.png'));
-check('modul commons cites', str_contains($id, 'SparkFun_Atmospheric_Sensor_Breakout') && str_contains($id, '2015_Karta_microSD') && str_contains($id, 'Meshtastic_FakeTec'));
+check('modul commons cites BME280+microSD', str_contains($id, 'SparkFun_Atmospheric_Sensor_Breakout') && str_contains($id, '2015_Karta_microSD'));
+check('OLED ilustrasi tipikal explained', str_contains($id, 'ilustrasi bentuk tipikal') && str_contains($en, 'typical-shape illustration'));
+check('no Meshtastic OLED confusion', ! str_contains($id, 'Meshtastic') && ! str_contains($en, 'Meshtastic'));
+check('glosarium singkat ID', str_contains($id, 'Glosarium singkat') && str_contains($id, 'Bus</strong>'));
+check('short glossary EN', str_contains($en, 'Short glossary') && str_contains($en, 'Bus</strong>'));
+check('no C++ syntax today ID', str_contains($id, 'Tidak ada sintaks C++'));
+check('no C++ syntax today EN', str_contains($en, 'No C++ syntax to test'));
 check('MISO arrow explained', str_contains($id, 'MISO') && str_contains($id, 'balik'));
 check('ftp allowlist fs27', str_contains($deploy, 'fs27-bus-compare.png') && str_contains($deploy, 'fs27-decision-table.png') && str_contains($deploy, 'fs27-tools-browser.png') && str_contains($deploy, 'fs27-cover-bus.jpg') && str_contains($deploy, 'fs27-i2c-labeled.png') && str_contains($deploy, 'fs27-spi-labeled.png') && str_contains($deploy, 'fs27-cover-bus.webp') && str_contains($deploy, 'fs27-modul-contoh.png'));
 

@@ -227,12 +227,13 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs27-modul-contoh.png" width="1400" height="620" alt="Contoh modul OLED BME280 microSD — I2C vs SPI" loading="eager" style="width:100%;height:auto;max-height:620px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Kenali bentuk modulnya dulu</strong> (bukan wiring hari ini). OLED + BME280 biasanya I2C · microSD biasanya SPI. Foto hanya contoh bentuk.
+    <strong>Kenali bentuk modulnya dulu</strong> (bukan wiring hari ini). OLED + BME280 biasanya I2C · microSD biasanya SPI.
+    <br>OLED = <strong>ilustrasi bentuk tipikal</strong> modul 0,96" (4 pin GND/VCC/SCL/SDA) oleh Koding Indonesia — bukan foto perangkat lain.
+    microSD di foto = <strong>kartu + adapter</strong>; di toko sering berupa papan SPI kecil (bentuk beda, bus tetap SPI) — detail di FS-36.
     <br>Sumber foto (Wikimedia Commons):
-    <a href="https://commons.wikimedia.org/wiki/File:Meshtastic_FakeTec_node_with_display_P1089966.jpg" rel="noopener noreferrer" target="_blank">Meshtastic node + OLED</a> (CC BY-SA) ·
     <a href="https://commons.wikimedia.org/wiki/File:SparkFun_Atmospheric_Sensor_Breakout_-_BME280_13676.jpg" rel="noopener noreferrer" target="_blank">SparkFun BME280</a> (CC BY 2.0) ·
     <a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" rel="noopener noreferrer" target="_blank">microSD + adapter</a> (CC BY-SA).
-    Kolase label: Koding Indonesia (FS-27).
+    Kolase + ilustrasi OLED: Koding Indonesia (FS-27).
   </figcaption>
 </figure>
 HTML;
@@ -244,12 +245,13 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs27-modul-contoh.png" width="1400" height="620" alt="Example OLED BME280 microSD modules — I2C vs SPI" loading="eager" style="width:100%;height:auto;max-height:620px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Recognize the modules first</strong> (no wiring today). OLED + BME280 are typically I2C · microSD is typically SPI. Photos are shape examples only.
+    <strong>Recognize the modules first</strong> (no wiring today). OLED + BME280 are typically I2C · microSD is typically SPI.
+    <br>OLED = <strong>typical-shape illustration</strong> of a 0.96" module (4 pins GND/VCC/SCL/SDA) by Koding Indonesia — not a photo of another device.
+    The microSD photo is a <strong>card + adapter</strong>; shops often sell a small SPI breakout board (different shape, same SPI bus) — details in FS-36.
     <br>Photo sources (Wikimedia Commons):
-    <a href="https://commons.wikimedia.org/wiki/File:Meshtastic_FakeTec_node_with_display_P1089966.jpg" rel="noopener noreferrer" target="_blank">Meshtastic node + OLED</a> (CC BY-SA) ·
     <a href="https://commons.wikimedia.org/wiki/File:SparkFun_Atmospheric_Sensor_Breakout_-_BME280_13676.jpg" rel="noopener noreferrer" target="_blank">SparkFun BME280</a> (CC BY 2.0) ·
     <a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" rel="noopener noreferrer" target="_blank">microSD + adapter</a> (CC BY-SA).
-    Label collage: Koding Indonesia (FS-27).
+    Collage + OLED illustration: Koding Indonesia (FS-27).
   </figcaption>
 </figure>
 HTML;
@@ -318,16 +320,24 @@ HTML;
 <p>Artikel ini adalah <strong>#97 (ini)</strong> · modul <strong>FS-27</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Setelah sensor, relay, dan servo, kamu akan menambah modul yang “ngobrol” lewat <strong>bus</strong> (jalur data bersama). Kalau semua dianggap “colok saja sama”, wiring mudah salah.</p>
 <p><strong>Analogi:</strong> UART seperti telepon 1 lawan 1 · I2C seperti rapat dengan daftar nama · SPI seperti kurir cepat yang butuh jalur khusus per paket.</p>
 {$analogy}
+<p><strong>Glosarium singkat (baca sekali):</strong></p>
+<ul>
+<li><strong>Bus</strong> = jalur data bersama antar chip (bukan “bus kota”).</li>
+<li><strong>UART</strong> = ngobrol 1 lawan 1 (contoh yang sudah kamu pakai: Serial Monitor lewat USB).</li>
+<li><strong>I2C</strong> = banyak alat berbagi 2 kabel data + tiap alat punya <em>alamat</em>.</li>
+<li><strong>SPI</strong> = lebih cepat, biasanya lebih banyak kabel; sering ada garis <strong>CS</strong> (Chip Select) per chip.</li>
+<li><strong>SDA / SCL</strong> = dua kabel I2C (data / jam). Di jalur ini: GPIO <strong>21</strong> / <strong>22</strong>.</li>
+</ul>
 <p><strong>Prasyarat:</strong> FS-17 (peta pin / tabel pin) · pengalaman Serial Monitor (FS-14) membantu memahami UART tanpa sadar.</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li><strong>Buka artikel ini di browser</strong> (bukan Laragon / terminal).</li>
-<li>Baca tiga analogi UART / I2C / SPI.</li>
-<li>Lihat gambar utama + contoh modul + tabel keputusan OLED / BME280 / microSD.</li>
-<li>Centang checklist worksheet 10/10 di browser.</li>
+<li><strong>Buka artikel ini di browser</strong> (Chrome/Edge/Firefox biasa). Jangan buka Laragon, terminal, atau Arduino IDE dulu.</li>
+<li>Baca tiga analogi UART / I2C / SPI + glosarium di atas.</li>
+<li>Lihat gambar utama + skema I2C/SPI + contoh modul + tabel keputusan OLED / BME280 / microSD.</li>
+<li>Centang checklist worksheet <strong>10/10</strong> di browser (tombol “Cek kelengkapan”).</li>
 <li>Simpan keputusan: I2C untuk sensor+layar · SPI untuk microSD · UART untuk debug Serial.</li>
 </ol>
-<p><strong>Tidak perlu hari ini:</strong> Arduino IDE Upload, Library Manager baru, Wi-Fi, MQTT, Laragon, <code>php artisan</code>, breadboard baru. Tools hari ini: <strong>browser</strong> + (opsional) catatan.</p>
+<p><strong>Tidak perlu hari ini:</strong> Arduino IDE Upload, Library Manager baru, Wi-Fi, MQTT, Laragon, <code>php artisan</code>, breadboard baru. Tools hari ini: <strong>browser</strong> + (opsional) catatan. <strong>Tidak ada sintaks C++ yang harus diuji</strong> — ujiannya = centang checklist.</p>
 
 <h2>Persiapan — buka &amp; siapkan ini dulu</h2>
 <p><strong>Urutan meja kerja:</strong> buka browser → baca analogi → kenali contoh modul → tabel keputusan → centang checklist. Tidak ada langkah Upload.</p>
@@ -412,16 +422,24 @@ HTML;
 <p>This is article <strong>#97 (this article)</strong> · module <strong>FS-27</strong> on the <em>Full Stack IoT Developer — From Zero</em> path (<strong>BUILDER</strong> phase). After sensors, relays, and servos, you’ll add modules that talk over a <strong>bus</strong> (a shared data path). If everything is treated as “just plug it the same,” wiring goes wrong fast.</p>
 <p><strong>Analogy:</strong> UART is a one-to-one phone call · I2C is a meeting with name tags · SPI is a fast courier that needs a dedicated lane per package.</p>
 {$analogy}
+<p><strong>Short glossary (read once):</strong></p>
+<ul>
+<li><strong>Bus</strong> = a shared data path between chips (not a city bus).</li>
+<li><strong>UART</strong> = one-to-one talk (you already used it: Serial Monitor over USB).</li>
+<li><strong>I2C</strong> = many devices share 2 data wires + each has an <em>address</em>.</li>
+<li><strong>SPI</strong> = faster, usually more wires; often a <strong>CS</strong> (Chip Select) line per chip.</li>
+<li><strong>SDA / SCL</strong> = the two I2C wires (data / clock). On this path: GPIO <strong>21</strong> / <strong>22</strong>.</li>
+</ul>
 <p><strong>Prerequisites:</strong> FS-17 (pin map / pin table) · Serial Monitor experience (FS-14) already showed you UART without naming it.</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
-<li><strong>Open this article in the browser</strong> (not Laragon / a terminal).</li>
-<li>Read the three UART / I2C / SPI analogies.</li>
-<li>Study the main figure + module examples + OLED / BME280 / microSD decision table.</li>
-<li>Tick the 10/10 worksheet checklist in the browser.</li>
+<li><strong>Open this article in the browser</strong> (normal Chrome/Edge/Firefox). Do not open Laragon, a terminal, or the Arduino IDE first.</li>
+<li>Read the three UART / I2C / SPI analogies + the glossary above.</li>
+<li>Study the main figure + I2C/SPI schematics + module examples + OLED / BME280 / microSD decision table.</li>
+<li>Tick the worksheet checklist to <strong>10/10</strong> in the browser (“Check completeness”).</li>
 <li>Keep the decisions: I2C for sensor+display · SPI for microSD · UART for Serial debug.</li>
 </ol>
-<p><strong>Not needed today:</strong> Arduino IDE Upload, a new Library Manager install, Wi-Fi, MQTT, Laragon, <code>php artisan</code>, a new breadboard. Today's tools: the <strong>browser</strong> + (optional) notes.</p>
+<p><strong>Not needed today:</strong> Arduino IDE Upload, a new Library Manager install, Wi-Fi, MQTT, Laragon, <code>php artisan</code>, a new breadboard. Today's tools: the <strong>browser</strong> + (optional) notes. <strong>No C++ syntax to test</strong> — the test is ticking the checklist.</p>
 
 <h2>Prep — open &amp; set these up first</h2>
 <p><strong>Desk order:</strong> open the browser → read analogies → recognize example modules → decision table → tick the checklist. No Upload step.</p>

@@ -25,6 +25,31 @@ def center(d, cx, cy, text, font, fill="#1a1a1a"):
     d.text((cx + ox, cy - 1), text, font=font, fill=fill, anchor="mm")
 
 
+def draw_oled_module(size=(380, 240)) -> Image.Image:
+    """Typical 0.96\" I2C OLED breakout — illustration (Commons lacked a clear bare module)."""
+    w, h = size
+    canvas = Image.new("RGB", size, "#FFFFFF")
+    d = ImageDraw.Draw(canvas)
+    # PCB
+    box(d, (40, 28, w - 40, h - 36), "#1565C0", "#0D47A1", 3, 10)
+    # Screen bezel
+    box(d, (70, 48, w - 70, 150), "#111111", "#000000", 2, 6)
+    box(d, (82, 58, w - 82, 138), "#000000", "#222222", 1, 4)
+    # Fake pixels / Hello
+    center(d, w // 2, 98, "OLED 0,96\"", FH, "#90CAF9")
+    # 4-pin header strip
+    pins = [("GND", "#333"), ("VCC", "#C62828"), ("SCL", "#2E7D32"), ("SDA", "#1565C0")]
+    pw = 54
+    total = len(pins) * pw
+    x0 = (w - total) // 2
+    for i, (lab, col) in enumerate(pins):
+        x = x0 + i * pw
+        box(d, (x + 6, h - 78, x + pw - 6, h - 42), "#FFFDE7", col, 2, 6)
+        center(d, x + pw // 2, h - 60, lab, FS, col)
+    center(d, w // 2, h - 18, "modul tipikal · bus I2C", FS, "#0D47A1")
+    return canvas
+
+
 def box(d, xy, fill, outline, w=4, r=14):
     d.rounded_rectangle(xy, radius=r, fill=fill, outline=outline, width=w)
 
@@ -46,7 +71,7 @@ for i, c in enumerate(["#2E7D32", "#1B5E20", "#0D3B12"]):
 cards = [
     (60, "#E8F5E9", "#2E7D32", "UART", "2 orang\nngobrol"),
     (420, "#E3F2FD", "#1565C0", "I2C", "banyak alat\n2 kabel"),
-    (780, "#FFF8E1", "#F9A825", "SPI", "cepat ·\nlebih kabel"),
+    (780, "#FFF8E1", "#F9A825", "SPI", "lebih cepat\nlebih kabel"),
 ]
 for x, fill, out, title, body in cards:
     box(d, (x, 60, x + 340, 320), fill, out, 4, 14)
@@ -247,7 +272,7 @@ center(d, W // 2, 92, "CS = Chip Select (di buku lama sering tertulis SS) · coc
 box(d, (80, 145, 460, 470), "#FFF8E1", "#F9A825", 4)
 center(d, 270, 185, "ESP32 (pengendali)", FH, "#F57F17")
 for i, (lab, col) in enumerate(
-    [("SCK  — jam", "#455A64"), ("MOSI — keluar", "#1565C0"), ("MISO — masuk", "#2E7D32"), ("CS   — pilih chip", "#C62828")]
+    [("SCK = jam", "#455A64"), ("MOSI = keluar", "#1565C0"), ("MISO = masuk", "#2E7D32"), ("CS = pilih chip", "#C62828")]
 ):
     y = 230 + i * 52
     box(d, (110, y, 430, y + 42), "#FFFFFF", col, 3)
@@ -283,16 +308,19 @@ mod = Image.new("RGB", (MW, MH), "#F5F5F0")
 d = ImageDraw.Draw(mod)
 box(d, (20, 16, MW - 20, 120), "#FFFFFF", "#1a1a1a", 4)
 center(d, MW // 2, 48, "Contoh modul di jalur — kenali dulu, wiring di FS-28/FS-36", FT)
-center(d, MW // 2, 92, "BME280 + OLED → I2C · microSD → SPI  (foto Commons, ber-sitasi di caption)", F, "#333")
+center(d, MW // 2, 92, "BME280 + OLED → I2C · microSD → SPI  (foto Commons + ilustrasi — sitasi di caption)", F, "#333")
 
 panels = [
-    (40, TMP / "oled.jpg", "OLED (contoh layar I2C)", "Bus: I2C", "#E3F2FD", "#1565C0"),
+    (40, None, "OLED 0,96\" (bentuk tipikal)", "Bus: I2C", "#E3F2FD", "#1565C0"),
     (480, TMP / "bme280.jpg", "BME280 (sensor I2C)", "Bus: I2C", "#E3F2FD", "#1565C0"),
     (920, TMP / "microsd.jpg", "microSD (+ adapter)", "Bus: SPI", "#FFF8E1", "#F9A825"),
 ]
 for x, src, title, bus, fill, out in panels:
     box(d, (x, 145, x + 420, 505), fill, out, 4)
-    photo = fit_cover(src, (380, 240))
+    if src is None:
+        photo = draw_oled_module((380, 240))
+    else:
+        photo = fit_cover(src, (380, 240))
     mod.paste(photo, (x + 20, 160))
     center(d, x + 210, 430, title, FB, "#1a1a1a")
     center(d, x + 210, 475, bus, FH, out)
