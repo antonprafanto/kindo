@@ -559,6 +559,17 @@ return [
         'fsiot_bus_incomplete' => 'Masih ada langkah yang belum dicentang. Cek analogi UART/I2C/SPI atau tabel keputusan lagi.',
         'fsiot_bus_done' => 'Selesai',
         'fsiot_bus_todo' => 'Belum',
+        'fsiot_i2c_badge' => 'Checklist I2C',
+        'fsiot_i2c_hint' => 'Centang wiring SDA/SCL + library + OLED selaras Serial. Target: 10/10.',
+        'fsiot_i2c_check' => 'Cek kelengkapan',
+        'fsiot_i2c_retry' => 'Kosongkan lagi',
+        'fsiot_i2c_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_i2c_progress' => ':filled dari :total tercentang',
+        'fsiot_i2c_pass' => 'Lengkap :filled/:total — I2C hidup di layar! Siap gate BUILDER / FS-29 saat terbit.',
+        'fsiot_i2c_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring 21/22, library, atau alamat 0x76/0x3C.',
+        'fsiot_i2c_done' => 'Selesai',
+        'fsiot_i2c_todo' => 'Belum',
+
 
 
     ],

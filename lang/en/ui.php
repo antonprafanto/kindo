@@ -559,6 +559,17 @@ return [
         'fsiot_bus_incomplete' => 'Some steps are still unchecked. Recheck UART/I2C/SPI analogies or the decision table.',
         'fsiot_bus_done' => 'Done',
         'fsiot_bus_todo' => 'Not yet',
+        'fsiot_i2c_badge' => 'I2C checklist',
+        'fsiot_i2c_hint' => 'Tick SDA/SCL wiring + libraries + OLED matching Serial. Target: 10/10.',
+        'fsiot_i2c_check' => 'Check completeness',
+        'fsiot_i2c_retry' => 'Clear again',
+        'fsiot_i2c_paper' => 'Paper version (no clicks)',
+        'fsiot_i2c_progress' => ':filled of :total checked',
+        'fsiot_i2c_pass' => 'Complete :filled/:total — I2C is live on screen! Ready for the BUILDER gate / FS-29 when it ships.',
+        'fsiot_i2c_incomplete' => 'Some steps are still unchecked. Recheck wiring 21/22, libraries, or addresses 0x76/0x3C.',
+        'fsiot_i2c_done' => 'Done',
+        'fsiot_i2c_todo' => 'Not yet',
+
 
 
     ],

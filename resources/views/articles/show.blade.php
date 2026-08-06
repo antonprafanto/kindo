@@ -565,6 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotPirChecklist();
     initFsiotServoChecklist();
     initFsiotBusChecklist();
+    initFsiotI2cChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1851,6 +1852,29 @@ function initFsiotLdrChecklist() {
 
 
 
+
+
+function initFsiotI2cChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-i2c-checklist',
+        listId: 'fsiot-i2c-checklist-items',
+        storagePrefix: 'fsiot-cl-98',
+        idPrefix: 'fsiot-i2c',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_i2c_badge')),
+            hint: @js(__('ui.articles.fsiot_i2c_hint')),
+            check: @js(__('ui.articles.fsiot_i2c_check')),
+            retry: @js(__('ui.articles.fsiot_i2c_retry')),
+            paper: @js(__('ui.articles.fsiot_i2c_paper')),
+            progress: @js(__('ui.articles.fsiot_i2c_progress')),
+            pass: @js(__('ui.articles.fsiot_i2c_pass')),
+            incomplete: @js(__('ui.articles.fsiot_i2c_incomplete')),
+            done: @js(__('ui.articles.fsiot_i2c_done')),
+            todo: @js(__('ui.articles.fsiot_i2c_todo')),
+        },
+    });
+}
 
 function initFsiotBusChecklist() {
     initFsiotChecklistWidget({
