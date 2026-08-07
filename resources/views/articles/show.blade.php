@@ -566,6 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotServoChecklist();
     initFsiotBusChecklist();
     initFsiotI2cChecklist();
+    initFsiotWifiChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1853,6 +1854,29 @@ function initFsiotLdrChecklist() {
 
 
 
+
+
+function initFsiotWifiChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-wifi-checklist',
+        listId: 'fsiot-wifi-checklist-items',
+        storagePrefix: 'fsiot-cl-99',
+        idPrefix: 'fsiot-wifi',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_wifi_badge')),
+            hint: @js(__('ui.articles.fsiot_wifi_hint')),
+            check: @js(__('ui.articles.fsiot_wifi_check')),
+            retry: @js(__('ui.articles.fsiot_wifi_retry')),
+            paper: @js(__('ui.articles.fsiot_wifi_paper')),
+            progress: @js(__('ui.articles.fsiot_wifi_progress')),
+            pass: @js(__('ui.articles.fsiot_wifi_pass')),
+            incomplete: @js(__('ui.articles.fsiot_wifi_incomplete')),
+            done: @js(__('ui.articles.fsiot_wifi_done')),
+            todo: @js(__('ui.articles.fsiot_wifi_todo')),
+        },
+    });
+}
 
 function initFsiotI2cChecklist() {
     initFsiotChecklistWidget({

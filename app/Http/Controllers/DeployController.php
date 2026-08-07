@@ -9144,6 +9144,120 @@ class DeployController extends Controller
         return response('Article 98 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle99Draft(): Response
+    {
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article99Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 99 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-wifi-dari-nol';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article) {
+            report(new \RuntimeException('Article 99 missing after draft seed.'));
+
+            return response('Article 99 not found after draft seed', 500);
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            report(new \RuntimeException('Article 99 refused to stay draft after seed.'));
+
+            return response('Article 99 must remain draft (pre-launch B)', 500);
+        }
+
+        if (Article::published()->where('slug', $slug)->exists()) {
+            report(new \RuntimeException('Article 99 unexpectedly visible via published() scope.'));
+
+            return response('Article 99 leaked into published scope', 500);
+        }
+
+        $body = (string) $article->body;
+        $bodyNeedles = [
+            '#99 (ini)',
+            'FS-29',
+            'CONNECTED',
+            'Tidak perlu hari ini',
+            'Cara pakai artikel ini',
+            'fsiot-wifi-checklist',
+            'FS-28',
+            'FS-19',
+            'FS-14',
+            '/belajar/fullstack-iot',
+            'Analogi:',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'Cara menguji perintah di atas',
+            'WiFi.begin',
+            '2,4 GHz',
+            'FS29_wifi_begin',
+            'WL_CONNECTED',
+            'fs29-wifi-station.png',
+            'Gambar utama',
+            'Skema bantu',
+            'Buka Arduino IDE dulu',
+            '115200',
+            'YOUR_SSID',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Article 99 body missing expected content after draft seed: '.implode(', ', $missingBody)));
+
+            return response('Article 99 body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 99 English fields are incomplete after draft seed.'));
+
+            return response('Article 99 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        $enNeedles = [
+            '#99 (this article)',
+            'Analogy:',
+            'How to use this article',
+            'Not needed today',
+            'CONNECTED',
+            'fsiot-wifi-checklist',
+            'FS-28',
+            'Common mistakes',
+            'How to test the commands above',
+            'Main figure',
+            'Helper schematic',
+            'fs29-wifi-station.png',
+            'Open Arduino IDE first',
+            'WiFi.begin',
+            '2.4 GHz',
+            'FS29_wifi_begin',
+            'WL_CONNECTED',
+            '115200',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 99 EN body missing expected content after draft seed: '.implode(', ', $missingEn)));
+
+            return response('Article 99 EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 99 seeded as draft (pre-launch B)', 200);
+    }
+
+
+
 
 
 

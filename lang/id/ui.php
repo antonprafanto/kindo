@@ -570,6 +570,17 @@ return [
         'fsiot_i2c_done' => 'Selesai',
         'fsiot_i2c_todo' => 'Belum',
 
+        'fsiot_wifi_badge' => 'Checklist Wi-Fi',
+        'fsiot_wifi_hint' => 'Centang SSID 2,4 GHz + Upload + IP di Serial. Target: 10/10.',
+        'fsiot_wifi_check' => 'Cek kelengkapan',
+        'fsiot_wifi_retry' => 'Kosongkan lagi',
+        'fsiot_wifi_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_wifi_progress' => ':filled dari :total tercentang',
+        'fsiot_wifi_pass' => 'Lengkap :filled/:total — ESP32 sudah punya IP! Siap FS-30 saat terbit.',
+        'fsiot_wifi_incomplete' => 'Masih ada langkah yang belum dicentang. Cek SSID 2,4 GHz, password, atau Serial 115200.',
+        'fsiot_wifi_done' => 'Selesai',
+        'fsiot_wifi_todo' => 'Belum',
+
 
 
     ],

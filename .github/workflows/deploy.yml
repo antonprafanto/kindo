@@ -186,6 +186,42 @@ jobs:
           fi
           echo "Critical #98 curl uploads OK"
 
+      - name: Upload critical #99 files via curl (pre-sync)
+        id: curl99
+        continue-on-error: true
+        run: |
+          set +e
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          APP="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.ftp.outputs.dir }}"
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          upload() {
+            local src="$1" dest="$2" a=1
+            while [ "$a" -le 5 ]; do
+              if curl -fsS --connect-timeout 30 --max-time 180 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$src" "$dest"; then
+                echo "OK $src -> $dest (attempt $a)"
+                return 0
+              fi
+              echo "FAIL $src -> $dest (attempt $a)"
+              sleep $((a * 20))
+              a=$((a + 1))
+            done
+            return 1
+          }
+          failed=0
+          upload "database/seeders/Article99Seeder.php" "${APP}database/seeders/Article99Seeder.php" || failed=1
+          upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php" || failed=1
+          for img in fs29-cover-wifi.jpg fs29-cover-wifi.webp fs29-tools-ide.png fs29-wifi-core.png \
+            fs29-wifi-station.png fs29-band-2g4.png fs29-modul-router.png fs29-success-serial.png; do
+            upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img" || failed=1
+            upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img" || failed=1
+          done
+          if [ "$failed" -ne 0 ]; then
+            echo "::warning::Some critical #99 curl uploads failed"
+            exit 1
+          fi
+          echo "Critical #99 curl uploads OK"
+
       - name: Deploy build assets via FTP
         id: ftp_build
         continue-on-error: true
@@ -326,8 +362,8 @@ jobs:
             echo "Build asset FTP OK"
             exit 0
           fi
-          if [ "${{ steps.curl98.outcome }}" = "success" ]; then
-            echo "::warning::Build asset FTP failed after retries — continuing because critical #98 curl upload succeeded"
+          if [ "${{ steps.curl98.outcome }}" = "success" ] || [ "${{ steps.curl99.outcome }}" = "success" ]; then
+            echo "::warning::Build asset FTP failed after retries — continuing because critical #98/#99 curl upload succeeded"
             exit 0
           fi
           echo "::error::Build asset FTP failed after retries (Rumahweb FTPS)"
@@ -353,7 +389,7 @@ jobs:
             images/fsiot/kit-resistor.jpg images/fsiot/fs09-led-breadboard-wiring.png images/fsiot/fs18-led-gpio2-breadboard.png images/fsiot/fs19-btn-gpio4-breadboard.png images/fsiot/fs19-button-pullup-wiring.png images/fsiot/fs19-button-pullup-wiring.svg images/fsiot/fs19-cover-button-led.jpg images/fsiot/fs20-duty-cycle-examples.png images/fsiot/fs20-pwm-5steps.png images/fsiot/fs20-cover-pwm-led.jpg images/fsiot/fs06-device-manager-esp32.png images/fsiot/fs06-arduino-ide-overview.png images/fsiot/fs11-ide-overview-cite.png images/fsiot/fs10-pullup-pulldown.svg images/fsiot/kit-resistor-10kohm.jpg images/fsiot/fs10-button-pulldown-wiring.png images/fsiot/fs10-button-pulldown-wiring.svg images/fsiot/kit-tactile-button.jpg             images/fsiot/kit-dht22.jpg images/fsiot/fs21-dht22-wiring.png images/fsiot/fs21-dht22-breadboard.png images/fsiot/fs21-cover-dht22.jpg \
             images/fsiot/kit-ldr.jpg images/fsiot/fs22-ldr-wiring.png images/fsiot/fs22-ldr-breadboard.png images/fsiot/fs22-ldr-principle.png images/fsiot/fs22-cover-ldr.jpg images/fsiot/fs22-voltage-divider.svg \
             images/fsiot/kit-relay-5v.jpg images/fsiot/fs23-relay-wiring.png images/fsiot/fs23-relay-breadboard.png images/fsiot/fs23-cover-relay.jpg images/fsiot/fs24-otomasi-wiring.png images/fsiot/fs24-otomasi-breadboard.png images/fsiot/fs24-cover-otomasi.jpg images/fsiot/kit-pir-hcsr501.jpg images/fsiot/fs25-pir-wiring.png images/fsiot/fs25-pir-breadboard.png images/fsiot/fs25-cover-pir.jpg images/fsiot/kit-servo-sg90.jpg images/fsiot/fs26-servo-wiring.png images/fsiot/fs26-servo-breadboard.png images/fsiot/fs26-cover-servo.jpg images/fsiot/fs26-library-manager.png images/fsiot/fs26-servo-timing.png images/fsiot/fs27-cover-bus.jpg images/fsiot/fs27-cover-bus.webp images/fsiot/fs27-bus-compare.png images/fsiot/fs27-decision-table.png images/fsiot/fs27-tools-browser.png images/fsiot/fs27-i2c-labeled.png images/fsiot/fs27-spi-labeled.png images/fsiot/fs27-modul-contoh.png images/fsiot/kit-i2c-bus.png images/fsiot/kit-spi-bus.png \
-            images/fsiot/fs28-cover-i2c.jpg images/fsiot/fs28-cover-i2c.webp images/fsiot/fs28-tools-ide.png images/fsiot/fs28-library-manager.png images/fsiot/fs28-i2c-breadboard.png images/fsiot/fs28-i2c-wiring.png images/fsiot/fs28-modul-kit.png images/fsiot/fs28-success-oled-serial.png \
+            images/fsiot/fs28-cover-i2c.jpg images/fsiot/fs28-cover-i2c.webp images/fsiot/fs28-tools-ide.png images/fsiot/fs28-library-manager.png images/fsiot/fs28-i2c-breadboard.png images/fsiot/fs28-i2c-wiring.png images/fsiot/fs28-modul-kit.png images/fsiot/fs28-success-oled-serial.png images/fsiot/fs29-cover-wifi.jpg images/fsiot/fs29-cover-wifi.webp images/fsiot/fs29-tools-ide.png images/fsiot/fs29-wifi-core.png images/fsiot/fs29-wifi-station.png images/fsiot/fs29-band-2g4.png images/fsiot/fs29-modul-router.png images/fsiot/fs29-success-serial.png \
             images/fsiot/kit-multimeter.jpg images/fsiot/kit-multimeter-jacks.jpg images/fsiot/kit-resistor-220ohm.jpg images/fsiot/resistor-color-code.jpg images/fsiot/kit-tv-remote.jpg images/fsiot/kit-smart-bulbs.jpg images/fsiot/kit-smart-plugs.jpg; do
             if [ ! -f "public/$f" ]; then
               echo "::warning::Missing public/$f — skip"
@@ -520,8 +556,8 @@ jobs:
             echo "Main FTP deploy OK"
             exit 0
           fi
-          if [ "${{ steps.curl98.outcome }}" = "success" ]; then
-            echo "::warning::Main SamKirkland FTP failed after retries — continuing because critical #98 curl upload succeeded"
+          if [ "${{ steps.curl98.outcome }}" = "success" ] || [ "${{ steps.curl99.outcome }}" = "success" ]; then
+            echo "::warning::Main SamKirkland FTP failed after retries — continuing because critical #98/#99 curl upload succeeded"
             exit 0
           fi
           echo "::error::Main FTP deploy failed after retries (control socket / Rumahweb FTPS)"
@@ -1940,6 +1976,36 @@ jobs:
           echo "fs28-i2c-breadboard.png HTTP $bread (expect 200)"
           if [ "$bread" != "200" ]; then
             echo "::warning::breadboard image not public yet (HTTP $bread) — check curl98 / brand upload"
+          fi
+
+
+      - name: Seed article 99 draft via deploy hook (required, pre-launch B)
+        if: always() && !cancelled()
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          code="000"
+          for i in 1 2 3 4 5 6 7 8; do
+            code=$(curl -sS -o /tmp/seed99.out -w "%{http_code}" -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" \
+              "https://kodingindonesia.com/deploy/seed-article-99-draft" || echo "000")
+            echo "seed-article-99-draft HTTP $code"
+            if [ "$code" = "200" ]; then
+              cat /tmp/seed99.out || true
+              break
+            fi
+            sleep $((i * 5))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::seed-article-99-draft failed after retries (last HTTP $code)"
+            cat /tmp/seed99.out || true
+            exit 1
+          fi
+          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-wifi-dari-nol" || echo "000")
+          echo "public article 99 HTTP $pub (expect 404 draft)"
+          if [ "$pub" != "404" ]; then
+            echo "::error::article 99 must stay unpublished (got HTTP $pub)"
+            exit 1
           fi
 
       - name: Publish article 69 via deploy hook (required)

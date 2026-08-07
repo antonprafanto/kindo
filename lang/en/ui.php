@@ -570,6 +570,17 @@ return [
         'fsiot_i2c_done' => 'Done',
         'fsiot_i2c_todo' => 'Not yet',
 
+        'fsiot_wifi_badge' => 'Wi-Fi checklist',
+        'fsiot_wifi_hint' => 'Tick 2.4 GHz SSID + Upload + IP on Serial. Target: 10/10.',
+        'fsiot_wifi_check' => 'Check completeness',
+        'fsiot_wifi_retry' => 'Clear again',
+        'fsiot_wifi_paper' => 'Paper version (no clicks)',
+        'fsiot_wifi_progress' => ':filled of :total checked',
+        'fsiot_wifi_pass' => 'Complete :filled/:total — ESP32 has an IP! Ready for FS-30 when it ships.',
+        'fsiot_wifi_incomplete' => 'Some steps are still unchecked. Recheck 2.4 GHz SSID, password, or Serial 115200.',
+        'fsiot_wifi_done' => 'Done',
+        'fsiot_wifi_todo' => 'Not yet',
+
 
 
     ],
