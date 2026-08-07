@@ -137,7 +137,7 @@ W, H = 1200, 720
 img = Image.new("RGB", (W, H), "#F5F5F0")
 d = ImageDraw.Draw(img)
 box(d, (20, 16, W - 20, 120), "#FFFFFF", "#1a1a1a", 4)
-center(d, W // 2, 48, "Gambar utama — wiring I2C bersama (FS-28)", FT)
+center(d, W // 2, 48, "Skema bantu — wiring I2C bersama (FS-28)", FT)
 center(d, W // 2, 92, "Satu bus: SDA + SCL · dua perangkat · pin jalur: 21 / 22", F, "#333")
 
 # ESP32 box

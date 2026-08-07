@@ -42,7 +42,7 @@ check('published_at null', str_contains($src, "'published_at'") && str_contains(
 check('slug fullstack-iot-i2c-bme280-oled', str_contains($src, 'fullstack-iot-i2c-bme280-oled'));
 check('seed route exists', str_contains($routes, 'seed-article-98-draft'));
 check('deploy seed step', str_contains($deploy, 'seed-article-98-draft'));
-check('ftp allowlist fs28', str_contains($deploy, 'fs28-i2c-wiring.png') && str_contains($deploy, 'fs28-cover-i2c.webp') && str_contains($deploy, 'fs28-library-manager.png') && str_contains($deploy, 'fs28-modul-kit.png') && str_contains($deploy, 'fs28-success-oled-serial.png') && str_contains($deploy, 'fs28-tools-ide.png'));
+check('ftp allowlist fs28', str_contains($deploy, 'fs28-i2c-breadboard.png') && str_contains($deploy, 'fs28-i2c-wiring.png') && str_contains($deploy, 'fs28-cover-i2c.webp') && str_contains($deploy, 'fs28-library-manager.png') && str_contains($deploy, 'fs28-modul-kit.png') && str_contains($deploy, 'fs28-success-oled-serial.png') && str_contains($deploy, 'fs28-tools-ide.png'));
 
 check('ID self-ref #98 (ini)', str_contains($id, '#98 (ini)'));
 check('EN self-ref #98 (this article)', str_contains($en, '#98 (this article)'));
@@ -53,8 +53,9 @@ check('no beginner word in body EN', ! preg_match('/\bbeginner\b/i', $en));
 check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($id, 'Cara pakai artikel ini') && str_contains($id, 'Analogi:'));
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'How to use this article') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
-check('figures both >= 6', substr_count($id, '<figure') >= 6 && substr_count($en, '<figure') >= 6);
+check('figures both >= 7', substr_count($id, '<figure') >= 7 && substr_count($en, '<figure') >= 7);
 
+check('breadboard PNG asset', str_contains($id, 'fs28-i2c-breadboard.png') && is_file($root.'/public/images/fsiot/fs28-i2c-breadboard.png'));
 check('wiring PNG asset', str_contains($id, 'fs28-i2c-wiring.png') && is_file($root.'/public/images/fsiot/fs28-i2c-wiring.png'));
 check('tools PNG asset', str_contains($id, 'fs28-tools-ide.png') && is_file($root.'/public/images/fsiot/fs28-tools-ide.png'));
 check('library PNG asset', str_contains($id, 'fs28-library-manager.png') && is_file($root.'/public/images/fsiot/fs28-library-manager.png'));
@@ -63,8 +64,12 @@ check('success PNG asset', str_contains($id, 'fs28-success-oled-serial.png') && 
 check('cover jpg asset', is_file($root.'/public/images/fsiot/fs28-cover-i2c.jpg'));
 check('cover webp asset', is_file($root.'/public/images/fsiot/fs28-cover-i2c.webp'));
 check('cover seeder prefers webp', str_contains($src, 'fs28-cover-i2c.webp'));
-check('Gambar utama label ID', str_contains($id, 'Gambar utama') && str_contains($id, 'fs28-i2c-wiring.png'));
-check('Main figure label EN', str_contains($en, 'Main figure') && str_contains($en, 'fs28-i2c-wiring.png'));
+check('Gambar utama breadboard ID', str_contains($id, 'Gambar utama') && str_contains($id, 'fs28-i2c-breadboard.png'));
+check('Main figure breadboard EN', str_contains($en, 'Main figure') && str_contains($en, 'fs28-i2c-breadboard.png'));
+check('Skema bantu label ID', str_contains($id, 'Skema bantu') && str_contains($id, 'fs28-i2c-wiring.png'));
+check('Helper schematic label EN', str_contains($en, 'Helper schematic') && str_contains($en, 'fs28-i2c-wiring.png'));
+check('OLED SCK equals SCL tip', str_contains($id, 'SCK = SCL') && str_contains($en, 'SCK = SCL'));
+check('BME280 SPI row tip', str_contains($id, '!CS') && str_contains($en, '!CS'));
 check('Commons BME280 cite', str_contains($id, 'SparkFun_Atmospheric_Sensor_Breakout') && str_contains($en, 'SparkFun_Atmospheric_Sensor_Breakout'));
 check('IDE Commons cite', str_contains($id, 'Ide-2-overview.png'));
 check('OLED ilustrasi tipikal', str_contains($id, 'ilustrasi bentuk tipikal') && str_contains($en, 'typical-shape illustration'));

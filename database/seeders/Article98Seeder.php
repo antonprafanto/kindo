@@ -162,10 +162,10 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs28-i2c-wiring.png" width="1200" height="720" alt="Gambar utama — wiring I2C ESP32 ke BME280 dan OLED" loading="eager" style="width:100%;height:auto;max-height:680px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs28-i2c-breadboard.png" width="1549" height="746" alt="Gambar utama — rangkaian I2C BME280 + OLED di breadboard GPIO 21/22" loading="eager" style="width:100%;height:auto;max-height:640px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — wiring I2C bersama.</strong> Kedua modul menempel di bus yang sama: <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong> · VCC biasanya <strong>3V3</strong> · GND bersama. BME280 ≈ alamat <strong>0x76</strong> (kadang 0x77) · OLED ≈ <strong>0x3C</strong>.
-    <br>Sumber gambar: diagram buatan Koding Indonesia (FS-28). Acuan konsep I2C: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>. Pin jalur: tabel FS-17.
+    <strong>Gambar utama — rangkaian I2C di breadboard.</strong> Legenda warna: <strong>biru</strong> = <strong>IO21 / GPIO 21</strong> → <strong>SDA</strong> (BME280 + OLED) · <strong>hijau</strong> = <strong>IO22 / GPIO 22</strong> → <strong>SCL</strong> (di OLED sering tertulis <strong>SCK</strong> — itu jam I2C yang sama) · <strong>merah</strong> = <strong>3V3</strong> → VCC · <strong>hitam</strong> = <strong>GND</strong> bersama. Kedua modul berbagi bus yang sama.
+    <br>Tip BME280: pakai baris pin <strong>SCL / SDA / 3.3V / GND</strong>; baris bawah (<code>!CS</code>, <code>SDI</code>, …) untuk SPI — biarkan kosong. Sumber gambar: diagram rangkaian Koding Indonesia (FS-28).
   </figcaption>
 </figure>
 HTML;
@@ -175,10 +175,36 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs28-i2c-wiring.png" width="1200" height="720" alt="Main figure — I2C wiring ESP32 to BME280 and OLED" loading="eager" style="width:100%;height:auto;max-height:680px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs28-i2c-breadboard.png" width="1549" height="746" alt="Main figure — I2C BME280 + OLED breadboard wiring GPIO 21/22" loading="eager" style="width:100%;height:auto;max-height:640px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — shared I2C wiring.</strong> Both modules sit on the same bus: <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong> · VCC usually <strong>3V3</strong> · shared GND. BME280 ≈ address <strong>0x76</strong> (sometimes 0x77) · OLED ≈ <strong>0x3C</strong>.
-    <br>Image source: diagram by Koding Indonesia (FS-28). I2C concept: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>. Path pins: FS-17 table.
+    <strong>Main figure — I2C on a breadboard.</strong> Color legend: <strong>blue</strong> = <strong>IO21 / GPIO 21</strong> → <strong>SDA</strong> (BME280 + OLED) · <strong>green</strong> = <strong>IO22 / GPIO 22</strong> → <strong>SCL</strong> (on many OLEDs labeled <strong>SCK</strong> — same I2C clock) · <strong>red</strong> = <strong>3V3</strong> → VCC · <strong>black</strong> = shared <strong>GND</strong>. Both modules share one bus.
+    <br>BME280 tip: use the <strong>SCL / SDA / 3.3V / GND</strong> row; the lower row (<code>!CS</code>, <code>SDI</code>, …) is for SPI — leave it empty. Image source: wiring diagram by Koding Indonesia (FS-28).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs28-i2c-wiring.png" width="1200" height="720" alt="Skema bantu — ringkasan pin I2C ESP32 BME280 OLED" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Skema bantu (ringkas).</strong> Pin sama gambar utama: <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong> · VCC <strong>3V3</strong> · GND bersama · BME280 ≈ <strong>0x76</strong> · OLED ≈ <strong>0x3C</strong>. Pakai ini jika lebih nyaman membaca kotak pin daripada foto breadboard.
+    <br>Sumber gambar: diagram Koding Indonesia (FS-28). Acuan konsep: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function schemaWiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs28-i2c-wiring.png" width="1200" height="720" alt="Helper schematic — I2C pin summary ESP32 BME280 OLED" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Helper schematic (compact).</strong> Same pins as the main figure: <strong>SDA = GPIO 21</strong> · <strong>SCL = GPIO 22</strong> · VCC <strong>3V3</strong> · shared GND · BME280 ≈ <strong>0x76</strong> · OLED ≈ <strong>0x3C</strong>. Use this if pin boxes are easier than the breadboard photo.
+    <br>Image source: diagram by Koding Indonesia (FS-28). Concept: <a href="https://www.analog.com/en/resources/analog-dialogue/articles/i2c-primer-what-is-i2c-part-1.html" rel="noopener noreferrer" target="_blank">Analog Devices — I²C Primer</a>.
   </figcaption>
 </figure>
 HTML;
@@ -358,6 +384,7 @@ CODE;
         $tools = $this->toolsFigureId();
         $lib = $this->libraryManagerFigureId();
         $main = $this->mainWiringFigureId();
+        $schema = $this->schemaWiringFigureId();
         $modul = $this->modulFigureId();
         $success = $this->successFigureId();
         $analogy = $this->analogySvgId();
@@ -404,12 +431,13 @@ CODE;
 <h2>Wiring (bahasa manusia)</h2>
 {$modul}
 {$main}
+{$schema}
 <p><strong>Blok kabel (kedua modul sama pola):</strong></p>
 <ul>
 <li><strong>VCC</strong> → <strong>3V3</strong> ESP32 (modul I2C tipikal 3,3 V — cek silkscreen; jangan asal 5V jika tertulis 3V3-only)</li>
 <li><strong>GND</strong> → <strong>GND</strong> ESP32</li>
-<li><strong>SDA</strong> → <strong>GPIO 21</strong></li>
-<li><strong>SCL</strong> → <strong>GPIO 22</strong></li>
+<li><strong>SDA</strong> → <strong>GPIO 21</strong> (di foto: kabel <strong>biru</strong>)</li>
+<li><strong>SCL</strong> → <strong>GPIO 22</strong> (di foto: kabel <strong>hijau</strong>; di OLED sering tertulis <strong>SCK</strong>)</li>
 </ul>
 <p><strong>Intinya:</strong> SDA ke SDA, SCL ke SCL — dua modul “nyambung paralel” di bus yang sama. Banyak modul sudah punya pull-up internal; kalau tidak ketemu di Serial, baru curiga pull-up / alamat.</p>
 
@@ -446,6 +474,7 @@ CODE;
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
 <li><strong>SDA/SCL tertukar.</strong> SDA hanya ke GPIO 21 · SCL ke GPIO 22.</li>
+<li><strong>Bingung label OLED “SCK”.</strong> Di modul I2C 0,96", <strong>SCK = SCL</strong> (jam) — sambungkan ke GPIO 22.</li>
 <li><strong>Alamat BME salah (0x76 vs 0x77).</strong> Ganti konstanta lalu Upload ulang.</li>
 <li><strong>Library belum lengkap.</strong> Pasang GFX dulu, lalu SSD1306, lalu BME280 (+ Unified Sensor jika diminta).</li>
 <li><strong>VCC ke 5V pada modul 3V3-only.</strong> Cek silkscreen; banyak breakout I2C aman di 3V3.</li>
@@ -466,6 +495,7 @@ HTML;
         $tools = $this->toolsFigureEn();
         $lib = $this->libraryManagerFigureEn();
         $main = $this->mainWiringFigureEn();
+        $schema = $this->schemaWiringFigureEn();
         $modul = $this->modulFigureEn();
         $success = $this->successFigureEn();
         $analogy = $this->analogySvgEn();
@@ -512,12 +542,13 @@ HTML;
 <h2>Wiring (human language)</h2>
 {$modul}
 {$main}
+{$schema}
 <p><strong>Cable block (same pattern for both modules):</strong></p>
 <ul>
 <li><strong>VCC</strong> → ESP32 <strong>3V3</strong> (typical I2C modules are 3.3 V — check silkscreen; don’t force 5V on 3V3-only boards)</li>
 <li><strong>GND</strong> → ESP32 <strong>GND</strong></li>
-<li><strong>SDA</strong> → <strong>GPIO 21</strong></li>
-<li><strong>SCL</strong> → <strong>GPIO 22</strong></li>
+<li><strong>SDA</strong> → <strong>GPIO 21</strong> (in the photo: the <strong>blue</strong> wire)</li>
+<li><strong>SCL</strong> → <strong>GPIO 22</strong> (in the photo: the <strong>green</strong> wire; on OLEDs often labeled <strong>SCK</strong>)</li>
 </ul>
 <p><strong>In short:</strong> SDA to SDA, SCL to SCL — both modules sit in parallel on the same bus. Many modules already include pull-ups; if Serial never finds them, then suspect pull-ups / addresses.</p>
 
@@ -554,6 +585,7 @@ HTML;
 <h2>Common mistakes</h2>
 <ul>
 <li><strong>SDA/SCL swapped.</strong> SDA only to GPIO 21 · SCL to GPIO 22.</li>
+<li><strong>Confused by OLED “SCK”.</strong> On a 0.96" I2C module, <strong>SCK = SCL</strong> (clock) — wire it to GPIO 22.</li>
 <li><strong>Wrong BME address (0x76 vs 0x77).</strong> Change the constant and Upload again.</li>
 <li><strong>Incomplete libraries.</strong> Install GFX first, then SSD1306, then BME280 (+ Unified Sensor if asked).</li>
 <li><strong>5V into a 3V3-only module.</strong> Check silkscreen; many I2C breakouts expect 3V3.</li>
