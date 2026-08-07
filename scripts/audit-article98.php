@@ -69,7 +69,10 @@ check('Main figure breadboard EN', str_contains($en, 'Main figure') && str_conta
 check('Skema bantu label ID', str_contains($id, 'Skema bantu') && str_contains($id, 'fs28-i2c-wiring.png'));
 check('Helper schematic label EN', str_contains($en, 'Helper schematic') && str_contains($en, 'fs28-i2c-wiring.png'));
 check('OLED SCK equals SCL tip', str_contains($id, 'SCK = SCL') && str_contains($en, 'SCK = SCL'));
+check('OLED VDD equals VCC tip', str_contains($id, 'VDD = VCC') && str_contains($en, 'VDD = VCC'));
+check('3V3 not 5V same rail tip', str_contains($id, '3V3 dan 5V') && str_contains($en, '3V3 and 5V'));
 check('BME280 SPI row tip', str_contains($id, '!CS') && str_contains($en, '!CS'));
+check('follow silkscreen not photo order', (str_contains($id, 'label tulisan') || str_contains($id, 'silkscreen')) && str_contains($en, 'silkscreen'));
 check('Commons BME280 cite', str_contains($id, 'SparkFun_Atmospheric_Sensor_Breakout') && str_contains($en, 'SparkFun_Atmospheric_Sensor_Breakout'));
 check('IDE Commons cite', str_contains($id, 'Ide-2-overview.png'));
 check('OLED ilustrasi tipikal', str_contains($id, 'ilustrasi bentuk tipikal') && str_contains($en, 'typical-shape illustration'));

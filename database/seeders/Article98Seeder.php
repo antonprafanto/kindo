@@ -164,8 +164,9 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs28-i2c-breadboard.png" width="1549" height="746" alt="Gambar utama — rangkaian I2C BME280 + OLED di breadboard GPIO 21/22" loading="eager" style="width:100%;height:auto;max-height:640px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — rangkaian I2C di breadboard.</strong> Legenda warna: <strong>biru</strong> = <strong>IO21 / GPIO 21</strong> → <strong>SDA</strong> (BME280 + OLED) · <strong>hijau</strong> = <strong>IO22 / GPIO 22</strong> → <strong>SCL</strong> (di OLED sering tertulis <strong>SCK</strong> — itu jam I2C yang sama) · <strong>merah</strong> = <strong>3V3</strong> → VCC · <strong>hitam</strong> = <strong>GND</strong> bersama. Kedua modul berbagi bus yang sama.
-    <br>Tip BME280: pakai baris pin <strong>SCL / SDA / 3.3V / GND</strong>; baris bawah (<code>!CS</code>, <code>SDI</code>, …) untuk SPI — biarkan kosong. Sumber gambar: diagram rangkaian Koding Indonesia (FS-28).
+    <strong>Gambar utama — rangkaian I2C di breadboard.</strong> Legenda warna: <strong>biru</strong> = <strong>IO21 / GPIO 21</strong> → <strong>SDA</strong> (BME280 + OLED) · <strong>hijau</strong> = <strong>IO22 / GPIO 22</strong> → <strong>SCL</strong> (di OLED sering tertulis <strong>SCK</strong> — itu jam I2C yang sama) · <strong>merah</strong> = <strong>3V3 saja</strong> → VCC/VDD · <strong>hitam</strong> = <strong>GND</strong> bersama. Kedua modul berbagi bus yang sama.
+    <br><strong>Penting:</strong> rail merah hanya dari pin <strong>3V3</strong> — <strong>jangan</strong> sambungkan pin <strong>5V</strong> ESP32 ke rail yang sama (bisa merusak modul 3,3 V). Di OLED, <strong>VDD = VCC</strong> (daya). Tip BME280: pakai baris <strong>SCL / SDA / 3.3V / GND</strong>; baris bawah (<code>!CS</code>, <code>SDI</code>, …) untuk SPI — biarkan kosong. Susunan pin di foto Commons bisa beda dari modul murah — ikuti <strong>label tulisan</strong>, bukan posisi foto.
+    <br>Sumber gambar: diagram rangkaian Koding Indonesia (FS-28), sudah dikoreksi agar hanya 3V3 yang mengisi rail daya.
   </figcaption>
 </figure>
 HTML;
@@ -177,8 +178,9 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs28-i2c-breadboard.png" width="1549" height="746" alt="Main figure — I2C BME280 + OLED breadboard wiring GPIO 21/22" loading="eager" style="width:100%;height:auto;max-height:640px;object-fit:contain;border-radius:6px;background:#fff">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Main figure — I2C on a breadboard.</strong> Color legend: <strong>blue</strong> = <strong>IO21 / GPIO 21</strong> → <strong>SDA</strong> (BME280 + OLED) · <strong>green</strong> = <strong>IO22 / GPIO 22</strong> → <strong>SCL</strong> (on many OLEDs labeled <strong>SCK</strong> — same I2C clock) · <strong>red</strong> = <strong>3V3</strong> → VCC · <strong>black</strong> = shared <strong>GND</strong>. Both modules share one bus.
-    <br>BME280 tip: use the <strong>SCL / SDA / 3.3V / GND</strong> row; the lower row (<code>!CS</code>, <code>SDI</code>, …) is for SPI — leave it empty. Image source: wiring diagram by Koding Indonesia (FS-28).
+    <strong>Main figure — I2C on a breadboard.</strong> Color legend: <strong>blue</strong> = <strong>IO21 / GPIO 21</strong> → <strong>SDA</strong> (BME280 + OLED) · <strong>green</strong> = <strong>IO22 / GPIO 22</strong> → <strong>SCL</strong> (on many OLEDs labeled <strong>SCK</strong> — same I2C clock) · <strong>red</strong> = <strong>3V3 only</strong> → VCC/VDD · <strong>black</strong> = shared <strong>GND</strong>. Both modules share one bus.
+    <br><strong>Important:</strong> the red rail must come from the <strong>3V3</strong> pin only — <strong>do not</strong> also wire the ESP32 <strong>5V</strong> pin to the same rail (it can damage 3.3 V modules). On OLEDs, <strong>VDD = VCC</strong> (power). BME280 tip: use the <strong>SCL / SDA / 3.3V / GND</strong> row; the lower row (<code>!CS</code>, <code>SDI</code>, …) is for SPI — leave it empty. Commons photo pin order may differ from cheap modules — follow the <strong>printed labels</strong>, not the photo layout.
+    <br>Image source: wiring diagram by Koding Indonesia (FS-28), corrected so only 3V3 feeds the power rail.
   </figcaption>
 </figure>
 HTML;
@@ -216,8 +218,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs28-modul-kit.png" width="1400" height="620" alt="Kit modul BME280 dan OLED untuk I2C" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Kenali modul dulu.</strong> BME280 = sensor I2C · OLED 0,96" = layar I2C · keduanya berbagi SDA/SCL. OLED di gambar = <strong>ilustrasi bentuk tipikal</strong> (bukan foto perangkat lain).
-    <br>Sumber foto BME280: <a href="https://commons.wikimedia.org/wiki/File:SparkFun_Atmospheric_Sensor_Breakout_-_BME280_13676.jpg" rel="noopener noreferrer" target="_blank">SparkFun BME280</a> (CC BY 2.0). Ilustrasi OLED + kolase: Koding Indonesia (FS-28).
+    <strong>Kenali modul dulu.</strong> BME280 = sensor I2C · OLED 0,96" = layar I2C · keduanya berbagi SDA/SCL. Label OLED tipikal: <strong>GND · VDD · SCK · SDA</strong> (<strong>SCK = SCL</strong>, <strong>VDD = VCC</strong>). OLED di gambar = <strong>ilustrasi bentuk tipikal</strong> (bukan foto perangkat lain).
+    <br>Sumber foto BME280: <a href="https://commons.wikimedia.org/wiki/File:SparkFun_Atmospheric_Sensor_Breakout_-_BME280_13676.jpg" rel="noopener noreferrer" target="_blank">SparkFun BME280</a> (CC BY 2.0) — urutan pin di foto bisa beda dari modul murah; ikuti tulisan di PCB kamu. Ilustrasi OLED + kolase: Koding Indonesia (FS-28).
   </figcaption>
 </figure>
 HTML;
@@ -229,8 +231,8 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs28-modul-kit.png" width="1400" height="620" alt="BME280 and OLED module kit for I2C" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Recognize the modules first.</strong> BME280 = I2C sensor · 0.96" OLED = I2C display · both share SDA/SCL. The OLED panel is a <strong>typical-shape illustration</strong> (not a photo of another device).
-    <br>BME280 photo: <a href="https://commons.wikimedia.org/wiki/File:SparkFun_Atmospheric_Sensor_Breakout_-_BME280_13676.jpg" rel="noopener noreferrer" target="_blank">SparkFun BME280</a> (CC BY 2.0). OLED illustration + collage: Koding Indonesia (FS-28).
+    <strong>Recognize the modules first.</strong> BME280 = I2C sensor · 0.96" OLED = I2C display · both share SDA/SCL. Typical OLED labels: <strong>GND · VDD · SCK · SDA</strong> (<strong>SCK = SCL</strong>, <strong>VDD = VCC</strong>). The OLED panel is a <strong>typical-shape illustration</strong> (not a photo of another device).
+    <br>BME280 photo: <a href="https://commons.wikimedia.org/wiki/File:SparkFun_Atmospheric_Sensor_Breakout_-_BME280_13676.jpg" rel="noopener noreferrer" target="_blank">SparkFun BME280</a> (CC BY 2.0) — pin order in the photo may differ from cheap modules; follow the silkscreen on your PCB. OLED illustration + collage: Koding Indonesia (FS-28).
   </figcaption>
 </figure>
 HTML;
@@ -434,12 +436,12 @@ CODE;
 {$schema}
 <p><strong>Blok kabel (kedua modul sama pola):</strong></p>
 <ul>
-<li><strong>VCC</strong> → <strong>3V3</strong> ESP32 (modul I2C tipikal 3,3 V — cek silkscreen; jangan asal 5V jika tertulis 3V3-only)</li>
+<li><strong>VCC</strong> → <strong>3V3</strong> ESP32 (modul I2C tipikal 3,3 V — cek silkscreen; di OLED sering tertulis <strong>VDD</strong> = daya yang sama). <strong>Jangan</strong> isi rail merah dari pin <strong>5V</strong> sekaligus 3V3.</li>
 <li><strong>GND</strong> → <strong>GND</strong> ESP32</li>
 <li><strong>SDA</strong> → <strong>GPIO 21</strong> (di foto: kabel <strong>biru</strong>)</li>
 <li><strong>SCL</strong> → <strong>GPIO 22</strong> (di foto: kabel <strong>hijau</strong>; di OLED sering tertulis <strong>SCK</strong>)</li>
 </ul>
-<p><strong>Intinya:</strong> SDA ke SDA, SCL ke SCL — dua modul “nyambung paralel” di bus yang sama. Banyak modul sudah punya pull-up internal; kalau tidak ketemu di Serial, baru curiga pull-up / alamat.</p>
+<p><strong>Intinya:</strong> SDA ke SDA, SCL/SCK ke SCL — dua modul “nyambung paralel” di bus yang sama. Banyak modul sudah punya pull-up internal; kalau tidak ketemu di Serial, baru curiga pull-up / alamat.</p>
 
 <h2>Praktik — sketch FS28_bme280_oled</h2>
 <p>Tujuan: pasang 3 library Adafruit, baca BME280, tampilkan suhu &amp; tekanan di OLED, cetak yang sama ke Serial.</p>
@@ -474,10 +476,11 @@ CODE;
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
 <li><strong>SDA/SCL tertukar.</strong> SDA hanya ke GPIO 21 · SCL ke GPIO 22.</li>
-<li><strong>Bingung label OLED “SCK”.</strong> Di modul I2C 0,96", <strong>SCK = SCL</strong> (jam) — sambungkan ke GPIO 22.</li>
+<li><strong>Bingung label OLED “SCK” / “VDD”.</strong> Di modul I2C 0,96", <strong>SCK = SCL</strong> (jam) → GPIO 22 · <strong>VDD = VCC</strong> (daya) → 3V3.</li>
+<li><strong>3V3 dan 5V di rail yang sama.</strong> Rail merah hanya dari <strong>3V3</strong>. Menyambung pin 5V ke rail yang sama bisa merusak BME280/OLED 3,3 V.</li>
 <li><strong>Alamat BME salah (0x76 vs 0x77).</strong> Ganti konstanta lalu Upload ulang.</li>
 <li><strong>Library belum lengkap.</strong> Pasang GFX dulu, lalu SSD1306, lalu BME280 (+ Unified Sensor jika diminta).</li>
-<li><strong>VCC ke 5V pada modul 3V3-only.</strong> Cek silkscreen; banyak breakout I2C aman di 3V3.</li>
+<li><strong>Mengikuti posisi pin di foto Commons, bukan label PCB kamu.</strong> Urutan pin bisa beda antar modul — baca tulisan silkscreen.</li>
 <li><strong>Menguji di Laragon / terminal web.</strong> Sketch hanya jalan di board lewat IDE Upload.</li>
 <li><strong>Mengira Serial Monitor = I2C.</strong> Serial Monitor = UART/debug; I2C = bus di pin 21/22.</li>
 </ul>
@@ -545,12 +548,12 @@ HTML;
 {$schema}
 <p><strong>Cable block (same pattern for both modules):</strong></p>
 <ul>
-<li><strong>VCC</strong> → ESP32 <strong>3V3</strong> (typical I2C modules are 3.3 V — check silkscreen; don’t force 5V on 3V3-only boards)</li>
+<li><strong>VCC</strong> → ESP32 <strong>3V3</strong> (typical I2C modules are 3.3 V — check silkscreen; on OLEDs often labeled <strong>VDD</strong> = the same power). <strong>Do not</strong> feed the red rail from both <strong>5V</strong> and 3V3.</li>
 <li><strong>GND</strong> → ESP32 <strong>GND</strong></li>
 <li><strong>SDA</strong> → <strong>GPIO 21</strong> (in the photo: the <strong>blue</strong> wire)</li>
 <li><strong>SCL</strong> → <strong>GPIO 22</strong> (in the photo: the <strong>green</strong> wire; on OLEDs often labeled <strong>SCK</strong>)</li>
 </ul>
-<p><strong>In short:</strong> SDA to SDA, SCL to SCL — both modules sit in parallel on the same bus. Many modules already include pull-ups; if Serial never finds them, then suspect pull-ups / addresses.</p>
+<p><strong>In short:</strong> SDA to SDA, SCL/SCK to SCL — both modules sit in parallel on the same bus. Many modules already include pull-ups; if Serial never finds them, then suspect pull-ups / addresses.</p>
 
 <h2>Practice — sketch FS28_bme280_oled</h2>
 <p>Goal: install 3 Adafruit libraries, read the BME280, show temperature &amp; pressure on the OLED, print the same values to Serial.</p>
@@ -585,10 +588,11 @@ HTML;
 <h2>Common mistakes</h2>
 <ul>
 <li><strong>SDA/SCL swapped.</strong> SDA only to GPIO 21 · SCL to GPIO 22.</li>
-<li><strong>Confused by OLED “SCK”.</strong> On a 0.96" I2C module, <strong>SCK = SCL</strong> (clock) — wire it to GPIO 22.</li>
+<li><strong>Confused by OLED “SCK” / “VDD”.</strong> On a 0.96" I2C module, <strong>SCK = SCL</strong> (clock) → GPIO 22 · <strong>VDD = VCC</strong> (power) → 3V3.</li>
+<li><strong>3V3 and 5V on the same rail.</strong> The red rail must come from <strong>3V3</strong> only. Wiring the 5V pin onto the same rail can damage 3.3 V BME280/OLED modules.</li>
 <li><strong>Wrong BME address (0x76 vs 0x77).</strong> Change the constant and Upload again.</li>
 <li><strong>Incomplete libraries.</strong> Install GFX first, then SSD1306, then BME280 (+ Unified Sensor if asked).</li>
-<li><strong>5V into a 3V3-only module.</strong> Check silkscreen; many I2C breakouts expect 3V3.</li>
+<li><strong>Copying pin order from a Commons photo instead of your PCB labels.</strong> Pin order varies — read the silkscreen on your board.</li>
 <li><strong>Testing in Laragon / a web terminal.</strong> The sketch only runs on the board via IDE Upload.</li>
 <li><strong>Equating Serial Monitor with I2C.</strong> Serial Monitor = UART/debug; I2C = the bus on pins 21/22.</li>
 </ul>

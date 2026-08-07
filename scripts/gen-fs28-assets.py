@@ -43,14 +43,15 @@ def draw_oled(size=(360, 220)) -> Image.Image:
     box(d, (48, 36, w - 48, 130), "#111111", "#000000", 2, 6)
     center(d, w // 2, 78, "24.6 C", FH, "#90CAF9")
     center(d, w // 2, 112, "1013 hPa", FS, "#BBDEFB")
-    pins = [("GND", "#333"), ("VCC", "#C62828"), ("SCL", "#2E7D32"), ("SDA", "#1565C0")]
+    # Match common I2C OLED silkscreen: GND · VDD/VCC · SCK(=SCL) · SDA
+    pins = [("GND", "#333"), ("VDD", "#C62828"), ("SCK", "#2E7D32"), ("SDA", "#1565C0")]
     pw = 52
     x0 = (w - len(pins) * pw) // 2
     for i, (lab, col) in enumerate(pins):
         x = x0 + i * pw
-        box(d, (x + 4, h - 70, x + pw - 4, h - 36), "#FFFDE7", col, 2, 6)
-        center(d, x + pw // 2, h - 53, lab, FS, col)
-    center(d, w // 2, h - 14, "OLED 0,96\" I2C · alamat 0x3C", FS, "#0D47A1")
+        box(d, (x + 4, h - 78, x + pw - 4, h - 44), "#FFFDE7", col, 2, 6)
+        center(d, x + pw // 2, h - 61, lab, FS, col)
+    center(d, w // 2, h - 22, "SCK = SCL · VDD = VCC · alamat 0x3C", FS, "#0D47A1")
     return canvas
 
 
@@ -169,7 +170,7 @@ center(d, 990, 465, "alamat 0x3C", FH, "#1a1a1a")
 center(d, 990, 505, "SSD1306 I2C", FS, "#333")
 
 box(d, (40, 555, W - 40, 690), "#E3F2FD", "#1565C0", 3)
-center(d, W // 2, 595, "Jangan campur pin: SDA hanya ke SDA · SCL hanya ke SCL · VCC biasanya 3V3", F, "#0D47A1")
+center(d, W // 2, 590, "SDA→SDA · SCL/SCK→SCL · VCC/VDD→3V3 saja (jangan campur pin 5V ke rail yang sama)", F, "#0D47A1")
 center(d, W // 2, 645, "Sumber: diagram Koding Indonesia (FS-28) · pin tabel FS-17", FS, "#0D47A1")
 img.save(OUT / "fs28-i2c-wiring.png", optimize=True)
 print("wiring", (OUT / "fs28-i2c-wiring.png").stat().st_size)
@@ -198,7 +199,7 @@ center(d, 700, 480, "Bus: I2C · 0x3C", FH, "#2E7D32")
 
 box(d, (940, 145, 1360, 505), "#FFF8E1", "#F9A825", 4)
 center(d, 1150, 230, "Pin bersama", FT, "#F57F17")
-for j, ln in enumerate(["SDA → GPIO 21", "SCL → GPIO 22", "VCC → 3V3", "GND → GND"]):
+for j, ln in enumerate(["SDA → GPIO 21", "SCL/SCK → GPIO 22", "VDD/VCC → 3V3", "GND → GND"]):
     center(d, 1150, 310 + j * 42, ln, FH, "#1a1a1a")
 
 box(d, (40, 530, MW - 40, 590), "#FFFFFF", "#1a1a1a", 3)
