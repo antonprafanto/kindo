@@ -45,18 +45,19 @@ for i, c in enumerate(["#1565C0", "#0D47A1", "#002171"]):
 
 box(d, (70, 70, 530, 330), "#E3F2FD", "#FFFFFF", 4, 16)
 center(d, 300, 140, "ESP32", FT, "#0D47A1")
-center(d, 300, 210, "station mode", FH, "#1a1a1a")
-center(d, 300, 270, "WiFi.begin", FB, "#333")
+center(d, 300, 210, "mode gabung", FH, "#1a1a1a")
+center(d, 300, 270, "(station)", FB, "#333")
 
 box(d, (670, 70, 1130, 330), "#E8F5E9", "#FFFFFF", 4, 16)
 center(d, 900, 140, "Router", FT, "#1B5E20")
 center(d, 900, 210, "SSID 2,4 GHz", FH, "#1a1a1a")
-center(d, 900, 270, "beri IP", FB, "#333")
+center(d, 900, 270, "beri nomor IP", FB, "#333")
 
 center(d, 600, 400, "FS-29", FT, "#BBDEFB")
-center(d, 600, 470, "Wi-Fi dari nol: SSID, IP, gagal connect", FT, "#FFFFFF")
-center(d, 600, 545, "Serial Monitor · baud 115200 · dapat IP valid", FB, "#E3F2FD")
-center(d, 600, 610, "Arduino IDE · Upload · tanpa Library Manager ekstra", FH, "#90CAF9")
+center(d, 600, 465, "Wi-Fi dari nol", FT, "#FFFFFF")
+center(d, 600, 525, "SSID · sandi · IP · gagal terhubung", FH, "#E3F2FD")
+center(d, 600, 585, "Arduino IDE · Upload · Serial 115200", FH, "#90CAF9")
+center(d, 600, 635, "Tanpa Library Manager ekstra", FB, "#BBDEFB")
 cover.save(OUT / "fs29-cover-wifi.jpg", quality=88, optimize=True)
 cover.save(OUT / "fs29-cover-wifi.webp", "WEBP", quality=85)
 print("cover", (OUT / "fs29-cover-wifi.jpg").stat().st_size)
@@ -92,11 +93,11 @@ print("tools", (OUT / "fs29-tools-ide.png").stat().st_size)
 lib = Image.new("RGB", (1200, 560), "#F5F5F0")
 d = ImageDraw.Draw(lib)
 box(d, (20, 16, 1180, 120), "#FFFFFF", "#1a1a1a", 4)
-center(d, 600, 48, "WiFi.h sudah di core ESP32 — tanpa Library Manager ekstra", FT)
-center(d, 600, 92, "Beda dari FS-28 (BME280/OLED butuh Adafruit). Hari ini cukup #include <WiFi.h>", F, "#333")
+center(d, 600, 42, "WiFi.h sudah di core ESP32", FT)
+center(d, 600, 88, "Tanpa Library Manager ekstra · cukup #include <WiFi.h>", F, "#333")
 steps = [
     ("1", "Sketch baru", "File → New\nSimpan FS29_wifi_begin", "#E3F2FD", "#1565C0"),
-    ("2", "Isi SSID", "Ganti YOUR_SSID\n& YOUR_PASS", "#E8F5E9", "#2E7D32"),
+    ("2", "Isi SSID", "Ganti YOUR_SSID\ndan YOUR_PASS", "#E8F5E9", "#2E7D32"),
     ("3", "Upload", "Verify → Upload\n→ Serial 115200", "#FFF8E1", "#F9A825"),
 ]
 for i, (num, title, body, fill, out) in enumerate(steps):
@@ -117,12 +118,12 @@ W, H = 1200, 720
 img = Image.new("RGB", (W, H), "#F5F5F0")
 d = ImageDraw.Draw(img)
 box(d, (20, 16, W - 20, 120), "#FFFFFF", "#1a1a1a", 4)
-center(d, W // 2, 48, "Gambar utama — ESP32 gabung Wi-Fi rumah (FS-29)", FT)
-center(d, W // 2, 92, "Station mode · SSID 2,4 GHz · router beri IP · bukti di Serial", F, "#333")
+center(d, W // 2, 42, "Gambar utama — ESP32 gabung Wi-Fi rumah", FT)
+center(d, W // 2, 88, "Mode gabung (station) · SSID 2,4 GHz · router beri IP · bukti di Serial", F, "#333")
 
 box(d, (60, 170, 380, 480), "#FFF8E1", "#F9A825", 4)
 center(d, 220, 230, "ESP32", FT, "#F57F17")
-center(d, 220, 290, "station", FH, "#1a1a1a")
+center(d, 220, 290, "mode gabung", FH, "#1a1a1a")
 center(d, 220, 350, "WiFi.begin", FB, "#333")
 center(d, 220, 410, "minta masuk", FS, "#333")
 
@@ -131,9 +132,9 @@ center(d, 470, 290, "2,4 GHz", FH, "#1565C0")
 
 box(d, (560, 170, 900, 480), "#BBDEFB", "#1565C0", 4)
 center(d, 730, 230, "Router", FT, "#0D47A1")
-center(d, 730, 290, "SSID + password", FH, "#1a1a1a")
-center(d, 730, 350, "DHCP → IP", FB, "#333")
-center(d, 730, 410, "bukan 5 GHz only", FS, "#333")
+center(d, 730, 290, "SSID + sandi", FH, "#1a1a1a")
+center(d, 730, 350, "beri nomor IP", FB, "#333")
+center(d, 730, 410, "bukan 5 GHz saja", FS, "#333")
 
 d.line([(900, 325), (1080, 325)], fill="#2E7D32", width=8)
 
@@ -143,8 +144,8 @@ center(d, 1050, 340, "IP valid", FB, "#1a1a1a")
 center(d, 1050, 390, "115200", FS, "#333")
 
 box(d, (40, 520, W - 40, 690), "#E3F2FD", "#1565C0", 3)
-center(d, W // 2, 575, "Sukses = Serial menampilkan IP (contoh 192.168.x.x) — bukan 'localhost' di HP", F, "#0D47A1")
-center(d, W // 2, 635, "Sumber: diagram Koding Indonesia (FS-29) · konsep Wi-Fi station: dokumentasi Espressif", FS, "#0D47A1")
+center(d, W // 2, 575, "Sukses = Serial tampilkan IP (mis. 192.168.x.x) — bukan localhost di HP", F, "#0D47A1")
+center(d, W // 2, 635, "Sumber: diagram Koding Indonesia (FS-29) · acuan: dokumentasi Espressif WiFi", FS, "#0D47A1")
 img.save(OUT / "fs29-wifi-station.png", optimize=True)
 print("station", (OUT / "fs29-wifi-station.png").stat().st_size)
 
@@ -152,18 +153,18 @@ print("station", (OUT / "fs29-wifi-station.png").stat().st_size)
 sk = Image.new("RGB", (1200, 620), "#F5F5F0")
 d = ImageDraw.Draw(sk)
 box(d, (20, 16, 1180, 110), "#FFFFFF", "#1a1a1a", 4)
-center(d, 600, 45, "Skema bantu — pilih jaringan yang ESP32 bisa dengar", FT)
-center(d, 600, 85, "ESP32 tipikal = Wi-Fi 2,4 GHz (bukan 5 GHz only)", F, "#333")
+center(d, 600, 42, "Skema bantu — jaringan yang ESP32 bisa dengar", FT)
+center(d, 600, 82, "ESP32 tipikal = Wi-Fi 2,4 GHz (bukan 5 GHz saja)", F, "#333")
 
 box(d, (60, 150, 560, 480), "#E8F5E9", "#2E7D32", 4)
 center(d, 310, 210, "Boleh / cocok", FT, "#1B5E20")
-for j, ln in enumerate(["SSID 2,4 GHz", "Hotspot HP (2,4)", "Password benar", "Timeout cukup sabar"]):
-    center(d, 310, 290 + j * 42, "✓  " + ln, FH, "#1a1a1a")
+for j, ln in enumerate(["SSID 2,4 GHz", "Hotspot HP (2,4)", "Sandi benar", "Timeout cukup sabar"]):
+    center(d, 310, 290 + j * 42, "OK  " + ln, FH, "#1a1a1a")
 
 box(d, (640, 150, 1140, 480), "#FFEBEE", "#C62828", 4)
 center(d, 890, 210, "Sering gagal", FT, "#B71C1C")
-for j, ln in enumerate(["SSID 5 GHz only", "Password salah", "Timeout terlalu singkat", "Mengira localhost = ESP32"]):
-    center(d, 890, 290 + j * 42, "✗  " + ln, FH, "#1a1a1a")
+for j, ln in enumerate(["SSID 5 GHz saja", "Sandi salah", "Timeout terlalu singkat", "Localhost di HP = ESP32?"]):
+    center(d, 890, 290 + j * 42, "X  " + ln, FH, "#1a1a1a")
 
 box(d, (40, 510, 1160, 590), "#FFFFFF", "#1a1a1a", 3)
 center(d, 600, 550, "Sumber: diagram Koding Indonesia (FS-29) · cek band di aplikasi router / label SSID", F, "#333")
@@ -175,8 +176,8 @@ MW, MH = 1400, 620
 mod = Image.new("RGB", (MW, MH), "#F5F5F0")
 d = ImageDraw.Draw(mod)
 box(d, (20, 16, MW - 20, 120), "#FFFFFF", "#1a1a1a", 4)
-center(d, MW // 2, 48, "Kenali dulu — router rumah & ESP32 station", FT)
-center(d, MW // 2, 92, "Router (foto Commons) · ESP32 hanya 'gabung' jaringan · bukti di Serial", F, "#333")
+center(d, MW // 2, 48, "Kenali dulu — router rumah & ESP32", FT)
+center(d, MW // 2, 92, "Router (foto Commons) · ESP32 hanya gabung jaringan · bukti di Serial", F, "#333")
 
 router = TMP / "router-tplink.png"
 box(d, (40, 145, 520, 505), "#E3F2FD", "#1565C0", 4)
@@ -188,10 +189,10 @@ center(d, 280, 460, "Router Wi-Fi rumah", FB, "#1a1a1a")
 
 box(d, (560, 145, 980, 505), "#FFF8E1", "#F9A825", 4)
 center(d, 770, 230, "ESP32", FT, "#F57F17")
-center(d, 770, 300, "mode station", FH, "#1a1a1a")
+center(d, 770, 300, "mode gabung", FH, "#1a1a1a")
 center(d, 770, 360, "seperti HP", FB, "#333")
-center(d, 770, 420, "yang gabung SSID", FS, "#333")
-center(d, 770, 470, "USB data + antena board", FS, "#333")
+center(d, 770, 420, "yang masuk SSID", FS, "#333")
+center(d, 770, 470, "USB data + antena", FS, "#333")
 
 box(d, (1020, 145, 1360, 505), "#E8F5E9", "#2E7D32", 4)
 center(d, 1190, 230, "Bukti sukses", FT, "#1B5E20")
@@ -207,7 +208,7 @@ print("modul", (OUT / "fs29-modul-router.png").stat().st_size)
 ok = Image.new("RGB", (1200, 520), "#F5F5F0")
 d = ImageDraw.Draw(ok)
 box(d, (20, 16, 1180, 100), "#FFFFFF", "#1a1a1a", 4)
-center(d, 600, 58, "Sukses = Serial menampilkan IP valid (bukan gagal terus)", FT)
+center(d, 600, 58, "Sukses = IP valid di Serial Monitor", FT)
 
 box(d, (40, 130, 580, 470), "#263238", "#1a1a1a", 4)
 center(d, 310, 170, "Serial Monitor · 115200", FH, "#80CBC4")
@@ -226,8 +227,8 @@ center(d, 890, 190, "Belum sukses", FH, "#B71C1C")
 fail = [
     "...... (titik terus)",
     "timeout — cek SSID",
-    "password salah?",
-    "SSID 5 GHz only?",
+    "sandi salah?",
+    "SSID hanya 5 GHz?",
 ]
 for i, ln in enumerate(fail):
     d.text((660, 250 + i * 40), ln, font=F, fill="#C62828")

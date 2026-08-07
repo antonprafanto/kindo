@@ -40,10 +40,10 @@ class Article99Seeder extends Seeder
             [
                 'user_id'            => $admin->id,
                 'category_id'        => $iotCat->id,
-                'title'              => 'Wi-Fi dari nol: SSID, password, IP, gagal connect',
+                'title'              => 'Wi-Fi dari nol: SSID, sandi, IP, gagal terhubung',
                 'title_en'           => 'Wi-Fi from zero: SSID, password, IP, failed connect',
-                'excerpt'            => 'FS-29 / #99: ESP32 gabung Wi-Fi rumah 2,4 GHz. Serial tampilkan IP valid — IDE + Upload dulu, tanpa Library Manager ekstra.',
-                'excerpt_en'         => 'FS-29 / #99: ESP32 joins 2.4 GHz home Wi-Fi. Serial shows a valid IP — IDE + Upload first, no extra Library Manager.',
+                'excerpt'            => 'FS-29 / #99: ESP32 gabung Wi-Fi rumah 2,4 GHz. Serial Monitor menampilkan IP valid — buka Arduino IDE + Upload dulu, tanpa Library Manager ekstra.',
+                'excerpt_en'         => 'FS-29 / #99: ESP32 joins 2.4 GHz home Wi-Fi. Serial Monitor shows a valid IP — open Arduino IDE + Upload first, no extra Library Manager.',
                 'body'               => $this->body(),
                 'body_en'            => $this->bodyEn(),
                 'status'             => 'draft',
@@ -51,7 +51,7 @@ class Article99Seeder extends Seeder
                 'published_at'       => null,
                 'seo_title'          => 'Wi-Fi ESP32 dari nol — Full Stack IoT #99',
                 'seo_title_en'       => 'ESP32 Wi-Fi from zero — Full Stack IoT #99',
-                'seo_description'    => 'ESP32 station mode: SSID 2,4 GHz, WiFi.begin, IP di Serial Monitor 115200. Modul FS-29 / #99.',
+                'seo_description'    => 'ESP32 mode gabung (station): SSID 2,4 GHz, WiFi.begin, IP di Serial Monitor 115200. Modul FS-29 / #99.',
                 'seo_description_en' => 'ESP32 station mode: 2.4 GHz SSID, WiFi.begin, IP on Serial Monitor 115200. Module FS-29 / #99.',
             ]
         );
@@ -88,7 +88,7 @@ class Article99Seeder extends Seeder
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — Verify, Upload, dan Serial Monitor" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Arduino IDE 2</strong> — tempat menguji sintaks hari ini. Urutan: buka IDE → isi SSID/password di sketch → <strong>Verify</strong> → <strong>Upload</strong> → <strong>Serial Monitor</strong> baud <strong>115200</strong>. Board: <strong>ESP32 Dev Module</strong>. <em>Catatan gambar:</em> screenshot Commons bisa menampilkan baud lain — <strong>abaikan</strong>; untuk FS-29 pakai 115200.
+    <strong>Arduino IDE 2</strong> — tempat menguji sintaks hari ini. Urutan: buka IDE → isi SSID/sandi di sketch → <strong>Verify</strong> → <strong>Upload</strong> → buka <strong>Tools → Serial Monitor</strong> (atau Ctrl+Shift+M) baud <strong>115200</strong>. Board: <strong>ESP32 Dev Module</strong>. <em>Catatan gambar:</em> screenshot Commons bisa menampilkan baud lain — <strong>abaikan</strong>; untuk FS-29 pakai 115200.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0). Panduan: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Serial Monitor</a>. Wi-Fi ESP32: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html" rel="noopener noreferrer" target="_blank">Espressif — WiFi API</a>.
   </figcaption>
 </figure>
@@ -101,7 +101,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/fs11-ide-overview-cite.png" width="1280" height="720" alt="Arduino IDE 2 — Verify, Upload, and Serial Monitor" loading="eager" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Arduino IDE 2</strong> — where you test today’s syntax. Order: open the IDE → put SSID/password in the sketch → <strong>Verify</strong> → <strong>Upload</strong> → <strong>Serial Monitor</strong> at baud <strong>115200</strong>. Board: <strong>ESP32 Dev Module</strong>. <em>Image note:</em> the Commons screenshot may show another baud — <strong>ignore it</strong>; for FS-29 use 115200.
+    <strong>Arduino IDE 2</strong> — where you test today’s syntax. Order: open the IDE → put SSID/password in the sketch → <strong>Verify</strong> → <strong>Upload</strong> → open <strong>Tools → Serial Monitor</strong> (or Ctrl+Shift+M) at baud <strong>115200</strong>. Board: <strong>ESP32 Dev Module</strong>. <em>Image note:</em> the Commons screenshot may show another baud — <strong>ignore it</strong>; for FS-29 use 115200.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:Ide-2-overview.png" rel="noopener noreferrer" target="_blank">Arduino IDE 2 overview</a> · Wikimedia Commons (CC BY-SA 3.0). Guide: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-serial-monitor/" rel="noopener noreferrer" target="_blank">Serial Monitor</a>. ESP32 Wi-Fi: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html" rel="noopener noreferrer" target="_blank">Espressif — WiFi API</a>.
   </figcaption>
 </figure>
@@ -160,9 +160,9 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs29-wifi-station.png" width="1200" height="720" alt="Gambar utama — ESP32 station ke router lalu IP di Serial" loading="eager" style="width:100%;height:auto;max-height:640px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs29-wifi-station.png" width="1200" height="720" alt="Gambar utama — ESP32 gabung Wi-Fi rumah lalu IP di Serial" loading="eager" style="width:100%;height:auto;max-height:640px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Gambar utama — ESP32 gabung Wi-Fi rumah.</strong> Mode <strong>station</strong> = ESP32 berperilaku seperti HP yang “join” SSID. Router (2,4 GHz) memberi <strong>IP</strong> lewat DHCP. Bukti sukses dibaca di <strong>Serial Monitor</strong> baud <strong>115200</strong>.
+    <strong>Gambar utama — ESP32 gabung Wi-Fi rumah.</strong> Mode <strong>gabung (station)</strong> = ESP32 berperilaku seperti HP yang masuk SSID. Router (2,4 GHz) memberi <strong>nomor IP</strong> (DHCP). Bukti sukses dibaca di <strong>Serial Monitor</strong> baud <strong>115200</strong>.
     <br>Sumber gambar: diagram Koding Indonesia (FS-29). Acuan API: <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html" rel="noopener noreferrer" target="_blank">Espressif — WiFi</a>.
   </figcaption>
 </figure>
@@ -186,9 +186,9 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs29-band-2g4.png" width="1200" height="620" alt="Skema bantu — SSID 2,4 GHz vs 5 GHz only" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs29-band-2g4.png" width="1200" height="620" alt="Skema bantu — SSID 2,4 GHz vs hanya 5 GHz" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Skema bantu — pilih band yang ESP32 bisa dengar.</strong> Banyak ESP32 DevKit hanya Wi-Fi <strong>2,4 GHz</strong>. SSID “5 GHz only” sering membuat titik-titik gagal di Serial.
+    <strong>Skema bantu — pilih jaringan yang ESP32 bisa dengar.</strong> Banyak ESP32 DevKit hanya Wi-Fi <strong>2,4 GHz</strong>. SSID yang <strong>hanya 5 GHz</strong> sering membuat titik-titik gagal di Serial.
     <br>Sumber gambar: diagram Koding Indonesia (FS-29).
   </figcaption>
 </figure>
@@ -212,9 +212,9 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs29-modul-router.png" width="1400" height="620" alt="Router rumah dan ESP32 station" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs29-modul-router.png" width="1400" height="620" alt="Router rumah dan ESP32 mode gabung" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Kenali dulu.</strong> Router = “pintu” Wi-Fi rumah · ESP32 hari ini hanya <strong>gabung</strong> (station), belum jadi server web. Hardware: ESP32 + kabel USB data (bukan charge-only). Tidak wajib breadboard sensor.
+    <strong>Kenali dulu.</strong> Router = “pintu” Wi-Fi rumah · ESP32 hari ini hanya <strong>gabung</strong> (mode station), belum jadi server web. Hardware: ESP32 + kabel USB data (bukan kabel charge-only). Tidak wajib breadboard sensor.
     <br>Sumber foto router: <a href="https://commons.wikimedia.org/wiki/File:TP-Link_WR841ND_WiFi_router_transparent.png" rel="noopener noreferrer" target="_blank">TP-Link WR841ND</a> (CC BY 4.0, Florian838). Bentuk router kamu bisa beda — yang penting SSID 2,4 GHz. Kolase: Koding Indonesia (FS-29).
   </figcaption>
 </figure>
@@ -270,13 +270,13 @@ HTML;
     <text x="165" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="15" fill="#333">bawa nama + sandi</text>
     <rect x="325" y="55" width="250" height="120" rx="10" fill="#BBDEFB" stroke="#1565C0" stroke-width="2.5"/>
     <text x="450" y="100" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#0D47A1">Router = penjaga</text>
-    <text x="450" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="15" fill="#333">cek SSID + password</text>
+    <text x="450" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="15" fill="#333">cek SSID + sandi</text>
     <rect x="610" y="55" width="250" height="120" rx="10" fill="#C8E6C9" stroke="#2E7D32" stroke-width="2.5"/>
     <text x="735" y="100" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="18" font-weight="700" fill="#1B5E20">IP = nomor kursi</text>
     <text x="735" y="138" text-anchor="middle" dominant-baseline="central" font-family="Segoe UI,sans-serif" font-size="15" fill="#333">bukti sudah masuk</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Intinya:</strong> SSID = nama pesta · password = undangan · IP = kursi yang diberikan router. Sumber gambar: diagram Koding Indonesia (FS-29).
+    <strong>Intinya:</strong> SSID = nama pesta · sandi = undangan · IP = kursi yang diberikan router. Sumber gambar: diagram Koding Indonesia (FS-29).
   </figcaption>
 </figure>
 HTML;
@@ -369,12 +369,12 @@ CODE;
         return <<<HTML
 <h2>Pendahuluan — ESP32 masuk jaringan rumah</h2>
 <p>Artikel ini adalah <strong>#99 (ini)</strong> · modul <strong>FS-29</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>CONNECTED</strong>). Fase <strong>BUILDER</strong> (sampai FS-28) sudah melatih sensor/aktuator lokal. Hari ini langkah pertama “terhubung”: ESP32 <strong>gabung Wi-Fi</strong> dan mendapat <strong>IP</strong>.</p>
-<p><strong>Analogi:</strong> ESP32 = tamu · router = penjaga pintu · SSID = nama pesta · password = undangan · IP = nomor kursi.</p>
+<p><strong>Analogi:</strong> ESP32 = tamu · router = penjaga pintu · SSID = nama pesta · sandi (password) = undangan · IP = nomor kursi.</p>
 {$analogy}
 <p><strong>Glosarium singkat:</strong></p>
 <ul>
 <li><strong>SSID</strong> = nama Wi-Fi yang kamu pilih di HP.</li>
-<li><strong>Station mode</strong> = ESP32 bergabung ke router (bukan jadi hotspot).</li>
+<li><strong>Mode gabung (station)</strong> = ESP32 bergabung ke router (bukan jadi hotspot).</li>
 <li><strong>IP</strong> = alamat di LAN rumah (contoh <code>192.168.1.42</code>).</li>
 <li><strong>RSSI</strong> = perkiraan kekuatan sinyal (angka negatif; mendekati 0 = lebih kuat).</li>
 <li><strong>2,4 GHz vs 5 GHz</strong> = banyak ESP32 hanya mendengar <strong>2,4 GHz</strong>.</li>
@@ -382,23 +382,23 @@ CODE;
 <p><strong>Prasyarat:</strong> gate BUILDER (praktik lokal sampai FS-28) · FS-19 (<code>millis</code> / timeout ramah) · FS-14 (Upload + Serial Monitor).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li>Catat SSID Wi-Fi rumah yang <strong>2,4 GHz</strong> (bukan 5 GHz only).</li>
+<li>Catat SSID Wi-Fi rumah yang <strong>2,4 GHz</strong> (bukan yang hanya 5 GHz).</li>
 <li><strong>Buka Arduino IDE dulu</strong> (bukan Laragon / terminal web).</li>
-<li>Buat sketch <code>FS29_wifi_begin</code> → isi SSID/password → <strong>Verify</strong> → <strong>Upload</strong>.</li>
-<li>Buka <strong>Serial Monitor</strong> baud <strong>115200</strong> — tunggu IP muncul.</li>
+<li>Buat sketch <code>FS29_wifi_begin</code> → isi SSID/sandi → <strong>Verify</strong> → <strong>Upload</strong>.</li>
+<li>Buka <strong>Tools → Serial Monitor</strong> (atau Ctrl+Shift+M) baud <strong>115200</strong> — tunggu IP muncul.</li>
 <li>Centang checklist 10/10 di browser.</li>
 </ol>
-<p><strong>Tidak perlu hari ini:</strong> Library Manager ekstra, MQTT, Flask, Laragon, <code>php artisan</code>, breadboard sensor, web server di ESP32. Tools hari ini: <strong>Arduino IDE</strong> + <strong>Upload</strong> + ESP32 + Wi-Fi 2,4 GHz + <strong>Serial Monitor</strong> + <strong>browser</strong>.</p>
+<p><strong>Tidak perlu hari ini:</strong> Library Manager ekstra, MQTT, Flask, Laragon, <code>php artisan</code>, breadboard sensor, web server di ESP32. Alat hari ini: <strong>Arduino IDE</strong> + <strong>Upload</strong> + ESP32 + Wi-Fi 2,4 GHz + <strong>Serial Monitor</strong> + <strong>browser</strong>.</p>
 
 <h2>Persiapan — buka &amp; siapkan ini dulu</h2>
-<p><strong>Urutan meja kerja:</strong> SSID 2,4 GHz → IDE → Upload → Serial → checklist.</p>
+<p><strong>Urutan meja kerja:</strong> SSID 2,4 GHz → IDE → Upload → Serial Monitor → checklist.</p>
 {$tools}
 {$ide}
 {$core}
 <ul>
 <li>Buka <strong>Arduino IDE 2.x</strong> · board <strong>ESP32 Dev Module</strong> + port USB <strong>data</strong>.</li>
 <li>Siapkan nama &amp; sandi Wi-Fi <strong>2,4 GHz</strong> (hotspot HP 2,4 juga boleh untuk uji).</li>
-<li>Siapkan Serial Monitor baud <strong>115200</strong>.</li>
+<li>Siapkan Serial Monitor: menu <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
 <li>Ingat: <code>WiFi.h</code> sudah di core — tidak perlu pasang library baru.</li>
 </ul>
 <p><strong>Alat yang dipakai hari ini:</strong> Arduino IDE, Upload, ESP32, Wi-Fi 2,4 GHz, Serial Monitor, browser.</p>
@@ -412,19 +412,19 @@ CODE;
 <ul>
 <li><strong>Router</strong> memancarkan SSID → ESP32 memanggil <code>WiFi.begin(SSID, password)</code>.</li>
 <li>Kalau diterima → status <strong>WL_CONNECTED</strong> → router memberi <strong>IP</strong>.</li>
-<li>Kalau ditolak / salah band / timeout → Serial hanya titik atau pesan gagal.</li>
+<li>Kalau ditolak / salah frekuensi / timeout → Serial hanya titik atau pesan gagal.</li>
 <li><strong>Guest Wi-Fi / AP isolation</strong> bisa membuat HP tidak “melihat” ESP32 di LAN — untuk FS-29 cukup bukti IP di Serial dulu.</li>
 </ul>
-<p><strong>Intinya:</strong> hari ini sukses = <strong>IP valid di Serial</strong>, bukan halaman web di HP.</p>
+<p><strong>Intinya:</strong> hari ini sukses = <strong>IP valid di Serial Monitor</strong>, bukan halaman web di HP.</p>
 
 <h2>Praktik — sketch FS29_wifi_begin</h2>
-<p>Tujuan: ESP32 station connect ke SSID 2,4 GHz, cetak IP (+ RSSI) ke Serial, dengan timeout ramah memakai <code>millis</code>.</p>
+<p>Tujuan: ESP32 bergabung (mode station) ke SSID 2,4 GHz, mencetak IP (+ RSSI) ke Serial Monitor, dengan timeout ramah memakai <code>millis</code>.</p>
 <ol>
 <li><strong>Buka Arduino IDE</strong> dulu (bukan Laragon).</li>
 <li><strong>File → New Sketch</strong> → <strong>Simpan sebagai</strong> <code>FS29_wifi_begin</code>.</li>
 <li>Ganti isi dengan kode di bawah — ganti <code>YOUR_SSID</code> / <code>YOUR_PASS</code>.</li>
 <li><strong>Verify</strong> → <strong>Upload</strong> → tunggu <em>Done uploading</em>.</li>
-<li>Buka Serial Monitor baud <strong>115200</strong>.</li>
+<li>Buka <strong>Tools → Serial Monitor</strong> (Ctrl+Shift+M) baud <strong>115200</strong>.</li>
 </ol>
 <pre><code class="language-cpp">{$code}</code></pre>
 <p><strong>Cara menguji perintah di atas:</strong> uji di <strong>Arduino IDE + Upload + Serial Monitor</strong>. Bukan perintah Laragon / browser. Sukses jika muncul baris <code>IP: 192.168....</code>. Jika gagal, ganti ke SSID 2,4 GHz atau hotspot HP lalu Upload lagi.</p>
@@ -434,12 +434,12 @@ CODE;
 <p>Centang setiap langkah setelah kamu lakukan di meja. Target: <strong>10/10</strong>.</p>
 <ul id="fsiot-wifi-checklist-items">
 <li>Arduino IDE sudah terbuka sebelum menulis kode</li>
-<li>SSID yang dipakai adalah 2,4 GHz (bukan 5 GHz only)</li>
+<li>SSID yang dipakai adalah 2,4 GHz (bukan yang hanya 5 GHz)</li>
 <li>Paham: WiFi.h di core — tanpa Library Manager ekstra</li>
 <li>Sketch disimpan sebagai FS29_wifi_begin</li>
 <li>YOUR_SSID / YOUR_PASS sudah diganti (bukan teks contoh)</li>
 <li>Upload berhasil — Done uploading</li>
-<li>Serial baud 115200 terbuka</li>
+<li>Serial Monitor baud 115200 terbuka (Tools → Serial Monitor)</li>
 <li>Muncul WL_CONNECTED atau IP valid</li>
 <li>Paham: IP di Serial ≠ localhost di HP</li>
 <li>Sadar: ini pintu fase CONNECTED — siap FS-30 (HTTP/JSON) saat terbit</li>
@@ -448,8 +448,8 @@ CODE;
 
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
-<li><strong>SSID 5 GHz only.</strong> Pilih SSID 2,4 GHz atau aktifkan band 2,4 di router.</li>
-<li><strong>Password salah / spasi tersembunyi.</strong> Salin ulang; hindari spasi di ujung string.</li>
+<li><strong>SSID hanya 5 GHz.</strong> Pilih SSID 2,4 GHz atau aktifkan band 2,4 di router.</li>
+<li><strong>Sandi salah / spasi tersembunyi.</strong> Salin ulang; hindari spasi di ujung string.</li>
 <li><strong>Timeout terlalu singkat.</strong> Kode di atas menunggu sampai 20 detik — jangan panik di detik ke-3.</li>
 <li><strong>Kabel USB charge-only.</strong> Upload / Serial butuh kabel data.</li>
 <li><strong>Menguji di Laragon / terminal web.</strong> Sketch hanya jalan di board lewat IDE Upload.</li>
