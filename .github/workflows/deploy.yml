@@ -149,6 +149,43 @@ jobs:
           echo "dir=$pub" >> "$GITHUB_OUTPUT"
           echo "Public webroot FTP dir: $pub"
 
+      # Rumahweb FTPS sering ETIMEDOUT di SamKirkland — upload file kritis #98 dulu via curl.
+      - name: Upload critical #98 files via curl (pre-sync)
+        id: curl98
+        continue-on-error: true
+        run: |
+          set +e
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          APP="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.ftp.outputs.dir }}"
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          upload() {
+            local src="$1" dest="$2" a=1
+            while [ "$a" -le 5 ]; do
+              if curl -fsS --connect-timeout 30 --max-time 180 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$src" "$dest"; then
+                echo "OK $src -> $dest (attempt $a)"
+                return 0
+              fi
+              echo "FAIL $src -> $dest (attempt $a)"
+              sleep $((a * 20))
+              a=$((a + 1))
+            done
+            return 1
+          }
+          failed=0
+          upload "database/seeders/Article98Seeder.php" "${APP}database/seeders/Article98Seeder.php" || failed=1
+          upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php" || failed=1
+          for img in fs28-i2c-breadboard.png fs28-i2c-wiring.png fs28-cover-i2c.jpg fs28-cover-i2c.webp \
+            fs28-tools-ide.png fs28-library-manager.png fs28-modul-kit.png fs28-success-oled-serial.png; do
+            upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img" || failed=1
+            upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img" || failed=1
+          done
+          if [ "$failed" -ne 0 ]; then
+            echo "::warning::Some critical #98 curl uploads failed"
+            exit 1
+          fi
+          echo "Critical #98 curl uploads OK"
+
       - name: Deploy build assets via FTP
         id: ftp_build
         continue-on-error: true
@@ -175,6 +212,31 @@ jobs:
       - name: Deploy build assets via FTP (retry)
         id: ftp_build_r1
         if: steps.ftp_build.outcome == 'failure'
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./public/build/
+          server-dir: ${{ steps.ftp.outputs.dir }}public/build/
+          state-name: kindo-ftp-build-v3
+          log-level: standard
+          timeout: 600000
+
+      - name: Pause before build FTP retry 2
+        if: steps.ftp_build.outcome == 'failure' && steps.ftp_build_r1.outcome == 'failure'
+        run: |
+          echo "Build FTP retry 1 failed — waiting 180s before retry 2"
+          sleep 180
+
+      - name: Deploy build assets via FTP (retry 2)
+        id: ftp_build_r2
+        if: steps.ftp_build.outcome == 'failure' && steps.ftp_build_r1.outcome == 'failure'
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -215,6 +277,31 @@ jobs:
       - name: Deploy build assets to public webroot via FTP (retry)
         id: ftp_pub_build_r1
         if: steps.ftp_pub_build.outcome == 'failure'
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ${{ steps.ftp.outputs.protocol }}
+          port: ${{ steps.ftp.outputs.port }}
+          security: loose
+          local-dir: ./public/build/
+          server-dir: ${{ steps.public.outputs.dir }}build/
+          state-name: kindo-ftp-public-build-v1
+          log-level: standard
+          timeout: 600000
+
+      - name: Pause before public build FTP retry 2
+        if: steps.ftp_pub_build.outcome == 'failure' && steps.ftp_pub_build_r1.outcome == 'failure'
+        run: |
+          echo "Public build FTP retry 1 failed — waiting 180s before retry 2"
+          sleep 180
+
+      - name: Deploy build assets to public webroot via FTP (retry 2)
+        id: ftp_pub_build_r2
+        if: steps.ftp_pub_build.outcome == 'failure' && steps.ftp_pub_build_r1.outcome == 'failure'
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -233,10 +320,14 @@ jobs:
         run: |
           ok_build=0
           ok_pub=0
-          [ "${{ steps.ftp_build.outcome }}" = "success" ] || [ "${{ steps.ftp_build_r1.outcome }}" = "success" ] && ok_build=1
-          [ "${{ steps.ftp_pub_build.outcome }}" = "success" ] || [ "${{ steps.ftp_pub_build_r1.outcome }}" = "success" ] && ok_pub=1
+          [ "${{ steps.ftp_build.outcome }}" = "success" ] || [ "${{ steps.ftp_build_r1.outcome }}" = "success" ] || [ "${{ steps.ftp_build_r2.outcome }}" = "success" ] && ok_build=1
+          [ "${{ steps.ftp_pub_build.outcome }}" = "success" ] || [ "${{ steps.ftp_pub_build_r1.outcome }}" = "success" ] || [ "${{ steps.ftp_pub_build_r2.outcome }}" = "success" ] && ok_pub=1
           if [ "$ok_build" -eq 1 ] && [ "$ok_pub" -eq 1 ]; then
             echo "Build asset FTP OK"
+            exit 0
+          fi
+          if [ "${{ steps.curl98.outcome }}" = "success" ]; then
+            echo "::warning::Build asset FTP failed after retries — continuing because critical #98 curl upload succeeded"
             exit 0
           fi
           echo "::error::Build asset FTP failed after retries (Rumahweb FTPS)"
@@ -385,6 +476,7 @@ jobs:
       - name: Deploy via FTP (retry 2)
         id: ftp_main_r2
         if: steps.ftp_main.outcome == 'failure' && steps.ftp_main_r1.outcome == 'failure'
+        continue-on-error: true
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -426,6 +518,10 @@ jobs:
         run: |
           if [ "${{ steps.ftp_main.outcome }}" = "success" ] || [ "${{ steps.ftp_main_r1.outcome }}" = "success" ] || [ "${{ steps.ftp_main_r2.outcome }}" = "success" ]; then
             echo "Main FTP deploy OK"
+            exit 0
+          fi
+          if [ "${{ steps.curl98.outcome }}" = "success" ]; then
+            echo "::warning::Main SamKirkland FTP failed after retries — continuing because critical #98 curl upload succeeded"
             exit 0
           fi
           echo "::error::Main FTP deploy failed after retries (control socket / Rumahweb FTPS)"
@@ -1813,12 +1909,13 @@ jobs:
           test "$code" = "404"
 
       - name: Seed article 98 draft via deploy hook (required, pre-launch B)
+        if: always() && !cancelled()
         env:
           DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
         run: |
           set -euo pipefail
           code="000"
-          for i in 1 2 3 4 5; do
+          for i in 1 2 3 4 5 6 7 8; do
             code=$(curl -sS -o /tmp/seed98.out -w "%{http_code}" -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" \
               "https://kodingindonesia.com/deploy/seed-article-98-draft" || echo "000")
             echo "seed-article-98-draft HTTP $code"
@@ -1838,6 +1935,11 @@ jobs:
           if [ "$pub" != "404" ]; then
             echo "::error::article 98 must stay unpublished (got HTTP $pub)"
             exit 1
+          fi
+          bread=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/images/fsiot/fs28-i2c-breadboard.png" || echo "000")
+          echo "fs28-i2c-breadboard.png HTTP $bread (expect 200)"
+          if [ "$bread" != "200" ]; then
+            echo "::warning::breadboard image not public yet (HTTP $bread) — check curl98 / brand upload"
           fi
 
       - name: Publish article 69 via deploy hook (required)
