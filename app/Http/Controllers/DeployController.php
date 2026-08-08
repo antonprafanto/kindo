@@ -9420,7 +9420,12 @@ class DeployController extends Controller
             'Buka browser',
             'Histeresis',
             'fs-gate-builder-criteria.png',
+            'fs-gate-builder-relay-contacts.png',
+            'fs-gate-builder-wiring-example.png',
             'Gambar utama',
+            'Ringkasnya:',
+            'kotak kuis interaktif',
+            'COM / NO / NC',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -9453,6 +9458,10 @@ class DeployController extends Controller
             'Hysteresis',
             'Main figure',
             'fs-gate-builder-criteria.png',
+            'fs-gate-builder-relay-contacts.png',
+            'fs-gate-builder-wiring-example.png',
+            'interactive quiz box',
+            'COM / NO / NC',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

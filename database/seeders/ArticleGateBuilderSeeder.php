@@ -110,7 +110,7 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs-gate-builder-criteria.png" width="1200" height="680" alt="Enam kriteria lulus fase BUILDER" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs-gate-builder-criteria.png" width="1200" height="700" alt="Enam kriteria lulus fase BUILDER" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Gambar utama — kriteria lulus BUILDER.</strong> Automasi lokal · OLED/Serial · relay aman · peta pin · foto wiring · kuis ≥12/15. Sumber gambar: diagram Koding Indonesia (Gate BUILDER).
   </figcaption>
@@ -122,9 +122,57 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
-  <img src="/images/fsiot/fs-gate-builder-criteria.png" width="1200" height="680" alt="Six BUILDER phase pass criteria" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <img src="/images/fsiot/fs-gate-builder-criteria.png" width="1200" height="700" alt="Six BUILDER phase pass criteria" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
     <strong>Main figure — BUILDER pass criteria.</strong> Local automation · OLED/Serial · safe relay · pin map · wiring photo · quiz ≥12/15. Image source: diagram by Koding Indonesia (BUILDER gate).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function relayFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs-gate-builder-relay-contacts.png" width="1200" height="560" alt="Tiga kaki kontak relay: NC, COM, NO" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Ingat singkat:</strong> COM = kaki bersama; NO/NC = dua jalur yang dipilih. Sumber gambar: diagram Koding Indonesia (Gate BUILDER) · istilah standar kontak relay.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function relayFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs-gate-builder-relay-contacts.png" width="1200" height="560" alt="Relay contact pins: NC, COM, NO" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Quick recall:</strong> COM = shared pin; NO/NC = the two paths you choose. Image source: diagram by Koding Indonesia (BUILDER gate) · standard relay contact terms.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function wiringFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs-gate-builder-wiring-example.png" width="1549" height="746" alt="Contoh foto wiring meja: ESP32, BME280, OLED di breadboard" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Contoh foto wiring (honor system).</strong> Simpan foto meja praktikmu sendiri di HP/laptop — belum perlu unggah ke situs. Sumber foto: dokumentasi praktikum jalur Full Stack IoT (I2C BME280 + OLED / FS-28).
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function wiringFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs-gate-builder-wiring-example.png" width="1549" height="746" alt="Example desk wiring photo: ESP32, BME280, OLED on a breadboard" loading="eager" style="width:100%;height:auto;max-height:520px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Example wiring photo (honor system).</strong> Keep your own desk photo on phone/laptop — no site upload yet. Photo source: Full Stack IoT path lab docs (I2C BME280 + OLED / FS-28).
   </figcaption>
 </figure>
 HTML;
@@ -158,6 +206,8 @@ HTML;
     {
         $tools = $this->toolsFigureId();
         $criteria = $this->criteriaFigureId();
+        $relay = $this->relayFigureId();
+        $wiring = $this->wiringFigureId();
         $success = $this->successFigureId();
 
         return <<<'HTML'
@@ -169,14 +219,15 @@ HTML;
 <li><strong>Gate fase</strong> = kuis wajib sebelum naik ZERO→BUILDER→CONNECTED→…</li>
 <li><strong>BUILDER</strong> = fase sensor &amp; aktuator lokal (tanpa Wi-Fi).</li>
 <li><strong>CONNECTED</strong> = fase data lewat jaringan (mulai FS-29).</li>
-<li><strong>Matching</strong> = cocokkan istilah ↔ arti.</li>
+<li><strong>Matching</strong> = cocokkan istilah dengan artinya (contoh: GPIO ↔ kaki pin serba guna).</li>
+<li><strong>COM / NO / NC</strong> = tiga kaki kontak di modul relay (kaki bersama + dua jalur).</li>
 </ul>
 <p><strong>Prasyarat:</strong> praktik BUILDER sampai FS-28 (I2C BME280 + OLED) · paham FS-19 (<code>millis</code>) · FS-14 (Upload + Serial) sudah pernah dicoba.</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
-<li><strong>Buka browser</strong> — kerjakan di halaman artikel (bukan Laragon / Arduino IDE).</li>
-<li>Baca kriteria lulus BUILDER di bawah.</li>
-<li>Kerjakan <strong>kuis matching 15 soal</strong> → tekan <strong>Cek skor</strong> (target ≥ <strong>12/15</strong>).</li>
+<li><strong>Buka browser</strong> — kerjakan di halaman artikel ini (bukan Laragon / Arduino IDE).</li>
+<li>Baca kriteria lulus BUILDER + diagram relay singkat di bawah.</li>
+<li>Kerjakan <strong>kuis matching 15 soal</strong> di kotak interaktif → tekan <strong>Cek skor</strong> (target ≥ <strong>12/15</strong>).</li>
 <li>Baru buka kunci jawaban jika perlu mengulang.</li>
 <li>Centang checklist 10/10 (termasuk foto wiring sendiri).</li>
 </ol>
@@ -191,17 +242,19 @@ HTML
 <li>Siapkan catatan opsional jika suka tulis tangan.</li>
 <li>Siapkan foto wiring meja praktik BUILDER (honor system — belum upload ke situs).</li>
 </ul>
-<p><strong>Alat yang dipakai hari ini:</strong> browser.</p>
+<p><strong>Alat yang dipakai hari ini:</strong> browser saja. Tombol <strong>Cek skor</strong> dan kotak centang muncul di halaman artikel setelah kamu gulir ke bagian praktik.</p>
 <p><strong>Tidak dipakai hari ini:</strong> Arduino IDE, Upload, Laragon, <code>php artisan</code>, Serial Monitor untuk sketch baru.</p>
 
 <h2>Kriteria lulus BUILDER</h2>
 HTML
             .$criteria.<<<'HTML'
-<p><strong>Blok konsep:</strong> sebelum Wi-Fi, pastikan fondasi lokal kuat — automasi jalan, angka sensor terbaca, relay dipakai aman, pin map dikuasai, ada dokumentasi wiring sendiri, lalu lulus kuis istilah.</p>
+<p><strong>Ringkasnya:</strong> sebelum Wi-Fi, pastikan fondasi lokal kuat — automasi jalan, angka sensor terbaca, relay dipakai aman, pin map dikuasai, ada dokumentasi wiring sendiri, lalu lulus kuis istilah.</p>
+HTML
+            .$relay.<<<'HTML'
 <p><strong>Intinya:</strong> gate ini menguji <strong>paham istilah</strong> + <strong>checklist jujur</strong>, bukan Upload sketch baru.</p>
 
 <h2 id="fsiot-kuis-matching">Praktik — kuis matching 15 soal</h2>
-<p>Tutup catatan sebentar. Di bawah ada <strong>kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan.</p>
+<p>Tutup catatan sebentar. Di halaman artikel (pratinjau atau terbit), muncul <strong>kotak kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan di bagian “Versi catatan”.</p>
 <p><strong>Kolom istilah:</strong></p>
 <ol>
   <li>GPIO</li>
@@ -243,8 +296,6 @@ HTML
 <h2 id="fsiot-kuis-kunci">Kunci jawaban</h2>
 <p>1B · 2L · 3E · 4K · 5H · 6O · 7D · 8N · 9G · 10J · 11C · 12M · 13A · 14F · 15I</p>
 <p>Hitung skormu. Di bawah 12? Baca ulang istilah yang salah, ulangi matching — itu normal.</p>
-HTML
-            .$success.<<<'HTML'
 
 <h2 id="fsiot-gate-builder-checklist">Praktik — checklist Gate BUILDER</h2>
 <p>Centang setelah kamu jujur menilai diri. Target: <strong>10/10</strong>.</p>
@@ -255,12 +306,16 @@ HTML
 <li>Kuis matching dikerjakan sebelum membuka kunci</li>
 <li>Skor ≥ 12/15 (atau sudah mengulang sampai lulus)</li>
 <li>Paham singkat: GPIO, millis, ADC/LDR</li>
-<li>Paham singkat: relay COM + PIR + PWM/servo</li>
+<li>Paham singkat: relay COM/NO/NC + PIR + PWM/servo</li>
 <li>Paham singkat: I2C SDA/SCL + BME280 + OLED</li>
 <li>Sudah punya foto wiring sendiri (simpan di HP/laptop)</li>
 <li>Sadar: langkah berikutnya CONNECTED dimulai FS-29 (Wi-Fi) saat modulnya terbit</li>
 </ul>
+HTML
+            .$wiring.<<<'HTML'
 <p><strong>Cara menguji checklist:</strong> centang di browser setelah kuis. Tidak perlu <code>php artisan</code>.</p>
+HTML
+            .$success.<<<'HTML'
 
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
@@ -269,7 +324,7 @@ HTML
 <li><strong>Mengira harus Upload sketch hari ini.</strong> Hari ini cukup browser + kuis.</li>
 <li><strong>Menguji di Laragon.</strong> Tidak ada perintah server yang dijalankan.</li>
 <li><strong>Checklist asal centang.</strong> Foto wiring &amp; skor kuis harus benar-benar ada.</li>
-<li><strong>Bingung Gate vs gate publik situs.</strong> Gate BUILDER = kuis naik fase. “Coming soon” di /belajar = kunci rilis jalur untuk guest.</li>
+<li><strong>Bingung Gate vs “segera hadir” di halaman jalur.</strong> Gate BUILDER = kuis naik fase. Tulisan “segera hadir” / coming soon di <code>/belajar</code> = kunci rilis jalur untuk pengunjung, bukan kuis ini.</li>
 </ul>
 
 <h2>Selanjutnya</h2>
@@ -283,6 +338,8 @@ HTML;
     {
         $tools = $this->toolsFigureEn();
         $criteria = $this->criteriaFigureEn();
+        $relay = $this->relayFigureEn();
+        $wiring = $this->wiringFigureEn();
         $success = $this->successFigureEn();
 
         return <<<'HTML'
@@ -294,14 +351,15 @@ HTML;
 <li><strong>Phase gate</strong> = required quiz before ZERO→BUILDER→CONNECTED→…</li>
 <li><strong>BUILDER</strong> = local sensor &amp; actuator phase (no Wi-Fi yet).</li>
 <li><strong>CONNECTED</strong> = networked data phase (starts at FS-29).</li>
-<li><strong>Matching</strong> = pair each term with its meaning.</li>
+<li><strong>Matching</strong> = pair each term with its meaning (example: GPIO ↔ general-purpose pin).</li>
+<li><strong>COM / NO / NC</strong> = three relay contact pins (shared pin + two paths).</li>
 </ul>
 <p><strong>Prerequisites:</strong> BUILDER practice through FS-28 (I2C BME280 + OLED) · FS-19 (<code>millis</code>) · FS-14 (Upload + Serial) already tried once.</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
 <li><strong>Open a browser</strong> — work on this article page (not Laragon / Arduino IDE).</li>
-<li>Read the BUILDER pass criteria below.</li>
-<li>Take the <strong>15-item matching quiz</strong> → press <strong>Check score</strong> (target ≥ <strong>12/15</strong>).</li>
+<li>Read the BUILDER pass criteria + the short relay diagram below.</li>
+<li>Take the <strong>15-item matching quiz</strong> in the interactive box → press <strong>Check score</strong> (target ≥ <strong>12/15</strong>).</li>
 <li>Only then open the answer key if you need a retry.</li>
 <li>Tick the 10/10 checklist (including your own wiring photo).</li>
 </ol>
@@ -316,17 +374,19 @@ HTML
 <li>Optional notes if you like handwriting.</li>
 <li>Have a photo of your BUILDER wiring (honor system — no site upload yet).</li>
 </ul>
-<p><strong>Tools used today:</strong> browser.</p>
+<p><strong>Tools used today:</strong> browser only. The <strong>Check score</strong> button and checklist boxes appear on the article page when you scroll to the practice sections.</p>
 <p><strong>Not used today:</strong> Arduino IDE, Upload, Laragon, <code>php artisan</code>, Serial Monitor for a new sketch.</p>
 
 <h2>BUILDER pass criteria</h2>
 HTML
             .$criteria.<<<'HTML'
-<p><strong>Concept block:</strong> before Wi-Fi, make sure the local foundation is solid — automation runs, sensor numbers are readable, relays are used safely, the pin map is owned, you have your own wiring docs, then pass the terms quiz.</p>
+<p><strong>In brief:</strong> before Wi-Fi, make sure the local foundation is solid — automation runs, sensor numbers are readable, relays are used safely, the pin map is owned, you have your own wiring docs, then pass the terms quiz.</p>
+HTML
+            .$relay.<<<'HTML'
 <p><strong>In short:</strong> this gate checks <strong>term understanding</strong> + an <strong>honest checklist</strong>, not a new sketch Upload.</p>
 
 <h2 id="fsiot-kuis-matching">Practice — matching quiz (15 items)</h2>
-<p>Close your notes for a moment. Below is an <strong>interactive quiz</strong>: pick a meaning for each term, then press <strong>Check score</strong>. A paper version remains available as a backup.</p>
+<p>Close your notes for a moment. On the article page (preview or published), an <strong>interactive quiz box</strong> appears: pick a meaning for each term, then press <strong>Check score</strong>. A paper version remains available under “Paper version” as a backup.</p>
 <p><strong>Terms column:</strong></p>
 <ol>
   <li>GPIO</li>
@@ -368,8 +428,6 @@ HTML
 <h2 id="fsiot-kuis-kunci">Answer key</h2>
 <p>1B · 2L · 3E · 4K · 5H · 6O · 7D · 8N · 9G · 10J · 11C · 12M · 13A · 14F · 15I</p>
 <p>Count your score. Below 12? Re-read the wrong terms and match again — that is normal.</p>
-HTML
-            .$success.<<<'HTML'
 
 <h2 id="fsiot-gate-builder-checklist">Practice — BUILDER gate checklist</h2>
 <p>Tick after an honest self-check. Target: <strong>10/10</strong>.</p>
@@ -380,12 +438,16 @@ HTML
 <li>Matching quiz done before opening the key</li>
 <li>Score ≥ 12/15 (or retried until pass)</li>
 <li>Brief grasp: GPIO, millis, ADC/LDR</li>
-<li>Brief grasp: relay COM + PIR + PWM/servo</li>
+<li>Brief grasp: relay COM/NO/NC + PIR + PWM/servo</li>
 <li>Brief grasp: I2C SDA/SCL + BME280 + OLED</li>
 <li>I have my own wiring photo (saved on phone/laptop)</li>
 <li>I know: next CONNECTED step is FS-29 (Wi-Fi) when that module ships</li>
 </ul>
+HTML
+            .$wiring.<<<'HTML'
 <p><strong>How to test the checklist:</strong> tick in the browser after the quiz. No <code>php artisan</code>.</p>
+HTML
+            .$success.<<<'HTML'
 
 <h2>Common mistakes</h2>
 <ul>
@@ -394,7 +456,7 @@ HTML
 <li><strong>Thinking you must Upload a sketch today.</strong> Today is browser + quiz only.</li>
 <li><strong>Testing in Laragon.</strong> No server commands are run.</li>
 <li><strong>Checking the checklist casually.</strong> Wiring photo and quiz score must be real.</li>
-<li><strong>Confusing this gate with the site public gate.</strong> BUILDER gate = phase-up quiz. “Coming soon” on /belajar = path release lock for guests.</li>
+<li><strong>Confusing this gate with “coming soon” on the path page.</strong> BUILDER gate = phase-up quiz. “Coming soon” on <code>/belajar</code> = path release lock for guests, not this quiz.</li>
 </ul>
 
 <h2>Next</h2>

@@ -39,7 +39,7 @@ check('published_at null', str_contains($src, "'published_at'       => null"));
 check('slug gate-builder', str_contains($src, 'fullstack-iot-gate-builder'));
 check('seed route', str_contains($routes, 'seed-gate-builder-draft'));
 check('deploy seed step', str_contains($deploy, 'seed-gate-builder-draft'));
-check('ftp allowlist', str_contains($deploy, 'fs-gate-builder-criteria.png'));
+check('ftp allowlist', str_contains($deploy, 'fs-gate-builder-criteria.png') && str_contains($deploy, 'fs-gate-builder-wiring-example.png'));
 check('curl_gate_builder', str_contains($deploy, 'id: curl_gate_builder'));
 check('seedGateBuilderDraft method', str_contains($ctrl, 'seedGateBuilderDraft'));
 check('ID self-ref Gate BUILDER (ini)', str_contains($id, 'Gate BUILDER (ini)'));
@@ -61,11 +61,19 @@ check('checklist 10 items', substr_count(explode('id="fsiot-gate-builder-checkli
 check('checklist wired', str_contains($blade, 'initFsiotGateBuilderChecklist'));
 check('lang ID', str_contains($langId, 'fsiot_gate_builder_badge'));
 check('lang EN', str_contains($langEn, 'fsiot_gate_builder_badge'));
-foreach (['fs-gate-builder-cover.jpg', 'fs-gate-builder-cover.webp', 'fs-gate-builder-tools.png', 'fs-gate-builder-criteria.png', 'fs-gate-builder-success.png'] as $a) {
+foreach (['fs-gate-builder-cover.jpg', 'fs-gate-builder-cover.webp', 'fs-gate-builder-tools.png', 'fs-gate-builder-criteria.png', 'fs-gate-builder-success.png', 'fs-gate-builder-relay-contacts.png', 'fs-gate-builder-wiring-example.png'] as $a) {
     check($a, is_file($root.'/public/images/fsiot/'.$a));
 }
 check('Gambar utama', str_contains($id, 'Gambar utama'));
 check('Main figure', str_contains($en, 'Main figure'));
+check('relay contacts fig', str_contains($id, 'fs-gate-builder-relay-contacts.png') && str_contains($en, 'fs-gate-builder-relay-contacts.png'));
+check('wiring example fig', str_contains($id, 'fs-gate-builder-wiring-example.png') && str_contains($id, 'dokumentasi praktikum'));
+check('interactive quiz copy', str_contains($id, 'kotak kuis interaktif') && str_contains($en, 'interactive quiz box'));
+check('Ringkasnya not Blok konsep', str_contains($id, 'Ringkasnya:') && ! str_contains($id, 'Blok konsep:'));
+// success figure must NOT sit between kunci and checklist (JS hides until next H2)
+$keyToCl = explode('id="fsiot-kuis-kunci"', explode('id="fsiot-gate-builder-checklist"', $id)[0] ?? '')[1] ?? '';
+check('success not inside key wrap', ! str_contains($keyToCl, 'fs-gate-builder-success.png'));
+check('success after checklist', str_contains(explode('id="fsiot-gate-builder-checklist"', $id)[1] ?? '', 'fs-gate-builder-success.png'));
 check('soft bridge FS-29', str_contains($id, 'FS-29') && str_contains($en, 'FS-29'));
 check('prereq FS-28', str_contains($id, 'FS-28') && str_contains($en, 'FS-28'));
 check('no hardlink FS', ! preg_match('#/artikel/fullstack-iot-[a-z0-9-]+#', $id));
@@ -73,6 +81,7 @@ check('jalur link', str_contains($id, '/belajar/fullstack-iot'));
 check('EYD Histeresis', str_contains($id, 'Histeresis'));
 check('CONNECTED phase', str_contains($id, 'CONNECTED') && str_contains($en, 'CONNECTED'));
 check('wiring photo checklist', str_contains($id, 'foto wiring') && str_contains($en, 'wiring photo'));
+check('COM NO NC glossary', str_contains($id, 'COM / NO / NC') && str_contains($en, 'COM / NO / NC'));
 foreach (['Pendahuluan', 'Persiapan', 'Kesalahan yang sering terjadi', 'Intinya:', 'Analogi:'] as $bad) {
     check("No Indo in EN: $bad", ! str_contains($en, $bad));
 }
