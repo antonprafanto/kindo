@@ -565,7 +565,7 @@ return [
         'fsiot_i2c_retry' => 'Clear again',
         'fsiot_i2c_paper' => 'Paper version (no clicks)',
         'fsiot_i2c_progress' => ':filled of :total checked',
-        'fsiot_i2c_pass' => 'Complete :filled/:total — I2C is live on screen! Ready for the BUILDER gate / FS-29 when it ships.',
+        'fsiot_i2c_pass' => 'Complete :filled/:total — I2C is live on screen! Next: BUILDER gate (phase-up quiz) when it ships.',
         'fsiot_i2c_incomplete' => 'Some steps are still unchecked. Recheck wiring 21/22, libraries, or addresses 0x76/0x3C.',
         'fsiot_i2c_done' => 'Done',
         'fsiot_i2c_todo' => 'Not yet',
@@ -591,6 +591,17 @@ return [
         'fsiot_http_incomplete' => 'Some steps are still unchecked. Recheck browser JSON, Wi-Fi, or Serial 115200.',
         'fsiot_http_done' => 'Done',
         'fsiot_http_todo' => 'Not yet',
+
+        'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
+        'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
+        'fsiot_gate_builder_check' => 'Check completeness',
+        'fsiot_gate_builder_retry' => 'Clear again',
+        'fsiot_gate_builder_paper' => 'Paper version (no clicks)',
+        'fsiot_gate_builder_progress' => ':filled of :total checked',
+        'fsiot_gate_builder_pass' => 'Complete :filled/:total — BUILDER gate passed! Ready for CONNECTED / FS-29 when it ships.',
+        'fsiot_gate_builder_incomplete' => 'Some steps are still unchecked. Recheck quiz score (≥12/15) or wiring photo.',
+        'fsiot_gate_builder_done' => 'Done',
+        'fsiot_gate_builder_todo' => 'Not yet',
 
 
 

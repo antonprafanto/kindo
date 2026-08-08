@@ -565,7 +565,7 @@ return [
         'fsiot_i2c_retry' => 'Kosongkan lagi',
         'fsiot_i2c_paper' => 'Versi catatan (kertas / tanpa klik)',
         'fsiot_i2c_progress' => ':filled dari :total tercentang',
-        'fsiot_i2c_pass' => 'Lengkap :filled/:total — I2C hidup di layar! Siap gate BUILDER / FS-29 saat terbit.',
+        'fsiot_i2c_pass' => 'Lengkap :filled/:total — I2C hidup di layar! Lanjut Gate BUILDER (kuis naik fase) saat terbit.',
         'fsiot_i2c_incomplete' => 'Masih ada langkah yang belum dicentang. Cek wiring 21/22, library, atau alamat 0x76/0x3C.',
         'fsiot_i2c_done' => 'Selesai',
         'fsiot_i2c_todo' => 'Belum',
@@ -591,6 +591,17 @@ return [
         'fsiot_http_incomplete' => 'Masih ada langkah yang belum dicentang. Cek browser JSON, Wi-Fi, atau Serial 115200.',
         'fsiot_http_done' => 'Selesai',
         'fsiot_http_todo' => 'Belum',
+
+        'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
+        'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
+        'fsiot_gate_builder_check' => 'Cek kelengkapan',
+        'fsiot_gate_builder_retry' => 'Kosongkan lagi',
+        'fsiot_gate_builder_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_gate_builder_progress' => ':filled dari :total tercentang',
+        'fsiot_gate_builder_pass' => 'Lengkap :filled/:total — Gate BUILDER lulus! Siap CONNECTED / FS-29 saat terbit.',
+        'fsiot_gate_builder_incomplete' => 'Masih ada langkah yang belum dicentang. Cek skor kuis (≥12/15) atau foto wiring.',
+        'fsiot_gate_builder_done' => 'Selesai',
+        'fsiot_gate_builder_todo' => 'Belum',
 
 
 

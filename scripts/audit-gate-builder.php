@@ -1,0 +1,81 @@
+<?php
+
+$root = dirname(__DIR__);
+require $root.'/vendor/autoload.php';
+
+$fail = 0;
+$pass = 0;
+function check(string $label, bool $ok): void
+{
+    global $fail, $pass;
+    if ($ok) {
+        echo "OK    $label\n";
+        $pass++;
+    } else {
+        echo "FAIL  $label\n";
+        $fail++;
+    }
+}
+
+$src = file_get_contents($root.'/database/seeders/ArticleGateBuilderSeeder.php');
+$routes = file_get_contents($root.'/routes/web.php');
+$deploy = file_get_contents($root.'/.github/workflows/deploy.yml');
+$ctrl = file_get_contents($root.'/app/Http/Controllers/DeployController.php');
+$blade = file_get_contents($root.'/resources/views/articles/show.blade.php');
+$langId = file_get_contents($root.'/lang/id/ui.php');
+$langEn = file_get_contents($root.'/lang/en/ui.php');
+
+$s = new Database\Seeders\ArticleGateBuilderSeeder();
+$ref = new ReflectionClass($s);
+$m = $ref->getMethod('body');
+$m->setAccessible(true);
+$id = $m->invoke($s);
+$mEn = $ref->getMethod('bodyEn');
+$mEn->setAccessible(true);
+$en = $mEn->invoke($s);
+
+check('status draft', str_contains($src, "'status'             => 'draft'"));
+check('published_at null', str_contains($src, "'published_at'       => null"));
+check('slug gate-builder', str_contains($src, 'fullstack-iot-gate-builder'));
+check('seed route', str_contains($routes, 'seed-gate-builder-draft'));
+check('deploy seed step', str_contains($deploy, 'seed-gate-builder-draft'));
+check('ftp allowlist', str_contains($deploy, 'fs-gate-builder-criteria.png'));
+check('curl_gate_builder', str_contains($deploy, 'id: curl_gate_builder'));
+check('seedGateBuilderDraft method', str_contains($ctrl, 'seedGateBuilderDraft'));
+check('ID self-ref Gate BUILDER (ini)', str_contains($id, 'Gate BUILDER (ini)'));
+check('EN self-ref BUILDER gate', str_contains($en, 'BUILDER gate (this article)'));
+check('no Awam stamp', ! preg_match('/\bAwam:/u', $id));
+check('no Beginner stamp', ! preg_match('/\bBeginner:/u', $en));
+check('no awam word ID', ! preg_match('/\bawam\b/iu', $id));
+check('no beginner word EN', ! preg_match('/\bbeginner\b/iu', $en));
+check('quiz matching ids', str_contains($id, 'id="fsiot-kuis-matching"') && str_contains($id, 'id="fsiot-kuis-kunci"'));
+check('quiz EN ids', str_contains($en, 'id="fsiot-kuis-matching"') && str_contains($en, 'id="fsiot-kuis-kunci"'));
+check('15 terms OL', substr_count(explode('id="fsiot-kuis-matching"', $id)[1] ?? '', '<li>') >= 30); // terms+meanings
+check('answer key 15', preg_match_all('/\d+[A-O]/', explode('id="fsiot-kuis-kunci"', $id)[1] ?? '') >= 15);
+check('pass threshold 12/15', str_contains($id, '12/15') && str_contains($en, '12/15'));
+check('browser first', str_contains($id, 'Buka browser') && str_contains($en, 'Open a browser'));
+check('how to test ID', str_contains($id, 'Cara menguji'));
+check('how to test EN', str_contains($en, 'How to test'));
+check('checklist ids', str_contains($id, 'fsiot-gate-builder-checklist-items'));
+check('checklist 10 items', substr_count(explode('id="fsiot-gate-builder-checklist-items"', $id)[1] ?? '', '<li>') >= 10);
+check('checklist wired', str_contains($blade, 'initFsiotGateBuilderChecklist'));
+check('lang ID', str_contains($langId, 'fsiot_gate_builder_badge'));
+check('lang EN', str_contains($langEn, 'fsiot_gate_builder_badge'));
+foreach (['fs-gate-builder-cover.jpg', 'fs-gate-builder-cover.webp', 'fs-gate-builder-tools.png', 'fs-gate-builder-criteria.png', 'fs-gate-builder-success.png'] as $a) {
+    check($a, is_file($root.'/public/images/fsiot/'.$a));
+}
+check('Gambar utama', str_contains($id, 'Gambar utama'));
+check('Main figure', str_contains($en, 'Main figure'));
+check('soft bridge FS-29', str_contains($id, 'FS-29') && str_contains($en, 'FS-29'));
+check('prereq FS-28', str_contains($id, 'FS-28') && str_contains($en, 'FS-28'));
+check('no hardlink FS', ! preg_match('#/artikel/fullstack-iot-[a-z0-9-]+#', $id));
+check('jalur link', str_contains($id, '/belajar/fullstack-iot'));
+check('EYD Histeresis', str_contains($id, 'Histeresis'));
+check('CONNECTED phase', str_contains($id, 'CONNECTED') && str_contains($en, 'CONNECTED'));
+check('wiring photo checklist', str_contains($id, 'foto wiring') && str_contains($en, 'wiring photo'));
+foreach (['Pendahuluan', 'Persiapan', 'Kesalahan yang sering terjadi', 'Intinya:', 'Analogi:'] as $bad) {
+    check("No Indo in EN: $bad", ! str_contains($en, $bad));
+}
+
+echo "\n$pass pass / $fail fail\n";
+exit($fail === 0 ? 0 : 1);

@@ -9367,6 +9367,111 @@ class DeployController extends Controller
         return response('Article 100 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedGateBuilderDraft(): Response
+    {
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\ArticleGateBuilderSeeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Gate BUILDER draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-gate-builder';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article) {
+            report(new \RuntimeException('Gate BUILDER missing after draft seed.'));
+
+            return response('Gate BUILDER not found after draft seed', 500);
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            report(new \RuntimeException('Gate BUILDER refused to stay draft after seed.'));
+
+            return response('Gate BUILDER must remain draft (pre-launch B)', 500);
+        }
+
+        if (Article::published()->where('slug', $slug)->exists()) {
+            report(new \RuntimeException('Gate BUILDER unexpectedly visible via published() scope.'));
+
+            return response('Gate BUILDER leaked into published scope', 500);
+        }
+
+        $body = (string) $article->body;
+        $bodyNeedles = [
+            'Gate BUILDER (ini)',
+            'CONNECTED',
+            'fsiot-kuis-matching',
+            'fsiot-kuis-kunci',
+            'fsiot-gate-builder-checklist',
+            '12/15',
+            'Tidak perlu hari ini',
+            'Cara pakai artikel ini',
+            'Cara menguji',
+            'FS-28',
+            'FS-29',
+            '/belajar/fullstack-iot',
+            'Analogi:',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'Buka browser',
+            'Histeresis',
+            'fs-gate-builder-criteria.png',
+            'Gambar utama',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Gate BUILDER body missing: '.implode(', ', $missingBody)));
+
+            return response('Gate BUILDER body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            return response('Gate BUILDER EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        $enNeedles = [
+            'BUILDER gate (this article)',
+            'CONNECTED',
+            'fsiot-kuis-matching',
+            'fsiot-kuis-kunci',
+            'fsiot-gate-builder-checklist',
+            '12/15',
+            'Not needed today',
+            'How to use this article',
+            'How to test',
+            'FS-28',
+            'FS-29',
+            'Analogy:',
+            'In short:',
+            'Common mistakes',
+            'Open a browser',
+            'Hysteresis',
+            'Main figure',
+            'fs-gate-builder-criteria.png',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            return response('Gate BUILDER EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Gate BUILDER seeded as draft (pre-launch B)', 200);
+    }
+
+
+
 
 
 

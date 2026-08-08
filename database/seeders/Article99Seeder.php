@@ -379,7 +379,7 @@ CODE;
 <li><strong>RSSI</strong> = perkiraan kekuatan sinyal (angka negatif; mendekati 0 = lebih kuat).</li>
 <li><strong>2,4 GHz vs 5 GHz</strong> = banyak ESP32 hanya mendengar <strong>2,4 GHz</strong>.</li>
 </ul>
-<p><strong>Prasyarat:</strong> gate BUILDER (praktik lokal sampai FS-28) · FS-19 (<code>millis</code> / timeout ramah) · FS-14 (Upload + Serial Monitor).</p>
+<p><strong>Prasyarat:</strong> <strong>Gate BUILDER</strong> (kuis naik fase, skor ≥12/15) · praktik lokal sampai FS-28 · FS-19 (<code>millis</code> / timeout ramah) · FS-14 (Upload + Serial Monitor).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
 <li>Catat SSID Wi-Fi rumah yang <strong>2,4 GHz</strong> (bukan yang hanya 5 GHz).</li>
@@ -489,7 +489,7 @@ HTML;
 <li><strong>RSSI</strong> = rough signal strength (negative numbers; closer to 0 is stronger).</li>
 <li><strong>2.4 GHz vs 5 GHz</strong> = many ESP32 boards only hear <strong>2.4 GHz</strong>.</li>
 </ul>
-<p><strong>Prerequisites:</strong> BUILDER gate (local practice through FS-28) · FS-19 (<code>millis</code> / friendly timeout) · FS-14 (Upload + Serial Monitor).</p>
+<p><strong>Prerequisites:</strong> <strong>BUILDER gate</strong> (phase-up quiz, score ≥12/15) · local practice through FS-28 · FS-19 (<code>millis</code> / friendly timeout) · FS-14 (Upload + Serial Monitor).</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
 <li>Note a home Wi-Fi SSID that is <strong>2.4 GHz</strong> (not 5 GHz only).</li>
