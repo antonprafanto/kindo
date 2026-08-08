@@ -73,6 +73,8 @@ check('Ringkasnya not Blok konsep', str_contains($id, 'Ringkasnya:') && ! str_co
 // success figure must NOT sit between kunci and checklist (JS hides until next H2)
 $keyToCl = explode('id="fsiot-kuis-kunci"', explode('id="fsiot-gate-builder-checklist"', $id)[0] ?? '')[1] ?? '';
 check('success not inside key wrap', ! str_contains($keyToCl, 'fs-gate-builder-success.png'));
+check('success has own H2', str_contains($id, 'Hasil skor — lulus atau ulang') && str_contains($en, 'Score result — pass or retry'));
+check('wiring has own H2', str_contains($id, 'Praktik — contoh foto wiring') && str_contains($en, 'Practice — wiring photo example'));
 check('success after checklist', str_contains(explode('id="fsiot-gate-builder-checklist"', $id)[1] ?? '', 'fs-gate-builder-success.png'));
 check('soft bridge FS-29', str_contains($id, 'FS-29') && str_contains($en, 'FS-29'));
 check('prereq FS-28', str_contains($id, 'FS-28') && str_contains($en, 'FS-28'));

@@ -311,9 +311,14 @@ HTML
 <li>Sudah punya foto wiring sendiri (simpan di HP/laptop)</li>
 <li>Sadar: langkah berikutnya CONNECTED dimulai FS-29 (Wi-Fi) saat modulnya terbit</li>
 </ul>
+<p><strong>Cara menguji checklist:</strong> centang di browser setelah kuis. Tidak perlu <code>php artisan</code>.</p>
+
+<h2>Praktik — contoh foto wiring</h2>
+<p>Ini contoh dokumentasi meja (honor system). Simpan foto milikmu sendiri — belum perlu unggah ke situs.</p>
 HTML
             .$wiring.<<<'HTML'
-<p><strong>Cara menguji checklist:</strong> centang di browser setelah kuis. Tidak perlu <code>php artisan</code>.</p>
+
+<h2>Hasil skor — lulus atau ulang</h2>
 HTML
             .$success.<<<'HTML'
 
@@ -443,9 +448,14 @@ HTML
 <li>I have my own wiring photo (saved on phone/laptop)</li>
 <li>I know: next CONNECTED step is FS-29 (Wi-Fi) when that module ships</li>
 </ul>
+<p><strong>How to test the checklist:</strong> tick in the browser after the quiz. No <code>php artisan</code>.</p>
+
+<h2>Practice — wiring photo example</h2>
+<p>This is sample desk documentation (honor system). Keep your own photo — no site upload yet.</p>
 HTML
             .$wiring.<<<'HTML'
-<p><strong>How to test the checklist:</strong> tick in the browser after the quiz. No <code>php artisan</code>.</p>
+
+<h2>Score result — pass or retry</h2>
 HTML
             .$success.<<<'HTML'
 
