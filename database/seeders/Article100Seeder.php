@@ -108,6 +108,30 @@ HTML;
 HTML;
     }
 
+    private function browserFigureId(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs30-browser-json.png" width="1200" height="700" alt="Contoh tampilan JSON di browser" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Latihan mata.</strong> Buka URL demo di browser sampai terlihat <code>{</code> … <code>}</code>. Kolase UI buatan Koding Indonesia (FS-30). Isi contoh dari <a href="https://jsonplaceholder.typicode.com/todos/1" rel="noopener noreferrer" target="_blank">JSONPlaceholder /todos/1</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
+    private function browserFigureEn(): string
+    {
+        return <<<'HTML'
+<figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
+  <img src="/images/fsiot/fs30-browser-json.png" width="1200" height="700" alt="Example JSON view in a browser" loading="eager" style="width:100%;height:auto;max-height:560px;object-fit:contain;border-radius:6px;background:#F5F5F0">
+  <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
+    <strong>Eye practice.</strong> Open the demo URL in a browser until you see <code>{</code> … <code>}</code>. UI collage by Koding Indonesia (FS-30). Sample body from <a href="https://jsonplaceholder.typicode.com/todos/1" rel="noopener noreferrer" target="_blank">JSONPlaceholder /todos/1</a>.
+  </figcaption>
+</figure>
+HTML;
+    }
+
     private function toolsFigureId(): string
     {
         return <<<'HTML'
@@ -214,7 +238,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs30-status-codes.png" width="1200" height="560" alt="Kode status HTTP 200, 404, 500" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Kode status.</strong> <strong>200</strong> = berhasil · <strong>404</strong> = alamat tidak ada · <strong>500</strong> = server bermasalah. Sumber gambar: diagram Koding Indonesia (FS-30). Acuan: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" rel="noopener noreferrer" target="_blank">MDN — HTTP status</a>.
+    <strong>Kode status.</strong> <strong>200</strong> = berhasil · <strong>404</strong> = tidak ketemu (URL salah) · <strong>500</strong> = server bermasalah. Sumber gambar: diagram Koding Indonesia (FS-30). Acuan: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" rel="noopener noreferrer" target="_blank">MDN — HTTP status</a>.
   </figcaption>
 </figure>
 HTML;
@@ -226,7 +250,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs30-status-codes.png" width="1200" height="560" alt="HTTP status codes 200, 404, 500" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Status codes.</strong> <strong>200</strong> = success · <strong>404</strong> = address missing · <strong>500</strong> = server problem. Image source: diagram by Koding Indonesia (FS-30). Ref: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" rel="noopener noreferrer" target="_blank">MDN — HTTP status</a>.
+    <strong>Status codes.</strong> <strong>200</strong> = success · <strong>404</strong> = not found (wrong URL) · <strong>500</strong> = server problem. Image source: diagram by Koding Indonesia (FS-30). Ref: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" rel="noopener noreferrer" target="_blank">MDN — HTTP status</a>.
   </figcaption>
 </figure>
 HTML;
@@ -369,6 +393,7 @@ CPP;
     {
         $ide = $this->ideFigureId();
         $tools = $this->toolsFigureId();
+        $browser = $this->browserFigureId();
         $core = $this->coreFigureId();
         $main = $this->mainFigureId();
         $schema = $this->schemaFigureId();
@@ -387,8 +412,8 @@ CPP;
 <li><strong>URL</strong> = alamat lengkap di internet (contoh <code>https://…/todos/1</code>).</li>
 <li><strong>HTTP GET</strong> = meminta data (bukan mengirim formulir panjang).</li>
 <li><strong>JSON</strong> = catatan berpasangan <em>nama: nilai</em> di dalam <code>{ }</code>.</li>
-<li><strong>Status 200 / 404 / 500</strong> = berhasil / alamat tidak ada / server bermasalah.</li>
-<li><strong>Header</strong> = keterangan tambahan di “amplop” (hari ini cukup tahu ada; belum wajib diutak-atik).</li>
+<li><strong>Status 200 / 404 / 500</strong> = berhasil / tidak ketemu / server bermasalah.</li>
+<li><strong>Header</strong> = keterangan tambahan di “amplop” (hari ini cukup tahu ada; belum wajib diubah-ubah).</li>
 </ul>
 <p><strong>Prasyarat:</strong> FS-29 (Wi-Fi + IP di Serial) · FS-14 (Upload + Serial Monitor).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
@@ -407,12 +432,13 @@ CPP;
 <p><strong>Latihan mata (wajib sebelum kode):</strong> buka di browser (Chrome/Edge/Firefox):</p>
 <p><a href="https://jsonplaceholder.typicode.com/todos/1" rel="noopener noreferrer" target="_blank">https://jsonplaceholder.typicode.com/todos/1</a></p>
 <p>Kamu harus melihat teks berisi <code>{</code>, <code>"id"</code>, dan <code>}</code>. Itu JSON. Sumber demo: <a href="https://jsonplaceholder.typicode.com/" rel="noopener noreferrer" target="_blank">JSONPlaceholder</a> (API uji publik).</p>
+{$browser}
 {$ide}
 {$core}
 <ul>
 <li>ESP32 sudah punya IP (lulus FS-29) · board <strong>ESP32 Dev Module</strong> · kabel USB <strong>data</strong>.</li>
 <li><code>WiFi.h</code> + <code>HTTPClient.h</code> sudah di core — tidak perlu Library Manager.</li>
-<li>Siapkan Serial Monitor baud <strong>115200</strong>.</li>
+<li>Siapkan Serial Monitor: menu <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
 </ul>
 <p><strong>Alat yang dipakai hari ini:</strong> browser, Arduino IDE, Upload, ESP32, Wi-Fi, Serial Monitor.</p>
 <p><strong>Tidak dipakai hari ini:</strong> Laragon, <code>php artisan</code>, ArduinoJson, MQTT, microSD.</p>
@@ -481,6 +507,7 @@ HTML;
     {
         $ide = $this->ideFigureEn();
         $tools = $this->toolsFigureEn();
+        $browser = $this->browserFigureEn();
         $core = $this->coreFigureEn();
         $main = $this->mainFigureEn();
         $schema = $this->schemaFigureEn();
@@ -499,7 +526,7 @@ HTML;
 <li><strong>URL</strong> = full internet address (e.g. <code>https://…/todos/1</code>).</li>
 <li><strong>HTTP GET</strong> = ask for data (not sending a long form).</li>
 <li><strong>JSON</strong> = a note of <em>name: value</em> pairs inside <code>{ }</code>.</li>
-<li><strong>Status 200 / 404 / 500</strong> = success / missing address / server problem.</li>
+<li><strong>Status 200 / 404 / 500</strong> = success / not found / server problem.</li>
 <li><strong>Header</strong> = extra notes on the “envelope” (enough to know it exists today).</li>
 </ul>
 <p><strong>Prerequisites:</strong> FS-29 (Wi-Fi + IP on Serial) · FS-14 (Upload + Serial Monitor).</p>
@@ -519,12 +546,13 @@ HTML;
 <p><strong>Eye practice (required before code):</strong> open in a browser (Chrome/Edge/Firefox):</p>
 <p><a href="https://jsonplaceholder.typicode.com/todos/1" rel="noopener noreferrer" target="_blank">https://jsonplaceholder.typicode.com/todos/1</a></p>
 <p>You should see text with <code>{</code>, <code>"id"</code>, and <code>}</code>. That is JSON. Demo source: <a href="https://jsonplaceholder.typicode.com/" rel="noopener noreferrer" target="_blank">JSONPlaceholder</a> (public test API).</p>
+{$browser}
 {$ide}
 {$core}
 <ul>
 <li>ESP32 already has an IP (FS-29 done) · board <strong>ESP32 Dev Module</strong> · <strong>data</strong> USB cable.</li>
 <li><code>WiFi.h</code> + <code>HTTPClient.h</code> are in the core — no Library Manager.</li>
-<li>Prepare Serial Monitor at baud <strong>115200</strong>.</li>
+<li>Prepare Serial Monitor: menu <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
 </ul>
 <p><strong>Tools used today:</strong> browser, Arduino IDE, Upload, ESP32, Wi-Fi, Serial Monitor.</p>
 <p><strong>Not used today:</strong> Laragon, <code>php artisan</code>, ArduinoJson, MQTT, microSD.</p>

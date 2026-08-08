@@ -247,7 +247,8 @@ fs30 = (
     "images/fsiot/fs30-cover-http.jpg images/fsiot/fs30-cover-http.webp "
     "images/fsiot/fs30-tools-order.png images/fsiot/fs30-http-core.png "
     "images/fsiot/fs30-http-get.png images/fsiot/fs30-json-anatomy.png "
-    "images/fsiot/fs30-status-codes.png images/fsiot/fs30-success-serial.png"
+    "images/fsiot/fs30-status-codes.png images/fsiot/fs30-success-serial.png "
+    "images/fsiot/fs30-browser-json.png"
 )
 if "fs30-http-get.png" not in t:
     old = (

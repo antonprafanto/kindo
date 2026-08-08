@@ -124,22 +124,22 @@ center(d, 200, 260, "HTTP GET", FH, "#1a1a1a")
 center(d, 200, 320, "minta data", FB, "#333")
 center(d, 200, 380, "ke URL", FS, "#333")
 
-d.line([(350, 300), (520, 300)], fill="#3949AB", width=8)
-center(d, 435, 265, "request", FH, "#3949AB")
+d.line([(350, 300), (500, 300)], fill="#3949AB", width=8)
+center(d, 425, 265, "minta", FH, "#3949AB")
 
-box(d, (520, 150, 850, 460), "#E8EAF6", "#3949AB", 4)
-center(d, 685, 200, "Server", FT, "#1A237E")
-center(d, 685, 260, "internet", FH, "#1a1a1a")
-center(d, 685, 320, "status 200", FB, "#333")
-center(d, 685, 380, "+ isi JSON", FS, "#333")
+box(d, (500, 150, 830, 460), "#E8EAF6", "#3949AB", 4)
+center(d, 665, 200, "Server", FT, "#1A237E")
+center(d, 665, 260, "internet", FH, "#1a1a1a")
+center(d, 665, 320, "status 200", FB, "#333")
+center(d, 665, 380, "+ isi JSON", FS, "#333")
 
-d.line([(850, 300), (1020, 300)], fill="#2E7D32", width=8)
-center(d, 935, 265, "response", FH, "#2E7D32")
+d.line([(830, 300), (980, 300)], fill="#2E7D32", width=8)
+center(d, 905, 265, "balas", FH, "#2E7D32")
 
-box(d, (940, 200, 1150, 420), "#C8E6C9", "#2E7D32", 4)
-center(d, 1045, 260, "Serial", FH, "#1B5E20")
-center(d, 1045, 320, "JSON teks", FB, "#1a1a1a")
-center(d, 1045, 370, "115200", FS, "#333")
+box(d, (960, 200, 1150, 420), "#C8E6C9", "#2E7D32", 4)
+center(d, 1055, 260, "Serial", FH, "#1B5E20")
+center(d, 1055, 320, "JSON teks", FB, "#1a1a1a")
+center(d, 1055, 370, "115200", FS, "#333")
 
 box(d, (40, 500, W - 40, 690), "#E8EAF6", "#3949AB", 3)
 center(d, W // 2, 555, "Sukses = Serial menampilkan kode 200 + teks berisi { dan }", F, "#1A237E")
@@ -179,8 +179,8 @@ center(d, 600, 40, "Kode status HTTP — bahasa manusia", FT)
 center(d, 600, 75, "Angka dari server: berhasil / tidak ketemu / server lagi masalah", F, "#333")
 codes = [
     ("200", "OK", "Berhasil — data datang", "#E8F5E9", "#2E7D32"),
-    ("404", "Not Found", "Alamat tidak ada", "#FFF8E1", "#F9A825"),
-    ("500", "Server Error", "Server lagi bermasalah", "#FFEBEE", "#C62828"),
+    ("404", "Tidak ketemu", "Alamat / URL salah", "#FFF8E1", "#F9A825"),
+    ("500", "Server bermasalah", "Bukan salah ESP32", "#FFEBEE", "#C62828"),
 ]
 for i, (code, name, tip, fill, out) in enumerate(codes):
     x0 = 50 + i * 380
@@ -189,7 +189,7 @@ for i, (code, name, tip, fill, out) in enumerate(codes):
     center(d, x0 + 175, 280, name, FH, "#1a1a1a")
     center(d, x0 + 175, 350, tip, F, "#333")
 box(d, (40, 460, 1160, 530), "#FFFFFF", "#1a1a1a", 3)
-center(d, 600, 495, "Sumber: diagram Koding Indonesia (FS-30) · acuan: MDN HTTP response status codes", FS, "#333")
+center(d, 600, 495, "Sumber: diagram Koding Indonesia (FS-30) · acuan: MDN HTTP status codes", FS, "#333")
 st.save(OUT / "fs30-status-codes.png", optimize=True)
 print("status", (OUT / "fs30-status-codes.png").stat().st_size)
 
@@ -221,4 +221,35 @@ for j, ln in enumerate([
     center(d, 945, 250 + j * 45, ln, F, "#1a1a1a")
 suc.save(OUT / "fs30-success-serial.png", optimize=True)
 print("success", (OUT / "fs30-success-serial.png").stat().st_size)
+
+# --- Browser mock: what JSON looks like in Chrome-like window ---
+br = Image.new("RGB", (1200, 700), "#F5F5F0")
+d = ImageDraw.Draw(br)
+box(d, (20, 16, 1180, 90), "#FFFFFF", "#1a1a1a", 4)
+center(d, 600, 53, "Latihan mata — JSON di browser (seperti ini)", FT)
+
+# chrome bar
+box(d, (60, 120, 1140, 640), "#FFFFFF", "#1a1a1a", 4)
+d.rectangle((60, 120, 1140, 175), fill="#E8EAF6")
+center(d, 140, 148, "● ● ●", F, "#9E9E9E")
+box(d, (220, 135, 1080, 165), "#FFFFFF", "#9E9E9E", 2, 8)
+d.text((235, 140), "jsonplaceholder.typicode.com/todos/1", font=FS, fill="#333")
+
+# body JSON
+body_lines = [
+    ("{", "#1565C0"),
+    ('  "userId": 1,', "#6A1B9A"),
+    ('  "id": 1,', "#6A1B9A"),
+    ('  "title": "delectus aut autem",', "#2E7D32"),
+    ('  "completed": false', "#C62828"),
+    ("}", "#1565C0"),
+]
+for i, (ln, col) in enumerate(body_lines):
+    d.text((100, 210 + i * 48), ln, font=FM, fill=col)
+
+d.text((100, 520), "Yang dicari mata: ada {  dan  }  · ada \"id\" · ada tanda kutip", font=F, fill="#333")
+d.text((100, 570), "Sumber isi: JSONPlaceholder · https://jsonplaceholder.typicode.com/todos/1", font=FS, fill="#555")
+d.text((100, 610), "Kolase UI: Koding Indonesia (FS-30) — bukan screenshot resmi Chrome", font=FS, fill="#555")
+br.save(OUT / "fs30-browser-json.png", optimize=True)
+print("browser", (OUT / "fs30-browser-json.png").stat().st_size)
 print("done")

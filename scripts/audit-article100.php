@@ -52,6 +52,7 @@ check('friendly tip labels ID', str_contains($id, 'Intinya:') && str_contains($i
 check('friendly tip labels EN', str_contains($en, 'In short:') && str_contains($en, 'Analogy:'));
 check('H2 parity', substr_count($id, '<h2') === substr_count($en, '<h2'));
 check('figures both >= 7', substr_count($id, '<figure') >= 7 && substr_count($en, '<figure') >= 7);
+check('fs30-browser-json.png asset', is_file($root.'/public/images/fsiot/fs30-browser-json.png'));
 foreach (['fs30-http-get.png', 'fs30-json-anatomy.png', 'fs30-tools-order.png', 'fs30-http-core.png', 'fs30-status-codes.png', 'fs30-success-serial.png', 'fs30-cover-http.jpg', 'fs30-cover-http.webp'] as $asset) {
     check($asset.' asset', is_file($root.'/public/images/fsiot/'.$asset));
 }
