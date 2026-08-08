@@ -9256,6 +9256,119 @@ class DeployController extends Controller
         return response('Article 99 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle100Draft(): Response
+    {
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article100Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 100 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-http-json';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article) {
+            report(new \RuntimeException('Article 100 missing after draft seed.'));
+
+            return response('Article 100 not found after draft seed', 500);
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null) {
+            report(new \RuntimeException('Article 100 refused to stay draft after seed.'));
+
+            return response('Article 100 must remain draft (pre-launch B)', 500);
+        }
+
+        if (Article::published()->where('slug', $slug)->exists()) {
+            report(new \RuntimeException('Article 100 unexpectedly visible via published() scope.'));
+
+            return response('Article 100 leaked into published scope', 500);
+        }
+
+        $body = (string) $article->body;
+        $bodyNeedles = [
+            '#100 (ini)',
+            'FS-30',
+            'CONNECTED',
+            'Tidak perlu hari ini',
+            'Cara pakai artikel ini',
+            'fsiot-http-checklist',
+            'FS-29',
+            'FS-14',
+            '/belajar/fullstack-iot',
+            'Analogi:',
+            'Intinya:',
+            'Kesalahan yang sering terjadi',
+            'Cara menguji perintah di atas',
+            'HTTPClient',
+            'FS30_http_get',
+            'jsonplaceholder',
+            'fs30-http-get.png',
+            'Gambar utama',
+            'Skema bantu',
+            'Buka browser dulu',
+            '115200',
+            'YOUR_SSID',
+            'HTTP 200',
+        ];
+        $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
+        if ($missingBody !== []) {
+            report(new \RuntimeException('Article 100 body missing expected content after draft seed: '.implode(', ', $missingBody)));
+
+            return response('Article 100 body content checks failed: '.implode(', ', $missingBody), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 100 English fields are incomplete after draft seed.'));
+
+            return response('Article 100 EN fields incomplete', 500);
+        }
+
+        $bodyEn = (string) $article->body_en;
+        $enNeedles = [
+            '#100 (this article)',
+            'Analogy:',
+            'How to use this article',
+            'Not needed today',
+            'CONNECTED',
+            'fsiot-http-checklist',
+            'FS-29',
+            'Common mistakes',
+            'How to test the commands above',
+            'Main figure',
+            'Helper schematic',
+            'fs30-http-get.png',
+            'Open a browser first',
+            'HTTPClient',
+            'FS30_http_get',
+            'jsonplaceholder',
+            '115200',
+            'HTTP 200',
+        ];
+        $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 100 EN body missing expected content after draft seed: '.implode(', ', $missingEn)));
+
+            return response('Article 100 EN body content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 100 seeded as draft (pre-launch B)', 200);
+    }
+
+
+
 
 
 

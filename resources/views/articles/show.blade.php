@@ -567,6 +567,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotBusChecklist();
     initFsiotI2cChecklist();
     initFsiotWifiChecklist();
+    initFsiotHttpChecklist();
 });
 
 function initFsiotMatchQuiz() {
@@ -1855,6 +1856,29 @@ function initFsiotLdrChecklist() {
 
 
 
+
+
+function initFsiotHttpChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-http-checklist',
+        listId: 'fsiot-http-checklist-items',
+        storagePrefix: 'fsiot-cl-100',
+        idPrefix: 'fsiot-http',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_http_badge')),
+            hint: @js(__('ui.articles.fsiot_http_hint')),
+            check: @js(__('ui.articles.fsiot_http_check')),
+            retry: @js(__('ui.articles.fsiot_http_retry')),
+            paper: @js(__('ui.articles.fsiot_http_paper')),
+            progress: @js(__('ui.articles.fsiot_http_progress')),
+            pass: @js(__('ui.articles.fsiot_http_pass')),
+            incomplete: @js(__('ui.articles.fsiot_http_incomplete')),
+            done: @js(__('ui.articles.fsiot_http_done')),
+            todo: @js(__('ui.articles.fsiot_http_todo')),
+        },
+    });
+}
 
 function initFsiotWifiChecklist() {
     initFsiotChecklistWidget({

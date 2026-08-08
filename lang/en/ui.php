@@ -581,6 +581,17 @@ return [
         'fsiot_wifi_done' => 'Done',
         'fsiot_wifi_todo' => 'Not yet',
 
+        'fsiot_http_badge' => 'HTTP & JSON checklist',
+        'fsiot_http_hint' => 'Tick browser JSON + Upload + HTTP 200 on Serial. Target: 10/10.',
+        'fsiot_http_check' => 'Check completeness',
+        'fsiot_http_retry' => 'Clear again',
+        'fsiot_http_paper' => 'Paper version (no clicks)',
+        'fsiot_http_progress' => ':filled of :total checked',
+        'fsiot_http_pass' => 'Complete :filled/:total — HTTP 200 + JSON on Serial! Ready for FS-31 when it ships.',
+        'fsiot_http_incomplete' => 'Some steps are still unchecked. Recheck browser JSON, Wi-Fi, or Serial 115200.',
+        'fsiot_http_done' => 'Done',
+        'fsiot_http_todo' => 'Not yet',
+
 
 
     ],

@@ -581,6 +581,17 @@ return [
         'fsiot_wifi_done' => 'Selesai',
         'fsiot_wifi_todo' => 'Belum',
 
+        'fsiot_http_badge' => 'Checklist HTTP & JSON',
+        'fsiot_http_hint' => 'Centang browser JSON + Upload + HTTP 200 di Serial. Target: 10/10.',
+        'fsiot_http_check' => 'Cek kelengkapan',
+        'fsiot_http_retry' => 'Kosongkan lagi',
+        'fsiot_http_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_http_progress' => ':filled dari :total tercentang',
+        'fsiot_http_pass' => 'Lengkap :filled/:total — HTTP 200 + JSON di Serial! Siap FS-31 saat terbit.',
+        'fsiot_http_incomplete' => 'Masih ada langkah yang belum dicentang. Cek browser JSON, Wi-Fi, atau Serial 115200.',
+        'fsiot_http_done' => 'Selesai',
+        'fsiot_http_todo' => 'Belum',
+
 
 
     ],
