@@ -281,8 +281,12 @@ jobs:
             return 1
           }
           failed=0
+          # PHP sources must land together (seeder needles ↔ DeployController checks).
           upload "database/seeders/ArticleGateBuilderSeeder.php" "${APP}database/seeders/ArticleGateBuilderSeeder.php" || failed=1
           upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php" || failed=1
+          upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php" || failed=1
+          upload "lang/id/ui.php" "${APP}lang/id/ui.php" || failed=1
+          upload "lang/en/ui.php" "${APP}lang/en/ui.php" || failed=1
           for img in fs-gate-builder-cover.jpg fs-gate-builder-cover.webp fs-gate-builder-tools.png \
             fs-gate-builder-criteria.png fs-gate-builder-success.png \
             fs-gate-builder-relay-contacts.png fs-gate-builder-wiring-example.png; do
@@ -290,7 +294,7 @@ jobs:
             upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img" || failed=1
           done
           if [ "$failed" -ne 0 ]; then
-            echo "::warning::Some critical Gate BUILDER curl uploads failed"
+            echo "::error::Critical Gate BUILDER curl uploads failed (seeder/controller/lang/blade/assets)"
             exit 1
           fi
           echo "Critical Gate BUILDER curl uploads OK"

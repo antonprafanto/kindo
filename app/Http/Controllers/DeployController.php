@@ -9369,6 +9369,11 @@ class DeployController extends Controller
 
     public function seedGateBuilderDraft(): Response
     {
+        // Avoid stale OPcache after FTP/curl (new seeder vs old needle checks).
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\ArticleGateBuilderSeeder',
