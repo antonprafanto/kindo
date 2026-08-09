@@ -9426,6 +9426,8 @@ class DeployController extends Controller
             'Ringkasnya:',
             'kotak kuis interaktif',
             'COM / NO / NC',
+            'data-timer-seconds="720"',
+            'Batas waktu 12 menit',
         ];
         $missingBody = array_values(array_filter($bodyNeedles, fn (string $needle): bool => ! str_contains($body, $needle)));
         if ($missingBody !== []) {
@@ -9462,6 +9464,8 @@ class DeployController extends Controller
             'fs-gate-builder-wiring-example.png',
             'interactive quiz box',
             'COM / NO / NC',
+            'data-timer-seconds="720"',
+            '12-minute limit',
         ];
         $missingEn = array_values(array_filter($enNeedles, fn (string $needle): bool => ! str_contains($bodyEn, $needle)));
         if ($missingEn !== []) {

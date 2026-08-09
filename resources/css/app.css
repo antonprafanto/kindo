@@ -1060,6 +1060,27 @@ html.dark .article-body .fsiot-match-quiz__head :is(p, span, strong, b, em) {
     font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
+.fsiot-match-quiz__timer {
+    font-size: 0.75rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    padding: 0.2rem 0.55rem;
+    border: 2px solid #0a0a0a;
+    border-radius: 999px;
+    background: #fff;
+}
+.fsiot-match-quiz__timer.is-running {
+    background: #E8F5E9;
+}
+.fsiot-match-quiz__timer.is-urgent {
+    background: #FFEBEE;
+    color: #B71C1C;
+}
+.fsiot-match-quiz__timer.is-up {
+    background: #FFCDD2;
+    color: #B71C1C;
+}
 .fsiot-match-quiz__list {
     list-style: none;
     margin: 0;

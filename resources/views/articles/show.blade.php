@@ -587,6 +587,10 @@ function initFsiotMatchQuiz() {
         incomplete: @js(__('ui.articles.fsiot_quiz_incomplete')),
         correct: @js(__('ui.articles.fsiot_quiz_correct')),
         wrong: @js(__('ui.articles.fsiot_quiz_wrong')),
+        timer: @js(__('ui.articles.fsiot_quiz_timer')),
+        timerIdle: @js(__('ui.articles.fsiot_quiz_timer_idle')),
+        timerUp: @js(__('ui.articles.fsiot_quiz_timer_up')),
+        timerUpPass: @js(__('ui.articles.fsiot_quiz_timer_up_pass')),
     };
 
     const content = document.getElementById('article-content');
@@ -595,6 +599,10 @@ function initFsiotMatchQuiz() {
     const quizH2 = content.querySelector('#fsiot-kuis-matching');
     const keyH2 = content.querySelector('#fsiot-kuis-kunci');
     if (!quizH2 || !keyH2) return;
+
+    const timerAttr = quizH2.getAttribute('data-timer-seconds');
+    const timerTotal = timerAttr === null ? 0 : Math.max(0, parseInt(timerAttr, 10) || 0);
+    const timerEnabled = timerTotal > 0;
 
     const sectionNodes = [];
     for (let n = quizH2.nextElementSibling; n && n !== keyH2; n = n.nextElementSibling) {
@@ -665,10 +673,12 @@ function initFsiotMatchQuiz() {
     head.className = 'fsiot-match-quiz__head';
     head.innerHTML = '<span class="fsiot-match-quiz__badge"></span>'
         + '<p class="fsiot-match-quiz__hint"></p>'
+        + (timerEnabled ? '<span class="fsiot-match-quiz__timer" aria-live="polite"></span>' : '')
         + '<span class="fsiot-match-quiz__progress" aria-live="polite"></span>';
     head.querySelector('.fsiot-match-quiz__badge').textContent = labels.badge;
     head.querySelector('.fsiot-match-quiz__hint').textContent = labels.hint;
     const progressEl = head.querySelector('.fsiot-match-quiz__progress');
+    const timerEl = head.querySelector('.fsiot-match-quiz__timer');
     widget.appendChild(head);
 
     const list = document.createElement('ul');
@@ -742,12 +752,42 @@ function initFsiotMatchQuiz() {
 
     paper.before(widget);
 
+    let graded = false;
+    let timerStarted = false;
+    let remaining = timerTotal;
+    let timerId = null;
+
+    const formatTime = (secs) => {
+        const m = Math.floor(secs / 60);
+        const s = secs % 60;
+        return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    };
+
+    const renderTimerIdle = () => {
+        if (!timerEl) return;
+        timerEl.classList.remove('is-running', 'is-urgent', 'is-up');
+        timerEl.textContent = labels.timerIdle.replace(':minutes', String(Math.round(timerTotal / 60)));
+    };
+
+    const renderTimer = () => {
+        if (!timerEl) return;
+        timerEl.classList.add('is-running');
+        timerEl.classList.toggle('is-urgent', remaining <= 60);
+        timerEl.classList.remove('is-up');
+        timerEl.textContent = labels.timer.replace(':time', formatTime(remaining));
+    };
+
+    const stopTimer = () => {
+        if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+        }
+    };
+
     const updateProgress = () => {
         const filled = selects.filter(s => s.select.value !== '').length;
         progressEl.textContent = labels.progress.replace(':filled', String(filled));
     };
-    selects.forEach(s => s.select.addEventListener('change', updateProgress));
-    updateProgress();
 
     const clearMarks = () => {
         selects.forEach(s => {
@@ -757,11 +797,15 @@ function initFsiotMatchQuiz() {
         });
         result.hidden = true;
         result.classList.remove('is-pass', 'is-fail', 'is-warn');
+        checkBtn.disabled = false;
+        graded = false;
     };
 
-    checkBtn.addEventListener('click', () => {
+    const gradeAnswers = ({ allowIncomplete = false, timedOut = false } = {}) => {
+        if (graded) return;
+
         const filled = selects.filter(s => s.select.value !== '').length;
-        if (filled < 15) {
+        if (!allowIncomplete && filled < 15) {
             result.hidden = false;
             result.classList.remove('is-pass', 'is-fail');
             result.classList.add('is-warn');
@@ -769,9 +813,12 @@ function initFsiotMatchQuiz() {
             return;
         }
 
+        stopTimer();
+        graded = true;
+
         let score = 0;
         selects.forEach(s => {
-            const ok = s.select.value === answers[s.num];
+            const ok = s.select.value !== '' && s.select.value === answers[s.num];
             if (ok) score += 1;
             s.li.classList.toggle('is-correct', ok);
             s.li.classList.toggle('is-wrong', !ok);
@@ -781,20 +828,76 @@ function initFsiotMatchQuiz() {
 
         result.hidden = false;
         result.classList.remove('is-warn');
-        const tpl = score >= 12 ? labels.pass : labels.fail;
-        result.classList.toggle('is-pass', score >= 12);
-        result.classList.toggle('is-fail', score < 12);
-        result.textContent = tpl.replace(':score', String(score)).replace(':total', '15');
+        const passed = score >= 12;
+
+        if (timedOut) {
+            if (timerEl) {
+                timerEl.classList.remove('is-running', 'is-urgent');
+                timerEl.classList.add('is-up');
+                timerEl.textContent = labels.timer.replace(':time', '00:00');
+            }
+            const tpl = passed ? labels.timerUpPass : labels.timerUp;
+            result.classList.toggle('is-pass', passed);
+            result.classList.toggle('is-fail', !passed);
+            result.textContent = tpl.replace(':score', String(score)).replace(':total', '15');
+        } else {
+            const tpl = passed ? labels.pass : labels.fail;
+            result.classList.toggle('is-pass', passed);
+            result.classList.toggle('is-fail', !passed);
+            result.textContent = tpl.replace(':score', String(score)).replace(':total', '15');
+        }
+
+        checkBtn.disabled = true;
         keyWrap.classList.remove('is-hidden');
         keyBtn.textContent = labels.hideKey;
+    };
+
+    const startTimer = () => {
+        if (!timerEnabled || timerStarted || graded) return;
+        timerStarted = true;
+        remaining = timerTotal;
+        renderTimer();
+        timerId = setInterval(() => {
+            remaining -= 1;
+            if (remaining <= 0) {
+                remaining = 0;
+                renderTimer();
+                gradeAnswers({ allowIncomplete: true, timedOut: true });
+                return;
+            }
+            renderTimer();
+        }, 1000);
+    };
+
+    if (timerEnabled) {
+        renderTimerIdle();
+    }
+
+    selects.forEach(s => {
+        s.select.addEventListener('change', () => {
+            updateProgress();
+            startTimer();
+        });
+    });
+    updateProgress();
+
+    checkBtn.addEventListener('click', () => {
+        startTimer();
+        gradeAnswers({ allowIncomplete: false, timedOut: false });
     });
 
     retryBtn.addEventListener('click', () => {
+        stopTimer();
+        timerStarted = false;
+        remaining = timerTotal;
         selects.forEach(s => { s.select.value = ''; });
         clearMarks();
         updateProgress();
         keyWrap.classList.add('is-hidden');
         keyBtn.textContent = labels.showKey;
+        if (timerEnabled) {
+            renderTimerIdle();
+        }
         selects[0]?.select.focus();
     });
 

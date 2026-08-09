@@ -227,7 +227,7 @@ HTML;
 <ol>
 <li><strong>Buka browser</strong> — kerjakan di halaman artikel ini (bukan Laragon / Arduino IDE).</li>
 <li>Baca kriteria lulus BUILDER + diagram relay singkat di bawah.</li>
-<li>Kerjakan <strong>kuis matching 15 soal</strong> di kotak interaktif → tekan <strong>Cek skor</strong> (target ≥ <strong>12/15</strong>).</li>
+<li>Kerjakan <strong>kuis matching 15 soal</strong> di kotak interaktif (batas <strong>12 menit</strong>, mulai saat soal pertama dijawab) → tekan <strong>Cek skor</strong> (target ≥ <strong>12/15</strong>).</li>
 <li>Baru buka kunci jawaban jika perlu mengulang.</li>
 <li>Centang checklist 10/10 (termasuk foto wiring sendiri).</li>
 </ol>
@@ -253,8 +253,8 @@ HTML
             .$relay.<<<'HTML'
 <p><strong>Intinya:</strong> gate ini menguji <strong>paham istilah</strong> + <strong>checklist jujur</strong>, bukan Upload sketch baru.</p>
 
-<h2 id="fsiot-kuis-matching">Praktik — kuis matching 15 soal</h2>
-<p>Tutup catatan sebentar. Di halaman artikel (pratinjau atau terbit), muncul <strong>kotak kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan di bagian “Versi catatan”.</p>
+<h2 id="fsiot-kuis-matching" data-timer-seconds="720">Praktik — kuis matching 15 soal</h2>
+<p>Tutup catatan sebentar. Di halaman artikel (pratinjau atau terbit), muncul <strong>kotak kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. <strong>Batas waktu 12 menit</strong> mulai saat kamu menjawab soal pertama — kalau habis, pilihan dikunci dan skor dihitung otomatis. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan di bagian “Versi catatan”.</p>
 <p><strong>Kolom istilah:</strong></p>
 <ol>
   <li>GPIO</li>
@@ -364,7 +364,7 @@ HTML;
 <ol>
 <li><strong>Open a browser</strong> — work on this article page (not Laragon / Arduino IDE).</li>
 <li>Read the BUILDER pass criteria + the short relay diagram below.</li>
-<li>Take the <strong>15-item matching quiz</strong> in the interactive box → press <strong>Check score</strong> (target ≥ <strong>12/15</strong>).</li>
+<li>Take the <strong>15-item matching quiz</strong> in the interactive box (<strong>12-minute</strong> limit, starts when you answer the first item) → press <strong>Check score</strong> (target ≥ <strong>12/15</strong>).</li>
 <li>Only then open the answer key if you need a retry.</li>
 <li>Tick the 10/10 checklist (including your own wiring photo).</li>
 </ol>
@@ -390,8 +390,8 @@ HTML
             .$relay.<<<'HTML'
 <p><strong>In short:</strong> this gate checks <strong>term understanding</strong> + an <strong>honest checklist</strong>, not a new sketch Upload.</p>
 
-<h2 id="fsiot-kuis-matching">Practice — matching quiz (15 items)</h2>
-<p>Close your notes for a moment. On the article page (preview or published), an <strong>interactive quiz box</strong> appears: pick a meaning for each term, then press <strong>Check score</strong>. A paper version remains available under “Paper version” as a backup.</p>
+<h2 id="fsiot-kuis-matching" data-timer-seconds="720">Practice — matching quiz (15 items)</h2>
+<p>Close your notes for a moment. On the article page (preview or published), an <strong>interactive quiz box</strong> appears: pick a meaning for each term, then press <strong>Check score</strong>. The <strong>12-minute limit</strong> starts when you answer the first item — when time runs out, choices lock and the score is calculated automatically. A paper version remains available under “Paper version” as a backup.</p>
 <p><strong>Terms column:</strong></p>
 <ol>
   <li>GPIO</li>

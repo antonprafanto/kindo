@@ -356,7 +356,7 @@ SVG;
 </ul>
 <p><strong>Tips:</strong> jangan instal apa pun hari ini. Cukup seperti mengenal nama kota di peta sebelum berangkat.</p>
 
-<h2 id="fsiot-kuis-matching">Praktik — kuis matching 15 soal</h2>
+<h2 id="fsiot-kuis-matching" data-timer-seconds="720">Praktik — kuis matching 15 soal</h2>
 <p>Tutup tabel di atas sebentar. Di bawah ini ada <strong>kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan.</p>
 <p><strong>Kolom istilah:</strong></p>
 <ol>
@@ -610,7 +610,7 @@ HTML;
 </ul>
 <p><strong>Tip:</strong> install nothing today. Just like learning city names on a map before you travel.</p>
 
-<h2 id="fsiot-kuis-matching">Practice — matching quiz (15 items)</h2>
+<h2 id="fsiot-kuis-matching" data-timer-seconds="720">Practice — matching quiz (15 items)</h2>
 <p>Briefly close the tables above. Below is an <strong>interactive quiz</strong>: pick a meaning for each term, then press <strong>Check score</strong>. A paper version stays available as a backup.</p>
 <p><strong>Terms:</strong></p>
 <ol>

@@ -84,6 +84,10 @@ check('EYD Histeresis', str_contains($id, 'Histeresis'));
 check('CONNECTED phase', str_contains($id, 'CONNECTED') && str_contains($en, 'CONNECTED'));
 check('wiring photo checklist', str_contains($id, 'foto wiring') && str_contains($en, 'wiring photo'));
 check('COM NO NC glossary', str_contains($id, 'COM / NO / NC') && str_contains($en, 'COM / NO / NC'));
+check('soft timer 12 min', str_contains($id, 'data-timer-seconds="720"') && str_contains($en, 'data-timer-seconds="720"'));
+check('timer copy ID', str_contains($id, 'Batas waktu 12 menit'));
+check('timer copy EN', str_contains($en, '12-minute limit'));
+check('timer JS labels', str_contains($blade, 'fsiot_quiz_timer_up') && str_contains($langId, 'fsiot_quiz_timer'));
 foreach (['Pendahuluan', 'Persiapan', 'Kesalahan yang sering terjadi', 'Intinya:', 'Analogi:'] as $bad) {
     check("No Indo in EN: $bad", ! str_contains($en, $bad));
 }
