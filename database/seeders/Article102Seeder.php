@@ -108,10 +108,10 @@ HTML
 <p><strong>Bedanya dengan HTTP:</strong> pada HTTP browser biasanya meminta satu alamat lalu server menjawab. Pada MQTT, client dapat berlangganan topic dan broker mengantarkan pesan baru ketika ada publisher. Detail protokolnya ada pada <a href="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html" target="_blank" rel="noopener noreferrer">spesifikasi MQTT 5.0 OASIS</a>.</p>
 
 <h2 id="fsiot-mqtt-checklist">Checklist sebelum FS-33</h2>
-<p>Centang setelah kamu benar-benar memahami poinnya. Target: <strong>8/8</strong>. Progres disimpan di browser perangkatmu dan tidak dikirim ke server.</p>
+<p>Centang setelah kamu benar-benar memahami setiap poin. Target: <strong>8/8</strong>. Progres disimpan di browser perangkatmu dan tidak dikirim ke server.</p>
 <ul id="fsiot-mqtt-checklist-items">
 <li>Saya tahu broker adalah perantara pesan.</li><li>Saya tahu client dapat berupa ESP32 atau MQTTX.</li><li>Saya tahu topic adalah alamat pesan, bukan URL web.</li><li>Saya tahu publish berarti mengirim ke topic.</li><li>Saya tahu subscribe berarti menerima pesan dari topic.</li><li>Saya tidak memakai broker publik untuk lab ini.</li><li>MQTTX sudah terpasang atau saya tahu bagian yang perlu diselesaikan.</li><li>Saya belum perlu membuka Arduino IDE pada FS-32.</li></ul>
-<p><strong>Cara memeriksa kesiapan:</strong> baca setiap poin, lalu jelaskan alur ESP32 → broker → MQTTX dengan kata-katamu sendiri. Jika ada yang belum jelas, kembali ke bagian terkait. Tidak perlu terminal atau perintah sintaks hari ini.</p>
+<p><strong>Cara memeriksa kesiapan:</strong> baca setiap poin, lalu jelaskan alur ESP32 → broker → MQTTX dengan kata-katamu sendiri. Jika ada yang belum jelas, kembali ke bagian terkait. Tidak perlu membuka terminal atau menjalankan perintah apa pun hari ini.</p>
 
 <h2>Kesalahan yang sering terjadi</h2>
 <ul><li><strong>Mengira MQTT = HTTP.</strong> MQTT memakai broker dan topic, bukan halaman web.</li><li><strong>Topic salah ketik.</strong> Periksa setiap huruf, termasuk besar-kecilnya.</li><li><strong>Memakai broker publik terlalu dini.</strong> Koneksi dapat berubah atau dibatasi; FS-33 menyiapkan broker lokal.</li><li><strong>Menghubungkan MQTTX sebelum ada broker.</strong> MQTTX adalah client, bukan broker. Tunggu Mosquitto lokal di FS-33.</li></ul>
