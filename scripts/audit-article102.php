@@ -36,6 +36,7 @@ check('expected slug', str_contains($source, 'fullstack-iot-mqtt-broker-topic-pu
 check('route exists', str_contains($routes, 'seed-article-102-draft'));
 check('deploy method exists', str_contains($controller, 'seedArticle102Draft'));
 check('workflow early seed exists', str_contains($workflow, 'seed-article-102-draft') && str_contains($workflow, 'id: curl102'));
+check('revision sync runs before historical uploads', ($priority = strpos($workflow, 'id: curl102_priority')) !== false && $priority < strpos($workflow, 'id: curl98'));
 check('ID self reference', str_contains($body, '#102 (ini)'));
 check('EN self reference', str_contains($bodyEn, '#102 (this article)'));
 check('friendly opening labels', str_contains($body, 'Intinya:') && str_contains($body, 'Analogi:') && str_contains($bodyEn, 'In short:') && str_contains($bodyEn, 'Analogy:'));

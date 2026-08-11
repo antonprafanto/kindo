@@ -149,6 +149,41 @@ jobs:
           echo "dir=$pub" >> "$GITHUB_OUTPUT"
           echo "Public webroot FTP dir: $pub"
 
+      # Perubahan pratinjau FS-32 harus sampai sebelum blok upload historis yang dapat macet di Rumahweb.
+      - name: Upload FS-32 revision via curl (priority)
+        id: curl102_priority
+        continue-on-error: true
+        run: |
+          set -e
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          APP="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.ftp.outputs.dir }}"
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          upload() {
+            local src="$1" dest="$2"
+            for attempt in 1 2 3; do
+              if curl -fsS --connect-timeout 30 --max-time 120 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$src" "$dest"; then
+                echo "OK $src -> $dest (attempt $attempt)"
+                return 0
+              fi
+              echo "FAIL $src -> $dest (attempt $attempt)"
+              sleep $((attempt * 10))
+            done
+            return 1
+          }
+          upload "database/seeders/Article102Seeder.php" "${APP}database/seeders/Article102Seeder.php"
+          upload "public/images/fsiot/fs32-pub-sub-flow.png" "${APP}public/images/fsiot/fs32-pub-sub-flow.png"
+          upload "public/images/fsiot/fs32-pub-sub-flow.png" "${PUB}images/fsiot/fs32-pub-sub-flow.png"
+
+      - name: Seed FS-32 revision immediately
+        if: steps.curl102_priority.outcome == 'success'
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/clear-cache"
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/seed-article-102-draft"
+
       # Rumahweb FTPS sering ETIMEDOUT di SamKirkland — upload file kritis #98 dulu via curl.
       - name: Upload critical #98 files via curl (pre-sync)
         id: curl98
@@ -511,8 +546,8 @@ jobs:
             echo "Build asset FTP OK"
             exit 0
           fi
-          if [ "${{ steps.curl98.outcome }}" = "success" ] || [ "${{ steps.curl99.outcome }}" = "success" ] || [ "${{ steps.curl100.outcome }}" = "success" ] || [ "${{ steps.curl101.outcome }}" = "success" ] || [ "${{ steps.curl_gate_builder.outcome }}" = "success" ]; then
-            echo "::warning::Build asset FTP failed after retries — continuing because critical #98/#99/#100/#101/gate curl upload succeeded"
+          if [ "${{ steps.curl98.outcome }}" = "success" ] || [ "${{ steps.curl99.outcome }}" = "success" ] || [ "${{ steps.curl100.outcome }}" = "success" ] || [ "${{ steps.curl101.outcome }}" = "success" ] || [ "${{ steps.curl_gate_builder.outcome }}" = "success" ] || [ "${{ steps.curl102_priority.outcome }}" = "success" ]; then
+            echo "::warning::Build asset FTP failed after retries — continuing because a critical curl upload succeeded"
             exit 0
           fi
           echo "::error::Build asset FTP failed after retries (Rumahweb FTPS)"
