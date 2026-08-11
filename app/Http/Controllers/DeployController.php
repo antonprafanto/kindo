@@ -9463,6 +9463,44 @@ class DeployController extends Controller
         return response('Article 101 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle102Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article102Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 102 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-mqtt-broker-topic-publish-subscribe';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 102 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#102 (ini)', 'FS-32', 'MQTTX', 'broker', 'topic', 'publish', 'subscribe', 'FS-33', 'localhost'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 102 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#102 (this article)', 'FS-32', 'MQTTX', 'broker', 'topic', 'publish', 'subscribe', 'FS-33', 'localhost'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 102 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 102 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedGateBuilderDraft(): Response
     {
         $this->authorizeDeployHook();

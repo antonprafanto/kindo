@@ -2190,6 +2190,22 @@ jobs:
           fi
 
 
+      - name: Seed article 102 draft via deploy hook (required, pre-launch B)
+        if: always() && !cancelled()
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          code=$(curl -sS -o /tmp/seed102.out -w "%{http_code}" -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" \
+            "https://kodingindonesia.com/deploy/seed-article-102-draft" || echo "000")
+          echo "seed-article-102-draft HTTP $code"
+          if [ "$code" != "200" ]; then
+            cat /tmp/seed102.out || true
+            exit 1
+          fi
+          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-mqtt-broker-topic-publish-subscribe" || echo "000")
+          test "$pub" = "404"
+
       - name: Seed Gate BUILDER draft via deploy hook (required, pre-launch B)
         if: always() && !cancelled()
         env:
