@@ -607,6 +607,17 @@ return [
         'fsiot_webserver_done' => 'Selesai',
         'fsiot_webserver_todo' => 'Belum',
 
+        'fsiot_mqtt_badge' => 'Checklist konsep MQTT',
+        'fsiot_mqtt_hint' => 'Centang setelah memahami broker, topic, publish, dan subscribe. Progres tersimpan di browser ini.',
+        'fsiot_mqtt_check' => 'Cek kesiapan',
+        'fsiot_mqtt_retry' => 'Kosongkan lagi',
+        'fsiot_mqtt_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_mqtt_progress' => ':filled dari :total tercentang',
+        'fsiot_mqtt_pass' => 'Lengkap :filled/:total — kamu siap memasang broker lokal di FS-33!',
+        'fsiot_mqtt_incomplete' => 'Masih ada poin yang belum dicentang. Baca kembali bagian broker, topic, atau MQTTX.',
+        'fsiot_mqtt_done' => 'Selesai',
+        'fsiot_mqtt_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

@@ -172,6 +172,9 @@ jobs:
             return 1
           }
           upload "database/seeders/Article102Seeder.php" "${APP}database/seeders/Article102Seeder.php"
+          upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
+          upload "lang/id/ui.php" "${APP}lang/id/ui.php"
+          upload "lang/en/ui.php" "${APP}lang/en/ui.php"
           upload "public/images/fsiot/fs32-pub-sub-flow.png" "${APP}public/images/fsiot/fs32-pub-sub-flow.png"
           upload "public/images/fsiot/fs32-pub-sub-flow.png" "${PUB}images/fsiot/fs32-pub-sub-flow.png"
 

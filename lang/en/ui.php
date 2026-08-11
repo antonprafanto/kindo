@@ -607,6 +607,17 @@ return [
         'fsiot_webserver_done' => 'Done',
         'fsiot_webserver_todo' => 'Not yet',
 
+        'fsiot_mqtt_badge' => 'MQTT concept checklist',
+        'fsiot_mqtt_hint' => 'Tick items after understanding broker, topic, publish, and subscribe. Progress stays in this browser.',
+        'fsiot_mqtt_check' => 'Check readiness',
+        'fsiot_mqtt_retry' => 'Clear again',
+        'fsiot_mqtt_paper' => 'Paper version (no clicks)',
+        'fsiot_mqtt_progress' => ':filled of :total checked',
+        'fsiot_mqtt_pass' => 'Complete :filled/:total — you are ready to install the local broker in FS-33!',
+        'fsiot_mqtt_incomplete' => 'Some items are still unchecked. Revisit the broker, topic, or MQTTX section.',
+        'fsiot_mqtt_done' => 'Done',
+        'fsiot_mqtt_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

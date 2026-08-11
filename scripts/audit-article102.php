@@ -49,7 +49,10 @@ check('four figures in both languages', substr_count($body, '<figure') === 4 && 
 check('all diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-32)') === 4 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-32)') === 4);
 check('topic case warning in both languages', str_contains($body, 'telemetry</code> berbeda') && str_contains($bodyEn, 'lowercase names'));
 check('broker is not MQTTX', str_contains($body, 'MQTTX adalah client, bukan broker') && str_contains($bodyEn, 'MQTTX is a client, not a broker'));
-check('checklist is static and honest', ! str_contains($body, 'fsiot-mqtt-intro-checklist-items') && ! str_contains($body, 'centang hanya') && ! str_contains($bodyEn, 'then tick'));
+check('interactive checklist markers survive sanitizer', str_contains($body, 'id="fsiot-mqtt-checklist"') && str_contains($body, 'id="fsiot-mqtt-checklist-items"') && str_contains($bodyEn, 'id="fsiot-mqtt-checklist"') && str_contains($bodyEn, 'id="fsiot-mqtt-checklist-items"'));
+check('interactive checklist is wired', str_contains($workflow, 'resources/views/articles/show.blade.php') && str_contains($workflow, 'lang/id/ui.php') && str_contains($workflow, 'lang/en/ui.php'));
+check('checklist widget has a private browser storage key', str_contains(file_get_contents($root.'/resources/views/articles/show.blade.php'), "storagePrefix: 'fsiot-cl-102'"));
+check('eight checklist items in both languages', substr_count(explode('id="fsiot-mqtt-checklist-items"', $body)[1] ?? '', '<li>') >= 8 && substr_count(explode('id="fsiot-mqtt-checklist-items"', $bodyEn)[1] ?? '', '<li>') >= 8);
 check('no hard links to draft articles', ! preg_match('#/artikel/fullstack-iot-[a-z0-9-]+#', $body.$bodyEn));
 
 foreach (['fs32-cover-mqtt.jpg', 'fs32-cover-mqtt.webp', 'fs32-tools-order.png', 'fs32-broker-roles.png', 'fs32-topic-address.png', 'fs32-pub-sub-flow.png'] as $asset) {
