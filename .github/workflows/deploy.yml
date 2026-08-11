@@ -344,6 +344,33 @@ jobs:
           fi
           echo "Critical Gate BUILDER curl uploads OK"
 
+      - name: Upload critical FS-32 files via curl (pre-sync)
+        id: curl102
+        continue-on-error: true
+        run: |
+          set -e
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          APP="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.ftp.outputs.dir }}"
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          upload() { curl -fsS --connect-timeout 30 --max-time 180 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$1" "$2"; }
+          upload "database/seeders/Article102Seeder.php" "${APP}database/seeders/Article102Seeder.php"
+          upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php"
+          upload "routes/web.php" "${APP}routes/web.php"
+          for img in fs32-cover-mqtt.jpg fs32-cover-mqtt.webp fs32-broker-roles.png fs32-topic-address.png fs32-pub-sub-flow.png fs32-tools-order.png; do
+            upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
+            upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
+          done
+
+      - name: Seed article 102 early after critical sync
+        if: steps.curl102.outcome == 'success'
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/clear-cache"
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/seed-article-102-draft"
+
       - name: Deploy build assets via FTP
         id: ftp_build
         continue-on-error: true
