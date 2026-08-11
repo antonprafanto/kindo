@@ -9501,6 +9501,44 @@ class DeployController extends Controller
         return response('Article 102 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle103Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article103Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 103 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-mosquitto-broker-lokal-mqttx';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 103 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#103 (ini)', 'FS-33', 'Mosquitto', 'MQTTX', '127.0.0.1', '1883', 'PowerShell', 'FS-34'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 103 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#103 (this article)', 'FS-33', 'Mosquitto', 'MQTTX', '127.0.0.1', '1883', 'PowerShell', 'FS-34'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 103 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 103 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedGateBuilderDraft(): Response
     {
         $this->authorizeDeployHook();

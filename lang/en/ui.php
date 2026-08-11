@@ -618,6 +618,17 @@ return [
         'fsiot_mqtt_done' => 'Done',
         'fsiot_mqtt_todo' => 'Not yet',
 
+        'fsiot_mosquitto_badge' => 'Local broker checklist',
+        'fsiot_mosquitto_hint' => 'Tick after Mosquitto runs and an MQTTX message appears. Progress stays in this browser.',
+        'fsiot_mosquitto_check' => 'Check readiness',
+        'fsiot_mosquitto_retry' => 'Clear again',
+        'fsiot_mosquitto_paper' => 'Paper version (no clicks)',
+        'fsiot_mosquitto_progress' => ':filled of :total checked',
+        'fsiot_mosquitto_pass' => 'Complete :filled/:total — the local broker is ready for ESP32 in FS-34!',
+        'fsiot_mosquitto_incomplete' => 'Some steps are still unchecked. Check the broker, 127.0.0.1, port 1883, or topic.',
+        'fsiot_mosquitto_done' => 'Done',
+        'fsiot_mosquitto_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

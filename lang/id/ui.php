@@ -618,6 +618,17 @@ return [
         'fsiot_mqtt_done' => 'Selesai',
         'fsiot_mqtt_todo' => 'Belum',
 
+        'fsiot_mosquitto_badge' => 'Checklist broker lokal',
+        'fsiot_mosquitto_hint' => 'Centang setelah Mosquitto berjalan dan pesan MQTTX terlihat. Progres tersimpan di browser ini.',
+        'fsiot_mosquitto_check' => 'Cek kesiapan',
+        'fsiot_mosquitto_retry' => 'Kosongkan lagi',
+        'fsiot_mosquitto_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_mosquitto_progress' => ':filled dari :total tercentang',
+        'fsiot_mosquitto_pass' => 'Lengkap :filled/:total — broker lokal siap untuk ESP32 di FS-34!',
+        'fsiot_mosquitto_incomplete' => 'Masih ada langkah yang belum dicentang. Periksa broker, 127.0.0.1, port 1883, atau topic.',
+        'fsiot_mosquitto_done' => 'Selesai',
+        'fsiot_mosquitto_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',
