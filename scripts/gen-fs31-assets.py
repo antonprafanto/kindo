@@ -78,9 +78,9 @@ for index, (number, title, body, fill, color) in enumerate(steps):
     box(draw, (left, 170, left + 310, 520), fill, color)
     box(draw, (left + 20, 195, left + 92, 267), "#FFFFFF", color, 3)
     text(draw, left + 56, 231, number, TITLE, color)
-    text(draw, left + 165, 225, title, HEADING)
+    text(draw, left + 155, 300, title, HEADING)
     for line_index, line in enumerate(body.split("\n")):
-        text(draw, left + 155, 350 + line_index * 42, line, BODY, "#333333")
+        text(draw, left + 155, 380 + line_index * 42, line, BODY, "#333333")
 box(draw, (40, 555, 1360, 690))
 text(draw, 700, 603, "Tidak perlu hari ini:", HEADING)
 text(draw, 700, 655, "Laragon · php artisan · aplikasi dari app store · port forwarding · MQTT", BODY, "#333333")

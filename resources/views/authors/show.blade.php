@@ -16,7 +16,7 @@
 @push('schema')
 @php
     $personSchema = array_filter([
-        '@context' => 'https://schema.org',
+        chr(64) . 'context' => 'https://schema.org',
         '@type' => 'Person',
         'name' => $author->name,
         'url' => route('authors.show', $author->slug),

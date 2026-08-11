@@ -10,6 +10,8 @@ $routes = file_get_contents($root.'/routes/web.php');
 $controller = file_get_contents($root.'/app/Http/Controllers/DeployController.php');
 $workflow = file_get_contents($root.'/.github/workflows/deploy.yml');
 $blade = file_get_contents($root.'/resources/views/articles/show.blade.php');
+$breadcrumbBlade = file_get_contents($root.'/resources/views/components/breadcrumb.blade.php');
+$authorBlade = file_get_contents($root.'/resources/views/authors/show.blade.php');
 $langId = file_get_contents($root.'/lang/id/ui.php');
 $langEn = file_get_contents($root.'/lang/en/ui.php');
 
@@ -43,6 +45,7 @@ check('workflow curl101 exists', str_contains($workflow, 'id: curl101'));
 check('workflow assets allowlisted', str_contains($workflow, 'fs31-local-network.png') && str_contains($workflow, 'fs31-cover-web-server.webp'));
 check('deploy hook token is enforced for every public action', ! preg_match('/^    public function \w+\([^\n]*\)\R    \{\R(?!        \$this->authorizeDeployHook\(\);)/m', $controller));
 check('deploy token is accepted only through the request header', str_contains($controller, "request()->header('X-Deploy-Token')") && ! str_contains($controller, "request()->query('token'"));
+check('JSON-LD @context is escaped from Blade directives', str_contains($blade, '"@@context"') && str_contains($breadcrumbBlade, "chr(64) . 'context'") && str_contains($authorBlade, "chr(64) . 'context'"));
 
 check('ID self reference', str_contains($body, '#101 (ini)'));
 check('EN self reference', str_contains($bodyEn, '#101 (this article)'));

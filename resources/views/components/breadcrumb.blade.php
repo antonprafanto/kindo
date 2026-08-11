@@ -18,7 +18,7 @@
 @push('schema')
 <script type="application/ld+json">
 {!! json_encode([
-    '@context' => 'https://schema.org',
+    chr(64) . 'context' => 'https://schema.org',
     '@type' => 'BreadcrumbList',
     'itemListElement' => collect($crumbList)->values()->map(function ($crumb, $index) {
         $entry = [

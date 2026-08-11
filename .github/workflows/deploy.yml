@@ -286,6 +286,8 @@ jobs:
           upload "routes/web.php" "${APP}routes/web.php" || failed=1
           upload "config/app.php" "${APP}config/app.php" || failed=1
           upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php" || failed=1
+          upload "resources/views/components/breadcrumb.blade.php" "${APP}resources/views/components/breadcrumb.blade.php" || failed=1
+          upload "resources/views/authors/show.blade.php" "${APP}resources/views/authors/show.blade.php" || failed=1
           upload "lang/id/ui.php" "${APP}lang/id/ui.php" || failed=1
           upload "lang/en/ui.php" "${APP}lang/en/ui.php" || failed=1
           for img in fs31-cover-web-server.jpg fs31-cover-web-server.webp fs31-tools-order.png \
