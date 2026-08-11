@@ -111,7 +111,6 @@ HTML
 <p>Centang setelah kamu benar-benar memahami poinnya. Target: <strong>8/8</strong>. Progres disimpan di browser perangkatmu dan tidak dikirim ke server.</p>
 <ul id="fsiot-mqtt-checklist-items">
 <li>Saya tahu broker adalah perantara pesan.</li><li>Saya tahu client dapat berupa ESP32 atau MQTTX.</li><li>Saya tahu topic adalah alamat pesan, bukan URL web.</li><li>Saya tahu publish berarti mengirim ke topic.</li><li>Saya tahu subscribe berarti menerima pesan dari topic.</li><li>Saya tidak memakai broker publik untuk lab ini.</li><li>MQTTX sudah terpasang atau saya tahu bagian yang perlu diselesaikan.</li><li>Saya belum perlu membuka Arduino IDE pada FS-32.</li></ul>
-<ul><li>Saya tahu broker adalah perantara pesan.</li><li>Saya tahu client dapat berupa ESP32 atau MQTTX.</li><li>Saya tahu topic adalah alamat pesan, bukan URL web.</li><li>Saya tahu publish berarti mengirim ke topic.</li><li>Saya tahu subscribe berarti menerima pesan dari topic.</li><li>Saya tidak memakai broker publik untuk lab ini.</li><li>MQTTX sudah terpasang atau saya tahu bagian yang perlu diselesaikan.</li><li>Saya belum perlu membuka Arduino IDE pada FS-32.</li></ul>
 <p><strong>Cara memeriksa kesiapan:</strong> baca setiap poin, lalu jelaskan alur ESP32 → broker → MQTTX dengan kata-katamu sendiri. Jika ada yang belum jelas, kembali ke bagian terkait. Tidak perlu terminal atau perintah sintaks hari ini.</p>
 
 <h2>Kesalahan yang sering terjadi</h2>

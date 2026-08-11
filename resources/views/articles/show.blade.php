@@ -1338,7 +1338,7 @@ function initFsiotChecklistWidget(cfg) {
     if (items.length < cfg.minItems) return;
 
     const intro = sectionNodes[0] && sectionNodes[0].tagName === 'P' ? sectionNodes[0] : null;
-    const howto = sectionNodes.find(n => n.tagName === 'P' && n !== intro && /Awam|Beginner/i.test(n.textContent || ''));
+    const howto = sectionNodes.find(n => n.tagName === 'P' && n !== intro && /Awam|Beginner|Cara memeriksa|How to check/i.test(n.textContent || ''));
 
     const paper = document.createElement('details');
     paper.className = 'fsiot-match-paper';
@@ -1440,7 +1440,9 @@ function initFsiotChecklistWidget(cfg) {
     const total = rows.length;
 
     function persist() {
-        localStorage.setItem(storageKey, JSON.stringify(rows.map(r => r.cb.checked)));
+        try {
+            localStorage.setItem(storageKey, JSON.stringify(rows.map(r => r.cb.checked)));
+        } catch (_) {}
     }
 
     function updateProgress() {

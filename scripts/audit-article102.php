@@ -53,6 +53,8 @@ check('interactive checklist markers survive sanitizer', str_contains($body, 'id
 check('interactive checklist is wired', str_contains($workflow, 'resources/views/articles/show.blade.php') && str_contains($workflow, 'lang/id/ui.php') && str_contains($workflow, 'lang/en/ui.php'));
 check('checklist widget has a private browser storage key', str_contains(file_get_contents($root.'/resources/views/articles/show.blade.php'), "storagePrefix: 'fsiot-cl-102'"));
 check('eight checklist items in both languages', substr_count(explode('id="fsiot-mqtt-checklist-items"', $body)[1] ?? '', '<li>') >= 8 && substr_count(explode('id="fsiot-mqtt-checklist-items"', $bodyEn)[1] ?? '', '<li>') >= 8);
+check('one paper list in each checklist section', substr_count(explode('<h2>', explode('id="fsiot-mqtt-checklist"', $body, 2)[1] ?? '', 2)[0], '<ul') === 1 && substr_count(explode('<h2>', explode('id="fsiot-mqtt-checklist"', $bodyEn, 2)[1] ?? '', 2)[0], '<ul') === 1);
+check('storage failure does not block checklist use', preg_match('/try\s*\{\s*localStorage\.setItem\(storageKey/', file_get_contents($root.'/resources/views/articles/show.blade.php')) === 1);
 check('no hard links to draft articles', ! preg_match('#/artikel/fullstack-iot-[a-z0-9-]+#', $body.$bodyEn));
 
 foreach (['fs32-cover-mqtt.jpg', 'fs32-cover-mqtt.webp', 'fs32-tools-order.png', 'fs32-broker-roles.png', 'fs32-topic-address.png', 'fs32-pub-sub-flow.png'] as $asset) {
