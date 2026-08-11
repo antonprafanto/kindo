@@ -328,6 +328,7 @@ jobs:
           # PHP sources must land together (seeder needles ↔ DeployController checks).
           upload "database/seeders/ArticleGateBuilderSeeder.php" "${APP}database/seeders/ArticleGateBuilderSeeder.php" || failed=1
           upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php" || failed=1
+          upload "app/Services/ArticleHtmlSanitizer.php" "${APP}app/Services/ArticleHtmlSanitizer.php" || failed=1
           upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php" || failed=1
           upload "lang/id/ui.php" "${APP}lang/id/ui.php" || failed=1
           upload "lang/en/ui.php" "${APP}lang/en/ui.php" || failed=1

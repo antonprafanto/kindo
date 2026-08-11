@@ -51,6 +51,24 @@ class ArticleHtmlSanitizerTest extends TestCase
         $this->assertStringNotContainsString('evil', $out);
     }
 
+    public function test_it_keeps_a_bounded_quiz_timer_on_a_heading_only(): void
+    {
+        $mirror = Mockery::mock(PublicHtmlStorageMirror::class);
+        $mirror->shouldReceive('publicDiskPathFromUrl')->andReturn(null);
+        $mirror->shouldReceive('existsOnPublicDisk')->andReturn(false);
+
+        $sanitizer = new ArticleHtmlSanitizer($mirror);
+
+        $out = $sanitizer->sanitize(
+            '<h2 id="fsiot-kuis-matching" data-timer-seconds="720" data-untrusted="hapus">Kuis</h2>'
+            . '<h2 data-timer-seconds="7200">Terlalu lama</h2>'
+        );
+
+        $this->assertStringContainsString('data-timer-seconds="720"', $out);
+        $this->assertStringNotContainsString('data-untrusted', $out);
+        $this->assertStringNotContainsString('data-timer-seconds="7200"', $out);
+    }
+
     public function test_it_keeps_safe_svg_diagrams(): void
     {
         $mirror = Mockery::mock(PublicHtmlStorageMirror::class);

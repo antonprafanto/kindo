@@ -21,6 +21,7 @@ $src = file_get_contents($root.'/database/seeders/ArticleGateBuilderSeeder.php')
 $routes = file_get_contents($root.'/routes/web.php');
 $deploy = file_get_contents($root.'/.github/workflows/deploy.yml');
 $ctrl = file_get_contents($root.'/app/Http/Controllers/DeployController.php');
+$sanitizer = file_get_contents($root.'/app/Services/ArticleHtmlSanitizer.php');
 $blade = file_get_contents($root.'/resources/views/articles/show.blade.php');
 $langId = file_get_contents($root.'/lang/id/ui.php');
 $langEn = file_get_contents($root.'/lang/en/ui.php');
@@ -88,6 +89,7 @@ check('soft timer 12 min', str_contains($id, 'data-timer-seconds="720"') && str_
 check('timer copy ID', str_contains($id, 'Batas waktu 12 menit'));
 check('timer copy EN', str_contains($en, '12-minute limit'));
 check('timer JS labels', str_contains($blade, 'fsiot_quiz_timer_up') && str_contains($langId, 'fsiot_quiz_timer'));
+check('sanitizer preserves bounded quiz timer attribute', str_contains($sanitizer, "'h2'         => ['id', 'data-timer-seconds']") && str_contains($sanitizer, "(int) \$value > 3600"));
 foreach (['Pendahuluan', 'Persiapan', 'Kesalahan yang sering terjadi', 'Intinya:', 'Analogi:'] as $bad) {
     check("No Indo in EN: $bad", ! str_contains($en, $bad));
 }

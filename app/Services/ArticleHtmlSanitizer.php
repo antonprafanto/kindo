@@ -15,7 +15,7 @@ class ArticleHtmlSanitizer
         'p'          => [],
         'br'         => [],
         'hr'         => [],
-        'h2'         => ['id'],
+        'h2'         => ['id', 'data-timer-seconds'],
         'h3'         => ['id'],
         'h4'         => ['id'],
         'strong'     => ['style'],
@@ -258,6 +258,12 @@ class ArticleHtmlSanitizer
             }
 
             if ($lower === 'marker-end' && ! preg_match('/^url\(#[A-Za-z][\w-]*\)$/', $value)) {
+                $el->removeAttribute($name);
+
+                continue;
+            }
+
+            if ($lower === 'data-timer-seconds' && (! preg_match('/^[1-9]\d{0,3}$/', $value) || (int) $value > 3600)) {
                 $el->removeAttribute($name);
 
                 continue;
