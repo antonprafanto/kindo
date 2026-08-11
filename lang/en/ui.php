@@ -596,6 +596,17 @@ return [
         'fsiot_http_done' => 'Done',
         'fsiot_http_todo' => 'Not yet',
 
+        'fsiot_webserver_badge' => 'Local web server checklist',
+        'fsiot_webserver_hint' => 'Tick DHT22 + Upload + IP + same-Wi-Fi browser. Target: 10/10.',
+        'fsiot_webserver_check' => 'Check completeness',
+        'fsiot_webserver_retry' => 'Clear again',
+        'fsiot_webserver_paper' => 'Paper version (no clicks)',
+        'fsiot_webserver_progress' => ':filled of :total checked',
+        'fsiot_webserver_pass' => 'Complete :filled/:total — local temperature is visible in the browser!',
+        'fsiot_webserver_incomplete' => 'Some steps are still unchecked. Recheck the Serial IP, same Wi-Fi, or DHT22.',
+        'fsiot_webserver_done' => 'Done',
+        'fsiot_webserver_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

@@ -128,8 +128,8 @@ return [
     | Deploy Hook Token (GitHub Actions → FTP deploy)
     |--------------------------------------------------------------------------
     |
-    | Random secret for /deploy/clear-cache after CI/CD upload. Leave empty
-    | to disable the endpoint (returns 404).
+    | Random secret required by every /deploy hook after CI/CD upload. Leave
+    | empty to disable those endpoints (they return 404).
     |
     */
 

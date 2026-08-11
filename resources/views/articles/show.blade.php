@@ -568,6 +568,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotI2cChecklist();
     initFsiotWifiChecklist();
     initFsiotHttpChecklist();
+    initFsiotWebServerChecklist();
     initFsiotGateBuilderChecklist();
 });
 
@@ -980,7 +981,7 @@ function initFsiotWorksheet() {
     }
 
     const intro = sectionNodes[0] && sectionNodes[0].tagName === 'P' ? sectionNodes[0] : null;
-    const howto = sectionNodes.find(n => n.tagName === 'P' && n !== intro && /Awam|Beginner/i.test(n.textContent || ''));
+    const howto = sectionNodes.find(n => n.tagName === 'P' && n !== intro && /Awam|Beginner|Cara menguji|How to test/i.test(n.textContent || ''));
 
     const paper = document.createElement('details');
     paper.className = 'fsiot-match-paper';
@@ -2003,6 +2004,28 @@ function initFsiotHttpChecklist() {
             incomplete: @js(__('ui.articles.fsiot_http_incomplete')),
             done: @js(__('ui.articles.fsiot_http_done')),
             todo: @js(__('ui.articles.fsiot_http_todo')),
+        },
+    });
+}
+
+function initFsiotWebServerChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-webserver-checklist',
+        listId: 'fsiot-webserver-checklist-items',
+        storagePrefix: 'fsiot-cl-101',
+        idPrefix: 'fsiot-webserver',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_webserver_badge')),
+            hint: @js(__('ui.articles.fsiot_webserver_hint')),
+            check: @js(__('ui.articles.fsiot_webserver_check')),
+            retry: @js(__('ui.articles.fsiot_webserver_retry')),
+            paper: @js(__('ui.articles.fsiot_webserver_paper')),
+            progress: @js(__('ui.articles.fsiot_webserver_progress')),
+            pass: @js(__('ui.articles.fsiot_webserver_pass')),
+            incomplete: @js(__('ui.articles.fsiot_webserver_incomplete')),
+            done: @js(__('ui.articles.fsiot_webserver_done')),
+            todo: @js(__('ui.articles.fsiot_webserver_todo')),
         },
     });
 }

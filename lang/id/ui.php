@@ -596,6 +596,17 @@ return [
         'fsiot_http_done' => 'Selesai',
         'fsiot_http_todo' => 'Belum',
 
+        'fsiot_webserver_badge' => 'Checklist web server lokal',
+        'fsiot_webserver_hint' => 'Centang DHT22 + Upload + IP + browser satu Wi-Fi. Target: 10/10.',
+        'fsiot_webserver_check' => 'Cek kelengkapan',
+        'fsiot_webserver_retry' => 'Kosongkan lagi',
+        'fsiot_webserver_paper' => 'Versi catatan (kertas / tanpa klik)',
+        'fsiot_webserver_progress' => ':filled dari :total tercentang',
+        'fsiot_webserver_pass' => 'Lengkap :filled/:total — suhu lokal sudah tampil di browser!',
+        'fsiot_webserver_incomplete' => 'Masih ada langkah yang belum dicentang. Cek IP di Serial, Wi-Fi yang sama, atau DHT22.',
+        'fsiot_webserver_done' => 'Selesai',
+        'fsiot_webserver_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

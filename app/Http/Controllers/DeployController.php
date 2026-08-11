@@ -192,6 +192,8 @@ class DeployController extends Controller
 
     public function publishArticle10(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article10Seeder', 'Article 10 published');
     }
 
@@ -8292,6 +8294,8 @@ class DeployController extends Controller
 
     public function seedArticle92Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article92Seeder',
@@ -8408,6 +8412,8 @@ class DeployController extends Controller
 
     public function seedArticle93Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article93Seeder',
@@ -8532,6 +8538,8 @@ class DeployController extends Controller
 
     public function seedArticle94Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article94Seeder',
@@ -8657,6 +8665,8 @@ class DeployController extends Controller
 
     public function seedArticle95Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article95Seeder',
@@ -8778,6 +8788,8 @@ class DeployController extends Controller
 
     public function seedArticle96Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article96Seeder',
@@ -8903,6 +8915,8 @@ class DeployController extends Controller
 
     public function seedArticle97Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article97Seeder',
@@ -9022,6 +9036,8 @@ class DeployController extends Controller
 
     public function seedArticle98Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article98Seeder',
@@ -9146,6 +9162,8 @@ class DeployController extends Controller
 
     public function seedArticle99Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article99Seeder',
@@ -9258,6 +9276,8 @@ class DeployController extends Controller
 
     public function seedArticle100Draft(): Response
     {
+        $this->authorizeDeployHook();
+
         try {
             Artisan::call('db:seed', [
                 '--class' => 'Database\\Seeders\\Article100Seeder',
@@ -9367,8 +9387,86 @@ class DeployController extends Controller
         return response('Article 100 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle101Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article101Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 101 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-web-server-lokal-sensor';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article) {
+            report(new \RuntimeException('Article 101 missing after draft seed.'));
+
+            return response('Article 101 not found after draft seed', 500);
+        }
+
+        if ($article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            report(new \RuntimeException('Article 101 refused to stay private draft after seed.'));
+
+            return response('Article 101 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = [
+            '#101 (ini)', 'FS-31', 'CONNECTED', 'WebServer', 'DHT22', 'FS31_web_server_suhu',
+            'WiFi.localIP', 'server.handleClient', '115200', 'YOUR_SSID', 'YOUR_PASS',
+            'Cara menguji perintah di atas', 'Gambar utama', 'Skema bantu',
+            'fsiot-webserver-checklist', 'localhost', '/belajar/fullstack-iot',
+        ];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            report(new \RuntimeException('Article 101 ID body missing expected content: '.implode(', ', $missingId)));
+
+            return response('Article 101 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en)) {
+            report(new \RuntimeException('Article 101 English fields are incomplete after draft seed.'));
+
+            return response('Article 101 EN fields incomplete', 500);
+        }
+
+        $requiredEn = [
+            '#101 (this article)', 'FS-31', 'CONNECTED', 'WebServer', 'DHT22', 'FS31_web_server_suhu',
+            'WiFi.localIP', 'server.handleClient', '115200', 'YOUR_SSID', 'YOUR_PASS',
+            'How to test the commands above', 'Main figure', 'Helper schematic',
+            'fsiot-webserver-checklist', 'localhost', '/belajar/fullstack-iot',
+        ];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if ($missingEn !== []) {
+            report(new \RuntimeException('Article 101 EN body missing expected content: '.implode(', ', $missingEn)));
+
+            return response('Article 101 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        Artisan::call('config:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 101 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedGateBuilderDraft(): Response
     {
+        $this->authorizeDeployHook();
+
         // Avoid stale OPcache after FTP/curl (new seeder vs old needle checks).
         if (function_exists('opcache_reset')) {
             opcache_reset();
@@ -9510,46 +9608,64 @@ class DeployController extends Controller
 
     public function publishArticle9(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article9Seeder', 'Article 9 published');
     }
 
     public function publishArticle8(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article8Seeder', 'Article 8 published');
     }
 
     public function publishArticle7(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article7Seeder', 'Article 7 published');
     }
 
     public function publishArticle6(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article6Seeder', 'Article 6 published');
     }
 
     public function publishArticle5(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article5Seeder', 'Article 5 published');
     }
 
     public function publishArticle4(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article4Seeder', 'Article 4 published');
     }
 
     public function publishArticle3(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article3Seeder', 'Article 3 published');
     }
 
     public function publishArticle2(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article2Seeder', 'Article 2 published');
     }
 
     public function publishArticle1(): Response
     {
+        $this->authorizeDeployHook();
+
         return $this->publishArticle('Article1Seeder', 'Article 1 published');
     }
 
@@ -9748,9 +9864,9 @@ class DeployController extends Controller
     private function authorizeDeployHook(): void
     {
         $token = config('app.deploy_hook_token');
-        $provided = request()->header('X-Deploy-Token') ?? request()->query('token', '');
+        $provided = request()->header('X-Deploy-Token');
 
-        if (empty($token) || ! hash_equals($token, (string) $provided)) {
+        if (empty($token) || ! is_string($provided) || ! hash_equals($token, $provided)) {
             abort(404);
         }
     }
