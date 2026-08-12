@@ -2343,15 +2343,29 @@ jobs:
           DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
         run: |
           set -euo pipefail
-          code=$(curl -sS -o /tmp/seed102.out -w "%{http_code}" -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" \
-            "https://kodingindonesia.com/deploy/seed-article-102-draft" || echo "000")
-          echo "seed-article-102-draft HTTP $code"
+          code="000"
+          for i in 1 2 3 4 5 6 7 8; do
+            code=$(curl -sS --connect-timeout 30 --max-time 90 -o /tmp/seed102.out -w "%{http_code}" \
+              -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" \
+              "https://kodingindonesia.com/deploy/seed-article-102-draft" || echo "000")
+            echo "seed-article-102-draft HTTP $code (attempt $i)"
+            if [ "$code" = "200" ]; then
+              cat /tmp/seed102.out || true
+              break
+            fi
+            sleep $((i * 5))
+          done
           if [ "$code" != "200" ]; then
+            echo "::error::seed-article-102-draft failed after retries (last HTTP $code)"
             cat /tmp/seed102.out || true
             exit 1
           fi
           pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-mqtt-broker-topic-publish-subscribe" || echo "000")
-          test "$pub" = "404"
+          echo "public article 102 HTTP $pub (expect 404 draft)"
+          if [ "$pub" != "404" ]; then
+            echo "::error::article 102 must stay unpublished (got HTTP $pub)"
+            exit 1
+          fi
 
       - name: Seed Gate BUILDER draft via deploy hook (required, pre-launch B)
         if: always() && !cancelled()
