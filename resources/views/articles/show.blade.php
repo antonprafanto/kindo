@@ -539,7 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
 @push('scripts')
 <script>
 // FSIOT interactive widgets (injected after sanitizer — safe from article body HTML)
-document.addEventListener('DOMContentLoaded', () => {
+const initFsiotInteractiveWidgets = () => {
     initFsiotMatchQuiz();
     initFsiotWorksheet();
     initFsiotKitChecklist();
@@ -575,7 +575,13 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotMosquittoChecklist();
     initFsiotTelemetryChecklist();
     initFsiotGateBuilderChecklist();
-});
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFsiotInteractiveWidgets, { once: true });
+} else {
+    initFsiotInteractiveWidgets();
+}
 
 function initFsiotMatchQuiz() {
     const labels = {
