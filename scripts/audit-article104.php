@@ -42,6 +42,7 @@ check104('ID and EN references', str_contains($body, '#104 (ini)') && str_contai
 check104('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2'));
 check104('five figures in both languages', substr_count($body, '<figure') === 5 && substr_count($bodyEn, '<figure') === 5);
 check104('tools are named before sketch', strpos($body, 'Buka Arduino IDE') < strpos($body, '#include &lt;WiFi.h&gt;') && str_contains($body, 'Buka PowerShell') && str_contains($body, 'Buka MQTTX paling akhir'));
+check104('Arduino IDE library path is current and visual guidance is present', str_contains($body, 'Library Manager</strong>: klik ikon buku') && str_contains($body, 'fitur perbesar pada browser atau layar') && !str_contains($body, 'Tools → Manage Libraries'));
 check104('DHT22 wiring is explicit', str_contains($body, 'VCC → 3V3') && str_contains($body, 'DATA → GPIO 4') && str_contains($body, 'GND → GND'));
 check104('LAN boundary is explicit', str_contains($body, 'IPv4 PC dari <code>ipconfig</code>') && str_contains($body, '<code>127.0.0.1</code>') && str_contains($body, 'guest Wi-Fi'));
 check104('no router or public broker instruction', str_contains($body, 'Jangan membuka port router') && str_contains($body, 'broker publik') && str_contains($body, 'Private networks'));
