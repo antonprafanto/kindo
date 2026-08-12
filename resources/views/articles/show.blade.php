@@ -90,6 +90,8 @@
                     @php
                         $coverOnDisk = $article->cover_image
                             && (
+                                str_starts_with($article->cover_image, 'http')
+                                ||
                                 file_exists(storage_path('app/public/' . $article->cover_image))
                                 || (
                                     is_string(config('filesystems.public_html_storage'))
