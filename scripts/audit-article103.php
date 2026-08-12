@@ -51,7 +51,7 @@ check103('Mosquitto primary sources cited', str_contains($body, 'mosquitto.org/d
 check103('interactive checklist is wired', str_contains($body, 'id="fsiot-mosquitto-checklist"') && str_contains($body, 'id="fsiot-mosquitto-checklist-items"') && str_contains($blade, "storagePrefix: 'fsiot-cl-103'") && str_contains($langId, 'fsiot_mosquitto_badge') && str_contains($langEn, 'fsiot_mosquitto_badge'));
 check103('ten checklist items in both languages', substr_count(explode('id="fsiot-mosquitto-checklist-items"', $body)[1] ?? '', '<li>') >= 10 && substr_count(explode('id="fsiot-mosquitto-checklist-items"', $bodyEn)[1] ?? '', '<li>') >= 10);
 check103('no links to draft FSIOT articles', ! preg_match('#/artikel/fullstack-iot-[a-z0-9-]+#', $body.$bodyEn));
-check103('cover uses the public FS-33 asset', str_contains($seeder, 'https://kodingindonesia.com/images/fsiot/fs33-cover-mosquitto.webp'));
+check103('cover uses the public FS-33 asset', str_contains($source, 'https://kodingindonesia.com/images/fsiot/fs33-cover-mosquitto.webp'));
 
 foreach (['fs33-cover-mosquitto.jpg', 'fs33-cover-mosquitto.webp', 'fs33-tools-order.png', 'fs33-local-only.png', 'fs33-first-message.png', 'fs33-troubleshooting.png'] as $asset) {
     $path = $root.'/public/images/fsiot/'.$asset;
