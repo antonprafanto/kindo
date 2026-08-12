@@ -629,6 +629,17 @@ return [
         'fsiot_mosquitto_done' => 'Selesai',
         'fsiot_mosquitto_todo' => 'Belum',
 
+        'fsiot_telemetry_badge' => 'Checklist telemetry ESP32',
+        'fsiot_telemetry_hint' => 'Centang setelah JSON DHT22 terlihat di MQTTX. Progres tersimpan di browser ini.',
+        'fsiot_telemetry_check' => 'Cek kesiapan',
+        'fsiot_telemetry_retry' => 'Kosongkan lagi',
+        'fsiot_telemetry_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_telemetry_progress' => ':filled dari :total tercentang',
+        'fsiot_telemetry_pass' => 'Lengkap :filled/:total — telemetry DHT22 sudah sampai di MQTTX.',
+        'fsiot_telemetry_incomplete' => 'Masih ada :remaining poin. Selesaikan satu per satu.',
+        'fsiot_telemetry_done' => 'Selesai',
+        'fsiot_telemetry_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

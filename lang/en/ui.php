@@ -629,6 +629,17 @@ return [
         'fsiot_mosquitto_done' => 'Done',
         'fsiot_mosquitto_todo' => 'Not yet',
 
+        'fsiot_telemetry_badge' => 'ESP32 telemetry checklist',
+        'fsiot_telemetry_hint' => 'Tick after DHT22 JSON appears in MQTTX. Progress stays in this browser.',
+        'fsiot_telemetry_check' => 'Check readiness',
+        'fsiot_telemetry_retry' => 'Clear again',
+        'fsiot_telemetry_paper' => 'Paper version (no clicking)',
+        'fsiot_telemetry_progress' => ':filled of :total checked',
+        'fsiot_telemetry_pass' => 'Complete :filled/:total — DHT22 telemetry has reached MQTTX.',
+        'fsiot_telemetry_incomplete' => ':remaining items remain. Complete them one at a time.',
+        'fsiot_telemetry_done' => 'Done',
+        'fsiot_telemetry_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

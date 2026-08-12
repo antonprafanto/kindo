@@ -573,6 +573,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initFsiotWebServerChecklist();
     initFsiotMqttChecklist();
     initFsiotMosquittoChecklist();
+    initFsiotTelemetryChecklist();
     initFsiotGateBuilderChecklist();
 });
 
@@ -2076,6 +2077,28 @@ function initFsiotMosquittoChecklist() {
             incomplete: @js(__('ui.articles.fsiot_mosquitto_incomplete')),
             done: @js(__('ui.articles.fsiot_mosquitto_done')),
             todo: @js(__('ui.articles.fsiot_mosquitto_todo')),
+        },
+    });
+}
+
+function initFsiotTelemetryChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-telemetry-checklist',
+        listId: 'fsiot-telemetry-checklist-items',
+        storagePrefix: 'fsiot-cl-104',
+        idPrefix: 'fsiot-telemetry',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_telemetry_badge')),
+            hint: @js(__('ui.articles.fsiot_telemetry_hint')),
+            check: @js(__('ui.articles.fsiot_telemetry_check')),
+            retry: @js(__('ui.articles.fsiot_telemetry_retry')),
+            paper: @js(__('ui.articles.fsiot_telemetry_paper')),
+            progress: @js(__('ui.articles.fsiot_telemetry_progress')),
+            pass: @js(__('ui.articles.fsiot_telemetry_pass')),
+            incomplete: @js(__('ui.articles.fsiot_telemetry_incomplete')),
+            done: @js(__('ui.articles.fsiot_telemetry_done')),
+            todo: @js(__('ui.articles.fsiot_telemetry_todo')),
         },
     });
 }

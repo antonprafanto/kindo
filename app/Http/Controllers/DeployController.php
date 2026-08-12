@@ -9543,6 +9543,48 @@ class DeployController extends Controller
         return response('Article 103 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle104Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article104Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 104 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-esp32-dht22-mqtt-json-telemetry';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 104 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#104 (ini)', 'FS-34', 'DHT22', 'ArduinoMqttClient', 'ArduinoJson', 'MQTT_HOST', 'ipconfig', 'listener_allow_anonymous', 'FS-35'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 104 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#104 (this article)', 'FS-34', 'DHT22', 'ArduinoMqttClient', 'ArduinoJson', 'MQTT_HOST', 'ipconfig', 'listener_allow_anonymous', 'FS-35'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 104 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs34-cover-telemetry')) {
+            return response('Article 104 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 104 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedGateBuilderDraft(): Response
     {
         $this->authorizeDeployHook();
