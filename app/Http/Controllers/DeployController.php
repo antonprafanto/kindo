@@ -9534,6 +9534,10 @@ class DeployController extends Controller
             return response('Article 103 EN content checks failed: '.implode(', ', $missingEn), 500);
         }
 
+        if (! str_contains((string) $article->cover_image, 'fs33-cover-mosquitto')) {
+            return response('Article 103 cover check failed', 500);
+        }
+
         Artisan::call('view:clear');
 
         return response('Article 103 seeded as draft (pre-launch B)', 200);

@@ -48,15 +48,9 @@ class Article103Seeder extends Seeder
         ]);
         $article->tags()->sync(Tag::whereIn('slug', ['fullstack-iot', 'iot', 'mqtt', 'mosquitto'])->pluck('id'));
 
-        foreach (['webp', 'jpg'] as $extension) {
-            $source = public_path("images/fsiot/fs33-cover-mosquitto.{$extension}");
-            $destination = "articles/covers/fs33-cover-mosquitto.{$extension}";
-            if (is_file($source)) {
-                Storage::disk('public')->put($destination, file_get_contents($source));
-                $article->cover_image = $destination;
-            }
-        }
-        $article->save();
+        $article->update([
+            'cover_image' => 'https://kodingindonesia.com/images/fsiot/fs33-cover-mosquitto.webp',
+        ]);
     }
 
     private function figure(string $file, string $alt, string $caption): string
