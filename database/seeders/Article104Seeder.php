@@ -187,6 +187,7 @@ class Article104Seeder extends Seeder
         $dhtPhoto = $this->figure('kit-dht22.jpg', 'Contoh rupa modul DHT22 AM2302 pada papan merah, tiga pin berlabel DAT, VCC, dan GND', '<strong>Contoh rupa modul saja.</strong> Foto ini membantu mengenali sensor. <strong>Jangan menyalin urutan kaki dari foto.</strong> Wiring tetap menurut tulisan pin: VCC → 3V3, DATA atau DAT → GPIO 4, GND → GND. Pada foto ini, dari atas ke bawah tertulis DAT / VCC / GND — itu milik modul ini, bukan milik semua modul. Sumber: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $lan = $this->figure('fs34-lan-address.png', 'ESP32 memakai alamat IPv4 LAN PC, bukan localhost atau 127.0.0.1', '<strong>Aturan penting:</strong> <code>127.0.0.1</code> pada ESP32 berarti ESP32 itu sendiri. Gunakan IPv4 PC dari <code>ipconfig</code>. Diagram buatan Koding Indonesia (FS-34).');
         $flow = $this->figure('fs34-json-flow.png', 'Alur kiri ke kanan: DHT22, ESP32, Mosquitto, lalu MQTTX menampilkan JSON', '<strong>Gambar utama — alur data.</strong> Baca dari kiri ke kanan: DHT22 → ESP32 → Mosquitto → MQTTX. Diagram buatan Koding Indonesia (FS-34).');
+        $mqttxJson = $this->figure('fs34-mqttx-json.png', 'Ilustrasi MQTTX tersambung ke IPv4 PC dan menampilkan JSON telemetry DHT22', '<strong>Ini tampilan yang benar, bukan layar error.</strong> Host = IPv4 PC, Port = <code>1883</code>, lalu JSON suhu dan kelembapan muncul di daftar pesan. Jangan salin Host dari screenshot internet. Ilustrasi buatan Koding Indonesia (FS-34), meniru tata letak aplikasi resmi <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX oleh EMQ</a> (Apache License 2.0). Screenshot jendela resmi tidak dipakai utuh karena menampilkan broker publik. Angka <code>192.168.1.23</code> hanya contoh.');
         $troubleshooting = $this->figure('fs34-troubleshooting.png', 'Empat pemeriksaan jika telemetry ESP32 belum muncul di MQTTX', '<strong>Skema bantu.</strong> Periksa kabel, Wi-Fi, broker serta IP PC, lalu MQTTX. Diagram buatan Koding Indonesia (FS-34).');
         $install = $this->stepsCard([
             ['title' => 'Buka browser', 'text' => 'Pakai Chrome, Firefox, Edge, atau Safari. Siapkan artikel ini dan halaman resmi Arduino. Jangan Upload sketch dulu.'],
@@ -235,7 +236,7 @@ HTML
 <h2>Pasang library di Arduino IDE</h2>
 HTML
             .$library.<<<'HTML'
-<p><strong>Buka dulu Arduino IDE.</strong> Di bilah kiri, klik <strong>Library Manager</strong>: ikon tiga buku. Pada tampilan yang menyediakan menu, kamu juga dapat membuka <strong>Sketch → Include Library → Manage Libraries</strong>. Cari dan pasang satu per satu:</p>
+<p><strong>Buka dulu Arduino IDE.</strong> Di bilah kiri, klik <strong>Library Manager</strong>: ikon tiga buku. Itu satu-satunya jalur yang dipakai hari ini. Jangan memakai menu lama <em>Tools → Manage Libraries</em>. Cari dan pasang satu per satu:</p>
 <ol>
 <li><strong>DHT sensor library</strong> oleh Adafruit. Jika diminta memasang <strong>Adafruit Unified Sensor</strong>, pilih <strong>Install All</strong>; dependensi itu memang dibutuhkan library DHT.</li>
 <li><strong>ArduinoMqttClient</strong> oleh Arduino. Library ini mendukung pengiriman MQTT dan contoh resminya menyertakan ESP32.</li>
@@ -312,6 +313,8 @@ HTML
 <li>Kembali ke MQTTX. Pesan JSON baru harus muncul setiap kira-kira lima detik.</li>
 </ol>
 <p><strong>Berhasil berarti:</strong> Serial Monitor dan MQTTX menampilkan nilai yang sejalan. Angka suhu dan kelembapan bisa berbeda di setiap ruangan; yang penting format JSON dan topic tepat. Pesan yang sama harus muncul di kedua tempat itu.</p>
+HTML
+            .$mqttxJson.<<<'HTML'
 
 <h2>Jika pesan belum muncul di MQTTX</h2>
 HTML
@@ -375,7 +378,7 @@ HTML
 <li><a href="https://arduinojson.org/v7/api/jsondocument/" target="_blank" rel="noopener noreferrer">ArduinoJson — JsonDocument</a></li>
 <li><a href="https://github.com/adafruit/DHT-sensor-library" target="_blank" rel="noopener noreferrer">Adafruit DHT sensor library</a></li>
 <li><a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">Halaman unduhan MQTTX</a> · aplikasi oleh EMQ, Apache License 2.0</li>
-<li>Diagram urutan tools, wiring, batas LAN, alur JSON, skema periksa, dan ilustrasi Library Manager — Koding Indonesia (FS-34)</li>
+<li>Diagram urutan tools, wiring, batas LAN, alur JSON, skema periksa, serta ilustrasi Library Manager dan MQTTX — Koding Indonesia (FS-34)</li>
 </ul>
 
 <h2>Selanjutnya</h2>
@@ -392,6 +395,7 @@ HTML;
         $dhtPhoto = $this->figure('kit-dht22.jpg', 'Example DHT22 AM2302 module on a red board with three pins labelled DAT, VCC, and GND', '<strong>Appearance example only.</strong> This photo helps you recognise the sensor. <strong>Do not copy pin order from the photo.</strong> Wiring still follows the printed labels: VCC → 3V3, DATA or DAT → GPIO 4, GND → GND. In this photo the labels read DAT / VCC / GND from top to bottom — that belongs to this module, not to every module. Source: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $lan = $this->figure('fs34-lan-address.png', 'ESP32 uses the PC LAN IPv4 address, not localhost or 127.0.0.1', '<strong>Important:</strong> <code>127.0.0.1</code> on ESP32 means ESP32 itself. Use the PC IPv4 from <code>ipconfig</code>. Diagram by Koding Indonesia (FS-34).');
         $flow = $this->figure('fs34-json-flow.png', 'Left-to-right flow: DHT22, ESP32, Mosquitto, then MQTTX showing JSON', '<strong>Main figure — data flow.</strong> Read left to right: DHT22 → ESP32 → Mosquitto → MQTTX. Diagram by Koding Indonesia (FS-34).');
+        $mqttxJson = $this->figure('fs34-mqttx-json.png', 'MQTTX illustration connected to the PC IPv4 and showing DHT22 telemetry JSON', '<strong>This is the correct view, not an error screen.</strong> Host = the PC IPv4, Port = <code>1883</code>, then temperature and humidity JSON appears in the message list. Do not copy a Host from an internet screenshot. Illustration by Koding Indonesia (FS-34), modelled on the official <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX by EMQ</a> layout (Apache License 2.0). The official window screenshot is not used as-is because it shows a public broker. The address <code>192.168.1.23</code> is only an example.');
         $troubleshooting = $this->figure('fs34-troubleshooting.png', 'Four checks when ESP32 telemetry has not appeared in MQTTX', '<strong>Helper schematic.</strong> Check wiring, Wi-Fi, broker and PC IP, then MQTTX. Diagram by Koding Indonesia (FS-34).');
         $install = $this->stepsCard([
             ['title' => 'Open a browser', 'text' => 'Use Chrome, Firefox, Edge, or Safari. Keep this guide and the official Arduino page ready. Do not Upload a sketch yet.'],
@@ -440,7 +444,7 @@ HTML
 <h2>Install Arduino IDE libraries</h2>
 HTML
             .$library.<<<'HTML'
-<p><strong>Open Arduino IDE first.</strong> In the left bar, open <strong>Library Manager</strong>: the three-book icon. If your interface provides the menu path, you can also use <strong>Sketch → Include Library → Manage Libraries</strong>. Install one by one:</p>
+<p><strong>Open Arduino IDE first.</strong> In the left bar, open <strong>Library Manager</strong>: the three-book icon. That is the only path used today. Do not use the old <em>Tools → Manage Libraries</em> menu. Install one by one:</p>
 <ol>
 <li><strong>DHT sensor library</strong> by Adafruit. If asked for <strong>Adafruit Unified Sensor</strong>, choose <strong>Install All</strong>; the DHT library needs that dependency.</li>
 <li><strong>ArduinoMqttClient</strong> by Arduino. It supports MQTT sending and its official examples include ESP32.</li>
@@ -517,6 +521,8 @@ HTML
 <li>Return to MQTTX; a JSON message should appear about every five seconds.</li>
 </ol>
 <p><strong>Success means:</strong> Serial Monitor and MQTTX show matching values. Temperature and humidity numbers can differ by room; the JSON shape and topic must be right. The same message should appear in both places.</p>
+HTML
+            .$mqttxJson.<<<'HTML'
 
 <h2>If MQTTX shows no message</h2>
 HTML
@@ -580,7 +586,7 @@ HTML
 <li><a href="https://arduinojson.org/v7/api/jsondocument/" target="_blank" rel="noopener noreferrer">ArduinoJson — JsonDocument</a></li>
 <li><a href="https://github.com/adafruit/DHT-sensor-library" target="_blank" rel="noopener noreferrer">Adafruit DHT sensor library</a></li>
 <li><a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">MQTTX downloads</a> · app by EMQ, Apache License 2.0</li>
-<li>Tool-order, wiring, LAN-boundary, JSON-flow, troubleshooting, and Library Manager diagrams — Koding Indonesia (FS-34)</li>
+<li>Tool-order, wiring, LAN-boundary, JSON-flow, troubleshooting, Library Manager, and MQTTX diagrams — Koding Indonesia (FS-34)</li>
 </ul>
 
 <h2>Next</h2>

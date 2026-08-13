@@ -87,7 +87,7 @@ check104('article view supports absolute cover URLs', str_contains($blade, "str_
 check104('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 16);
 check104('glossary heading exists in both languages', str_contains($body, 'Istilah yang dipakai hari ini') && str_contains($bodyEn, 'Terms used today'));
 check104('FAQ and sources headings exist', str_contains($body, 'Pertanyaan yang sering muncul') && str_contains($body, '>Sumber<') && str_contains($bodyEn, 'Frequently asked questions') && str_contains($bodyEn, '>Sources<'));
-check104('six FS-34 image figures in both languages', substr_count($body, '/images/fsiot/fs34-') === 6 && substr_count($bodyEn, '/images/fsiot/fs34-') === 6);
+check104('seven FS-34 image figures in both languages', substr_count($body, '/images/fsiot/fs34-') === 7 && substr_count($bodyEn, '/images/fsiot/fs34-') === 7);
 check104('Koding Indonesia diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-34)') === 5 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-34)') === 5);
 check104('phone zoom tip exists', str_contains($body, 'Tips ponsel') && str_contains($bodyEn, 'Phone tip'));
 check104('interactive checklist is wired', str_contains($body, 'id="fsiot-telemetry-checklist"') && str_contains($body, 'id="fsiot-telemetry-checklist-items"') && str_contains($blade, "storagePrefix: 'fsiot-cl-104'") && str_contains($langId, 'fsiot_telemetry_badge') && str_contains($langEn, 'fsiot_telemetry_badge'));
@@ -98,7 +98,9 @@ check104('EYD avoids sungguhan', ! str_contains($body, 'sungguhan') && str_conta
 check104('no Awam or Beginner stamps', ! preg_match('/\bAwam:|\bBeginner:/', $body.$bodyEn));
 check104('no hard links to draft articles', ! preg_match('#/artikel/fullstack-iot-[a-z0-9-]+#', $body.$bodyEn));
 check104('deploy hook needles for FS-34', str_contains($controller, "'ArduinoMqttClient'") && str_contains($controller, "'listener_allow_anonymous'") && str_contains($controller, "'FS-35'"));
+check104('MQTTX JSON illustration is cited and not an official public-broker screenshot', str_contains($body, 'fs34-mqttx-json.png') && str_contains($body, 'mqttx.app') && str_contains($body, 'Apache License 2.0') && str_contains($workflow, 'fs34-mqttx-json.png'));
 check104('tools diagram matches five install cards', str_contains($body, 'lima langkah') && str_contains($bodyEn, 'five steps'));
+check104('Library Manager path is a single beginner instruction', str_contains($body, 'satu-satunya jalur yang dipakai hari ini') && str_contains($bodyEn, 'only path used today') && ! str_contains($body, 'Sketch → Include Library'));
 
 foreach ([
     'fs34-cover-telemetry.jpg',
@@ -108,6 +110,7 @@ foreach ([
     'fs34-wiring-dht22.png',
     'fs34-lan-address.png',
     'fs34-json-flow.png',
+    'fs34-mqttx-json.png',
     'fs34-troubleshooting.png',
 ] as $asset) {
     $path = $root.'/public/images/fsiot/'.$asset;
