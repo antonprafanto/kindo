@@ -640,6 +640,17 @@ return [
         'fsiot_telemetry_done' => 'Selesai',
         'fsiot_telemetry_todo' => 'Belum',
 
+        'fsiot_command_badge' => 'Checklist perintah relay MQTT',
+        'fsiot_command_hint' => 'Centang setelah relay berklik dan JSON status terlihat di MQTTX. Progres tersimpan di browser ini.',
+        'fsiot_command_check' => 'Cek kesiapan',
+        'fsiot_command_retry' => 'Kosongkan lagi',
+        'fsiot_command_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_command_progress' => ':filled dari :total tercentang',
+        'fsiot_command_pass' => 'Lengkap :filled/:total — perintah MQTT sudah menggerakkan relay.',
+        'fsiot_command_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_command_done' => 'Selesai',
+        'fsiot_command_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

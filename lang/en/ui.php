@@ -640,6 +640,17 @@ return [
         'fsiot_telemetry_done' => 'Done',
         'fsiot_telemetry_todo' => 'Not yet',
 
+        'fsiot_command_badge' => 'MQTT relay command checklist',
+        'fsiot_command_hint' => 'Tick after the relay clicks and status JSON appears in MQTTX. Progress stays in this browser.',
+        'fsiot_command_check' => 'Check readiness',
+        'fsiot_command_retry' => 'Clear again',
+        'fsiot_command_paper' => 'Paper version (no clicking)',
+        'fsiot_command_progress' => ':filled of :total checked',
+        'fsiot_command_pass' => 'Complete :filled/:total — the MQTT command has moved the relay.',
+        'fsiot_command_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_command_done' => 'Done',
+        'fsiot_command_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

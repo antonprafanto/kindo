@@ -574,6 +574,7 @@ const initFsiotInteractiveWidgets = () => {
     initFsiotMqttChecklist();
     initFsiotMosquittoChecklist();
     initFsiotTelemetryChecklist();
+    initFsiotCommandChecklist();
     initFsiotGateBuilderChecklist();
 };
 
@@ -2105,6 +2106,28 @@ function initFsiotTelemetryChecklist() {
             incomplete: @js(__('ui.articles.fsiot_telemetry_incomplete')),
             done: @js(__('ui.articles.fsiot_telemetry_done')),
             todo: @js(__('ui.articles.fsiot_telemetry_todo')),
+        },
+    });
+}
+
+function initFsiotCommandChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-command-checklist',
+        listId: 'fsiot-command-checklist-items',
+        storagePrefix: 'fsiot-cl-105',
+        idPrefix: 'fsiot-command',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_command_badge')),
+            hint: @js(__('ui.articles.fsiot_command_hint')),
+            check: @js(__('ui.articles.fsiot_command_check')),
+            retry: @js(__('ui.articles.fsiot_command_retry')),
+            paper: @js(__('ui.articles.fsiot_command_paper')),
+            progress: @js(__('ui.articles.fsiot_command_progress')),
+            pass: @js(__('ui.articles.fsiot_command_pass')),
+            incomplete: @js(__('ui.articles.fsiot_command_incomplete')),
+            done: @js(__('ui.articles.fsiot_command_done')),
+            todo: @js(__('ui.articles.fsiot_command_todo')),
         },
     });
 }

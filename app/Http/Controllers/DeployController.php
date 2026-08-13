@@ -9585,6 +9585,52 @@ class DeployController extends Controller
         return response('Article 104 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle105Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article105Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 105 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-esp32-mqtt-command-relay';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 105 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#105 (ini)', 'FS-35', 'GPIO 26', 'ArduinoMqttClient', 'ArduinoJson', 'MQTT_HOST', 'ipconfig', 'listener_allow_anonymous', 'Subscribe command siap.', 'FS-36'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 105 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#105 (this article)', 'FS-35', 'GPIO 26', 'ArduinoMqttClient', 'ArduinoJson', 'MQTT_HOST', 'ipconfig', 'listener_allow_anonymous', 'Subscribe command siap.', 'FS-36'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 105 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs35-cover-command')) {
+            return response('Article 105 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 105 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedGateBuilderDraft(): Response
     {
         $this->authorizeDeployHook();
