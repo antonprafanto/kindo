@@ -45,7 +45,7 @@ check('route exists', str_contains($routes, 'seed-article-102-draft'));
 check('deploy method exists', str_contains($controller, 'seedArticle102Draft'));
 check('workflow early seed exists', str_contains($workflow, 'seed-article-102-draft') && str_contains($workflow, 'id: curl102'));
 check('revision sync runs before historical uploads', ($priority = strpos($workflow, 'id: curl102_priority')) !== false && $priority < strpos($workflow, 'id: curl98'));
-check('new FS-32 assets are in the priority upload', str_contains($workflow, 'fs32-mqttx-empty.png') && str_contains($workflow, 'fs32-mqtt-architecture-cite.png'));
+check('new FS-32 assets are in the priority upload', str_contains($workflow, 'fs32-mqttx-empty.png') && str_contains($workflow, 'fs32-mqtt-architecture-cite.png') && str_contains($workflow, 'fs32-mqttx-downloads.png'));
 check('ID self reference', str_contains($body, '#102 (ini)'));
 check('EN self reference', str_contains($bodyEn, '#102 (this article)'));
 check('friendly opening labels', str_contains($body, 'Intinya:') && str_contains($body, 'Analogi:') && str_contains($bodyEn, 'In short:') && str_contains($bodyEn, 'Analogy:'));
@@ -59,11 +59,14 @@ check('public broker is defined in plain language', str_contains($body, 'broker 
 check('MQTTX official source cited', str_contains($body, 'mqttx.app/docs') && str_contains($bodyEn, 'mqttx.app/docs'));
 check('OASIS primary source cited', str_contains($body, 'docs.oasis-open.org/mqtt') && str_contains($bodyEn, 'docs.oasis-open.org/mqtt'));
 check('Commons architecture is cited', str_contains($body, 'commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png') && str_contains($body, 'CC BY-SA 4.0') && str_contains($bodyEn, 'Ana beloti'));
-check('official MQTTX screenshot is not used as-is', str_contains($body, 'Screenshot resmi tidak dipakai utuh') && str_contains($bodyEn, 'official screenshot is not used as-is'));
+check('official MQTTX screenshot is not used as-is', str_contains($body, 'Screenshot jendela resmi tidak dipakai utuh') && str_contains($bodyEn, 'official window screenshot is not used as-is'));
+check('MQTTX empty state is labelled as success not error', str_contains($body, 'Ini tampilan yang benar, bukan error') && str_contains($bodyEn, 'This is the correct view, not an error'));
+check('official downloads screenshot is cited', str_contains($body, 'fs32-mqttx-downloads.png') && str_contains($body, 'Tangkapan layar 13 Agustus 2026') && str_contains($bodyEn, 'Screenshot taken 13 August 2026'));
+check('cover uses a public absolute URL', str_contains($source, "https://kodingindonesia.com/images/fsiot/fs32-cover-mqtt.webp"));
 check('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 12);
 check('glossary heading exists in both languages', str_contains($body, 'Istilah yang dipakai hari ini') && str_contains($bodyEn, 'Terms used today'));
 check('FAQ and sources headings exist', str_contains($body, 'Pertanyaan yang sering muncul') && str_contains($body, '>Sumber<') && str_contains($bodyEn, 'Frequently asked questions') && str_contains($bodyEn, '>Sources<'));
-check('six image figures in both languages', substr_count($body, '/images/fsiot/fs32-') === 6 && substr_count($bodyEn, '/images/fsiot/fs32-') === 6);
+check('seven image figures in both languages', substr_count($body, '/images/fsiot/fs32-') === 7 && substr_count($bodyEn, '/images/fsiot/fs32-') === 7);
 check('Koding Indonesia diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-32)') === 4 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-32)') === 4);
 check('topic four-part explanation', str_contains($body, 'organisasi / jalur belajar / tempat / jenis pesan') && str_contains($bodyEn, 'organisation / learning path / place / message type'));
 check('topic case warning in both languages', str_contains($body, 'telemetry</code> berbeda') && str_contains($bodyEn, 'lowercase names'));
@@ -89,6 +92,7 @@ foreach ([
     'fs32-topic-address.png',
     'fs32-pub-sub-flow.png',
     'fs32-mqttx-empty.png',
+    'fs32-mqttx-downloads.png',
     'fs32-mqtt-architecture-cite.png',
 ] as $asset) {
     $path = $root.'/public/images/fsiot/'.$asset;

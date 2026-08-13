@@ -28,6 +28,17 @@ def header(draw, width, title, subtitle):
     text(draw, width / 2, 96, subtitle, 22, '#404040')
 
 
+def chip(draw, cx, cy, label, fill='#ffffff', outline='#1565c0', text_fill='#0d47a1', size=22):
+    fnt = font(size)
+    bbox = draw.textbbox((0, 0), label, font=fnt)
+    tw, th = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    pad_x, pad_y = 16, 10
+    left, top = cx - tw / 2 - pad_x, cy - th / 2 - pad_y
+    right, bottom = cx + tw / 2 + pad_x, cy + th / 2 + pad_y
+    box(draw, (left, top, right, bottom), fill, outline, 3)
+    draw.text((cx, cy), label, font=fnt, fill=text_fill, anchor='mm')
+
+
 def arrow(draw, start, end, fill, width=8, head=22):
     draw.line([start, end], fill=fill, width=width)
     ang = atan2(end[1] - start[1], end[0] - start[0])
@@ -141,7 +152,7 @@ save(image, 'fs32-tools-order.png')
 # MQTTX empty-window illustration (do not reuse official preview: it shows a public broker)
 image = Image.new('RGB', (1400, 760), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'MQTTX terbuka = cukup untuk hari ini', 'Jangan isi Host dan jangan Connect. Broker lokal baru dipasang di FS-33')
+header(draw, 1400, 'Ini tampilan yang benar, bukan error', 'Jendela MQTTX terbuka dan daftar koneksi masih kosong = sukses hari ini')
 box(draw, (50, 150, 1350, 620), '#1f2937', '#111827', 4)
 box(draw, (50, 150, 128, 620), '#111827', '#111827', 0)
 text(draw, 89, 210, 'X', 36, '#34d399')
@@ -151,22 +162,58 @@ text(draw, 279, 200, 'Koneksi', 24, '#e5e7eb')
 box(draw, (160, 250, 400, 340), '#374151', '#4b5563', 2)
 text(draw, 280, 295, 'masih kosong', 20, '#d1d5db')
 box(draw, (430, 150, 1350, 620), '#f8fafc', '#e5e7eb', 0)
-text(draw, 890, 300, 'Belum ada koneksi', 36, '#1f2937')
-text(draw, 890, 360, 'Aplikasi sudah terpasang. Berhenti di sini.', 22, '#4b5563')
-box(draw, (690, 420, 1090, 500), '#fce4ec', '#c62828', 4)
-text(draw, 890, 460, 'Jangan klik New Connection', 22, '#b71c1c')
+text(draw, 890, 280, 'Sukses: belum ada koneksi', 34, '#166534')
+text(draw, 890, 340, 'Aplikasi sudah terpasang. Berhenti di sini.', 22, '#4b5563')
+box(draw, (640, 400, 1140, 490), '#e8f5e9', '#2e7d32', 4)
+text(draw, 890, 445, 'Jangan klik New Connection dulu', 22, '#14532d')
 text(draw, 700, 690, 'Ilustrasi jendela MQTTX buatan Koding Indonesia (FS-32), meniru tata letak aplikasi resmi EMQ.', 20, '#353535')
 save(image, 'fs32-mqttx-empty.png')
 
-# Commons architecture + Indonesian legend bar (CC BY-SA 4.0 derivative)
+# Official MQTTX downloads page (EMQ) + Indonesian callouts
+raw_candidates = [
+    Path(r'c:\Users\anton\AppData\Local\Temp\cursor\screenshots\mqttx-downloads-raw.png'),
+    OUT / 'fs32-mqttx-downloads-raw.png',
+]
+raw_path = next((path for path in raw_candidates if path.is_file()), None)
+if raw_path is None:
+    raise FileNotFoundError('MQTTX downloads screenshot not found')
+raw = Image.open(raw_path).convert('RGB')
+if raw_path != OUT / 'fs32-mqttx-downloads-raw.png':
+    raw.save(OUT / 'fs32-mqttx-downloads-raw.png')
+target_w = 1400
+raw = raw.resize((target_w, int(raw.height * target_w / raw.width)), Image.Resampling.LANCZOS)
+banner_h, foot_h = 118, 100
+download = Image.new('RGB', (target_w, raw.height + banner_h + foot_h), '#f5f5f0')
+download.paste(raw, (0, banner_h))
+dwn = ImageDraw.Draw(download)
+box(dwn, (22, 16, target_w - 22, banner_h - 10), '#e8f5e9', '#2e7d32')
+text(dwn, target_w / 2, 48, 'Buka halaman ini: mqttx.app/downloads', 28, '#14532d')
+text(dwn, target_w / 2, 86, 'Pilih MQTTX Desktop. Jangan MQTTX CLI, MQTTX Web, atau broker publik.', 20, '#1b4332')
+box(dwn, (22, banner_h + raw.height + 10, target_w - 22, banner_h + raw.height + foot_h - 12), '#ffffff')
+text(dwn, target_w / 2, banner_h + raw.height + 42, 'Sumber: https://mqttx.app/downloads — EMQ Technologies. Tangkapan layar 13 Agustus 2026.', 18)
+text(dwn, target_w / 2, banner_h + raw.height + 74, 'Aplikasi MQTTX berlisensi Apache License 2.0. Jangan klik tautan broker publik di menu situs.', 18, '#353535')
+download.save(OUT / 'fs32-mqttx-downloads.png', optimize=True)
+print('fs32-mqttx-downloads.png', download.size)
+
+# Commons architecture + Indonesian labels covering Portuguese text (CC BY-SA 4.0 derivative)
 source = Image.open(OUT / 'fs32-mqtt-architecture-commons.png').convert('RGB')
 source = source.resize((1400, int(source.height * 1400 / source.width)), Image.Resampling.LANCZOS)
+w, h = source.size
+overlay = ImageDraw.Draw(source)
+# Cover original Portuguese title/role labels, then write Indonesian.
+chip(overlay, w * 0.22, h * 0.11, 'Pengirim (klien)', '#fff8e1', '#f9a825', '#7c4a00', 22)
+chip(overlay, w * 0.50, h * 0.07, 'Arsitektur MQTT', '#e3f2fd', '#1565c0', '#0d47a1', 24)
+chip(overlay, w * 0.34, h * 0.46, 'publish: kirim ke topic', '#fff8e1', '#f9a825', '#7c4a00', 20)
+chip(overlay, w * 0.50, h * 0.84, 'Broker = perantara', '#e3f2fd', '#1565c0', '#0d47a1', 22)
+chip(overlay, w * 0.78, h * 0.30, 'subscribe: minta salinan', '#e8f5e9', '#2e7d32', '#14532d', 20)
+chip(overlay, w * 0.78, h * 0.52, 'broker meneruskan pesan', '#e8f5e9', '#2e7d32', '#14532d', 20)
+chip(overlay, w * 0.82, h * 0.11, 'Penerima (klien)', '#e8f5e9', '#2e7d32', '#14532d', 22)
 legend_h = 150
-cited = Image.new('RGB', (source.width, source.height + legend_h), '#f5f5f0')
+cited = Image.new('RGB', (w, h + legend_h), '#f5f5f0')
 cited.paste(source, (0, 0))
 legend = ImageDraw.Draw(cited)
-box(legend, (18, source.height + 12, source.width - 18, source.height + legend_h - 12), '#ffffff')
-text(legend, source.width / 2, source.height + 48, 'Terjemahan: Publicador = pengirim · MQTT Broker = perantara · Subscritor = penerima · tópico = topic', 19)
-text(legend, source.width / 2, source.height + 90, 'Ikon awan = server perantara, bukan wajib internet publik. Lab kita lebih sederhana.', 18, '#b91c1c')
+box(legend, (18, h + 12, w - 18, h + legend_h - 12), '#ffffff')
+text(legend, w / 2, h + 48, 'Label Indonesia ditambahkan di atas teks Portugis asli. Alur tetap: pengirim → broker → penerima.', 19)
+text(legend, w / 2, h + 90, 'Ikon mobil dan awan berasal dari sumber asli. Lab kita memakai ESP32, MQTTX, dan Mosquitto lokal — bukan internet publik.', 17, '#353535')
 cited.save(OUT / 'fs32-mqtt-architecture-cite.png', optimize=True)
 print('fs32-mqtt-architecture-cite.png', cited.size)

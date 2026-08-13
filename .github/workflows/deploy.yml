@@ -261,7 +261,7 @@ jobs:
           upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
           upload "lang/id/ui.php" "${APP}lang/id/ui.php"
           upload "lang/en/ui.php" "${APP}lang/en/ui.php"
-          for img in fs32-cover-mqtt.jpg fs32-cover-mqtt.webp fs32-tools-order.png fs32-broker-roles.png fs32-topic-address.png fs32-pub-sub-flow.png fs32-mqttx-empty.png fs32-mqtt-architecture-cite.png; do
+          for img in fs32-cover-mqtt.jpg fs32-cover-mqtt.webp fs32-tools-order.png fs32-broker-roles.png fs32-topic-address.png fs32-pub-sub-flow.png fs32-mqttx-empty.png fs32-mqttx-downloads.png fs32-mqtt-architecture-cite.png; do
             upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
             upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
           done
@@ -483,7 +483,7 @@ jobs:
           upload "database/seeders/Article102Seeder.php" "${APP}database/seeders/Article102Seeder.php"
           upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php"
           upload "routes/web.php" "${APP}routes/web.php"
-          for img in fs32-cover-mqtt.jpg fs32-cover-mqtt.webp fs32-broker-roles.png fs32-topic-address.png fs32-pub-sub-flow.png fs32-tools-order.png fs32-mqttx-empty.png fs32-mqtt-architecture-cite.png; do
+          for img in fs32-cover-mqtt.jpg fs32-cover-mqtt.webp fs32-broker-roles.png fs32-topic-address.png fs32-pub-sub-flow.png fs32-tools-order.png fs32-mqttx-empty.png fs32-mqttx-downloads.png fs32-mqtt-architecture-cite.png; do
             upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
             upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
           done

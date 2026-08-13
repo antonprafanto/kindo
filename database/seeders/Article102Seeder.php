@@ -55,10 +55,11 @@ class Article102Seeder extends Seeder
             if (is_file($source)) {
                 $destination = "articles/covers/fs32-cover-mqtt.{$extension}";
                 Storage::disk('public')->put($destination, file_get_contents($source));
-                $article->update(['cover_image' => $destination]);
-                break;
             }
         }
+        $article->update([
+            'cover_image' => 'https://kodingindonesia.com/images/fsiot/fs32-cover-mqtt.webp',
+        ]);
     }
 
     private function figure(string $file, string $alt, string $caption): string
@@ -88,9 +89,10 @@ class Article102Seeder extends Seeder
     private function body(): string
     {
         $tools = $this->figure('fs32-tools-order.png', 'Urutan tools: browser, unduh MQTTX, pasang, jangan connect', '<strong>Urutan meja kerja:</strong> pahami konsep di browser → unduh MQTTX dari situs resmi → pasang tanpa terminal → berhenti. Pesan yang sebenarnya baru dikirim saat broker lokal FS-33 siap. Diagram buatan Koding Indonesia (FS-32).');
-        $mqttx = $this->figure('fs32-mqttx-empty.png', 'Ilustrasi jendela MQTTX yang baru dibuka tanpa koneksi', '<strong>Bukti sukses hari ini:</strong> jendela MQTTX terbuka dan daftar koneksi masih kosong. Jangan klik <em>New Connection</em> dan jangan isi Host. Ilustrasi buatan Koding Indonesia (FS-32), meniru tata letak aplikasi resmi <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX oleh EMQ</a> (Apache License 2.0). Screenshot resmi tidak dipakai utuh karena menampilkan broker publik.');
+        $downloads = $this->figure('fs32-mqttx-downloads.png', 'Halaman unduhan resmi MQTTX Desktop di mqttx.app/downloads', '<strong>Ini halaman yang harus dibuka.</strong> Pilih sistem operasimu, lalu unduh <strong>MQTTX Desktop</strong> (berkas <code>.exe</code> di Windows). Jangan pilih MQTTX CLI, MQTTX Web, atau tautan broker publik di menu situs. Sumber: <a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">mqttx.app/downloads</a> — EMQ Technologies. Tangkapan layar 13 Agustus 2026. Aplikasi MQTTX berlisensi Apache License 2.0.');
+        $mqttx = $this->figure('fs32-mqttx-empty.png', 'Ilustrasi jendela MQTTX yang baru dibuka tanpa koneksi — tampilan sukses, bukan error', '<strong>Ini tampilan yang benar, bukan error.</strong> Jendela MQTTX terbuka dan daftar koneksi masih kosong = sukses hari ini. Jangan klik <em>New Connection</em> dan jangan isi Host. Ilustrasi buatan Koding Indonesia (FS-32), meniru tata letak aplikasi resmi <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX oleh EMQ</a> (Apache License 2.0). Screenshot jendela resmi tidak dipakai utuh karena menampilkan broker publik.');
         $roles = $this->figure('fs32-broker-roles.png', 'Peran klien dan broker MQTT', '<strong>Gambar utama — peran MQTT.</strong> ESP32 dan MQTTX adalah klien (<em>client</em>). Broker menjadi perantara pesan. MQTT adalah protokol klien-server dengan pola publish/subscribe. <a href="https://www.oasis-open.org/standard/mqtt-v5-0-os/" target="_blank" rel="noopener noreferrer">Standar MQTT OASIS</a>. Diagram buatan Koding Indonesia (FS-32).');
-        $commons = $this->figure('fs32-mqtt-architecture-cite.png', 'Arsitektur MQTT dari Wikimedia Commons dengan terjemahan Indonesia', '<strong>Gambar pembanding.</strong> Alur yang sama: pengirim → broker → penerima. Label asli berbahasa Portugis; pita bawah adalah terjemahan Indonesia. Ikon awan berarti server perantara, bukan wajib memakai internet publik. Sumber: <a href="https://commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png" target="_blank" rel="noopener noreferrer">Arquitetura MQTT exemplo.png</a> karya Ana beloti, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Diolah Koding Indonesia: pita terjemahan ditambahkan.');
+        $commons = $this->figure('fs32-mqtt-architecture-cite.png', 'Arsitektur MQTT dari Wikimedia Commons dengan label Indonesia', '<strong>Gambar pembanding.</strong> Alur yang sama: pengirim → broker → penerima. Label Indonesia ditambahkan di atas teks Portugis asli agar mudah dibaca. Ikon mobil dan awan berasal dari sumber; lab kita memakai ESP32, MQTTX, dan Mosquitto lokal — bukan internet publik. Sumber: <a href="https://commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png" target="_blank" rel="noopener noreferrer">Arquitetura MQTT exemplo.png</a> karya Ana beloti, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Diolah Koding Indonesia: label Indonesia ditambahkan.');
         $topic = $this->figure('fs32-topic-address.png', 'Empat bagian alamat topic MQTT', '<strong>Topic seperti alamat loker.</strong> Pengirim dan penerima harus menulis teks yang sama persis. Huruf besar dan huruf kecil berbeda. Diagram buatan Koding Indonesia (FS-32).');
         $flow = $this->figure('fs32-pub-sub-flow.png', 'Alur publish dan subscribe melalui broker', '<strong>Skema bantu — satu ke banyak.</strong> Publisher tidak perlu tahu siapa yang menerima; broker meneruskan pesan kepada klien yang berlangganan topic tersebut. Kotak <em>klien lain</em> hanya pengingat bahwa nanti bisa ada penerima tambahan; hari ini tidak perlu. Diagram buatan Koding Indonesia (FS-32).');
         $install = $this->stepsCard([
@@ -129,7 +131,7 @@ class Article102Seeder extends Seeder
 
 <h2>Persiapan — buka tool yang benar dulu</h2>
 HTML
-            .$tools.$install.$mqttx.<<<'HTML'
+            .$tools.$install.$downloads.$mqttx.<<<'HTML'
 <p><strong>Jika pemasangan belum selesai:</strong> tetap baca konsep sampai akhir. FS-33 baru dikerjakan setelah MQTTX siap, karena di sana kita akan melihat pesan yang sebenarnya.</p>
 <p><strong>Tips ponsel:</strong> jika diagram terasa kecil, gunakan fitur perbesar pada browser atau layar. Gambar tidak perlu diketuk sampai memenuhi layar agar teks di sekitarnya tetap terbaca.</p>
 
@@ -138,7 +140,7 @@ HTML
             .$roles.$commons.<<<'HTML'
 <ul>
 <li><strong>Broker:</strong> server perantara yang menerima pesan dan meneruskannya.</li>
-<li><strong>Klien:</strong> perangkat atau aplikasi yang tersambung ke broker. ESP32, MQTTX, dan papan pantau nanti dapat menjadi klien.</li>
+<li><strong>Klien:</strong> perangkat atau aplikasi yang tersambung ke broker. ESP32, MQTTX, dan layar pemantau nanti dapat menjadi klien.</li>
 <li><strong>Pesan:</strong> isi yang dikirim, misalnya <code>28.4</code> atau teks <code>ON</code>.</li>
 </ul>
 <p>Klien boleh melakukan dua peran sekaligus: mengirim suhu dan juga menerima perintah. Namun untuk langkah pertama, kita pisahkan dulu agar alurnya mudah dilihat. ESP32 belum dinyalakan hari ini.</p>
@@ -206,6 +208,7 @@ HTML
 <ul>
 <li><a href="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html" target="_blank" rel="noopener noreferrer">OASIS — MQTT Version 5.0</a></li>
 <li><a href="https://mqttx.app/docs" target="_blank" rel="noopener noreferrer">Dokumentasi resmi MQTTX</a> · <a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">halaman unduhan MQTTX</a> · aplikasi oleh EMQ, Apache License 2.0</li>
+<li>Tangkapan layar halaman unduhan MQTTX — <a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">mqttx.app/downloads</a>, EMQ Technologies, 13 Agustus 2026</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png" target="_blank" rel="noopener noreferrer">Arquitetura MQTT exemplo.png</a> — Ana beloti, Wikimedia Commons, CC BY-SA 4.0</li>
 <li>Diagram urutan tools, peran, topic, alur, dan ilustrasi jendela MQTTX — Koding Indonesia (FS-32)</li>
 </ul>
@@ -218,9 +221,10 @@ HTML;
     private function bodyEn(): string
     {
         $tools = $this->figure('fs32-tools-order.png', 'Tool order: browser, download MQTTX, install, do not connect', '<strong>Desk order:</strong> learn the concept in a browser → download MQTTX from the official site → install without a terminal → stop. The first real message is sent only when the local broker in FS-33 is ready. Diagram by Koding Indonesia (FS-32).');
-        $mqttx = $this->figure('fs32-mqttx-empty.png', 'Illustration of a newly opened MQTTX window with no connection', '<strong>Today’s success check:</strong> MQTTX is open and the connection list is still empty. Do not click <em>New Connection</em> and do not fill in Host. Illustration by Koding Indonesia (FS-32), modelled on the official <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX by EMQ</a> layout (Apache License 2.0). The official screenshot is not used as-is because it shows a public broker.');
+        $downloads = $this->figure('fs32-mqttx-downloads.png', 'Official MQTTX Desktop download page at mqttx.app/downloads', '<strong>This is the page to open.</strong> Choose your operating system, then download <strong>MQTTX Desktop</strong> (the <code>.exe</code> file on Windows). Do not choose MQTTX CLI, MQTTX Web, or a public-broker link in the site menu. Source: <a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">mqttx.app/downloads</a> — EMQ Technologies. Screenshot taken 13 August 2026. MQTTX is licensed under Apache License 2.0.');
+        $mqttx = $this->figure('fs32-mqttx-empty.png', 'Illustration of a newly opened MQTTX window with no connection — a success state, not an error', '<strong>This is the correct view, not an error.</strong> MQTTX is open and the connection list is still empty = success today. Do not click <em>New Connection</em> and do not fill in Host. Illustration by Koding Indonesia (FS-32), modelled on the official <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX by EMQ</a> layout (Apache License 2.0). The official window screenshot is not used as-is because it shows a public broker.');
         $roles = $this->figure('fs32-broker-roles.png', 'MQTT client and broker roles', '<strong>Main figure — MQTT roles.</strong> ESP32 and MQTTX are clients. The broker is the message middleman. MQTT is a client-server publish/subscribe protocol. <a href="https://www.oasis-open.org/standard/mqtt-v5-0-os/" target="_blank" rel="noopener noreferrer">OASIS MQTT standard</a>. Diagram by Koding Indonesia (FS-32).');
-        $commons = $this->figure('fs32-mqtt-architecture-cite.png', 'MQTT architecture from Wikimedia Commons with an Indonesian translation bar', '<strong>Comparison figure.</strong> Same flow: sender → broker → receiver. Original labels are in Portuguese; the bottom bar is an Indonesian translation. The cloud icon means an intermediary server, not a requirement to use the public internet. Source: <a href="https://commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png" target="_blank" rel="noopener noreferrer">Arquitetura MQTT exemplo.png</a> by Ana beloti, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Adapted by Koding Indonesia: translation bar added.');
+        $commons = $this->figure('fs32-mqtt-architecture-cite.png', 'MQTT architecture from Wikimedia Commons with Indonesian labels', '<strong>Comparison figure.</strong> Same flow: sender → broker → receiver. Indonesian labels are drawn over the original Portuguese text so beginners can read it. The car and cloud icons come from the source; our lab uses ESP32, MQTTX, and local Mosquitto — not the public internet. Source: <a href="https://commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png" target="_blank" rel="noopener noreferrer">Arquitetura MQTT exemplo.png</a> by Ana beloti, Wikimedia Commons, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>. Adapted by Koding Indonesia: Indonesian labels added.');
         $topic = $this->figure('fs32-topic-address.png', 'Four parts of an MQTT topic address', '<strong>A topic is like a mailbox address.</strong> Publishers and subscribers must type exactly the same text. Uppercase and lowercase letters differ. Diagram by Koding Indonesia (FS-32).');
         $flow = $this->figure('fs32-pub-sub-flow.png', 'Publish and subscribe through a broker', '<strong>Helper schematic — one to many.</strong> A publisher does not need to know the listeners; the broker forwards a message to clients subscribed to that topic. The <em>other client</em> box is only a reminder that more receivers can join later; not today. Diagram by Koding Indonesia (FS-32).');
         $install = $this->stepsCard([
@@ -259,7 +263,7 @@ HTML;
 
 <h2>Preparation — open the right tool first</h2>
 HTML
-            .$tools.$install.$mqttx.<<<'HTML'
+            .$tools.$install.$downloads.$mqttx.<<<'HTML'
 <p><strong>If the app is not installed yet:</strong> still finish the concept. FS-33 starts only after MQTTX is ready, because that is where real messages appear.</p>
 <p><strong>Phone tip:</strong> if a diagram feels small, use the browser or screen zoom. You do not need to tap the image to fill the screen; nearby text should stay readable.</p>
 
@@ -336,6 +340,7 @@ HTML
 <ul>
 <li><a href="https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html" target="_blank" rel="noopener noreferrer">OASIS — MQTT Version 5.0</a></li>
 <li><a href="https://mqttx.app/docs" target="_blank" rel="noopener noreferrer">Official MQTTX documentation</a> · <a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">MQTTX downloads</a> · app by EMQ, Apache License 2.0</li>
+<li>Screenshot of the MQTTX download page — <a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">mqttx.app/downloads</a>, EMQ Technologies, 13 August 2026</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png" target="_blank" rel="noopener noreferrer">Arquitetura MQTT exemplo.png</a> — Ana beloti, Wikimedia Commons, CC BY-SA 4.0</li>
 <li>Tool-order, roles, topic, flow, and MQTTX-window diagrams — Koding Indonesia (FS-32)</li>
 </ul>
