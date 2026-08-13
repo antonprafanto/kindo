@@ -52,7 +52,7 @@ text(draw, 215, 265, 'kirim pesan', 22)
 box(draw, (455, 95, 745, 325), '#1565c0', '#ffffff', 4)
 text(draw, 600, 165, 'MOSQUITTO', 32, '#ffffff')
 text(draw, 600, 220, 'broker lokal', 24, '#e3f2fd')
-text(draw, 600, 265, 'di tengah', 22, '#fff8e1')
+text(draw, 600, 265, 'kantor pos', 22, '#fff8e1')
 box(draw, (840, 90, 1130, 330), '#e8f5e9', '#ffffff', 4)
 text(draw, 985, 165, 'MQTTX', 34, '#2e7d32')
 text(draw, 985, 220, 'klien', 24)
@@ -66,27 +66,28 @@ save(image, 'fs33-cover-mosquitto.jpg')
 image.save(OUT / 'fs33-cover-mosquitto.webp', 'WEBP', quality=85)
 print('fs33-cover-mosquitto.webp', image.size)
 
-# Tools order — numbered 1–4 with arrowheads
+# Tools order — numbered 1–5, matching the article step cards
 image = Image.new('RGB', (1400, 650), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'Urutan tools FS-33 — broker lokal dulu', 'Satu komputer saja sudah cukup; ESP32 menyusul pada FS-34')
+header(draw, 1400, 'Urutan tools FS-33 — lima langkah, jangan loncat', 'Satu komputer saja sudah cukup; ESP32 menyusul pada FS-34')
 steps = [
-    ('1', 'Buka browser', 'unduh Mosquitto\ndari situs resmi', '#fff8e1', '#f9a825'),
-    ('2', 'Pasang Mosquitto', 'ikuti pemasang\ntanpa ubah opsi', '#e3f2fd', '#1565c0'),
-    ('3', 'Buka PowerShell', 'jalankan broker\nbiarkan terbuka', '#e8f5e9', '#2e7d32'),
-    ('4', 'Buka MQTTX', 'sekarang Connect\nHost 127.0.0.1', '#fce4ec', '#c62828'),
+    ('1', 'Buka browser', 'Chrome / Edge\nFirefox / Safari', '#fff8e1', '#f9a825'),
+    ('2', 'Halaman unduhan', 'mosquitto.org\n/download', '#e3f2fd', '#1565c0'),
+    ('3', 'Pasang Mosquitto', 'berkas x64.exe\ntanpa ubah opsi', '#fff3e0', '#ef6c00'),
+    ('4', 'Buka PowerShell', 'jalankan broker\nbiarkan terbuka', '#e8f5e9', '#2e7d32'),
+    ('5', 'Buka MQTTX', 'Connect boleh\nHost 127.0.0.1', '#fce4ec', '#c62828'),
 ]
 for index, (number, title, body, fill, color) in enumerate(steps):
-    left = 40 + index * 340
-    box(draw, (left, 165, left + 310, 510), fill, color)
-    box(draw, (left + 22, 188, left + 92, 258), '#ffffff', color, 3)
-    text(draw, left + 57, 223, number, 32, color)
-    text(draw, left + 155, 300, title, 24)
+    left = 16 + index * 277
+    box(draw, (left, 165, left + 258, 510), fill, color)
+    box(draw, (left + 14, 184, left + 76, 246), '#ffffff', color, 3)
+    text(draw, left + 45, 215, number, 28, color)
+    text(draw, left + 129, 300, title, 18)
     for line_index, line in enumerate(body.split('\n')):
-        text(draw, left + 155, 370 + line_index * 38, line, 21, '#353535')
-    if index < 3:
-        arrow(draw, (left + 318, 338), (left + 332, 338), '#1f1f1f', 6, 14)
-text(draw, 700, 585, 'Belum perlu: ESP32 · Arduino IDE · IP router · firewall · broker publik', 23, '#353535')
+        text(draw, left + 129, 365 + line_index * 36, line, 16, '#353535')
+    if index < 4:
+        arrow(draw, (left + 262, 338), (left + 273, 338), '#1f1f1f', 5, 12)
+text(draw, 700, 585, 'Belum perlu: ESP32 · Arduino IDE · IP router · firewall · broker publik', 22, '#353535')
 save(image, 'fs33-tools-order.png')
 
 # Local boundary with two-way arrows
@@ -139,7 +140,8 @@ header(draw, 1200, 'Pesan pertama: kirim dulu, broker teruskan, lalu terlihat', 
 box(draw, (50, 200, 340, 470), '#fff8e1', '#f9a825')
 text(draw, 195, 265, 'MQTTX', 34, '#b56d00')
 text(draw, 195, 325, '1. publish', 24)
-text(draw, 195, 375, 'halo dari PC saya', 18)
+text(draw, 195, 365, 'halo dari', 18)
+text(draw, 195, 400, 'PC saya', 18)
 text(draw, 195, 420, 'topic chat', 20)
 box(draw, (445, 175, 755, 495), '#e8f5e9', '#2e7d32')
 text(draw, 600, 250, 'Mosquitto', 34, '#2e7d32')
@@ -161,7 +163,7 @@ image = Image.new('RGB', (1200, 620), '#f5f5f0')
 draw = ImageDraw.Draw(image)
 header(draw, 1200, 'Jika tidak tersambung, cek tiga hal ini', 'Mulai dari jendela broker, lalu alamat, baru port')
 items = [
-    ('1', 'Jendela broker', 'masih terbuka\ndan memuat 1883', '#fff8e1', '#f9a825'),
+    ('1', 'Jendela broker', 'masih terbuka\ndan terlihat 1883', '#fff8e1', '#f9a825'),
     ('2', 'Alamat', 'pakai 127.0.0.1\nbukan IP router', '#e3f2fd', '#1565c0'),
     ('3', 'Port', 'isi 1883\ntanpa http://', '#e8f5e9', '#2e7d32'),
 ]
@@ -190,7 +192,8 @@ raw = Image.open(raw_path).convert('RGB')
 if raw_path != OUT / 'fs33-mosquitto-downloads-raw.png':
     raw.save(OUT / 'fs33-mosquitto-downloads-raw.png')
 rw, rh = raw.size
-raw = raw.crop((0, int(rh * 0.02), rw, int(rh * 0.92)))
+# Crop to Binary + Windows so x64.exe is readable (full-page crop looked like a broken Source section).
+raw = raw.crop((0, int(rh * 0.28), rw, int(rh * 0.70)))
 target_w = 1400
 raw = raw.resize((target_w, int(raw.height * target_w / raw.width)), Image.Resampling.LANCZOS)
 banner_h, foot_h = 96, 96
@@ -199,7 +202,7 @@ download.paste(raw, (0, banner_h))
 dwn = ImageDraw.Draw(download)
 box(dwn, (22, 12, target_w - 22, banner_h - 8), '#e8f5e9', '#2e7d32')
 text(dwn, target_w / 2, 38, 'Buka halaman ini: mosquitto.org/download', 26, '#14532d')
-text(dwn, target_w / 2, 70, 'Windows modern: pilih berkas x64.exe di bagian Windows. Jangan unduh berkas Source dulu.', 18, '#1b4332')
+text(dwn, target_w / 2, 70, 'Klik berkas x64.exe di bagian Windows. Jangan unduh berkas Source (.tar.gz).', 18, '#1b4332')
 box(dwn, (22, banner_h + raw.height + 8, target_w - 22, banner_h + raw.height + foot_h - 10), '#ffffff')
 text(dwn, target_w / 2, banner_h + raw.height + 38, 'Sumber: https://mosquitto.org/download/ — Eclipse Mosquitto / Eclipse Foundation. Tangkapan layar 13 Agustus 2026.', 16)
 text(dwn, target_w / 2, banner_h + raw.height + 68, 'Perangkat lunak Mosquitto berlisensi Eclipse Public License 2.0 dan Eclipse Distribution License 1.0.', 16, '#353535')

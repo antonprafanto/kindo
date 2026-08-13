@@ -108,5 +108,9 @@ foreach ([
     check103($asset.' exists and is readable', $dimensions !== false && $dimensions[0] >= 1000 && $dimensions[1] >= 600);
 }
 
+$downloadsSize = getimagesize($root.'/public/images/fsiot/fs33-mosquitto-downloads.png');
+check103('downloads screenshot is cropped to a readable height', $downloadsSize !== false && $downloadsSize[1] <= 800);
+check103('tools diagram matches five install cards', str_contains($body, 'lima langkah') && str_contains($bodyEn, 'five steps'));
+
 echo "\n{$pass} pass / {$fail} fail\n";
 exit($fail === 0 ? 0 : 1);
