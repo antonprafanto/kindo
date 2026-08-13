@@ -48,7 +48,7 @@ check103('route and controller exist', str_contains($routes, 'seed-article-103-d
 check103('priority deploy and seed exist', str_contains($workflow, 'id: curl103_priority') && str_contains($workflow, 'seed-article-103-draft'));
 check103('priority upload precedes FS-32 uploads', strpos($workflow, 'id: curl103_priority') < strpos($workflow, 'id: curl102_priority'));
 check103('FS-33 seed is enabled after priority upload', str_contains($workflow, "if: steps.curl103_priority.outcome == 'success'"));
-check103('FS-34 seed stays paused', (bool) preg_match('/Seed FS-34 draft immediately[\s\S]{0,400}if: false/', $workflow));
+check103('FS-34 seed is enabled after FS-33 recreate', str_contains($workflow, "if: steps.curl104_priority.outcome == 'success'"));
 check103('new FS-33 assets are in the priority upload', str_contains($workflow, 'fs33-mosquitto-downloads.png') && str_contains($workflow, 'fs33-mqttx-local.png'));
 check103('cover is copied into public storage', str_contains($source, 'articles/covers/fs33-cover-mosquitto') && str_contains($source, "Storage::disk('public')->put"));
 check103('ID and EN references', str_contains($body, '#103 (ini)') && str_contains($bodyEn, '#103 (this article)'));

@@ -176,15 +176,13 @@ jobs:
           upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
           upload "lang/id/ui.php" "${APP}lang/id/ui.php"
           upload "lang/en/ui.php" "${APP}lang/en/ui.php"
-          for img in fs34-cover-telemetry.jpg fs34-cover-telemetry.webp fs34-tools-order.png fs34-wiring-dht22.png fs34-lan-address.png fs34-json-flow.png fs34-troubleshooting.png; do
+          for img in fs34-cover-telemetry.jpg fs34-cover-telemetry.webp fs34-tools-order.png fs34-library-manager.png fs34-wiring-dht22.png fs34-lan-address.png fs34-json-flow.png fs34-troubleshooting.png; do
             upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
             upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
           done
 
       - name: Seed FS-34 draft immediately
-        # Paused 13 Agu 2026: CMS deleted FS-32..FS-34; recreate one-by-one starting at FS-32.
-        # Restore: if: steps.curl104_priority.outcome == 'success'
-        if: false
+        if: steps.curl104_priority.outcome == 'success'
         env:
           DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
         run: |
