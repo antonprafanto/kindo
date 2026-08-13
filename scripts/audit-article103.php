@@ -75,7 +75,7 @@ check103('Mosquitto primary sources cited', str_contains($body, 'mosquitto.org/d
 check103('official downloads screenshot is cited', str_contains($body, 'fs33-mosquitto-downloads.png') && str_contains($body, 'Tangkapan layar 13 Agustus 2026') && str_contains($bodyEn, 'Screenshot taken 13 August 2026'));
 check103('Eclipse licence is cited', str_contains($body, 'Eclipse Public License 2.0') && str_contains($bodyEn, 'Eclipse Public License 2.0'));
 check103('official MQTTX screenshot is not used as-is', str_contains($body, 'Screenshot jendela resmi tidak dipakai utuh') && str_contains($bodyEn, 'official window screenshot is not used as-is'));
-check103('MQTTX local state is labelled as Connect allowed', str_contains($body, 'Sekarang Connect boleh') && str_contains($bodyEn, 'Connect is allowed now'));
+check103('MQTTX connected state describes Host/Port without saying error', str_contains($body, 'MQTTX sudah tersambung ke komputer ini') && str_contains($bodyEn, 'MQTTX is already connected to this computer') && ! str_contains($body, 'Ini tampilan yang benar, bukan error') && ! str_contains($body, 'bukan layar error') && ! str_contains($bodyEn, 'This is the correct view, not an error') && ! str_contains($bodyEn, 'not an error screen'));
 check103('cover uses the public FS-33 asset', str_contains($source, 'https://kodingindonesia.com/images/fsiot/fs33-cover-mosquitto.webp'));
 check103('article view supports absolute cover URLs', str_contains($blade, "str_starts_with(\$article->cover_image, 'http')"));
 check103('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 16);
