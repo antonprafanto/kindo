@@ -636,7 +636,7 @@ return [
         'fsiot_telemetry_paper' => 'Versi catatan (tanpa klik)',
         'fsiot_telemetry_progress' => ':filled dari :total tercentang',
         'fsiot_telemetry_pass' => 'Lengkap :filled/:total — telemetry DHT22 sudah sampai di MQTTX.',
-        'fsiot_telemetry_incomplete' => 'Masih ada :remaining poin. Selesaikan satu per satu.',
+        'fsiot_telemetry_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
         'fsiot_telemetry_done' => 'Selesai',
         'fsiot_telemetry_todo' => 'Belum',
 

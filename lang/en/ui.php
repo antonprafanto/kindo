@@ -636,7 +636,7 @@ return [
         'fsiot_telemetry_paper' => 'Paper version (no clicking)',
         'fsiot_telemetry_progress' => ':filled of :total checked',
         'fsiot_telemetry_pass' => 'Complete :filled/:total — DHT22 telemetry has reached MQTTX.',
-        'fsiot_telemetry_incomplete' => ':remaining items remain. Complete them one at a time.',
+        'fsiot_telemetry_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
         'fsiot_telemetry_done' => 'Done',
         'fsiot_telemetry_todo' => 'Not yet',
 
