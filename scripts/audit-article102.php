@@ -60,7 +60,7 @@ check('MQTTX official source cited', str_contains($body, 'mqttx.app/docs') && st
 check('OASIS primary source cited', str_contains($body, 'docs.oasis-open.org/mqtt') && str_contains($bodyEn, 'docs.oasis-open.org/mqtt'));
 check('Commons architecture is cited in sources, not as a confusing body figure', str_contains($body, 'commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png') && str_contains($body, 'CC BY-SA 4.0') && ! str_contains($body, 'fs32-mqtt-architecture-cite.png') && str_contains($bodyEn, 'Ana beloti'));
 check('official MQTTX screenshot is not used as-is', str_contains($body, 'Screenshot jendela resmi tidak dipakai utuh') && str_contains($bodyEn, 'official window screenshot is not used as-is'));
-check('MQTTX empty state is labelled as success not error', str_contains($body, 'Ini tampilan yang benar, bukan error') && str_contains($bodyEn, 'This is the correct view, not an error'));
+check('MQTTX empty state describes the stopping point without saying error', str_contains($body, 'MQTTX sudah terbuka. Daftar koneksi masih kosong.') && str_contains($bodyEn, 'MQTTX is already open. The connection list is still empty.') && ! str_contains($body, 'Ini tampilan yang benar, bukan error') && ! str_contains($bodyEn, 'This is the correct view, not an error'));
 check('official downloads screenshot is cited', str_contains($body, 'fs32-mqttx-downloads.png') && str_contains($body, 'Tangkapan layar 13 Agustus 2026') && str_contains($bodyEn, 'Screenshot taken 13 August 2026'));
 check('cover uses a public absolute URL', str_contains($source, "https://kodingindonesia.com/images/fsiot/fs32-cover-mqtt.webp"));
 check('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 12);

@@ -152,20 +152,20 @@ save(image, 'fs32-tools-order.png')
 # MQTTX empty-window illustration (do not reuse official preview: it shows a public broker)
 image = Image.new('RGB', (1400, 760), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'Ini tampilan yang benar, bukan error', 'Jendela MQTTX terbuka dan daftar koneksi masih kosong = sukses hari ini')
-box(draw, (50, 150, 1350, 620), '#1f2937', '#111827', 4)
-box(draw, (50, 150, 128, 620), '#111827', '#111827', 0)
-text(draw, 89, 210, 'X', 36, '#34d399')
-text(draw, 89, 280, '+', 28, '#9ca3af')
-box(draw, (128, 150, 430, 620), '#1f2937', '#1f2937', 0)
-text(draw, 279, 200, 'Koneksi', 24, '#e5e7eb')
-box(draw, (160, 250, 400, 340), '#374151', '#4b5563', 2)
-text(draw, 280, 295, 'masih kosong', 20, '#d1d5db')
-box(draw, (430, 150, 1350, 620), '#f8fafc', '#e5e7eb', 0)
-text(draw, 890, 280, 'Sukses: belum ada koneksi', 34, '#166534')
-text(draw, 890, 340, 'Aplikasi sudah terpasang. Berhenti di sini.', 22, '#4b5563')
-box(draw, (640, 400, 1140, 490), '#e8f5e9', '#2e7d32', 4)
-text(draw, 890, 445, 'Jangan klik New Connection dulu', 22, '#14532d')
+header(draw, 1400, 'MQTTX sudah terbuka. Belum ada koneksi.', 'Hari ini berhenti di sini. Jangan klik New Connection. Jangan isi Host.')
+box(draw, (50, 150, 1350, 620), '#ffffff', '#1f2937', 4)
+box(draw, (50, 150, 430, 620), '#eef2ff', '#cbd5e1', 0)
+text(draw, 240, 195, 'MQTTX', 28, '#0f766e')
+text(draw, 240, 235, 'Koneksi', 20, '#334155')
+box(draw, (80, 270, 400, 370), '#ecfdf5', '#34d399', 4)
+text(draw, 240, 305, 'daftar masih kosong', 18, '#14532d')
+text(draw, 240, 340, 'itu wajar hari ini', 16, '#166534')
+box(draw, (430, 150, 1350, 620), '#ffffff', '#e5e7eb', 0)
+text(draw, 890, 270, 'Aplikasi sudah terpasang.', 28, '#166534')
+text(draw, 890, 320, 'Belum perlu Connect.', 24, '#166534')
+box(draw, (560, 380, 1220, 490), '#e8f5e9', '#2e7d32', 4)
+text(draw, 890, 415, 'Jangan klik New Connection dulu.', 20, '#14532d')
+text(draw, 890, 455, 'Jangan isi Host. Lanjut di FS-33.', 18, '#166534')
 text(draw, 700, 690, 'Ilustrasi jendela MQTTX buatan Koding Indonesia (FS-32), meniru tata letak aplikasi resmi EMQ.', 20, '#353535')
 save(image, 'fs32-mqttx-empty.png')
 
@@ -176,56 +176,61 @@ raw_candidates = [
 ]
 raw_path = next((path for path in raw_candidates if path.is_file()), None)
 if raw_path is None:
-    raise FileNotFoundError('MQTTX downloads screenshot not found')
-raw = Image.open(raw_path).convert('RGB')
-if raw_path != OUT / 'fs32-mqttx-downloads-raw.png':
-    raw.save(OUT / 'fs32-mqttx-downloads-raw.png')
-rw, rh = raw.size
-raw = raw.crop((0, int(rh * 0.05), rw, int(rh * 0.78)))
-target_w = 1400
-raw = raw.resize((target_w, int(raw.height * target_w / raw.width)), Image.Resampling.LANCZOS)
-banner_h, foot_h = 96, 88
-download = Image.new('RGB', (target_w, raw.height + banner_h + foot_h), '#f5f5f0')
-download.paste(raw, (0, banner_h))
-dwn = ImageDraw.Draw(download)
-box(dwn, (22, 12, target_w - 22, banner_h - 8), '#e8f5e9', '#2e7d32')
-text(dwn, target_w / 2, 38, 'Buka halaman ini: mqttx.app/downloads', 26, '#14532d')
-text(dwn, target_w / 2, 70, 'Pilih MQTTX Desktop. Jangan MQTTX CLI, MQTTX Web, atau broker publik.', 18, '#1b4332')
-box(dwn, (22, banner_h + raw.height + 8, target_w - 22, banner_h + raw.height + foot_h - 10), '#ffffff')
-text(dwn, target_w / 2, banner_h + raw.height + 36, 'Sumber: https://mqttx.app/downloads — EMQ Technologies. Tangkapan layar 13 Agustus 2026.', 17)
-text(dwn, target_w / 2, banner_h + raw.height + 64, 'Aplikasi MQTTX berlisensi Apache License 2.0. Jangan klik tautan broker publik di menu situs.', 16, '#353535')
-download.save(OUT / 'fs32-mqttx-downloads.png', optimize=True)
-print('fs32-mqttx-downloads.png', download.size)
+    print('skip fs32-mqttx-downloads.png (raw screenshot not found)')
+else:
+    raw = Image.open(raw_path).convert('RGB')
+    if raw_path != OUT / 'fs32-mqttx-downloads-raw.png':
+        raw.save(OUT / 'fs32-mqttx-downloads-raw.png')
+    rw, rh = raw.size
+    raw = raw.crop((0, int(rh * 0.05), rw, int(rh * 0.78)))
+    target_w = 1400
+    raw = raw.resize((target_w, int(raw.height * target_w / raw.width)), Image.Resampling.LANCZOS)
+    banner_h, foot_h = 96, 88
+    download = Image.new('RGB', (target_w, raw.height + banner_h + foot_h), '#f5f5f0')
+    download.paste(raw, (0, banner_h))
+    dwn = ImageDraw.Draw(download)
+    box(dwn, (22, 12, target_w - 22, banner_h - 8), '#e8f5e9', '#2e7d32')
+    text(dwn, target_w / 2, 38, 'Buka halaman ini: mqttx.app/downloads', 26, '#14532d')
+    text(dwn, target_w / 2, 70, 'Pilih MQTTX Desktop. Jangan MQTTX CLI, MQTTX Web, atau broker publik.', 18, '#1b4332')
+    box(dwn, (22, banner_h + raw.height + 8, target_w - 22, banner_h + raw.height + foot_h - 10), '#ffffff')
+    text(dwn, target_w / 2, banner_h + raw.height + 36, 'Sumber: https://mqttx.app/downloads — EMQ Technologies. Tangkapan layar 13 Agustus 2026.', 17)
+    text(dwn, target_w / 2, banner_h + raw.height + 64, 'Aplikasi MQTTX berlisensi Apache License 2.0. Jangan klik tautan broker publik di menu situs.', 16, '#353535')
+    download.save(OUT / 'fs32-mqttx-downloads.png', optimize=True)
+    print('fs32-mqttx-downloads.png', download.size)
 
 # Commons architecture: cover Portuguese labels, then write Indonesian (CC BY-SA 4.0 derivative)
-source = Image.open(OUT / 'fs32-mqtt-architecture-commons.png').convert('RGB')
-source = source.resize((1400, int(source.height * 1400 / source.width)), Image.Resampling.LANCZOS)
-w, h = source.size
-overlay = ImageDraw.Draw(source)
-covers = [
-    (0.02 * w, 0.015 * h, 0.46 * w, 0.145 * h),
-    (0.03 * w, 0.145 * h, 0.40 * w, 0.27 * h),
-    (0.60 * w, 0.145 * h, 0.98 * w, 0.27 * h),
-    (0.26 * w, 0.39 * h, 0.50 * w, 0.51 * h),
-    (0.60 * w, 0.26 * h, 0.93 * w, 0.38 * h),
-    (0.60 * w, 0.45 * h, 0.93 * w, 0.57 * h),
-    (0.36 * w, 0.70 * h, 0.64 * w, 0.88 * h),
-]
-for area in covers:
-    overlay.rounded_rectangle(area, radius=12, fill='#ffffff', outline='#d6d3d1', width=2)
-chip(overlay, w * 0.24, h * 0.207, 'Pengirim (klien)', '#fff8e1', '#f9a825', '#7c4a00', 22)
-chip(overlay, w * 0.24, h * 0.08, 'Arsitektur MQTT', '#e3f2fd', '#1565c0', '#0d47a1', 24)
-chip(overlay, w * 0.38, h * 0.45, 'publish: kirim ke topic', '#fff8e1', '#f9a825', '#7c4a00', 20)
-chip(overlay, w * 0.50, h * 0.79, 'Broker = perantara', '#e3f2fd', '#1565c0', '#0d47a1', 22)
-chip(overlay, w * 0.765, h * 0.32, 'subscribe: minta salinan', '#e8f5e9', '#2e7d32', '#14532d', 20)
-chip(overlay, w * 0.765, h * 0.51, 'broker meneruskan pesan', '#e8f5e9', '#2e7d32', '#14532d', 20)
-chip(overlay, w * 0.79, h * 0.207, 'Penerima (klien)', '#e8f5e9', '#2e7d32', '#14532d', 22)
-legend_h = 150
-cited = Image.new('RGB', (w, h + legend_h), '#f5f5f0')
-cited.paste(source, (0, 0))
-legend = ImageDraw.Draw(cited)
-box(legend, (18, h + 12, w - 18, h + legend_h - 12), '#ffffff')
-text(legend, w / 2, h + 48, 'Teks Portugis pada sumber ditutup. Alur tetap: pengirim → broker → penerima.', 19)
-text(legend, w / 2, h + 90, 'Ikon mobil dan awan berasal dari sumber asli. Lab kita memakai ESP32, MQTTX, dan Mosquitto lokal — bukan internet publik.', 17, '#353535')
-cited.save(OUT / 'fs32-mqtt-architecture-cite.png', optimize=True)
-print('fs32-mqtt-architecture-cite.png', cited.size)
+commons = OUT / 'fs32-mqtt-architecture-commons.png'
+if not commons.is_file():
+    print('skip fs32-mqtt-architecture-cite.png (commons source not found)')
+else:
+    source = Image.open(commons).convert('RGB')
+    source = source.resize((1400, int(source.height * 1400 / source.width)), Image.Resampling.LANCZOS)
+    w, h = source.size
+    overlay = ImageDraw.Draw(source)
+    covers = [
+        (0.02 * w, 0.015 * h, 0.46 * w, 0.145 * h),
+        (0.03 * w, 0.145 * h, 0.40 * w, 0.27 * h),
+        (0.60 * w, 0.145 * h, 0.98 * w, 0.27 * h),
+        (0.26 * w, 0.39 * h, 0.50 * w, 0.51 * h),
+        (0.60 * w, 0.26 * h, 0.93 * w, 0.38 * h),
+        (0.60 * w, 0.45 * h, 0.93 * w, 0.57 * h),
+        (0.36 * w, 0.70 * h, 0.64 * w, 0.88 * h),
+    ]
+    for area in covers:
+        overlay.rounded_rectangle(area, radius=12, fill='#ffffff', outline='#d6d3d1', width=2)
+    chip(overlay, w * 0.24, h * 0.207, 'Pengirim (klien)', '#fff8e1', '#f9a825', '#7c4a00', 22)
+    chip(overlay, w * 0.24, h * 0.08, 'Arsitektur MQTT', '#e3f2fd', '#1565c0', '#0d47a1', 24)
+    chip(overlay, w * 0.38, h * 0.45, 'publish: kirim ke topic', '#fff8e1', '#f9a825', '#7c4a00', 20)
+    chip(overlay, w * 0.50, h * 0.79, 'Broker = perantara', '#e3f2fd', '#1565c0', '#0d47a1', 22)
+    chip(overlay, w * 0.765, h * 0.32, 'subscribe: minta salinan', '#e8f5e9', '#2e7d32', '#14532d', 20)
+    chip(overlay, w * 0.765, h * 0.51, 'broker meneruskan pesan', '#e8f5e9', '#2e7d32', '#14532d', 20)
+    chip(overlay, w * 0.79, h * 0.207, 'Penerima (klien)', '#e8f5e9', '#2e7d32', '#14532d', 22)
+    legend_h = 150
+    cited = Image.new('RGB', (w, h + legend_h), '#f5f5f0')
+    cited.paste(source, (0, 0))
+    legend = ImageDraw.Draw(cited)
+    box(legend, (18, h + 12, w - 18, h + legend_h - 12), '#ffffff')
+    text(legend, w / 2, h + 48, 'Teks Portugis pada sumber ditutup. Alur tetap: pengirim → broker → penerima.', 19)
+    text(legend, w / 2, h + 90, 'Ikon mobil dan awan berasal dari sumber asli. Lab kita memakai ESP32, MQTTX, dan Mosquitto lokal — bukan internet publik.', 17, '#353535')
+    cited.save(OUT / 'fs32-mqtt-architecture-cite.png', optimize=True)
+    print('fs32-mqtt-architecture-cite.png', cited.size)
