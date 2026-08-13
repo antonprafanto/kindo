@@ -58,7 +58,7 @@ check('no premature practice', str_contains($body, 'belum menulis sketch') && st
 check('public broker is defined in plain language', str_contains($body, 'broker di internet milik pihak lain') && str_contains($bodyEn, 'broker on the internet owned by someone else'));
 check('MQTTX official source cited', str_contains($body, 'mqttx.app/docs') && str_contains($bodyEn, 'mqttx.app/docs'));
 check('OASIS primary source cited', str_contains($body, 'docs.oasis-open.org/mqtt') && str_contains($bodyEn, 'docs.oasis-open.org/mqtt'));
-check('Commons architecture is cited', str_contains($body, 'commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png') && str_contains($body, 'CC BY-SA 4.0') && str_contains($bodyEn, 'Ana beloti'));
+check('Commons architecture is cited in sources, not as a confusing body figure', str_contains($body, 'commons.wikimedia.org/wiki/File:Arquitetura_MQTT_exemplo.png') && str_contains($body, 'CC BY-SA 4.0') && ! str_contains($body, 'fs32-mqtt-architecture-cite.png') && str_contains($bodyEn, 'Ana beloti'));
 check('official MQTTX screenshot is not used as-is', str_contains($body, 'Screenshot jendela resmi tidak dipakai utuh') && str_contains($bodyEn, 'official window screenshot is not used as-is'));
 check('MQTTX empty state is labelled as success not error', str_contains($body, 'Ini tampilan yang benar, bukan error') && str_contains($bodyEn, 'This is the correct view, not an error'));
 check('official downloads screenshot is cited', str_contains($body, 'fs32-mqttx-downloads.png') && str_contains($body, 'Tangkapan layar 13 Agustus 2026') && str_contains($bodyEn, 'Screenshot taken 13 August 2026'));
@@ -66,7 +66,7 @@ check('cover uses a public absolute URL', str_contains($source, "https://kodingi
 check('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 12);
 check('glossary heading exists in both languages', str_contains($body, 'Istilah yang dipakai hari ini') && str_contains($bodyEn, 'Terms used today'));
 check('FAQ and sources headings exist', str_contains($body, 'Pertanyaan yang sering muncul') && str_contains($body, '>Sumber<') && str_contains($bodyEn, 'Frequently asked questions') && str_contains($bodyEn, '>Sources<'));
-check('seven image figures in both languages', substr_count($body, '/images/fsiot/fs32-') === 7 && substr_count($bodyEn, '/images/fsiot/fs32-') === 7);
+check('six image figures in both languages', substr_count($body, '/images/fsiot/fs32-') === 6 && substr_count($bodyEn, '/images/fsiot/fs32-') === 6);
 check('Koding Indonesia diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-32)') === 4 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-32)') === 4);
 check('topic four-part explanation', str_contains($body, 'organisasi / jalur belajar / tempat / jenis pesan') && str_contains($bodyEn, 'organisation / learning path / place / message type'));
 check('topic case warning in both languages', str_contains($body, 'telemetry</code> berbeda') && str_contains($bodyEn, 'lowercase names'));
