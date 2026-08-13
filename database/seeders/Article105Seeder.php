@@ -226,11 +226,12 @@ class Article105Seeder extends Seeder
     {
         $sketch = htmlspecialchars($this->sketch(), ENT_QUOTES, 'UTF-8');
         $tools = $this->figure('fs35-tools-order.png', 'Urutan lima langkah: browser, Arduino IDE, kabel relay, PowerShell, lalu MQTTX', '<strong>Urutan meja kerja (lima langkah):</strong> browser → Arduino IDE (ikon buku) → kabel relay → PowerShell untuk IP dan broker → MQTTX. Connect MQTTX hanya setelah angka <code>1883</code> terlihat. Diagram buatan Koding Indonesia (FS-35).');
+        $library = $this->figure('fs35-library-manager.png', 'Ilustrasi Library Manager Arduino IDE 2: ikon tiga buku, pencarian ArduinoMqttClient, tombol INSTALL, papan ESP32', '<strong>Ini tampilan yang benar, bukan layar error.</strong> Ikon tiga buku di bilah kiri. Cari <em>ArduinoMqttClient</em>, lalu <em>ArduinoJson</em>. Papan di pojok kanan adalah <strong>ESP32</strong>, bukan UNO. Jika FS-34 sudah selesai, library biasanya sudah ada. Ilustrasi buatan Koding Indonesia (FS-35), meniru Arduino IDE 2. Screenshot jendela resmi tidak dipakai utuh karena gelap dan menampilkan papan UNO. Acuan langkah: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Installing libraries — Arduino IDE 2</a>, Arduino S.r.l. Dokumentasi Arduino berlisensi Creative Commons Attribution-Share Alike 4.0.');
         $wiring = $this->figure('fs35-wiring-relay.png', 'Wiring modul relay 5V ke ESP32 menurut label VCC, IN, dan GND', '<strong>Gambar utama — wiring.</strong> Cocokkan tulisan pin: VCC atau + → 5V, IN atau S → GPIO 26, GND atau − → GND. Urutan kaki fisik bisa berbeda antarmodul. Terminal NC/COM/NO hari ini kosong. Diagram buatan Koding Indonesia (FS-35).');
         $relayPhoto = $this->figure('kit-relay-5v.jpg', 'Contoh rupa modul relay 1 channel 5V Songle dengan terminal sekrup dan tiga pin S plus minus', '<strong>Contoh rupa modul saja.</strong> Foto ini membantu mengenali relay kit. <strong>Jangan menyalin urutan kaki dari foto.</strong> Wiring tetap menurut tulisan pin: VCC/+ → 5V, IN/S → GPIO 26, GND/− → GND. Terminal sekrup kiri adalah jalur beban NC/COM/NO — <strong>bukan</strong> pin ke ESP32, dan <strong>bukan AC 220V</strong>. Sumber: <a href="https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg" target="_blank" rel="noopener noreferrer">SRD-05VDC-SL-C 5V one-channel relay module</a> · Suyash Dwivedi · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $lan = $this->figure('fs35-lan-address.png', 'ESP32 memakai alamat IPv4 LAN PC, bukan localhost atau 127.0.0.1', '<strong>Aturan penting:</strong> <code>127.0.0.1</code> pada ESP32 berarti ESP32 itu sendiri. Gunakan IPv4 PC dari <code>ipconfig</code>. Diagram buatan Koding Indonesia (FS-35).');
-        $flow = $this->figure('fs35-command-flow.png', 'Alur kiri ke kanan: MQTTX, Mosquitto, ESP32, lalu relay; status JSON kembali ke MQTTX', '<strong>Gambar utama — alur perintah.</strong> Baca dari kiri ke kanan: MQTTX → Mosquitto → ESP32 → relay. Status JSON kembali lewat topic <code>status</code>. Diagram buatan Koding Indonesia (FS-35).');
-        $mqttx = $this->figure('fs35-mqttx-publish.png', 'Ilustrasi MQTTX tersambung ke IPv4 PC, subscribe status, dan publish JSON relay on', '<strong>Ini tampilan yang benar, bukan layar error.</strong> Host = IPv4 PC, Port = <code>1883</code>. Subscribe topic <code>status</code>, lalu publish JSON ke topic <code>command</code>. Jangan salin Host dari screenshot internet. Ilustrasi buatan Koding Indonesia (FS-35), meniru tata letak aplikasi resmi <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX oleh EMQ</a> (Apache License 2.0). Screenshot jendela resmi tidak dipakai utuh karena menampilkan broker publik. Angka <code>192.168.1.23</code> hanya contoh.');
+        $flow = $this->figure('fs35-command-flow.png', 'Alur kiri ke kanan: MQTTX, Mosquitto, ESP32, lalu relay; status JSON kembali lewat Mosquitto', '<strong>Gambar utama — alur perintah.</strong> Baca dari kiri ke kanan: MQTTX → Mosquitto → ESP32 → relay. Status JSON kembali lewat Mosquitto ke MQTTX pada topic <code>status</code>. Diagram buatan Koding Indonesia (FS-35).');
+        $mqttx = $this->figure('fs35-mqttx-publish.png', 'Ilustrasi MQTTX tersambung ke IPv4 PC, subscribe status, dan publish JSON relay on', '<strong>Ini tampilan yang benar, bukan layar error.</strong> Tulisan MQTTX di kiri bukan tombol silang. Host = IPv4 PC, Port = <code>1883</code>. Subscribe topic <code>status</code>, lalu publish JSON ke topic <code>command</code>. Jangan salin Host dari screenshot internet. Ilustrasi buatan Koding Indonesia (FS-35), meniru tata letak aplikasi resmi <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX oleh EMQ</a> (Apache License 2.0). Screenshot jendela resmi tidak dipakai utuh karena menampilkan broker publik. Angka <code>192.168.1.23</code> hanya contoh.');
         $troubleshooting = $this->figure('fs35-troubleshooting.png', 'Empat pemeriksaan jika relay ESP32 belum berklik setelah perintah MQTT', '<strong>Skema bantu.</strong> Periksa kabel relay, Wi-Fi, broker serta IP PC, lalu topic dan JSON di MQTTX. Diagram buatan Koding Indonesia (FS-35).');
         $install = $this->stepsCard([
             ['title' => 'Buka browser', 'text' => 'Pakai Chrome, Firefox, Edge, atau Safari. Siapkan artikel ini. Jangan Upload sketch dulu.'],
@@ -244,13 +245,13 @@ class Article105Seeder extends Seeder
 <h2>Pendahuluan — perintah turun ke relay</h2>
 <p><strong>FS-35 / #105 (ini)</strong> membalik arah FS-34. Kemarin ESP32 mengirim telemetry. Hari ini MQTTX mengirim perintah, ESP32 mendengarkan, lalu relay di GPIO 26 berklik.</p>
 <p><strong>Intinya:</strong> ESP32 menjadi pendengar perintah. Mosquitto tetap menjadi kantor pos. MQTTX menulis surat <code>on</code> atau <code>off</code>.</p>
-<p><strong>Analogi:</strong> FS-34 adalah termometer yang mengirim angka. FS-35 adalah saklar jarak jauh di meja belajar. Kamu menekan Publish di PC, relay di papan berbunyi klik.</p>
+<p><strong>Analogi:</strong> FS-34 adalah termometer yang mengirim angka. FS-35 adalah sakelar jarak jauh di meja belajar. Kamu menekan Publish di PC, relay di papan berbunyi klik.</p>
 <p>Prasyarat lab: Mosquitto lokal dan MQTTX dari FS-33/FS-34, plus pola relay GPIO 26 dari FS-23. DHT22 <strong>tidak</strong> dipakai hari ini agar meja kerja lebih sederhana.</p>
 
 <h2>Hasil yang dituju</h2>
 <ul>
 <li>Relay 5V terpasang ke ESP32 dengan aman, tanpa AC 220V.</li>
-<li>MQTTX mem-publish JSON ke topic <code>command</code>.</li>
+<li>MQTTX mengirim JSON (publish) ke topic <code>command</code>.</li>
 <li>Relay berklik dan LED indikator berubah.</li>
 <li>MQTTX menerima JSON status di topic <code>status</code>.</li>
 </ul>
@@ -261,7 +262,8 @@ class Article105Seeder extends Seeder
 <li><strong>Command</strong> — perintah yang dikirim ke perangkat, di sini <code>on</code> atau <code>off</code>.</li>
 <li><strong>Subscribe</strong> — ESP32 mendaftar agar broker meneruskan pesan topic tertentu.</li>
 <li><strong>Status</strong> — laporan balik setelah perintah dijalankan.</li>
-<li><strong>Relay</strong> — saklar elektromagnet. Hari ini kita hanya memakai klik dan LED modul.</li>
+<li><strong>Relay</strong> — sakelar elektromagnet. Hari ini kita hanya memakai klik dan LED modul.</li>
+<li><strong>Library Manager</strong> — panel di bilah kiri Arduino IDE 2, ikon tiga buku. Bukan menu <em>Tools</em> lama.</li>
 <li><strong>Aktif LOW</strong> — banyak modul kit menyalakan relay saat pin GPIO bernilai LOW. Itu pola FS-23.</li>
 <li><strong>NC / COM / NO</strong> — terminal sekrup untuk beban. Bukan pin ke ESP32. Hari ini dikosongkan.</li>
 <li><strong>IPv4 PC</strong> — alamat komputer di Wi-Fi rumah, misalnya <code>192.168.1.23</code>. Punyamu hampir pasti berbeda.</li>
@@ -277,8 +279,10 @@ HTML
 <p><strong>Tips ponsel:</strong> jika diagram terasa kecil, gunakan fitur perbesar pada browser atau layar. Gambar tidak perlu diketuk sampai memenuhi layar agar teks di sekitarnya tetap terbaca.</p>
 
 <h2>Pastikan library Arduino IDE</h2>
+HTML
+            .$library.<<<'HTML'
 <p><strong>Buka dulu Arduino IDE.</strong> Di bilah kiri, klik <strong>Library Manager</strong>: ikon tiga buku. Itu satu-satunya jalur yang dipakai hari ini. Jangan memakai menu lama <em>Tools → Manage Libraries</em>.</p>
-<p>Jika FS-34 sudah selesai, <strong>ArduinoMqttClient</strong> dan <strong>ArduinoJson</strong> biasanya sudah terpasang. Jika Verify nanti mengeluh library hilang, pasang lagi satu per satu lewat ikon buku, papan ESP32, bukan UNO.</p>
+<p>Jika FS-34 sudah selesai, <strong>ArduinoMqttClient</strong> dan <strong>ArduinoJson</strong> biasanya sudah terpasang. Jika Verify nanti mengeluh library hilang, pasang lagi satu per satu lewat ikon buku, papan ESP32, bukan UNO. Menu <em>Tools → Serial Monitor</em> tetap dipakai nanti untuk melihat tulisan Serial; itu <strong>bukan</strong> Library Manager.</p>
 <p>Rujukan: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">dokumentasi memasang library Arduino IDE 2</a>, Arduino S.r.l. Dokumentasi Arduino berlisensi Creative Commons Attribution-Share Alike 4.0.</p>
 
 <h2>Pasang kabel relay</h2>
@@ -407,7 +411,7 @@ HTML
 <h3>Bolehkah menyambung lampu 220V?</h3>
 <p>Tidak pada lab ini. Bukti sukses adalah klik dan LED indikator. AC PLN dibahas jauh kemudian, dengan pengaman terpisah.</p>
 <h3>Kenapa DHT22 tidak dipakai?</h3>
-<p>FS-34 sudah mengirim suhu. Hari ini satu tugas: perintah turun ke saklar. Meja kerja lebih rapi.</p>
+<p>FS-34 sudah mengirim suhu. Hari ini satu tugas: perintah turun ke sakelar. Meja kerja lebih rapi.</p>
 
 <h2>Sumber</h2>
 <ul>
@@ -418,7 +422,7 @@ HTML
 <li><a href="https://mosquitto.org/man/mosquitto-conf-5.html" target="_blank" rel="noopener noreferrer">Manual konfigurasi Mosquitto (mosquitto.conf)</a></li>
 <li><a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX</a> · aplikasi oleh EMQ, Apache License 2.0. Screenshot jendela resmi tidak dipakai utuh karena menampilkan broker publik.</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg" target="_blank" rel="noopener noreferrer">SRD-05VDC-SL-C 5V one-channel relay module</a> · Suyash Dwivedi · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0. Foto hanya contoh rupa; jangan menyalin urutan kaki dari foto.</li>
-<li>Diagram urutan tools, wiring, batas LAN, alur perintah, skema periksa, dan ilustrasi MQTTX — Koding Indonesia (FS-35)</li>
+<li>Diagram urutan tools, wiring, batas LAN, alur perintah, skema periksa, serta ilustrasi Library Manager dan MQTTX — Koding Indonesia (FS-35)</li>
 </ul>
 
 <h2>Selanjutnya</h2>
@@ -430,11 +434,12 @@ HTML;
     {
         $sketch = htmlspecialchars($this->sketch(), ENT_QUOTES, 'UTF-8');
         $tools = $this->figure('fs35-tools-order.png', 'Five-step tool order: browser, Arduino IDE, relay wiring, PowerShell, then MQTTX', '<strong>Desk order (five steps):</strong> browser → Arduino IDE (book icon) → relay wiring → PowerShell for IP and broker → MQTTX. Connect MQTTX only after <code>1883</code> is visible. Diagram by Koding Indonesia (FS-35).');
+        $library = $this->figure('fs35-library-manager.png', 'Arduino IDE 2 Library Manager illustration: three-book icon, ArduinoMqttClient search, INSTALL, ESP32 board', '<strong>This is the correct view, not an error screen.</strong> The three-book icon in the left bar. Search <em>ArduinoMqttClient</em>, then <em>ArduinoJson</em>. The board in the top-right is an <strong>ESP32</strong>, not an UNO. If FS-34 is already done, the libraries are usually already there. Illustration by Koding Indonesia (FS-35), modelled on Arduino IDE 2. The official window screenshot is not used as-is because it is dimmed and shows an UNO. Step reference: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Installing libraries — Arduino IDE 2</a>, Arduino S.r.l. Arduino documentation is licensed under Creative Commons Attribution-Share Alike 4.0.');
         $wiring = $this->figure('fs35-wiring-relay.png', 'Five-volt relay module wiring to ESP32 by VCC, IN, and GND labels', '<strong>Main figure — wiring.</strong> Match the printed labels: VCC or + → 5V, IN or S → GPIO 26, GND or − → GND. Physical pin order can differ between modules. Leave NC/COM/NO empty today. Diagram by Koding Indonesia (FS-35).');
         $relayPhoto = $this->figure('kit-relay-5v.jpg', 'Example 5V one-channel Songle relay module with screw terminals and three S plus minus pins', '<strong>Appearance example only.</strong> This photo helps you recognise a kit relay. <strong>Do not copy pin order from the photo.</strong> Wiring still follows the printed labels: VCC/+ → 5V, IN/S → GPIO 26, GND/− → GND. The left screw terminals are the NC/COM/NO load path — <strong>not</strong> ESP32 pins, and <strong>not AC mains</strong>. Source: <a href="https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg" target="_blank" rel="noopener noreferrer">SRD-05VDC-SL-C 5V one-channel relay module</a> · Suyash Dwivedi · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $lan = $this->figure('fs35-lan-address.png', 'ESP32 uses the PC LAN IPv4 address, not localhost or 127.0.0.1', '<strong>Important:</strong> <code>127.0.0.1</code> on ESP32 means ESP32 itself. Use the PC IPv4 from <code>ipconfig</code>. Diagram by Koding Indonesia (FS-35).');
-        $flow = $this->figure('fs35-command-flow.png', 'Left-to-right flow: MQTTX, Mosquitto, ESP32, then relay; JSON status returns to MQTTX', '<strong>Main figure — command flow.</strong> Read left to right: MQTTX → Mosquitto → ESP32 → relay. JSON status returns on the <code>status</code> topic. Diagram by Koding Indonesia (FS-35).');
-        $mqttx = $this->figure('fs35-mqttx-publish.png', 'MQTTX illustration connected to the PC IPv4, subscribed to status, publishing relay-on JSON', '<strong>This is the correct view, not an error screen.</strong> Host = the PC IPv4, Port = <code>1883</code>. Subscribe to <code>status</code>, then publish JSON to <code>command</code>. Do not copy a Host from an internet screenshot. Illustration by Koding Indonesia (FS-35), modelled on the official <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX by EMQ</a> layout (Apache License 2.0). The official window screenshot is not used as-is because it shows a public broker. The address <code>192.168.1.23</code> is only an example.');
+        $flow = $this->figure('fs35-command-flow.png', 'Left-to-right flow: MQTTX, Mosquitto, ESP32, then relay; JSON status returns through Mosquitto', '<strong>Main figure — command flow.</strong> Read left to right: MQTTX → Mosquitto → ESP32 → relay. JSON status returns through Mosquitto to MQTTX on the <code>status</code> topic. Diagram by Koding Indonesia (FS-35).');
+        $mqttx = $this->figure('fs35-mqttx-publish.png', 'MQTTX illustration connected to the PC IPv4, subscribed to status, publishing relay-on JSON', '<strong>This is the correct view, not an error screen.</strong> The MQTTX label on the left is not a close button. Host = the PC IPv4, Port = <code>1883</code>. Subscribe to <code>status</code>, then publish JSON to <code>command</code>. Do not copy a Host from an internet screenshot. Illustration by Koding Indonesia (FS-35), modelled on the official <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX by EMQ</a> layout (Apache License 2.0). The official window screenshot is not used as-is because it shows a public broker. The address <code>192.168.1.23</code> is only an example.');
         $troubleshooting = $this->figure('fs35-troubleshooting.png', 'Four checks when the ESP32 relay has not clicked after an MQTT command', '<strong>Helper schematic.</strong> Check relay wiring, Wi-Fi, broker and PC IP, then the MQTTX topic and JSON. Diagram by Koding Indonesia (FS-35).');
         $install = $this->stepsCard([
             ['title' => 'Open a browser', 'text' => 'Use Chrome, Firefox, Edge, or Safari. Keep this guide ready. Do not Upload a sketch yet.'],
@@ -466,6 +471,7 @@ HTML;
 <li><strong>Subscribe</strong> — ESP32 registers so the broker forwards a chosen topic.</li>
 <li><strong>Status</strong> — a report sent back after the command runs.</li>
 <li><strong>Relay</strong> — an electromagnetic switch. Today we only use the module click and LED.</li>
+<li><strong>Library Manager</strong> — the Arduino IDE 2 left-bar panel with the three-book icon. Not the old <em>Tools</em> menu.</li>
 <li><strong>Active LOW</strong> — many kit modules turn the relay on when the GPIO pin is LOW. That is the FS-23 pattern.</li>
 <li><strong>NC / COM / NO</strong> — screw terminals for a load. Not ESP32 pins. Leave them empty today.</li>
 <li><strong>PC IPv4</strong> — the computer’s address on home Wi-Fi, for example <code>192.168.1.23</code>. Yours will almost certainly differ.</li>
@@ -481,8 +487,10 @@ HTML
 <p><strong>Phone tip:</strong> if a diagram feels small, use the browser or screen zoom. You do not need to tap the image to fill the screen; nearby text should stay readable.</p>
 
 <h2>Confirm Arduino IDE libraries</h2>
+HTML
+            .$library.<<<'HTML'
 <p><strong>Open Arduino IDE first.</strong> In the left bar, open <strong>Library Manager</strong>: the three-book icon. That is the only path used today. Do not use the old <em>Tools → Manage Libraries</em> menu.</p>
-<p>If FS-34 is already done, <strong>ArduinoMqttClient</strong> and <strong>ArduinoJson</strong> are usually installed. If Verify later complains, install them one by one with the book icon, ESP32 board, not an UNO.</p>
+<p>If FS-34 is already done, <strong>ArduinoMqttClient</strong> and <strong>ArduinoJson</strong> are usually installed. If Verify later complains, install them one by one with the book icon, ESP32 board, not an UNO. The <em>Tools → Serial Monitor</em> menu is still used later to read Serial text; that is <strong>not</strong> Library Manager.</p>
 <p>Reference: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Arduino IDE 2 installing-a-library documentation</a>, Arduino S.r.l. Arduino documentation is licensed under Creative Commons Attribution-Share Alike 4.0.</p>
 
 <h2>Wire the relay</h2>
@@ -622,7 +630,7 @@ HTML
 <li><a href="https://mosquitto.org/man/mosquitto-conf-5.html" target="_blank" rel="noopener noreferrer">Mosquitto configuration manual (mosquitto.conf)</a></li>
 <li><a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX</a> · app by EMQ, Apache License 2.0. The official window screenshot is not used as-is because it shows a public broker.</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg" target="_blank" rel="noopener noreferrer">SRD-05VDC-SL-C 5V one-channel relay module</a> · Suyash Dwivedi · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0. The photo is an appearance example only; do not copy pin order from the photo.</li>
-<li>Tool-order, wiring, LAN-boundary, command-flow, troubleshooting, and MQTTX diagrams — Koding Indonesia (FS-35)</li>
+<li>Tool-order, wiring, LAN-boundary, command-flow, troubleshooting, Library Manager, and MQTTX diagrams — Koding Indonesia (FS-35)</li>
 </ul>
 
 <h2>Next</h2>

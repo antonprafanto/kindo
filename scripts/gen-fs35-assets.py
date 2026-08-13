@@ -75,7 +75,7 @@ steps = [
     ('1', 'Buka browser', 'baca langkah\n& sumber resmi', '#fff8e1', '#f9a825'),
     ('2', 'Arduino IDE', 'ikon buku\nArduinoMqttClient', '#e3f2fd', '#1565c0'),
     ('3', 'Kabel relay', '5V · GPIO 26\n· GND', '#e8f5e9', '#2e7d32'),
-    ('4', 'PowerShell', 'ipconfig +\nbroker tetap hidup', '#fce4ec', '#c62828'),
+    ('4', 'PowerShell', 'ipconfig +\nbroker tetap hidup', '#e0f2f1', '#00897b'),
     ('5', 'MQTTX', 'Host = IPv4 PC\npublish perintah', '#f3e8ff', '#7e22ce'),
 ]
 for index, (number, title, body, fill, color) in enumerate(steps):
@@ -149,34 +149,33 @@ for bounds, title, subtitle, fill, accent in boxes:
 arrow(draw, (300, 295), (360, 295), '#7c3aed', 8, 18)
 arrow(draw, (640, 295), (700, 295), '#7c3aed', 8, 18)
 arrow(draw, (980, 295), (1040, 295), '#7c3aed', 8, 18)
-arrow(draw, (1040, 470), (300, 470), '#0d9488', 7, 16)
-text(draw, 700, 505, 'status JSON kembali ke MQTTX lewat topic /status', 20, '#0f766e')
+arrow(draw, (1040, 470), (640, 470), '#0d9488', 7, 16)
+arrow(draw, (360, 470), (300, 470), '#0d9488', 7, 16)
+text(draw, 700, 505, 'status JSON kembali lewat Mosquitto (kantor pos) ke MQTTX', 20, '#0f766e')
 text(draw, 700, 575, 'command: .../esp32-meja-01/command   ·   status: .../esp32-meja-01/status', 18, '#334155')
 text(draw, 700, 655, 'Siapa saja di Wi-Fi rumah bisa mengirim perintah lab ini. Hentikan broker dengan Ctrl+C.', 18, '#b91c1c')
 save(image, 'fs35-command-flow.png')
 
-# MQTTX publish illustration — not an official screenshot
+# MQTTX publish illustration — light chrome so it does not look like a broken image on the dark site
 image = Image.new('RGB', (1400, 760), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'Ini tampilan yang benar — publish perintah di MQTTX', 'Host = IPv4 PC. Bukan layar error. Bukan broker publik.')
-box(draw, (50, 145, 1350, 630), '#1f2937', '#111827', 4)
-box(draw, (50, 145, 128, 630), '#111827', '#111827', 0)
-text(draw, 89, 205, 'X', 36, '#34d399')
-text(draw, 89, 275, '+', 28, '#9ca3af')
-box(draw, (128, 145, 430, 630), '#1f2937', '#1f2937', 0)
-text(draw, 279, 190, 'Koneksi', 22, '#e5e7eb')
-box(draw, (150, 225, 410, 345), '#065f46', '#34d399', 3)
-text(draw, 280, 260, 'FS35 perintah LAN', 18, '#ecfdf5')
-text(draw, 280, 300, 'tersambung', 18, '#a7f3d0')
-box(draw, (430, 145, 1350, 630), '#f8fafc', '#e5e7eb', 0)
-text(draw, 890, 180, 'Host  192.168.1.23', 26, '#166534')
-text(draw, 890, 220, 'Port  1883', 26, '#166534')
-text(draw, 890, 265, 'Publish  .../command', 20, '#334155')
-text(draw, 890, 305, 'Subscribe  .../status', 20, '#334155')
-box(draw, (500, 340, 1280, 500), '#ecfdf5', '#34d399', 4)
-text(draw, 890, 380, '{"device_id":"esp32-meja-01",', 20, '#14532d')
-text(draw, 890, 420, '"relay":"on"}', 20, '#14532d')
-text(draw, 890, 465, 'lalu ganti "off" untuk mematikan', 16, '#166534')
+header(draw, 1400, 'Ini tampilan yang benar — publish perintah di MQTTX', 'Host = IPv4 PC. Bukan layar error. Bukan tombol silang.')
+box(draw, (50, 145, 1350, 630), '#ffffff', '#1f2937', 4)
+box(draw, (50, 145, 430, 630), '#eef2ff', '#cbd5e1', 0)
+text(draw, 240, 190, 'MQTTX', 28, '#0f766e')
+text(draw, 240, 230, 'Koneksi', 18, '#334155')
+box(draw, (80, 265, 400, 385), '#ecfdf5', '#34d399', 4)
+text(draw, 240, 300, 'FS35 perintah LAN', 18, '#14532d')
+text(draw, 240, 340, 'tersambung', 18, '#166534')
+box(draw, (430, 145, 1350, 630), '#ffffff', '#e5e7eb', 0)
+text(draw, 890, 185, 'Host  192.168.1.23', 26, '#166534')
+text(draw, 890, 225, 'Port  1883', 26, '#166534')
+text(draw, 890, 270, 'Publish  .../command', 20, '#334155')
+text(draw, 890, 310, 'Subscribe  .../status', 20, '#334155')
+box(draw, (500, 345, 1280, 500), '#ecfdf5', '#34d399', 4)
+text(draw, 890, 385, '{"device_id":"esp32-meja-01",', 20, '#14532d')
+text(draw, 890, 425, '"relay":"on"}', 20, '#14532d')
+text(draw, 890, 470, 'lalu ganti "off" untuk mematikan', 16, '#166534')
 box(draw, (560, 525, 1220, 595), '#e8f5e9', '#2e7d32', 4)
 text(draw, 890, 560, 'Bukan 127.0.0.1. Bukan broker publik.', 20, '#14532d')
 text(draw, 700, 700, 'Ilustrasi MQTTX buatan Koding Indonesia (FS-35), meniru tata letak aplikasi resmi EMQ. 192.168.1.23 hanya contoh.', 16, '#353535')
@@ -190,7 +189,7 @@ checks = [
     ('1', 'Relay', '5V · GPIO 26\nGND · aktif LOW', '#fff8e1', '#f9a825'),
     ('2', 'Wi-Fi', 'ESP32 dan PC\njaringan sama', '#e3f2fd', '#1565c0'),
     ('3', 'Broker', 'PowerShell aktif\nIPv4 PC benar', '#e8f5e9', '#2e7d32'),
-    ('4', 'MQTTX', 'topic command\nJSON persis', '#fce4ec', '#c62828'),
+    ('4', 'MQTTX', 'topic command\nJSON persis', '#f3e8ff', '#7e22ce'),
 ]
 for index, (number, title, body, fill, color) in enumerate(checks):
     left = 40 + index * 345
@@ -204,3 +203,44 @@ for index, (number, title, body, fill, color) in enumerate(checks):
         arrow(draw, (left + 308, 332), (left + 337, 332), '#1f1f1f', 6, 14)
 text(draw, 700, 575, 'JSON harus huruf kecil on/off dan device_id persis. Bukan AC 220V.', 20, '#b91c1c')
 save(image, 'fs35-troubleshooting.png')
+
+# Library Manager — official Arduino screenshots look dimmed/broken on the dark site
+image = Image.new('RGB', (1400, 760), '#f5f5f0')
+draw = ImageDraw.Draw(image)
+header(draw, 1400, 'Ini tampilan yang benar, bukan layar error', 'Klik ikon tiga buku. Papan contoh: ESP32, bukan UNO')
+box(draw, (40, 145, 1360, 620), '#ffffff', '#1f2937', 4)
+box(draw, (40, 145, 1360, 198), '#0f172a', '#0f172a', 0)
+text(draw, 380, 172, 'FS35_mqtt_relay_command  ·  Arduino IDE 2', 20, '#e2e8f0')
+box(draw, (980, 156, 1320, 188), '#065f46', '#34d399', 2)
+text(draw, 1150, 172, 'ESP32 Dev Module', 16, '#ecfdf5')
+box(draw, (40, 198, 118, 620), '#111827', '#111827', 0)
+for y in (250, 330, 490, 570):
+    box(draw, (52, y - 22, 106, y + 22), '#1e293b', '#334155', 3)
+box(draw, (52, 388, 106, 432), '#14532d', '#fbbf24', 3)
+box(draw, (62, 396, 72, 424), '#fde68a', '#f59e0b', 2)
+box(draw, (74, 392, 84, 424), '#fbbf24', '#d97706', 2)
+box(draw, (86, 398, 96, 424), '#f59e0b', '#b45309', 2)
+box(draw, (118, 198, 520, 620), '#f8fafc', '#cbd5e1', 0)
+text(draw, 319, 230, 'Library Manager', 22, '#0f172a')
+box(draw, (140, 258, 498, 300), '#ffffff', '#1565c0', 3)
+text(draw, 319, 279, 'ArduinoMqttClient', 18, '#1e3a5f')
+box(draw, (140, 318, 498, 448), '#ffffff', '#86efac', 4)
+text(draw, 319, 348, 'ArduinoMqttClient', 20, '#14532d')
+text(draw, 319, 385, 'lalu ArduinoJson', 16, '#166534')
+box(draw, (300, 405, 478, 440), '#0d9488', '#0f766e', 3)
+text(draw, 389, 422, 'INSTALL', 18, '#ffffff')
+box(draw, (140, 468, 498, 590), '#ecfdf5', '#34d399', 3)
+text(draw, 319, 505, 'Jika FS-34 sudah selesai,', 16, '#14532d')
+text(draw, 319, 540, 'library biasanya sudah ada.', 16, '#14532d')
+text(draw, 319, 570, 'Pasang ulang hanya jika Verify mengeluh.', 14, '#334155')
+box(draw, (520, 198, 1360, 620), '#ffffff', '#e5e7eb', 0)
+text(draw, 940, 250, 'void setup() {', 22, '#94a3b8')
+text(draw, 940, 295, '}', 22, '#94a3b8')
+text(draw, 940, 350, 'void loop() {', 22, '#94a3b8')
+text(draw, 940, 395, '}', 22, '#94a3b8')
+box(draw, (620, 450, 1260, 575), '#e8f5e9', '#2e7d32', 4)
+text(draw, 940, 490, 'Ini tampilan yang benar, bukan layar error.', 22, '#14532d')
+text(draw, 940, 535, 'Bukan menu Tools lama. Bukan screenshot gelap.', 18, '#166534')
+arrow(draw, (118, 410), (210, 410), '#f59e0b', 6, 14)
+text(draw, 700, 700, 'Ilustrasi buatan Koding Indonesia (FS-35), meniru Arduino IDE 2. Acuan: docs.arduino.cc (CC BY-SA 4.0).', 16, '#353535')
+save(image, 'fs35-library-manager.png')

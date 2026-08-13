@@ -48,7 +48,7 @@ check105('route and controller exist', str_contains($routes, 'seed-article-105-d
 check105('priority deploy and seed exist', str_contains($workflow, 'id: curl105_priority') && str_contains($workflow, 'seed-article-105-draft'));
 check105('priority upload precedes FS-34 uploads', strpos($workflow, 'id: curl105_priority') < strpos($workflow, 'id: curl104_priority'));
 check105('FS-35 seed is enabled after priority upload', str_contains($workflow, "if: steps.curl105_priority.outcome == 'success'"));
-check105('relay photo is in the priority upload', str_contains($workflow, 'fs35-mqttx-publish.png') && str_contains($workflow, 'kit-relay-5v.jpg'));
+check105('relay photo is in the priority upload', str_contains($workflow, 'fs35-mqttx-publish.png') && str_contains($workflow, 'kit-relay-5v.jpg') && str_contains($workflow, 'fs35-library-manager.png'));
 check105('cover is copied into public storage', str_contains($source, 'articles/covers/fs35-cover-command') && str_contains($source, "Storage::disk('public')->put"));
 check105('trashed slug is restored', str_contains($source, 'withTrashed()') && str_contains($source, 'restore()'));
 check105('ID and EN references', str_contains($body, '#105 (ini)') && str_contains($bodyEn, '#105 (this article)'));
@@ -57,7 +57,7 @@ check105('tools-first instructions', str_contains($body, 'Buka browser') && str_
 check105('numbered install cards exist', str_contains($body, 'list-style:none') && str_contains($body, 'Buka MQTTX setelah broker berjalan') && str_contains($bodyEn, 'Open MQTTX after the broker is running'));
 check105('tools are named before sketch', strpos($body, 'Buka Arduino IDE') < strpos($body, '#include &lt;WiFi.h&gt;') && str_contains($body, 'Buka dulu PowerShell') && str_contains($body, 'Buka MQTTX setelah broker berjalan'));
 check105('Arduino IDE library path is a single beginner instruction', str_contains($body, 'ikon tiga buku') && str_contains($body, 'satu-satunya jalur yang dipakai hari ini') && str_contains($body, 'Jangan memakai menu lama') && ! str_contains($body, 'Sketch → Include Library'));
-check105('MQTTX illustration is not an official public-broker screenshot', str_contains($body, 'Ini tampilan yang benar, bukan layar error') && str_contains($bodyEn, 'This is the correct view, not an error screen') && str_contains($body, 'Screenshot jendela resmi tidak dipakai utuh') && str_contains($bodyEn, 'official window screenshot is not used as-is'));
+check105('MQTTX illustration is not an official public-broker screenshot', str_contains($body, 'Ini tampilan yang benar, bukan layar error') && str_contains($bodyEn, 'This is the correct view, not an error screen') && str_contains($body, 'Screenshot jendela resmi tidak dipakai utuh') && str_contains($bodyEn, 'official window screenshot is not used as-is') && str_contains($body, 'bukan tombol silang') && str_contains($bodyEn, 'not a close button'));
 check105('Arduino licence is cited', str_contains($body, 'Creative Commons Attribution-Share Alike 4.0') && str_contains($bodyEn, 'Creative Commons Attribution-Share Alike 4.0'));
 check105('relay photo is cited and pin-order copying is forbidden', str_contains($body, 'kit-relay-5v.jpg') && str_contains($body, 'SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg') && str_contains($body, 'Jangan menyalin urutan kaki dari foto') && str_contains($bodyEn, 'Do not copy pin order from the photo'));
 check105('relay wiring is explicit', str_contains($body, 'GPIO 26') && str_contains($body, '5V') && str_contains($body, 'IN atau S'));
@@ -89,7 +89,7 @@ check105('article view supports absolute cover URLs', str_contains($blade, "str_
 check105('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 16);
 check105('glossary heading exists in both languages', str_contains($body, 'Istilah yang dipakai hari ini') && str_contains($bodyEn, 'Terms used today'));
 check105('FAQ and sources headings exist', str_contains($body, 'Pertanyaan yang sering muncul') && str_contains($body, '>Sumber<') && str_contains($bodyEn, 'Frequently asked questions') && str_contains($bodyEn, '>Sources<'));
-check105('six FS-35 image figures in both languages', substr_count($body, '/images/fsiot/fs35-') === 6 && substr_count($bodyEn, '/images/fsiot/fs35-') === 6);
+check105('seven FS-35 image figures in both languages', substr_count($body, '/images/fsiot/fs35-') === 7 && substr_count($bodyEn, '/images/fsiot/fs35-') === 7);
 check105('Koding Indonesia diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-35)') === 5 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-35)') === 5);
 check105('phone zoom tip exists', str_contains($body, 'Tips ponsel') && str_contains($bodyEn, 'Phone tip'));
 check105('interactive checklist is wired', str_contains($body, 'id="fsiot-command-checklist"') && str_contains($body, 'id="fsiot-command-checklist-items"') && str_contains($blade, "storagePrefix: 'fsiot-cl-105'") && str_contains($langId, 'fsiot_command_badge') && str_contains($langEn, 'fsiot_command_badge'));
@@ -109,6 +109,7 @@ foreach ([
     'fs35-cover-command.jpg',
     'fs35-cover-command.webp',
     'fs35-tools-order.png',
+    'fs35-library-manager.png',
     'fs35-wiring-relay.png',
     'fs35-lan-address.png',
     'fs35-command-flow.png',
@@ -122,6 +123,8 @@ foreach ([
 
 $mqttxSize = getimagesize($root.'/public/images/fsiot/fs35-mqttx-publish.png');
 check105('MQTTX illustration is cropped to a readable height', $mqttxSize !== false && $mqttxSize[1] <= 800);
+$librarySize = getimagesize($root.'/public/images/fsiot/fs35-library-manager.png');
+check105('library illustration is cropped to a readable height', $librarySize !== false && $librarySize[1] <= 800);
 $kitSize = getimagesize($root.'/public/images/fsiot/kit-relay-5v.jpg');
 check105('kit-relay-5v.jpg exists and is readable', $kitSize !== false && $kitSize[0] >= 400);
 
