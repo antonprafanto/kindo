@@ -219,15 +219,13 @@ jobs:
           upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
           upload "lang/id/ui.php" "${APP}lang/id/ui.php"
           upload "lang/en/ui.php" "${APP}lang/en/ui.php"
-          for img in fs33-cover-mosquitto.jpg fs33-cover-mosquitto.webp fs33-tools-order.png fs33-local-only.png fs33-first-message.png fs33-troubleshooting.png; do
+          for img in fs33-cover-mosquitto.jpg fs33-cover-mosquitto.webp fs33-tools-order.png fs33-local-only.png fs33-mqttx-local.png fs33-first-message.png fs33-troubleshooting.png fs33-mosquitto-downloads.png; do
             upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
             upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
           done
 
       - name: Seed FS-33 draft immediately
-        # Paused 13 Agu 2026: CMS deleted FS-32..FS-34; recreate one-by-one starting at FS-32.
-        # Restore: if: steps.curl103_priority.outcome == 'success'
-        if: false
+        if: steps.curl103_priority.outcome == 'success'
         env:
           DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
         run: |

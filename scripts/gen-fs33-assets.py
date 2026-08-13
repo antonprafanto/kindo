@@ -1,3 +1,4 @@
+from math import atan2, cos, sin
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
@@ -27,34 +28,54 @@ def header(draw, width, title, subtitle):
     text(draw, width / 2, 96, subtitle, 22, '#404040')
 
 
+def arrow(draw, start, end, fill, width=8, head=22):
+    draw.line([start, end], fill=fill, width=width)
+    ang = atan2(end[1] - start[1], end[0] - start[0])
+    p2 = (end[0] - head * cos(ang - 0.4), end[1] - head * sin(ang - 0.4))
+    p3 = (end[0] - head * cos(ang + 0.4), end[1] - head * sin(ang + 0.4))
+    draw.polygon([end, p2, p3], fill=fill)
+
+
 def save(image, name):
     image.save(OUT / name, optimize=True)
-    print(name)
+    print(name, image.size)
 
 
-# Cover
+# Cover — Mosquitto visibly in the middle, arrows with heads
 image = Image.new('RGB', (1200, 675), '#12315c')
 draw = ImageDraw.Draw(image)
 draw.rectangle((0, 255, 1200, 675), fill='#1d64b8')
-box(draw, (120, 85, 480, 390), '#e3f2fd', '#ffffff')
-text(draw, 300, 170, 'MQTTX', 40, '#1565c0')
-text(draw, 300, 240, 'kirim / lihat', 30)
-text(draw, 300, 290, 'pesan latihan', 30)
-box(draw, (720, 85, 1080, 390), '#e8f5e9', '#ffffff')
-text(draw, 900, 170, 'Mosquitto', 40, '#2e7d32')
-text(draw, 900, 240, 'broker lokal', 30)
-text(draw, 900, 290, 'di komputer sendiri', 30)
-draw.line((480, 238, 720, 238), fill='#ffd54f', width=12)
-text(draw, 600, 480, '127.0.0.1 : 1883', 34, '#fff3b0')
-text(draw, 600, 550, 'FS-33 · Pesan MQTT pertama tanpa internet publik', 34, '#ffffff')
+box(draw, (70, 90, 360, 330), '#e3f2fd', '#ffffff', 4)
+text(draw, 215, 165, 'MQTTX', 34, '#1565c0')
+text(draw, 215, 220, 'klien', 24)
+text(draw, 215, 265, 'kirim pesan', 22)
+box(draw, (455, 95, 745, 325), '#1565c0', '#ffffff', 4)
+text(draw, 600, 165, 'MOSQUITTO', 32, '#ffffff')
+text(draw, 600, 220, 'broker lokal', 24, '#e3f2fd')
+text(draw, 600, 265, 'di tengah', 22, '#fff8e1')
+box(draw, (840, 90, 1130, 330), '#e8f5e9', '#ffffff', 4)
+text(draw, 985, 165, 'MQTTX', 34, '#2e7d32')
+text(draw, 985, 220, 'klien', 24)
+text(draw, 985, 265, 'lihat pesan', 22)
+arrow(draw, (360, 210), (455, 210), '#ffd54f', 8, 20)
+arrow(draw, (745, 210), (840, 210), '#ffd54f', 8, 20)
+text(draw, 600, 430, '127.0.0.1 : 1883', 36, '#fff3b0')
+text(draw, 600, 500, 'FS-33 · Broker MQTT di komputer sendiri', 32, '#ffffff')
+text(draw, 600, 560, 'Hari ini: pasang Mosquitto, baru Connect di MQTTX', 22, '#dbeafe')
 save(image, 'fs33-cover-mosquitto.jpg')
 image.save(OUT / 'fs33-cover-mosquitto.webp', 'WEBP', quality=85)
+print('fs33-cover-mosquitto.webp', image.size)
 
-# Tools order
+# Tools order — numbered 1–4 with arrowheads
 image = Image.new('RGB', (1400, 650), '#f5f5f0')
 draw = ImageDraw.Draw(image)
 header(draw, 1400, 'Urutan tools FS-33 — broker lokal dulu', 'Satu komputer saja sudah cukup; ESP32 menyusul pada FS-34')
-steps = [('1', 'Buka browser', 'unduh Mosquitto\ndari situs resmi', '#fff8e1', '#f9a825'), ('2', 'Pasang Mosquitto', 'ikuti installer\nWindows/macOS/Linux', '#e3f2fd', '#1565c0'), ('3', 'Buka PowerShell', 'jalankan broker\ntetap terbuka', '#e8f5e9', '#2e7d32'), ('4', 'Buka MQTTX', 'koneksi 127.0.0.1\nkirim pesan', '#fce4ec', '#c62828')]
+steps = [
+    ('1', 'Buka browser', 'unduh Mosquitto\ndari situs resmi', '#fff8e1', '#f9a825'),
+    ('2', 'Pasang Mosquitto', 'ikuti pemasang\ntanpa ubah opsi', '#e3f2fd', '#1565c0'),
+    ('3', 'Buka PowerShell', 'jalankan broker\nbiarkan terbuka', '#e8f5e9', '#2e7d32'),
+    ('4', 'Buka MQTTX', 'sekarang Connect\nHost 127.0.0.1', '#fce4ec', '#c62828'),
+]
 for index, (number, title, body, fill, color) in enumerate(steps):
     left = 40 + index * 340
     box(draw, (left, 165, left + 310, 510), fill, color)
@@ -63,60 +84,124 @@ for index, (number, title, body, fill, color) in enumerate(steps):
     text(draw, left + 155, 300, title, 24)
     for line_index, line in enumerate(body.split('\n')):
         text(draw, left + 155, 370 + line_index * 38, line, 21, '#353535')
+    if index < 3:
+        arrow(draw, (left + 318, 338), (left + 332, 338), '#1f1f1f', 6, 14)
 text(draw, 700, 585, 'Belum perlu: ESP32 · Arduino IDE · IP router · firewall · broker publik', 23, '#353535')
 save(image, 'fs33-tools-order.png')
 
-# Local boundary
+# Local boundary with two-way arrows
 image = Image.new('RGB', (1200, 650), '#f5f5f0')
 draw = ImageDraw.Draw(image)
 header(draw, 1200, 'Lab ini hanya berputar di komputer sendiri', '127.0.0.1 berarti "komputer ini"; pesan tidak keluar ke internet')
 draw.rounded_rectangle((95, 165, 1105, 515), radius=28, fill='#e3f2fd', outline='#1565c0', width=5)
 text(draw, 600, 205, 'KOMPUTER KAMU', 27, '#1565c0')
-box(draw, (180, 275, 440, 445), '#ffffff', '#2e7d32')
-text(draw, 310, 330, 'MQTTX', 33, '#2e7d32')
-text(draw, 310, 385, 'client', 25)
-box(draw, (760, 250, 1020, 470), '#e8f5e9', '#2e7d32')
-text(draw, 890, 320, 'Mosquitto', 32, '#2e7d32')
-text(draw, 890, 365, 'broker', 27)
-text(draw, 890, 410, 'port 1883', 22)
-draw.line((440, 360, 760, 360), fill='#1565c0', width=10)
+box(draw, (160, 260, 450, 470), '#ffffff', '#2e7d32')
+text(draw, 305, 320, 'MQTTX', 33, '#2e7d32')
+text(draw, 305, 375, 'klien', 24)
+text(draw, 305, 420, 'kirim + lihat', 22)
+box(draw, (750, 250, 1040, 480), '#e8f5e9', '#2e7d32')
+text(draw, 895, 320, 'Mosquitto', 32, '#2e7d32')
+text(draw, 895, 375, 'broker', 24)
+text(draw, 895, 420, 'port 1883', 22)
+arrow(draw, (450, 330), (740, 330), '#1565c0', 8, 18)
+arrow(draw, (740, 400), (450, 400), '#2e7d32', 8, 18)
+text(draw, 595, 318, 'publish', 16, '#1565c0')
+text(draw, 595, 428, 'subscribe', 16, '#2e7d32')
 text(draw, 600, 575, 'Jangan buka port router atau firewall untuk praktik satu komputer ini.', 23, '#b91c1c')
 save(image, 'fs33-local-only.png')
 
-# First message
+# MQTTX local connected illustration (do not reuse official preview: it shows a public broker)
+image = Image.new('RGB', (1400, 760), '#f5f5f0')
+draw = ImageDraw.Draw(image)
+header(draw, 1400, 'Sekarang Connect boleh — isi Host komputer ini', 'Jangan salin alamat broker dari screenshot internet')
+box(draw, (50, 150, 1350, 620), '#1f2937', '#111827', 4)
+box(draw, (50, 150, 128, 620), '#111827', '#111827', 0)
+text(draw, 89, 210, 'X', 36, '#34d399')
+text(draw, 89, 280, '+', 28, '#9ca3af')
+box(draw, (128, 150, 430, 620), '#1f2937', '#1f2937', 0)
+text(draw, 279, 200, 'Koneksi', 24, '#e5e7eb')
+box(draw, (150, 240, 410, 360), '#065f46', '#34d399', 3)
+text(draw, 280, 275, 'FS33 broker lokal', 18, '#ecfdf5')
+text(draw, 280, 315, 'tersambung', 18, '#a7f3d0')
+box(draw, (430, 150, 1350, 620), '#f8fafc', '#e5e7eb', 0)
+text(draw, 890, 230, 'Host  127.0.0.1', 32, '#166534')
+text(draw, 890, 290, 'Port  1883', 32, '#166534')
+box(draw, (640, 350, 1140, 455), '#e8f5e9', '#2e7d32', 4)
+text(draw, 890, 402, 'Bukan broker publik. Bukan IP router.', 20, '#14532d')
+text(draw, 890, 530, 'Username dan sandi dikosongkan untuk lab satu komputer.', 18, '#4b5563')
+text(draw, 700, 690, 'Ilustrasi jendela MQTTX buatan Koding Indonesia (FS-33), meniru tata letak aplikasi resmi EMQ.', 20, '#353535')
+save(image, 'fs33-mqttx-local.png')
+
+# First message — left to right
 image = Image.new('RGB', (1200, 650), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1200, 'Pesan pertama: publisher → broker → subscriber', 'Buat subscription dulu, lalu kirim ke topic latihan yang sama')
-box(draw, (60, 205, 340, 455), '#e3f2fd', '#1565c0')
-text(draw, 200, 275, 'MQTTX', 35, '#1565c0')
-text(draw, 200, 335, '3. menerima', 25)
-text(draw, 200, 380, 'topic chat', 25)
-box(draw, (460, 185, 740, 475), '#e8f5e9', '#2e7d32')
-text(draw, 600, 265, 'Mosquitto', 35, '#2e7d32')
-text(draw, 600, 330, '2. menerima', 25)
-text(draw, 600, 375, 'dan teruskan', 25)
-box(draw, (860, 205, 1140, 455), '#fff8e1', '#f9a825')
-text(draw, 1000, 275, 'MQTTX', 35, '#b56d00')
-text(draw, 1000, 335, '1. publish', 25)
-text(draw, 1000, 380, 'halo dari PC saya', 20)
-draw.line((740, 370, 860, 370), fill='#f9a825', width=8)
-draw.polygon([(740, 370), (765, 355), (765, 385)], fill='#f9a825')
-draw.line((340, 330, 460, 330), fill='#1565c0', width=8)
-draw.polygon([(340, 330), (365, 315), (365, 345)], fill='#1565c0')
-text(draw, 600, 560, 'Pesan terlihat di MQTTX; itu bukti broker lokal bekerja.', 24, '#353535')
+header(draw, 1200, 'Pesan pertama: kirim dulu, broker teruskan, lalu terlihat', 'Satu jendela MQTTX boleh subscribe dan publish sekaligus')
+box(draw, (50, 200, 340, 470), '#fff8e1', '#f9a825')
+text(draw, 195, 265, 'MQTTX', 34, '#b56d00')
+text(draw, 195, 325, '1. publish', 24)
+text(draw, 195, 375, 'halo dari PC saya', 18)
+text(draw, 195, 420, 'topic chat', 20)
+box(draw, (445, 175, 755, 495), '#e8f5e9', '#2e7d32')
+text(draw, 600, 250, 'Mosquitto', 34, '#2e7d32')
+text(draw, 600, 315, '2. terima', 24)
+text(draw, 600, 365, 'lalu teruskan', 24)
+text(draw, 600, 420, '127.0.0.1:1883', 20)
+box(draw, (860, 200, 1150, 470), '#e3f2fd', '#1565c0')
+text(draw, 1005, 265, 'MQTTX', 34, '#1565c0')
+text(draw, 1005, 325, '3. subscribe', 24)
+text(draw, 1005, 375, 'pesan terlihat', 20)
+text(draw, 1005, 420, 'topic yang sama', 20)
+arrow(draw, (340, 335), (445, 335), '#f9a825', 8, 18)
+arrow(draw, (755, 335), (860, 335), '#1565c0', 8, 18)
+text(draw, 600, 560, 'Bukti sukses: teks yang kamu kirim muncul lagi di daftar pesan MQTTX.', 22, '#353535')
 save(image, 'fs33-first-message.png')
 
-# Port diagnosis
+# Troubleshooting
 image = Image.new('RGB', (1200, 620), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1200, 'Jika tidak tersambung, cek tiga hal ini', 'Mulai dari broker, lalu alamat, baru port')
-items = [('1', 'Jendela broker', 'masih terbuka\ndan tidak error', '#fff8e1', '#f9a825'), ('2', 'Alamat', 'pakai 127.0.0.1\nbukan IP router', '#e3f2fd', '#1565c0'), ('3', 'Port', 'isi 1883\ntanpa HTTPS', '#e8f5e9', '#2e7d32')]
+header(draw, 1200, 'Jika tidak tersambung, cek tiga hal ini', 'Mulai dari jendela broker, lalu alamat, baru port')
+items = [
+    ('1', 'Jendela broker', 'masih terbuka\ndan memuat 1883', '#fff8e1', '#f9a825'),
+    ('2', 'Alamat', 'pakai 127.0.0.1\nbukan IP router', '#e3f2fd', '#1565c0'),
+    ('3', 'Port', 'isi 1883\ntanpa http://', '#e8f5e9', '#2e7d32'),
+]
 for index, (number, title, body, fill, color) in enumerate(items):
     left = 85 + index * 370
     box(draw, (left, 175, left + 300, 475), fill, color)
-    text(draw, left + 150, 235, number, 30, color)
+    box(draw, (left + 18, 195, left + 88, 265), '#ffffff', color, 3)
+    text(draw, left + 53, 230, number, 30, color)
     text(draw, left + 150, 300, title, 27)
     for line_index, line in enumerate(body.split('\n')):
         text(draw, left + 150, 365 + line_index * 38, line, 22, '#353535')
+    if index < 2:
+        arrow(draw, (left + 308, 325), (left + 362, 325), '#1f1f1f', 6, 14)
 text(draw, 600, 555, 'Untuk lab lokal, jangan mengubah firewall atau konfigurasi listener.', 23, '#b91c1c')
 save(image, 'fs33-troubleshooting.png')
+
+# Official Mosquitto download page + Indonesian callouts
+raw_candidates = [
+    Path(r'c:\Users\anton\AppData\Local\Temp\cursor\screenshots\mosquitto-downloads-raw.png'),
+    OUT / 'fs33-mosquitto-downloads-raw.png',
+]
+raw_path = next((path for path in raw_candidates if path.is_file()), None)
+if raw_path is None:
+    raise FileNotFoundError('Mosquitto downloads screenshot not found')
+raw = Image.open(raw_path).convert('RGB')
+if raw_path != OUT / 'fs33-mosquitto-downloads-raw.png':
+    raw.save(OUT / 'fs33-mosquitto-downloads-raw.png')
+rw, rh = raw.size
+raw = raw.crop((0, int(rh * 0.02), rw, int(rh * 0.92)))
+target_w = 1400
+raw = raw.resize((target_w, int(raw.height * target_w / raw.width)), Image.Resampling.LANCZOS)
+banner_h, foot_h = 96, 96
+download = Image.new('RGB', (target_w, raw.height + banner_h + foot_h), '#f5f5f0')
+download.paste(raw, (0, banner_h))
+dwn = ImageDraw.Draw(download)
+box(dwn, (22, 12, target_w - 22, banner_h - 8), '#e8f5e9', '#2e7d32')
+text(dwn, target_w / 2, 38, 'Buka halaman ini: mosquitto.org/download', 26, '#14532d')
+text(dwn, target_w / 2, 70, 'Windows modern: pilih berkas x64.exe di bagian Windows. Jangan unduh berkas Source dulu.', 18, '#1b4332')
+box(dwn, (22, banner_h + raw.height + 8, target_w - 22, banner_h + raw.height + foot_h - 10), '#ffffff')
+text(dwn, target_w / 2, banner_h + raw.height + 38, 'Sumber: https://mosquitto.org/download/ — Eclipse Mosquitto / Eclipse Foundation. Tangkapan layar 13 Agustus 2026.', 16)
+text(dwn, target_w / 2, banner_h + raw.height + 68, 'Perangkat lunak Mosquitto berlisensi Eclipse Public License 2.0 dan Eclipse Distribution License 1.0.', 16, '#353535')
+download.save(OUT / 'fs33-mosquitto-downloads.png', optimize=True)
+print('fs33-mosquitto-downloads.png', download.size)
