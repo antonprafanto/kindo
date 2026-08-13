@@ -182,8 +182,9 @@ class Article104Seeder extends Seeder
     {
         $sketch = htmlspecialchars($this->sketch(), ENT_QUOTES, 'UTF-8');
         $tools = $this->figure('fs34-tools-order.png', 'Urutan lima langkah: browser, Arduino IDE, kabel DHT22, PowerShell, lalu MQTTX', '<strong>Urutan meja kerja (lima langkah):</strong> browser → Arduino IDE (ikon buku) → kabel DHT22 → PowerShell untuk IP dan broker → MQTTX. Connect MQTTX hanya setelah angka <code>1883</code> terlihat. Diagram buatan Koding Indonesia (FS-34).');
-        $library = $this->figure('fs34-library-manager.png', 'Library Manager Arduino IDE 2: ikon buku di kiri, lalu kotak pencarian dan tombol INSTALL', '<strong>Ini yang diklik.</strong> Ikon tiga buku di bilah kiri, lalu ketik nama library dan pilih <strong>INSTALL</strong>. Gambar resmi memakai papan Arduino UNO hanya sebagai contoh; lab kita tetap memilih board ESP32. Sumber: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Installing libraries — Arduino IDE 2</a>, Arduino S.r.l. Tangkapan layar 13 Agustus 2026. Dokumentasi Arduino berlisensi Creative Commons Attribution-Share Alike 4.0.');
+        $library = $this->figure('fs34-library-manager.png', 'Ilustrasi Library Manager Arduino IDE 2: ikon tiga buku, pencarian DHT sensor library, tombol INSTALL, papan ESP32', '<strong>Ini tampilan yang benar, bukan layar error.</strong> Ikon tiga buku di bilah kiri, ketik <em>DHT sensor library</em>, lalu pilih <strong>INSTALL</strong>. Papan di pojok kanan adalah <strong>ESP32</strong>, bukan UNO. Ilustrasi buatan Koding Indonesia (FS-34), meniru Arduino IDE 2. Screenshot jendela resmi tidak dipakai utuh karena gelap dan menampilkan papan UNO. Acuan langkah: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Installing libraries — Arduino IDE 2</a>, Arduino S.r.l. Dokumentasi Arduino berlisensi Creative Commons Attribution-Share Alike 4.0.');
         $wiring = $this->figure('fs34-wiring-dht22.png', 'Wiring modul DHT22 tiga pin ke ESP32 menurut label VCC, DATA, dan GND', '<strong>Gambar utama — wiring.</strong> Cocokkan tulisan pin: VCC → 3V3, DATA atau DAT → GPIO 4, GND → GND. Urutan kaki fisik bisa berbeda antarmodul. Diagram buatan Koding Indonesia (FS-34).');
+        $dhtPhoto = $this->figure('kit-dht22.jpg', 'Contoh rupa modul DHT22 AM2302 pada papan merah, tiga pin berlabel DAT, VCC, dan GND', '<strong>Contoh rupa modul saja.</strong> Foto ini membantu mengenali sensor. <strong>Jangan menyalin urutan kaki dari foto.</strong> Wiring tetap menurut tulisan pin: VCC → 3V3, DATA atau DAT → GPIO 4, GND → GND. Pada foto ini, dari atas ke bawah tertulis DAT / VCC / GND — itu milik modul ini, bukan milik semua modul. Sumber: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $lan = $this->figure('fs34-lan-address.png', 'ESP32 memakai alamat IPv4 LAN PC, bukan localhost atau 127.0.0.1', '<strong>Aturan penting:</strong> <code>127.0.0.1</code> pada ESP32 berarti ESP32 itu sendiri. Gunakan IPv4 PC dari <code>ipconfig</code>. Diagram buatan Koding Indonesia (FS-34).');
         $flow = $this->figure('fs34-json-flow.png', 'Alur kiri ke kanan: DHT22, ESP32, Mosquitto, lalu MQTTX menampilkan JSON', '<strong>Gambar utama — alur data.</strong> Baca dari kiri ke kanan: DHT22 → ESP32 → Mosquitto → MQTTX. Diagram buatan Koding Indonesia (FS-34).');
         $troubleshooting = $this->figure('fs34-troubleshooting.png', 'Empat pemeriksaan jika telemetry ESP32 belum muncul di MQTTX', '<strong>Skema bantu.</strong> Periksa kabel, Wi-Fi, broker serta IP PC, lalu MQTTX. Diagram buatan Koding Indonesia (FS-34).');
@@ -240,12 +241,12 @@ HTML
 <li><strong>ArduinoMqttClient</strong> oleh Arduino. Library ini mendukung pengiriman MQTT dan contoh resminya menyertakan ESP32.</li>
 <li><strong>ArduinoJson</strong> oleh Benoit Blanchon. Lab ini memakai <code>JsonDocument</code> dan <code>serializeJson()</code>, jadi kamu tidak perlu merangkai JSON dengan tangan.</li>
 </ol>
-<p>Sebelum Verify, pilih board ESP32 dan port USB yang benar dari pemilih board di bagian atas Arduino IDE. Screenshot resmi Arduino menampilkan UNO hanya sebagai contoh; jangan meniru papan itu untuk lab ini. Jika board ESP32 belum tersedia, selesaikan pemasangan board package dari modul sebelumnya terlebih dahulu.</p>
+<p>Sebelum Verify, pilih board ESP32 dan port USB yang benar dari pemilih board di bagian atas Arduino IDE. Dokumentasi resmi Arduino kadang menampilkan UNO hanya sebagai contoh; jangan meniru papan itu untuk lab ini. Jika board ESP32 belum tersedia, selesaikan pemasangan board package dari modul sebelumnya terlebih dahulu.</p>
 <p>Rujukan langkah ikon buku: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">dokumentasi memasang library Arduino IDE 2</a>.</p>
 
 <h2>Pasang kabel DHT22</h2>
 HTML
-            .$wiring.<<<'HTML'
+            .$wiring.$dhtPhoto.<<<'HTML'
 <ol>
 <li>Cabut USB ESP32.</li>
 <li>Pada <strong>modul DHT22 tiga pin</strong>, sambungkan <strong>VCC → 3V3</strong>, <strong>DATA → GPIO 4</strong>, dan <strong>GND → GND</strong>. Beberapa modul menulis <strong>DAT</strong> untuk kaki data.</li>
@@ -344,7 +345,7 @@ HTML
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
 <li><strong>Host MQTTX masih <code>127.0.0.1</code>.</strong> Itu hanya untuk lab satu komputer di FS-33. Hari ini Host = IPv4 PC.</li>
-<li><strong>Mengira screenshot Arduino wajib memakai UNO.</strong> UNO hanya contoh dokumentasi resmi. Lab ini memakai ESP32.</li>
+<li><strong>Mengira dokumentasi Arduino wajib memakai UNO.</strong> UNO hanya contoh di halaman resmi. Lab ini memakai ESP32.</li>
 <li><strong>Menebak urutan kaki DHT22.</strong> Baca label VCC, DATA atau DAT, dan GND.</li>
 <li><strong>Mengunggah sketch sebelum library terpasang.</strong> Ikon buku dulu, baru kode.</li>
 <li><strong>Menutup jendela PowerShell.</strong> Menutupnya biasanya mematikan broker.</li>
@@ -366,14 +367,15 @@ HTML
 
 <h2>Sumber</h2>
 <ul>
-<li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Arduino — Installing libraries (IDE 2)</a>. Tangkapan layar 13 Agustus 2026. Dokumentasi berlisensi Creative Commons Attribution-Share Alike 4.0. Arduino dan logo Arduino adalah merek Arduino S.r.l.</li>
+<li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Arduino — Installing libraries (IDE 2)</a>. Dokumentasi berlisensi Creative Commons Attribution-Share Alike 4.0. Arduino dan logo Arduino adalah merek Arduino S.r.l. Ilustrasi Library Manager buatan Koding Indonesia; screenshot jendela resmi tidak dipakai utuh karena gelap dan menampilkan UNO.</li>
+<li><a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0. Foto hanya contoh rupa; jangan menyalin urutan kaki dari foto.</li>
 <li><a href="https://mosquitto.org/man/mosquitto-conf-5.html" target="_blank" rel="noopener noreferrer">Manual konfigurasi Mosquitto (mosquitto.conf)</a></li>
 <li><a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html" target="_blank" rel="noopener noreferrer">Espressif — Wi-Fi API Arduino ESP32</a></li>
 <li><a href="https://github.com/arduino-libraries/ArduinoMqttClient" target="_blank" rel="noopener noreferrer">ArduinoMqttClient</a></li>
 <li><a href="https://arduinojson.org/v7/api/jsondocument/" target="_blank" rel="noopener noreferrer">ArduinoJson — JsonDocument</a></li>
 <li><a href="https://github.com/adafruit/DHT-sensor-library" target="_blank" rel="noopener noreferrer">Adafruit DHT sensor library</a></li>
 <li><a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">Halaman unduhan MQTTX</a> · aplikasi oleh EMQ, Apache License 2.0</li>
-<li>Diagram urutan tools, wiring, batas LAN, alur JSON, dan skema periksa — Koding Indonesia (FS-34)</li>
+<li>Diagram urutan tools, wiring, batas LAN, alur JSON, skema periksa, dan ilustrasi Library Manager — Koding Indonesia (FS-34)</li>
 </ul>
 
 <h2>Selanjutnya</h2>
@@ -385,8 +387,9 @@ HTML;
     {
         $sketch = htmlspecialchars($this->sketch(), ENT_QUOTES, 'UTF-8');
         $tools = $this->figure('fs34-tools-order.png', 'Five-step tool order: browser, Arduino IDE, DHT22 wiring, PowerShell, then MQTTX', '<strong>Desk order (five steps):</strong> browser → Arduino IDE (book icon) → DHT22 wiring → PowerShell for IP and broker → MQTTX. Connect MQTTX only after <code>1883</code> is visible. Diagram by Koding Indonesia (FS-34).');
-        $library = $this->figure('fs34-library-manager.png', 'Arduino IDE 2 Library Manager: book icon on the left, then search box and INSTALL', '<strong>This is what to click.</strong> The three-book icon in the left bar, then type the library name and choose <strong>INSTALL</strong>. The official picture uses an Arduino UNO only as an example; this lab still selects an ESP32 board. Source: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Installing libraries — Arduino IDE 2</a>, Arduino S.r.l. Screenshot taken 13 August 2026. Arduino documentation is licensed under Creative Commons Attribution-Share Alike 4.0.');
+        $library = $this->figure('fs34-library-manager.png', 'Arduino IDE 2 Library Manager illustration: three-book icon, DHT sensor library search, INSTALL, ESP32 board', '<strong>This is the correct view, not an error screen.</strong> The three-book icon in the left bar, type <em>DHT sensor library</em>, then choose <strong>INSTALL</strong>. The board in the top-right is an <strong>ESP32</strong>, not an UNO. Illustration by Koding Indonesia (FS-34), modelled on Arduino IDE 2. The official window screenshot is not used as-is because it is dimmed and shows an UNO. Step reference: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Installing libraries — Arduino IDE 2</a>, Arduino S.r.l. Arduino documentation is licensed under Creative Commons Attribution-Share Alike 4.0.');
         $wiring = $this->figure('fs34-wiring-dht22.png', 'Three-pin DHT22 module wiring to ESP32 by VCC, DATA, and GND labels', '<strong>Main figure — wiring.</strong> Match the printed labels: VCC → 3V3, DATA or DAT → GPIO 4, GND → GND. Physical pin order can differ between modules. Diagram by Koding Indonesia (FS-34).');
+        $dhtPhoto = $this->figure('kit-dht22.jpg', 'Example DHT22 AM2302 module on a red board with three pins labelled DAT, VCC, and GND', '<strong>Appearance example only.</strong> This photo helps you recognise the sensor. <strong>Do not copy pin order from the photo.</strong> Wiring still follows the printed labels: VCC → 3V3, DATA or DAT → GPIO 4, GND → GND. In this photo the labels read DAT / VCC / GND from top to bottom — that belongs to this module, not to every module. Source: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $lan = $this->figure('fs34-lan-address.png', 'ESP32 uses the PC LAN IPv4 address, not localhost or 127.0.0.1', '<strong>Important:</strong> <code>127.0.0.1</code> on ESP32 means ESP32 itself. Use the PC IPv4 from <code>ipconfig</code>. Diagram by Koding Indonesia (FS-34).');
         $flow = $this->figure('fs34-json-flow.png', 'Left-to-right flow: DHT22, ESP32, Mosquitto, then MQTTX showing JSON', '<strong>Main figure — data flow.</strong> Read left to right: DHT22 → ESP32 → Mosquitto → MQTTX. Diagram by Koding Indonesia (FS-34).');
         $troubleshooting = $this->figure('fs34-troubleshooting.png', 'Four checks when ESP32 telemetry has not appeared in MQTTX', '<strong>Helper schematic.</strong> Check wiring, Wi-Fi, broker and PC IP, then MQTTX. Diagram by Koding Indonesia (FS-34).');
@@ -443,12 +446,12 @@ HTML
 <li><strong>ArduinoMqttClient</strong> by Arduino. It supports MQTT sending and its official examples include ESP32.</li>
 <li><strong>ArduinoJson</strong> by Benoit Blanchon. This lab uses <code>JsonDocument</code> and <code>serializeJson()</code>, so you do not assemble JSON by hand.</li>
 </ol>
-<p>Before Verify, select the correct ESP32 board and USB port from the board selector at the top of Arduino IDE. The official Arduino screenshot shows an UNO only as an example; do not copy that board for this lab. If ESP32 is unavailable, finish installing its board package from the earlier module first.</p>
+<p>Before Verify, select the correct ESP32 board and USB port from the board selector at the top of Arduino IDE. Official Arduino documentation sometimes shows an UNO only as an example; do not copy that board for this lab. If ESP32 is unavailable, finish installing its board package from the earlier module first.</p>
 <p>Book-icon steps: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Arduino IDE 2 installing-a-library documentation</a>.</p>
 
 <h2>Wire DHT22</h2>
 HTML
-            .$wiring.<<<'HTML'
+            .$wiring.$dhtPhoto.<<<'HTML'
 <ol>
 <li>Unplug ESP32 USB.</li>
 <li>On a <strong>labelled three-pin DHT22 module</strong>, connect <strong>VCC → 3V3</strong>, <strong>DATA → GPIO 4</strong>, and <strong>GND → GND</strong>. Some modules print <strong>DAT</strong> for the data pin.</li>
@@ -547,7 +550,7 @@ HTML
 <h2>Common mistakes</h2>
 <ul>
 <li><strong>MQTTX Host is still <code>127.0.0.1</code>.</strong> That was only for the one-computer lab in FS-33. Today Host = the PC IPv4.</li>
-<li><strong>Thinking the Arduino screenshot requires an UNO.</strong> UNO is only the official documentation example. This lab uses ESP32.</li>
+<li><strong>Thinking Arduino documentation requires an UNO.</strong> UNO is only the official-page example. This lab uses ESP32.</li>
 <li><strong>Guessing DHT22 pin order.</strong> Read the VCC, DATA or DAT, and GND labels.</li>
 <li><strong>Uploading before libraries are installed.</strong> Use the book icon first, then the code.</li>
 <li><strong>Closing the PowerShell window.</strong> Closing it usually stops the broker.</li>
@@ -569,14 +572,15 @@ HTML
 
 <h2>Sources</h2>
 <ul>
-<li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Arduino — Installing libraries (IDE 2)</a>. Screenshot taken 13 August 2026. Documentation licensed under Creative Commons Attribution-Share Alike 4.0. Arduino and the Arduino logo are trademarks of Arduino S.r.l.</li>
+<li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Arduino — Installing libraries (IDE 2)</a>. Documentation licensed under Creative Commons Attribution-Share Alike 4.0. Arduino and the Arduino logo are trademarks of Arduino S.r.l. The Library Manager illustration is by Koding Indonesia; the official window screenshot is not used as-is because it is dimmed and shows an UNO.</li>
+<li><a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0. The photo is an appearance example only; do not copy pin order from the photo.</li>
 <li><a href="https://mosquitto.org/man/mosquitto-conf-5.html" target="_blank" rel="noopener noreferrer">Mosquitto configuration manual (mosquitto.conf)</a></li>
 <li><a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html" target="_blank" rel="noopener noreferrer">Espressif — Arduino ESP32 Wi-Fi API</a></li>
 <li><a href="https://github.com/arduino-libraries/ArduinoMqttClient" target="_blank" rel="noopener noreferrer">ArduinoMqttClient</a></li>
 <li><a href="https://arduinojson.org/v7/api/jsondocument/" target="_blank" rel="noopener noreferrer">ArduinoJson — JsonDocument</a></li>
 <li><a href="https://github.com/adafruit/DHT-sensor-library" target="_blank" rel="noopener noreferrer">Adafruit DHT sensor library</a></li>
 <li><a href="https://mqttx.app/downloads" target="_blank" rel="noopener noreferrer">MQTTX downloads</a> · app by EMQ, Apache License 2.0</li>
-<li>Tool-order, wiring, LAN-boundary, JSON-flow, and troubleshooting diagrams — Koding Indonesia (FS-34)</li>
+<li>Tool-order, wiring, LAN-boundary, JSON-flow, troubleshooting, and Library Manager diagrams — Koding Indonesia (FS-34)</li>
 </ul>
 
 <h2>Next</h2>

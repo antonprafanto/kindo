@@ -48,7 +48,7 @@ check104('route and controller exist', str_contains($routes, 'seed-article-104-d
 check104('priority deploy and seed exist', str_contains($workflow, 'id: curl104_priority') && str_contains($workflow, 'seed-article-104-draft'));
 check104('priority upload precedes FS-33 uploads', strpos($workflow, 'id: curl104_priority') < strpos($workflow, 'id: curl103_priority'));
 check104('FS-34 seed is enabled after priority upload', str_contains($workflow, "if: steps.curl104_priority.outcome == 'success'"));
-check104('library screenshot is in the priority upload', str_contains($workflow, 'fs34-library-manager.png'));
+check104('library figure is in the priority upload', str_contains($workflow, 'fs34-library-manager.png') && str_contains($workflow, 'kit-dht22.jpg'));
 check104('cover is copied into public storage', str_contains($source, 'articles/covers/fs34-cover-telemetry') && str_contains($source, "Storage::disk('public')->put"));
 check104('trashed slug is restored', str_contains($source, 'withTrashed()') && str_contains($source, 'restore()'));
 check104('ID and EN references', str_contains($body, '#104 (ini)') && str_contains($bodyEn, '#104 (this article)'));
@@ -58,9 +58,10 @@ check104('numbered install cards exist', str_contains($body, 'list-style:none') 
 check104('tools are named before sketch', strpos($body, 'Buka Arduino IDE') < strpos($body, '#include &lt;WiFi.h&gt;') && str_contains($body, 'Buka dulu PowerShell') && str_contains($body, 'Buka MQTTX setelah broker berjalan'));
 check104('Arduino IDE library path is current and visual guidance is present', str_contains($body, 'Library Manager</strong>') && str_contains($body, 'ikon tiga buku') && str_contains($body, 'Jangan memakai menu lama'));
 check104('old Tools Manage Libraries menu is only mentioned as forbidden', str_contains($body, 'Tools → Manage Libraries') && str_contains($body, 'Jangan memakai menu lama'));
-check104('official Library Manager screenshot is cited', str_contains($body, 'fs34-library-manager.png') && str_contains($body, 'Tangkapan layar 13 Agustus 2026') && str_contains($bodyEn, 'Screenshot taken 13 August 2026'));
+check104('Library Manager uses a KI illustration not a dimmed official screenshot', str_contains($body, 'Ini tampilan yang benar, bukan layar error') && str_contains($bodyEn, 'This is the correct view, not an error screen') && str_contains($body, 'Screenshot jendela resmi tidak dipakai utuh') && str_contains($bodyEn, 'official window screenshot is not used as-is'));
 check104('Arduino licence is cited', str_contains($body, 'Creative Commons Attribution-Share Alike 4.0') && str_contains($bodyEn, 'Creative Commons Attribution-Share Alike 4.0'));
-check104('UNO in official screenshot is explained', str_contains($body, 'Arduino UNO hanya sebagai contoh') && str_contains($bodyEn, 'Arduino UNO only as an example'));
+check104('UNO is explained as a docs example only', str_contains($body, 'Dokumentasi resmi Arduino kadang menampilkan UNO') && str_contains($bodyEn, 'Official Arduino documentation sometimes shows an UNO'));
+check104('DHT22 photo is cited and pin-order copying is forbidden', str_contains($body, 'kit-dht22.jpg') && str_contains($body, 'commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg') && str_contains($body, 'Jangan menyalin urutan kaki dari foto') && str_contains($bodyEn, 'Do not copy pin order from the photo'));
 check104('DHT22 wiring is explicit', str_contains($body, 'VCC → 3V3') && str_contains($body, 'DATA → GPIO 4') && str_contains($body, 'GND → GND'));
 check104('pin guessing is forbidden', str_contains($body, 'Jangan menebak pin') && str_contains($bodyEn, 'Do not guess pins'));
 check104('LAN boundary is explicit', str_contains($body, 'IPv4 PC dari <code>ipconfig</code>') && str_contains($body, '<code>127.0.0.1</code>') && str_contains($body, 'guest Wi-Fi'));
@@ -86,7 +87,7 @@ check104('article view supports absolute cover URLs', str_contains($blade, "str_
 check104('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 16);
 check104('glossary heading exists in both languages', str_contains($body, 'Istilah yang dipakai hari ini') && str_contains($bodyEn, 'Terms used today'));
 check104('FAQ and sources headings exist', str_contains($body, 'Pertanyaan yang sering muncul') && str_contains($body, '>Sumber<') && str_contains($bodyEn, 'Frequently asked questions') && str_contains($bodyEn, '>Sources<'));
-check104('six image figures in both languages', substr_count($body, '/images/fsiot/fs34-') === 6 && substr_count($bodyEn, '/images/fsiot/fs34-') === 6);
+check104('six FS-34 image figures in both languages', substr_count($body, '/images/fsiot/fs34-') === 6 && substr_count($bodyEn, '/images/fsiot/fs34-') === 6);
 check104('Koding Indonesia diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-34)') === 5 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-34)') === 5);
 check104('phone zoom tip exists', str_contains($body, 'Tips ponsel') && str_contains($bodyEn, 'Phone tip'));
 check104('interactive checklist is wired', str_contains($body, 'id="fsiot-telemetry-checklist"') && str_contains($body, 'id="fsiot-telemetry-checklist-items"') && str_contains($blade, "storagePrefix: 'fsiot-cl-104'") && str_contains($langId, 'fsiot_telemetry_badge') && str_contains($langEn, 'fsiot_telemetry_badge'));
@@ -115,7 +116,9 @@ foreach ([
 }
 
 $librarySize = getimagesize($root.'/public/images/fsiot/fs34-library-manager.png');
-check104('library screenshot is cropped to a readable height', $librarySize !== false && $librarySize[1] <= 800);
+check104('library illustration is cropped to a readable height', $librarySize !== false && $librarySize[1] <= 800);
+$kitSize = getimagesize($root.'/public/images/fsiot/kit-dht22.jpg');
+check104('kit-dht22.jpg exists and is readable', $kitSize !== false && $kitSize[0] >= 400);
 
 echo "\n{$pass} pass / {$fail} fail\n";
 exit($fail === 0 ? 0 : 1);

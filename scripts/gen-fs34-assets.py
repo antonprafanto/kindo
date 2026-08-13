@@ -91,32 +91,44 @@ for index, (number, title, body, fill, color) in enumerate(steps):
 text(draw, 700, 585, 'Lab memakai Wi-Fi rumah yang sama. Jangan guest Wi-Fi, port router, atau broker publik.', 20, '#b91c1c')
 save(image, 'fs34-tools-order.png')
 
-# Official Arduino Library Manager screenshots + Indonesian banners
-img01 = Image.open(OUT / 'fs34-arduino-lib-img01.png').convert('RGB')
-img02 = Image.open(OUT / 'fs34-arduino-lib-img02.png').convert('RGB')
-# Crop so the book icon / Library Manager pane is readable, not a tiny IDE in a tall window.
-crop01 = img01.crop((0, 40, 1180, 980))
-crop02 = img02.crop((0, 40, 1280, 1000))
-panel_h = 430
-crop01 = crop01.resize((int(crop01.width * panel_h / crop01.height), panel_h), Image.Resampling.LANCZOS)
-crop02 = crop02.resize((int(crop02.width * panel_h / crop02.height), panel_h), Image.Resampling.LANCZOS)
-gap = 16
-inner_w = crop01.width + gap + crop02.width
-target_w = 1400
-pad_x = max(18, (target_w - inner_w) // 2)
-banner_h, foot_h = 92, 100
-composed_h = banner_h + panel_h + foot_h
-library = Image.new('RGB', (target_w, composed_h), '#f5f5f0')
-library.paste(crop01, (pad_x, banner_h))
-library.paste(crop02, (pad_x + crop01.width + gap, banner_h))
-dwn = ImageDraw.Draw(library)
-box(dwn, (18, 10, target_w - 18, banner_h - 8), '#e3f2fd', '#1565c0')
-text(dwn, target_w / 2, 36, 'Klik ikon buku di bilah kiri Arduino IDE 2', 24, '#0f3d7a')
-text(dwn, target_w / 2, 68, 'Kiri: Library Manager. Kanan: ketik nama library, lalu INSTALL. Bukan menu Tools lama.', 16, '#1e3a5f')
-box(dwn, (18, banner_h + panel_h + 8, target_w - 18, composed_h - 10), '#ffffff')
-text(dwn, target_w / 2, banner_h + panel_h + 36, 'Sumber: docs.arduino.cc — Arduino IDE 2, Installing libraries. Arduino S.r.l. Tangkapan 13 Agustus 2026.', 15)
-text(dwn, target_w / 2, banner_h + panel_h + 66, 'Dokumentasi Arduino berlisensi Creative Commons Attribution-Share Alike 4.0. Logo Arduino adalah merek Arduino S.r.l.', 14, '#353535')
-save(library, 'fs34-library-manager.png')
+# Library Manager illustration — official Arduino docs screenshots are dark/dimmed
+# and show an UNO, which looks like a broken image to beginners (same lesson as FS-32 MQTTX).
+image = Image.new('RGB', (1400, 760), '#f5f5f0')
+draw = ImageDraw.Draw(image)
+header(draw, 1400, 'Ini tampilan yang benar, bukan layar error', 'Klik ikon tiga buku. Papan contoh: ESP32, bukan UNO')
+box(draw, (40, 145, 1360, 620), '#ffffff', '#1f2937', 4)
+box(draw, (40, 145, 1360, 198), '#0f172a', '#0f172a', 0)
+text(draw, 360, 172, 'FS34_dht22_mqtt_json  ·  Arduino IDE 2', 20, '#e2e8f0')
+box(draw, (980, 156, 1320, 188), '#065f46', '#34d399', 2)
+text(draw, 1150, 172, 'ESP32 Dev Module', 16, '#ecfdf5')
+box(draw, (40, 198, 118, 620), '#111827', '#111827', 0)
+for y in (250, 330, 490, 570):
+    box(draw, (52, y - 22, 106, y + 22), '#1e293b', '#334155', 3)
+box(draw, (52, 388, 106, 432), '#14532d', '#fbbf24', 3)
+box(draw, (62, 396, 72, 424), '#fde68a', '#f59e0b', 2)
+box(draw, (74, 392, 84, 424), '#fbbf24', '#d97706', 2)
+box(draw, (86, 398, 96, 424), '#f59e0b', '#b45309', 2)
+box(draw, (118, 198, 520, 620), '#f8fafc', '#cbd5e1', 0)
+text(draw, 319, 230, 'Library Manager', 22, '#0f172a')
+box(draw, (140, 258, 498, 300), '#ffffff', '#1565c0', 3)
+text(draw, 319, 279, 'DHT sensor library', 18, '#1e3a5f')
+box(draw, (140, 320, 498, 500), '#ffffff', '#86efac', 4)
+text(draw, 319, 350, 'DHT sensor library', 20, '#14532d')
+text(draw, 319, 385, 'oleh Adafruit', 16, '#166534')
+text(draw, 319, 420, 'Install All jika diminta', 16, '#334155')
+box(draw, (300, 445, 478, 485), '#0d9488', '#0f766e', 3)
+text(draw, 389, 465, 'INSTALL', 18, '#ffffff')
+box(draw, (520, 198, 1360, 620), '#ffffff', '#e5e7eb', 0)
+text(draw, 940, 250, 'void setup() {', 22, '#94a3b8')
+text(draw, 940, 295, '}', 22, '#94a3b8')
+text(draw, 940, 350, 'void loop() {', 22, '#94a3b8')
+text(draw, 940, 395, '}', 22, '#94a3b8')
+box(draw, (620, 450, 1260, 575), '#e8f5e9', '#2e7d32', 4)
+text(draw, 940, 490, 'Ini tampilan yang benar, bukan layar error.', 22, '#14532d')
+text(draw, 940, 535, 'Bukan menu Tools lama. Bukan screenshot gelap.', 18, '#166534')
+arrow(draw, (118, 410), (210, 410), '#f59e0b', 6, 14)
+text(draw, 700, 700, 'Ilustrasi buatan Koding Indonesia (FS-34), meniru Arduino IDE 2. Acuan: docs.arduino.cc (CC BY-SA 4.0).', 16, '#353535')
+save(image, 'fs34-library-manager.png')
 
 # Wiring — arrows with heads, match labels not physical pin order
 image = Image.new('RGB', (1200, 675), '#f5f5f0')
