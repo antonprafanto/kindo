@@ -182,7 +182,9 @@ jobs:
           done
 
       - name: Seed FS-34 draft immediately
-        if: steps.curl104_priority.outcome == 'success'
+        # Paused 13 Agu 2026: CMS deleted FS-32..FS-34; recreate one-by-one starting at FS-32.
+        # Restore: if: steps.curl104_priority.outcome == 'success'
+        if: false
         env:
           DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
         run: |
@@ -223,7 +225,9 @@ jobs:
           done
 
       - name: Seed FS-33 draft immediately
-        if: steps.curl103_priority.outcome == 'success'
+        # Paused 13 Agu 2026: CMS deleted FS-32..FS-34; recreate one-by-one starting at FS-32.
+        # Restore: if: steps.curl103_priority.outcome == 'success'
+        if: false
         env:
           DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
         run: |
