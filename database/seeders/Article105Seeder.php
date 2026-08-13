@@ -44,7 +44,7 @@ class Article105Seeder extends Seeder
             'seo_title' => 'ESP32 Terima Perintah MQTT untuk Relay — FS-35',
             'seo_title_en' => 'ESP32 Receives MQTT Commands for a Relay — FS-35',
             'seo_description' => 'Panduan pemula mengendalikan relay ESP32 dari MQTTX lewat Mosquitto lokal: topic command, status JSON, GPIO 26, tanpa AC 220V.',
-            'seo_description_en' => 'Beginner guide to control an ESP32 relay from MQTTX via local Mosquitto: command topic, JSON status, GPIO 26, no AC mains.',
+            'seo_description_en' => 'A first lab to control an ESP32 relay from MQTTX via local Mosquitto: command topic, JSON status, GPIO 26, no AC mains.',
         ]);
         $article->tags()->sync(Tag::whereIn('slug', ['fullstack-iot', 'iot', 'mqtt', 'esp32', 'relay', 'json'])->pluck('id'));
 
@@ -243,7 +243,7 @@ class Article105Seeder extends Seeder
 
         return <<<'HTML'
 <h2>Pendahuluan — perintah turun ke relay</h2>
-<p><strong>FS-35 / #105 (ini)</strong> membalik arah FS-34. Kemarin ESP32 mengirim telemetry. Hari ini MQTTX mengirim perintah, ESP32 mendengarkan, lalu relay di GPIO 26 berklik.</p>
+<p><strong>FS-35 / #105 (ini)</strong> membalik arah FS-34. Kemarin ESP32 mengirim telemetri. Hari ini MQTTX mengirim perintah, ESP32 mendengarkan, lalu relay di GPIO 26 berbunyi klik.</p>
 <p><strong>Intinya:</strong> ESP32 menjadi pendengar perintah. Mosquitto tetap menjadi kantor pos. MQTTX menulis surat <code>on</code> atau <code>off</code>.</p>
 <p><strong>Analogi:</strong> FS-34 adalah termometer yang mengirim angka. FS-35 adalah sakelar jarak jauh di meja belajar. Kamu menekan Publish di PC, relay di papan berbunyi klik.</p>
 <p>Prasyarat lab: Mosquitto lokal dan MQTTX dari FS-33/FS-34, plus pola relay GPIO 26 dari FS-23. DHT22 <strong>tidak</strong> dipakai hari ini agar meja kerja lebih sederhana.</p>

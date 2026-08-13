@@ -97,6 +97,8 @@ check105('ten checklist items match in both languages', checklistItems105($body)
 check105('one paper list in each checklist section', substr_count(explode('<h2>', explode('id="fsiot-command-checklist"', $body, 2)[1] ?? '', 2)[0], '<ul') === 1 && substr_count(explode('<h2>', explode('id="fsiot-command-checklist"', $bodyEn, 2)[1] ?? '', 2)[0], '<ul') === 1);
 check105('next module is FS-36', str_contains($body, 'FS-36') && str_contains($bodyEn, 'FS-36'));
 check105('EYD avoids sungguhan', ! str_contains($body, 'sungguhan') && str_contains($body, 'Pesan yang sama harus muncul'));
+check105('EYD uses telemetri not English telemetry in ID', str_contains($body, 'telemetri') && ! str_contains($body, 'telemetry'));
+check105('diagram warning copy is a lab note not an error banner', str_contains(file_get_contents($root.'/scripts/gen-fs35-assets.py'), "Catatan lab:") && str_contains(file_get_contents($root.'/scripts/gen-fs35-assets.py'), "'#b45309'") && ! str_contains(file_get_contents($root.'/scripts/gen-fs35-assets.py'), "'#b91c1c'"));
 check105('no Awam or Beginner stamps', ! preg_match('/\bAwam:|\bBeginner:/', $body.$bodyEn));
 check105('no hard links to draft articles', ! preg_match('#/artikel/fullstack-iot-[a-z0-9-]+#', $body.$bodyEn));
 check105('deploy hook needles for FS-35', str_contains($controller, "'Subscribe command siap.'") && str_contains($controller, "'listener_allow_anonymous'") && str_contains($controller, "'FS-36'"));

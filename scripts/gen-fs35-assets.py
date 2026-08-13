@@ -72,7 +72,7 @@ image = Image.new('RGB', (1400, 650), '#f5f5f0')
 draw = ImageDraw.Draw(image)
 header(draw, 1400, 'Urutan tools FS-35 — lima langkah, jangan loncat', 'Relay baru diuji setelah library, kabel, dan broker siap')
 steps = [
-    ('1', 'Buka browser', 'baca langkah\n& sumber resmi', '#fff8e1', '#f9a825'),
+    ('1', 'Buka browser', 'baca langkah\ndan sumber resmi', '#fff8e1', '#f9a825'),
     ('2', 'Arduino IDE', 'ikon buku\nArduinoMqttClient', '#e3f2fd', '#1565c0'),
     ('3', 'Kabel relay', '5V · GPIO 26\n· GND', '#e8f5e9', '#2e7d32'),
     ('4', 'PowerShell', 'ipconfig +\nbroker tetap hidup', '#e0f2f1', '#00897b'),
@@ -88,7 +88,7 @@ for index, (number, title, body, fill, color) in enumerate(steps):
         text(draw, left + 129, 365 + line_index * 36, line, 16, '#353535')
     if index < 4:
         arrow(draw, (left + 262, 338), (left + 273, 338), '#1f1f1f', 5, 12)
-text(draw, 700, 585, 'Belum AC 220V. Lab memakai Wi-Fi rumah yang sama. Jangan guest Wi-Fi atau broker publik.', 18, '#b91c1c')
+text(draw, 700, 585, 'Catatan lab: belum AC 220V. Pakai Wi-Fi rumah yang sama. Bukan guest Wi-Fi atau broker publik.', 18, '#b45309')
 save(image, 'fs35-tools-order.png')
 
 # Wiring — labels not physical pin order
@@ -107,7 +107,7 @@ for y, pin, color in [(300, 'VCC / +', '#ef4444'), (380, 'IN / S', '#1565c0'), (
     text(draw, 930, y, pin, 22, color)
 for y, color in [(300, '#ef4444'), (380, '#1565c0'), (460, '#374151')]:
     arrow(draw, (410, y), (790, y), color, 8, 18)
-text(draw, 600, 590, 'Bukan AC 220V. Terminal sekrup NC/COM/NO boleh kosong. Bukti sukses = klik + LED.', 18, '#b91c1c')
+text(draw, 600, 590, 'Catatan lab: bukan AC 220V. Terminal NC/COM/NO boleh kosong. Bukti sukses = klik + LED.', 18, '#b45309')
 save(image, 'fs35-wiring-relay.png')
 
 # LAN boundary
@@ -118,8 +118,8 @@ box(draw, (70, 175, 500, 545), '#e3f2fd', '#1565c0')
 text(draw, 285, 230, 'ESP32 + relay', 30, '#1565c0')
 text(draw, 285, 310, 'MQTT_HOST =', 24)
 text(draw, 285, 365, '192.168.1.23', 30, '#b45309')
-text(draw, 285, 430, 'bukan 127.0.0.1', 22, '#b91c1c')
-text(draw, 285, 480, 'bukan localhost', 20, '#b91c1c')
+text(draw, 285, 430, 'bukan 127.0.0.1', 22, '#b45309')
+text(draw, 285, 480, 'bukan localhost', 20, '#b45309')
 box(draw, (800, 175, 1230, 545), '#e8f5e9', '#2e7d32')
 text(draw, 1015, 230, 'PC / laptop', 32, '#2e7d32')
 text(draw, 1015, 310, 'Mosquitto + MQTTX', 24)
@@ -153,7 +153,7 @@ arrow(draw, (1040, 470), (640, 470), '#0d9488', 7, 16)
 arrow(draw, (360, 470), (300, 470), '#0d9488', 7, 16)
 text(draw, 700, 505, 'status JSON kembali lewat Mosquitto (kantor pos) ke MQTTX', 20, '#0f766e')
 text(draw, 700, 575, 'command: .../esp32-meja-01/command   ·   status: .../esp32-meja-01/status', 18, '#334155')
-text(draw, 700, 655, 'Siapa saja di Wi-Fi rumah bisa mengirim perintah lab ini. Hentikan broker dengan Ctrl+C.', 18, '#b91c1c')
+text(draw, 700, 655, 'Catatan lab: siapa saja di Wi-Fi rumah bisa mengirim perintah. Hentikan broker dengan Ctrl+C.', 18, '#b45309')
 save(image, 'fs35-command-flow.png')
 
 # MQTTX publish illustration — light chrome so it does not look like a broken image on the dark site
@@ -201,7 +201,7 @@ for index, (number, title, body, fill, color) in enumerate(checks):
         text(draw, left + 150, 375 + line_index * 38, line, 20, '#353535')
     if index < 3:
         arrow(draw, (left + 308, 332), (left + 337, 332), '#1f1f1f', 6, 14)
-text(draw, 700, 575, 'JSON harus huruf kecil on/off dan device_id persis. Bukan AC 220V.', 20, '#b91c1c')
+text(draw, 700, 575, 'Catatan lab: JSON huruf kecil on/off, device_id persis. Bukan AC 220V.', 20, '#b45309')
 save(image, 'fs35-troubleshooting.png')
 
 # Library Manager — official Arduino screenshots look dimmed/broken on the dark site
