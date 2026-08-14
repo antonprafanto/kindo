@@ -178,7 +178,7 @@ jobs:
           upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
           upload "lang/id/ui.php" "${APP}lang/id/ui.php"
           upload "lang/en/ui.php" "${APP}lang/en/ui.php"
-          for img in fs37-cover-forward.jpg fs37-cover-forward.webp fs37-tools-order.png fs37-offline-online.png fs37-ram-vs-sd.png fs37-pending-csv.png fs37-serial-monitor.png fs37-mqttx-backfill.png fs37-troubleshooting.png fs36-wiring-spi.png fs34-lan-address.png kit-microsd-card.jpg kit-dht22.jpg; do
+          for img in fs37-cover-forward.jpg fs37-cover-forward.webp fs37-tools-order.png fs37-offline-online.png fs37-ram-vs-sd.png fs37-pending-csv.png fs37-serial-monitor.png fs37-mqttx-backfill.png fs37-troubleshooting.png fs37-two-wifi.png fs37-hotspot-demo.png fs36-wiring-spi.png fs36-modul-kit.png kit-microsd-card.jpg kit-microsd-spi.jpg kit-dht22.jpg; do
             upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
             upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
           done

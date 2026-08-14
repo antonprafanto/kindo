@@ -323,8 +323,11 @@ class Article107Seeder extends Seeder
         $serial = $this->figure('fs37-serial-monitor.png', 'Ilustrasi Serial Monitor menampilkan Kartu siap, Wi-Fi putus, dan Kirim ulang dari kartu', '<strong>Buka Tools → Serial Monitor, baud 115200.</strong> Cari <code>Kartu siap. Antrian di /pending.csv</code>, lalu saat hotspot mati <code>Wi-Fi putus. Disimpan ke pending.csv</code>, lalu <code>Kirim ulang dari kartu:</code>. Ilustrasi buatan Koding Indonesia (FS-37), meniru Serial Monitor Arduino IDE 2. Screenshot jendela resmi tidak dipakai utuh. Acuan menu: dokumentasi Arduino IDE 2, Arduino S.r.l., Creative Commons Attribution-Share Alike 4.0.');
         $mqttx = $this->figure('fs37-mqttx-backfill.png', 'Ilustrasi MQTTX menampilkan pesan live from_sd false lalu kiriman ulang from_sd true', '<strong>MQTTX sudah menampilkan kiriman ulang dari kartu.</strong> Host = IPv4 PC, Port = <code>1883</code>. Pesan <code>from_sd: true</code> datang berdekatan setelah hotspot nyala. Ilustrasi buatan Koding Indonesia (FS-37), meniru tata letak <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX oleh EMQ</a> (Apache License 2.0). Screenshot jendela resmi tidak dipakai utuh karena sering menampilkan broker publik. Angka <code>192.168.1.23</code> hanya contoh.');
         $troubleshooting = $this->figure('fs37-troubleshooting.png', 'Empat pemeriksaan jika antrian microSD tidak terkirim ulang ke MQTTX', '<strong>Skema bantu.</strong> Periksa hotspot HP, jendela Mosquitto, kartu pending.csv, lalu MQTTX. Diagram buatan Koding Indonesia (FS-37).');
+        $twoWifi = $this->figure('fs37-two-wifi.png', 'PC tetap di Wi-Fi rumah menjalankan Mosquitto, ESP32 memakai hotspot HP, MQTT_HOST adalah IPv4 PC', '<strong>Dua Wi-Fi, satu tujuan.</strong> PC + Mosquitto tetap di Wi-Fi rumah. ESP32 memakai hotspot HP. <code>MQTT_HOST</code> = IPv4 PC dari <code>ipconfig</code>, bukan <code>127.0.0.1</code>. Diagram buatan Koding Indonesia (FS-37).');
+        $hotspot = $this->figure('fs37-hotspot-demo.png', 'Urutan demo: buka panel HP, matikan hotspot, PC dan Mosquitto tetap hidup, lalu nyalakan hotspot lagi', '<strong>Buka dulu panel HP.</strong> Geser dari atas layar (atau buka Pengaturan), ketuk Hotspot sampai mati 20–40 detik, lalu nyalakan lagi. USB ESP32 tetap colok. Diagram buatan Koding Indonesia (FS-37).');
         $wiring = $this->figure('fs36-wiring-spi.png', 'Wiring microSD SPI dan DHT22 ke ESP32 sama seperti FS-36, termasuk GND modul SD', '<strong>Wiring hari ini sama seperti FS-36.</strong> CS → GPIO 5, SCK → GPIO 18, MISO → GPIO 19, MOSI → GPIO 23, DHT22 DATA → GPIO 4, <strong>GND modul SD juga ke GND ESP32</strong>. Jangan colok AC 220V. Diagram buatan Koding Indonesia (FS-36), dipakai lagi di FS-37 karena pin tidak berubah.');
-        $lan = $this->figure('fs34-lan-address.png', 'ESP32 memakai IPv4 LAN PC sebagai MQTT_HOST, bukan 127.0.0.1', '<strong>Aturan penting:</strong> <code>127.0.0.1</code> pada ESP32 berarti ESP32 itu sendiri. Host MQTTX dan <code>MQTT_HOST</code> = IPv4 PC dari <code>ipconfig</code>. Diagram buatan Koding Indonesia (FS-34), tetap berlaku.');
+        $kitModule = $this->figure('fs36-modul-kit.png', 'Ilustrasi modul microSD SPI kit dengan enam pin CS SCK MOSI MISO VCC GND', '<strong>Kenali modul kit dulu.</strong> Toko sering menjual papan biru enam pin seperti ini. Baca tulisannya: CS, SCK, MOSI, MISO, VCC, GND. Urutan kaki di papanmu boleh berbeda. Ilustrasi buatan Koding Indonesia (FS-36).');
+        $spiPhoto = $this->figure('kit-microsd-spi.jpg', 'Contoh rupa papan breakout microSD SPI Adafruit delapan pin, bukan modul kit enam pin', '<strong>Bentuk lain, delapan pin.</strong> Ini breakout Adafruit (ada kaki CD, 3V, dan 5V). Kit toko sering hanya enam pin seperti ilustrasi di atas. Busnya tetap SPI. <strong>Jangan menyalin urutan kaki dari foto.</strong> Wiring menurut tulisan pin dan tabel GPIO. Sumber: <a href="https://commons.wikimedia.org/wiki/File:SD_Card_Breakout_Board.jpg" target="_blank" rel="noopener noreferrer">SD Card Breakout Board</a> · oomlout · Wikimedia Commons · Creative Commons Attribution-Share Alike 2.0.');
         $cardPhoto = $this->figure('kit-microsd-card.jpg', 'Contoh rupa kartu microSD dan adapter SD plastik untuk slot laptop', '<strong>Contoh rupa kartu saja.</strong> Adapter plastik untuk slot laptop, <strong>bukan</strong> modul SPI. <strong>Jangan menyambungkannya ke pin ESP32.</strong> <strong>Jangan menyalin urutan kaki dari foto.</strong> Sumber: <a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" target="_blank" rel="noopener noreferrer">2015 Karta microSD z adapterem SD</a> · Jacek Halicki · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $dhtPhoto = $this->figure('kit-dht22.jpg', 'Contoh rupa modul DHT22 AM2302 dengan pin DAT, VCC, dan GND', '<strong>Contoh rupa sensor.</strong> <strong>Jangan menyalin urutan kaki dari foto.</strong> Wiring tetap VCC → 3V3, DATA atau DAT → GPIO 4, GND → GND. Sumber: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $install = $this->stepsCard([
@@ -332,7 +335,7 @@ class Article107Seeder extends Seeder
             ['title' => 'Buka MQTTX setelah broker berjalan', 'text' => 'Mosquitto dulu, seperti FS-34: jendela tetap terbuka dan terlihat <code>1883</code>. Baru kemudian MQTTX. Host = <strong>IPv4 PC</strong> (bukan <code>127.0.0.1</code>), Port <code>1883</code>, subscribe <code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code>.'],
             ['title' => 'Buka Arduino IDE', 'text' => '<code>SD.h</code> sudah di core ESP32. <code>ArduinoMqttClient</code>, ArduinoJson, dan DHT biasanya sudah ada dari FS-34. Jika Verify mengeluh, klik ikon tiga buku di bilah kiri. Itu satu-satunya jalur yang dipakai hari ini.'],
             ['title' => 'Periksa kabel SPI dan DHT22', 'text' => 'Sama seperti FS-36. Cabut USB dulu. CS → GPIO 5, SCK → GPIO 18, MISO → GPIO 19, MOSI → GPIO 23, DHT22 DATA → GPIO 4. Jangan colok AC 220V. Relay GPIO 26 <strong>tidak</strong> dipakai hari ini.'],
-            ['title' => 'Upload, Serial Monitor, lalu matikan hotspot HP', 'text' => 'Tools → Serial Monitor, baud 115200. Setelah ada <code>Terkirim:</code> di MQTTX, matikan hotspot HP (bukan router rumah). Nyalakan lagi, cari <code>Kirim ulang dari kartu:</code>.'],
+            ['title' => 'Upload, Serial Monitor, lalu buka panel HP', 'text' => 'Tools → Serial Monitor, baud 115200. Setelah ada <code>Terkirim:</code> di MQTTX, <strong>buka dulu panel atas HP</strong> (geser dari atas, atau buka Pengaturan). Ketuk Hotspot sampai mati — bukan router rumah, bukan Wi-Fi laptop. Nyalakan lagi, cari <code>Kirim ulang dari kartu:</code>.'],
         ], '<strong>Cara menguji hari ini:</strong> bukti sukses = MQTTX sempat sepi saat hotspot mati, lalu terisi pesan <code>from_sd: true</code> setelah hotspot nyala, dan Serial menulis <code>Kirim ulang dari kartu:</code>.');
 
         return <<<'HTML'
@@ -359,7 +362,7 @@ class Article107Seeder extends Seeder
 <li><strong><code>log.csv</code></strong> — arsip semua sampel, kolom terakhir <code>mqtt</code> atau <code>kartu</code>.</li>
 <li><strong><code>from_sd</code></strong> — field JSON. <code>false</code> = langsung dari sensor. <code>true</code> = kiriman ulang dari kartu.</li>
 <li><strong>Hotspot HP</strong> — Wi-Fi yang dipakai ESP32 hari ini. PC tetap di Wi-Fi rumah agar Mosquitto tidak ikut mati.</li>
-<li><strong>RAM tak terbatas</strong> — kesalahan awam: menumpuk array di memori sampai ESP32 mentok atau reset. Lab ini tidak memakai cara itu.</li>
+<li><strong>RAM tak terbatas</strong> — kesalahan yang sering terjadi: menumpuk array di memori sampai ESP32 mentok atau reset. Lab ini tidak memakai cara itu.</li>
 </ul>
 
 <h2>Persiapan — buka tool yang benar dulu</h2>
@@ -370,18 +373,18 @@ HTML
 
 <h2>Topologi lab — dua Wi-Fi, satu tujuan</h2>
 HTML
-            .$flow.<<<'HTML'
+            .$flow.$twoWifi.<<<'HTML'
 <p>Kalau ESP32 dan PC memakai router yang sama, mematikan router membuat Mosquitto ikut mati. Itu bukan demo antrian.</p>
 <ol>
 <li><strong>PC</strong> tetap di Wi-Fi rumah (atau kabel LAN). Di situlah Mosquitto dan MQTTX.</li>
 <li><strong>ESP32</strong> tersambung ke <strong>hotspot HP</strong>. SSID dan sandi hotspot itulah yang ditulis di sketch.</li>
-<li>Demo: matikan hotspot HP kira-kira 20–40 detik, lalu nyalakan lagi. USB ESP32 tetap terpasang.</li>
+<li>Demo: <strong>buka dulu panel HP</strong>, matikan hotspot kira-kira 20–40 detik, lalu nyalakan lagi. USB ESP32 tetap terpasang.</li>
 </ol>
-<p>HP dan PC tidak perlu saling melihat sebagai hotspot. Yang penting: ESP32 bisa ke internet hotspot, dan ESP32 bisa mencapai IPv4 PC di LAN rumah. Banyak hotspot HP memblokir lalu lintas ke LAN rumah. Jika MQTT gagal meski hotspot nyala, izinkan <em>client isolation</em> dimatikan, atau pakai hotspot yang satu subnet dengan PC. Jika masih buntu, sambungkan PC ke hotspot HP juga — lalu <code>ipconfig</code> lagi, karena IPv4 PC akan berubah.</p>
+<p>Kadang hotspot HP tidak mengizinkan ESP32 bicara ke laptop di Wi-Fi rumah. Gejalanya: hotspot nyala, tapi MQTT tetap gagal. Jalan paling sederhana: sambungkan PC ke hotspot HP yang sama, lalu <code>ipconfig</code> lagi karena IPv4 PC akan berubah. Tempel IPv4 baru ke Mosquitto dan ke sketch.</p>
 
 <h2>Cari IPv4 PC dan jalankan Mosquitto</h2>
 HTML
-            .$lan.<<<'HTML'
+            .<<<'HTML'
 <p><strong>Buka dulu PowerShell:</strong> tekan Start → ketik <strong>PowerShell</strong> → pilih <strong>Windows PowerShell</strong>. Tidak perlu <em>Run as administrator</em>.</p>
 <p><strong>Cara menempel perintah:</strong> salin baris di bawah, klik jendela PowerShell, lalu <kbd>Ctrl</kbd>+<kbd>V</kbd> atau klik kanan. Setelah teks muncul, tekan Enter.</p>
 <pre><code>ipconfig</code></pre>
@@ -412,7 +415,7 @@ listener_allow_anonymous true</code></pre>
 
 <h2>Pasang kabel — sama seperti FS-36</h2>
 HTML
-            .$wiring.$cardPhoto.$dhtPhoto.<<<'HTML'
+            .$wiring.$kitModule.$spiPhoto.$cardPhoto.$dhtPhoto.<<<'HTML'
 <p>Cabut USB ESP32 sebelum merapikan kabel. Pin SPI dikunci:</p>
 <table>
 <thead><tr><th>Tulisan di modul SD</th><th>GPIO ESP32</th></tr></thead>
@@ -442,13 +445,13 @@ HTML
 
 <h2>Upload, lalu demo hotspot</h2>
 HTML
-            .$serial.<<<'HTML'
+            .$serial.$hotspot.<<<'HTML'
 <ol>
 <li>Verify dan Upload. Buka <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
 <li>Cari <code>Kartu siap. Antrian di /pending.csv</code> dan <code>Antrian hanya di kartu, bukan RAM tak terbatas.</code></li>
 <li>Cari <code>MQTT tersambung. Mengirim antrian kartu.</code> lalu <code>Terkirim:</code>.</li>
 <li>Pastikan MQTTX menampilkan JSON <code>from_sd</code> bernilai <code>false</code>.</li>
-<li>Matikan hotspot HP. USB ESP32 tetap terpasang. Jangan matikan router rumah.</li>
+<li><strong>Buka dulu panel atas HP</strong> (geser dari atas, atau buka Pengaturan). Ketuk Hotspot sampai mati. USB ESP32 tetap terpasang. Jangan matikan router rumah. Jangan matikan Wi-Fi laptop.</li>
 <li>Serial menulis <code>Wi-Fi putus. Disimpan ke pending.csv</code>. MQTTX berhenti mendapat pesan baru.</li>
 <li>Nyalakan hotspot HP. Serial menulis <code>Kirim ulang dari kartu:</code>.</li>
 </ol>
@@ -517,9 +520,10 @@ HTML
 <li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Arduino — Installing libraries (IDE 2)</a>. Creative Commons Attribution-Share Alike 4.0. Arduino adalah merek Arduino S.r.l.</li>
 <li><a href="https://mosquitto.org/man/mosquitto-conf-5.html" target="_blank" rel="noopener noreferrer">Mosquitto — konfigurasi listener</a></li>
 <li><a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX oleh EMQ</a> (Apache License 2.0)</li>
+<li><a href="https://commons.wikimedia.org/wiki/File:SD_Card_Breakout_Board.jpg" target="_blank" rel="noopener noreferrer">SD Card Breakout Board</a> · oomlout · Wikimedia Commons · Creative Commons Attribution-Share Alike 2.0. Jangan menyalin urutan kaki dari foto.</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" target="_blank" rel="noopener noreferrer">2015 Karta microSD z adapterem SD</a> · Jacek Halicki · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0. Foto hanya contoh rupa; adapter bukan modul SPI.</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0. Jangan menyalin urutan kaki dari foto.</li>
-<li>Diagram urutan tools, alur putus-nyambung, RAM lawan kartu, berkas pending, Serial Monitor, MQTTX, dan skema periksa — Koding Indonesia (FS-37). Wiring SPI dari FS-36. Diagram LAN dari FS-34.</li>
+<li>Diagram urutan tools, alur putus-nyambung, dua Wi-Fi, demo hotspot, RAM lawan kartu, berkas pending, Serial Monitor, MQTTX, dan skema periksa — Koding Indonesia (FS-37). Wiring SPI dan ilustrasi kit enam pin dari FS-36.</li>
 </ul>
 
 <h2>Selanjutnya</h2>
@@ -537,8 +541,11 @@ HTML;
         $serial = $this->figure('fs37-serial-monitor.png', 'Serial Monitor illustration showing Kartu siap, Wi-Fi putus, and Kirim ulang dari kartu', '<strong>Open Tools → Serial Monitor, baud 115200.</strong> Look for <code>Kartu siap. Antrian di /pending.csv</code>, then <code>Wi-Fi putus. Disimpan ke pending.csv</code> when the hotspot is off, then <code>Kirim ulang dari kartu:</code>. Illustration by Koding Indonesia (FS-37), modelled on Arduino IDE 2. The official window screenshot is not used as-is. Menu reference: Arduino IDE 2 docs, Arduino S.r.l., Creative Commons Attribution-Share Alike 4.0.');
         $mqttx = $this->figure('fs37-mqttx-backfill.png', 'MQTTX illustration showing live from_sd false then backfill from_sd true', '<strong>MQTTX is already showing the card backfill.</strong> Host = PC IPv4, Port = <code>1883</code>. <code>from_sd: true</code> messages arrive close together after the hotspot returns. Illustration by Koding Indonesia (FS-37), modelled on <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX by EMQ</a> (Apache License 2.0). The official window screenshot is not used as-is because it often shows a public broker. <code>192.168.1.23</code> is only an example.');
         $troubleshooting = $this->figure('fs37-troubleshooting.png', 'Four checks when the microSD queue is not resent to MQTTX', '<strong>Helper schematic.</strong> Check the phone hotspot, the Mosquitto window, pending.csv, then MQTTX. Diagram by Koding Indonesia (FS-37).');
+        $twoWifi = $this->figure('fs37-two-wifi.png', 'PC stays on home Wi-Fi running Mosquitto, ESP32 uses the phone hotspot, MQTT_HOST is the PC IPv4', '<strong>Two Wi-Fi paths, one goal.</strong> The PC + Mosquitto stay on home Wi-Fi. The ESP32 uses the phone hotspot. <code>MQTT_HOST</code> = the PC IPv4 from <code>ipconfig</code>, not <code>127.0.0.1</code>. Diagram by Koding Indonesia (FS-37).');
+        $hotspot = $this->figure('fs37-hotspot-demo.png', 'Demo order: open the phone panel, turn the hotspot off, leave the PC and Mosquitto running, then turn the hotspot on', '<strong>Open the phone panel first.</strong> Swipe down (or open Settings), tap Hotspot off for 20–40 seconds, then turn it back on. Leave ESP32 USB plugged in. Diagram by Koding Indonesia (FS-37).');
         $wiring = $this->figure('fs36-wiring-spi.png', 'microSD SPI and DHT22 wiring to ESP32, same as FS-36, including SD module GND', '<strong>Wiring today is the same as FS-36.</strong> CS → GPIO 5, SCK → GPIO 18, MISO → GPIO 19, MOSI → GPIO 23, DHT22 DATA → GPIO 4, and <strong>the SD module GND also goes to ESP32 GND</strong>. Do not connect AC mains. Diagram by Koding Indonesia (FS-36), reused in FS-37 because the pins did not change.');
-        $lan = $this->figure('fs34-lan-address.png', 'ESP32 uses the PC LAN IPv4 as MQTT_HOST, not 127.0.0.1', '<strong>Important:</strong> <code>127.0.0.1</code> on the ESP32 means the ESP32 itself. MQTTX Host and <code>MQTT_HOST</code> = the PC IPv4 from <code>ipconfig</code>. Diagram by Koding Indonesia (FS-34), still valid.');
+        $kitModule = $this->figure('fs36-modul-kit.png', 'Illustration of a typical six-pin kit microSD SPI module labelled CS SCK MOSI MISO VCC GND', '<strong>Recognise the kit module first.</strong> Shops often sell a blue six-pin board like this. Read the print: CS, SCK, MOSI, MISO, VCC, GND. The physical order on your board may differ. Illustration by Koding Indonesia (FS-36).');
+        $spiPhoto = $this->figure('kit-microsd-spi.jpg', 'Example Adafruit eight-pin microSD SPI breakout, not a six-pin kit module', '<strong>Another shape, eight pins.</strong> This is an Adafruit breakout (extra CD, 3V, and 5V pads). Shop kits often have only six pins, as in the illustration above. The bus is still SPI. <strong>Do not copy pin order from the photo.</strong> Wiring follows the printed labels and the GPIO table. Source: <a href="https://commons.wikimedia.org/wiki/File:SD_Card_Breakout_Board.jpg" target="_blank" rel="noopener noreferrer">SD Card Breakout Board</a> · oomlout · Wikimedia Commons · Creative Commons Attribution-Share Alike 2.0.');
         $cardPhoto = $this->figure('kit-microsd-card.jpg', 'Example microSD card and plastic SD adapter for a laptop slot', '<strong>Appearance example only.</strong> The plastic adapter is for a laptop slot, <strong>not</strong> an SPI module. <strong>Do not wire it to ESP32 pins.</strong> <strong>Do not copy pin order from the photo.</strong> Source: <a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" target="_blank" rel="noopener noreferrer">2015 Karta microSD z adapterem SD</a> · Jacek Halicki · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $dhtPhoto = $this->figure('kit-dht22.jpg', 'Example DHT22 AM2302 module with DAT, VCC, and GND pins', '<strong>Sensor appearance only.</strong> <strong>Do not copy pin order from the photo.</strong> Wiring is still VCC → 3V3, DATA or DAT → GPIO 4, GND → GND. Source: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $install = $this->stepsCard([
@@ -546,7 +553,7 @@ HTML;
             ['title' => 'Open MQTTX after the broker is running', 'text' => 'Mosquitto first, as in FS-34: keep the window open and look for <code>1883</code>. Only then MQTTX. Host = <strong>PC IPv4</strong> (not <code>127.0.0.1</code>), Port <code>1883</code>, subscribe <code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code>.'],
             ['title' => 'Open Arduino IDE', 'text' => '<code>SD.h</code> already ships in the ESP32 core. ArduinoMqttClient, ArduinoJson, and DHT are usually already there from FS-34. If Verify complains, click the three-book icon in the left bar. That is the only path used today.'],
             ['title' => 'Check the SPI and DHT22 wiring', 'text' => 'Same as FS-36. Unplug USB first. CS → GPIO 5, SCK → GPIO 18, MISO → GPIO 19, MOSI → GPIO 23, DHT22 DATA → GPIO 4. Do not connect AC mains. The GPIO 26 relay is <strong>not</strong> used today.'],
-            ['title' => 'Upload, Serial Monitor, then turn off the phone hotspot', 'text' => 'Tools → Serial Monitor, baud 115200. After <code>Terkirim:</code> appears in MQTTX, turn off the phone hotspot (not the home router). Turn it back on and look for <code>Kirim ulang dari kartu:</code>.'],
+            ['title' => 'Upload, Serial Monitor, then open the phone panel', 'text' => 'Tools → Serial Monitor, baud 115200. After <code>Terkirim:</code> appears in MQTTX, <strong>open the phone panel first</strong> (swipe down, or open Settings). Tap Hotspot off — not the home router, not laptop Wi-Fi. Turn it back on and look for <code>Kirim ulang dari kartu:</code>.'],
         ], '<strong>How to test today:</strong> success = MQTTX goes quiet while the hotspot is off, then fills with <code>from_sd: true</code> after the hotspot returns, and Serial prints <code>Kirim ulang dari kartu:</code>.');
 
         return <<<'HTML'
@@ -584,18 +591,18 @@ HTML
 
 <h2>Lab topology — two Wi-Fi paths, one goal</h2>
 HTML
-            .$flow.<<<'HTML'
+            .$flow.$twoWifi.<<<'HTML'
 <p>If the ESP32 and the PC share one router, turning that router off also kills Mosquitto. That is not a queue demo.</p>
 <ol>
 <li>The <strong>PC</strong> stays on home Wi-Fi (or Ethernet). That is where Mosquitto and MQTTX run.</li>
 <li>The <strong>ESP32</strong> joins the <strong>phone hotspot</strong>. That SSID and password go in the sketch.</li>
-<li>Demo: turn the phone hotspot off for about 20–40 seconds, then turn it back on. Leave ESP32 USB plugged in.</li>
+<li>Demo: <strong>open the phone panel first</strong>, turn the hotspot off for about 20–40 seconds, then turn it back on. Leave ESP32 USB plugged in.</li>
 </ol>
-<p>The phone and PC do not need to see each other as a hotspot. The ESP32 must reach the PC IPv4. Many phone hotspots block LAN. If MQTT fails while the hotspot is on, disable client isolation, or put the PC on the same hotspot and run <code>ipconfig</code> again because the PC IPv4 will change.</p>
+<p>Some phone hotspots will not let the ESP32 talk to a laptop that is still on home Wi-Fi. The symptom: the hotspot is on, but MQTT still fails. The simple fix: put the PC on the same hotspot, then run <code>ipconfig</code> again because the PC IPv4 will change. Paste the new IPv4 into Mosquitto and the sketch.</p>
 
 <h2>Find the PC IPv4 and start Mosquitto</h2>
 HTML
-            .$lan.<<<'HTML'
+            .<<<'HTML'
 <p><strong>Open PowerShell first:</strong> Start → type <strong>PowerShell</strong> → choose <strong>Windows PowerShell</strong>. You do not need <em>Run as administrator</em>.</p>
 <p><strong>How to paste:</strong> copy the line below, click the PowerShell window, then <kbd>Ctrl</kbd>+<kbd>V</kbd> or right-click. When the text appears, press Enter.</p>
 <pre><code>ipconfig</code></pre>
@@ -626,7 +633,7 @@ listener_allow_anonymous true</code></pre>
 
 <h2>Wire the cables — same as FS-36</h2>
 HTML
-            .$wiring.$cardPhoto.$dhtPhoto.<<<'HTML'
+            .$wiring.$kitModule.$spiPhoto.$cardPhoto.$dhtPhoto.<<<'HTML'
 <p>Unplug ESP32 USB before tidying cables. SPI pins stay locked:</p>
 <table>
 <thead><tr><th>Label on the SD module</th><th>ESP32 GPIO</th></tr></thead>
@@ -656,13 +663,13 @@ HTML
 
 <h2>Upload, then run the hotspot demo</h2>
 HTML
-            .$serial.<<<'HTML'
+            .$serial.$hotspot.<<<'HTML'
 <ol>
 <li>Verify and Upload. Open <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
 <li>Look for <code>Kartu siap. Antrian di /pending.csv</code> and <code>Antrian hanya di kartu, bukan RAM tak terbatas.</code></li>
 <li>Look for <code>MQTT tersambung. Mengirim antrian kartu.</code> then <code>Terkirim:</code>.</li>
 <li>Confirm MQTTX shows JSON with <code>from_sd</code> equal to <code>false</code>.</li>
-<li>Turn off the phone hotspot. Leave ESP32 USB plugged in. Do not turn off the home router.</li>
+<li><strong>Open the phone panel first</strong> (swipe down, or open Settings). Tap Hotspot off. Leave ESP32 USB plugged in. Do not turn off the home router. Do not turn off laptop Wi-Fi.</li>
 <li>Serial prints <code>Wi-Fi putus. Disimpan ke pending.csv</code>. MQTTX stops getting new messages.</li>
 <li>Turn the phone hotspot on. Serial prints <code>Kirim ulang dari kartu:</code>.</li>
 </ol>
@@ -731,9 +738,10 @@ HTML
 <li><a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Arduino — Installing libraries (IDE 2)</a>. Creative Commons Attribution-Share Alike 4.0. Arduino is a trademark of Arduino S.r.l.</li>
 <li><a href="https://mosquitto.org/man/mosquitto-conf-5.html" target="_blank" rel="noopener noreferrer">Mosquitto — listener configuration</a></li>
 <li><a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX by EMQ</a> (Apache License 2.0)</li>
+<li><a href="https://commons.wikimedia.org/wiki/File:SD_Card_Breakout_Board.jpg" target="_blank" rel="noopener noreferrer">SD Card Breakout Board</a> · oomlout · Wikimedia Commons · Creative Commons Attribution-Share Alike 2.0. Do not copy pin order from the photo.</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" target="_blank" rel="noopener noreferrer">2015 Karta microSD z adapterem SD</a> · Jacek Halicki · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0. Appearance only; the adapter is not an SPI module.</li>
 <li><a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0. Do not copy pin order from the photo.</li>
-<li>Tool-order, disconnect-reconnect, RAM versus card, pending files, Serial Monitor, MQTTX, and troubleshooting diagrams — Koding Indonesia (FS-37). SPI wiring from FS-36. LAN diagram from FS-34.</li>
+<li>Tool-order, disconnect-reconnect, two Wi-Fi paths, hotspot demo, RAM versus card, pending files, Serial Monitor, MQTTX, and troubleshooting diagrams — Koding Indonesia (FS-37). SPI wiring and the six-pin kit illustration from FS-36.</li>
 </ul>
 
 <h2>Next</h2>

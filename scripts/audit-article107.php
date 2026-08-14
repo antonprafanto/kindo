@@ -50,21 +50,22 @@ check107('priority deploy and seed exist', str_contains($workflow, 'id: curl107_
 check107('priority upload precedes FS-36 uploads', strpos($workflow, 'id: curl107_priority') < strpos($workflow, 'id: curl106_priority'));
 check107('FS-37 seed is enabled after priority upload', str_contains($workflow, "if: always() && !cancelled() && steps.curl107_priority.conclusion == 'success'"));
 check107('late FS-37 seed is required after FTP', str_contains($workflow, 'Seed article 107 draft via deploy hook (required, pre-launch B)') && str_contains($workflow, 'fullstack-iot-esp32-sd-store-and-forward'));
-check107('FS-37 images are in the priority upload', str_contains($workflow, 'fs37-serial-monitor.png') && str_contains($workflow, 'fs37-mqttx-backfill.png') && str_contains($workflow, 'fs37-pending-csv.png') && str_contains($workflow, 'kit-microsd-card.jpg') && str_contains($workflow, 'kit-dht22.jpg') && str_contains($workflow, 'fs36-wiring-spi.png'));
+check107('FS-37 images are in the priority upload', str_contains($workflow, 'fs37-serial-monitor.png') && str_contains($workflow, 'fs37-mqttx-backfill.png') && str_contains($workflow, 'fs37-two-wifi.png') && str_contains($workflow, 'fs37-hotspot-demo.png') && str_contains($workflow, 'kit-microsd-card.jpg') && str_contains($workflow, 'kit-microsd-spi.jpg') && str_contains($workflow, 'kit-dht22.jpg') && str_contains($workflow, 'fs36-wiring-spi.png') && str_contains($workflow, 'fs36-modul-kit.png'));
 check107('cover is copied into public storage', str_contains($source, 'articles/covers/fs37-cover-forward') && str_contains($source, "Storage::disk('public')->put"));
 check107('trashed slug is restored', str_contains($source, 'withTrashed()') && str_contains($source, 'restore()'));
 check107('ID and EN references', str_contains($body, '#107 (ini)') && str_contains($bodyEn, '#107 (this article)'));
 check107('friendly opening labels', str_contains($body, 'Intinya:') && str_contains($body, 'Analogi:') && str_contains($bodyEn, 'In short:') && str_contains($bodyEn, 'Analogy:'));
 check107('tools-first instructions', str_contains($body, 'Buka browser') && str_contains($body, 'Buka MQTTX') && str_contains($body, 'Buka Arduino IDE') && str_contains($bodyEn, 'Open a browser') && str_contains($bodyEn, 'Open MQTTX') && str_contains($bodyEn, 'Open Arduino IDE'));
-check107('numbered install cards exist', str_contains($body, 'list-style:none') && str_contains($body, 'Upload, Serial Monitor, lalu matikan hotspot HP') && str_contains($bodyEn, 'Upload, Serial Monitor, then turn off the phone hotspot'));
-check107('tools are named before sketch', strpos($body, 'Buka browser') < strpos($body, '#include &lt;SD.h&gt;') && str_contains($body, 'Buka dulu Arduino IDE') && str_contains($body, 'Buka dulu PowerShell'));
+check107('numbered install cards exist', str_contains($body, 'list-style:none') && str_contains($body, 'Upload, Serial Monitor, lalu buka panel HP') && str_contains($bodyEn, 'Upload, Serial Monitor, then open the phone panel'));
+check107('tools are named before sketch', strpos($body, 'Buka browser') < strpos($body, '#include &lt;SD.h&gt;') && str_contains($body, 'Buka dulu Arduino IDE') && str_contains($body, 'Buka dulu PowerShell') && str_contains($body, 'Buka dulu panel atas HP'));
 check107('SD.h is described as ESP32 core not UNO Library Manager', str_contains($body, 'sudah termasuk core') && str_contains($body, 'Jangan</strong> memasang library') && str_contains($bodyEn, 'already ship in the core') && str_contains($bodyEn, 'Do not</strong> install an SD library'));
 check107('DHT and MQTT library path is the book icon', str_contains($body, 'ikon tiga buku') && str_contains($body, 'satu-satunya jalur yang dipakai hari ini') && str_contains($body, 'Jangan memakai menu lama') && ! str_contains($body, 'Sketch → Include Library'));
 check107('Serial Monitor path is Tools menu', str_contains($body, 'Tools → Serial Monitor') && str_contains($bodyEn, 'Tools → Serial Monitor') && str_contains($body, 'bukan</strong> Library Manager'));
 check107('no success-screen error phrasing', ! str_contains($body, 'Ini tampilan yang benar, bukan layar error') && ! str_contains($bodyEn, 'This is the correct view, not an error screen') && ! str_contains($body, 'bukan layar error') && ! str_contains($bodyEn, 'not an error screen'));
 check107('Arduino licence is cited', str_contains($body, 'Creative Commons Attribution-Share Alike 4.0') && str_contains($bodyEn, 'Creative Commons Attribution-Share Alike 4.0'));
 check107('card photo is cited and not wired to ESP32', str_contains($body, 'kit-microsd-card.jpg') && str_contains($body, '2015_Karta_microSD_z_adapterem_SD.jpg') && str_contains($body, 'Jangan menyambungkannya ke pin ESP32') && str_contains($bodyEn, 'Do not wire it to ESP32 pins'));
-check107('pin-order copying is forbidden', str_contains($body, 'Jangan menyalin urutan kaki dari foto') && str_contains($bodyEn, 'Do not copy pin order from the photo'));
+check107('SPI photo is cited and pin-order copying is forbidden', str_contains($body, 'kit-microsd-spi.jpg') && str_contains($body, 'SD_Card_Breakout_Board.jpg') && str_contains($body, 'Jangan menyalin urutan kaki dari foto') && str_contains($bodyEn, 'Do not copy pin order from the photo'));
+check107('six-pin kit module is illustrated before the Adafruit photo', strpos($body, 'fs36-modul-kit.png') < strpos($body, 'kit-microsd-spi.jpg') && strpos($bodyEn, 'fs36-modul-kit.png') < strpos($bodyEn, 'kit-microsd-spi.jpg'));
 check107('DHT22 photo is cited', str_contains($body, 'kit-dht22.jpg') && str_contains($body, 'DHT_22_Sensor.jpg'));
 check107('locked VSPI pins are explicit', str_contains($body, 'GPIO 5') && str_contains($body, 'GPIO 18') && str_contains($body, 'GPIO 19') && str_contains($body, 'GPIO 23') && str_contains($source, 'CS_PIN = 5') && str_contains($source, 'SPI.begin(18, 19, 23, CS_PIN)'));
 check107('pin guessing is forbidden', str_contains($body, 'Jangan menebak pin') && str_contains($bodyEn, 'Do not guess pins'));
@@ -86,10 +87,12 @@ check107('article view supports absolute cover URLs', str_contains($blade, "str_
 check107('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 16);
 check107('glossary heading exists in both languages', str_contains($body, 'Istilah yang dipakai hari ini') && str_contains($bodyEn, 'Terms used today'));
 check107('FAQ and sources headings exist', str_contains($body, 'Pertanyaan yang sering muncul') && str_contains($body, '>Sumber<') && str_contains($bodyEn, 'Frequently asked questions') && str_contains($bodyEn, '>Sources<'));
-check107('seven FS-37 image figures in both languages', substr_count($body, '/images/fsiot/fs37-') === 7 && substr_count($bodyEn, '/images/fsiot/fs37-') === 7);
-check107('reused FS-36 wiring and FS-34 LAN figures', str_contains($body, 'fs36-wiring-spi.png') && str_contains($body, 'fs34-lan-address.png') && str_contains($bodyEn, 'fs36-wiring-spi.png') && str_contains($bodyEn, 'fs34-lan-address.png'));
+check107('nine FS-37 image figures in both languages', substr_count($body, '/images/fsiot/fs37-') === 9 && substr_count($bodyEn, '/images/fsiot/fs37-') === 9);
+check107('reused FS-36 wiring and kit figures', str_contains($body, 'fs36-wiring-spi.png') && str_contains($body, 'fs36-modul-kit.png') && str_contains($bodyEn, 'fs36-wiring-spi.png') && str_contains($bodyEn, 'fs36-modul-kit.png'));
+check107('two-Wi-Fi figure replaces same-network LAN diagram', str_contains($body, 'fs37-two-wifi.png') && str_contains($bodyEn, 'fs37-two-wifi.png') && ! str_contains($body, 'fs34-lan-address.png'));
+check107('hotspot demo figure exists', str_contains($body, 'fs37-hotspot-demo.png') && str_contains($bodyEn, 'fs37-hotspot-demo.png'));
 check107('wiring figure includes SD module GND', str_contains($body, 'GND modul SD juga ke GND ESP32') && str_contains($bodyEn, 'SD module GND also goes to ESP32 GND'));
-check107('Koding Indonesia diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-37)') === 5 && substr_count($body, 'Ilustrasi buatan Koding Indonesia (FS-37)') === 2 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-37)') === 5 && substr_count($bodyEn, 'Illustration by Koding Indonesia (FS-37)') === 2);
+check107('Koding Indonesia diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-37)') === 7 && substr_count($body, 'Ilustrasi buatan Koding Indonesia (FS-37)') === 2 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-37)') === 7 && substr_count($bodyEn, 'Illustration by Koding Indonesia (FS-37)') === 2);
 check107('phone zoom tip exists', str_contains($body, 'Tips ponsel') && str_contains($bodyEn, 'Phone tip'));
 check107('interactive checklist is wired', str_contains($body, 'id="fsiot-forward-checklist"') && str_contains($body, 'id="fsiot-forward-checklist-items"') && str_contains($blade, "storagePrefix: 'fsiot-cl-107'") && str_contains($langId, 'fsiot_forward_badge') && str_contains($langEn, 'fsiot_forward_badge'));
 check107('ten checklist items match in both languages', checklistItems107($body) === 10 && checklistItems107($bodyEn) === 10);
@@ -120,6 +123,8 @@ foreach ([
     'fs37-serial-monitor.png',
     'fs37-mqttx-backfill.png',
     'fs37-troubleshooting.png',
+    'fs37-two-wifi.png',
+    'fs37-hotspot-demo.png',
 ] as $asset) {
     $path = $root.'/public/images/fsiot/'.$asset;
     $dimensions = is_file($path) ? getimagesize($path) : false;
@@ -132,12 +137,14 @@ $mqttxSize = getimagesize($root.'/public/images/fsiot/fs37-mqttx-backfill.png');
 check107('MQTTX illustration is cropped to a readable height', $mqttxSize !== false && $mqttxSize[1] <= 800);
 $cardSize = getimagesize($root.'/public/images/fsiot/kit-microsd-card.jpg');
 check107('kit-microsd-card.jpg exists and is readable', $cardSize !== false && $cardSize[0] >= 400);
+$spiSize = getimagesize($root.'/public/images/fsiot/kit-microsd-spi.jpg');
+check107('kit-microsd-spi.jpg exists and is readable', $spiSize !== false && $spiSize[0] >= 400);
+$kitSize = getimagesize($root.'/public/images/fsiot/fs36-modul-kit.png');
+check107('fs36-modul-kit.png exists and is readable', $kitSize !== false && $kitSize[0] >= 1000);
 $dhtSize = getimagesize($root.'/public/images/fsiot/kit-dht22.jpg');
 check107('kit-dht22.jpg exists and is readable', $dhtSize !== false && $dhtSize[0] >= 400);
 $wiringSize = getimagesize($root.'/public/images/fsiot/fs36-wiring-spi.png');
 check107('fs36-wiring-spi.png exists and is readable', $wiringSize !== false && $wiringSize[0] >= 1000);
-$lanSize = getimagesize($root.'/public/images/fsiot/fs34-lan-address.png');
-check107('fs34-lan-address.png exists and is readable', $lanSize !== false && $lanSize[0] >= 1000);
 
 echo "\n{$pass} pass / {$fail} fail\n";
 exit($fail === 0 ? 0 : 1);

@@ -78,7 +78,7 @@ steps = [
     ('2', 'MQTTX + broker', 'Host = IPv4 PC\nport 1883', '#e3f2fd', '#1565c0'),
     ('3', 'Arduino IDE', 'SD.h core +\nArduinoMqttClient', '#e8f5e9', '#2e7d32'),
     ('4', 'Kabel SPI', 'sama seperti\nFS-36', '#e0f2f1', '#00897b'),
-    ('5', 'Serial Monitor', 'lalu matikan\nhotspot HP', '#f3e8ff', '#7e22ce'),
+    ('5', 'Serial Monitor', 'lalu buka panel HP\nmatikan hotspot', '#f3e8ff', '#7e22ce'),
 ]
 for index, (number, title, body, fill, color) in enumerate(steps):
     left = 16 + index * 277
@@ -175,7 +175,7 @@ text(draw, 1195, 175, '115200 baud', 16, '#ecfdf5')
 lines = [
     ('#ecfdf5', '#166534', 'Kartu siap. Antrian di /pending.csv'),
     ('#e0f2f1', '#0f766e', 'Antrian hanya di kartu, bukan RAM tak terbatas.'),
-    ('#dbeafe', '#1d4ed8', 'MQTT tersambung.'),
+    ('#dbeafe', '#1d4ed8', 'MQTT tersambung. Mengirim antrian kartu.'),
     ('#ecfdf5', '#166534', 'Terkirim: {"from_sd":false,"temperature_c":27.4}'),
     ('#fff7ed', '#c2410c', 'Wi-Fi putus. Disimpan ke pending.csv: 15123,27.6'),
     ('#ecfdf5', '#166534', 'Kirim ulang dari kartu: 15123,27.6'),
@@ -232,3 +232,49 @@ for index, (number, title, body, fill, color) in enumerate(checks):
         arrow(draw, (left + 308, 332), (left + 337, 332), '#1f1f1f', 6, 14)
 text(draw, 700, 575, 'Catatan lab: matikan router rumah = Mosquitto ikut mati. Itu bukan demo store-and-forward.', 18, '#b45309')
 save(image, 'fs37-troubleshooting.png')
+
+# Two Wi-Fi paths — do not reuse FS-34 "same Wi-Fi" diagram
+image = Image.new('RGB', (1400, 720), '#f5f5f0')
+draw = ImageDraw.Draw(image)
+header(draw, 1400, 'Dua Wi-Fi: PC di rumah, ESP32 di hotspot HP', 'MQTT_HOST = IPv4 PC. Bukan 127.0.0.1, bukan mematikan router.')
+box(draw, (50, 150, 670, 560), '#ecfdf5', '#166534')
+text(draw, 360, 200, 'PC / laptop', 28, '#166534')
+text(draw, 360, 260, 'Wi-Fi rumah tetap nyala', 22)
+text(draw, 360, 320, 'Mosquitto + MQTTX', 22)
+text(draw, 360, 380, 'contoh IPv4 192.168.1.23', 20, '#14532d')
+text(draw, 360, 440, 'dari ipconfig, bukan 127.0.0.1', 18, '#14532d')
+text(draw, 360, 500, 'jangan matikan router ini', 18, '#b45309')
+box(draw, (730, 150, 1350, 560), '#e0f2f1', '#0f766e')
+text(draw, 1040, 200, 'ESP32 + kartu', 28, '#0f766e')
+text(draw, 1040, 260, 'hotspot HP', 22)
+text(draw, 1040, 320, 'SSID di sketch', 20)
+text(draw, 1040, 380, 'MQTT_HOST = IPv4 PC', 20, '#134e4a')
+text(draw, 1040, 440, 'USB tetap terpasang', 18, '#134e4a')
+text(draw, 1040, 500, 'yang dimatikan hanya hotspot', 18, '#134e4a')
+arrow(draw, (670, 355), (730, 355), '#1f1f1f', 8, 18)
+text(draw, 700, 640, 'Catatan lab: 127.0.0.1 di ESP32 = ESP32 itu sendiri. Ganti 192.168.1.23 dengan IPv4 PC milikmu.', 18, '#b45309')
+save(image, 'fs37-two-wifi.png')
+
+# Phone hotspot demo — tools-first
+image = Image.new('RGB', (1400, 720), '#f5f5f0')
+draw = ImageDraw.Draw(image)
+header(draw, 1400, 'Demo putus: buka dulu panel HP, bukan router rumah', 'USB ESP32 tetap colok. Jendela Mosquitto di PC tetap terbuka.')
+steps = [
+    ('1', 'Geser dari atas\nlayar HP', 'atau buka\nPengaturan', '#fff8e1', '#f9a825'),
+    ('2', 'Ketuk Hotspot', 'mati 20–40 detik', '#fff7ed', '#c2410c'),
+    ('3', 'PC jangan disentuh', 'Mosquitto 1883\nmasih terbuka', '#e3f2fd', '#1565c0'),
+    ('4', 'Nyalakan lagi', 'cari Kirim ulang\ndari kartu', '#ecfdf5', '#166534'),
+]
+for index, (number, title, body, fill, color) in enumerate(steps):
+    left = 40 + index * 345
+    box(draw, (left, 165, left + 300, 520), fill, color)
+    box(draw, (left + 18, 185, left + 88, 255), '#ffffff', color, 3)
+    text(draw, left + 53, 220, number, 28, color)
+    for line_index, line in enumerate(title.split('\n')):
+        text(draw, left + 150, 310 + line_index * 34, line, 20)
+    for line_index, line in enumerate(body.split('\n')):
+        text(draw, left + 150, 410 + line_index * 36, line, 18, '#353535')
+    if index < 3:
+        arrow(draw, (left + 308, 345), (left + 337, 345), '#1f1f1f', 6, 14)
+text(draw, 700, 640, 'Catatan lab: jangan matikan Wi-Fi laptop. Broker dan MQTTX tinggal di PC.', 18, '#b45309')
+save(image, 'fs37-hotspot-demo.png')
