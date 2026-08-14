@@ -72,7 +72,7 @@ print('fs37-cover-forward.webp', image.size)
 # Tools order
 image = Image.new('RGB', (1400, 650), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'Urutan tools FS-37 — lima langkah, jangan loncat', 'MQTTX dulu, baru Upload. Demo: matikan hotspot HP, bukan router rumah.')
+header(draw, 1400, 'Urutan tools FS-37 — lima langkah, jangan loncat', 'MQTTX dulu, baru Upload. Demo: buka panel HP, matikan hotspot — bukan router rumah.')
 steps = [
     ('1', 'Buka browser', 'baca langkah\ndan sumber resmi', '#fff8e1', '#f9a825'),
     ('2', 'MQTTX + broker', 'Host = IPv4 PC\nport 1883', '#e3f2fd', '#1565c0'),
@@ -178,7 +178,7 @@ lines = [
     ('#dbeafe', '#1d4ed8', 'MQTT tersambung. Mengirim antrian kartu.'),
     ('#ecfdf5', '#166534', 'Terkirim: {"from_sd":false,"temperature_c":27.4}'),
     ('#fff7ed', '#c2410c', 'Wi-Fi putus. Disimpan ke pending.csv: 15123,27.6'),
-    ('#ecfdf5', '#166534', 'Kirim ulang dari kartu: 15123,27.6'),
+    ('#ecfdf5', '#166534', 'Kirim ulang dari kartu: {"from_sd":true,"temperature_c":27.6}'),
 ]
 for index, (fill, color, line) in enumerate(lines):
     top = 230 + index * 62

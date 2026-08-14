@@ -316,7 +316,7 @@ class Article107Seeder extends Seeder
     private function body(): string
     {
         $sketch = htmlspecialchars($this->sketch(), ENT_QUOTES, 'UTF-8');
-        $tools = $this->figure('fs37-tools-order.png', 'Urutan lima langkah: browser, MQTTX dan broker, Arduino IDE, kabel SPI, lalu Serial Monitor', '<strong>Urutan meja kerja (lima langkah):</strong> browser → MQTTX + Mosquitto (Host = IPv4 PC) → Arduino IDE → kabel SPI seperti FS-36 → Serial Monitor, lalu matikan hotspot HP. Diagram buatan Koding Indonesia (FS-37).');
+        $tools = $this->figure('fs37-tools-order.png', 'Urutan lima langkah: browser, MQTTX dan broker, Arduino IDE, kabel SPI, lalu Serial Monitor', '<strong>Urutan meja kerja (lima langkah):</strong> browser → MQTTX + Mosquitto (Host = IPv4 PC) → Arduino IDE → kabel SPI seperti FS-36 → Serial Monitor, lalu buka panel HP. Diagram buatan Koding Indonesia (FS-37).');
         $flow = $this->figure('fs37-offline-online.png', 'Alur kiri ke kanan: hotspot putus, pending.csv, hotspot nyala, MQTTX terisi from_sd true', '<strong>Gambar utama — alur.</strong> Baca dari kiri ke kanan: putus → simpan di <code>pending.csv</code> → nyambung → MQTTX terisi. Diagram buatan Koding Indonesia (FS-37).');
         $ram = $this->figure('fs37-ram-vs-sd.png', 'Perbandingan antrian di RAM yang cepat penuh versus antrian di pending.csv', '<strong>RAM kecil. Kartu yang menahan antrian.</strong> Lab ini tidak menumpuk sampel di memori. Diagram buatan Koding Indonesia (FS-37).');
         $pending = $this->figure('fs37-pending-csv.png', 'Dua berkas: pending.csv untuk antrian belum terkirim dan log.csv sebagai arsip', '<strong>Dua berkas.</strong> <code>pending.csv</code> hanya baris yang belum ke broker. <code>log.csv</code> arsip semua sampel. Diagram buatan Koding Indonesia (FS-37).');
@@ -331,11 +331,11 @@ class Article107Seeder extends Seeder
         $cardPhoto = $this->figure('kit-microsd-card.jpg', 'Contoh rupa kartu microSD dan adapter SD plastik untuk slot laptop', '<strong>Contoh rupa kartu saja.</strong> Adapter plastik untuk slot laptop, <strong>bukan</strong> modul SPI. <strong>Jangan menyambungkannya ke pin ESP32.</strong> <strong>Jangan menyalin urutan kaki dari foto.</strong> Sumber: <a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" target="_blank" rel="noopener noreferrer">2015 Karta microSD z adapterem SD</a> · Jacek Halicki · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $dhtPhoto = $this->figure('kit-dht22.jpg', 'Contoh rupa modul DHT22 AM2302 dengan pin DAT, VCC, dan GND', '<strong>Contoh rupa sensor.</strong> <strong>Jangan menyalin urutan kaki dari foto.</strong> Wiring tetap VCC → 3V3, DATA atau DAT → GPIO 4, GND → GND. Sumber: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $install = $this->stepsCard([
-            ['title' => 'Buka browser', 'text' => 'Pakai Chrome, Firefox, Edge, atau Safari. Siapkan artikel ini. Jangan Upload sketch dulu.'],
-            ['title' => 'Buka MQTTX setelah broker berjalan', 'text' => 'Mosquitto dulu, seperti FS-34: jendela tetap terbuka dan terlihat <code>1883</code>. Baru kemudian MQTTX. Host = <strong>IPv4 PC</strong> (bukan <code>127.0.0.1</code>), Port <code>1883</code>, subscribe <code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code>.'],
-            ['title' => 'Buka Arduino IDE', 'text' => '<code>SD.h</code> sudah di core ESP32. <code>ArduinoMqttClient</code>, ArduinoJson, dan DHT biasanya sudah ada dari FS-34. Jika Verify mengeluh, klik ikon tiga buku di bilah kiri. Itu satu-satunya jalur yang dipakai hari ini.'],
+            ['title' => 'Buka browser', 'text' => 'Pakai Chrome, Firefox, Edge, atau Safari. Siapkan artikel ini. Jangan tekan Upload di Arduino IDE dulu.'],
+            ['title' => 'Buka MQTTX setelah broker berjalan', 'text' => 'Mosquitto dulu, seperti FS-34: jendela tetap terbuka dan terlihat <code>1883</code>. Baru kemudian MQTTX. Host = <strong>IPv4 PC</strong> (bukan <code>127.0.0.1</code>), Port <code>1883</code>, langganan topik (tombol Subscribe) <code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code>.'],
+            ['title' => 'Buka Arduino IDE', 'text' => '<code>SD.h</code> sudah di core ESP32. <code>ArduinoMqttClient</code>, ArduinoJson, dan DHT biasanya sudah ada dari FS-34. Jika tombol Verify mengeluh, klik ikon tiga buku di bilah kiri. Itu satu-satunya jalur yang dipakai hari ini.'],
             ['title' => 'Periksa kabel SPI dan DHT22', 'text' => 'Sama seperti FS-36. Cabut USB dulu. CS → GPIO 5, SCK → GPIO 18, MISO → GPIO 19, MOSI → GPIO 23, DHT22 DATA → GPIO 4. Jangan colok AC 220V. Relay GPIO 26 <strong>tidak</strong> dipakai hari ini.'],
-            ['title' => 'Upload, Serial Monitor, lalu buka panel HP', 'text' => 'Tools → Serial Monitor, baud 115200. Setelah ada <code>Terkirim:</code> di MQTTX, <strong>buka dulu panel atas HP</strong> (geser dari atas, atau buka Pengaturan). Ketuk Hotspot sampai mati — bukan router rumah, bukan Wi-Fi laptop. Nyalakan lagi, cari <code>Kirim ulang dari kartu:</code>.'],
+            ['title' => 'Upload, Serial Monitor, lalu buka panel HP', 'text' => 'Tools → Serial Monitor, baud 115200. Setelah Serial menulis <code>Terkirim:</code> dan MQTTX menampilkan JSON, <strong>buka dulu panel atas HP</strong> (geser dari atas, atau buka Pengaturan). Ketuk Hotspot sampai mati — bukan router rumah, bukan Wi-Fi laptop. Nyalakan lagi, cari <code>Kirim ulang dari kartu:</code>.'],
         ], '<strong>Cara menguji hari ini:</strong> bukti sukses = MQTTX sempat sepi saat hotspot mati, lalu terisi pesan <code>from_sd: true</code> setelah hotspot nyala, dan Serial menulis <code>Kirim ulang dari kartu:</code>.');
 
         return <<<'HTML'
@@ -360,7 +360,7 @@ class Article107Seeder extends Seeder
 <li><strong>Antrian</strong> — baris yang menunggu giliran ke broker. Di lab ini tempatnya <code>pending.csv</code>.</li>
 <li><strong><code>pending.csv</code></strong> — berkas di kartu: hanya data yang belum terkirim.</li>
 <li><strong><code>log.csv</code></strong> — arsip semua sampel, kolom terakhir <code>mqtt</code> atau <code>kartu</code>.</li>
-<li><strong><code>from_sd</code></strong> — field JSON. <code>false</code> = langsung dari sensor. <code>true</code> = kiriman ulang dari kartu.</li>
+<li><strong><code>from_sd</code></strong> — isian JSON. <code>false</code> = langsung dari sensor. <code>true</code> = kiriman ulang dari kartu.</li>
 <li><strong>Hotspot HP</strong> — Wi-Fi yang dipakai ESP32 hari ini. PC tetap di Wi-Fi rumah agar Mosquitto tidak ikut mati.</li>
 <li><strong>RAM tak terbatas</strong> — kesalahan yang sering terjadi: menumpuk array di memori sampai ESP32 mentok atau reset. Lab ini tidak memakai cara itu.</li>
 </ul>
@@ -402,7 +402,7 @@ listener_allow_anonymous true</code></pre>
 <ol>
 <li>Klik <em>New Connection</em>, nama <code>FS37 store-forward LAN</code>.</li>
 <li>Host = IPv4 PC, Port = <code>1883</code>. Bukan <code>127.0.0.1</code>.</li>
-<li>Connect, lalu subscribe:</li>
+<li>Klik <em>Connect</em>, lalu langganan (Subscribe) ke topik:</li>
 </ol>
 <pre><code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code></pre>
 <p><strong>Hasil yang dicari:</strong> MQTTX berstatus tersambung. Belum ada JSON sampai ESP32 mengirim.</p>
@@ -410,7 +410,7 @@ listener_allow_anonymous true</code></pre>
 <h2>Library Arduino IDE</h2>
 <p><strong>Buka dulu Arduino IDE.</strong> Pilih papan <strong>ESP32</strong>, bukan UNO.</p>
 <p><code>SD.h</code> dan <code>SPI.h</code> sudah termasuk core. <strong>Jangan</strong> memasang library SD untuk papan UNO.</p>
-<p>Library <strong>ArduinoMqttClient</strong>, <strong>ArduinoJson</strong>, dan <strong>DHT sensor library</strong> (Adafruit) biasanya sudah ada dari FS-34. Jika Verify mengeluh file header hilang: di bilah kiri, klik ikon tiga buku (Library Manager). Itu satu-satunya jalur yang dipakai hari ini. Jangan memakai menu lama <em>Tools → Manage Libraries</em>. Cari nama library, papan ESP32, lalu INSTALL jika belum ada.</p>
+<p>Library <strong>ArduinoMqttClient</strong>, <strong>ArduinoJson</strong>, dan <strong>DHT sensor library</strong> (Adafruit) biasanya sudah ada dari FS-34. Jika tombol Verify mengeluh file header hilang: di bilah kiri, klik ikon tiga buku (Library Manager). Itu satu-satunya jalur yang dipakai hari ini. Jangan memakai menu lama <em>Tools → Manage Libraries</em>. Cari nama library, papan ESP32, lalu INSTALL jika belum ada.</p>
 <p>Menu <em>Tools → Serial Monitor</em> tetap untuk melihat tulisan Serial; itu <strong>bukan</strong> Library Manager. Rujukan: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Installing libraries — Arduino IDE 2</a>, Arduino S.r.l., Creative Commons Attribution-Share Alike 4.0. <a href="https://github.com/arduino-libraries/ArduinoMqttClient" target="_blank" rel="noopener noreferrer">ArduinoMqttClient</a>. <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/sd.html" target="_blank" rel="noopener noreferrer">Espressif SD API</a>.</p>
 
 <h2>Pasang kabel — sama seperti FS-36</h2>
@@ -447,7 +447,7 @@ HTML
 HTML
             .$serial.$hotspot.<<<'HTML'
 <ol>
-<li>Verify dan Upload. Buka <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
+<li>Tekan Verify, lalu Upload. Buka <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
 <li>Cari <code>Kartu siap. Antrian di /pending.csv</code> dan <code>Antrian hanya di kartu, bukan RAM tak terbatas.</code></li>
 <li>Cari <code>MQTT tersambung. Mengirim antrian kartu.</code> lalu <code>Terkirim:</code>.</li>
 <li>Pastikan MQTTX menampilkan JSON <code>from_sd</code> bernilai <code>false</code>.</li>
@@ -467,7 +467,7 @@ HTML
 <li><strong>ESP32 memakai <code>127.0.0.1</code>.</strong> Ganti IPv4 PC dari <code>ipconfig</code>.</li>
 <li><strong>Kartu tidak terbaca.</strong> CS = GPIO 5, FAT32, GND bersama — seperti FS-36.</li>
 <li><strong>Hotspot memblokir LAN.</strong> Sambungkan PC ke hotspot yang sama, catat IPv4 baru, perbarui conf Mosquitto dan sketch.</li>
-<li><strong>MQTTX Host salah.</strong> Host = IPv4 PC, Port <code>1883</code>, topic persis seperti sketch.</li>
+<li><strong>MQTTX Host salah.</strong> Host = IPv4 PC, Port <code>1883</code>, topik persis seperti di sketch.</li>
 </ol>
 
 <h2 id="fsiot-forward-checklist">Checklist sebelum FS-38</h2>
@@ -534,7 +534,7 @@ HTML;
     private function bodyEn(): string
     {
         $sketch = htmlspecialchars($this->sketch(), ENT_QUOTES, 'UTF-8');
-        $tools = $this->figure('fs37-tools-order.png', 'Five-step order: browser, MQTTX and broker, Arduino IDE, SPI cables, then Serial Monitor', '<strong>Desk order (five steps):</strong> browser → MQTTX + Mosquitto (Host = PC IPv4) → Arduino IDE → SPI cables as in FS-36 → Serial Monitor, then turn off the phone hotspot. Diagram by Koding Indonesia (FS-37).');
+        $tools = $this->figure('fs37-tools-order.png', 'Five-step order: browser, MQTTX and broker, Arduino IDE, SPI cables, then Serial Monitor', '<strong>Desk order (five steps):</strong> browser → MQTTX + Mosquitto (Host = PC IPv4) → Arduino IDE → SPI cables as in FS-36 → Serial Monitor, then open the phone panel. Diagram by Koding Indonesia (FS-37).');
         $flow = $this->figure('fs37-offline-online.png', 'Left-to-right flow: hotspot off, pending.csv, hotspot on, MQTTX fills with from_sd true', '<strong>Main figure — flow.</strong> Read left to right: disconnect → store in <code>pending.csv</code> → reconnect → MQTTX fills. Diagram by Koding Indonesia (FS-37).');
         $ram = $this->figure('fs37-ram-vs-sd.png', 'Comparison of a RAM queue that fills quickly versus a pending.csv queue', '<strong>RAM is small. The card holds the queue.</strong> This lab does not pile samples in memory. Diagram by Koding Indonesia (FS-37).');
         $pending = $this->figure('fs37-pending-csv.png', 'Two files: pending.csv for unsent rows and log.csv as the archive', '<strong>Two files.</strong> <code>pending.csv</code> holds rows not yet on the broker. <code>log.csv</code> archives every sample. Diagram by Koding Indonesia (FS-37).');
@@ -549,11 +549,11 @@ HTML;
         $cardPhoto = $this->figure('kit-microsd-card.jpg', 'Example microSD card and plastic SD adapter for a laptop slot', '<strong>Appearance example only.</strong> The plastic adapter is for a laptop slot, <strong>not</strong> an SPI module. <strong>Do not wire it to ESP32 pins.</strong> <strong>Do not copy pin order from the photo.</strong> Source: <a href="https://commons.wikimedia.org/wiki/File:2015_Karta_microSD_z_adapterem_SD.jpg" target="_blank" rel="noopener noreferrer">2015 Karta microSD z adapterem SD</a> · Jacek Halicki · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $dhtPhoto = $this->figure('kit-dht22.jpg', 'Example DHT22 AM2302 module with DAT, VCC, and GND pins', '<strong>Sensor appearance only.</strong> <strong>Do not copy pin order from the photo.</strong> Wiring is still VCC → 3V3, DATA or DAT → GPIO 4, GND → GND. Source: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $install = $this->stepsCard([
-            ['title' => 'Open a browser', 'text' => 'Use Chrome, Firefox, Edge, or Safari. Keep this guide ready. Do not Upload a sketch yet.'],
-            ['title' => 'Open MQTTX after the broker is running', 'text' => 'Mosquitto first, as in FS-34: keep the window open and look for <code>1883</code>. Only then MQTTX. Host = <strong>PC IPv4</strong> (not <code>127.0.0.1</code>), Port <code>1883</code>, subscribe <code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code>.'],
-            ['title' => 'Open Arduino IDE', 'text' => '<code>SD.h</code> already ships in the ESP32 core. ArduinoMqttClient, ArduinoJson, and DHT are usually already there from FS-34. If Verify complains, click the three-book icon in the left bar. That is the only path used today.'],
+            ['title' => 'Open a browser', 'text' => 'Use Chrome, Firefox, Edge, or Safari. Keep this guide ready. Do not click Upload in Arduino IDE yet.'],
+            ['title' => 'Open MQTTX after the broker is running', 'text' => 'Mosquitto first, as in FS-34: keep the window open and look for <code>1883</code>. Only then MQTTX. Host = <strong>PC IPv4</strong> (not <code>127.0.0.1</code>), Port <code>1883</code>, subscribe (the Subscribe button) to <code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code>.'],
+            ['title' => 'Open Arduino IDE', 'text' => '<code>SD.h</code> already ships in the ESP32 core. ArduinoMqttClient, ArduinoJson, and DHT are usually already there from FS-34. If the Verify button complains, click the three-book icon in the left bar. That is the only path used today.'],
             ['title' => 'Check the SPI and DHT22 wiring', 'text' => 'Same as FS-36. Unplug USB first. CS → GPIO 5, SCK → GPIO 18, MISO → GPIO 19, MOSI → GPIO 23, DHT22 DATA → GPIO 4. Do not connect AC mains. The GPIO 26 relay is <strong>not</strong> used today.'],
-            ['title' => 'Upload, Serial Monitor, then open the phone panel', 'text' => 'Tools → Serial Monitor, baud 115200. After <code>Terkirim:</code> appears in MQTTX, <strong>open the phone panel first</strong> (swipe down, or open Settings). Tap Hotspot off — not the home router, not laptop Wi-Fi. Turn it back on and look for <code>Kirim ulang dari kartu:</code>.'],
+            ['title' => 'Upload, Serial Monitor, then open the phone panel', 'text' => 'Tools → Serial Monitor, baud 115200. After Serial prints <code>Terkirim:</code> and MQTTX shows JSON, <strong>open the phone panel first</strong> (swipe down, or open Settings). Tap Hotspot off — not the home router, not laptop Wi-Fi. Turn it back on and look for <code>Kirim ulang dari kartu:</code>.'],
         ], '<strong>How to test today:</strong> success = MQTTX goes quiet while the hotspot is off, then fills with <code>from_sd: true</code> after the hotspot returns, and Serial prints <code>Kirim ulang dari kartu:</code>.');
 
         return <<<'HTML'
@@ -620,7 +620,7 @@ listener_allow_anonymous true</code></pre>
 <ol>
 <li>Click <em>New Connection</em>, name <code>FS37 store-forward LAN</code>.</li>
 <li>Host = PC IPv4, Port = <code>1883</code>. Not <code>127.0.0.1</code>.</li>
-<li>Connect, then subscribe:</li>
+<li>Click <em>Connect</em>, then subscribe to the topic:</li>
 </ol>
 <pre><code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code></pre>
 <p><strong>What to look for:</strong> MQTTX shows connected. There is no JSON yet until the ESP32 sends.</p>
@@ -628,7 +628,7 @@ listener_allow_anonymous true</code></pre>
 <h2>Arduino IDE libraries</h2>
 <p><strong>Open Arduino IDE first.</strong> Choose an <strong>ESP32</strong> board, not an UNO.</p>
 <p><code>SD.h</code> and <code>SPI.h</code> already ship in the core. <strong>Do not</strong> install an SD library for an UNO board.</p>
-<p><strong>ArduinoMqttClient</strong>, <strong>ArduinoJson</strong>, and Adafruit <strong>DHT sensor library</strong> are usually already there from FS-34. If Verify complains about a missing header: click the three-book icon (Library Manager) in the left bar. That is the only path used today. Do not use the old <em>Tools → Manage Libraries</em> menu. Search the library name, ESP32 board, then INSTALL if needed.</p>
+<p><strong>ArduinoMqttClient</strong>, <strong>ArduinoJson</strong>, and Adafruit <strong>DHT sensor library</strong> are usually already there from FS-34. If the Verify button complains about a missing header: click the three-book icon (Library Manager) in the left bar. That is the only path used today. Do not use the old <em>Tools → Manage Libraries</em> menu. Search the library name, ESP32 board, then INSTALL if needed.</p>
 <p><em>Tools → Serial Monitor</em> is still for Serial text; it is <strong>not</strong> Library Manager. References: <a href="https://docs.arduino.cc/software/ide-v2/tutorials/ide-v2-installing-a-library/" target="_blank" rel="noopener noreferrer">Installing libraries — Arduino IDE 2</a>, Arduino S.r.l., Creative Commons Attribution-Share Alike 4.0. <a href="https://github.com/arduino-libraries/ArduinoMqttClient" target="_blank" rel="noopener noreferrer">ArduinoMqttClient</a>. <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/api/sd.html" target="_blank" rel="noopener noreferrer">Espressif SD API</a>.</p>
 
 <h2>Wire the cables — same as FS-36</h2>
@@ -665,7 +665,7 @@ HTML
 HTML
             .$serial.$hotspot.<<<'HTML'
 <ol>
-<li>Verify and Upload. Open <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
+<li>Click Verify, then Upload. Open <strong>Tools → Serial Monitor</strong>, baud <strong>115200</strong>.</li>
 <li>Look for <code>Kartu siap. Antrian di /pending.csv</code> and <code>Antrian hanya di kartu, bukan RAM tak terbatas.</code></li>
 <li>Look for <code>MQTT tersambung. Mengirim antrian kartu.</code> then <code>Terkirim:</code>.</li>
 <li>Confirm MQTTX shows JSON with <code>from_sd</code> equal to <code>false</code>.</li>
