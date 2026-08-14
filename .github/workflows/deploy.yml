@@ -1738,10 +1738,18 @@ jobs:
             echo "::error::seed-article-72-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-satu-gambar-jalur")
-          echo "Article 72 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-satu-gambar-jalur" || echo "000")
+            echo "Article 72 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 72 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 73 draft via deploy hook (required — pre-launch B)
         run: |
