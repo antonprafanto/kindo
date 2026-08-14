@@ -182,7 +182,7 @@ jobs:
           done
 
       - name: Seed FS-36 draft immediately
-        if: steps.curl106_priority.outcome == 'success'
+        if: always() && !cancelled() && steps.curl106_priority.conclusion == 'success'
         env:
           DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
         run: |
@@ -2449,6 +2449,41 @@ jobs:
           if [ "$pub" != "404" ]; then
             echo "::error::article 102 must stay unpublished (got HTTP $pub)"
             exit 1
+          fi
+
+      - name: Seed article 106 draft via deploy hook (required, pre-launch B)
+        if: always() && !cancelled()
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          code="000"
+          for i in 1 2 3 4 5 6 7 8; do
+            code=$(curl -sS --connect-timeout 30 --max-time 90 -o /tmp/seed106.out -w "%{http_code}" \
+              -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" \
+              "https://kodingindonesia.com/deploy/seed-article-106-draft" || echo "000")
+            echo "seed-article-106-draft HTTP $code (attempt $i)"
+            if [ "$code" = "200" ]; then
+              cat /tmp/seed106.out || true
+              break
+            fi
+            sleep $((i * 5))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::seed-article-106-draft failed after retries (last HTTP $code)"
+            cat /tmp/seed106.out || true
+            exit 1
+          fi
+          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-esp32-microsd-log-csv" || echo "000")
+          echo "public article 106 HTTP $pub (expect 404 draft)"
+          if [ "$pub" != "404" ]; then
+            echo "::error::article 106 must stay unpublished (got HTTP $pub)"
+            exit 1
+          fi
+          kit=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/images/fsiot/fs36-modul-kit.png" || echo "000")
+          echo "fs36-modul-kit.png HTTP $kit (expect 200)"
+          if [ "$kit" != "200" ]; then
+            echo "::warning::six-pin kit illustration not public yet (HTTP $kit)"
           fi
 
       - name: Seed Gate BUILDER draft via deploy hook (required, pre-launch B)

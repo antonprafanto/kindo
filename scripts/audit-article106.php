@@ -48,7 +48,8 @@ check106('expected slug', str_contains($source, 'fullstack-iot-esp32-microsd-log
 check106('route and controller exist', str_contains($routes, 'seed-article-106-draft') && str_contains($controller, 'seedArticle106Draft'));
 check106('priority deploy and seed exist', str_contains($workflow, 'id: curl106_priority') && str_contains($workflow, 'seed-article-106-draft'));
 check106('priority upload precedes FS-35 uploads', strpos($workflow, 'id: curl106_priority') < strpos($workflow, 'id: curl105_priority'));
-check106('FS-36 seed is enabled after priority upload', str_contains($workflow, "if: steps.curl106_priority.outcome == 'success'"));
+check106('FS-36 seed is enabled after priority upload', str_contains($workflow, "if: always() && !cancelled() && steps.curl106_priority.conclusion == 'success'"));
+check106('late FS-36 seed is required after FTP', str_contains($workflow, 'Seed article 106 draft via deploy hook (required, pre-launch B)') && str_contains($workflow, 'fullstack-iot-esp32-microsd-log-csv'));
 check106('kit photos are in the priority upload', str_contains($workflow, 'fs36-serial-monitor.png') && str_contains($workflow, 'fs36-modul-kit.png') && str_contains($workflow, 'kit-microsd-card.jpg') && str_contains($workflow, 'kit-microsd-spi.jpg') && str_contains($workflow, 'kit-dht22.jpg'));
 check106('cover is copied into public storage', str_contains($source, 'articles/covers/fs36-cover-sd') && str_contains($source, "Storage::disk('public')->put"));
 check106('trashed slug is restored', str_contains($source, 'withTrashed()') && str_contains($source, 'restore()'));
