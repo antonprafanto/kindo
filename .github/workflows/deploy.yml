@@ -150,6 +150,48 @@ jobs:
           echo "dir=$pub" >> "$GITHUB_OUTPUT"
           echo "Public webroot FTP dir: $pub"
 
+      - name: Upload FS-37 draft via curl (priority)
+        id: curl107_priority
+        continue-on-error: true
+        timeout-minutes: 8
+        run: |
+          set -e
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          APP="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.ftp.outputs.dir }}"
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          upload() {
+            local src="$1" dest="$2"
+            for attempt in 1 2 3; do
+              if curl -fsS --connect-timeout 30 --max-time 120 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$src" "$dest"; then
+                echo "OK $src -> $dest (attempt $attempt)"
+                return 0
+              fi
+              echo "FAIL $src -> $dest (attempt $attempt)"
+              sleep $((attempt * 10))
+            done
+            return 1
+          }
+          upload "database/seeders/Article107Seeder.php" "${APP}database/seeders/Article107Seeder.php"
+          upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php"
+          upload "routes/web.php" "${APP}routes/web.php"
+          upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
+          upload "lang/id/ui.php" "${APP}lang/id/ui.php"
+          upload "lang/en/ui.php" "${APP}lang/en/ui.php"
+          for img in fs37-cover-forward.jpg fs37-cover-forward.webp fs37-tools-order.png fs37-offline-online.png fs37-ram-vs-sd.png fs37-pending-csv.png fs37-serial-monitor.png fs37-mqttx-backfill.png fs37-troubleshooting.png fs36-wiring-spi.png fs34-lan-address.png kit-microsd-card.jpg kit-dht22.jpg; do
+            upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
+            upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
+          done
+
+      - name: Seed FS-37 draft immediately
+        if: always() && !cancelled() && steps.curl107_priority.conclusion == 'success'
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/clear-cache"
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/seed-article-107-draft"
+
       - name: Upload FS-36 draft via curl (priority)
         id: curl106_priority
         continue-on-error: true
@@ -2759,6 +2801,47 @@ jobs:
           echo "fs36-modul-kit.png HTTP $kit (expect 200)"
           if [ "$kit" != "200" ]; then
             echo "::warning::six-pin kit illustration not public yet (HTTP $kit)"
+          fi
+
+      - name: Seed article 107 draft via deploy hook (required, pre-launch B)
+        if: always() && !cancelled()
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          code="000"
+          for i in 1 2 3 4 5 6 7 8; do
+            code=$(curl -sS --connect-timeout 30 --max-time 90 -o /tmp/seed107.out -w "%{http_code}" \
+              -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" \
+              "https://kodingindonesia.com/deploy/seed-article-107-draft" || echo "000")
+            echo "seed-article-107-draft HTTP $code (attempt $i)"
+            if [ "$code" = "200" ]; then
+              cat /tmp/seed107.out || true
+              break
+            fi
+            sleep $((i * 5))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::seed-article-107-draft failed after retries (last HTTP $code)"
+            cat /tmp/seed107.out || true
+            exit 1
+          fi
+          pub="000"
+          for i in 1 2 3 4 5 6; do
+            pub=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-esp32-sd-store-and-forward" || echo "000")
+            echo "public article 107 HTTP $pub (expect 404 draft, attempt $i)"
+            [ "$pub" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$pub" != "404" ]; then
+            echo "::error::article 107 must stay unpublished (got HTTP $pub)"
+            exit 1
+          fi
+          cover=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/images/fsiot/fs37-cover-forward.webp" || echo "000")
+          echo "fs37-cover-forward.webp HTTP $cover (expect 200)"
+          if [ "$cover" != "200" ]; then
+            echo "::warning::FS-37 cover not public yet (HTTP $cover)"
           fi
 
       - name: Seed Gate BUILDER draft via deploy hook (required, pre-launch B)

@@ -662,6 +662,17 @@ return [
         'fsiot_sd_done' => 'Done',
         'fsiot_sd_todo' => 'Not yet',
 
+        'fsiot_forward_badge' => 'Card backfill checklist',
+        'fsiot_forward_hint' => 'Tick after MQTTX fills with from_sd true. Progress stays in this browser.',
+        'fsiot_forward_check' => 'Check readiness',
+        'fsiot_forward_retry' => 'Clear again',
+        'fsiot_forward_paper' => 'Paper version (no clicking)',
+        'fsiot_forward_progress' => ':filled of :total checked',
+        'fsiot_forward_pass' => 'Complete :filled/:total — the card queue has been resent to the broker.',
+        'fsiot_forward_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_forward_done' => 'Done',
+        'fsiot_forward_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

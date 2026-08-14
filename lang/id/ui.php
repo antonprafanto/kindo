@@ -662,6 +662,17 @@ return [
         'fsiot_sd_done' => 'Selesai',
         'fsiot_sd_todo' => 'Belum',
 
+        'fsiot_forward_badge' => 'Checklist kirim ulang dari kartu',
+        'fsiot_forward_hint' => 'Centang setelah MQTTX terisi from_sd true. Progres tersimpan di browser ini.',
+        'fsiot_forward_check' => 'Cek kesiapan',
+        'fsiot_forward_retry' => 'Kosongkan lagi',
+        'fsiot_forward_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_forward_progress' => ':filled dari :total tercentang',
+        'fsiot_forward_pass' => 'Lengkap :filled/:total — antrian kartu sudah terkirim ulang ke broker.',
+        'fsiot_forward_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_forward_done' => 'Selesai',
+        'fsiot_forward_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',
