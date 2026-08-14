@@ -49,7 +49,7 @@ check106('route and controller exist', str_contains($routes, 'seed-article-106-d
 check106('priority deploy and seed exist', str_contains($workflow, 'id: curl106_priority') && str_contains($workflow, 'seed-article-106-draft'));
 check106('priority upload precedes FS-35 uploads', strpos($workflow, 'id: curl106_priority') < strpos($workflow, 'id: curl105_priority'));
 check106('FS-36 seed is enabled after priority upload', str_contains($workflow, "if: steps.curl106_priority.outcome == 'success'"));
-check106('kit photos are in the priority upload', str_contains($workflow, 'fs36-serial-monitor.png') && str_contains($workflow, 'kit-microsd-card.jpg') && str_contains($workflow, 'kit-microsd-spi.jpg') && str_contains($workflow, 'kit-dht22.jpg'));
+check106('kit photos are in the priority upload', str_contains($workflow, 'fs36-serial-monitor.png') && str_contains($workflow, 'fs36-modul-kit.png') && str_contains($workflow, 'kit-microsd-card.jpg') && str_contains($workflow, 'kit-microsd-spi.jpg') && str_contains($workflow, 'kit-dht22.jpg'));
 check106('cover is copied into public storage', str_contains($source, 'articles/covers/fs36-cover-sd') && str_contains($source, "Storage::disk('public')->put"));
 check106('trashed slug is restored', str_contains($source, 'withTrashed()') && str_contains($source, 'restore()'));
 check106('ID and EN references', str_contains($body, '#106 (ini)') && str_contains($bodyEn, '#106 (this article)'));
@@ -82,7 +82,9 @@ check106('article view supports absolute cover URLs', str_contains($blade, "str_
 check106('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 16);
 check106('glossary heading exists in both languages', str_contains($body, 'Istilah yang dipakai hari ini') && str_contains($bodyEn, 'Terms used today'));
 check106('FAQ and sources headings exist', str_contains($body, 'Pertanyaan yang sering muncul') && str_contains($body, '>Sumber<') && str_contains($bodyEn, 'Frequently asked questions') && str_contains($bodyEn, '>Sources<'));
-check106('seven FS-36 image figures in both languages', substr_count($body, '/images/fsiot/fs36-') === 7 && substr_count($bodyEn, '/images/fsiot/fs36-') === 7);
+check106('eight FS-36 image figures in both languages', substr_count($body, '/images/fsiot/fs36-') === 8 && substr_count($bodyEn, '/images/fsiot/fs36-') === 8);
+check106('wiring figure includes SD module GND', str_contains($body, 'GND modul SD juga ke GND ESP32') && str_contains($bodyEn, 'SD module GND also goes to ESP32 GND'));
+check106('six-pin kit module is illustrated before the Adafruit photo', strpos($body, 'fs36-modul-kit.png') < strpos($body, 'kit-microsd-spi.jpg') && strpos($bodyEn, 'fs36-modul-kit.png') < strpos($bodyEn, 'kit-microsd-spi.jpg'));
 check106('Koding Indonesia diagrams attributed', substr_count($body, 'Diagram buatan Koding Indonesia (FS-36)') === 5 && substr_count($bodyEn, 'Diagram by Koding Indonesia (FS-36)') === 5);
 check106('phone zoom tip exists', str_contains($body, 'Tips ponsel') && str_contains($bodyEn, 'Phone tip'));
 check106('interactive checklist is wired', str_contains($body, 'id="fsiot-sd-checklist"') && str_contains($body, 'id="fsiot-sd-checklist-items"') && str_contains($blade, "storagePrefix: 'fsiot-cl-106'") && str_contains($langId, 'fsiot_sd_badge') && str_contains($langEn, 'fsiot_sd_badge'));
@@ -105,6 +107,7 @@ foreach ([
     'fs36-cover-sd.webp',
     'fs36-tools-order.png',
     'fs36-format-fat32.png',
+    'fs36-modul-kit.png',
     'fs36-wiring-spi.png',
     'fs36-csv-flow.png',
     'fs36-millis-vs-ntp.png',

@@ -122,50 +122,87 @@ box(draw, (900, 500, 1120, 565), '#1565c0', '#1d4ed8', 4)
 text(draw, 1010, 532, 'Mulai', 24, '#ffffff')
 box(draw, (1150, 500, 1280, 565), '#e2e8f0', '#94a3b8', 3)
 text(draw, 1215, 532, 'Batal', 20, '#334155')
-text(draw, 700, 700, 'Ilustrasi buatan Koding Indonesia (FS-36), meniru langkah Format. Bukan jendela Windows resmi.', 16, '#353535')
+text(draw, 700, 700, 'Ilustrasi langkah Format, buatan Koding Indonesia (FS-36). Windows adalah merek Microsoft.', 16, '#353535')
 save(image, 'fs36-format-fat32.png')
 
-# Wiring — labels, not physical pin order
-image = Image.new('RGB', (1400, 780), '#f5f5f0')
+# Typical 6-pin kit module — shops often sell this shape, not the 8-pin Adafruit photo
+image = Image.new('RGB', (1400, 720), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'Wiring microSD SPI + DHT22 — ikuti tulisan pin', 'Jangan menebak urutan kaki dari foto. GND harus bersama.')
-box(draw, (40, 145, 430, 700), '#e3f2fd', '#1565c0')
-text(draw, 235, 185, 'ESP32 DevKitC-1', 24, '#1565c0')
-pins = [
-    (245, '5V', '#ef4444'),
-    (305, '3V3', '#f97316'),
-    (365, 'GPIO 5  CS', '#1565c0'),
-    (425, 'GPIO 18  SCK', '#0f766e'),
-    (485, 'GPIO 19  MISO', '#7c3aed'),
-    (545, 'GPIO 23  MOSI', '#c026d3'),
-    (605, 'GPIO 4  DATA', '#2563eb'),
-    (665, 'GND', '#374151'),
+header(draw, 1400, 'Modul kit toko sering berbentuk papan enam pin', 'Baca tulisan pin. Urutan kaki fisik boleh berbeda.')
+box(draw, (80, 150, 620, 620), '#1d4ed8', '#1e3a8a')
+text(draw, 350, 190, 'microSD  SPI', 28, '#ffffff')
+box(draw, (140, 230, 560, 330), '#cbd5e1', '#94a3b8', 3)
+text(draw, 350, 265, 'slot kartu', 22, '#0f172a')
+text(draw, 350, 305, 'masukkan microSD di sini', 18, '#334155')
+kit_pins = ['CS', 'SCK', 'MOSI', 'MISO', 'VCC', 'GND']
+for index, label in enumerate(kit_pins):
+    x = 130 + index * 80
+    box(draw, (x, 380, x + 64, 520), '#fde68a', '#b45309', 3)
+    text(draw, x + 32, 450, label, 16, '#78350f')
+text(draw, 350, 575, 'enam pin  ·  contoh rupa, bukan urutan wajib', 18, '#e0e7ff')
+box(draw, (700, 170, 1320, 600), '#ffffff', '#1565c0')
+text(draw, 1010, 220, 'Yang kamu cocokkan', 26, '#1565c0')
+pairs = [
+    'CS / SS          →  GPIO 5',
+    'SCK / CLK        →  GPIO 18',
+    'MISO / DO        →  GPIO 19',
+    'MOSI / DI        →  GPIO 23',
+    'VCC              →  5V atau 3V3',
+    'GND              →  GND',
 ]
-for y, label, color in pins:
-    box(draw, (70, y - 24, 400, y + 24), '#ffffff', color, 3)
-    text(draw, 235, y, label, 18, color)
-box(draw, (500, 145, 890, 520), '#fff8e1', '#f59e0b')
-text(draw, 695, 185, 'Modul microSD SPI', 24, '#b45309')
+for index, line in enumerate(pairs):
+    text(draw, 1010, 290 + index * 42, line, 20, '#0f172a')
+text(draw, 700, 670, 'Catatan lab: foto Adafruit delapan pin di artikel ini bentuk lain. Kit biru enam pin tetap SPI.', 18, '#b45309')
+save(image, 'fs36-modul-kit.png')
+
+# Wiring — one arrow per net, GND on the SD module too
+image = Image.new('RGB', (1400, 860), '#f5f5f0')
+draw = ImageDraw.Draw(image)
+header(draw, 1400, 'Wiring microSD SPI + DHT22 — ikuti tulisan pin', 'Setiap kabel punya pasangan. GND modul SD juga harus tersambung.')
+box(draw, (40, 145, 400, 790), '#e3f2fd', '#1565c0')
+text(draw, 220, 180, 'ESP32 DevKitC-1', 22, '#1565c0')
+esp_pins = [
+    (240, '5V', '#ef4444'),
+    (310, '3V3', '#f97316'),
+    (380, 'GPIO 5  CS', '#1565c0'),
+    (450, 'GPIO 18  SCK', '#0f766e'),
+    (520, 'GPIO 19  MISO', '#7c3aed'),
+    (590, 'GPIO 23  MOSI', '#c026d3'),
+    (660, 'GPIO 4  DATA', '#2563eb'),
+    (730, 'GND', '#374151'),
+]
+for y, label, color in esp_pins:
+    box(draw, (70, y - 26, 370, y + 26), '#ffffff', color, 3)
+    text(draw, 220, y, label, 18, color)
+box(draw, (520, 145, 900, 790), '#fff8e1', '#f59e0b')
+text(draw, 710, 180, 'Modul microSD SPI', 22, '#b45309')
 sd_pins = [
-    (250, 'VCC  (5V atau 3V3)', '#ef4444'),
-    (315, 'CS', '#1565c0'),
-    (380, 'SCK / CLK', '#0f766e'),
-    (445, 'MISO / DO', '#7c3aed'),
-    (510, 'MOSI / DI', '#c026d3'),
+    (240, 'VCC  (5V / 3V3)', '#ef4444'),
+    (380, 'CS / SS', '#1565c0'),
+    (450, 'SCK / CLK', '#0f766e'),
+    (520, 'MISO / DO', '#7c3aed'),
+    (590, 'MOSI / DI', '#c026d3'),
+    (730, 'GND', '#374151'),
 ]
 for y, label, color in sd_pins:
-    box(draw, (530, y - 24, 860, y + 24), '#ffffff', color, 3)
-    text(draw, 695, y, label, 18, color)
-box(draw, (960, 145, 1360, 430), '#e8f5e9', '#2e7d32')
-text(draw, 1160, 185, 'DHT22', 24, '#2e7d32')
-for y, label, color in [(250, 'VCC → 3V3', '#f97316'), (320, 'DATA / DAT → 4', '#2563eb'), (390, 'GND', '#374151')]:
-    box(draw, (990, y - 24, 1330, y + 24), '#ffffff', color, 3)
-    text(draw, 1160, y, label, 18, color)
-arrow(draw, (430, 245), (500, 250), '#ef4444', 6, 14)
-arrow(draw, (430, 365), (500, 315), '#1565c0', 6, 14)
-arrow(draw, (430, 605), (960, 320), '#2563eb', 6, 14)
-arrow(draw, (430, 665), (960, 390), '#374151', 6, 14)
-text(draw, 700, 735, 'Catatan lab: jika modul SD hanya tercetak 3V3, VCC ke 3V3. Sinyal SPI jangan ke 5V. Bukan AC 220V.', 18, '#b45309')
+    box(draw, (550, y - 26, 870, y + 26), '#ffffff', color, 3)
+    text(draw, 710, y, label, 18, color)
+box(draw, (1020, 145, 1360, 790), '#e8f5e9', '#2e7d32')
+text(draw, 1190, 180, 'DHT22', 22, '#2e7d32')
+dht_pins = [
+    (310, 'VCC → 3V3', '#f97316'),
+    (660, 'DATA → GPIO 4', '#2563eb'),
+    (730, 'GND', '#374151'),
+]
+for y, label, color in dht_pins:
+    box(draw, (1050, y - 26, 1330, y + 26), '#ffffff', color, 3)
+    text(draw, 1190, y, label, 18, color)
+for y, color in [(240, '#ef4444'), (380, '#1565c0'), (450, '#0f766e'), (520, '#7c3aed'), (590, '#c026d3'), (730, '#374151')]:
+    arrow(draw, (370, y), (550, y), color, 6, 14)
+arrow(draw, (370, 310), (1050, 310), '#f97316', 6, 14)
+arrow(draw, (370, 660), (1050, 660), '#2563eb', 6, 14)
+arrow(draw, (870, 730), (1050, 730), '#374151', 6, 14)
+text(draw, 700, 825, 'Catatan lab: jika modul SD hanya tercetak 3V3, VCC ke 3V3. Sinyal SPI jangan ke 5V. Bukan AC 220V.', 18, '#b45309')
 save(image, 'fs36-wiring-spi.png')
 
 # CSV flow left to right
