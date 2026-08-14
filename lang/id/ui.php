@@ -651,6 +651,17 @@ return [
         'fsiot_command_done' => 'Selesai',
         'fsiot_command_todo' => 'Belum',
 
+        'fsiot_sd_badge' => 'Checklist logging microSD',
+        'fsiot_sd_hint' => 'Centang setelah log.csv terbuka di komputer. Progres tersimpan di browser ini.',
+        'fsiot_sd_check' => 'Cek kesiapan',
+        'fsiot_sd_retry' => 'Kosongkan lagi',
+        'fsiot_sd_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_sd_progress' => ':filled dari :total tercentang',
+        'fsiot_sd_pass' => 'Lengkap :filled/:total — suhu sudah tersimpan di log.csv.',
+        'fsiot_sd_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_sd_done' => 'Selesai',
+        'fsiot_sd_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

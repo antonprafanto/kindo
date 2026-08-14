@@ -149,6 +149,47 @@ jobs:
           echo "dir=$pub" >> "$GITHUB_OUTPUT"
           echo "Public webroot FTP dir: $pub"
 
+      - name: Upload FS-36 draft via curl (priority)
+        id: curl106_priority
+        continue-on-error: true
+        run: |
+          set -e
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          APP="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.ftp.outputs.dir }}"
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          upload() {
+            local src="$1" dest="$2"
+            for attempt in 1 2 3; do
+              if curl -fsS --connect-timeout 30 --max-time 120 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$src" "$dest"; then
+                echo "OK $src -> $dest (attempt $attempt)"
+                return 0
+              fi
+              echo "FAIL $src -> $dest (attempt $attempt)"
+              sleep $((attempt * 10))
+            done
+            return 1
+          }
+          upload "database/seeders/Article106Seeder.php" "${APP}database/seeders/Article106Seeder.php"
+          upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php"
+          upload "routes/web.php" "${APP}routes/web.php"
+          upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
+          upload "lang/id/ui.php" "${APP}lang/id/ui.php"
+          upload "lang/en/ui.php" "${APP}lang/en/ui.php"
+          for img in fs36-cover-sd.jpg fs36-cover-sd.webp fs36-tools-order.png fs36-format-fat32.png fs36-wiring-spi.png fs36-csv-flow.png fs36-millis-vs-ntp.png fs36-serial-monitor.png fs36-troubleshooting.png kit-microsd-card.jpg kit-microsd-spi.jpg kit-dht22.jpg; do
+            upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
+            upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
+          done
+
+      - name: Seed FS-36 draft immediately
+        if: steps.curl106_priority.outcome == 'success'
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/clear-cache"
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/seed-article-106-draft"
+
       - name: Upload FS-35 draft via curl (priority)
         id: curl105_priority
         continue-on-error: true

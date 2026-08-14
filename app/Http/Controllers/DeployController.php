@@ -9631,6 +9631,52 @@ class DeployController extends Controller
         return response('Article 105 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle106Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article106Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 106 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-esp32-microsd-log-csv';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 106 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#106 (ini)', 'FS-36', 'GPIO 5', 'FAT32', 'log.csv', 'PAKAI_NTP', 'Kartu siap. Menulis /log.csv', 'FS-37'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 106 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#106 (this article)', 'FS-36', 'GPIO 5', 'FAT32', 'log.csv', 'PAKAI_NTP', 'Kartu siap. Menulis /log.csv', 'FS-37'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 106 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs36-cover-sd')) {
+            return response('Article 106 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 106 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedGateBuilderDraft(): Response
     {
         $this->authorizeDeployHook();

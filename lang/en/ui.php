@@ -651,6 +651,17 @@ return [
         'fsiot_command_done' => 'Done',
         'fsiot_command_todo' => 'Not yet',
 
+        'fsiot_sd_badge' => 'microSD logging checklist',
+        'fsiot_sd_hint' => 'Tick after log.csv opens on the computer. Progress stays in this browser.',
+        'fsiot_sd_check' => 'Check readiness',
+        'fsiot_sd_retry' => 'Clear again',
+        'fsiot_sd_paper' => 'Paper version (no clicking)',
+        'fsiot_sd_progress' => ':filled of :total checked',
+        'fsiot_sd_pass' => 'Complete :filled/:total — temperature is stored in log.csv.',
+        'fsiot_sd_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_sd_done' => 'Done',
+        'fsiot_sd_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',
