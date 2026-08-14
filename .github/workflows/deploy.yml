@@ -18,7 +18,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 120
     environment: antonprafanto
 
     steps:
@@ -731,6 +731,7 @@ jobs:
 
       - name: Upload brand assets to public webroot
         continue-on-error: true
+        timeout-minutes: 12
         run: |
           PROTO="${{ steps.ftp.outputs.protocol }}"
           BASE="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
@@ -748,9 +749,19 @@ jobs:
               echo "::warning::Missing public/$f — skip"
               continue
             fi
+            hdr="$(mktemp)"
+            http_code=$(curl -sSI --connect-timeout 10 --max-time 15 -o "$hdr" -w "%{http_code}" \
+              "https://kodingindonesia.com/$f" || echo "000")
+            local_size=$(wc -c < "public/$f" | tr -d ' ')
+            remote_len=$(awk 'BEGIN{IGNORECASE=1} /^content-length:/ {gsub("\r","",$2); print $2; exit}' "$hdr")
+            rm -f "$hdr"
+            if [ "$http_code" = "200" ] && [ -n "$remote_len" ] && [ "$remote_len" = "$local_size" ]; then
+              echo "Skip $f — already live ($local_size bytes)"
+              continue
+            fi
             ok=0
             for attempt in 1 2 3; do
-              if curl -fsS --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "public/$f" "$BASE$f"; then
+              if curl -fsS --connect-timeout 20 --max-time 90 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "public/$f" "$BASE$f"; then
                 echo "Uploaded $f (attempt $attempt)"
                 ok=1
                 break
@@ -1716,10 +1727,18 @@ jobs:
             exit 1
           fi
           # Pre-launch B: public URL must NOT be readable
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-apa-itu-iot")
-          echo "Article 71 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-apa-itu-iot" || echo "000")
+            echo "Article 71 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 71 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 72 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1768,10 +1787,18 @@ jobs:
             echo "::error::seed-article-73-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-kamus-mini")
-          echo "Article 73 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-kamus-mini" || echo "000")
+            echo "Article 73 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 73 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 74 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1790,10 +1817,18 @@ jobs:
             echo "::error::seed-article-74-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-buka-kotak-kit")
-          echo "Article 74 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-buka-kotak-kit" || echo "000")
+            echo "Article 74 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 74 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 75 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1812,10 +1847,18 @@ jobs:
             echo "::error::seed-article-75-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-keselamatan-sebelum-listrik")
-          echo "Article 75 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-keselamatan-sebelum-listrik" || echo "000")
+            echo "Article 75 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 75 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 76 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1834,10 +1877,18 @@ jobs:
             echo "::error::seed-article-76-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-komputer-siap-driver-arduino-ide")
-          echo "Article 76 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-komputer-siap-driver-arduino-ide" || echo "000")
+            echo "Article 76 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 76 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 77 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1856,10 +1907,18 @@ jobs:
             echo "::error::seed-article-77-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-multimeter-untuk-awam")
-          echo "Article 77 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-multimeter-untuk-awam" || echo "000")
+            echo "Article 77 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 77 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 78 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1878,10 +1937,18 @@ jobs:
             echo "::error::seed-article-78-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-listrik-mini-tegangan-arus-resistansi")
-          echo "Article 78 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-listrik-mini-tegangan-arus-resistansi" || echo "000")
+            echo "Article 78 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 78 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 79 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1900,10 +1967,18 @@ jobs:
             echo "::error::seed-article-79-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-led-resistor-di-breadboard")
-          echo "Article 79 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-led-resistor-di-breadboard" || echo "000")
+            echo "Article 79 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 79 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 80 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1922,10 +1997,18 @@ jobs:
             echo "::error::seed-article-80-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-digital-analog-high-low-pull-resistor")
-          echo "Article 80 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-digital-analog-high-low-pull-resistor" || echo "000")
+            echo "Article 80 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 80 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 81 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1944,10 +2027,18 @@ jobs:
             echo "::error::seed-article-81-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-sketch-setup-loop")
-          echo "Article 81 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-sketch-setup-loop" || echo "000")
+            echo "Article 81 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 81 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 82 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1966,10 +2057,18 @@ jobs:
             echo "::error::seed-article-82-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-variabel-tipe-data-serial")
-          echo "Article 82 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-variabel-tipe-data-serial" || echo "000")
+            echo "Article 82 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 82 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 83 draft via deploy hook (required — pre-launch B)
         run: |
@@ -1988,10 +2087,18 @@ jobs:
             echo "::error::seed-article-83-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-serial-monitor-debug")
-          echo "Article 83 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-serial-monitor-debug" || echo "000")
+            echo "Article 83 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 83 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 84 draft via deploy hook (required — pre-launch B)
         run: |
@@ -2010,10 +2117,18 @@ jobs:
             echo "::error::seed-article-84-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-if-else")
-          echo "Article 84 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-if-else" || echo "000")
+            echo "Article 84 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 84 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 85 draft via deploy hook (required — pre-launch B)
         run: |
@@ -2032,10 +2147,18 @@ jobs:
             echo "::error::seed-article-85-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-for-while-loop")
-          echo "Article 85 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-for-while-loop" || echo "000")
+            echo "Article 85 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 85 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 86 draft via deploy hook (required — pre-launch B)
         run: |
@@ -2054,10 +2177,18 @@ jobs:
             echo "::error::seed-article-86-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-fungsi")
-          echo "Article 86 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-fungsi" || echo "000")
+            echo "Article 86 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 86 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 87 draft via deploy hook (required — pre-launch B)
         run: |
@@ -2076,10 +2207,18 @@ jobs:
             echo "::error::seed-article-87-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-peta-pin-devkitc-1")
-          echo "Article 87 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-peta-pin-devkitc-1" || echo "000")
+            echo "Article 87 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 87 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 88 draft via deploy hook (required — pre-launch B)
         run: |
@@ -2098,10 +2237,18 @@ jobs:
             echo "::error::seed-article-88-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-led-dari-kode")
-          echo "Article 88 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-led-dari-kode" || echo "000")
+            echo "Article 88 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 88 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 89 draft via deploy hook (required — pre-launch B)
         run: |
@@ -2120,10 +2267,18 @@ jobs:
             echo "::error::seed-article-89-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-tombol-debounce")
-          echo "Article 89 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-tombol-debounce" || echo "000")
+            echo "Article 89 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 89 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 90 draft via deploy hook (required — pre-launch B)
         run: |
@@ -2142,10 +2297,18 @@ jobs:
             echo "::error::seed-article-90-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-pwm-redupkan-led")
-          echo "Article 90 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-pwm-redupkan-led" || echo "000")
+            echo "Article 90 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 90 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 91 draft via deploy hook (required — pre-launch B)
         run: |
@@ -2164,10 +2327,18 @@ jobs:
             echo "::error::seed-article-91-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-sensor-dht22-serial")
-          echo "Article 91 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-sensor-dht22-serial" || echo "000")
+            echo "Article 91 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 91 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 92 draft via deploy hook (required, pre-launch B)
         run: |
@@ -2186,10 +2357,18 @@ jobs:
             echo "::error::seed-article-92-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-ldr-adc-seberapa-terang")
-          echo "Article 92 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-ldr-adc-seberapa-terang" || echo "000")
+            echo "Article 92 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 92 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 93 draft via deploy hook (required, pre-launch B)
         run: |
@@ -2208,10 +2387,18 @@ jobs:
             echo "::error::seed-article-93-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-relay-aman-beban-kecil")
-          echo "Article 93 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-relay-aman-beban-kecil" || echo "000")
+            echo "Article 93 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 93 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
 
       - name: Seed article 94 draft via deploy hook (required, pre-launch B)
@@ -2231,10 +2418,18 @@ jobs:
             echo "::error::seed-article-94-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-otomasi-lokal-panas-relay")
-          echo "Article 94 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-otomasi-lokal-panas-relay" || echo "000")
+            echo "Article 94 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 94 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
 
       - name: Seed article 95 draft via deploy hook (required, pre-launch B)
@@ -2254,10 +2449,18 @@ jobs:
             echo "::error::seed-article-95-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-pir-gerak")
-          echo "Article 95 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-pir-gerak" || echo "000")
+            echo "Article 95 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 95 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
 
       - name: Seed article 96 draft via deploy hook (required, pre-launch B)
@@ -2277,10 +2480,18 @@ jobs:
             echo "::error::seed-article-96-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-servo-pwm")
-          echo "Article 96 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-servo-pwm" || echo "000")
+            echo "Article 96 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 96 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
 
       - name: Seed article 97 draft via deploy hook (required, pre-launch B)
@@ -2300,10 +2511,18 @@ jobs:
             echo "::error::seed-article-97-draft failed after retries (last HTTP $code)"
             exit 1
           fi
-          code=$(curl -sS --max-time 30 -o /dev/null -w "%{http_code}" \
-            "https://kodingindonesia.com/artikel/fullstack-iot-bus-uart-i2c-spi")
-          echo "Article 97 public HTTP status (expect 404): $code"
-          test "$code" = "404"
+          code="000"
+          for i in 1 2 3 4 5 6; do
+            code=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-bus-uart-i2c-spi" || echo "000")
+            echo "Article 97 public HTTP status (expect 404): $code (attempt $i)"
+            [ "$code" = "404" ] && break
+            sleep $((i * 2))
+          done
+          if [ "$code" != "404" ]; then
+            echo "::error::article 97 must stay unpublished (got HTTP $code)"
+            exit 1
+          fi
 
       - name: Seed article 98 draft via deploy hook (required, pre-launch B)
         if: always() && !cancelled()
@@ -2327,8 +2546,14 @@ jobs:
             cat /tmp/seed98.out || true
             exit 1
           fi
-          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-i2c-bme280-oled" || echo "000")
-          echo "public article 98 HTTP $pub (expect 404 draft)"
+          pub="000"
+          for i in 1 2 3 4 5 6; do
+            pub=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-i2c-bme280-oled" || echo "000")
+            echo "public article 98 HTTP $pub (expect 404 draft, attempt $i)"
+            [ "$pub" = "404" ] && break
+            sleep $((i * 2))
+          done
           if [ "$pub" != "404" ]; then
             echo "::error::article 98 must stay unpublished (got HTTP $pub)"
             exit 1
@@ -2362,8 +2587,14 @@ jobs:
             cat /tmp/seed99.out || true
             exit 1
           fi
-          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-wifi-dari-nol" || echo "000")
-          echo "public article 99 HTTP $pub (expect 404 draft)"
+          pub="000"
+          for i in 1 2 3 4 5 6; do
+            pub=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-wifi-dari-nol" || echo "000")
+            echo "public article 99 HTTP $pub (expect 404 draft, attempt $i)"
+            [ "$pub" = "404" ] && break
+            sleep $((i * 2))
+          done
           if [ "$pub" != "404" ]; then
             echo "::error::article 99 must stay unpublished (got HTTP $pub)"
             exit 1
@@ -2392,8 +2623,14 @@ jobs:
             cat /tmp/seed100.out || true
             exit 1
           fi
-          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-http-json" || echo "000")
-          echo "public article 100 HTTP $pub (expect 404 draft)"
+          pub="000"
+          for i in 1 2 3 4 5 6; do
+            pub=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-http-json" || echo "000")
+            echo "public article 100 HTTP $pub (expect 404 draft, attempt $i)"
+            [ "$pub" = "404" ] && break
+            sleep $((i * 2))
+          done
           if [ "$pub" != "404" ]; then
             echo "::error::article 100 must stay unpublished (got HTTP $pub)"
             exit 1
@@ -2421,8 +2658,14 @@ jobs:
             cat /tmp/seed101.out || true
             exit 1
           fi
-          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-web-server-lokal-sensor" || echo "000")
-          echo "public article 101 HTTP $pub (expect 404 draft)"
+          pub="000"
+          for i in 1 2 3 4 5 6; do
+            pub=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-web-server-lokal-sensor" || echo "000")
+            echo "public article 101 HTTP $pub (expect 404 draft, attempt $i)"
+            [ "$pub" = "404" ] && break
+            sleep $((i * 2))
+          done
           if [ "$pub" != "404" ]; then
             echo "::error::article 101 must stay unpublished (got HTTP $pub)"
             exit 1
@@ -2452,8 +2695,14 @@ jobs:
             cat /tmp/seed102.out || true
             exit 1
           fi
-          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-mqtt-broker-topic-publish-subscribe" || echo "000")
-          echo "public article 102 HTTP $pub (expect 404 draft)"
+          pub="000"
+          for i in 1 2 3 4 5 6; do
+            pub=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-mqtt-broker-topic-publish-subscribe" || echo "000")
+            echo "public article 102 HTTP $pub (expect 404 draft, attempt $i)"
+            [ "$pub" = "404" ] && break
+            sleep $((i * 2))
+          done
           if [ "$pub" != "404" ]; then
             echo "::error::article 102 must stay unpublished (got HTTP $pub)"
             exit 1
@@ -2482,8 +2731,14 @@ jobs:
             cat /tmp/seed106.out || true
             exit 1
           fi
-          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-esp32-microsd-log-csv" || echo "000")
-          echo "public article 106 HTTP $pub (expect 404 draft)"
+          pub="000"
+          for i in 1 2 3 4 5 6; do
+            pub=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-esp32-microsd-log-csv" || echo "000")
+            echo "public article 106 HTTP $pub (expect 404 draft, attempt $i)"
+            [ "$pub" = "404" ] && break
+            sleep $((i * 2))
+          done
           if [ "$pub" != "404" ]; then
             echo "::error::article 106 must stay unpublished (got HTTP $pub)"
             exit 1
@@ -2516,8 +2771,14 @@ jobs:
             cat /tmp/seed_gate_builder.out || true
             exit 1
           fi
-          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-gate-builder" || echo "000")
-          echo "public Gate BUILDER HTTP $pub (expect 404 draft)"
+          pub="000"
+          for i in 1 2 3 4 5 6; do
+            pub=$(curl -sS --connect-timeout 15 --max-time 30 -o /dev/null -w "%{http_code}" \
+              "https://kodingindonesia.com/artikel/fullstack-iot-gate-builder" || echo "000")
+            echo "public Gate BUILDER HTTP $pub (expect 404 draft, attempt $i)"
+            [ "$pub" = "404" ] && break
+            sleep $((i * 2))
+          done
           if [ "$pub" != "404" ]; then
             echo "::error::Gate BUILDER must stay unpublished (got HTTP $pub)"
             exit 1
