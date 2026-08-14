@@ -18,7 +18,7 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 180
     environment: antonprafanto
 
     steps:
@@ -72,6 +72,7 @@ jobs:
 
       - name: Purge compiled Blade views via FTP (pre-deploy)
         continue-on-error: true
+        timeout-minutes: 6
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
@@ -152,6 +153,7 @@ jobs:
       - name: Upload FS-36 draft via curl (priority)
         id: curl106_priority
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set -e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -193,6 +195,7 @@ jobs:
       - name: Upload FS-35 draft via curl (priority)
         id: curl105_priority
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set -e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -234,6 +237,7 @@ jobs:
       - name: Upload FS-34 draft via curl (priority)
         id: curl104_priority
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set -e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -275,6 +279,7 @@ jobs:
       - name: Upload FS-33 draft via curl (priority)
         id: curl103_priority
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set -e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -317,6 +322,7 @@ jobs:
       - name: Upload FS-32 revision via curl (priority)
         id: curl102_priority
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set -e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -357,6 +363,7 @@ jobs:
       - name: Upload critical #98 files via curl (pre-sync)
         id: curl98
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set +e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -393,6 +400,7 @@ jobs:
       - name: Upload critical #99 files via curl (pre-sync)
         id: curl99
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set +e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -429,6 +437,7 @@ jobs:
       - name: Upload critical #100 files via curl (pre-sync)
         id: curl100
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set +e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -465,6 +474,7 @@ jobs:
       - name: Upload critical #101 files via curl (pre-sync)
         id: curl101
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set +e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -509,6 +519,7 @@ jobs:
       - name: Upload critical Gate BUILDER files via curl (pre-sync)
         id: curl_gate_builder
         continue-on-error: true
+        timeout-minutes: 8
         run: |
           set +e
           PROTO="${{ steps.ftp.outputs.protocol }}"
@@ -551,6 +562,7 @@ jobs:
       - name: Upload critical FS-32 files via curl (pre-sync)
         id: curl102
         continue-on-error: true
+        timeout-minutes: 10
         run: |
           set -e
           PROTO="${{ steps.ftp.outputs.protocol }}"
