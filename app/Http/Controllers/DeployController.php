@@ -9723,6 +9723,52 @@ class DeployController extends Controller
         return response('Article 107 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle108Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article108Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 108 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-pc-rules-nodered-mqtt';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 108 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#108 (ini)', 'FS-38', 'Node-RED', 'Ambang ada di PC, bukan di sketch.', 'FS38_device_only', 'Deploy', 'FS-39'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 108 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#108 (this article)', 'FS-38', 'Node-RED', 'Ambang ada di PC, bukan di sketch.', 'FS38_device_only', 'Deploy', 'FS-39'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 108 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs38-cover-rules')) {
+            return response('Article 108 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 108 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedGateBuilderDraft(): Response
     {
         $this->authorizeDeployHook();

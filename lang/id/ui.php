@@ -673,6 +673,17 @@ return [
         'fsiot_forward_done' => 'Selesai',
         'fsiot_forward_todo' => 'Belum',
 
+        'fsiot_rules_badge' => 'Checklist aturan di PC',
+        'fsiot_rules_hint' => 'Centang setelah Deploy mengubah relay tanpa Upload. Progres tersimpan di browser ini.',
+        'fsiot_rules_check' => 'Cek kesiapan',
+        'fsiot_rules_retry' => 'Kosongkan lagi',
+        'fsiot_rules_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_rules_progress' => ':filled dari :total tercentang',
+        'fsiot_rules_pass' => 'Lengkap :filled/:total — ambang sudah hidup di Node-RED, bukan di sketch.',
+        'fsiot_rules_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_rules_done' => 'Selesai',
+        'fsiot_rules_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

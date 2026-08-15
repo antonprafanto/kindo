@@ -673,6 +673,17 @@ return [
         'fsiot_forward_done' => 'Done',
         'fsiot_forward_todo' => 'Not yet',
 
+        'fsiot_rules_badge' => 'PC rules checklist',
+        'fsiot_rules_hint' => 'Tick after Deploy changes the relay without Upload. Progress stays in this browser.',
+        'fsiot_rules_check' => 'Check readiness',
+        'fsiot_rules_retry' => 'Clear again',
+        'fsiot_rules_paper' => 'Paper version (no clicking)',
+        'fsiot_rules_progress' => ':filled of :total checked',
+        'fsiot_rules_pass' => 'Complete :filled/:total — the threshold now lives in Node-RED, not in the sketch.',
+        'fsiot_rules_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_rules_done' => 'Done',
+        'fsiot_rules_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',
