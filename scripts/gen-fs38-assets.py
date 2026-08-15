@@ -221,7 +221,7 @@ header(draw, 1400, 'Ubah ambang di Node-RED, lalu Deploy. Jangan Upload.', 'Ardu
 steps = [
     ('1', 'Double-klik\nswitch', 'angka 30\nsiap diubah', '#fff8e1', '#f9a825'),
     ('2', 'Ganti jadi 28\natau 32', 'sesuai ruanganmu', '#e3f2fd', '#1565c0'),
-    ('3', 'Klik Deploy', 'tombol merah\nkiri atas', '#fff7ed', '#c2410c'),
+    ('3', 'Klik Deploy', 'tombol merah\nkanan atas', '#fff7ed', '#c2410c'),
     ('4', 'Relay berubah', 'tanpa Verify\ntanpa Upload', '#ecfdf5', '#166534'),
 ]
 for index, (number, title, body, fill, color) in enumerate(steps):
