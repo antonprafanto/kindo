@@ -274,7 +274,7 @@ class Article108Seeder extends Seeder
         $wifi = $this->figure('fs38-same-wifi.png', 'PC dan ESP32 di Wi-Fi rumah yang sama; Node-RED memakai 127.0.0.1, ESP32 memakai IPv4 PC', '<strong>Satu Wi-Fi rumah.</strong> Demo hotspot FS-37 tidak dipakai hari ini. Node-RED di PC menyambung ke Mosquitto lewat <code>127.0.0.1</code>. ESP32 memakai IPv4 PC, bukan <code>127.0.0.1</code>. Diagram buatan Koding Indonesia (FS-38).');
         $brain = $this->figure('fs38-brain-on-pc.png', 'Perbandingan aturan if suhu di sketch versus switch di Node-RED', '<strong>Firmware patuh. PC yang memutuskan.</strong> Jangan menulis <code>if (suhu &gt; 30)</code> di sketch. Diagram buatan Koding Indonesia (FS-38).');
         $flow = $this->figure('fs38-flow.png', 'Alur kiri ke kanan: DHT22, Mosquitto, Node-RED, lalu relay GPIO 26', '<strong>Gambar utama — alur.</strong> Baca dari kiri ke kanan: suhu → broker → aturan PC → klik relay. Diagram buatan Koding Indonesia (FS-38).');
-        $wiring = $this->figure('fs38-wiring.png', 'Wiring DHT22 GPIO 4 dan relay GPIO 26 ke ESP32, terminal NC COM NO kosong', '<strong>Wiring hari ini.</strong> DHT22: VCC → 3V3, DATA → GPIO 4, GND → GND. Relay 5V: VCC/+ → 5V, IN/S → GPIO 26, GND/− → GND. Terminal NC/COM/NO kosong. <strong>Jangan colok AC 220V.</strong> Diagram buatan Koding Indonesia (FS-38).');
+        $wiring = $this->figure('fs38-wiring.png', 'Enam kabel jumper: DHT22 GPIO 4 dan relay GPIO 26 ke ESP32, terminal NC COM NO kosong', '<strong>Enam kabel jumper — pasang satu per satu.</strong> Setiap garis berwarna adalah satu jumper. Angka 1–3 ke DHT22, angka 4–6 ke relay. DHT22: VCC → 3V3, DATA → GPIO 4, GND → GND. Relay 5V: VCC/+ → 5V, IN/S → GPIO 26, GND/− → GND. Terminal NC/COM/NO kosong. <strong>Jangan colok AC 220V.</strong> Diagram buatan Koding Indonesia (FS-38).');
         $editor = $this->figure('fs38-nodered-editor.png', 'Ilustrasi editor Node-RED: mqtt in telemetry, switch suhu lebih dari 30, change relay on atau off', '<strong>Node-RED sudah menampilkan alur jika-maka.</strong> Buka <code>http://127.0.0.1:1880</code>. Setelah mengubah angka, klik <strong>Deploy</strong>. Ilustrasi buatan Koding Indonesia (FS-38), meniru editor <a href="https://nodered.org/" target="_blank" rel="noopener noreferrer">Node-RED</a> oleh OpenJS Foundation (Apache License 2.0). Screenshot jendela resmi tidak dipakai utuh.');
         $deploy = $this->figure('fs38-threshold-deploy.png', 'Urutan ubah ambang: double-klik switch, ganti angka, klik Deploy di kanan atas, relay berubah tanpa Upload', '<strong>Ubah ambang di Node-RED, lalu Deploy.</strong> Tombol Deploy di <strong>kanan atas</strong> editor, bukan kiri atas seperti Upload Arduino. USB ESP32 tetap colok. Diagram buatan Koding Indonesia (FS-38).');
         $manual = $this->figure('fs38-mqttx-manual.png', 'Ilustrasi MQTTX: lihat telemetri 31.2 lalu publish perintah relay on', '<strong>Jalur cadangan.</strong> Kamu yang jadi otak: lihat suhu di MQTTX, lalu publish JSON perintah. Automasi tetap di Node-RED pada jalur utama. Ilustrasi buatan Koding Indonesia (FS-38), meniru tata letak <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX oleh EMQ</a> (Apache License 2.0).');
@@ -369,17 +369,18 @@ node-red</code></pre>
 <h2>Pasang kabel — DHT22 dan relay</h2>
 HTML
             .$wiring.$dhtPhoto.$relayPhoto.<<<'HTML'
+<p><strong>Cara baca gambar:</strong> kiri = pin ESP32, kanan = tulisan di modul. Pasang kabel sesuai angka 1 sampai 6. Tabel di bawah mengulang label yang sama.</p>
 <p>Cabut USB ESP32 sebelum merapikan kabel. <strong>Jangan menebak pin.</strong></p>
 <table>
-<thead><tr><th>Tulisan di modul</th><th>GPIO / pin ESP32</th></tr></thead>
+<thead><tr><th>Kabel</th><th>Tulisan di modul</th><th>GPIO / pin ESP32</th></tr></thead>
 <tbody>
-<tr><td>DHT22 VCC</td><td><strong>3V3</strong></td></tr>
-<tr><td>DHT22 DATA atau DAT</td><td><strong>4</strong></td></tr>
-<tr><td>DHT22 GND</td><td>GND</td></tr>
-<tr><td>Relay VCC atau +</td><td><strong>5V</strong></td></tr>
-<tr><td>Relay IN atau S</td><td><strong>26</strong></td></tr>
-<tr><td>Relay GND atau −</td><td>GND</td></tr>
-<tr><td>NC / COM / NO</td><td><strong>kosong</strong></td></tr>
+<tr><td>1</td><td>DHT22 VCC</td><td><strong>3V3</strong></td></tr>
+<tr><td>2</td><td>DHT22 DATA atau DAT</td><td><strong>4</strong></td></tr>
+<tr><td>3</td><td>DHT22 GND</td><td>GND</td></tr>
+<tr><td>4</td><td>Relay VCC atau +</td><td><strong>5V</strong></td></tr>
+<tr><td>5</td><td>Relay IN atau S</td><td><strong>26</strong></td></tr>
+<tr><td>6</td><td>Relay GND atau −</td><td>GND</td></tr>
+<tr><td>—</td><td>NC / COM / NO</td><td><strong>kosong</strong></td></tr>
 </tbody>
 </table>
 <p><strong>Jangan colok AC 220V.</strong> Kartu microSD tidak dipasang hari ini.</p>
@@ -498,7 +499,7 @@ HTML;
         $wifi = $this->figure('fs38-same-wifi.png', 'PC and ESP32 on the same home Wi-Fi; Node-RED uses 127.0.0.1, the ESP32 uses the PC IPv4', '<strong>One home Wi-Fi.</strong> The FS-37 hotspot demo is not used today. Node-RED on the PC talks to Mosquitto at <code>127.0.0.1</code>. The ESP32 uses the PC IPv4, not <code>127.0.0.1</code>. Diagram by Koding Indonesia (FS-38).');
         $brain = $this->figure('fs38-brain-on-pc.png', 'Comparison of an if temperature rule in the sketch versus a switch in Node-RED', '<strong>The firmware obeys. The PC decides.</strong> Do not write <code>if (suhu &gt; 30)</code> in the sketch. Diagram by Koding Indonesia (FS-38).');
         $flow = $this->figure('fs38-flow.png', 'Left-to-right flow: DHT22, Mosquitto, Node-RED, then the GPIO 26 relay', '<strong>Main figure — flow.</strong> Read left to right: temperature → broker → PC rule → relay click. Diagram by Koding Indonesia (FS-38).');
-        $wiring = $this->figure('fs38-wiring.png', 'DHT22 GPIO 4 and relay GPIO 26 wiring to ESP32, NC COM NO terminals empty', '<strong>Wiring today.</strong> DHT22: VCC → 3V3, DATA → GPIO 4, GND → GND. 5V relay: VCC/+ → 5V, IN/S → GPIO 26, GND/− → GND. Leave NC/COM/NO empty. <strong>Do not connect AC mains.</strong> Diagram by Koding Indonesia (FS-38).');
+        $wiring = $this->figure('fs38-wiring.png', 'Six jumper cables: DHT22 GPIO 4 and relay GPIO 26 to ESP32, NC COM NO terminals empty', '<strong>Six jumper cables — fit them one at a time.</strong> Each colored line is one jumper. Numbers 1–3 go to the DHT22, 4–6 to the relay. DHT22: VCC → 3V3, DATA → GPIO 4, GND → GND. 5V relay: VCC/+ → 5V, IN/S → GPIO 26, GND/− → GND. Leave NC/COM/NO empty. <strong>Do not connect AC mains.</strong> Diagram by Koding Indonesia (FS-38).');
         $editor = $this->figure('fs38-nodered-editor.png', 'Node-RED editor illustration: mqtt in telemetry, switch temperature greater than 30, change relay on or off', '<strong>Node-RED is already showing the if-then flow.</strong> Open <code>http://127.0.0.1:1880</code>. After you change the number, click <strong>Deploy</strong>. Illustration by Koding Indonesia (FS-38), modelled on the <a href="https://nodered.org/" target="_blank" rel="noopener noreferrer">Node-RED</a> editor by the OpenJS Foundation (Apache License 2.0). The official window screenshot is not used as-is.');
         $deploy = $this->figure('fs38-threshold-deploy.png', 'Threshold change order: double-click switch, change the number, click Deploy at the top right, relay follows without Upload', '<strong>Change the threshold in Node-RED, then Deploy.</strong> Deploy is at the <strong>top right</strong> of the editor, not the top left like Arduino Upload. Leave ESP32 USB plugged in. Diagram by Koding Indonesia (FS-38).');
         $manual = $this->figure('fs38-mqttx-manual.png', 'MQTTX illustration: see telemetry 31.2 then publish a relay on command', '<strong>Fallback path.</strong> You are the brain: watch temperature in MQTTX, then publish command JSON. Automation still belongs in Node-RED on the main path. Illustration by Koding Indonesia (FS-38), modelled on <a href="https://mqttx.app/" target="_blank" rel="noopener noreferrer">MQTTX by EMQ</a> (Apache License 2.0).');
@@ -593,17 +594,18 @@ node-red</code></pre>
 <h2>Wire the cables — DHT22 and relay</h2>
 HTML
             .$wiring.$dhtPhoto.$relayPhoto.<<<'HTML'
+<p><strong>How to read the figure:</strong> left = ESP32 pin, right = the label on the module. Fit cables in order 1 to 6. The table below repeats the same labels.</p>
 <p>Unplug ESP32 USB before tidying cables. <strong>Do not guess pins.</strong></p>
 <table>
-<thead><tr><th>Label on the module</th><th>ESP32 GPIO / pin</th></tr></thead>
+<thead><tr><th>Cable</th><th>Label on the module</th><th>ESP32 GPIO / pin</th></tr></thead>
 <tbody>
-<tr><td>DHT22 VCC</td><td><strong>3V3</strong></td></tr>
-<tr><td>DHT22 DATA or DAT</td><td><strong>4</strong></td></tr>
-<tr><td>DHT22 GND</td><td>GND</td></tr>
-<tr><td>Relay VCC or +</td><td><strong>5V</strong></td></tr>
-<tr><td>Relay IN or S</td><td><strong>26</strong></td></tr>
-<tr><td>Relay GND or −</td><td>GND</td></tr>
-<tr><td>NC / COM / NO</td><td><strong>empty</strong></td></tr>
+<tr><td>1</td><td>DHT22 VCC</td><td><strong>3V3</strong></td></tr>
+<tr><td>2</td><td>DHT22 DATA or DAT</td><td><strong>4</strong></td></tr>
+<tr><td>3</td><td>DHT22 GND</td><td>GND</td></tr>
+<tr><td>4</td><td>Relay VCC or +</td><td><strong>5V</strong></td></tr>
+<tr><td>5</td><td>Relay IN or S</td><td><strong>26</strong></td></tr>
+<tr><td>6</td><td>Relay GND or −</td><td>GND</td></tr>
+<tr><td>—</td><td>NC / COM / NO</td><td><strong>empty</strong></td></tr>
 </tbody>
 </table>
 <p><strong>Do not connect AC mains.</strong> The microSD card is not fitted today.</p>

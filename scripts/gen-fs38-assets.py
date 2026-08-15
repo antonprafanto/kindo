@@ -153,34 +153,76 @@ for left in (340, 680, 1020):
 text(draw, 700, 640, 'Catatan lab: MQTTX tetap terbuka supaya kamu melihat telemetri dan status, bukan mengganti Node-RED.', 18, '#b45309')
 save(image, 'fs38-flow.png')
 
-# Combined wiring
-image = Image.new('RGB', (1400, 860), '#f5f5f0')
+def hole(draw, cx, cy, color):
+    draw.ellipse((cx - 14, cy - 14, cx + 14, cy + 14), fill='#ffffff', outline=color, width=4)
+
+
+def jumper(draw, y, color, number, left_x, right_x):
+    draw.line([(left_x, y), (right_x, y)], fill=color, width=10)
+    mx = (left_x + right_x) / 2
+    draw.ellipse((mx - 20, y - 20, mx + 20, y + 20), fill=color, outline='#1f1f1f', width=3)
+    number_fill = '#1f1f1f' if color in ('#f9a825', '#ffe082') else '#ffffff'
+    text(draw, mx, y, str(number), 20, number_fill)
+
+
+# Combined wiring — six jumpers a beginner can follow
+image = Image.new('RGB', (1400, 1040), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'Wiring hari ini: DHT22 GPIO 4 + relay GPIO 26', 'Ikuti tulisan pin. Terminal NC/COM/NO kosong. Bukan AC 220V.')
-box(draw, (40, 145, 430, 720), '#e3f2fd', '#1565c0')
+header(draw, 1400, 'Enam kabel jumper — pasang satu per satu', 'Ujung kiri = pin ESP32. Ujung kanan = tulisan di modul. Satu garis = satu jumper.')
+box(draw, (40, 145, 430, 800), '#e3f2fd', '#1565c0')
 text(draw, 235, 185, 'ESP32 DevKitC-1', 24, '#1565c0')
-for y, label in [(250, '3V3'), (320, 'GPIO 4 DATA'), (390, 'GPIO 26 IN'), (460, '5V'), (530, 'GND'), (600, 'GND')]:
-    box(draw, (70, y - 28, 400, y + 28), '#ffffff', '#1565c0', 3)
-    text(draw, 235, y, label, 20, '#1e3a8a')
-box(draw, (520, 145, 880, 430), '#ecfdf5', '#166534')
-text(draw, 700, 185, 'DHT22', 26, '#166534')
-text(draw, 700, 255, 'VCC → 3V3', 22)
-text(draw, 700, 315, 'DATA → GPIO 4', 22)
-text(draw, 700, 375, 'GND → GND', 22)
-box(draw, (520, 460, 880, 720), '#fff7ed', '#c2410c')
-text(draw, 700, 500, 'Relay 5V', 26, '#c2410c')
-text(draw, 700, 560, 'VCC/+ → 5V', 22)
-text(draw, 700, 615, 'IN/S → GPIO 26', 22)
-text(draw, 700, 670, 'GND/− → GND', 22)
-box(draw, (960, 145, 1360, 720), '#fff8e1', '#f9a825')
-text(draw, 1160, 200, 'Yang tidak', 26, '#b45309')
-text(draw, 1160, 280, 'microSD / SPI', 22)
-text(draw, 1160, 350, 'hotspot HP', 22)
-text(draw, 1160, 420, 'Python', 22)
-text(draw, 1160, 490, 'AC 220V', 22)
-text(draw, 1160, 560, 'NC/COM/NO isi', 20, '#92400e')
-text(draw, 1160, 640, 'ambang di sketch', 20, '#92400e')
-text(draw, 700, 790, 'Catatan lab: jika modul relay aktif HIGH, ubah AKTIF_LOW menjadi false. Jangan menebak dari foto.', 18, '#b45309')
+text(draw, 235, 222, 'pin yang dipakai hari ini', 16, '#1e3a8a')
+esp_pins = [
+    (290, '3V3', '#ef6c00'),
+    (360, 'GPIO 4', '#f9a825'),
+    (430, 'GND', '#424242'),
+    (610, '5V', '#c62828'),
+    (680, 'GPIO 26', '#1565c0'),
+    (750, 'GND', '#424242'),
+]
+for y, label, color in esp_pins:
+    text(draw, 200, y, label, 22, color)
+    hole(draw, 360, y, color)
+draw.line([(70, 535), (400, 535)], fill='#90caf9', width=3)
+text(draw, 235, 510, 'lalu ke relay', 16, '#1e3a8a')
+box(draw, (820, 145, 1360, 480), '#ecfdf5', '#166534')
+text(draw, 1090, 185, 'DHT22', 26, '#166534')
+text(draw, 1090, 222, 'tulisan di modul', 16, '#14532d')
+for y, label, color in [(290, 'VCC', '#ef6c00'), (360, 'DATA / DAT', '#f9a825'), (430, 'GND', '#424242')]:
+    hole(draw, 900, y, color)
+    text(draw, 1125, y, label, 22, color)
+box(draw, (820, 560, 1360, 800), '#fff7ed', '#c2410c')
+text(draw, 1090, 578, 'Relay 5V', 22, '#c2410c')
+for y, label, color in [(610, 'VCC / +', '#c62828'), (680, 'IN / S', '#1565c0'), (750, 'GND / −', '#424242')]:
+    hole(draw, 900, y, color)
+    text(draw, 1125, y, label, 22, color)
+for y, color, number in [
+    (290, '#ef6c00', 1),
+    (360, '#f9a825', 2),
+    (430, '#424242', 3),
+    (610, '#c62828', 4),
+    (680, '#1565c0', 5),
+    (750, '#424242', 6),
+]:
+    jumper(draw, y, color, number, 374, 886)
+box(draw, (40, 820, 430, 885), '#f3f4f6', '#6b7280')
+text(draw, 235, 852, 'GND mana pun di ESP32 boleh.', 16, '#374151')
+box(draw, (820, 820, 1360, 885), '#f3f4f6', '#6b7280')
+text(draw, 1090, 852, 'NC / COM / NO = kosong. Bukan AC 220V.', 18, '#374151')
+legend = [
+    (50, 920, 1, '#ef6c00', '3V3 → VCC DHT22'),
+    (500, 920, 2, '#f9a825', 'GPIO 4 → DATA'),
+    (950, 920, 3, '#424242', 'GND → GND DHT22'),
+    (50, 970, 4, '#c62828', '5V → VCC/+ relay'),
+    (500, 970, 5, '#1565c0', 'GPIO 26 → IN/S'),
+    (950, 970, 6, '#424242', 'GND → GND/− relay'),
+]
+for x, y, number, color, label in legend:
+    draw.ellipse((x, y - 16, x + 32, y + 16), fill=color, outline='#1f1f1f', width=2)
+    number_fill = '#1f1f1f' if color in ('#f9a825', '#ffe082') else '#ffffff'
+    text(draw, x + 16, y, str(number), 18, number_fill)
+    draw.text((x + 44, y), label, font=font(17), fill='#1f1f1f', anchor='lm')
+text(draw, 700, 1015, 'Catatan lab: jangan satukan 3V3 dan 5V di satu rail. Jika modul relay aktif HIGH, ubah AKTIF_LOW menjadi false. Jangan menebak dari foto.', 16, '#b45309')
 save(image, 'fs38-wiring.png')
 
 # Node-RED editor illustration
