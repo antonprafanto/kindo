@@ -695,6 +695,17 @@ return [
         'fsiot_python_done' => 'Done',
         'fsiot_python_todo' => 'Not yet',
 
+        'fsiot_sqlite_badge' => 'PC SQLite checklist',
+        'fsiot_sqlite_hint' => 'Tick after lihat_db.py shows 10 rows. Progress stays in this browser.',
+        'fsiot_sqlite_check' => 'Check readiness',
+        'fsiot_sqlite_retry' => 'Clear again',
+        'fsiot_sqlite_paper' => 'Paper version (no clicking)',
+        'fsiot_sqlite_progress' => ':filled of :total checked',
+        'fsiot_sqlite_pass' => 'Complete :filled/:total — Python now stores 10 SQLite rows.',
+        'fsiot_sqlite_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_sqlite_done' => 'Done',
+        'fsiot_sqlite_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

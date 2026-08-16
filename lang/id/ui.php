@@ -695,6 +695,17 @@ return [
         'fsiot_python_done' => 'Selesai',
         'fsiot_python_todo' => 'Belum',
 
+        'fsiot_sqlite_badge' => 'Checklist SQLite di PC',
+        'fsiot_sqlite_hint' => 'Centang setelah lihat_db.py menampilkan 10 baris. Progres tersimpan di browser ini.',
+        'fsiot_sqlite_check' => 'Cek kesiapan',
+        'fsiot_sqlite_retry' => 'Kosongkan lagi',
+        'fsiot_sqlite_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_sqlite_progress' => ':filled dari :total tercentang',
+        'fsiot_sqlite_pass' => 'Lengkap :filled/:total — Python sudah menyimpan 10 baris SQLite.',
+        'fsiot_sqlite_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_sqlite_done' => 'Selesai',
+        'fsiot_sqlite_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

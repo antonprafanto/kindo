@@ -9815,6 +9815,52 @@ class DeployController extends Controller
         return response('Article 109 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle110Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article110Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 110 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-python-mqtt-sqlite-stasiun';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 110 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#110 (ini)', 'paho-mqtt==2.1.0', 'stasiun.db', 'MQTT tersambung.', 'FS-42'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 110 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#110 (this article)', 'paho-mqtt==2.1.0', 'stasiun.db', 'MQTT tersambung.', 'FS-42'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 110 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs40-cover-sqlite')) {
+            return response('Article 110 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 110 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedGateBuilderDraft(): Response
     {
         $this->authorizeDeployHook();
