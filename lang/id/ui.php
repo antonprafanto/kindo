@@ -706,6 +706,17 @@ return [
         'fsiot_sqlite_done' => 'Selesai',
         'fsiot_sqlite_todo' => 'Belum',
 
+        'fsiot_mysql_badge' => 'Checklist MariaDB di PC',
+        'fsiot_mysql_hint' => 'Centang setelah lihat_mysql.py menampilkan 10 baris. Progres tersimpan di browser ini.',
+        'fsiot_mysql_check' => 'Cek kesiapan',
+        'fsiot_mysql_retry' => 'Kosongkan lagi',
+        'fsiot_mysql_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_mysql_progress' => ':filled dari :total tercentang',
+        'fsiot_mysql_pass' => 'Lengkap :filled/:total — Python sudah menyalin 10 baris MariaDB.',
+        'fsiot_mysql_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_mysql_done' => 'Selesai',
+        'fsiot_mysql_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

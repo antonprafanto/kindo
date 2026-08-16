@@ -9815,6 +9815,52 @@ class DeployController extends Controller
         return response('Article 109 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle111Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article111Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 111 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-mariadb-histori-sqlite-stasiun';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 111 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#111 (ini)', 'mysql-connector-python==26.7.0', 'stasiun.db', 'Jumlah baris: 10', 'FS-42'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 111 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#111 (this article)', 'mysql-connector-python==26.7.0', 'stasiun.db', 'Jumlah baris: 10', 'FS-42'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 111 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs41-cover-mysql')) {
+            return response('Article 111 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 111 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedArticle110Draft(): Response
     {
         $this->authorizeDeployHook();

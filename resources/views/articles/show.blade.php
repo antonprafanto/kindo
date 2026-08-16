@@ -580,6 +580,7 @@ const initFsiotInteractiveWidgets = () => {
     initFsiotRulesChecklist();
     initFsiotPythonChecklist();
     initFsiotSqliteChecklist();
+    initFsiotMysqlChecklist();
     initFsiotGateBuilderChecklist();
 };
 
@@ -2199,6 +2200,28 @@ function initFsiotPythonChecklist() {
             incomplete: @js(__('ui.articles.fsiot_python_incomplete')),
             done: @js(__('ui.articles.fsiot_python_done')),
             todo: @js(__('ui.articles.fsiot_python_todo')),
+        },
+    });
+}
+
+function initFsiotMysqlChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-mysql-checklist',
+        listId: 'fsiot-mysql-checklist-items',
+        storagePrefix: 'fsiot-cl-111',
+        idPrefix: 'fsiot-mysql',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_mysql_badge')),
+            hint: @js(__('ui.articles.fsiot_mysql_hint')),
+            check: @js(__('ui.articles.fsiot_mysql_check')),
+            retry: @js(__('ui.articles.fsiot_mysql_retry')),
+            paper: @js(__('ui.articles.fsiot_mysql_paper')),
+            progress: @js(__('ui.articles.fsiot_mysql_progress')),
+            pass: @js(__('ui.articles.fsiot_mysql_pass')),
+            incomplete: @js(__('ui.articles.fsiot_mysql_incomplete')),
+            done: @js(__('ui.articles.fsiot_mysql_done')),
+            todo: @js(__('ui.articles.fsiot_mysql_todo')),
         },
     });
 }

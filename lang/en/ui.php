@@ -706,6 +706,17 @@ return [
         'fsiot_sqlite_done' => 'Done',
         'fsiot_sqlite_todo' => 'Not yet',
 
+        'fsiot_mysql_badge' => 'PC MariaDB checklist',
+        'fsiot_mysql_hint' => 'Tick after lihat_mysql.py shows 10 rows. Progress stays in this browser.',
+        'fsiot_mysql_check' => 'Check readiness',
+        'fsiot_mysql_retry' => 'Clear again',
+        'fsiot_mysql_paper' => 'Paper version (no clicking)',
+        'fsiot_mysql_progress' => ':filled of :total checked',
+        'fsiot_mysql_pass' => 'Complete :filled/:total — Python now stores 10 MariaDB rows.',
+        'fsiot_mysql_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_mysql_done' => 'Done',
+        'fsiot_mysql_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',
