@@ -728,6 +728,17 @@ return [
         'fsiot_flask_done' => 'Selesai',
         'fsiot_flask_todo' => 'Belum',
 
+        'fsiot_device_badge' => 'Checklist dua stasiun device_id',
+        'fsiot_device_hint' => 'Centang setelah GET meja-02 menampilkan JSON jumlah 5. Progres tersimpan di browser ini.',
+        'fsiot_device_check' => 'Cek kesiapan',
+        'fsiot_device_retry' => 'Kosongkan lagi',
+        'fsiot_device_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_device_progress' => ':filled dari :total tercentang',
+        'fsiot_device_pass' => 'Lengkap :filled/:total — dua stasiun sudah disaring. GET meja-02 menampilkan 5 baris.',
+        'fsiot_device_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_device_done' => 'Selesai',
+        'fsiot_device_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

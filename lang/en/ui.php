@@ -728,6 +728,17 @@ return [
         'fsiot_flask_done' => 'Done',
         'fsiot_flask_todo' => 'Not yet',
 
+        'fsiot_device_badge' => 'Two-station device_id checklist',
+        'fsiot_device_hint' => 'Tick after GET meja-02 shows JSON with 5 rows. Progress stays in this browser.',
+        'fsiot_device_check' => 'Check readiness',
+        'fsiot_device_retry' => 'Clear again',
+        'fsiot_device_paper' => 'Paper version (no clicking)',
+        'fsiot_device_progress' => ':filled of :total checked',
+        'fsiot_device_pass' => 'Complete :filled/:total — two stations are filtered. GET meja-02 shows 5 rows.',
+        'fsiot_device_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_device_done' => 'Done',
+        'fsiot_device_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',
