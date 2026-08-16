@@ -581,6 +581,7 @@ const initFsiotInteractiveWidgets = () => {
     initFsiotPythonChecklist();
     initFsiotSqliteChecklist();
     initFsiotMysqlChecklist();
+    initFsiotFlaskChecklist();
     initFsiotGateBuilderChecklist();
 };
 
@@ -2222,6 +2223,28 @@ function initFsiotMysqlChecklist() {
             incomplete: @js(__('ui.articles.fsiot_mysql_incomplete')),
             done: @js(__('ui.articles.fsiot_mysql_done')),
             todo: @js(__('ui.articles.fsiot_mysql_todo')),
+        },
+    });
+}
+
+function initFsiotFlaskChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-flask-checklist',
+        listId: 'fsiot-flask-checklist-items',
+        storagePrefix: 'fsiot-cl-112',
+        idPrefix: 'fsiot-flask',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_flask_badge')),
+            hint: @js(__('ui.articles.fsiot_flask_hint')),
+            check: @js(__('ui.articles.fsiot_flask_check')),
+            retry: @js(__('ui.articles.fsiot_flask_retry')),
+            paper: @js(__('ui.articles.fsiot_flask_paper')),
+            progress: @js(__('ui.articles.fsiot_flask_progress')),
+            pass: @js(__('ui.articles.fsiot_flask_pass')),
+            incomplete: @js(__('ui.articles.fsiot_flask_incomplete')),
+            done: @js(__('ui.articles.fsiot_flask_done')),
+            todo: @js(__('ui.articles.fsiot_flask_todo')),
         },
     });
 }

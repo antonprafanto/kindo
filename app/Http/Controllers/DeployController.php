@@ -9815,6 +9815,52 @@ class DeployController extends Controller
         return response('Article 109 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle112Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article112Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 112 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-flask-rest-sqlite-stasiun';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 112 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#112 (ini)', 'flask==3.1.3', 'stasiun.db', 'Pintu stasiun terbuka', 'FS-43'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 112 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#112 (this article)', 'flask==3.1.3', 'stasiun.db', 'Pintu stasiun terbuka', 'FS-43'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 112 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs42-cover-flask')) {
+            return response('Article 112 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 112 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedArticle111Draft(): Response
     {
         $this->authorizeDeployHook();

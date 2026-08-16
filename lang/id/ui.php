@@ -717,6 +717,17 @@ return [
         'fsiot_mysql_done' => 'Selesai',
         'fsiot_mysql_todo' => 'Belum',
 
+        'fsiot_flask_badge' => 'Checklist REST Flask di PC',
+        'fsiot_flask_hint' => 'Centang setelah browser menampilkan JSON jumlah 10 dan MQTTX menampilkan perintah. Progres tersimpan di browser ini.',
+        'fsiot_flask_check' => 'Cek kesiapan',
+        'fsiot_flask_retry' => 'Kosongkan lagi',
+        'fsiot_flask_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_flask_progress' => ':filled dari :total tercentang',
+        'fsiot_flask_pass' => 'Lengkap :filled/:total — Flask sudah menampilkan 10 baris JSON dan perintah MQTT terkirim.',
+        'fsiot_flask_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_flask_done' => 'Selesai',
+        'fsiot_flask_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

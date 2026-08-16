@@ -717,6 +717,17 @@ return [
         'fsiot_mysql_done' => 'Done',
         'fsiot_mysql_todo' => 'Not yet',
 
+        'fsiot_flask_badge' => 'PC REST Flask checklist',
+        'fsiot_flask_hint' => 'Tick after the browser shows JSON with 10 rows and MQTTX shows the command. Progress stays in this browser.',
+        'fsiot_flask_check' => 'Check readiness',
+        'fsiot_flask_retry' => 'Clear again',
+        'fsiot_flask_paper' => 'Paper version (no clicking)',
+        'fsiot_flask_progress' => ':filled of :total checked',
+        'fsiot_flask_pass' => 'Complete :filled/:total — Flask now shows 10 JSON rows and the MQTT command was sent.',
+        'fsiot_flask_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_flask_done' => 'Done',
+        'fsiot_flask_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',
