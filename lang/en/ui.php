@@ -684,6 +684,17 @@ return [
         'fsiot_rules_done' => 'Done',
         'fsiot_rules_todo' => 'Not yet',
 
+        'fsiot_python_badge' => 'PC Python checklist',
+        'fsiot_python_hint' => 'Tick after the script prints Siap terima data stasiun. Progress stays in this browser.',
+        'fsiot_python_check' => 'Check readiness',
+        'fsiot_python_retry' => 'Clear again',
+        'fsiot_python_paper' => 'Paper version (no clicking)',
+        'fsiot_python_progress' => ':filled of :total checked',
+        'fsiot_python_pass' => 'Complete :filled/:total — Python now runs on the PC and the script prints Siap terima data stasiun.',
+        'fsiot_python_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_python_done' => 'Done',
+        'fsiot_python_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

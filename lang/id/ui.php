@@ -684,6 +684,17 @@ return [
         'fsiot_rules_done' => 'Selesai',
         'fsiot_rules_todo' => 'Belum',
 
+        'fsiot_python_badge' => 'Checklist Python di PC',
+        'fsiot_python_hint' => 'Centang setelah script mencetak Siap terima data stasiun. Progres tersimpan di browser ini.',
+        'fsiot_python_check' => 'Cek kesiapan',
+        'fsiot_python_retry' => 'Kosongkan lagi',
+        'fsiot_python_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_python_progress' => ':filled dari :total tercentang',
+        'fsiot_python_pass' => 'Lengkap :filled/:total — Python sudah jalan di PC dan script mencetak Siap terima data stasiun.',
+        'fsiot_python_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_python_done' => 'Selesai',
+        'fsiot_python_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',
