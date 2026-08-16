@@ -739,6 +739,17 @@ return [
         'fsiot_device_done' => 'Done',
         'fsiot_device_todo' => 'Not yet',
 
+        'fsiot_dash_badge' => 'HTML temperature dashboard checklist',
+        'fsiot_dash_hint' => 'Tick after the browser at http://127.0.0.1:5000 shows the temperature. Progress stays in this browser.',
+        'fsiot_dash_check' => 'Check readiness',
+        'fsiot_dash_retry' => 'Clear again',
+        'fsiot_dash_paper' => 'Paper version (no clicking)',
+        'fsiot_dash_progress' => ':filled of :total checked',
+        'fsiot_dash_pass' => 'Complete :filled/:total — the HTML page shows the temperature. Status Suhu tampil.',
+        'fsiot_dash_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_dash_done' => 'Done',
+        'fsiot_dash_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',
