@@ -761,6 +761,17 @@ return [
         'fsiot_chart_done' => 'Done',
         'fsiot_chart_todo' => 'Not yet',
 
+        'fsiot_control_badge' => 'Dashboard ON/OFF button checklist',
+        'fsiot_control_hint' => 'Tick after the browser at http://127.0.0.1:5000 shows Perintah terkirim. Progress stays in this browser.',
+        'fsiot_control_check' => 'Check readiness',
+        'fsiot_control_retry' => 'Clear again',
+        'fsiot_control_paper' => 'Paper version (no clicking)',
+        'fsiot_control_progress' => ':filled of :total checked',
+        'fsiot_control_pass' => 'Complete :filled/:total — the ON button sends the command. Status Perintah terkirim.',
+        'fsiot_control_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_control_done' => 'Done',
+        'fsiot_control_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

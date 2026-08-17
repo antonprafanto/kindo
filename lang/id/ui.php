@@ -761,6 +761,17 @@ return [
         'fsiot_chart_done' => 'Selesai',
         'fsiot_chart_todo' => 'Belum',
 
+        'fsiot_control_badge' => 'Checklist tombol ON/OFF dashboard',
+        'fsiot_control_hint' => 'Centang setelah browser di http://127.0.0.1:5000 menampilkan Perintah terkirim. Progres tersimpan di browser ini.',
+        'fsiot_control_check' => 'Cek kesiapan',
+        'fsiot_control_retry' => 'Kosongkan lagi',
+        'fsiot_control_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_control_progress' => ':filled dari :total tercentang',
+        'fsiot_control_pass' => 'Lengkap :filled/:total — tombol ON mengirim perintah. Status Perintah terkirim.',
+        'fsiot_control_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_control_done' => 'Selesai',
+        'fsiot_control_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',
