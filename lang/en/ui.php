@@ -750,6 +750,17 @@ return [
         'fsiot_dash_done' => 'Done',
         'fsiot_dash_todo' => 'Not yet',
 
+        'fsiot_chart_badge' => 'Chart.js temperature trend checklist',
+        'fsiot_chart_hint' => 'Tick after the browser at http://127.0.0.1:5000 shows the trend line. Progress stays in this browser.',
+        'fsiot_chart_check' => 'Check readiness',
+        'fsiot_chart_retry' => 'Clear again',
+        'fsiot_chart_paper' => 'Paper version (no clicking)',
+        'fsiot_chart_progress' => ':filled of :total checked',
+        'fsiot_chart_pass' => 'Complete :filled/:total — the trend line is visible. Status Grafik tampil.',
+        'fsiot_chart_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_chart_done' => 'Done',
+        'fsiot_chart_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',

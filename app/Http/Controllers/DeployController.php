@@ -9815,6 +9815,52 @@ class DeployController extends Controller
         return response('Article 109 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle115Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article115Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 115 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-chartjs-histori-suhu-flask';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 115 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#115 (ini)', 'Grafik tampil.', '/history?hours=1', '12 titik satu jam siap.', 'FS-46'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 115 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#115 (this article)', 'Grafik tampil.', '/history?hours=1', '12 titik satu jam siap.', 'FS-46'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 115 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs45-cover-chart')) {
+            return response('Article 115 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 115 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedArticle114Draft(): Response
     {
         $this->authorizeDeployHook();

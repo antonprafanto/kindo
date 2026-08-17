@@ -750,6 +750,17 @@ return [
         'fsiot_dash_done' => 'Selesai',
         'fsiot_dash_todo' => 'Belum',
 
+        'fsiot_chart_badge' => 'Checklist grafik tren suhu Chart.js',
+        'fsiot_chart_hint' => 'Centang setelah browser di http://127.0.0.1:5000 menampilkan garis tren. Progres tersimpan di browser ini.',
+        'fsiot_chart_check' => 'Cek kesiapan',
+        'fsiot_chart_retry' => 'Kosongkan lagi',
+        'fsiot_chart_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_chart_progress' => ':filled dari :total tercentang',
+        'fsiot_chart_pass' => 'Lengkap :filled/:total — garis tren tampil. Status Grafik tampil.',
+        'fsiot_chart_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_chart_done' => 'Selesai',
+        'fsiot_chart_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

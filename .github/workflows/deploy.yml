@@ -150,6 +150,48 @@ jobs:
           echo "dir=$pub" >> "$GITHUB_OUTPUT"
           echo "Public webroot FTP dir: $pub"
 
+      - name: Upload FS-45 draft via curl (priority)
+        id: curl115_priority
+        continue-on-error: true
+        timeout-minutes: 8
+        run: |
+          set -e
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          APP="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.ftp.outputs.dir }}"
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          upload() {
+            local src="$1" dest="$2"
+            for attempt in 1 2 3; do
+              if curl -fsS --connect-timeout 30 --max-time 120 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$src" "$dest"; then
+                echo "OK $src -> $dest (attempt $attempt)"
+                return 0
+              fi
+              echo "FAIL $src -> $dest (attempt $attempt)"
+              sleep $((attempt * 10))
+            done
+            return 1
+          }
+          upload "database/seeders/Article115Seeder.php" "${APP}database/seeders/Article115Seeder.php"
+          upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php"
+          upload "routes/web.php" "${APP}routes/web.php"
+          upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
+          upload "lang/id/ui.php" "${APP}lang/id/ui.php"
+          upload "lang/en/ui.php" "${APP}lang/en/ui.php"
+          for img in fs45-cover-chart.jpg fs45-cover-chart.webp fs45-tools-order.png fs45-why-chart.png fs45-history.png fs45-cdn.png fs45-flask-serve.png fs45-polling.png fs45-browser-chart.png fs45-time-axis.png fs45-troubleshooting.png; do
+            upload "public/images/fsiot/$img" "${APP}public/images/fsiot/$img"
+            upload "public/images/fsiot/$img" "${PUB}images/fsiot/$img"
+          done
+
+      - name: Seed FS-45 draft immediately
+        if: always() && !cancelled() && steps.curl115_priority.conclusion == 'success'
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/clear-cache"
+          curl -fsS --max-time 60 -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" "https://kodingindonesia.com/deploy/seed-article-115-draft"
+
       - name: Upload FS-44 draft via curl (priority)
         id: curl114_priority
         continue-on-error: true
@@ -3136,6 +3178,39 @@ jobs:
           echo "fs37-cover-forward.webp HTTP $cover (expect 200)"
           if [ "$cover" != "200" ]; then
             echo "::warning::FS-37 cover not public yet (HTTP $cover)"
+          fi
+
+      - name: Seed article 115 draft via deploy hook (required, pre-launch B)
+        if: always() && !cancelled()
+        env:
+          DEPLOY_HOOK_TOKEN: ${{ secrets.DEPLOY_HOOK_TOKEN }}
+        run: |
+          set -euo pipefail
+          code="000"
+          for i in 1 2 3 4 5 6 7 8; do
+            code=$(curl -sS -o /tmp/seed115.out -w "%{http_code}" -H "X-Deploy-Token: $DEPLOY_HOOK_TOKEN" \
+              "https://kodingindonesia.com/deploy/seed-article-115-draft" || echo "000")
+            echo "seed-article-115-draft HTTP $code"
+            if [ "$code" = "200" ]; then
+              break
+            fi
+            sleep $((i * 8))
+          done
+          if [ "$code" != "200" ]; then
+            echo "::error::article 115 draft seed failed (HTTP $code)"
+            cat /tmp/seed115.out || true
+            exit 1
+          fi
+          pub=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/artikel/fullstack-iot-chartjs-histori-suhu-flask" || echo "000")
+          echo "public slug HTTP $pub (expect 404)"
+          if [ "$pub" != "404" ]; then
+            echo "::error::article 115 must stay unpublished (got HTTP $pub)"
+            exit 1
+          fi
+          cover=$(curl -sS -o /dev/null -w "%{http_code}" "https://kodingindonesia.com/images/fsiot/fs45-cover-chart.webp" || echo "000")
+          echo "fs45-cover-chart.webp HTTP $cover (expect 200)"
+          if [ "$cover" != "200" ]; then
+            echo "::warning::FS-45 cover not public yet (HTTP $cover)"
           fi
 
       - name: Seed article 114 draft via deploy hook (required, pre-launch B)
