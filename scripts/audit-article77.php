@@ -35,6 +35,10 @@ function check(string $label, bool $ok): void
 check('status draft in seeder', str_contains($src, "'status'") && str_contains($src, "'draft'"));
 check('published_at null', str_contains($src, "'published_at'") && str_contains($src, 'null'));
 check('slug fullstack-iot-multimeter-untuk-awam', str_contains($src, 'fullstack-iot-multimeter-untuk-awam'));
+preg_match("/'seo_title'\\s*=>\\s*'([^']*)'/", $src, $seoTitleId);
+preg_match("/'seo_title_en'\\s*=>\\s*'([^']*)'/", $src, $seoTitleEn);
+check('seo_title keeps #77 and stays ≤70', str_contains($seoTitleId[1] ?? '', '#77') && mb_strlen($seoTitleId[1] ?? '') <= 70);
+check('seo_title_en keeps #77 and stays ≤70', str_contains($seoTitleEn[1] ?? '', '#77') && mb_strlen($seoTitleEn[1] ?? '') <= 70);
 check('category iot-smart-device', str_contains($src, 'iot-smart-device'));
 check('tag fullstack-iot', str_contains($src, "'fullstack-iot'"));
 check('title_en + body_en', str_contains($src, "'title_en'") && str_contains($src, "'body_en'"));

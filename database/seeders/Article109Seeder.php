@@ -41,7 +41,7 @@ class Article109Seeder extends Seeder
             'status' => 'draft',
             'is_featured' => false,
             'published_at' => null,
-            'seo_title' => 'Pasang Python di PC dan Jalankan Script Siap Terima Data Stasiun — FS-39',
+            'seo_title' => 'Pasang Python di PC lalu jalankan script siap stasiun — FS-39',
             'seo_title_en' => 'Install Python on the PC and Run the Station-Ready Script — FS-39',
             'seo_description' => 'Lab pemula: unduh Python 3.11+ dari python.org, centang PATH, buat venv, jalankan script pertama. Belum paho-mqtt dan belum SQLite.',
             'seo_description_en' => 'A first lab: download Python 3.11+ from python.org, tick PATH, create a venv, run the first script. No paho-mqtt and no SQLite yet.',

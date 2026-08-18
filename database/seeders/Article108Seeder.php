@@ -42,7 +42,7 @@ class Article108Seeder extends Seeder
             'is_featured' => false,
             'published_at' => null,
             'seo_title' => 'PC Ubah Ambang Suhu di Node-RED tanpa Upload Ulang ESP32 — FS-38',
-            'seo_title_en' => 'Change the Temperature Threshold in Node-RED without Re-uploading the ESP32 — FS-38',
+            'seo_title_en' => 'Change Node-RED Temperature Threshold without Re-upload — FS-38',
             'seo_description' => 'Lab pemula: Node-RED di PC memegang ambang suhu. ESP32 mengirim telemetri dan mematuhi perintah MQTT, tanpa Python dan tanpa AC 220V.',
             'seo_description_en' => 'A first lab: Node-RED on the PC holds the temperature threshold. The ESP32 sends telemetry and obeys MQTT commands, with no Python and no AC mains.',
         ]);

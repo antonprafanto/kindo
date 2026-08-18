@@ -51,8 +51,8 @@ class Article80Seeder extends Seeder
                 'published_at'       => null,
                 'seo_title'          => 'Digital vs Analog — HIGH/LOW & Pull-down — Full Stack IoT #80',
                 'seo_title_en'       => 'Digital vs Analog — HIGH/LOW & Pull-down — Full Stack IoT #80',
-                'seo_description'    => 'Paham sinyal digital HIGH/LOW 3.3V ESP32, pin mengambang, dan wiring tombol + resistor pull-down 10 kΩ. Uji tegangan dengan multimeter. Modul FS-10 tanpa upload sketch.',
-                'seo_description_en' => 'Understand ESP32 3.3V HIGH/LOW digital signals, floating pins, and button + 10 kΩ pull-down wiring. Test voltage with a multimeter. FS-10 module, no sketch upload.',
+                'seo_description'    => 'Paham sinyal HIGH/LOW 3.3V ESP32, pin mengambang, dan tombol + pull-down 10 kΩ. Uji tegangan dengan multimeter. Modul FS-10 tanpa upload sketch.',
+                'seo_description_en' => 'Understand ESP32 3.3V HIGH/LOW signals, floating pins, and button + 10 kΩ pull-down. Test voltage with a multimeter. FS-10 module, no sketch upload.',
             ]
         );
 

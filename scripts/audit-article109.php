@@ -48,6 +48,10 @@ function checklistItems109(string $html): int
 check109('draft status', str_contains($source, "'status' => 'draft'"));
 check109('null publication date', str_contains($source, "'published_at' => null"));
 check109('expected slug', str_contains($source, 'fullstack-iot-python-dari-nol-script-pertama'));
+preg_match("/'seo_title'\\s*=>\\s*'([^']*)'/", $source, $seoTitleId);
+preg_match("/'seo_title_en'\\s*=>\\s*'([^']*)'/", $source, $seoTitleEn);
+check109('seo_title keeps FS-39 and stays ≤70', str_contains($seoTitleId[1] ?? '', 'FS-39') && mb_strlen($seoTitleId[1] ?? '') <= 70);
+check109('seo_title_en keeps FS-39 and stays ≤70', str_contains($seoTitleEn[1] ?? '', 'FS-39') && mb_strlen($seoTitleEn[1] ?? '') <= 70);
 check109('route and controller exist', str_contains($routes, 'seed-article-109-draft') && str_contains($controller, 'seedArticle109Draft'));
 check109('priority deploy and seed exist', str_contains($workflow, 'id: curl109_priority') && str_contains($workflow, 'seed-article-109-draft'));
 check109('priority upload precedes FS-38 uploads', strpos($workflow, 'id: curl109_priority') < strpos($workflow, 'id: curl108_priority'));

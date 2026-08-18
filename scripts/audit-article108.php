@@ -48,6 +48,10 @@ function checklistItems108(string $html): int
 check108('draft status', str_contains($source, "'status' => 'draft'"));
 check108('null publication date', str_contains($source, "'published_at' => null"));
 check108('expected slug', str_contains($source, 'fullstack-iot-pc-rules-nodered-mqtt'));
+preg_match("/'seo_title'\\s*=>\\s*'([^']*)'/", $source, $seoTitleId);
+preg_match("/'seo_title_en'\\s*=>\\s*'([^']*)'/", $source, $seoTitleEn);
+check108('seo_title keeps FS-38 and stays ≤70', str_contains($seoTitleId[1] ?? '', 'FS-38') && mb_strlen($seoTitleId[1] ?? '') <= 70);
+check108('seo_title_en keeps FS-38 and stays ≤70', str_contains($seoTitleEn[1] ?? '', 'FS-38') && mb_strlen($seoTitleEn[1] ?? '') <= 70);
 check108('route and controller exist', str_contains($routes, 'seed-article-108-draft') && str_contains($controller, 'seedArticle108Draft'));
 check108('priority deploy and seed exist', str_contains($workflow, 'id: curl108_priority') && str_contains($workflow, 'seed-article-108-draft'));
 check108('priority upload precedes FS-37 uploads', strpos($workflow, 'id: curl108_priority') < strpos($workflow, 'id: curl107_priority'));

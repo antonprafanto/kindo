@@ -51,8 +51,8 @@ class Article81Seeder extends Seeder
                 'published_at'       => null,
                 'seo_title'          => 'Sketch, setup, loop — Resep Program — Full Stack IoT #81',
                 'seo_title_en'       => 'Sketch, setup, loop — Program Recipe — Full Stack IoT #81',
-                'seo_description'    => 'Belajar sketch Arduino sebagai resep: setup() sekali, loop() berulang, komentar, Verify vs Upload, dan folder sketchbook FS11_hello. Modul FS-11 jalur Full Stack IoT.',
-                'seo_description_en' => 'Learn an Arduino sketch as a recipe: setup() once, loop() forever, comments, Verify vs Upload, and the FS11_hello sketchbook folder. Full Stack IoT FS-11 module.',
+                'seo_description'    => 'Belajar sketch Arduino sebagai resep: setup() sekali, loop() berulang, komentar, Verify vs Upload, folder FS11_hello. Modul FS-11 jalur Full Stack IoT.',
+                'seo_description_en' => 'Learn an Arduino sketch as a recipe: setup() once, loop() forever, comments, Verify vs Upload, and the FS11_hello folder. Full Stack IoT FS-11 module.',
             ]
         );
 

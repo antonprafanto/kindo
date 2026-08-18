@@ -50,7 +50,7 @@ class Article77Seeder extends Seeder
                 'is_featured'        => false,
                 'published_at'       => null,
                 'seo_title'          => 'Multimeter Dasar — Ukur 3.3V ESP32 & Cek Kabel — Full Stack IoT #77',
-                'seo_title_en'       => 'Basic Multimeter — Measure ESP32 3.3V & Test Wires — Full Stack IoT #77',
+                'seo_title_en'       => 'Multimeter — Measure ESP32 3.3V & Test Wires — Full Stack IoT #77',
                 'seo_description'    => 'Belajar multimeter dari nol: V DC, continuity beep, ukur 3V3 & 5V di DevKitC-1, cek jumper. Modul FS-07 Full Stack IoT.',
                 'seo_description_en' => 'Learn a multimeter from zero: V DC, continuity beep, measure 3V3 & 5V on DevKitC-1, test a jumper. Full Stack IoT FS-07.',
             ]
