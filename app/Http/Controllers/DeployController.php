@@ -9815,6 +9815,52 @@ class DeployController extends Controller
         return response('Article 109 seeded as draft (pre-launch B)', 200);
     }
 
+    public function seedArticle117Draft(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        try {
+            Artisan::call('db:seed', [
+                '--class' => 'Database\\Seeders\\Article117Seeder',
+                '--force' => true,
+            ]);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return response('Article 117 draft seed failed: '.$e->getMessage(), 500);
+        }
+
+        $slug = 'fullstack-iot-telegram-alert-ambang-stasiun';
+        $article = Article::where('slug', $slug)->first();
+        if (! $article || $article->status !== 'draft' || $article->published_at !== null || Article::published()->where('slug', $slug)->exists()) {
+            return response('Article 117 must remain draft (pre-launch B)', 500);
+        }
+
+        $requiredId = ['#117 (ini)', 'sendMessage', 'waspada_telegram.py', 'telegram_rahasia.txt', 'FS-48'];
+        $missingId = array_values(array_filter($requiredId, fn (string $needle): bool => ! str_contains((string) $article->body, $needle)));
+        if ($missingId !== []) {
+            return response('Article 117 ID content checks failed: '.implode(', ', $missingId), 500);
+        }
+
+        $requiredEn = ['#117 (this article)', 'sendMessage', 'waspada_telegram.py', 'telegram_rahasia.txt', 'FS-48'];
+        $missingEn = array_values(array_filter($requiredEn, fn (string $needle): bool => ! str_contains((string) $article->body_en, $needle)));
+        if (! filled($article->title_en) || ! filled($article->body_en) || ! filled($article->seo_title_en) || ! filled($article->seo_description_en) || $missingEn !== []) {
+            return response('Article 117 EN content checks failed: '.implode(', ', $missingEn), 500);
+        }
+
+        if (! str_contains((string) $article->cover_image, 'fs47-cover-alert')) {
+            return response('Article 117 cover check failed', 500);
+        }
+
+        Artisan::call('view:clear');
+
+        return response('Article 117 seeded as draft (pre-launch B)', 200);
+    }
+
     public function seedArticle116Draft(): Response
     {
         $this->authorizeDeployHook();

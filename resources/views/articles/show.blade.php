@@ -586,6 +586,7 @@ const initFsiotInteractiveWidgets = () => {
     initFsiotDashChecklist();
     initFsiotChartChecklist();
     initFsiotControlChecklist();
+    initFsiotTelegramChecklist();
     initFsiotGateBuilderChecklist();
 };
 
@@ -2337,6 +2338,28 @@ function initFsiotControlChecklist() {
             incomplete: @js(__('ui.articles.fsiot_control_incomplete')),
             done: @js(__('ui.articles.fsiot_control_done')),
             todo: @js(__('ui.articles.fsiot_control_todo')),
+        },
+    });
+}
+
+function initFsiotTelegramChecklist() {
+    initFsiotChecklistWidget({
+        h2Id: 'fsiot-telegram-checklist',
+        listId: 'fsiot-telegram-checklist-items',
+        storagePrefix: 'fsiot-cl-117',
+        idPrefix: 'fsiot-telegram',
+        minItems: 10,
+        labels: {
+            badge: @js(__('ui.articles.fsiot_telegram_badge')),
+            hint: @js(__('ui.articles.fsiot_telegram_hint')),
+            check: @js(__('ui.articles.fsiot_telegram_check')),
+            retry: @js(__('ui.articles.fsiot_telegram_retry')),
+            paper: @js(__('ui.articles.fsiot_telegram_paper')),
+            progress: @js(__('ui.articles.fsiot_telegram_progress')),
+            pass: @js(__('ui.articles.fsiot_telegram_pass')),
+            incomplete: @js(__('ui.articles.fsiot_telegram_incomplete')),
+            done: @js(__('ui.articles.fsiot_telegram_done')),
+            todo: @js(__('ui.articles.fsiot_telegram_todo')),
         },
     });
 }

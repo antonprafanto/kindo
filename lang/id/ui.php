@@ -772,6 +772,17 @@ return [
         'fsiot_control_done' => 'Selesai',
         'fsiot_control_todo' => 'Belum',
 
+        'fsiot_telegram_badge' => 'Checklist alert Telegram',
+        'fsiot_telegram_hint' => 'Centang setelah PowerShell menampilkan Alert terkirim ke Telegram. Progres tersimpan di browser ini.',
+        'fsiot_telegram_check' => 'Cek kesiapan',
+        'fsiot_telegram_retry' => 'Kosongkan lagi',
+        'fsiot_telegram_paper' => 'Versi catatan (tanpa klik)',
+        'fsiot_telegram_progress' => ':filled dari :total tercentang',
+        'fsiot_telegram_pass' => 'Lengkap :filled/:total — bot mengirim sendMessage. Status Alert terkirim ke Telegram.',
+        'fsiot_telegram_incomplete' => 'Masih ada poin yang belum dicentang. Selesaikan satu per satu.',
+        'fsiot_telegram_done' => 'Selesai',
+        'fsiot_telegram_todo' => 'Belum',
+
         'fsiot_gate_builder_badge' => 'Checklist Gate BUILDER',
         'fsiot_gate_builder_hint' => 'Centang setelah kuis ≥12/15 + foto wiring. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Cek kelengkapan',

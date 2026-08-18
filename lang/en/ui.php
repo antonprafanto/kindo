@@ -772,6 +772,17 @@ return [
         'fsiot_control_done' => 'Done',
         'fsiot_control_todo' => 'Not yet',
 
+        'fsiot_telegram_badge' => 'Telegram alert checklist',
+        'fsiot_telegram_hint' => 'Tick after PowerShell shows Alert terkirim ke Telegram. Progress stays in this browser.',
+        'fsiot_telegram_check' => 'Check readiness',
+        'fsiot_telegram_retry' => 'Clear again',
+        'fsiot_telegram_paper' => 'Paper version (no clicking)',
+        'fsiot_telegram_progress' => ':filled of :total checked',
+        'fsiot_telegram_pass' => 'Complete :filled/:total — the bot sends sendMessage. Status Alert terkirim ke Telegram.',
+        'fsiot_telegram_incomplete' => 'Some items are still unchecked. Complete them one at a time.',
+        'fsiot_telegram_done' => 'Done',
+        'fsiot_telegram_todo' => 'Not yet',
+
         'fsiot_gate_builder_badge' => 'BUILDER gate checklist',
         'fsiot_gate_builder_hint' => 'Tick after quiz ≥12/15 + wiring photo. Target: 10/10.',
         'fsiot_gate_builder_check' => 'Check completeness',
