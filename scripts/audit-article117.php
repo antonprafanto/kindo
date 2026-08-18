@@ -99,6 +99,10 @@ check117('data-flow figure is left to right', str_contains($body, 'Baca dari kir
 check117('cover uses the public FS-47 asset', str_contains($source, 'https://kodingindonesia.com/images/fsiot/fs47-cover-alert.webp'));
 check117('article view supports absolute cover URLs', str_contains($blade, "str_starts_with(\$article->cover_image, 'http')"));
 check117('H2 parity', substr_count($body, '<h2') === substr_count($bodyEn, '<h2') && substr_count($body, '<h2') >= 16);
+check117('PowerShell watcher precedes MQTTX Publish', strpos($body, 'Buka PowerShell, jalankan script') < strpos($body, 'Buka MQTTX') && strpos($bodyEn, 'Open PowerShell, run the script') < strpos($bodyEn, 'Open MQTTX') && strpos($body, '<h2>Jalankan script, biarkan jendela terbuka</h2>') < strpos($body, '<h2>Nyalakan MQTTX, kirim suhu sampai chat muncul</h2>') && strpos($bodyEn, '<h2>Run the script, keep the window open</h2>') < strpos($bodyEn, '<h2>Start MQTTX, send a temperature until the chat appears</h2>'));
+check117('no yesterday assumption in the lesson', ! str_contains(strtolower($body.$bodyEn), 'kemarin') && ! str_contains($bodyEn, 'Yesterday') && ! str_contains($assets, 'Kemarin') && ! str_contains($assets, 'kemarin'));
+check117('token sends as the bot not as the learner', str_contains($body, 'sebagai botmu') && str_contains($bodyEn, 'as your bot') && ! str_contains($body, 'atas namamu') && ! preg_match('/send as you\b/', $bodyEn));
+check117('no UX jargon in the lesson', ! preg_match('/\bUX\b/', $body.$bodyEn));
 check117('glossary heading exists in both languages', str_contains($body, 'Istilah yang dipakai hari ini') && str_contains($bodyEn, 'Terms used today'));
 check117('FAQ and sources headings exist', str_contains($body, 'Pertanyaan yang sering muncul') && str_contains($body, '>Sumber<') && str_contains($bodyEn, 'Frequently asked questions') && str_contains($bodyEn, '>Sources<'));
 check117('nine FS-47 image figures in both languages', substr_count($body, '/images/fsiot/fs47-') === 9 && substr_count($bodyEn, '/images/fsiot/fs47-') === 9);

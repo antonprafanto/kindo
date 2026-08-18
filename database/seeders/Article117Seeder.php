@@ -259,8 +259,8 @@ class Article117Seeder extends Seeder
         $requirements = htmlspecialchars($this->requirements(), ENT_QUOTES, 'UTF-8');
         $rahasia = htmlspecialchars($this->rahasia(), ENT_QUOTES, 'UTF-8');
         $waspada = htmlspecialchars($this->waspada(), ENT_QUOTES, 'UTF-8');
-        $tools = $this->figure('fs47-tools-order.png', 'Urutan lima langkah: Telegram BotFather, browser, Notepad, MQTTX Publish suhu, PowerShell script', '<strong>Urutan meja kerja (lima langkah):</strong> Telegram BotFather → browser artikel ini → Notepad menulis <code>telegram_rahasia.txt</code> dan <code>waspada_telegram.py</code> → MQTTX Connect <code>127.0.0.1:1883</code> lalu Publish suhu → PowerShell sampai <code>Alert terkirim ke Telegram.</code> Diagram buatan Koding Indonesia (FS-47).');
-        $why = $this->figure('fs47-why-alert.png', 'Tiga kotak: tombol FS-46, ambang suhu, chat Telegram di HP', '<strong>Kemarin tombol di browser. Hari ini chat di HP.</strong> Baca dari kiri ke kanan: dashboard → ambang suhu → Telegram. Diagram buatan Koding Indonesia (FS-47).');
+        $tools = $this->figure('fs47-tools-order.png', 'Urutan lima langkah: Telegram BotFather, browser, Notepad, PowerShell script, MQTTX Publish suhu', '<strong>Urutan meja kerja (lima langkah):</strong> Telegram BotFather → browser artikel ini → Notepad menulis <code>telegram_rahasia.txt</code> dan <code>waspada_telegram.py</code> → PowerShell sampai <code>Waspada Telegram terbuka. Menunggu telemetri.</code> → MQTTX Publish suhu sampai <code>Alert terkirim ke Telegram.</code> Diagram buatan Koding Indonesia (FS-47).');
+        $why = $this->figure('fs47-why-alert.png', 'Tiga kotak: tombol halaman opsional, ambang suhu, chat Telegram di HP', '<strong>Tombol halaman tidak wajib. Hari ini chat di HP.</strong> Baca dari kiri ke kanan: halaman (opsional) → ambang suhu → Telegram. Diagram buatan Koding Indonesia (FS-47).');
         $flow = $this->figure('fs47-threshold-flow.png', 'Alur kiri ke kanan: MQTTX JSON suhu, broker 1883, Python waspada, sendMessage ke HP', '<strong>Gambar utama — suhu di atas ambang, chat muncul.</strong> Baca dari kiri ke kanan: MQTTX → broker → Python → <code>sendMessage</code>. Diagram buatan Koding Indonesia (FS-47).');
         $secret = $this->figure('fs47-secret-file.png', 'Tiga kotak: BotFather token, berkas telegram_rahasia.txt, script membaca tanpa mencetak token', '<strong>Token tinggal di berkas rahasia, bukan di screenshot.</strong> Baca dari kiri ke kanan: BotFather → <code>telegram_rahasia.txt</code> → script. Diagram buatan Koding Indonesia (FS-47).');
         $updates = $this->figure('fs47-getupdates.png', 'Alur kiri ke kanan: kirim slash start, getUpdates cari-chat, salin CHAT_ID ke berkas', '<strong>Cari chat_id lewat getUpdates, bukan tebak angka.</strong> Baca dari kiri ke kanan: <code>/start</code> → <code>--cari-chat</code> → <code>CHAT_ID=</code>. Diagram buatan Koding Indonesia (FS-47).');
@@ -272,15 +272,15 @@ class Article117Seeder extends Seeder
             ['title' => 'Buka Telegram', 'text' => 'Pakai aplikasi di HP atau Telegram Desktop. Siapkan akun gratis. Cari <code>@BotFather</code>. Jangan ketik perintah Python dulu.'],
             ['title' => 'Buka browser', 'text' => 'Pakai Chrome, Firefox, Edge, atau Safari. Siapkan artikel ini sebagai panduan. Jangan tempel token di bilah alamat.'],
             ['title' => 'Buka Notepad, tulis berkas', 'text' => 'Tulis <code>telegram_rahasia.txt</code> dan <code>waspada_telegram.py</code>. All files, bukan <code>.txt</code> untuk script Python.'],
-            ['title' => 'Buka MQTTX', 'text' => 'Connect ke <code>127.0.0.1:1883</code>. Siapkan Publish ke topic telemetri. JSON suhu di atas 30 menyusul setelah script jalan.'],
-            ['title' => 'Buka PowerShell, jalankan script', 'text' => 'Start → ketik PowerShell. Tidak perlu <em>Run as administrator</em>. Jalankan <code>--cari-chat</code>, lalu jalankan tanpa bendera sampai chat muncul.'],
+            ['title' => 'Buka PowerShell, jalankan script', 'text' => 'Start → ketik PowerShell. Tidak perlu <em>Run as administrator</em>. Jalankan <code>--cari-chat</code>, salin <code>CHAT_ID=</code>, lalu jalankan tanpa <code>--cari-chat</code>. Jendela tetap terbuka.'],
+            ['title' => 'Buka MQTTX', 'text' => 'Connect ke <code>127.0.0.1:1883</code>. Publish JSON suhu <code>31.2</code> ke topic telemetri. Baru setelah script menampilkan <code>Waspada Telegram terbuka. Menunggu telemetri.</code>'],
         ], '<strong>Cara menguji hari ini:</strong> bukti sukses = PowerShell menampilkan <code>Alert terkirim ke Telegram.</code> dan chat bot di HP menampilkan suhu di atas ambang. ESP32 boleh menyala, tetapi tidak wajib.');
 
         return <<<'HTML'
 <h2>Pendahuluan — alert ke HP, bukan hanya dashboard</h2>
-<p><strong>FS-47 / #117 (ini)</strong> adalah lab peringatan. Kemarin halaman browser sudah bisa menekan sakelar. Hari ini tugasnya lain: <strong>kirim chat ke Telegram saat suhu melewati ambang</strong>, supaya kamu tidak harus terus menatap dashboard.</p>
+<p><strong>FS-47 / #117 (ini)</strong> adalah lab peringatan. Tombol ON/OFF di halaman (FS-46) <strong>tidak wajib diulang</strong>. Hari ini tugasnya lain: <strong>kirim chat ke Telegram saat suhu melewati ambang</strong>, supaya kamu tidak harus terus menatap layar.</p>
 <p><strong>Intinya:</strong> buat bot lewat BotFather, simpan token di <code>telegram_rahasia.txt</code>, jalankan <code>waspada_telegram.py</code>, sampai teks <code>Alert terkirim ke Telegram.</code> muncul setelah JSON suhu di atas 30.</p>
-<p><strong>Analogi:</strong> dashboard adalah kaca spion di dashboard mobil: berguna kalau kamu sedang duduk di depan. Telegram adalah klakson di saku: bunyi meski kamu sedang di dapur. UX offline/stale ditunda — itu FS-48.</p>
+<p><strong>Analogi:</strong> halaman suhu adalah kaca spion: berguna kalau kamu sedang duduk di depan laptop. Telegram adalah klakson di saku: bunyi meski kamu sedang di dapur. Status data basi dan perangkat offline ditunda ke FS-48.</p>
 <p>Prasyarat lab: <strong>FS-42</strong> (pintu stasiun dan Mosquitto sudah pernah jalan), <strong>akun Telegram</strong> di HP (gratis), dan kesediaan membuat bot via BotFather. FS-46 tombol dashboard <strong>tidak wajib diulang</strong> hari ini. FS-41 MariaDB <strong>tidak wajib</strong>. ESP32 <strong>boleh menyala</strong>, dan <strong>boleh dicabut</strong>. Tidak ada kabel baru, tidak ada Upload, <strong>Bukan AC 220V</strong>.</p>
 
 <h2>Hasil yang dituju</h2>
@@ -294,16 +294,16 @@ class Article117Seeder extends Seeder
 <li>Chat bot di HP menampilkan suhu di atas ambang.</li>
 <li>Publish kedua segera setelah itu menampilkan <code>Cooldown: alert ditahan.</code></li>
 </ul>
-<p><strong>Batas lab hari ini:</strong> BotFather dari nol, token sebagai secret, <code>getUpdates</code> untuk <code>chat_id</code>, <code>sendMessage</code> saat ambang terlewati, cooldown 60 detik. Belum webhook, belum email, belum MySQL, belum membuka port ke internet. Bukti cukup = teks PowerShell + chat di Telegram. Panaskan sensor fisik adalah bonus jika papan masih menyala. <code>paho-mqtt==2.1.0</code> sudah dari FS-40. Flask kemarin <strong>tidak wajib dibuka</strong>.</p>
+<p><strong>Batas lab hari ini:</strong> BotFather dari nol, token sebagai rahasia, <code>getUpdates</code> untuk <code>chat_id</code>, <code>sendMessage</code> saat ambang terlewati, cooldown 60 detik. Belum jembatan server (webhook), belum email, belum MySQL, belum membuka port ke internet. Bukti cukup = teks PowerShell + chat di Telegram. Panaskan sensor fisik adalah bonus jika papan masih menyala. <code>paho-mqtt==2.1.0</code> sudah dari FS-40. Flask dari lab sebelumnya <strong>tidak wajib dibuka</strong>.</p>
 
 <h2>Istilah yang dipakai hari ini</h2>
 <ul>
 <li><strong>BotFather</strong> — akun resmi Telegram untuk membuat bot. Perintah kuncinya <code>/newbot</code>.</li>
-<li><strong>Token</strong> — kunci bot. Siapa pun yang punya token bisa mengirim atas namamu. Simpan di berkas, jangan di screenshot.</li>
+<li><strong>Token</strong> — kunci bot. Siapa pun yang punya token bisa mengirim pesan sebagai botmu. Simpan di berkas, jangan difoto.</li>
 <li><strong>chat_id</strong> — nomor percakapan. Bot hanya bisa menulis setelah kamu mengirim <code>/start</code>.</li>
 <li><strong>getUpdates</strong> — metode Bot API untuk membaca pesan masuk, dipakai mencari <code>chat_id</code>.</li>
 <li><strong>sendMessage</strong> — metode Bot API untuk mengirim teks ke chat.</li>
-<li><strong>Ambang</strong> — batas lab <code>30.0</code> derajat. Di atas itu, script mengirim alert.</li>
+<li><strong>Ambang</strong> — batas lab <code>30.0</code> derajat Celsius. Di atas itu, script mengirim alert.</li>
 <li><strong>Cooldown</strong> — jeda 60 detik supaya HP tidak kebanjiran chat.</li>
 <li><strong>NC/COM/NO</strong> — kaki relay. Hari ini dibiarkan kosong. <strong>Bukan AC 220V</strong>.</li>
 </ul>
@@ -312,14 +312,14 @@ class Article117Seeder extends Seeder
 HTML
             .$tools.$install.<<<'HTML'
 <p><strong>Buka dulu File Explorer</strong>, masuk ke <code>Documents\fsiot-fs39</code>, baru Notepad. Jangan ketik perintah Python dulu.</p>
-<p><strong>Jangan dipakai hari ini:</strong> MySQL/MariaDB, phpMyAdmin, Arduino IDE, AC 220V, <code>file://</code>, membuka port ke internet, mengubah ExecutionPolicy, pip pustaka bot tambahan, npm, ngrok, menempel token di bilah alamat browser, atau mengulang Node-RED sebagai jalur lulus. Flask dashboard kemarin boleh tertutup.</p>
+<p><strong>Jangan dipakai hari ini:</strong> MySQL/MariaDB, phpMyAdmin, Arduino IDE, AC 220V, <code>file://</code>, membuka port ke internet, mengubah ExecutionPolicy, pip pustaka bot tambahan, npm, ngrok, menempel token di bilah alamat browser, atau mengulang Node-RED sebagai jalur lulus. Flask dashboard dari lab sebelumnya boleh tertutup.</p>
 <p><strong>Tips ponsel:</strong> jika diagram terasa kecil, gunakan fitur perbesar pada browser. Gambar tidak perlu diketuk sampai memenuhi layar agar teks di sekitarnya tetap terbaca.</p>
 
 <h2>Kenapa Telegram, bukan hanya dashboard</h2>
 HTML
             .$why.<<<'HTML'
-<p>Kemarin kamu menekan sakelar dari halaman. Itu berguna saat laptop terbuka. Alert ke HP berguna saat kamu tidak sedang menatap grafik.</p>
-<p>Gudang tetap SQLite <code>stasiun.db</code> jika masih ada. Jangan menunggu MariaDB. FS-41 tetap opsional. Node-RED di FS-38 boleh tetap, tetapi <strong>bukan</strong> bukti hari ini. UX data basi adalah FS-48.</p>
+<p>Tombol sakelar di halaman (FS-46) berguna saat laptop terbuka, tetapi tidak wajib diulang hari ini. Alert ke HP berguna saat kamu tidak sedang menatap grafik.</p>
+<p>Gudang tetap SQLite <code>stasiun.db</code> jika masih ada. Jangan menunggu MariaDB. FS-41 tetap opsional. Node-RED di FS-38 boleh tetap, tetapi <strong>bukan</strong> bukti hari ini. Status data basi dan perangkat offline adalah FS-48.</p>
 
 <h2>Buat bot di BotFather dari nol</h2>
 HTML
@@ -328,7 +328,7 @@ HTML
 <ol>
 <li>BotFather minta nama tampilan. Contoh: <code>Stasiun Meja</code>.</li>
 <li>Lalu minta username. Username harus unik dan <strong>berakhiran <code>bot</code></strong>, misalnya <code>stasiun_meja_kamu_bot</code>.</li>
-<li>Kalau nama sudah dipakai, pilih yang lain. Jangan menyerah di langkah ini.</li>
+<li>Kalau username sudah dipakai, pilih yang lain. Jangan menyerah di langkah ini.</li>
 <li>BotFather membalas dengan token. <strong>Salin ke Notepad</strong>, jangan difoto, jangan dikirim ke grup.</li>
 </ol>
 <p>Setelah token ada, buka bot barumu (tautan dari BotFather) dan kirim <code>/start</code>. Tanpa langkah ini, <code>getUpdates</code> kosong.</p>
@@ -342,14 +342,14 @@ HTML
 HTML
             .$rahasia.<<<'HTML'
 </code></pre>
-<p>Ganti <code>GANTI_TOKEN</code> dengan token dari BotFather. Biarkan <code>CHAT_ID=GANTI_CHAT_ID</code> dulu. Jangan unggah berkas ini. Jangan commit. Jangan tempel token di bilah alamat browser lalu screenshot.</p>
+<p>Ganti <code>GANTI_TOKEN</code> dengan token dari BotFather. Biarkan <code>CHAT_ID=GANTI_CHAT_ID</code> dulu. Jangan unggah berkas ini, jangan kirim ke teman, jangan tempel token di bilah alamat browser lalu screenshot.</p>
 
 <h2>Cari chat_id lewat getUpdates</h2>
 HTML
             .$updates.<<<'HTML'
 <p>Bot API memakai HTTPS ke <code>api.telegram.org</code>. Metode <code>getUpdates</code> mengembalikan pesan yang sudah kamu kirim ke bot, termasuk <code>chat.id</code>. Jangan mengandalkan tebakan angka. Jangan membuka URL ber-token di browser sebagai jalur lulus — token akan terlihat di bilah alamat.</p>
-<p>Script lab punya bendera <code>--cari-chat</code>. Jalankan setelah <code>/start</code>. Hasil yang dicari: satu baris <code>CHAT_ID=</code> diikuti angka. Salin angka itu ke <code>telegram_rahasia.txt</code>.</p>
-<p>Dokumentasi: <a href="https://core.telegram.org/bots/api#getupdates" target="_blank" rel="noopener noreferrer">getUpdates</a>. Webhook tidak dipakai hari ini; kalau webhook pernah dipasang, <code>getUpdates</code> tidak mengisi.</p>
+<p>Script lab punya opsi <code>--cari-chat</code>. Jalankan setelah <code>/start</code>. Hasil yang dicari: satu baris <code>CHAT_ID=</code> diikuti angka. Salin angka itu ke <code>telegram_rahasia.txt</code>.</p>
+<p>Dokumentasi: <a href="https://core.telegram.org/bots/api#getupdates" target="_blank" rel="noopener noreferrer">getUpdates</a>. Jembatan otomatis ke server (webhook) tidak dipakai hari ini; kalau itu pernah dipasang, <code>getUpdates</code> tidak mengisi.</p>
 
 <h2>Tulis waspada_telegram.py</h2>
 <p><code>requirements.txt</code> tetap mengunci <code>paho-mqtt==2.1.0</code> seperti FS-40. Jangan pip ke Python global. Kalau paho sudah terpasang, tidak perlu pip ulang. Jangan pip pustaka bot tambahan. <code>urllib</code> sudah ada di Python standar untuk <code>sendMessage</code>.</p>
@@ -357,7 +357,7 @@ HTML
 HTML
             .$requirements.<<<'HTML'
 </code></pre>
-<p><strong>Buka dulu File Explorer</strong>, masuk ke <code>Documents\fsiot-fs39</code>. Folder <code>.venv</code> dari lab sebelumnya harus sudah ada. Flask dan <code>dashboard.html</code> kemarin <strong>tidak wajib dibuka</strong>.</p>
+<p><strong>Buka dulu File Explorer</strong>, masuk ke <code>Documents\fsiot-fs39</code>. Folder <code>.venv</code> dari lab sebelumnya harus sudah ada. Flask dari lab sebelumnya <strong>tidak wajib dibuka</strong>.</p>
 <p><strong>Buka dulu Notepad.</strong> Simpan <code>waspada_telegram.py</code> dengan kode di bawah. Save As, All files, folder <code>Documents\fsiot-fs39</code>. Jangan Save sebagai <code>.txt</code>.</p>
 <pre><code class="language-python">
 HTML
@@ -367,19 +367,7 @@ HTML
 <p>Jika paho hilang dari venv:</p>
 <pre><code>.\.venv\Scripts\python.exe -m pip install -r requirements.txt</code></pre>
 
-<h2>Nyalakan MQTTX, kirim suhu di atas ambang</h2>
-HTML
-            .$flow.<<<'HTML'
-<p><strong>Buka MQTTX.</strong> Connect ke <code>127.0.0.1:1883</code>. Topic Publish:</p>
-<pre><code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code></pre>
-<p>Isi JSON yang dikunci untuk lulus:</p>
-<pre><code>{"device_id":"esp32-meja-01","temperature_c":31.2,"humidity_pct":63.1}</code></pre>
-<p>Jangan Publish dulu sebelum PowerShell menampilkan <code>Waspada Telegram terbuka. Menunggu telemetri.</code> Jika Mosquitto belum jalan, nyalakan dulu seperti FS-33. Tanpa broker, script menulis <code>Broker belum terbuka di 127.0.0.1:1883</code>.</p>
-<p>Jika ESP32 masih mengirim suhu kamar di bawah 30, MQTTX tetap cukup: kamu yang menaikkan angka. Panaskan sensor adalah bonus, bukan syarat lulus. <strong>Bukan AC 220V.</strong></p>
-
-<h2>Jalankan script, lihat chat di Telegram</h2>
-HTML
-            .$phone.<<<'HTML'
+<h2>Jalankan script, biarkan jendela terbuka</h2>
 <p><strong>Buka dulu PowerShell:</strong> Start → ketik <strong>PowerShell</strong> → Windows PowerShell. Tidak perlu <em>Run as administrator</em>.</p>
 <p><strong>Cara menempel perintah:</strong> salin baris, klik jendela PowerShell, lalu <kbd>Ctrl</kbd>+<kbd>V</kbd> atau klik kanan. Setelah teks muncul, tekan Enter.</p>
 <p>Cari <code>chat_id</code> dulu:</p>
@@ -388,8 +376,18 @@ HTML
 <p><strong>Hasil yang dicari:</strong> <code>CHAT_ID=</code> diikuti angka. Salin ke <code>telegram_rahasia.txt</code>. Kalau masih placeholder, script menulis <code>Token atau chat_id masih placeholder.</code></p>
 <p>Lalu jalankan pendengar:</p>
 <pre><code>.\.venv\Scripts\python.exe waspada_telegram.py</code></pre>
-<p><strong>Hasil yang dicari:</strong> <code>Waspada Telegram terbuka. Menunggu telemetri.</code> Jendela ini <strong>tetap terbuka</strong>. Baru Publish di MQTTX. Setelah JSON 31.2, teks <code>Alert terkirim ke Telegram.</code> Chat di HP mengikuti. Jika <code>.\.venv\Scripts\Activate.ps1</code> ditolak, <strong>jangan ubah ExecutionPolicy</strong>.</p>
-<p><strong>macOS atau Linux:</strong> buka Terminal, <code>cd ~/Documents/fsiot-fs39</code>, lalu <code>.venv/bin/python waspada_telegram.py --cari-chat</code> dan tanpa bendera.</p>
+<p><strong>Hasil yang dicari:</strong> <code>Waspada Telegram terbuka. Menunggu telemetri.</code> Jendela ini <strong>tetap terbuka</strong>. Jangan Publish dulu. Jika <code>.\.venv\Scripts\Activate.ps1</code> ditolak, <strong>jangan ubah ExecutionPolicy</strong>.</p>
+<p><strong>macOS atau Linux:</strong> buka Terminal, <code>cd ~/Documents/fsiot-fs39</code>, lalu <code>.venv/bin/python waspada_telegram.py --cari-chat</code> dan tanpa <code>--cari-chat</code>.</p>
+
+<h2>Nyalakan MQTTX, kirim suhu sampai chat muncul</h2>
+HTML
+            .$flow.$phone.<<<'HTML'
+<p><strong>Buka MQTTX.</strong> Connect ke <code>127.0.0.1:1883</code>. Topic Publish:</p>
+<pre><code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code></pre>
+<p>Isi JSON yang dikunci untuk lulus:</p>
+<pre><code>{"device_id":"esp32-meja-01","temperature_c":31.2,"humidity_pct":63.1}</code></pre>
+<p>Jangan Publish dulu sebelum PowerShell menampilkan <code>Waspada Telegram terbuka. Menunggu telemetri.</code> Jika Mosquitto belum jalan, nyalakan dulu seperti FS-33. Tanpa broker, script menulis <code>Broker belum terbuka di 127.0.0.1:1883</code>.</p>
+<p>Setelah JSON 31.2, PowerShell menulis <code>Alert terkirim ke Telegram.</code> Chat di HP mengikuti. Jika ESP32 masih mengirim suhu kamar di bawah 30, MQTTX tetap cukup: kamu yang menaikkan angka. Panaskan sensor adalah bonus, bukan syarat lulus. <strong>Bukan AC 220V.</strong></p>
 
 <h2>Cooldown: jangan spam</h2>
 HTML
@@ -447,11 +445,11 @@ HTML
 <h3>Kenapa bukan Node-RED?</h3>
 <p>FS-38 sudah mengajarkan ambang visual. Hari ini yang baru adalah bot Telegram dari nol plus cooldown di Python.</p>
 <h3>Kalau saya tidak mau Telegram?</h3>
-<p>Webhook atau email bisa disebut sebagai alternatif, tetapi bukan jalur lulus. Lab ini mengunci Bot API <code>sendMessage</code>.</p>
+<p>Jembatan ke server lain (webhook) atau email bisa disebut sebagai alternatif, tetapi bukan jalur lulus. Lab ini mengunci Bot API <code>sendMessage</code>.</p>
 <h3>Kenapa cooldown?</h3>
 <p>Supaya satu deret telemetri tidak menjadi puluhan chat. Teks <code>Cooldown: alert ditahan.</code> adalah pelindung.</p>
-<h3>Apakah UX offline hari ini?</h3>
-<p>Tidak. Data basi dan status offline adalah FS-48.</p>
+<h3>Apakah data basi atau perangkat offline hari ini?</h3>
+<p>Tidak. Itu FS-48.</p>
 <h3>Kenapa urllib, bukan pustaka bot?</h3>
 <p>Supaya tidak ada pip baru. <a href="https://core.telegram.org/bots/api#sendmessage" target="_blank" rel="noopener noreferrer">sendMessage</a> hanya butuh HTTPS POST JSON.</p>
 
@@ -479,8 +477,8 @@ HTML;
         $requirements = htmlspecialchars($this->requirements(), ENT_QUOTES, 'UTF-8');
         $rahasia = htmlspecialchars($this->rahasia(), ENT_QUOTES, 'UTF-8');
         $waspada = htmlspecialchars($this->waspada(), ENT_QUOTES, 'UTF-8');
-        $tools = $this->figure('fs47-tools-order.png', 'Five-step order: Telegram BotFather, browser, Notepad, MQTTX Publish temperature, PowerShell script', '<strong>Desk order (five steps):</strong> Telegram BotFather → this article in a browser → Notepad writes <code>telegram_rahasia.txt</code> and <code>waspada_telegram.py</code> → MQTTX Connect <code>127.0.0.1:1883</code> then Publish a temperature → PowerShell until <code>Alert terkirim ke Telegram.</code> Diagram by Koding Indonesia (FS-47).');
-        $why = $this->figure('fs47-why-alert.png', 'Three boxes: FS-46 buttons, temperature threshold, Telegram chat on a phone', '<strong>Yesterday a button in the browser. Today a chat on the phone.</strong> Read left to right: dashboard → threshold → Telegram. Diagram by Koding Indonesia (FS-47).');
+        $tools = $this->figure('fs47-tools-order.png', 'Five-step order: Telegram BotFather, browser, Notepad, PowerShell script, MQTTX Publish temperature', '<strong>Desk order (five steps):</strong> Telegram BotFather → this article in a browser → Notepad writes <code>telegram_rahasia.txt</code> and <code>waspada_telegram.py</code> → PowerShell until <code>Waspada Telegram terbuka. Menunggu telemetri.</code> → MQTTX Publish a temperature until <code>Alert terkirim ke Telegram.</code> Diagram by Koding Indonesia (FS-47).');
+        $why = $this->figure('fs47-why-alert.png', 'Three boxes: optional page buttons, temperature threshold, Telegram chat on a phone', '<strong>Page buttons are optional. Today a chat on the phone.</strong> Read left to right: the page (optional) → threshold → Telegram. Diagram by Koding Indonesia (FS-47).');
         $flow = $this->figure('fs47-threshold-flow.png', 'Left-to-right flow: MQTTX JSON temperature, broker 1883, Python watcher, sendMessage to the phone', '<strong>Main figure — temperature above the limit, a chat appears.</strong> Read left to right: MQTTX → broker → Python → <code>sendMessage</code>. Diagram by Koding Indonesia (FS-47).');
         $secret = $this->figure('fs47-secret-file.png', 'Three boxes: BotFather token, telegram_rahasia.txt file, script reads without printing the token', '<strong>The token stays in a secret file, not in a screenshot.</strong> Read left to right: BotFather → <code>telegram_rahasia.txt</code> → the script. Diagram by Koding Indonesia (FS-47).');
         $updates = $this->figure('fs47-getupdates.png', 'Left-to-right flow: send slash start, getUpdates find-chat, copy CHAT_ID into the file', '<strong>Find chat_id with getUpdates, do not guess the number.</strong> Read left to right: <code>/start</code> → <code>--cari-chat</code> → <code>CHAT_ID=</code>. Diagram by Koding Indonesia (FS-47).');
@@ -492,15 +490,15 @@ HTML;
             ['title' => 'Open Telegram', 'text' => 'Use the phone app or Telegram Desktop. Have a free account ready. Search for <code>@BotFather</code>. Do not type Python commands yet.'],
             ['title' => 'Open a browser', 'text' => 'Use Chrome, Firefox, Edge, or Safari. Keep this article open as the guide. Do not paste the token into the address bar.'],
             ['title' => 'Open Notepad, write the files', 'text' => 'Write <code>telegram_rahasia.txt</code> and <code>waspada_telegram.py</code>. All files, not <code>.txt</code> for the Python script.'],
-            ['title' => 'Open MQTTX', 'text' => 'Connect to <code>127.0.0.1:1883</code>. Prepare a Publish to the telemetry topic. The JSON above 30 comes after the script is running.'],
-            ['title' => 'Open PowerShell, run the script', 'text' => 'Start → type PowerShell. You do not need <em>Run as administrator</em>. Run <code>--cari-chat</code>, then run without the flag until the chat appears.'],
+            ['title' => 'Open PowerShell, run the script', 'text' => 'Start → type PowerShell. You do not need <em>Run as administrator</em>. Run <code>--cari-chat</code>, copy <code>CHAT_ID=</code>, then run without <code>--cari-chat</code>. Keep the window open.'],
+            ['title' => 'Open MQTTX', 'text' => 'Connect to <code>127.0.0.1:1883</code>. Publish JSON temperature <code>31.2</code> to the telemetry topic. Only after the script shows <code>Waspada Telegram terbuka. Menunggu telemetri.</code>'],
         ], '<strong>How to test today:</strong> success = PowerShell shows <code>Alert terkirim ke Telegram.</code> and the bot chat on the phone shows a temperature above the limit. The ESP32 may be on, but it is not required.');
 
         return <<<'HTML'
 <h2>Introduction — an alert on the phone, not only a dashboard</h2>
-<p><strong>FS-47 / #117 (this article)</strong> is the alert lab. Yesterday the browser page could press the switch. Today the job is different: <strong>send a Telegram chat when temperature crosses the limit</strong>, so you do not have to keep staring at the dashboard.</p>
+<p><strong>FS-47 / #117 (this article)</strong> is the alert lab. The ON/OFF buttons on the page (FS-46) <strong>do not have to be repeated</strong>. Today the job is different: <strong>send a Telegram chat when temperature crosses the limit</strong>, so you do not have to keep staring at the screen.</p>
 <p><strong>In short:</strong> create a bot through BotFather, store the token in <code>telegram_rahasia.txt</code>, run <code>waspada_telegram.py</code>, until the text <code>Alert terkirim ke Telegram.</code> appears after a temperature JSON above 30.</p>
-<p><strong>Analogy:</strong> the dashboard is a rear-view mirror: useful while you sit in front of the screen. Telegram is a horn in your pocket: it sounds even if you are in the kitchen. Offline/stale UX waits — that is FS-48.</p>
+<p><strong>Analogy:</strong> the temperature page is a rear-view mirror: useful while you sit in front of the laptop. Telegram is a horn in your pocket: it sounds even if you are in the kitchen. Stale data and offline device status wait until FS-48.</p>
 <p>Lab prerequisites: <strong>FS-42</strong> (the station door and Mosquitto have run before), a <strong>Telegram account</strong> on the phone (free), and a willingness to create a bot via BotFather. The FS-46 dashboard buttons <strong>do not have to be repeated</strong> today. FS-41 MariaDB is <strong>not required</strong>. The ESP32 <strong>may stay on</strong>, and <strong>may be unplugged</strong>. No new wires, no Upload, <strong>Not AC mains</strong>.</p>
 
 <h2>Visible result</h2>
@@ -514,16 +512,16 @@ HTML;
 <li>The bot chat on the phone shows a temperature above the limit.</li>
 <li>A second Publish right after that shows <code>Cooldown: alert ditahan.</code></li>
 </ul>
-<p><strong>Today’s lab boundary:</strong> BotFather from scratch, the token as a secret, <code>getUpdates</code> for <code>chat_id</code>, <code>sendMessage</code> when the limit is crossed, a 60-second cooldown. No webhook yet, no email yet, no MySQL, no port opened to the internet. Proof is enough = PowerShell text + the Telegram chat. Warming a physical sensor is a bonus if the board is still on. <code>paho-mqtt==2.1.0</code> already came from FS-40. Yesterday’s Flask <strong>does not have to stay open</strong>.</p>
+<p><strong>Today’s lab boundary:</strong> BotFather from scratch, the token kept private, <code>getUpdates</code> for <code>chat_id</code>, <code>sendMessage</code> when the limit is crossed, a 60-second cooldown. No server bridge (webhook) yet, no email yet, no MySQL, no port opened to the internet. Proof is enough = PowerShell text + the Telegram chat. Warming a physical sensor is a bonus if the board is still on. <code>paho-mqtt==2.1.0</code> already came from FS-40. Flask from earlier labs <strong>does not have to stay open</strong>.</p>
 
 <h2>Terms used today</h2>
 <ul>
 <li><strong>BotFather</strong> — the official Telegram account for creating bots. The locked command is <code>/newbot</code>.</li>
-<li><strong>Token</strong> — the bot key. Anyone who has the token can send as you. Keep it in a file, not in a screenshot.</li>
+<li><strong>Token</strong> — the bot key. Anyone who has the token can send messages as your bot. Keep it in a file, not in a photo.</li>
 <li><strong>chat_id</strong> — the conversation number. The bot can write only after you send <code>/start</code>.</li>
 <li><strong>getUpdates</strong> — the Bot API method that reads incoming messages, used to find <code>chat_id</code>.</li>
 <li><strong>sendMessage</strong> — the Bot API method that sends text to a chat.</li>
-<li><strong>Threshold</strong> — today’s limit <code>30.0</code> degrees. Above that, the script sends an alert.</li>
+<li><strong>Threshold</strong> — today’s limit <code>30.0</code> degrees Celsius. Above that, the script sends an alert.</li>
 <li><strong>Cooldown</strong> — a 60-second pause so the phone is not flooded with chats.</li>
 <li><strong>NC/COM/NO</strong> — relay pins. Leave them empty today. <strong>Not AC mains</strong>.</li>
 </ul>
@@ -532,14 +530,14 @@ HTML;
 HTML
             .$tools.$install.<<<'HTML'
 <p><strong>Open File Explorer first</strong>, go into <code>Documents\fsiot-fs39</code>, then Notepad. Do not type Python commands yet.</p>
-<p><strong>Do not use today:</strong> MySQL/MariaDB, phpMyAdmin, Arduino IDE, AC mains, <code>file://</code>, opening a port to the internet, changing ExecutionPolicy, pip of an extra bot library, npm, ngrok, pasting the token into the browser address bar, or repeating Node-RED as the pass path. Yesterday’s Flask dashboard may stay closed.</p>
+<p><strong>Do not use today:</strong> MySQL/MariaDB, phpMyAdmin, Arduino IDE, AC mains, <code>file://</code>, opening a port to the internet, changing ExecutionPolicy, pip of an extra bot library, npm, ngrok, pasting the token into the browser address bar, or repeating Node-RED as the pass path. The Flask dashboard from earlier labs may stay closed.</p>
 <p><strong>Phone tip:</strong> if a diagram feels small, use the browser zoom. You do not need to tap the image until it fills the screen, so the text around it stays readable.</p>
 
 <h2>Why Telegram, not only the dashboard</h2>
 HTML
             .$why.<<<'HTML'
-<p>Yesterday you pressed the switch from the page. That helps while the laptop is open. A phone alert helps when you are not watching the chart.</p>
-<p>The warehouse stays SQLite <code>stasiun.db</code> if it is still there. Do not wait for MariaDB. FS-41 stays optional. Node-RED from FS-38 may stay open, but it is <strong>not</strong> today’s proof. Stale-data UX is FS-48.</p>
+<p>Switch buttons on the page (FS-46) help while the laptop is open, but they do not have to be repeated today. A phone alert helps when you are not watching the chart.</p>
+<p>The warehouse stays SQLite <code>stasiun.db</code> if it is still there. Do not wait for MariaDB. FS-41 stays optional. Node-RED from FS-38 may stay open, but it is <strong>not</strong> today’s proof. Stale data and an offline device are FS-48.</p>
 
 <h2>Create a bot in BotFather from scratch</h2>
 HTML
@@ -548,7 +546,7 @@ HTML
 <ol>
 <li>BotFather asks for a display name. Example: <code>Stasiun Meja</code>.</li>
 <li>Then it asks for a username. The username must be unique and <strong>end with <code>bot</code></strong>, for example <code>stasiun_meja_kamu_bot</code>.</li>
-<li>If the name is taken, pick another. Do not stop at this step.</li>
+<li>If the username is taken, pick another. Do not stop at this step.</li>
 <li>BotFather replies with a token. <strong>Copy it into Notepad</strong>, do not photograph it, do not send it to a group.</li>
 </ol>
 <p>After the token exists, open your new bot (the link from BotFather) and send <code>/start</code>. Without this step, <code>getUpdates</code> is empty.</p>
@@ -562,14 +560,14 @@ HTML
 HTML
             .$rahasia.<<<'HTML'
 </code></pre>
-<p>Replace <code>GANTI_TOKEN</code> with the token from BotFather. Leave <code>CHAT_ID=GANTI_CHAT_ID</code> for now. Do not upload this file. Do not commit it. Do not paste the token into the browser address bar and then take a screenshot.</p>
+<p>Replace <code>GANTI_TOKEN</code> with the token from BotFather. Leave <code>CHAT_ID=GANTI_CHAT_ID</code> for now. Do not upload this file, do not send it to a friend, and do not paste the token into the browser address bar and then take a screenshot.</p>
 
 <h2>Find chat_id with getUpdates</h2>
 HTML
             .$updates.<<<'HTML'
 <p>The Bot API uses HTTPS to <code>api.telegram.org</code>. The <code>getUpdates</code> method returns messages you already sent to the bot, including <code>chat.id</code>. Do not guess the number. Do not open a token URL in the browser as the pass path — the token would sit in the address bar.</p>
-<p>The lab script has a <code>--cari-chat</code> flag. Run it after <code>/start</code>. The result to look for: one <code>CHAT_ID=</code> line followed by a number. Copy that number into <code>telegram_rahasia.txt</code>.</p>
-<p>Docs: <a href="https://core.telegram.org/bots/api#getupdates" target="_blank" rel="noopener noreferrer">getUpdates</a>. No webhook today; if a webhook was set earlier, <code>getUpdates</code> will not fill.</p>
+<p>The lab script has a <code>--cari-chat</code> option. Run it after <code>/start</code>. The result to look for: one <code>CHAT_ID=</code> line followed by a number. Copy that number into <code>telegram_rahasia.txt</code>.</p>
+<p>Docs: <a href="https://core.telegram.org/bots/api#getupdates" target="_blank" rel="noopener noreferrer">getUpdates</a>. An automatic server bridge (webhook) is not used today; if one was set earlier, <code>getUpdates</code> will not fill.</p>
 
 <h2>Write waspada_telegram.py</h2>
 <p><code>requirements.txt</code> still pins <code>paho-mqtt==2.1.0</code> as in FS-40. Do not pip into global Python. If paho is already installed, you do not need to pip again. Do not pip an extra bot library. <code>urllib</code> is already in standard Python for <code>sendMessage</code>.</p>
@@ -577,7 +575,7 @@ HTML
 HTML
             .$requirements.<<<'HTML'
 </code></pre>
-<p><strong>Open File Explorer first</strong>, go into <code>Documents\fsiot-fs39</code>. The <code>.venv</code> folder from earlier labs must already be there. Flask and yesterday’s <code>dashboard.html</code> <strong>do not have to be open</strong>.</p>
+<p><strong>Open File Explorer first</strong>, go into <code>Documents\fsiot-fs39</code>. The <code>.venv</code> folder from earlier labs must already be there. Flask from earlier labs <strong>does not have to stay open</strong>.</p>
 <p><strong>Open Notepad first.</strong> Save <code>waspada_telegram.py</code> with the code below. Save As, All files, lab folder <code>Documents\fsiot-fs39</code>. Do not Save it as <code>.txt</code>.</p>
 <pre><code class="language-python">
 HTML
@@ -587,19 +585,7 @@ HTML
 <p>If paho is missing from the venv:</p>
 <pre><code>.\.venv\Scripts\python.exe -m pip install -r requirements.txt</code></pre>
 
-<h2>Start MQTTX, send a temperature above the limit</h2>
-HTML
-            .$flow.<<<'HTML'
-<p><strong>Open MQTTX.</strong> Connect to <code>127.0.0.1:1883</code>. Publish topic:</p>
-<pre><code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code></pre>
-<p>Locked JSON for the pass path:</p>
-<pre><code>{"device_id":"esp32-meja-01","temperature_c":31.2,"humidity_pct":63.1}</code></pre>
-<p>Do not Publish until PowerShell shows <code>Waspada Telegram terbuka. Menunggu telemetri.</code> If Mosquitto is not running, start it as in FS-33. Without a broker, the script writes <code>Broker belum terbuka di 127.0.0.1:1883</code>.</p>
-<p>If the ESP32 is still sending a room temperature below 30, MQTTX is still enough: you raise the number. Warming the sensor is a bonus, not the pass gate. <strong>Not AC mains.</strong></p>
-
-<h2>Run the script, watch the Telegram chat</h2>
-HTML
-            .$phone.<<<'HTML'
+<h2>Run the script, keep the window open</h2>
 <p><strong>Open PowerShell first:</strong> Start → type <strong>PowerShell</strong> → Windows PowerShell. You do not need <em>Run as administrator</em>.</p>
 <p><strong>How to paste a command:</strong> copy the line, click the PowerShell window, then <kbd>Ctrl</kbd>+<kbd>V</kbd> or right-click. After the text appears, press Enter.</p>
 <p>Find <code>chat_id</code> first:</p>
@@ -608,8 +594,18 @@ HTML
 <p><strong>Result to look for:</strong> <code>CHAT_ID=</code> followed by a number. Copy it into <code>telegram_rahasia.txt</code>. If it is still a placeholder, the script writes <code>Token atau chat_id masih placeholder.</code></p>
 <p>Then run the listener:</p>
 <pre><code>.\.venv\Scripts\python.exe waspada_telegram.py</code></pre>
-<p><strong>Result to look for:</strong> <code>Waspada Telegram terbuka. Menunggu telemetri.</code> Keep this window <strong>open</strong>. Only then Publish in MQTTX. After the 31.2 JSON, the text <code>Alert terkirim ke Telegram.</code> The phone chat follows. If <code>.\.venv\Scripts\Activate.ps1</code> is blocked, <strong>do not change ExecutionPolicy</strong>.</p>
-<p><strong>macOS or Linux:</strong> open Terminal, <code>cd ~/Documents/fsiot-fs39</code>, then <code>.venv/bin/python waspada_telegram.py --cari-chat</code> and without the flag.</p>
+<p><strong>Result to look for:</strong> <code>Waspada Telegram terbuka. Menunggu telemetri.</code> Keep this window <strong>open</strong>. Do not Publish yet. If <code>.\.venv\Scripts\Activate.ps1</code> is blocked, <strong>do not change ExecutionPolicy</strong>.</p>
+<p><strong>macOS or Linux:</strong> open Terminal, <code>cd ~/Documents/fsiot-fs39</code>, then <code>.venv/bin/python waspada_telegram.py --cari-chat</code> and without <code>--cari-chat</code>.</p>
+
+<h2>Start MQTTX, send a temperature until the chat appears</h2>
+HTML
+            .$flow.$phone.<<<'HTML'
+<p><strong>Open MQTTX.</strong> Connect to <code>127.0.0.1:1883</code>. Publish topic:</p>
+<pre><code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code></pre>
+<p>Locked JSON for the pass path:</p>
+<pre><code>{"device_id":"esp32-meja-01","temperature_c":31.2,"humidity_pct":63.1}</code></pre>
+<p>Do not Publish until PowerShell shows <code>Waspada Telegram terbuka. Menunggu telemetri.</code> If Mosquitto is not running, start it as in FS-33. Without a broker, the script writes <code>Broker belum terbuka di 127.0.0.1:1883</code>.</p>
+<p>After the 31.2 JSON, PowerShell writes <code>Alert terkirim ke Telegram.</code> The phone chat follows. If the ESP32 is still sending a room temperature below 30, MQTTX is still enough: you raise the number. Warming the sensor is a bonus, not the pass gate. <strong>Not AC mains.</strong></p>
 
 <h2>Cooldown: do not spam</h2>
 HTML
@@ -667,11 +663,11 @@ HTML
 <h3>Why not Node-RED?</h3>
 <p>FS-38 already taught a visual threshold. What is new today is a Telegram bot from scratch plus cooldown in Python.</p>
 <h3>What if I do not want Telegram?</h3>
-<p>A webhook or email can be named as an alternative, but it is not the pass path. This lab locks Bot API <code>sendMessage</code>.</p>
+<p>A server bridge (webhook) or email can be named as an alternative, but it is not the pass path. This lab locks Bot API <code>sendMessage</code>.</p>
 <h3>Why cooldown?</h3>
 <p>So one telemetry burst does not become dozens of chats. The text <code>Cooldown: alert ditahan.</code> is a guard.</p>
-<h3>Is offline UX today?</h3>
-<p>No. Stale data and offline status are FS-48.</p>
+<h3>Do we cover stale data or an offline device today?</h3>
+<p>No. That is FS-48.</p>
 <h3>Why urllib, not a bot library?</h3>
 <p>So there is no new pip. <a href="https://core.telegram.org/bots/api#sendmessage" target="_blank" rel="noopener noreferrer">sendMessage</a> only needs an HTTPS POST of JSON.</p>
 

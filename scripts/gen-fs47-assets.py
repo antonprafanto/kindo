@@ -62,7 +62,7 @@ text(draw, 985, 270, 'Alert terkirim', 18, '#166534')
 text(draw, 985, 315, 'bukan screenshot token', 16, '#14532d')
 arrow(draw, (390, 210), (430, 210), '#ffd54f', 10, 22)
 arrow(draw, (770, 210), (810, 210), '#ffd54f', 10, 22)
-text(draw, 600, 430, 'Kemarin tombol sakelar. Hari ini peringatan ke HP.', 22, '#fff3b0')
+text(draw, 600, 430, 'Tombol halaman opsional. Hari ini peringatan ke HP.', 22, '#fff3b0')
 text(draw, 600, 505, 'FS-47 · BotFather dari nol, token di berkas rahasia', 24, '#ffffff')
 text(draw, 600, 570, 'MQTTX  ·  urllib  ·  bukan AC 220V  ·  bukan MySQL', 18, '#dbeafe')
 save(image, 'fs47-cover-alert.jpg')
@@ -72,13 +72,13 @@ print('fs47-cover-alert.webp', image.size)
 # Tools order
 image = Image.new('RGB', (1400, 650), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'Urutan tools FS-47 — lima langkah, jangan loncat', 'Telegram dulu. Browser. Notepad. MQTTX. Baru PowerShell menjalankan script.')
+header(draw, 1400, 'Urutan tools FS-47 — lima langkah, jangan loncat', 'Telegram dulu. Browser. Notepad. PowerShell. Baru MQTTX Publish suhu.')
 steps = [
     ('1', 'Telegram', 'BotFather\n/newbot + /start', '#fff8e1', '#f9a825'),
     ('2', 'Browser', 'artikel ini\njangan ketik dulu', '#e3f2fd', '#1565c0'),
     ('3', 'Notepad', 'telegram_rahasia.txt\nwaspada_telegram.py', '#fff7ed', '#c2410c'),
-    ('4', 'MQTTX', 'Connect 1883\nPublish suhu > 30', '#e8f5e9', '#2e7d32'),
-    ('5', 'PowerShell', 'python script\nAlert terkirim', '#f3e8ff', '#6d28d9'),
+    ('4', 'PowerShell', '--cari-chat\nlalu waspada', '#e8f5e9', '#2e7d32'),
+    ('5', 'MQTTX', 'Publish 31.2\nAlert terkirim', '#f3e8ff', '#6d28d9'),
 ]
 for index, (number, title, body, fill, color) in enumerate(steps):
     left = 40 + index * 272
@@ -95,10 +95,10 @@ save(image, 'fs47-tools-order.png')
 # Why alert
 image = Image.new('RGB', (1400, 650), '#f5f5f0')
 draw = ImageDraw.Draw(image)
-header(draw, 1400, 'Kemarin tombol di browser. Hari ini chat di HP', 'Baca kiri ke kanan: dashboard FS-46 → ambang suhu → Telegram.')
+header(draw, 1400, 'Tombol halaman tidak wajib. Hari ini chat di HP', 'Baca kiri ke kanan: halaman (opsional) → ambang suhu → Telegram.')
 box(draw, (70, 155, 460, 520), '#e3f2fd', '#1565c0')
 text(draw, 265, 220, 'FS-46', 28, '#1565c0')
-text(draw, 265, 290, 'tombol sakelar', 22)
+text(draw, 265, 290, 'tombol (opsional)', 22)
 text(draw, 265, 360, 'Perintah terkirim.', 18, '#1e3a8a')
 text(draw, 265, 430, 'harus membuka halaman', 18, '#1e3a8a')
 box(draw, (500, 155, 900, 520), '#fff8e1', '#b45309')
@@ -246,5 +246,5 @@ for left, title, body, fill, color in checks:
     text(draw, left + 150, 210, title, 26, color)
     for line_index, line in enumerate(body.split('\n')):
         text(draw, left + 150, 320 + line_index * 48, line, 20, '#353535')
-text(draw, 700, 575, 'Catatan lab: Flask kemarin tidak wajib. Jangan buka port ke internet. Jangan AC 220V.', 17, '#b45309')
+text(draw, 700, 575, 'Catatan lab: Flask dari lab sebelumnya tidak wajib. Jangan buka port. Jangan AC 220V.', 17, '#b45309')
 save(image, 'fs47-troubleshooting.png')
