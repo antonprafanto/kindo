@@ -352,7 +352,7 @@ HTML;
 
 <h2>Tiga bus (bahasa manusia)</h2>
 {$main}
-<p><strong>UART</strong> — dua arah sederhana (TX kirim, RX terima) + GND. Sudah kamu pakai: jendela <strong>Serial Monitor</strong> lewat USB. Cocok untuk debug dan modul 1↔1 (mis. GPS), bukan untuk sepuluh sensor sekaligus.</p>
+<p><strong>UART</strong> — dua arah sederhana (TX mengirim, RX menerima) + GND. Sudah kamu pakai: jendela <strong>Serial Monitor</strong> lewat USB. Cocok untuk debug dan modul 1↔1 (mis. GPS), bukan untuk sepuluh sensor sekaligus.</p>
 <p><strong>I2C</strong> — dua kabel data bersama (<strong>SDA</strong>, <strong>SCL</strong>) + tiap perangkat punya <strong>alamat</strong>. Banyak sensor/layar kecil bisa berbagi bus. Di jalur ini: BME280 + OLED (FS-28).</p>
 <p><strong>SPI</strong> — lebih cepat, tetapi butuh lebih banyak kabel; tiap chip sering punya garis <strong>CS</strong> sendiri. Cocok untuk microSD / memori cepat (FS-36).</p>
 {$i2c}
@@ -454,7 +454,7 @@ HTML;
 
 <h2>Three buses (human language)</h2>
 {$main}
-<p><strong>UART</strong> — simple two-way link (TX send, RX receive) + GND. You’ve already used it: the <strong>Serial Monitor</strong> over USB. Great for debug and 1↔1 modules (e.g. GPS), not for ten sensors at once.</p>
+<p><strong>UART</strong> — simple two-way link (TX sends, RX receives) + GND. You’ve already used it: the <strong>Serial Monitor</strong> over USB. Great for debug and 1↔1 modules (e.g. GPS), not for ten sensors at once.</p>
 <p><strong>I2C</strong> — two shared data wires (<strong>SDA</strong>, <strong>SCL</strong>) + each device has an <strong>address</strong>. Many small sensors/displays can share the bus. On this path: BME280 + OLED (FS-28).</p>
 <p><strong>SPI</strong> — faster, but more wires; each chip often gets its own <strong>CS</strong> line. Fits microSD / fast memory (FS-36).</p>
 {$i2c}

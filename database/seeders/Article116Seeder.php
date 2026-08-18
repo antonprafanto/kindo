@@ -410,13 +410,13 @@ class Article116Seeder extends Seeder
             ['title' => 'Buka Notepad, tulis berkas', 'text' => 'Perbarui <code>dashboard.html</code> dan <code>pintu_stasiun.py</code>. All files, bukan <code>.txt</code>.'],
             ['title' => 'Buka PowerShell, jalankan Flask', 'text' => 'Start → ketik PowerShell. Tidak perlu <em>Run as administrator</em>. Jalankan Flask. Jendela Flask tetap terbuka.'],
             ['title' => 'Buka browser, klik ON', 'text' => 'Tab baru: <code>http://127.0.0.1:5000</code> — bukan <code>file://</code>. Klik ON. Status <code>Perintah terkirim.</code>'],
-        ], '<strong>Cara menguji hari ini:</strong> bukti sukses = browser menampilkan <code>Perintah terkirim.</code> plus <code>Sakelar: ON</code>, dan MQTTX menampilkan JSON <code>relay":"on"</code>. ESP32 boleh menyala, tetapi tidak wajib.');
+        ], '<strong>Cara menguji hari ini:</strong> bukti sukses = browser menampilkan <code>Perintah terkirim.</code> plus <code>Sakelar: ON</code>, dan MQTTX menampilkan JSON <code>"relay":"on"</code>. ESP32 boleh menyala, tetapi tidak wajib.');
 
         return <<<'HTML'
 <h2>Pendahuluan — tombol, bukan hanya grafik</h2>
 <p><strong>FS-46 / #116 (ini)</strong> adalah lab panel kontrol. Kemarin halaman sudah menampilkan garis tren suhu. Hari ini tugasnya lain: <strong>nyalakan dan matikan sakelar dari browser</strong>, supaya perintah tidak lagi diketik di script.</p>
 <p><strong>Intinya:</strong> pasang tombol ON/OFF di <code>dashboard.html</code>, kirim POST <code>/command</code>, baca GET <code>/status</code>, sampai teks <code>Perintah terkirim.</code> dan <code>Sakelar: ON</code> tampil di <code>http://127.0.0.1:5000</code>.</p>
-<p><strong>Analogi:</strong> grafik adalah kaca spion. Tombol adalah stang: kamu menggerakkan sakelar, lalu halaman bilang perintah sudah berangkat. Telegram belum dibangun — itu FS-47.</p>
+<p><strong>Analogi:</strong> grafik adalah kaca spion: kamu hanya melihat apa yang sudah terjadi. Tombol adalah sakelar di dasbor: kamu yang memutuskan nyala atau mati. Telegram belum dibangun — itu FS-47.</p>
 <p>Prasyarat lab: <strong>FS-45</strong> (halaman grafik sudah pernah terbuka), <strong>FS-42</strong> (pintu POST sudah pernah terbuka), <strong>FS-35</strong> (relay lab sebelumnya, tanpa kabel baru), dan MQTTX + Mosquitto dari FS-33. FS-41 MariaDB <strong>tidak wajib</strong>. ESP32 <strong>boleh menyala</strong>, dan <strong>boleh dicabut</strong>. Tidak ada kabel baru, tidak ada Upload, <strong>Bukan AC 220V</strong>.</p>
 
 <h2>Hasil yang dituju</h2>
@@ -447,7 +447,7 @@ class Article116Seeder extends Seeder
 <h2>Persiapan — buka tool yang benar dulu</h2>
 HTML
             .$tools.$install.<<<'HTML'
-<p>Buka File Explorer ke folder lab sebelum Notepad. Jangan ketik perintah Python dulu.</p>
+<p><strong>Buka File Explorer dulu</strong>, masuk ke <code>Documents\fsiot-fs39</code>, baru Notepad. Jangan ketik perintah Python dulu.</p>
 <p><strong>Jangan dipakai hari ini:</strong> MySQL/MariaDB, phpMyAdmin, Arduino IDE, AC 220V, <code>file://</code>, membuka port 5000 ke internet, mengubah ExecutionPolicy, pip <code>flask-cors</code>, npm, Telegram, atau <code>uji_perintah.py</code> sebagai jalur lulus. Node-RED boleh tetap terbuka.</p>
 <p><strong>Tips ponsel:</strong> jika diagram terasa kecil, gunakan fitur perbesar pada browser. Gambar tidak perlu diketuk sampai memenuhi layar agar teks di sekitarnya tetap terbaca.</p>
 
@@ -460,7 +460,7 @@ HTML
 <h2>Nyalakan MQTTX, langganan topic command</h2>
 HTML
             .$mqttx.<<<'HTML'
-<p>Buka MQTTX. Connect ke <code>127.0.0.1:1883</code>. Subscribe:</p>
+<p><strong>Buka dulu MQTTX.</strong> Connect ke <code>127.0.0.1:1883</code>. Subscribe:</p>
 <pre><code>kodingindonesia/fsiot/esp32-meja-01/command</code></pre>
 <p><strong>Hasil yang dicari:</strong> status Connected, langganan command terlihat, daftar pesan siap diisi. Flask yang akan mengisi. Jangan tekan Publish.</p>
 <p>Jika Mosquitto belum jalan, nyalakan dulu seperti FS-33. Tanpa broker, tombol akan menulis <code>Broker belum terbuka di 127.0.0.1:1883</code>.</p>
@@ -474,7 +474,7 @@ HTML
             .$requirements.<<<'HTML'
 </code></pre>
 <p><strong>Buka dulu File Explorer</strong>, masuk ke <code>Documents\fsiot-fs39</code>. Folder <code>.venv</code>, berkas <code>stasiun.db</code>, dan <code>pintu_stasiun.py</code> dari lab sebelumnya harus sudah ada. Jika <code>stasiun.db</code> belum ada, ulangi FS-40 dulu.</p>
-<p><strong>Buka dulu Notepad.</strong> Ganti isi <code>pintu_stasiun.py</code> dengan kode di bawah. Save As, All files, folder <code>Documents\fsiot-fs39</code>. GET <code>/</code> mengirim <code>dashboard.html</code>. GET <code>/status</code> mengirim perintah terakhir. POST <code>/command</code> mengirim MQTT lalu menyimpan baris di tabel <code>commands</code>. GET <code>/telemetry</code> dan GET <code>/history?hours=1</code> tetap ada. Saringan <code>?device_id=</code> dari FS-43 tetap ada.</p>
+<p><strong>Buka dulu Notepad.</strong> Ganti isi <code>pintu_stasiun.py</code> dengan kode di bawah. Save As, All files, folder <code>Documents\fsiot-fs39</code>. GET <code>/</code> menyajikan <code>dashboard.html</code>. GET <code>/status</code> menampilkan perintah terakhir. POST <code>/command</code> mengirim MQTT lalu menyimpan baris di tabel <code>commands</code>. GET <code>/telemetry</code> dan GET <code>/history?hours=1</code> tetap ada. Saringan <code>?device_id=</code> dari FS-43 tetap ada.</p>
 <pre><code class="language-python">
 HTML
             .$pintu.<<<'HTML'
@@ -557,7 +557,7 @@ HTML
 <li><strong>Membuka file://.</strong> Fetch ke Flask ditolak. Pakai <code>http://127.0.0.1:5000</code>.</li>
 <li><strong>Menunggu MySQL.</strong> Gudang tetap SQLite <code>stasiun.db</code>.</li>
 <li><strong>Dobel klik tanpa kunci.</strong> Dua perintah berangkat. Lab mengunci tombol selama <code>sedang</code>.</li>
-<li><strong>UI tidak sync.</strong> Refresh mengosongkan tulisan. Pakai GET <code>/status</code>.</li>
+<li><strong>Tulisan sakelar ketinggalan.</strong> Refresh mengosongkan teks. Pakai GET <code>/status</code>.</li>
 <li><strong>Memakai uji_perintah.py sebagai bukti.</strong> Hari ini buktinya tombol di halaman.</li>
 <li><strong>Mengubah ExecutionPolicy.</strong> Tetap pakai <code>.venv\Scripts\python.exe</code>.</li>
 <li><strong>Membangun bot Telegram hari ini.</strong> Ditunda ke FS-47.</li>
@@ -620,13 +620,13 @@ HTML;
             ['title' => 'Open Notepad, write the files', 'text' => 'Update <code>dashboard.html</code> and <code>pintu_stasiun.py</code>. All files, not <code>.txt</code>.'],
             ['title' => 'Open PowerShell, run Flask', 'text' => 'Start → type PowerShell. You do not need <em>Run as administrator</em>. Run Flask. Leave the Flask window open.'],
             ['title' => 'Open a browser, click ON', 'text' => 'New tab: <code>http://127.0.0.1:5000</code> — not <code>file://</code>. Click ON. Status <code>Perintah terkirim.</code>'],
-        ], '<strong>How to test today:</strong> success = the browser shows <code>Perintah terkirim.</code> plus <code>Sakelar: ON</code>, and MQTTX shows JSON <code>relay":"on"</code>. The ESP32 may be on, but it is not required.');
+        ], '<strong>How to test today:</strong> success = the browser shows <code>Perintah terkirim.</code> plus <code>Sakelar: ON</code>, and MQTTX shows JSON <code>"relay":"on"</code>. The ESP32 may be on, but it is not required.');
 
         return <<<'HTML'
 <h2>Introduction — buttons, not only a chart</h2>
 <p><strong>FS-46 / #116 (this article)</strong> is the control-panel lab. Yesterday the page already showed a temperature trend line. Today the job is different: <strong>turn the switch on and off from the browser</strong>, so the command is no longer typed in a script.</p>
 <p><strong>In short:</strong> put ON/OFF buttons in <code>dashboard.html</code>, send POST <code>/command</code>, read GET <code>/status</code>, until the text <code>Perintah terkirim.</code> and <code>Sakelar: ON</code> appear at <code>http://127.0.0.1:5000</code>.</p>
-<p><strong>Analogy:</strong> the chart is a rear-view mirror. The buttons are the handlebars: you move the switch, then the page says the command has left. Telegram is not built yet — that is FS-47.</p>
+<p><strong>Analogy:</strong> the chart is a rear-view mirror: you only see what already happened. The buttons are the dashboard switch: you choose on or off. Telegram is not built yet — that is FS-47.</p>
 <p>Lab prerequisites: <strong>FS-45</strong> (the chart page has opened before), <strong>FS-42</strong> (the POST door has opened before), <strong>FS-35</strong> (the earlier relay lab, with no new cables), and MQTTX + Mosquitto from FS-33. FS-41 MariaDB is <strong>not required</strong>. The ESP32 <strong>may stay on</strong>, and <strong>may be unplugged</strong>. No new cables, no Upload, <strong>Not AC mains</strong>.</p>
 
 <h2>Expected outcome</h2>
@@ -657,7 +657,7 @@ HTML;
 <h2>Preparation — open the right tools first</h2>
 HTML
             .$tools.$install.<<<'HTML'
-<p>Open File Explorer to the lab folder before Notepad. Do not type Python commands yet.</p>
+<p><strong>Open File Explorer first</strong>, go to <code>Documents\fsiot-fs39</code>, then Notepad. Do not type Python commands yet.</p>
 <p><strong>Do not use today:</strong> MySQL/MariaDB, phpMyAdmin, Arduino IDE, AC mains, <code>file://</code>, opening port 5000 to the internet, changing ExecutionPolicy, pip <code>flask-cors</code>, npm, Telegram, or <code>uji_perintah.py</code> as the pass path. Node-RED may stay open.</p>
 <p><strong>Phone tip:</strong> if a diagram feels small, use the browser zoom. You do not need to tap the image until it fills the screen, so the text around it stays readable.</p>
 
@@ -670,7 +670,7 @@ HTML
 <h2>Start MQTTX, subscribe to the command topic</h2>
 HTML
             .$mqttx.<<<'HTML'
-<p>Open MQTTX. Connect to <code>127.0.0.1:1883</code>. Subscribe:</p>
+<p><strong>Open MQTTX first.</strong> Connect to <code>127.0.0.1:1883</code>. Subscribe:</p>
 <pre><code>kodingindonesia/fsiot/esp32-meja-01/command</code></pre>
 <p><strong>What you want:</strong> status Connected, the command subscription visible, the message list ready to fill. Flask will fill it. Do not press Publish.</p>
 <p>If Mosquitto is not running, start it first like FS-33. Without the broker, the button writes <code>Broker belum terbuka di 127.0.0.1:1883</code>.</p>
@@ -684,7 +684,7 @@ HTML
             .$requirements.<<<'HTML'
 </code></pre>
 <p><strong>Open File Explorer first</strong>, go to <code>Documents\fsiot-fs39</code>. The <code>.venv</code> folder, the <code>stasiun.db</code> file, and <code>pintu_stasiun.py</code> from the earlier lab must already be there. If <code>stasiun.db</code> is missing, repeat FS-40 first.</p>
-<p><strong>Open Notepad first.</strong> Replace <code>pintu_stasiun.py</code> with the code below. Save As, All files, folder <code>Documents\fsiot-fs39</code>. GET <code>/</code> sends <code>dashboard.html</code>. GET <code>/status</code> sends the last command. POST <code>/command</code> sends MQTT then stores a row in the <code>commands</code> table. GET <code>/telemetry</code> and GET <code>/history?hours=1</code> stay. The <code>?device_id=</code> filter from FS-43 stays.</p>
+<p><strong>Open Notepad first.</strong> Replace <code>pintu_stasiun.py</code> with the code below. Save As, All files, folder <code>Documents\fsiot-fs39</code>. GET <code>/</code> serves <code>dashboard.html</code>. GET <code>/status</code> shows the last command. POST <code>/command</code> sends MQTT then stores a row in the <code>commands</code> table. GET <code>/telemetry</code> and GET <code>/history?hours=1</code> stay. The <code>?device_id=</code> filter from FS-43 stays.</p>
 <pre><code class="language-python">
 HTML
             .$pintu.<<<'HTML'
@@ -767,7 +767,7 @@ HTML
 <li><strong>Opening file://.</strong> Fetch to Flask is blocked. Use <code>http://127.0.0.1:5000</code>.</li>
 <li><strong>Waiting for MySQL.</strong> The store stays SQLite <code>stasiun.db</code>.</li>
 <li><strong>Double-clicking without a lock.</strong> Two commands leave. The lab locks the buttons while <code>sedang</code> is true.</li>
-<li><strong>UI out of sync.</strong> A refresh clears the label. Use GET <code>/status</code>.</li>
+<li><strong>The switch label falls behind.</strong> A refresh clears the text. Use GET <code>/status</code>.</li>
 <li><strong>Using uji_perintah.py as proof.</strong> Today’s proof is the button on the page.</li>
 <li><strong>Changing ExecutionPolicy.</strong> Keep using <code>.venv\Scripts\python.exe</code>.</li>
 <li><strong>Building a Telegram bot today.</strong> That waits for FS-47.</li>

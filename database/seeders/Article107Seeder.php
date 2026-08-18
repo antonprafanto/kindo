@@ -316,7 +316,7 @@ class Article107Seeder extends Seeder
     private function body(): string
     {
         $sketch = htmlspecialchars($this->sketch(), ENT_QUOTES, 'UTF-8');
-        $tools = $this->figure('fs37-tools-order.png', 'Urutan lima langkah: browser, MQTTX dan broker, Arduino IDE, kabel SPI, lalu Serial Monitor', '<strong>Urutan meja kerja (lima langkah):</strong> browser → MQTTX + Mosquitto (Host = IPv4 PC) → Arduino IDE → kabel SPI seperti FS-36 → Serial Monitor, lalu buka panel HP. Diagram buatan Koding Indonesia (FS-37).');
+        $tools = $this->figure('fs37-tools-order.png', 'Urutan lima langkah: browser, Mosquitto lalu MQTTX, Arduino IDE, kabel SPI, lalu Serial Monitor', '<strong>Urutan meja kerja (lima langkah):</strong> browser → Mosquitto, lalu MQTTX (Host = IPv4 PC) → Arduino IDE → kabel SPI seperti FS-36 → Serial Monitor, lalu buka panel HP. Diagram buatan Koding Indonesia (FS-37).');
         $flow = $this->figure('fs37-offline-online.png', 'Alur kiri ke kanan: hotspot putus, pending.csv, hotspot nyala, MQTTX terisi from_sd true', '<strong>Gambar utama — alur.</strong> Baca dari kiri ke kanan: putus → simpan di <code>pending.csv</code> → nyambung → MQTTX terisi. Diagram buatan Koding Indonesia (FS-37).');
         $ram = $this->figure('fs37-ram-vs-sd.png', 'Perbandingan antrian di RAM yang cepat penuh versus antrian di pending.csv', '<strong>RAM kecil. Kartu yang menahan antrian.</strong> Lab ini tidak menumpuk sampel di memori. Diagram buatan Koding Indonesia (FS-37).');
         $pending = $this->figure('fs37-pending-csv.png', 'Dua berkas: pending.csv untuk antrian belum terkirim dan log.csv sebagai arsip', '<strong>Dua berkas.</strong> <code>pending.csv</code> hanya baris yang belum ke broker. <code>log.csv</code> arsip semua sampel. Diagram buatan Koding Indonesia (FS-37).');
@@ -484,7 +484,7 @@ HTML
 <li>Saat hotspot nyala lagi, Serial menampilkan <code>Kirim ulang dari kartu:</code>.</li>
 <li>MQTTX terisi <code>from_sd: true</code> dan saya bisa menjelaskan kenapa RAM bukan gudang antrian.</li>
 </ul>
-<p><strong>Cara memeriksa kesiapan:</strong> ceritakan dengan kata-katamu: hotspot mati → kartu → hotspot nyala → MQTTX. Pada FS-38, aturan if-then pindah ke PC tanpa upload firmware tiap kali.</p>
+<p><strong>Cara memeriksa kesiapan:</strong> ceritakan dengan kata-katamu: hotspot mati → kartu → hotspot nyala → MQTTX. Pada FS-38, aturan jika-maka pindah ke Node-RED di PC (MQTTX tetap saksi), tanpa Upload firmware tiap kali.</p>
 
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
@@ -527,14 +527,14 @@ HTML
 </ul>
 
 <h2>Selanjutnya</h2>
-<p><strong>Ringkasnya:</strong> hotspot putus tidak lagi menghapus seluruh jendela waktu. Pada <strong>FS-38</strong>, aturan if-then pindah ke PC (Node-RED atau checklist MQTTX) tanpa upload firmware tiap kali mengubah ambang.</p>
+<p><strong>Ringkasnya:</strong> hotspot putus tidak lagi menghapus seluruh jendela waktu. Pada <strong>FS-38</strong>, aturan jika-maka pindah ke Node-RED di PC (MQTTX tetap saksi) tanpa Upload firmware tiap kali mengubah ambang.</p>
 HTML;
     }
 
     private function bodyEn(): string
     {
         $sketch = htmlspecialchars($this->sketch(), ENT_QUOTES, 'UTF-8');
-        $tools = $this->figure('fs37-tools-order.png', 'Five-step order: browser, MQTTX and broker, Arduino IDE, SPI cables, then Serial Monitor', '<strong>Desk order (five steps):</strong> browser → MQTTX + Mosquitto (Host = PC IPv4) → Arduino IDE → SPI cables as in FS-36 → Serial Monitor, then open the phone panel. Diagram by Koding Indonesia (FS-37).');
+        $tools = $this->figure('fs37-tools-order.png', 'Five-step order: browser, Mosquitto then MQTTX, Arduino IDE, SPI cables, then Serial Monitor', '<strong>Desk order (five steps):</strong> browser → Mosquitto, then MQTTX (Host = PC IPv4) → Arduino IDE → SPI cables as in FS-36 → Serial Monitor, then open the phone panel. Diagram by Koding Indonesia (FS-37).');
         $flow = $this->figure('fs37-offline-online.png', 'Left-to-right flow: hotspot off, pending.csv, hotspot on, MQTTX fills with from_sd true', '<strong>Main figure — flow.</strong> Read left to right: disconnect → store in <code>pending.csv</code> → reconnect → MQTTX fills. Diagram by Koding Indonesia (FS-37).');
         $ram = $this->figure('fs37-ram-vs-sd.png', 'Comparison of a RAM queue that fills quickly versus a pending.csv queue', '<strong>RAM is small. The card holds the queue.</strong> This lab does not pile samples in memory. Diagram by Koding Indonesia (FS-37).');
         $pending = $this->figure('fs37-pending-csv.png', 'Two files: pending.csv for unsent rows and log.csv as the archive', '<strong>Two files.</strong> <code>pending.csv</code> holds rows not yet on the broker. <code>log.csv</code> archives every sample. Diagram by Koding Indonesia (FS-37).');
@@ -702,7 +702,7 @@ HTML
 <li>When the hotspot is on again, Serial shows <code>Kirim ulang dari kartu:</code>.</li>
 <li>MQTTX fills with <code>from_sd: true</code> and I can explain why RAM is not the queue warehouse.</li>
 </ul>
-<p><strong>How to check readiness:</strong> tell the story in your own words: hotspot off → card → hotspot on → MQTTX. In FS-38, if-then rules move to the PC without a firmware upload every time the threshold changes.</p>
+<p><strong>How to check readiness:</strong> tell the story in your own words: hotspot off → card → hotspot on → MQTTX. In FS-38, if-then rules move to Node-RED on the PC (MQTTX stays a witness), without a firmware upload every time the threshold changes.</p>
 
 <h2>Common mistakes</h2>
 <ul>
@@ -745,7 +745,7 @@ HTML
 </ul>
 
 <h2>Next</h2>
-<p><strong>In short:</strong> a hotspot drop no longer wipes the whole time window. In <strong>FS-38</strong>, if-then rules move to the PC (Node-RED or an MQTTX checklist) without a firmware upload every time the threshold changes.</p>
+<p><strong>In short:</strong> a hotspot drop no longer wipes the whole time window. In <strong>FS-38</strong>, if-then rules move to Node-RED on the PC (MQTTX stays a witness) without a firmware upload every time the threshold changes.</p>
 HTML;
     }
 }

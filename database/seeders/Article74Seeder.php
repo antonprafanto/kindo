@@ -150,7 +150,7 @@ HTML;
             'relay' => $this->kitPhoto(
                 'kit-relay-5v.jpg',
                 'Foto modul relay 1 channel 5V dengan terminal sekrup',
-                'Contoh <strong>modul relay 1 channel 5V</strong> (kotak biru + terminal sekrup). Di jalur Core: beban DC kecil saja — bukan AC 220V.',
+                'Contoh <strong>modul relay 1 channel 5V</strong> (kotak biru + terminal sekrup). Di jalur ini: beban DC kecil saja — bukan AC 220V.',
                 'https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg',
                 'Suyash Dwivedi — 5V one-channel relay module',
                 'CC BY-SA 4.0'
@@ -235,7 +235,7 @@ HTML;
             'relay' => $this->kitPhoto(
                 'kit-relay-5v.jpg',
                 'Photo of a 5V one-channel relay module with screw terminals',
-                'Example <strong>1-channel 5V relay module</strong> (blue cube + screw terminals). On Core: small DC loads only — not AC 220V.',
+                'Example <strong>1-channel 5V relay module</strong> (blue cube + screw terminals). On this path: small DC loads only — not AC 220V.',
                 'https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg',
                 'Suyash Dwivedi — 5V one-channel relay module',
                 'CC BY-SA 4.0',
@@ -315,13 +315,13 @@ HTML;
   <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kiri</text>
-  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Satu baris = saling nyambung</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Satu nomor kolom = saling nyambung</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
     <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
     <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
   <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
-  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Contoh baris A–E (5 lubang)</text>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Contoh kolom: A–E (5 lubang)</text>
   <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
   <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">parit</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
@@ -333,7 +333,7 @@ HTML;
   <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kanan</text>
-  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Baris berbeda = TIDAK otomatis nyambung · parit memisahkan kiri &amp; kanan</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Nomor kolom berbeda = TIDAK otomatis nyambung · parit memisahkan kiri &amp; kanan</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Diagram dalaman breadboard sederhana (buatan Koding Indonesia). Jangan mengira semua lubang saling nyambung.</figcaption>
 </figure>
@@ -350,13 +350,13 @@ SVG;
   <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Left power rail</text>
-  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">One row = connected together</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">One column number = connected together</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
     <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
     <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
   <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
-  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Example row A–E (5 holes)</text>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Example column: A–E (5 holes)</text>
   <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
   <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">trench</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
@@ -368,7 +368,7 @@ SVG;
   <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Right power rail</text>
-  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Different rows are NOT auto-connected · trench separates left &amp; right</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Different column numbers are NOT auto-connected · trench separates left &amp; right</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Simple breadboard internals diagram (by Koding Indonesia). Do not assume every hole is connected.</figcaption>
 </figure>
@@ -524,10 +524,10 @@ SVG;
 {$bread}
 <ul>
 <li><strong>Power rail</strong> (garis +/− di tepi) — biasanya sepanjang papan.</li>
-<li><strong>Satu baris kecil</strong> (misalnya 5 lubang) — saling nyambung.</li>
+<li><strong>Satu nomor kolom</strong> (lima lubang A–E atau F–J) — saling nyambung. Kolom tetangga tidak nyambung.</li>
 <li><strong>Parit tengah</strong> — memisahkan sisi kiri dan kanan (berguna saat menancapkan board).</li>
 </ul>
-<p><strong>Analogi:</strong> bayangkan kursi bis: satu baris kursi saling “ngobrol”; baris di belakang tidak otomatis ngobrol kecuali kamu sambungkan dengan jumper.</p>
+<p><strong>Analogi:</strong> bayangkan kursi bioskop: lima kursi dalam satu nomor kolom saling “ngobrol”; nomor kolom di sebelahnya tidak otomatis ngobrol kecuali kamu sambungkan dengan jumper.</p>
 
 <h2>Jumper, LED, resistor</h2>
 <p><strong>Jumper</strong> = kabel pendek Male‑Male (M‑M) atau Male‑Female (M‑F). Warnanya hanya penanda; yang penting ujungnya masuk lubang dengan kencang.</p>
@@ -540,7 +540,7 @@ SVG;
 <li><strong>LED:</strong> kaki <strong>panjang = anode (+)</strong>, kaki <strong>pendek = katode (−)</strong>. Tertukar → sering tidak menyala (nanti saat latihan LED).</li>
 <li><strong>Resistor 220Ω / 330Ω:</strong> “rem” arus untuk LED. Baca warna sederhana cukup: bandingkan dengan tabel di kemasan / aplikasi pembaca warna — detail hitung Ohm di FS-08.</li>
 <li><strong>Resistor 10kΩ:</strong> sering dipakai untuk tombol / pembagi tegangan (LDR) nanti.</li>
-<li><strong>Tombol tactile:</strong> saklar kecil tekan-lepas.</li>
+<li><strong>Tombol tactile:</strong> sakelar kecil tekan-lepas.</li>
 </ul>
 <p><strong>Intinya:</strong> LED tanpa resistor seperti keran tanpa pembatas — bisa “kebanyakan” dan rusak. Kita belum merakit hari ini; cukup kenali bentuknya.</p>
 
@@ -552,9 +552,9 @@ SVG;
 <ul>
 <li><strong>DHT22</strong> — sensor suhu &amp; kelembapan (indra). Kalau stok kosong, <strong>DHT11 boleh sementara</strong> — bedanya ketelitian &amp; rentang; sebut saja di catatanmu.</li>
 <li><strong>LDR</strong> — “mata” cahaya (bersama resistor 10k nanti).</li>
-<li><strong>Modul relay 1 channel 5V</strong> — saklar elektronik (otot kecil). Di jalur Core kita pakai untuk <strong>beban DC kecil</strong> saja.</li>
+<li><strong>Modul relay 1 channel 5V</strong> — sakelar elektronik (otot kecil). Di jalur ini kita pakai untuk <strong>beban DC kecil</strong> saja.</li>
 </ul>
-<p><strong>Intinya:</strong> sensor membaca; relay mengganti saklar. Jangan beli kit “AC 220V / lampu rumah” dulu — itu level lain dan lebih berbahaya.</p>
+<p><strong>Intinya:</strong> sensor membaca; relay mengganti sakelar. Jangan beli kit “AC 220V / lampu rumah” dulu — itu level lain dan lebih berbahaya.</p>
 
 <h2>Belanja bertahap — harga &amp; urutan</h2>
 <p>Estimasi kasar marketplace Indonesia (Juli 2026 — <strong>update berkala</strong>; harga berubah):</p>
@@ -687,10 +687,10 @@ HTML;
 {$bread}
 <ul>
 <li><strong>Power rails</strong> (+/− strips on the sides) — usually run the length of the board.</li>
-<li><strong>One short row</strong> (e.g. 5 holes) — connected together.</li>
+<li><strong>One column number</strong> (five holes A–E or F–J) — connected together. Neighbouring columns are not.</li>
 <li><strong>Center trench</strong> — separates left and right halves (useful when seating the board).</li>
 </ul>
-<p><strong>Analogy:</strong> picture bus seats: one row of seats “talks”; the row behind does not unless you bridge them with a jumper.</p>
+<p><strong>Analogy:</strong> picture cinema seats: five seats in one column number “talk”; the next column number does not unless you bridge them with a jumper.</p>
 
 <h2>Jumpers, LEDs, resistors</h2>
 <p><strong>Jumpers</strong> = short Male‑Male (M‑M) or Male‑Female (M‑F) wires. Color is just a label; what matters is a firm fit in the hole.</p>

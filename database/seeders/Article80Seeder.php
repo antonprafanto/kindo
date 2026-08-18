@@ -306,7 +306,7 @@ SVG;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs10-pullup-pulldown.svg" width="920" height="420" alt="Diagram pull-up di kiri dan pull-down di kanan — fokus kotak hijau hari ini" loading="lazy" style="width:100%;height:auto;max-height:440px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Kiri = pull-up</strong> (default HIGH, preview FS-11). <strong>Kanan = pull-down</strong> (default LOW) — <strong>kotak hijau = yang kita rakit hari ini</strong> dengan resistor <strong>10 kΩ</strong>.
+    <strong>Kiri = pull-up</strong> (default HIGH, preview FS-19). <strong>Kanan = pull-down</strong> (default LOW) — <strong>kotak hijau = yang kita rakit hari ini</strong> dengan resistor <strong>10 kΩ</strong>.
     <br>Sumber gambar: diagram buatan Koding Indonesia (FS-10).
   </figcaption>
 </figure>
@@ -319,7 +319,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs10-pullup-pulldown.svg" width="920" height="420" alt="Side-by-side pull-up (left) and pull-down (right) — green box is today’s focus" loading="lazy" style="width:100%;height:auto;max-height:440px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Left = pull-up</strong> (default HIGH, FS-11 preview). <strong>Right = pull-down</strong> (default LOW) — <strong>green box = what we build today</strong> with a <strong>10 kΩ</strong> resistor.
+    <strong>Left = pull-up</strong> (default HIGH, FS-19 preview). <strong>Right = pull-down</strong> (default LOW) — <strong>green box = what we build today</strong> with a <strong>10 kΩ</strong> resistor.
     <br>Image source: diagram by Koding Indonesia (FS-10).
   </figcaption>
 </figure>
@@ -329,13 +329,13 @@ HTML;
     private function digitalAnalogSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Analogi digital vs analog: saklar vs dimmer" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
+<figure role="img" aria-label="Analogi digital vs analog: sakelar vs dimmer" style="margin:1.5rem 0;max-width:100%;overflow-x:auto;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:1rem">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" width="100%" height="auto">
   <text x="360" y="24" text-anchor="middle" font-family="system-ui,sans-serif" font-size="15" font-weight="700">Digital vs analog — analogi sederhana</text>
   <rect x="40" y="50" width="280" height="120" rx="8" fill="#E8F5E9" stroke="#1a1a1a" stroke-width="2"/>
   <text x="180" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Digital</text>
   <text x="180" y="105" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13">ON / OFF saja</text>
-  <text x="180" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">seperti saklar lampu</text>
+  <text x="180" y="128" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">seperti sakelar lampu</text>
   <circle cx="120" cy="145" r="14" fill="#4CAF50" stroke="#1a1a1a"/><circle cx="240" cy="145" r="14" fill="#E0E0E0" stroke="#1a1a1a"/>
   <rect x="400" y="50" width="280" height="120" rx="8" fill="#FFF3E0" stroke="#1a1a1a" stroke-width="2"/>
   <text x="540" y="80" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">Analog</text>
@@ -478,7 +478,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs10-button-pulldown-wiring.svg" width="920" height="520" alt="Skema berlabel: tombol + pull-down 10 kOhm, node S, multimeter V DC — belum ke GPIO" loading="lazy" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Skema berlabel (bantu baca foto)</strong> — tombol lepas ≈ 0 V (LOW) di S · tombol tekan ≈ 3,3 V (HIGH). Probe merah di S, hitam di GND. Belum ke GPIO (FS-11+).
+    <strong>Skema berlabel (bantu baca foto)</strong> — tombol lepas ≈ 0 V (LOW) di S · tombol tekan ≈ 3,3 V (HIGH). Probe merah di S, hitam di GND. Belum ke GPIO (nanti FS-19).
     <br>Sumber gambar: diagram berlabel buatan Koding Indonesia (FS-10).
   </figcaption>
 </figure>
@@ -491,7 +491,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/fs10-button-pulldown-wiring.svg" width="920" height="520" alt="Labeled schematic: button + 10 kOhm pull-down, node S, V DC multimeter — no GPIO yet" loading="lazy" style="width:100%;height:auto;max-height:480px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Labeled schematic (helps read the photo)</strong> — button released ≈ 0 V (LOW) at S · pressed ≈ 3.3 V (HIGH). Red probe on S, black on GND. No GPIO yet (FS-11+).
+    <strong>Labeled schematic (helps read the photo)</strong> — button released ≈ 0 V (LOW) at S · pressed ≈ 3.3 V (HIGH). Red probe on S, black on GND. No GPIO yet (later in FS-19).
     <br>Image source: labeled diagram by Koding Indonesia (FS-10).
   </figcaption>
 </figure>
@@ -570,12 +570,12 @@ HTML;
 <h2>Pin mengambang &amp; resistor pull-down</h2>
 <p>Kalau pin input tidak disambung ke 3V3 maupun GND, ia <strong>mengambang</strong> — pembacaan bisa loncat-loncat (tombol hantu).</p>
 <p><strong>Resistor pull-down</strong> menarik titik sinyal ke GND lembut lewat resistor 10 kΩ. Saat tombol ditekan, 3V3 “menang” dan sinyal jadi HIGH.</p>
-<p><strong>Intinya — pull-up vs pull-down:</strong> pull-down = default LOW (lepas = 0 V). Pull-up kebalikannya (default HIGH) — ESP32 punya pull-up internal yang akan kita pakai di FS-11; hari ini kita latih pull-down eksternal dulu supaya wiring terlihat jelas.</p>
+<p><strong>Intinya — pull-up vs pull-down:</strong> pull-down = default LOW (lepas = 0 V). Pull-up kebalikannya (default HIGH) — ESP32 punya pull-up internal yang akan kita pakai di FS-19; hari ini kita latih pull-down eksternal dulu supaya wiring terlihat jelas. FS-11 masih resep sketch kosong (<code>setup</code>/<code>loop</code> + Upload), belum baca tombol.</p>
 {$float}
 {$pull}
 
 <h2>Rangkaian yang akan dibuat</h2>
-<p>Alur saat <strong>tombol lepas</strong>: titik sinyal (S) terhubung ke GND lewat 10 kΩ → LOW (~0 V). Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke S → HIGH (~3,3 V). ESP32 hari ini hanya menyuplai <strong>3V3</strong> dan <strong>GND</strong> — <strong>belum ada jumper ke pin GPIO</strong>. Nanti S disambung ke GPIO di FS-11. Hari ini uji dulu dengan multimeter. Ikuti <strong>foto rangkaian</strong> + skema berlabel di bawah.</p>
+<p>Alur saat <strong>tombol lepas</strong>: titik sinyal (S) terhubung ke GND lewat 10 kΩ → LOW (~0 V). Saat <strong>tombol ditekan</strong>: 3V3 menyambung ke S → HIGH (~3,3 V). ESP32 hari ini hanya menyuplai <strong>3V3</strong> dan <strong>GND</strong> — <strong>belum ada jumper ke pin GPIO</strong>. Nanti S disambung ke GPIO di FS-19. Hari ini uji dulu dengan multimeter. Ikuti <strong>foto rangkaian</strong> + skema berlabel di bawah.</p>
 {$wire}
 {$wireLabel}
 
@@ -652,11 +652,11 @@ HTML;
 <li><strong>Salah mode multimeter.</strong> Harus <strong>V DC</strong>, bukan A (ampere) atau continuity saat ukur tegangan.</li>
 <li><strong>Probe tertukar.</strong> Hitam ke GND, merah ke titik sinyal — konsisten seperti FS-07.</li>
 <li><strong>Colok USB saat masih merakit.</strong> Selalu cabut dulu (FS-05) — baru colok setelah cek visual wiring.</li>
-<li><strong>Langsung coding tanpa paham HIGH/LOW.</strong> Nanti di FS-11 <code>digitalRead</code> akan membingungkan kalau wiring salah.</li>
+<li><strong>Langsung coding tanpa paham HIGH/LOW.</strong> Nanti di FS-19 <code>digitalRead</code> akan membingungkan kalau wiring salah.</li>
 </ul>
 
 <h2>Selanjutnya</h2>
-<p><strong>Intinya:</strong> kalau lepas ≈ 0 V dan tekan ≈ 3,3 V, FS-10 selesai. Lanjut ke <strong>FS-11</strong> (sketch, <code>setup</code>, <code>loop</code>, tombol dibaca program) saat modulnya terbit.</p>
+<p><strong>Intinya:</strong> kalau lepas ≈ 0 V dan tekan ≈ 3,3 V, FS-10 selesai. Lanjut ke <strong>FS-11</strong> (sketch, <code>setup</code>, <code>loop</code>, Upload) saat modulnya terbit. Membaca tombol di kode baru di FS-19.</p>
 <p>Daftar modul: <a href="/belajar/fullstack-iot">/belajar/fullstack-iot</a>.</p>
 HTML;
     }
@@ -732,12 +732,12 @@ HTML;
 <h2>Floating pins &amp; pull-down resistors</h2>
 <p>If an input pin is connected to neither 3V3 nor GND, it <strong>floats</strong> — readings can jump (ghost button).</p>
 <p>A <strong>pull-down resistor</strong> gently pulls the signal node to GND through 10 kΩ. When the button is pressed, 3V3 “wins” and the signal goes HIGH.</p>
-<p><strong>In short — pull-up vs pull-down:</strong> pull-down = default LOW (released = 0 V). Pull-up is the opposite (default HIGH) — the ESP32 has internal pull-ups we will use in FS-11; today we practice an external pull-down so the wiring is visible.</p>
+<p><strong>In short — pull-up vs pull-down:</strong> pull-down = default LOW (released = 0 V). Pull-up is the opposite (default HIGH) — the ESP32 has internal pull-ups we will use in FS-19; today we practice an external pull-down so the wiring is visible. FS-11 is still an empty sketch recipe (<code>setup</code>/<code>loop</code> + Upload), not button reading.</p>
 {$float}
 {$pull}
 
 <h2>The circuit we will build</h2>
-<p>When the <strong>button is released</strong>: the signal node (S) connects to GND through 10 kΩ → LOW (~0 V). When <strong>pressed</strong>: 3V3 connects to S → HIGH (~3.3 V). Today the ESP32 only supplies <strong>3V3</strong> and <strong>GND</strong> — <strong>no jumper to any GPIO pin yet</strong>. S will connect to GPIO in FS-11. Today we test with a multimeter first. Follow the <strong>circuit photo</strong> + labeled schematic below.</p>
+<p>When the <strong>button is released</strong>: the signal node (S) connects to GND through 10 kΩ → LOW (~0 V). When <strong>pressed</strong>: 3V3 connects to S → HIGH (~3.3 V). Today the ESP32 only supplies <strong>3V3</strong> and <strong>GND</strong> — <strong>no jumper to any GPIO pin yet</strong>. S will connect to GPIO in FS-19. Today we test with a multimeter first. Follow the <strong>circuit photo</strong> + labeled schematic below.</p>
 {$wire}
 {$wireLabel}
 
@@ -814,11 +814,11 @@ HTML;
 <li><strong>Wrong multimeter mode.</strong> Must be <strong>V DC</strong>, not A (amps) or continuity when measuring voltage.</li>
 <li><strong>Swapped probes.</strong> Black on GND, red on signal — stay consistent like FS-07.</li>
 <li><strong>Plugging USB while still wiring.</strong> Always unplug first (FS-05) — plug in only after a visual wiring check.</li>
-<li><strong>Coding before understanding HIGH/LOW.</strong> In FS-11, <code>digitalRead</code> will confuse you if wiring is wrong.</li>
+<li><strong>Coding before understanding HIGH/LOW.</strong> In FS-19, <code>digitalRead</code> will confuse you if wiring is wrong.</li>
 </ul>
 
 <h2>Next steps</h2>
-<p><strong>In short:</strong> if released ≈ 0 V and pressed ≈ 3.3 V, FS-10 is done. Continue to <strong>FS-11</strong> (sketch, <code>setup</code>, <code>loop</code>, reading the button in code) when that module publishes.</p>
+<p><strong>In short:</strong> if released ≈ 0 V and pressed ≈ 3.3 V, FS-10 is done. Continue to <strong>FS-11</strong> (sketch, <code>setup</code>, <code>loop</code>, Upload) when that module publishes. Reading the button in code comes in FS-19.</p>
 <p>Full module list: <a href="/belajar/fullstack-iot">/belajar/fullstack-iot</a>.</p>
 HTML;
     }

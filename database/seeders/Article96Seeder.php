@@ -381,7 +381,7 @@ HTML;
 <p><strong>Analogi:</strong> seperti jarum jam yang bisa kamu suruh “menghadap jam 3 / jam 6 / jam 9”. Bukan kipas yang berputar terus — tapi “tangan kecil” yang berhenti di sudut.</p>
 {$flow}
 {$timing}
-<p><strong>Prasyarat:</strong> FS-20 (PWM / <code>analogWrite</code>) · FS-14 (Upload + Serial Monitor). Pin mengikuti tabel FS-16 / FS-17 (<strong>sinyal servo = GPIO 13</strong>).</p>
+<p><strong>Prasyarat:</strong> FS-20 (PWM / <code>analogWrite</code>) · FS-14 (Upload + Serial Monitor). Pin mengikuti tabel global FS-17 (<strong>sinyal servo = GPIO 13</strong>).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
 <li>Rakit wiring servo (cocokkan gambar utama).</li>
@@ -510,7 +510,7 @@ HTML;
 <p><strong>Analogy:</strong> like a clock hand you can tell to “face 3 o’clock / 6 / 9”. Not a fan that spins forever — a small arm that stops at an angle.</p>
 {$flow}
 {$timing}
-<p><strong>Prerequisites:</strong> FS-20 (PWM / <code>analogWrite</code>) · FS-14 (Upload + Serial Monitor). Pins follow the FS-16 / FS-17 table (<strong>servo signal = GPIO 13</strong>).</p>
+<p><strong>Prerequisites:</strong> FS-20 (PWM / <code>analogWrite</code>) · FS-14 (Upload + Serial Monitor). Pins follow the FS-17 global table (<strong>servo signal = GPIO 13</strong>).</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
 <li>Wire the servo (match the main figure).</li>

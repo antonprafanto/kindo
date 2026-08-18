@@ -101,7 +101,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%">
   <img src="/images/fsiot/kit-smart-bulbs.jpg" width="554" height="1200" alt="Lampu pintar yang bisa dikendalikan lewat jaringan — contoh produk IoT di rumah" loading="lazy" style="width:100%;height:auto;max-height:420px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Contoh produk IoT di rumah:</strong> lampu pintar yang bisa dikendalikan dari HP (bukan hanya saklar dinding). Kita tidak memakai merek ini di jalur — hanya sebagai gambaran “benda terhubung”.
+    <strong>Contoh produk IoT di rumah:</strong> lampu pintar yang bisa dikendalikan dari HP (bukan hanya sakelar dinding). Kita tidak memakai merek ini di jalur — hanya sebagai gambaran “benda terhubung”.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:LIFX_bulbs.jpg" rel="noopener noreferrer" target="_blank">AG20044018 — LIFX bulbs</a> · Wikimedia Commons (CC BY-SA 4.0).
   </figcaption>
 </figure>
@@ -125,9 +125,9 @@ HTML;
     {
         return <<<'HTML'
 <figure style="margin:1.5rem 0;max-width:100%">
-  <img src="/images/fsiot/kit-smart-plugs.jpg" width="1200" height="900" alt="Stop kontak pintar dan saklar pintar — contoh benda rumah yang bisa dikontrol dari jauh" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
+  <img src="/images/fsiot/kit-smart-plugs.jpg" width="1200" height="900" alt="Stop kontak pintar dan sakelar pintar — contoh benda rumah yang bisa dikontrol dari jauh" loading="lazy" style="width:100%;height:auto;max-height:360px;object-fit:contain;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">
-    <strong>Contoh lain:</strong> stop kontak / saklar pintar — benda fisik di rumah yang statusnya bisa dipantau atau dikontrol dari aplikasi.
+    <strong>Contoh lain:</strong> stop kontak / sakelar pintar — benda fisik di rumah yang statusnya bisa dipantau atau dikontrol dari aplikasi.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:Wemo_smart_plugs_and_switches.jpg" rel="noopener noreferrer" target="_blank">Harborsparrow — Wemo smart plugs and switches</a> · Wikimedia Commons.
   </figcaption>
 </figure>
@@ -406,7 +406,7 @@ HTML;
 <h2>Remote TV biasa vs sistem IoT</h2>
 <p>Remote infrared (IR) di TV: kamu tekan tombol, sinyal cahaya tak terlihat menuju TV. Kalau kamu keluar rumah, remote itu tidak berguna dari jarak jauh lewat internet.</p>
 {$remotePhoto}
-<p>Sistem IoT yang kita bayangkan: sensor atau saklar di perangkat, data/perintah bisa lewat jaringan, dan kamu melihat status di aplikasi atau dashboard — bahkan saat tidak berada di ruangan yang sama.</p>
+<p>Sistem IoT yang kita bayangkan: sensor atau sakelar di perangkat, data/perintah bisa lewat jaringan, dan kamu melihat status di aplikasi atau dashboard — bahkan saat tidak berada di ruangan yang sama.</p>
 <p><strong>Analogi:</strong> remote TV = “bicara langsung di depan pintu”. IoT = “kirim pesan ke rumah, lalu rumah melaporkan balik ke kamu.”</p>
 {$remoteSvg}
 
@@ -414,14 +414,14 @@ HTML;
 <p>Seluruh jalur mengitari satu proyek: <strong>Stasiun Ruang Belajar</strong>. Nanti (modul-modul berikutnya) kamu akan:</p>
 <ul>
   <li>membaca <strong>suhu</strong> dan <strong>cahaya</strong> di meja belajar,</li>
-  <li>mengendalikan <strong>lampu</strong> lewat saklar listrik kecil (relay) dari sistem,</li>
+  <li>mengendalikan <strong>lampu</strong> lewat sakelar listrik kecil (relay) dari sistem,</li>
   <li>melihat data di <strong>dashboard</strong> (layar ringkas di HP/laptop),</li>
   <li>mendapat <strong>peringatan</strong> bila kondisi aneh,</li>
   <li>belajar tetap aman saat Wi‑Fi putus.</li>
 </ul>
 <p>Hari ini cukup tahu namanya. Belum merakit apa pun.</p>
 {$station}
-<p><strong>Intinya:</strong> Stasiun Ruang Belajar = “mini cuaca + saklar pintar di meja belajar” yang kita bangun setahap demi setahap.</p>
+<p><strong>Intinya:</strong> Stasiun Ruang Belajar = “mini cuaca + sakelar pintar di meja belajar” yang kita bangun setahap demi setahap.</p>
 
 <h2>Board yang nanti kita pakai</h2>
 <p>Di jalur ini board resmi kita adalah <strong>ESP32-DevKitC-1</strong> — papan kecil yang mudah dicari di toko lokal maupun luar negeri. Di FS-01 kamu <strong>belum</strong> menyentuh pin, kabel, atau unduhan perangkat lunak. Cukup kenalan bentuknya dulu.</p>
@@ -450,7 +450,7 @@ HTML;
     </tr>
     <tr>
       <td>Aktuator / relay</td>
-      <td>“Otot” yang bergerak; relay = saklar listrik kecil yang dikendalikan sistem</td>
+      <td>“Otot” yang bergerak; relay = sakelar listrik kecil yang dikendalikan sistem</td>
       <td>Nanti: lampu di meja belajar</td>
     </tr>
     <tr>

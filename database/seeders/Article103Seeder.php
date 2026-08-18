@@ -210,7 +210,7 @@ HTML
 <li>MQTTX terhubung ke <code>127.0.0.1</code>.</li>
 <li>Port koneksi adalah <code>1883</code>.</li>
 <li>Topic latihan diketik sama persis.</li>
-<li>Pesan <code>halo dari PC saya</code> berhasil dipublish.</li>
+<li>Pesan <code>halo dari PC saya</code> berhasil dikirim (tombol Publish).</li>
 <li>Pesan terlihat kembali di MQTTX.</li>
 <li>Saya tidak membuka firewall atau port router untuk lab ini.</li>
 <li>Saya siap memakai ESP32 pada FS-34.</li>
@@ -233,7 +233,7 @@ HTML
 <h3>Kenapa FS-32 bilang jangan Connect, sekarang boleh?</h3>
 <p>Waktu itu belum ada broker di komputer kita. Sekarang Mosquitto sudah berjalan di <code>127.0.0.1</code>, jadi Connect ke alamat itu aman untuk lab.</p>
 <h3>Harus buka Arduino IDE?</h3>
-<p>Tidak. ESP32 dan kode belum dipakai. Arduino IDE dibuka lagi saat telemetry di FS-34.</p>
+<p>Tidak. ESP32 dan kode belum dipakai. Arduino IDE dibuka lagi saat lab telemetri DHT22 di FS-34.</p>
 <h3>Kalau PowerShell menulis path tidak ditemukan?</h3>
 <p>Pemasangan belum selesai, atau foldernya berbeda. Buka File Explorer ke <code>C:\Program Files\mosquitto</code> terlebih dahulu. Jangan menebak path.</p>
 <h3>Boleh tutup jendela Mosquitto setelah Connect?</h3>
@@ -250,7 +250,7 @@ HTML
 </ul>
 
 <h2>Selanjutnya</h2>
-<p><strong>Ringkasnya:</strong> Mosquitto sudah menjadi kantor pos MQTT lokal kita. Pada <strong>FS-34</strong>, ESP32 akan bergabung sebagai publisher dan mengirim telemetry DHT22 dalam bentuk JSON ke broker yang sama.</p>
+<p><strong>Ringkasnya:</strong> Mosquitto sudah menjadi kantor pos MQTT lokal kita. Pada <strong>FS-34</strong>, ESP32 akan bergabung sebagai pengirim dan mengirim telemetri DHT22 dalam bentuk JSON ke broker yang sama.</p>
 HTML;
     }
 
@@ -380,7 +380,7 @@ HTML
 <li>MQTTX connects to <code>127.0.0.1</code>.</li>
 <li>The connection port is <code>1883</code>.</li>
 <li>The practice topic matches exactly.</li>
-<li>The message <code>halo dari PC saya</code> was published.</li>
+<li>The message <code>halo dari PC saya</code> was sent (Publish button).</li>
 <li>The message appears in MQTTX.</li>
 <li>I did not open a firewall or router port.</li>
 <li>I am ready to use ESP32 in FS-34.</li>
@@ -403,7 +403,7 @@ HTML
 <h3>Why did FS-32 say not to Connect, and now it is allowed?</h3>
 <p>There was no broker on our computer then. Mosquitto now runs at <code>127.0.0.1</code>, so connecting to that address is safe for this lab.</p>
 <h3>Do I need Arduino IDE?</h3>
-<p>No. ESP32 and code are not used today. Arduino IDE returns for telemetry in FS-34.</p>
+<p>No. ESP32 and code are not used today. Arduino IDE returns for the DHT22 telemetry lab in FS-34.</p>
 <h3>What if PowerShell says the path was not found?</h3>
 <p>Installation is unfinished, or the folder is different. Open File Explorer to <code>C:\Program Files\mosquitto</code> first. Do not guess the path.</p>
 <h3>May I close the Mosquitto window after Connect?</h3>

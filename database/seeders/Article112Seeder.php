@@ -204,7 +204,7 @@ class Article112Seeder extends Seeder
             ['title' => 'Buka Notepad, tulis berkas', 'text' => 'Simpan <code>requirements.txt</code>, <code>pintu_stasiun.py</code>, dan <code>uji_perintah.py</code> di folder <code>Documents\\fsiot-fs39</code>. All files, bukan <code>.txt</code>.'],
             ['title' => 'Buka PowerShell, pasang pustaka', 'text' => 'Start → ketik PowerShell. Tidak perlu <em>Run as administrator</em>. Tempel <code>pip install -r requirements.txt</code> memakai python di venv, lalu jalankan Flask.'],
             ['title' => 'Buka browser, uji pintu', 'text' => 'Di tab baru, buka <code>http://127.0.0.1:5000/telemetry</code>. Setelah JSON muncul, jendela PowerShell kedua menjalankan <code>uji_perintah.py</code>.'],
-        ], '<strong>Cara menguji hari ini:</strong> bukti sukses = browser menampilkan <code>"jumlah": 10</code> dan MQTTX menampilkan JSON <code>relay":"on"</code>. ESP32 boleh menyala, tetapi tidak wajib.');
+        ], '<strong>Cara menguji hari ini:</strong> bukti sukses = browser menampilkan <code>"jumlah": 10</code> dan MQTTX menampilkan JSON <code>"relay":"on"</code>. ESP32 boleh menyala, tetapi tidak wajib.');
 
         return <<<'HTML'
 <h2>Pendahuluan — gudang punya pintu</h2>
@@ -295,13 +295,13 @@ HTML
 <p>Jika <code>.\.venv\Scripts\Activate.ps1</code> ditolak, <strong>jangan ubah ExecutionPolicy</strong>. Perintah di atas sudah memakai <code>python.exe</code> di dalam venv.</p>
 <p><strong>Buka browser</strong> di tab baru. Ketik alamat ini, lalu Enter:</p>
 <pre><code>http://127.0.0.1:5000/telemetry</code></pre>
-<p><strong>Hasil yang dicari:</strong> teks JSON dengan <code>"jumlah": 10</code> atau lebih. Angka suhu boleh berbeda. Ini JSON, bukan halaman ber tombol. <strong>Jangan buka berkas HTML lewat <code>file://</code>.</strong></p>
+<p><strong>Hasil yang dicari:</strong> teks JSON dengan <code>"jumlah": 10</code> atau lebih. Angka suhu boleh berbeda. Ini JSON, bukan halaman bertombol. <strong>Jangan buka berkas HTML lewat <code>file://</code>.</strong></p>
 <p><strong>macOS atau Linux:</strong> buka Terminal, <code>cd ~/Documents/fsiot-fs39</code>, lalu <code>.venv/bin/python -m pip install -r requirements.txt</code> dan <code>.venv/bin/python pintu_stasiun.py</code>.</p>
 
 <h2>Kirim perintah dengan uji_perintah.py</h2>
 HTML
             .$post.<<<'HTML'
-<p>Biarkan Flask berjalan di jendela pertama. <strong>Buka dulu PowerShell</strong> jendela kedua, folder lab yang sama. <strong>Buka dulu Notepad</strong>, simpan berkas ini sebagai <code>uji_perintah.py</code>:</p>
+<p>Biarkan Flask berjalan. <strong>Buka dulu Notepad</strong>, simpan <code>uji_perintah.py</code> di <code>Documents\fsiot-fs39</code>. Lalu <strong>buka dulu PowerShell</strong> jendela kedua, folder lab yang sama:</p>
 <pre><code class="language-python">
 HTML
             .$uji.<<<'HTML'
@@ -311,7 +311,7 @@ HTML
 <p>Kalau ESP32 masih menjalankan firmware perintah dari lab sebelumnya, relay ikut. Kalau papan dicabut, MQTTX tetap cukup untuk lulus hari ini. Terminal NC/COM/NO tetap kosong. <strong>Bukan AC 220V.</strong></p>
 
 <h2>Bonus: perintah off</h2>
-<p>Tidak wajib. Kalau JSON 10 baris dan pesan <code>relay on</code> sudah terlihat, lab utama selesai. Bonus: di <code>uji_perintah.py</code> ganti <code>"on"</code> menjadi <code>"off"</code>, simpan, jalankan lagi. MQTTX menampilkan <code>"relay":"off"</code>.</p>
+<p>Tidak wajib. Kalau JSON 10 baris dan pesan <code>"relay":"on"</code> sudah terlihat, lab utama selesai. Bonus: di <code>uji_perintah.py</code> ganti <code>"on"</code> menjadi <code>"off"</code>, simpan, jalankan lagi. MQTTX menampilkan <code>"relay":"off"</code>.</p>
 <p>Ini tidak menggantikan Node-RED. Dashboard HTML ditunda ke FS-44. <strong>Bukan AC 220V.</strong></p>
 
 <h2>Jika JSON tidak muncul</h2>
@@ -403,7 +403,7 @@ HTML;
             ['title' => 'Open Notepad, write the files', 'text' => 'Save <code>requirements.txt</code>, <code>pintu_stasiun.py</code>, and <code>uji_perintah.py</code> in <code>Documents\\fsiot-fs39</code>. All files, not <code>.txt</code>.'],
             ['title' => 'Open PowerShell, install the library', 'text' => 'Start → type PowerShell. You do not need <em>Run as administrator</em>. Paste <code>pip install -r requirements.txt</code> using the venv Python, then run Flask.'],
             ['title' => 'Open a browser, test the door', 'text' => 'In a new tab, open <code>http://127.0.0.1:5000/telemetry</code>. After the JSON appears, a second PowerShell window runs <code>uji_perintah.py</code>.'],
-        ], '<strong>How to test today:</strong> success = the browser shows <code>"jumlah": 10</code> and MQTTX shows JSON <code>relay":"on"</code>. The ESP32 may be on, but it is not required.');
+        ], '<strong>How to test today:</strong> success = the browser shows <code>"jumlah": 10</code> and MQTTX shows JSON <code>"relay":"on"</code>. The ESP32 may be on, but it is not required.');
 
         return <<<'HTML'
 <h2>Introduction — the store gets a door</h2>
@@ -500,7 +500,7 @@ HTML
 <h2>Send a command with uji_perintah.py</h2>
 HTML
             .$post.<<<'HTML'
-<p>Leave Flask running in the first window. <strong>Open PowerShell first</strong> in a second window, same lab folder. <strong>Open Notepad first</strong>, save this file as <code>uji_perintah.py</code>:</p>
+<p>Leave Flask running. <strong>Open Notepad first</strong>, save <code>uji_perintah.py</code> in <code>Documents\fsiot-fs39</code>. Then <strong>open PowerShell first</strong> in a second window, same lab folder:</p>
 <pre><code class="language-python">
 HTML
             .$uji.<<<'HTML'
@@ -510,7 +510,7 @@ HTML
 <p>If the ESP32 is still running the command firmware from the earlier lab, the relay follows. If the board is unplugged, MQTTX is still enough to pass today. Leave NC/COM/NO empty. <strong>Not AC mains.</strong></p>
 
 <h2>Bonus: the off command</h2>
-<p>Not required. If the 10-row JSON and the <code>relay on</code> message are already visible, the main lab is done. Bonus: in <code>uji_perintah.py</code> change <code>"on"</code> to <code>"off"</code>, save, run again. MQTTX shows <code>"relay":"off"</code>.</p>
+<p>Not required. If the 10-row JSON and the <code>"relay":"on"</code> message are already visible, the main lab is done. Bonus: in <code>uji_perintah.py</code> change <code>"on"</code> to <code>"off"</code>, save, run again. MQTTX shows <code>"relay":"off"</code>.</p>
 <p>This does not replace Node-RED. The HTML dashboard waits for FS-44. <strong>Not AC mains.</strong></p>
 
 <h2>If JSON does not appear</h2>

@@ -330,7 +330,7 @@ HTML;
 <p>Artikel ini adalah <strong>#95 (ini)</strong> · modul <strong>FS-25</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Di <strong>FS-19</strong> kamu membaca tombol (HIGH/LOW). Hari ini indra baru: <strong>PIR</strong> — “ada orang bergerak di depan meja?”</p>
 <p><strong>Analogi:</strong> seperti sensor lampu koridor hotel. Dia tidak menghitung berapa orang; dia hanya bilang <em>ada gerak</em> atau <em>tidak</em>. LED di GPIO 2 = “lampu meja” mini.</p>
 {$flow}
-<p><strong>Prasyarat:</strong> FS-19 (tombol + debounce / digitalRead) · FS-14 (Upload + Serial Monitor). Pin mengikuti tabel FS-16 / FS-17 (<strong>PIR OUT = GPIO 25</strong>).</p>
+<p><strong>Prasyarat:</strong> FS-19 (tombol + debounce / digitalRead) · FS-14 (Upload + Serial Monitor). Pin mengikuti tabel global FS-17 (<strong>PIR OUT = GPIO 25</strong>).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
 <li>Rakit wiring PIR + LED (cocokkan gambar utama).</li>
@@ -459,7 +459,7 @@ HTML;
 <p>This is article <strong>#95 (this article)</strong> · module <strong>FS-25</strong> on the <em>Full Stack IoT Developer — From Zero</em> path (<strong>BUILDER</strong> phase). In <strong>FS-19</strong> you read a button (HIGH/LOW). Today a new sense: <strong>PIR</strong> — “is someone moving in front of the desk?”</p>
 <p><strong>Analogy:</strong> like a hotel hallway light sensor. It does not count people; it only says <em>motion</em> or <em>no motion</em>. The LED on GPIO 2 is a mini “desk lamp”.</p>
 {$flow}
-<p><strong>Prerequisites:</strong> FS-19 (button + debounce / digitalRead) · FS-14 (Upload + Serial Monitor). Pins follow the FS-16 / FS-17 table (<strong>PIR OUT = GPIO 25</strong>).</p>
+<p><strong>Prerequisites:</strong> FS-19 (button + debounce / digitalRead) · FS-14 (Upload + Serial Monitor). Pins follow the FS-17 global table (<strong>PIR OUT = GPIO 25</strong>).</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
 <li>Wire the PIR + LED (match the main figure).</li>

@@ -283,7 +283,7 @@ class Article108Seeder extends Seeder
         $dhtPhoto = $this->figure('kit-dht22.jpg', 'Contoh rupa modul DHT22 AM2302 dengan pin DAT, VCC, dan GND', '<strong>Contoh rupa sensor.</strong> <strong>Jangan menyalin urutan kaki dari foto.</strong> Wiring tetap VCC → 3V3, DATA atau DAT → GPIO 4, GND → GND. Sumber: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $install = $this->stepsCard([
             ['title' => 'Buka browser', 'text' => 'Pakai Chrome, Firefox, Edge, atau Safari. Siapkan artikel ini. Jangan tekan Upload di Arduino IDE dulu.'],
-            ['title' => 'Pasang Node.js LTS', 'text' => 'Buka <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>. Unduh pemasang <strong>LTS</strong> untuk Windows. Jalankan berkas <code>.msi</code>, terima bawaan, selesai. Tutup PowerShell lama jika sempat terbuka.'],
+            ['title' => 'Pasang Node.js LTS', 'text' => 'Buka <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>. Unduh pemasang <strong>LTS</strong> untuk Windows. Jalankan berkas <code>.msi</code>, terima bawaan, selesai. Jangan tutup jendela Mosquitto. Buka PowerShell baru (jendela kedua) agar perintah <code>node</code> dikenali.'],
             ['title' => 'Buka PowerShell, pasang Node-RED', 'text' => 'Start → ketik <strong>PowerShell</strong> → Windows PowerShell. Tidak perlu <em>Run as administrator</em>. Tempel perintah di bawah, satu per satu. Jendela yang menjalankan <code>node-red</code> harus tetap terbuka.'],
             ['title' => 'Buka Mosquitto, lalu MQTTX', 'text' => 'Mosquitto dulu, seperti FS-33/FS-34: jendela tetap terbuka dan terlihat <code>1883</code>. Baru MQTTX. Host = <strong>IPv4 PC</strong> (bukan <code>127.0.0.1</code>), Port <code>1883</code>. Langganan telemetry dan status.'],
             ['title' => 'Buka Arduino IDE, Upload sekali', 'text' => 'Papan ESP32. Setelah Serial menulis <code>Ambang ada di PC, bukan di sketch.</code> dan <code>Terkirim:</code>, kembali ke Node-RED. Ambang diubah di sana, bukan di sketch.'],
@@ -336,7 +336,7 @@ HTML
 <p><strong>Cara menempel perintah:</strong> salin baris, klik jendela PowerShell, lalu <kbd>Ctrl</kbd>+<kbd>V</kbd> atau klik kanan. Setelah teks muncul, tekan Enter.</p>
 <pre><code>ipconfig</code></pre>
 <p>Cari <strong>IPv4 Address</strong> pada adaptor Wi-Fi rumah. Contoh artikel memakai <code>192.168.1.23</code>; punyamu hampir pasti berbeda.</p>
-<p>Pakai berkas <code>mosquitto-fs34.conf</code> dari FS-34 jika masih ada:</p>
+<p>Pakai berkas <code>mosquitto-fs34.conf</code> dari FS-34 jika masih ada. Jika belum ada: <strong>Buka dulu Notepad</strong>, tempel dua baris di bawah, File → Save As, All files, nama <code>mosquitto-fs34.conf</code> di folder Documents:</p>
 <pre><code>listener 1883 192.168.1.23
 listener_allow_anonymous true</code></pre>
 <p>Lalu:</p>
@@ -353,7 +353,7 @@ kodingindonesia/fsiot/esp32-meja-01/status</code></pre>
 <p><strong>Hasil yang dicari:</strong> MQTTX berstatus tersambung. Belum ada JSON sampai ESP32 mengirim. MQTTX hari ini saksi, bukan pengganti Node-RED pada jalur utama.</p>
 
 <h2>Pasang Node.js, lalu Node-RED</h2>
-<p><strong>Buka dulu browser</strong> ke <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>. Unduh tombol <strong>LTS</strong>, bukan Current. Jalankan pemasang Windows (<code>.msi</code>). Terima pengaturan bawaan. Setelah selesai, <strong>tutup PowerShell yang lama</strong> lalu buka yang baru agar perintah <code>node</code> dikenali.</p>
+<p><strong>Buka dulu browser</strong> ke <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>. Unduh tombol <strong>LTS</strong>, bukan Current. Jalankan pemasang Windows (<code>.msi</code>). Terima pengaturan bawaan. Setelah selesai, <strong>jangan tutup jendela Mosquitto</strong>. <strong>Buka PowerShell baru</strong> (jendela kedua) agar perintah <code>node</code> dikenali.</p>
 <p>Di PowerShell yang baru:</p>
 <pre><code>node --version
 npm --version</code></pre>
@@ -508,7 +508,7 @@ HTML;
         $dhtPhoto = $this->figure('kit-dht22.jpg', 'Example DHT22 AM2302 module with DAT, VCC, and GND pins', '<strong>Sensor appearance only.</strong> <strong>Do not copy pin order from the photo.</strong> Wiring is still VCC → 3V3, DATA or DAT → GPIO 4, GND → GND. Source: <a href="https://commons.wikimedia.org/wiki/File:DHT_22_Sensor.jpg" target="_blank" rel="noopener noreferrer">AM2302 DHT22 Sensor</a> · L293D · Wikimedia Commons · Creative Commons Attribution-Share Alike 4.0.');
         $install = $this->stepsCard([
             ['title' => 'Open a browser', 'text' => 'Use Chrome, Firefox, Edge, or Safari. Keep this guide ready. Do not click Upload in Arduino IDE yet.'],
-            ['title' => 'Install Node.js LTS', 'text' => 'Open <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>. Download the <strong>LTS</strong> installer for Windows. Run the <code>.msi</code>, accept the defaults, finish. Close any old PowerShell window if it was already open.'],
+            ['title' => 'Install Node.js LTS', 'text' => 'Open <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>. Download the <strong>LTS</strong> installer for Windows. Run the <code>.msi</code>, accept the defaults, finish. Do not close the Mosquitto window. Open a new PowerShell (second window) so the <code>node</code> command is recognised.'],
             ['title' => 'Open PowerShell, install Node-RED', 'text' => 'Start → type <strong>PowerShell</strong> → Windows PowerShell. You do not need <em>Run as administrator</em>. Paste the commands below, one at a time. The window that runs <code>node-red</code> must stay open.'],
             ['title' => 'Open Mosquitto, then MQTTX', 'text' => 'Mosquitto first, as in FS-33/FS-34: keep the window open and look for <code>1883</code>. Only then MQTTX. Host = <strong>PC IPv4</strong> (not <code>127.0.0.1</code>), Port <code>1883</code>. Subscribe to telemetry and status.'],
             ['title' => 'Open Arduino IDE, Upload once', 'text' => 'ESP32 board. After Serial prints <code>Ambang ada di PC, bukan di sketch.</code> and <code>Terkirim:</code>, go back to Node-RED. The threshold changes there, not in the sketch.'],
@@ -561,7 +561,7 @@ HTML
 <p><strong>How to paste:</strong> copy the line, click the PowerShell window, then <kbd>Ctrl</kbd>+<kbd>V</kbd> or right-click. When the text appears, press Enter.</p>
 <pre><code>ipconfig</code></pre>
 <p>Find <strong>IPv4 Address</strong> on the home Wi-Fi adapter. The article example is <code>192.168.1.23</code>; yours will almost certainly differ.</p>
-<p>Reuse <code>mosquitto-fs34.conf</code> from FS-34 if you still have it:</p>
+<p>Reuse <code>mosquitto-fs34.conf</code> from FS-34 if you still have it. If not: <strong>Open Notepad first</strong>, paste the two lines below, File → Save As, All files, name <code>mosquitto-fs34.conf</code> in the Documents folder:</p>
 <pre><code>listener 1883 192.168.1.23
 listener_allow_anonymous true</code></pre>
 <p>Then:</p>
@@ -578,7 +578,7 @@ kodingindonesia/fsiot/esp32-meja-01/status</code></pre>
 <p><strong>What to look for:</strong> MQTTX shows connected. There is no JSON yet until the ESP32 sends. MQTTX is a witness today, not a replacement for Node-RED on the main path.</p>
 
 <h2>Install Node.js, then Node-RED</h2>
-<p><strong>Open a browser first</strong> at <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>. Download the <strong>LTS</strong> button, not Current. Run the Windows installer (<code>.msi</code>). Accept the defaults. When it finishes, <strong>close the old PowerShell</strong> and open a new one so the <code>node</code> command is recognised.</p>
+<p><strong>Open a browser first</strong> at <a href="https://nodejs.org/" target="_blank" rel="noopener noreferrer">nodejs.org</a>. Download the <strong>LTS</strong> button, not Current. Run the Windows installer (<code>.msi</code>). Accept the defaults. When it finishes, <strong>do not close the Mosquitto window</strong>. <strong>Open a new PowerShell</strong> (second window) so the <code>node</code> command is recognised.</p>
 <p>In the new PowerShell:</p>
 <pre><code>node --version
 npm --version</code></pre>

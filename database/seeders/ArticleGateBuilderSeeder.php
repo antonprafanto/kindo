@@ -136,7 +136,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs-gate-builder-relay-contacts.png" width="1200" height="560" alt="Tiga kaki kontak relay: NC, COM, NO" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Ingat singkat:</strong> COM = kaki bersama; NO/NC = dua jalur yang dipilih. Sumber gambar: diagram Koding Indonesia (Gate BUILDER) · istilah standar kontak relay.
+    <strong>Ingat singkat:</strong> COM = kaki bersama; NO/NC = dua jalur di dalam relay. Di jalur ini terminal itu tetap kosong — bukan AC 220V. Sumber gambar: diagram Koding Indonesia (Gate BUILDER) · istilah standar kontak relay.
   </figcaption>
 </figure>
 HTML;
@@ -148,7 +148,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.35rem">
   <img src="/images/fsiot/fs-gate-builder-relay-contacts.png" width="1200" height="560" alt="Relay contact pins: NC, COM, NO" loading="eager" style="width:100%;height:auto;max-height:480px;object-fit:contain;border-radius:6px;background:#F5F5F0">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Quick recall:</strong> COM = shared pin; NO/NC = the two paths you choose. Image source: diagram by Koding Indonesia (BUILDER gate) · standard relay contact terms.
+    <strong>Quick recall:</strong> COM = shared pin; NO/NC = the two paths inside the relay. On this path those terminals stay empty — not AC mains. Image source: diagram by Koding Indonesia (BUILDER gate) · standard relay contact terms.
   </figcaption>
 </figure>
 HTML;
@@ -254,7 +254,7 @@ HTML
 <p><strong>Intinya:</strong> gate ini menguji <strong>paham istilah</strong> + <strong>checklist jujur</strong>, bukan Upload sketch baru.</p>
 
 <h2 id="fsiot-kuis-matching" data-timer-seconds="720">Praktik — kuis matching 15 soal</h2>
-<p>Tutup catatan sebentar. Di halaman artikel (pratinjau atau terbit), muncul <strong>kotak kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. <strong>Batas waktu 12 menit</strong> mulai saat kamu menjawab soal pertama — kalau habis, pilihan dikunci dan skor dihitung otomatis. Versi catatan (tulis tangan) tetap tersedia sebagai cadangan di bagian “Versi catatan”.</p>
+<p>Tutup catatan sebentar. Di halaman artikel (pratinjau atau terbit), muncul <strong>kotak kuis interaktif</strong>: pilih arti untuk tiap istilah, lalu tekan <strong>Cek skor</strong>. <strong>Batas waktu 12 menit</strong> mulai saat kamu menjawab soal pertama — kalau habis, pilihan dikunci dan skor dihitung otomatis. Kolom istilah dan arti di atas bisa disalin ke kertas jika kuis interaktif tidak muncul.</p>
 <p><strong>Kolom istilah:</strong></p>
 <ol>
   <li>GPIO</li>
@@ -282,7 +282,7 @@ HTML
   <li>E. Ubah tegangan analog jadi angka</li>
   <li>F. Layar kecil I2C untuk menampilkan angka</li>
   <li>G. Aktuator yang bergerak ke sudut tertentu</li>
-  <li>H. Saklar listrik yang dikendalikan GPIO</li>
+  <li>H. Sakelar listrik yang dikendalikan GPIO</li>
   <li>I. Celah ambang supaya relay tidak “kedip”</li>
   <li>J. Bus dua kabel (data + jam)</li>
   <li>K. Sensor cahaya (nilai gelap/terang)</li>
@@ -391,7 +391,7 @@ HTML
 <p><strong>In short:</strong> this gate checks <strong>term understanding</strong> + an <strong>honest checklist</strong>, not a new sketch Upload.</p>
 
 <h2 id="fsiot-kuis-matching" data-timer-seconds="720">Practice — matching quiz (15 items)</h2>
-<p>Close your notes for a moment. On the article page (preview or published), an <strong>interactive quiz box</strong> appears: pick a meaning for each term, then press <strong>Check score</strong>. The <strong>12-minute limit</strong> starts when you answer the first item — when time runs out, choices lock and the score is calculated automatically. A paper version remains available under “Paper version” as a backup.</p>
+<p>Close your notes for a moment. On the article page (preview or published), an <strong>interactive quiz box</strong> appears: pick a meaning for each term, then press <strong>Check score</strong>. The <strong>12-minute limit</strong> starts when you answer the first item — when time runs out, choices lock and the score is calculated automatically. The terms and meanings lists above can be copied onto paper if the interactive quiz does not appear.</p>
 <p><strong>Terms column:</strong></p>
 <ol>
   <li>GPIO</li>

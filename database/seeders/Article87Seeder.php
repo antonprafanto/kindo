@@ -403,7 +403,7 @@ SVG;
 {$kinds}
 <p><strong>Input-only (34 / 35 / 36 / 39):</strong> boleh dipakai untuk membaca sensor analog (ADC), tetapi <strong>jangan</strong> dipakai sebagai output LED/relay.</p>
 <p><strong>Strap (0, 2, 12, 15, 5):</strong> pin ini ikut proses menyala (boot) board. Di jalur FSIOT kita tetap memakai <strong>GPIO 2</strong> untuk LED belajar (sudah dikunci di tabel global), tetapi hindari GPIO0 untuk tombol latihan.</p>
-<p><strong>IO6–IO11:</strong> terhubung ke flash/PSRAM. <strong>Jangan pernah</strong> wiring ke situ di Core.</p>
+<p><strong>IO6–IO11:</strong> terhubung ke flash/PSRAM. <strong>Jangan pernah</strong> wiring ke situ di jalur ini.</p>
 
 <h2>GND, 3V3, dan 5V</h2>
 {$power}
@@ -418,7 +418,7 @@ SVG;
 </thead>
 <tbody>
 <tr><td>LED status / belajar</td><td><strong>2</strong></td><td>atau LED onboard jika ada</td></tr>
-<tr><td>Tombol user</td><td><strong>27</strong></td><td>hindari GPIO0 untuk latihan tombol</td></tr>
+<tr><td>Tombol user</td><td><strong>27</strong></td><td>hindari GPIO0; stasiun nanti. Latihan debounce FS-19 memakai GPIO 4 (cabut sebelum DHT22)</td></tr>
 <tr><td>DHT22 data</td><td><strong>4</strong></td><td>+ pull-up 10kΩ (nanti di FS-21)</td></tr>
 <tr><td>LDR → ADC</td><td><strong>34</strong></td><td>input-only</td></tr>
 <tr><td>Relay IN</td><td><strong>26</strong></td><td>detail aktif HIGH/LOW di FS-23</td></tr>
@@ -441,7 +441,7 @@ SVG;
 <li>Paham: 34/35/36/39 = input-only</li>
 <li>Paham: strap pin bisa ganggu boot; GPIO 2 khusus LED</li>
 <li>Bisa tunjuk label GND dan 3V3 di board</li>
-<li>Hafal LED belajar = GPIO 2 dan tombol = GPIO 27</li>
+<li>Hafal LED belajar = GPIO 2 dan tombol stasiun = GPIO 27 (latihan FS-19 = GPIO 4)</li>
 <li>Sadar: satu jalur = satu tabel pin (jangan ganti nomor sesuka hati)</li>
 </ul>
 <p><strong>Cara menguji checklist:</strong> centang di browser setelah cocokkan board. Tidak perlu <code>php artisan</code> atau Upload.</p>
@@ -451,7 +451,7 @@ SVG;
 <li><strong>Mengikuti pinout board beda.</strong> Clone DOIT / “DevKit” lain bisa beda urutan. Selalu cocokkan silkscreen.</li>
 <li><strong>Memakai IO6–IO11.</strong> Bisa merusak boot / flash. Larangan mutlak.</li>
 <li><strong>LED di GPIO 34.</strong> Input-only — tidak bisa jadi output yang andal.</li>
-<li><strong>Tombol di GPIO0.</strong> Bisa masuk mode download tanpa sengaja. Pakai GPIO 27.</li>
+<li><strong>Tombol di GPIO0.</strong> Bisa masuk mode download tanpa sengaja. Pakai GPIO 27 untuk tombol stasiun nanti. Latihan FS-19 memakai GPIO 4.</li>
 <li><strong>Menyuntik 5 V ke GPIO.</strong> Level logika ESP32 = 3,3 V.</li>
 <li><strong>Menghafal dari foto Instagram tanpa label.</strong> Pakai diagram resmi di artikel ini.</li>
 <li><strong>Mengira hari ini harus Upload.</strong> FS-17 = peta. Kode GPIO mulai FS-18.</li>
@@ -509,7 +509,7 @@ HTML;
 {$kinds}
 <p><strong>Input-only (34 / 35 / 36 / 39):</strong> fine for reading analog sensors (ADC), but <strong>do not</strong> use them as LED/relay outputs.</p>
 <p><strong>Strap (0, 2, 12, 15, 5):</strong> these pins take part in the board power-on (boot) process. On the FSIOT path we still use <strong>GPIO 2</strong> for the practice LED (locked in the global table), but avoid GPIO0 for practice buttons.</p>
-<p><strong>IO6–IO11:</strong> tied to flash/PSRAM. <strong>Never</strong> wire to them in Core.</p>
+<p><strong>IO6–IO11:</strong> tied to flash/PSRAM. <strong>Never</strong> wire to them on this path.</p>
 
 <h2>GND, 3V3, and 5V</h2>
 {$power}
@@ -524,7 +524,7 @@ HTML;
 </thead>
 <tbody>
 <tr><td>Status / practice LED</td><td><strong>2</strong></td><td>or onboard LED if present</td></tr>
-<tr><td>User button</td><td><strong>27</strong></td><td>avoid GPIO0 for button practice</td></tr>
+<tr><td>User button</td><td><strong>27</strong></td><td>avoid GPIO0; station later. FS-19 debounce practice uses GPIO 4 (unplug before DHT22)</td></tr>
 <tr><td>DHT22 data</td><td><strong>4</strong></td><td>+ 10kΩ pull-up (later in FS-21)</td></tr>
 <tr><td>LDR → ADC</td><td><strong>34</strong></td><td>input-only</td></tr>
 <tr><td>Relay IN</td><td><strong>26</strong></td><td>active HIGH/LOW detail in FS-23</td></tr>
@@ -547,7 +547,7 @@ HTML;
 <li>I know: 34/35/36/39 are input-only</li>
 <li>I know: strap pins can disturb boot; GPIO 2 is for the LED only</li>
 <li>I can point to GND and 3V3 on the board</li>
-<li>I remember practice LED = GPIO 2 and button = GPIO 27</li>
+<li>I remember practice LED = GPIO 2 and station button = GPIO 27 (FS-19 practice = GPIO 4)</li>
 <li>I know: one path = one pin table (do not change numbers freely)</li>
 </ul>
 <p><strong>How to test the checklist:</strong> tick it in the browser after matching the board. No <code>php artisan</code> or Upload required.</p>
@@ -557,7 +557,7 @@ HTML;
 <li><strong>Following a different board’s pinout.</strong> DOIT / other “DevKit” clones can reorder pins. Always match silkscreen.</li>
 <li><strong>Using IO6–IO11.</strong> Can break boot / flash. Absolute ban.</li>
 <li><strong>LED on GPIO 34.</strong> Input-only — not a reliable output.</li>
-<li><strong>Button on GPIO0.</strong> Can enter download mode by accident. Use GPIO 27.</li>
+<li><strong>Button on GPIO0.</strong> Can enter download mode by accident. Use GPIO 27 for the later station button. FS-19 practice uses GPIO 4.</li>
 <li><strong>Feeding 5 V into GPIO.</strong> ESP32 logic level = 3.3 V.</li>
 <li><strong>Memorizing from an unlabeled Instagram photo.</strong> Use the official diagram in this article.</li>
 <li><strong>Thinking today needs Upload.</strong> FS-17 = map. GPIO code starts in FS-18.</li>

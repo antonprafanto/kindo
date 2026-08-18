@@ -32,7 +32,7 @@ class Article104Seeder extends Seeder
         $article = Article::updateOrCreate(['slug' => $slug], [
             'user_id' => $admin->id,
             'category_id' => $category->id,
-            'title' => 'ESP32 kirim telemetry DHT22 ke MQTT sebagai JSON',
+            'title' => 'ESP32 kirim telemetri DHT22 ke MQTT sebagai JSON',
             'title_en' => 'ESP32 sends DHT22 telemetry to MQTT as JSON',
             'excerpt' => 'FS-34 / #104: hubungkan DHT22 ke ESP32, kirim suhu serta kelembapan sebagai JSON ke Mosquitto lokal, lalu lihat pesan hidup di MQTTX.',
             'excerpt_en' => 'FS-34 / #104: wire DHT22 to ESP32, send temperature and humidity as JSON to local Mosquitto, then watch live messages in MQTTX.',
@@ -43,7 +43,7 @@ class Article104Seeder extends Seeder
             'published_at' => null,
             'seo_title' => 'ESP32 DHT22 ke MQTT JSON di Mosquitto Lokal — FS-34',
             'seo_title_en' => 'ESP32 DHT22 to Local Mosquitto MQTT JSON — FS-34',
-            'seo_description' => 'Panduan pemula mengirim telemetry DHT22 dari ESP32 sebagai JSON ke Mosquitto lokal dan melihatnya di MQTTX.',
+            'seo_description' => 'Panduan pemula mengirim telemetri DHT22 dari ESP32 sebagai JSON ke Mosquitto lokal dan melihatnya di MQTTX.',
             'seo_description_en' => 'Beginner guide to send DHT22 telemetry from ESP32 as JSON to local Mosquitto and watch it in MQTTX.',
         ]);
         $article->tags()->sync(Tag::whereIn('slug', ['fullstack-iot', 'iot', 'mqtt', 'esp32', 'dht22', 'json'])->pluck('id'));
@@ -199,8 +199,8 @@ class Article104Seeder extends Seeder
 
         return <<<'HTML'
 <h2>Pendahuluan — sensor akhirnya berbicara ke broker</h2>
-<p><strong>FS-34 / #104 (ini)</strong> menyambungkan DHT22, ESP32, dan Mosquitto lokal dari FS-33. ESP32 membaca suhu serta kelembapan, membungkusnya sebagai JSON, lalu mengirimkannya ke broker. MQTTX di PC menunjukkan hasilnya.</p>
-<p><strong>Intinya:</strong> ESP32 menjadi pengirim telemetry. Mosquitto tetap menjadi kantor pos. MQTTX hanya melihat surat yang sudah sampai.</p>
+<p><strong>FS-34 / #104 (ini)</strong> menyambungkan DHT22, ESP32, dan Mosquitto lokal dari FS-33. ESP32 membaca suhu serta kelembapan, membungkusnya sebagai JSON, lalu mengirim JSON itu ke broker. MQTTX di PC menunjukkan hasilnya.</p>
+<p><strong>Intinya:</strong> ESP32 menjadi pengirim telemetri. Mosquitto tetap menjadi kantor pos. MQTTX hanya melihat surat yang sudah sampai.</p>
 <p><strong>Analogi:</strong> DHT22 adalah termometer. ESP32 menulis angka itu di secarik kertas JSON. Mosquitto meneruskan kertas itu. MQTTX membacanya di meja belajar.</p>
 <p>Di FS-33 kita tersambung ke <code>127.0.0.1</code> karena MQTTX dan Mosquitto berada di komputer yang sama. Hari ini ESP32 adalah perangkat lain, jadi Host MQTTX dan <code>MQTT_HOST</code> memakai <strong>IPv4 PC</strong>.</p>
 
@@ -209,13 +209,13 @@ class Article104Seeder extends Seeder
 <li>DHT22 terpasang ke ESP32 dengan aman.</li>
 <li>ESP32 terhubung ke Wi-Fi yang sama dengan PC.</li>
 <li>MQTTX menerima JSON seperti <code>{"device_id":"esp32-meja-01","temperature_c":27.4,"humidity_pct":63.1}</code>.</li>
-<li>Topic telemetry menyebut <code>device_id</code> sejak awal.</li>
+<li>Nama topik telemetri (<code>…/telemetry</code>, huruf kecil) menyebut <code>device_id</code> sejak awal.</li>
 </ul>
 <p><strong>Batas lab hari ini:</strong> tidak ada relay, dashboard web, akun cloud, atau broker publik. Tidak ada port forwarding di router.</p>
 
 <h2>Istilah yang dipakai hari ini</h2>
 <ul>
-<li><strong>Telemetry</strong> — data yang dikirim perangkat secara berkala, di sini suhu dan kelembapan.</li>
+<li><strong>Telemetri</strong> — data yang dikirim perangkat secara berkala, di sini suhu dan kelembapan. Nama topiknya <code>telemetry</code> (huruf kecil, harus sama persis).</li>
 <li><strong>JSON</strong> — cara merapikan data dengan nama dan nilai, misalnya <code>"temperature_c":27.4</code>.</li>
 <li><strong>DHT22</strong> — sensor suhu dan kelembapan. Lab ini memakai modul tiga pin berlabel.</li>
 <li><strong>Library Manager</strong> — panel Arduino IDE 2 di bilah kiri, ikon tiga buku. Bukan menu <em>Tools</em> lama.</li>
@@ -382,7 +382,7 @@ HTML
 </ul>
 
 <h2>Selanjutnya</h2>
-<p><strong>Ringkasnya:</strong> ESP32 kini menjadi publisher telemetry. Pada <strong>FS-35</strong>, ESP32 akan subscribe topic <code>command</code> dan mengendalikan relay dengan aman.</p>
+<p><strong>Ringkasnya:</strong> ESP32 kini mengirim telemetri. Pada <strong>FS-35</strong>, ESP32 akan berlangganan (subscribe) topic <code>command</code> dan mengendalikan relay dengan aman.</p>
 HTML;
     }
 

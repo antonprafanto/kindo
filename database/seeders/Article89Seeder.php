@@ -424,7 +424,8 @@ SVG;
         return <<<HTML
 <h2>Pendahuluan — tombol yang andal</h2>
 <p>Artikel ini adalah <strong>#89 (ini)</strong> · modul <strong>FS-19</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Di <strong>FS-18</strong> LED dikendalikan dari kode. Hari ini kita <strong>membaca</strong> dunia nyata: tombol di <strong>GPIO 4</strong>, plus kenalan <code>millis()</code>.</p>
-<p><strong>Analogi:</strong> tombol mekanik sering “getar” sepersekian detik (bounce) — seperti saklar rumah yang berbunyi klik-klik. Debounce = tunggu sampai getaran reda, baru percaya satu tekan.</p>
+<p><strong>Catatan pin:</strong> tabel global FS-17 menyimpan tombol stasiun untuk nanti. Hari ini latihan debounce di <strong>GPIO 4</strong> (bukan GPIO 0). Cabut tombol ini sebelum DHT22 di FS-21, karena pin yang sama.</p>
+<p><strong>Analogi:</strong> tombol mekanik sering “getar” sepersekian detik (bounce) — seperti sakelar rumah yang berbunyi klik-klik. Debounce = tunggu sampai getaran reda, baru percaya satu tekan.</p>
 <p><strong>Prasyarat:</strong> FS-18 (LED GPIO 2) · FS-10 (kenal pull-up/pull-down) · FS-15 (pernah lihat pengulangan).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
@@ -589,6 +590,7 @@ HTML;
         return <<<HTML
 <h2>Introduction — a reliable button</h2>
 <p>This is article <strong>#89 (this article)</strong> · module <strong>FS-19</strong> on the <em>Full Stack IoT Developer — From Zero</em> path (<strong>BUILDER</strong> phase). In <strong>FS-18</strong> the LED was driven from code. Today we <strong>read</strong> the real world: a button on <strong>GPIO 4</strong>, plus a first look at <code>millis()</code>.</p>
+<p><strong>Pin note:</strong> the FS-17 global table keeps the station button for later. Today’s debounce practice uses <strong>GPIO 4</strong> (not GPIO 0). Unplug this button before the DHT22 in FS-21 — they share the same pin.</p>
 <p><strong>Analogy:</strong> a mechanical button often “chatters” for a split second (bounce) — like a light switch that click-clicks. Debounce = wait until the chatter settles, then trust one press.</p>
 <p><strong>Prerequisites:</strong> FS-18 (LED on GPIO 2) · FS-10 (know pull-up/pull-down) · FS-15 (you have seen loops).</p>
 <p><strong>How to use this article (work order):</strong></p>

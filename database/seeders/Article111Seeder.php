@@ -290,7 +290,7 @@ class Article111Seeder extends Seeder
         ], '<strong>Cara menguji hari ini:</strong> bukti sukses = <code>lihat_mysql.py</code> mencetak <code>Jumlah baris: 10</code>. ESP32 boleh menyala, tetapi tidak wajib.');
 
         return <<<'HTML'
-<h2>Pendahuluan — gudang pindah ke server kecil</h2>
+<h2>Pendahuluan — salin histori ke server kecil</h2>
 <p><strong>FS-41 / #111 (ini)</strong> adalah lab <strong>opsional</strong>. Kemarin Python menyimpan 10 baris di berkas <code>stasiun.db</code>. Hari ini tugasnya lain: <strong>salin histori itu ke MariaDB di komputer ini</strong>.</p>
 <p><strong>Intinya:</strong> pasang XAMPP, nyalakan MariaDB di Control Panel, buat database <code>stasiun</code> di phpMyAdmin, lalu Python menyalin paling sedikit 10 baris. SQLite tidak dihapus.</p>
 <p><strong>Analogi:</strong> SQLite adalah buku catatan di laci. MariaDB adalah lemari arsip di ruang server mini. Buku tetap di laci. Hari ini kita menyalin isinya ke lemari, supaya kamu merasakan bedanya berkas versus layanan.</p>
@@ -385,7 +385,7 @@ HTML
 .\.venv\Scripts\python.exe salin_ke_mysql.py</code></pre>
 <p><strong>Hasil yang dicari:</strong> pip menulis <code>Successfully installed</code> atau <code>Already satisfied</code> untuk <code>mysql-connector-python</code>, lalu script menulis <code>10 baris tersalin ke MariaDB.</code></p>
 <p>Jika <code>.\.venv\Scripts\Activate.ps1</code> ditolak, <strong>jangan ubah ExecutionPolicy</strong>. Perintah di atas sudah memakai <code>python.exe</code> di dalam venv.</p>
-<p>Tulis <code>lihat_mysql.py</code> di Notepad, simpan di folder yang sama:</p>
+<p><strong>Buka dulu Notepad.</strong> Tempel kode ini. File → Save As, All files, nama <code>lihat_mysql.py</code>, folder <code>Documents\fsiot-fs39</code>:</p>
 <pre><code class="language-python">
 HTML
             .$lihat.<<<'HTML'
@@ -494,7 +494,7 @@ HTML;
         ], '<strong>How to test today:</strong> success = <code>lihat_mysql.py</code> prints <code>Jumlah baris: 10</code>. The ESP32 may be on, but it is not required.');
 
         return <<<'HTML'
-<h2>Introduction — the store moves to a small server</h2>
+<h2>Introduction — copy the history onto a small server</h2>
 <p><strong>FS-41 / #111 (this article)</strong> is an <strong>optional</strong> lab. Yesterday Python stored 10 rows in the file <code>stasiun.db</code>. Today the job is different: <strong>copy that history into MariaDB on this computer</strong>.</p>
 <p><strong>In short:</strong> install XAMPP, start MariaDB in Control Panel, create database <code>stasiun</code> in phpMyAdmin, then Python copies at least 10 rows. SQLite is not deleted.</p>
 <p><strong>Analogy:</strong> SQLite is the notebook in the drawer. MariaDB is a filing cabinet in a mini server room. The notebook stays in the drawer. Today we copy its pages into the cabinet so you feel the difference between a file and a service.</p>
@@ -589,7 +589,7 @@ HTML
 .\.venv\Scripts\python.exe salin_ke_mysql.py</code></pre>
 <p><strong>What to look for:</strong> pip writes <code>Successfully installed</code> or <code>Already satisfied</code> for <code>mysql-connector-python</code>, then the script writes <code>10 baris tersalin ke MariaDB.</code></p>
 <p>If <code>.\.venv\Scripts\Activate.ps1</code> is rejected, <strong>do not change ExecutionPolicy</strong>. The command above already uses <code>python.exe</code> inside the venv.</p>
-<p>Write <code>lihat_mysql.py</code> in Notepad and save it in the same folder:</p>
+<p><strong>Open Notepad first.</strong> Paste this code. File → Save As, All files, name <code>lihat_mysql.py</code>, folder <code>Documents\fsiot-fs39</code>:</p>
 <pre><code class="language-python">
 HTML
             .$lihat.<<<'HTML'

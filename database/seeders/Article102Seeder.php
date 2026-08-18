@@ -147,7 +147,7 @@ HTML
 <h2>Topic — alamat yang harus sama persis</h2>
 HTML
             .$topic.<<<'HTML'
-<p>Contoh latihan kita memakai bentuk <code>kodingindonesia/fsiot/ruang-belajar/telemetry</code>. Empat bagian itu dibaca: organisasi / jalur belajar / tempat / jenis pesan. Ini bukan alamat situs web dan tidak diketik ke kolom URL browser. Nanti nama topic diketik di MQTTX, pada FS-33.</p>
+<p>Contoh latihan kita memakai bentuk <code>kodingindonesia/fsiot/ruang-belajar/telemetry</code>. Empat bagian itu dibaca: organisasi / jalur belajar / tempat / jenis pesan. Ini bukan alamat situs web dan tidak diketik ke kolom URL browser. Lab pertama FS-33 memakai topic latihan <code>kodingindonesia/fsiot/ruang-belajar/chat</code>. Nama <code>telemetry</code> (huruf kecil) baru diketik di MQTTX saat telemetri DHT22 di FS-34.</p>
 <p><strong>Aturan sederhana:</strong> pilih huruf kecil, pakai garis miring sebagai pemisah, dan jangan mengganti nama di tengah latihan. <code>telemetry</code> berbeda dari <code>Telemetry</code>.</p>
 
 <h2>Publish dan subscribe — kirim dan dengarkan</h2>
@@ -199,9 +199,9 @@ HTML
 <h3>Kenapa tidak boleh Connect sekarang?</h3>
 <p>Belum ada broker di komputer kita. Mengisi Host sembarangan sering mengarah ke broker publik milik orang lain.</p>
 <h3>Harus buka Arduino IDE?</h3>
-<p>Tidak. ESP32 dan kode belum dipakai. Arduino IDE dibuka lagi saat telemetry di FS-34.</p>
+<p>Tidak. ESP32 dan kode belum dipakai. Arduino IDE dibuka lagi saat lab telemetri DHT22 di FS-34.</p>
 <h3>Topic diketik di mana?</h3>
-<p>Nanti di MQTTX, pada lab FS-33. Hari ini cukup hafal bentuknya dan aturan huruf besar-kecil.</p>
+<p>Nanti di MQTTX. Lab FS-33 mengetik topic <code>…/chat</code>. Nama <code>telemetry</code> baru di FS-34. Hari ini cukup hafal bentuk empat bagian dan aturan huruf besar-kecil.</p>
 
 <h2>Sumber</h2>
 <ul>
@@ -213,7 +213,7 @@ HTML
 </ul>
 
 <h2>Selanjutnya</h2>
-<p><strong>Ringkasnya:</strong> MQTT membuat perangkat bertukar pesan lewat broker dan topic. MQTTX sudah menjadi alat lihat-pesan kita, tetapi broker belum ada. Lanjutkan langsung ke <strong>FS-33</strong> untuk memasang Mosquitto lokal, lalu lakukan publish/subscribe pertama tanpa bergantung pada internet publik.</p>
+<p><strong>Ringkasnya:</strong> MQTT membuat perangkat bertukar pesan lewat broker dan topic. MQTTX sudah menjadi alat lihat-pesan kita, tetapi broker belum ada. Lanjutkan langsung ke <strong>FS-33</strong> untuk memasang Mosquitto lokal, lalu kirim dan berlangganan pesan pertama tanpa bergantung pada internet publik.</p>
 HTML;
     }
 
@@ -278,7 +278,7 @@ HTML
 <h2>Topic — an address that must match exactly</h2>
 HTML
             .$topic.<<<'HTML'
-<p>Our example is <code>kodingindonesia/fsiot/ruang-belajar/telemetry</code>. Read the four parts as organisation / learning path / place / message type. It is not a website URL. Later, in FS-33, type it into MQTTX.</p>
+<p>Our example is <code>kodingindonesia/fsiot/ruang-belajar/telemetry</code>. Read the four parts as organisation / learning path / place / message type. It is not a website URL. The first FS-33 lab uses the practice topic <code>kodingindonesia/fsiot/ruang-belajar/chat</code>. The name <code>telemetry</code> (lowercase) is typed in MQTTX when DHT22 telemetry starts in FS-34.</p>
 <p><strong>Simple rule:</strong> keep lowercase names, use slashes as separators, and do not rename the topic mid-lab. <code>telemetry</code> differs from <code>Telemetry</code>.</p>
 
 <h2>Publish and subscribe — send and listen</h2>
@@ -330,9 +330,9 @@ HTML
 <h3>Why not Connect now?</h3>
 <p>There is no broker on our computer yet. Filling in a random Host often points at someone else’s public broker.</p>
 <h3>Do I need Arduino IDE?</h3>
-<p>No. ESP32 and code are not used today. Arduino IDE returns for telemetry in FS-34.</p>
+<p>No. ESP32 and code are not used today. Arduino IDE returns for the DHT22 telemetry lab in FS-34.</p>
 <h3>Where do I type the topic?</h3>
-<p>Later, in MQTTX, during the FS-33 lab. Today, remember the shape and the letter-case rule.</p>
+<p>Later, in MQTTX. The FS-33 lab types the <code>…/chat</code> topic. The name <code>telemetry</code> waits for FS-34. Today, remember the four-part shape and the letter-case rule.</p>
 
 <h2>Sources</h2>
 <ul>

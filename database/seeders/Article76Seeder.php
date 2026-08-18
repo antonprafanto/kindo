@@ -363,7 +363,7 @@ void loop() {
 <li>Klik tombol <strong>Upload</strong> (panah →) di toolbar.</li>
 <li>Tunggu bar bawah: target <strong>Done uploading</strong>. LED kecil di board biasanya berkedip 1 detik on / 1 detik off.</li>
 </ol>
-<p><strong>Cara menguji upload:</strong> kalau ada <em>Done uploading</em> dan LED berkedip, FS-06 lulus. Kalau error, jangan panik — baca pesan merah di bawah, lalu cek bagian kesalahan umum.</p>
+<p><strong>Cara menguji upload:</strong> lulus = ada <em>Done uploading</em>. LED kecil berkedip itu bonus; banyak papan clone tidak punya LED user di GPIO 2. Kalau error, baca pesan merah di bawah, lalu cek bagian kesalahan umum.</p>
 <p><strong>Belum wiring breadboard hari ini</strong> — LED built-in di board sudah cukup sebagai bukti upload.</p>
 
 <h2 id="fsiot-setup-checklist">Praktik — checklist setup 10 poin</h2>
@@ -510,7 +510,7 @@ void loop() {
 <li>Click the <strong>Upload</strong> button (arrow →) in the toolbar.</li>
 <li>Watch the bottom bar: target <strong>Done uploading</strong>. The small LED on the board should blink 1s on / 1s off.</li>
 </ol>
-<p><strong>How to test the upload:</strong> if you see <em>Done uploading</em> and the LED blinks, FS-06 is passed. If there is an error, read the red message below and check common mistakes.</p>
+<p><strong>How to test the upload:</strong> pass = <em>Done uploading</em> appears. A blinking LED is a bonus; many clone boards have no user LED on GPIO 2. If there is an error, read the red message below and check common mistakes.</p>
 <p><strong>No breadboard wiring today</strong> — the on-board LED is enough proof of upload.</p>
 
 <h2 id="fsiot-setup-checklist">Practice — 10-point setup checklist</h2>

@@ -188,13 +188,13 @@ HTML;
   <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kiri</text>
-  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Satu baris = saling nyambung</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">Satu nomor kolom = saling nyambung</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
     <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
     <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
   <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
-  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Contoh baris A–E (5 lubang)</text>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Contoh kolom: A–E (5 lubang)</text>
   <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
   <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">parit</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
@@ -206,7 +206,7 @@ HTML;
   <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Power rail kanan</text>
-  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Baris berbeda = TIDAK otomatis nyambung · parit memisahkan kiri &amp; kanan</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Nomor kolom berbeda = TIDAK otomatis nyambung · parit memisahkan kiri &amp; kanan</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Diagram dalaman breadboard (buatan Koding Indonesia). Rail merah (+) ke 3V3, rail biru (-) ke GND.</figcaption>
 </figure>
@@ -223,13 +223,13 @@ SVG;
   <text x="48" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="94" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="71" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Left power rail</text>
-  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">One row = connected together</text>
+  <text x="270" y="28" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" font-weight="700">One column number = connected together</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
     <rect x="150" y="50" width="30" height="30"/><rect x="190" y="50" width="30" height="30"/><rect x="230" y="50" width="30" height="30"/><rect x="270" y="50" width="30" height="30"/><rect x="310" y="50" width="30" height="30"/>
     <rect x="150" y="100" width="30" height="30"/><rect x="190" y="100" width="30" height="30"/><rect x="230" y="100" width="30" height="30"/><rect x="270" y="100" width="30" height="30"/><rect x="310" y="100" width="30" height="30"/>
   </g>
   <line x1="155" y1="65" x2="335" y2="65" stroke="#E53935" stroke-width="2.5" stroke-dasharray="5 3"/>
-  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Example row A–E (5 holes)</text>
+  <text x="245" y="155" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Example column: A–E (5 holes)</text>
   <rect x="370" y="45" width="28" height="100" fill="#E0E0E0" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="4 3"/>
   <text x="384" y="170" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700">trench</text>
   <g fill="#FFFDE7" stroke="#1a1a1a" stroke-width="1.5">
@@ -241,7 +241,7 @@ SVG;
   <text x="658" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">−</text>
   <text x="704" y="30" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700">+</text>
   <text x="681" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" fill="#4A5568">Right power rail</text>
-  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Different rows are NOT auto-connected · trench separates left &amp; right</text>
+  <text x="380" y="245" text-anchor="middle" font-family="system-ui,sans-serif" font-size="13" fill="#4A5568">Different column numbers are NOT auto-connected · trench separates left &amp; right</text>
 </svg>
 <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#4A5568;">Breadboard internals diagram (by Koding Indonesia). Red (+) rail to 3V3, blue (-) rail to GND.</figcaption>
 </figure>
@@ -494,7 +494,7 @@ SVG;
         return <<<HTML
 <h2>Pendahuluan — LED menyala tanpa coding?</h2>
 <p>Artikel ini adalah <strong>#79 (ini)</strong> · modul <strong>FS-09</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Di <strong>FS-08</strong> kamu sudah paham kenapa LED butuh resistor 220Ω. Hari ini kamu <strong>merakit rangkaian pertama</strong> di breadboard — LED menyala dari pin <strong>3V3</strong> ESP32, murni wiring, <strong>belum upload sketch</strong>.</p>
-<p><strong>Analogi:</strong> modul ini seperti menyalakan lampu kamar dengan saklar di stop kontak — belum pakai remote (program).</p>
+<p><strong>Analogi:</strong> modul ini seperti menyalakan lampu kamar dengan sakelar di stop kontak — belum pakai remote (program).</p>
 <p><strong>Prasyarat:</strong> FS-08 (pilih resistor) + kenal breadboard dari FS-04 + kebiasaan cabut USB dari FS-05. <strong>Tidak ada Arduino IDE, upload sketch, atau <code>php artisan</code> hari ini</strong> — hanya breadboard, jumper, LED, resistor, dan ESP32 + kabel USB data.</p>
 
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
@@ -570,16 +570,16 @@ SVG;
 
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
-<li><strong>LED terbalik.</strong> Kaki pendek ke 3V3 = tidak menyala atau rusak. Balik arah LED.</li>
-<li><strong>Resistor di kaki salah.</strong> Resistor harus di jalur arus, bukan di kaki GND saja tanpa sambung ke 3V3.</li>
+<li><strong>LED terbalik.</strong> Kaki pendek ke 3V3 biasanya tidak menyala. Cabut USB, balik LED, colok lagi.</li>
+<li><strong>Resistor di kaki salah.</strong> Resistor wajib seri dengan LED (boleh sisi 3V3 atau GND). Yang salah: LED tanpa resistor, atau jalur 3V3–LED–GND terputus.</li>
 <li><strong>Short power–GND.</strong> Jumper merah dan hitam menyentuh, atau 3V3 &amp; GND di <strong>kolom yang sama</strong> (baris A–E saling nyambung) = panas/board reset. Cabut USB, periksa ulang.</li>
 <li><strong>LED tanpa resistor.</strong> Jangan pernah langsung 3V3 ke LED — ingat FS-08.</li>
 <li><strong>Colok USB saat masih merakit.</strong> Selalu cabut dulu (FS-05).</li>
-<li><strong>Mengira semua lubang nyambung.</strong> Hanya dalam satu baris (sisi yang sama) — lihat FS-04.</li>
+<li><strong>Mengira semua lubang nyambung.</strong> Hanya dalam satu nomor kolom (A–E atau F–J di sisi yang sama). Kolom tetangga tidak nyambung — lihat FS-04.</li>
 </ul>
 
 <h2>Selanjutnya</h2>
-<p><strong>Intinya:</strong> kalau LED sudah menyala dan bisa dimatikan dengan cabut jumper, FS-09 selesai. Lanjut ke <strong>FS-10</strong> (digital vs analog, HIGH/LOW, pull-up) saat modulnya terbit — di sana kita pakai bahasa sinyal untuk GPIO.</p>
+<p><strong>Intinya:</strong> kalau LED sudah menyala dan bisa dimatikan dengan cabut jumper, FS-09 selesai. Lanjut ke <strong>FS-10</strong> (HIGH/LOW, resistor pull-down 10 kΩ — uji dengan multimeter, belum jumper ke GPIO) saat modulnya terbit — di sana kita pakai bahasa sinyal.</p>
 <p>Daftar modul lengkap: <a href="/belajar/fullstack-iot">/belajar/fullstack-iot</a>.</p>
 HTML;
     }
@@ -675,16 +675,16 @@ HTML;
 
 <h2>Common mistakes</h2>
 <ul>
-<li><strong>Reversed LED.</strong> Short leg toward 3V3 = no light or damage. Flip the LED.</li>
-<li><strong>Resistor on the wrong leg.</strong> The resistor must be in the current path, not only on GND without reaching 3V3.</li>
+<li><strong>Reversed LED.</strong> Short leg toward 3V3 usually stays dark. Unplug USB, flip the LED, plug in again.</li>
+<li><strong>Resistor on the wrong leg.</strong> The resistor must be in series with the LED (3V3 side or GND side is fine). Wrong: LED with no resistor, or a broken 3V3–LED–GND path.</li>
 <li><strong>Power–GND short.</strong> Red and black touching, or 3V3 &amp; GND in the <strong>same column</strong> (rows A–E share a strip) = heat/board reset. Unplug USB and recheck.</li>
 <li><strong>LED without resistor.</strong> Never wire 3V3 straight to an LED — remember FS-08.</li>
 <li><strong>USB plugged while building.</strong> Always unplug first (FS-05).</li>
-<li><strong>Assuming every hole connects.</strong> Only within one row (same side) — see FS-04.</li>
+<li><strong>Assuming every hole connects.</strong> Only within one column number (A–E or F–J on the same side). Neighbouring columns are not connected — see FS-04.</li>
 </ul>
 
 <h2>Next steps</h2>
-<p><strong>In short:</strong> if the LED lights and you can turn it off by unplugging a jumper, FS-09 is done. Continue to <strong>FS-10</strong> (digital vs analog, HIGH/LOW, pull-up) when that module publishes — there we use signal language for GPIO.</p>
+<p><strong>In short:</strong> if the LED lights and you can turn it off by unplugging a jumper, FS-09 is done. Continue to <strong>FS-10</strong> (HIGH/LOW, 10 kΩ pull-down — test with a multimeter, no GPIO jumper yet) when that module publishes — there we use signal language.</p>
 <p>Full module list: <a href="/belajar/fullstack-iot">/belajar/fullstack-iot</a>.</p>
 HTML;
     }

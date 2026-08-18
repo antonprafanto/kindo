@@ -410,9 +410,9 @@ SVG;
         return <<<HTML
 <h2>Pendahuluan — gabung indra + otot</h2>
 <p>Artikel ini adalah <strong>#94 (ini)</strong> · modul <strong>FS-24</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Di <strong>FS-21</strong> board membaca suhu; di <strong>FS-23</strong> board menggerakkan relay. Hari ini keduanya digabung: jika panas → nyalakan “kipas” (klik relay).</p>
-<p><strong>Analogi:</strong> seperti thermostat AC rumah — sensor merasakan udara, otak kecil memutuskan, saklar menggerakkan mesin. Bedanya: “kipas” di sini metafora. Cukup dengar <strong>klik</strong> + lihat LED indikator DC. <strong>Belum AC 220V / PLN.</strong></p>
+<p><strong>Analogi:</strong> seperti termostat pendingin ruangan — sensor merasakan udara, otak kecil memutuskan, sakelar menggerakkan mesin. Bedanya: “kipas” di sini metafora. Cukup dengar <strong>klik</strong> + lihat LED indikator DC. <strong>Belum menyentuh listrik PLN 220V.</strong></p>
 {$sense}
-<p><strong>Prasyarat:</strong> FS-21 (DHT22 ke Serial) · FS-23 (relay klik aman) · FS-14 (kebiasaan Upload + Serial Monitor). Pin mengikuti tabel FS-16 / FS-17.</p>
+<p><strong>Prasyarat:</strong> FS-21 (DHT22 ke Serial) · FS-23 (relay klik aman) · FS-14 (kebiasaan Upload + Serial Monitor). Pin mengikuti tabel global FS-17.</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
 <li>Rakit wiring DHT <strong>dan</strong> relay (cocokkan gambar utama (foto breadboard)).</li>
@@ -577,9 +577,9 @@ HTML;
         return <<<HTML
 <h2>Introduction — combine sense + muscle</h2>
 <p>This is article <strong>#94 (this article)</strong> · module <strong>FS-24</strong> on the <em>Full Stack IoT Developer — From Zero</em> path (<strong>BUILDER</strong> phase). In <strong>FS-21</strong> the board read temperature; in <strong>FS-23</strong> it drove a relay. Today both join: if hot → turn on a “fan” (relay click).</p>
-<p><strong>Analogy:</strong> like a home AC thermostat — a sensor feels the air, a small brain decides, a switch moves the machine. Difference: “fan” here is a metaphor. Hearing the <strong>click</strong> + seeing a DC indicator LED is enough. <strong>No AC mains / 220V yet.</strong></p>
+<p><strong>Analogy:</strong> like a room-cooler thermostat — a sensor feels the air, a small brain decides, a switch moves the machine. Difference: “fan” here is a metaphor. Hearing the <strong>click</strong> + seeing a DC indicator LED is enough. <strong>No AC mains / 220V yet.</strong></p>
 {$sense}
-<p><strong>Prerequisites:</strong> FS-21 (DHT22 to Serial) · FS-23 (safe relay click) · FS-14 (Upload + Serial Monitor habits). Pins follow the FS-16 / FS-17 table.</p>
+<p><strong>Prerequisites:</strong> FS-21 (DHT22 to Serial) · FS-23 (safe relay click) · FS-14 (Upload + Serial Monitor habits). Pins follow the FS-17 global table.</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
 <li>Wire both the DHT <strong>and</strong> the relay (see the main figure).</li>

@@ -433,7 +433,6 @@ HTML
 <h2>Nama stasiun bukan Username MQTTX</h2>
 <p>Kolom Username dan Password di MQTTX adalah login ke broker. <code>device_id</code> adalah nama di JSON dan topic. Mencampur keduanya membuat filter API tampak “aneh” padahal broker saja yang ditolak.</p>
 <p>Kurikulum menyebut user/password Mosquitto. Di lab Windows, mengubah <code>mosquitto.conf</code> di <code>C:\Program Files\mosquitto\</code> butuh Administrator dan bisa memutus FS-33 sampai FS-42 jika <code>allow_anonymous false</code> dinyalakan. <strong>Jangan diubah hari ini.</strong> Identitas yang dikunci adalah <code>device_id</code>.</p>
-<p>Tidak wajib. Kalau JSON tersaring dan perintah jatuh ke nama yang benar, lab utama selesai.</p>
 
 <h2>Bonus: kirim dua nama ke MQTTX</h2>
 <p>Tidak wajib. Setelah dua langganan telemetry terlihat, <strong>Buka dulu Notepad</strong>, simpan <code>kirim_dua_stasiun.py</code>:</p>
@@ -473,7 +472,7 @@ HTML
 
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
-<li><strong>Hardcode nama yang sama di semua papan.</strong> Papan kedua wajib nama kedua.</li>
+<li><strong>Hardcode nama yang sama di semua papan.</strong> Kalau ada papan kedua, namanya harus beda — bukan syarat punya papan kedua.</li>
 <li><strong>Mengisi Username MQTTX dengan device_id.</strong> Itu login broker, bukan nama stasiun.</li>
 <li><strong>Menyalakan sandi Mosquitto tanpa rencana balik.</strong> Lab sebelumnya bisa putus.</li>
 <li><strong>Menutup jendela Flask sebelum GET.</strong> Pintu harus tetap terbuka.</li>
@@ -663,7 +662,6 @@ HTML
 <h2>A station name is not the MQTTX Username</h2>
 <p>The Username and Password fields in MQTTX are the broker login. <code>device_id</code> is the name in JSON and the topic. Mixing them makes the API filter look “odd” when it is only the broker rejecting the connection.</p>
 <p>The curriculum mentions a Mosquitto user/password. On a Windows lab, editing <code>mosquitto.conf</code> under <code>C:\Program Files\mosquitto\</code> needs Administrator rights and can break FS-33 through FS-42 if <code>allow_anonymous false</code> is turned on. <strong>Do not change it today.</strong> The locked identity is <code>device_id</code>.</p>
-<p>Not required. If the JSON is filtered and the command lands on the right name, the main lab is done.</p>
 
 <h2>Bonus: send two names to MQTTX</h2>
 <p>Not required. After the two telemetry subscriptions are visible, <strong>Open Notepad first</strong>, save <code>kirim_dua_stasiun.py</code>:</p>
@@ -703,7 +701,7 @@ HTML
 
 <h2>Common mistakes</h2>
 <ul>
-<li><strong>Hard-coding the same name on every board.</strong> The second board needs the second name.</li>
+<li><strong>Hard-coding the same name on every board.</strong> If there is a second board, it must use the second name — you are not required to own one.</li>
 <li><strong>Filling the MQTTX Username with device_id.</strong> That is the broker login, not the station name.</li>
 <li><strong>Turning on a Mosquitto password with no way back.</strong> Earlier labs can break.</li>
 <li><strong>Closing the Flask window before GET.</strong> The door must stay open.</li>

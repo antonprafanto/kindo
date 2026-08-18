@@ -447,7 +447,7 @@ HTML
 <h2>Kirim pesan: satu di MQTTX, lalu sepuluh contoh</h2>
 <p>Kembali ke MQTTX. Pastikan topic dan JSON sudah diisi. Tekan <strong>Publish</strong> sekali.</p>
 <p><strong>Hasil yang dicari di PowerShell:</strong> <code>Diterima:</code> lalu <code>Baris 1 / 10</code>.</p>
-<p>Mengklik Publish sepuluh kali melelahkan. <strong>Buka PowerShell baru</strong> — jangan menutup subscriber. Tulis <code>kirim_contoh.py</code> di Notepad, simpan di folder yang sama:</p>
+<p>Mengklik Publish sepuluh kali melelahkan. <strong>Buka PowerShell baru</strong> — jangan menutup subscriber. <strong>Buka dulu Notepad.</strong> Tempel kode ini. File → Save As, All files, nama <code>kirim_contoh.py</code>, folder <code>Documents\fsiot-fs39</code>:</p>
 <pre><code class="language-python">
 HTML
             .$kirim.<<<'HTML'
@@ -460,7 +460,7 @@ HTML
 HTML
             .$sqlite.<<<'HTML'
 <p><strong>Buka dulu File Explorer</strong> di folder lab. Harus terlihat <code>stasiun.csv</code> dan <code>stasiun.db</code>.</p>
-<p>Tulis <code>lihat_db.py</code> di Notepad:</p>
+<p><strong>Buka dulu Notepad.</strong> Tempel kode ini. File → Save As, All files, nama <code>lihat_db.py</code>, folder <code>Documents\fsiot-fs39</code>:</p>
 <pre><code class="language-python">
 HTML
             .$lihat.<<<'HTML'
@@ -479,7 +479,7 @@ HTML
             .$aturan.<<<'HTML'
 </code></pre>
 <pre><code>.\.venv\Scripts\python.exe aturan_stasiun.py</code></pre>
-<p>Ubah <code>AMBANG</code> sesuai ruangan, seperti mengganti angka switch di Node-RED. Payload command sama dengan FS-35: <code>{"device_id":"esp32-meja-01","relay":"on"}</code>.</p>
+<p>Ubah <code>AMBANG</code> sesuai ruangan, seperti mengganti angka ambang di Node-RED. Payload command sama dengan FS-35: <code>{"device_id":"esp32-meja-01","relay":"on"}</code>.</p>
 
 <h2>Jika baris tidak bertambah</h2>
 HTML
@@ -492,8 +492,8 @@ HTML
 <li><strong>Topic berbeda satu huruf.</strong> Salin persis <code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code>.</li>
 </ol>
 
-<h2 id="fsiot-sqlite-checklist">Checklist sebelum FS-41</h2>
-<p>Centang setelah kamu benar-benar melakukan setiap poin. Target: <strong>10/10</strong>. Progres disimpan di browser perangkatmu dan tidak dikirim ke server.</p>
+<h2 id="fsiot-sqlite-checklist">Checklist sebelum FS-42</h2>
+<p>Centang setelah kamu benar-benar melakukan setiap poin. Target: <strong>10/10</strong>. FS-41 MariaDB boleh dilewati. Progres disimpan di browser perangkatmu dan tidak dikirim ke server.</p>
 <ul id="fsiot-sqlite-checklist-items">
 <li>Folder <code>Documents\fsiot-fs39</code> masih berisi <code>.venv</code> dari FS-39.</li>
 <li><code>requirements.txt</code> mengunci <code>paho-mqtt==2.1.0</code>.</li>
@@ -669,7 +669,7 @@ HTML
 <h2>Send messages: one in MQTTX, then ten samples</h2>
 <p>Go back to MQTTX. Make sure the topic and JSON are filled. Press <strong>Publish</strong> once.</p>
 <p><strong>What to look for in PowerShell:</strong> <code>Diterima:</code> then <code>Baris 1 / 10</code>.</p>
-<p>Clicking Publish ten times is tiring. <strong>Open a new PowerShell</strong> — do not close the subscriber. Write <code>kirim_contoh.py</code> in Notepad and save it in the same folder:</p>
+<p>Clicking Publish ten times is tiring. <strong>Open a new PowerShell</strong> — do not close the subscriber. <strong>Open Notepad first.</strong> Paste this code. File → Save As, All files, name <code>kirim_contoh.py</code>, folder <code>Documents\fsiot-fs39</code>:</p>
 <pre><code class="language-python">
 HTML
             .$kirim.<<<'HTML'
@@ -682,7 +682,7 @@ HTML
 HTML
             .$sqlite.<<<'HTML'
 <p><strong>Open File Explorer first</strong> in the lab folder. You should see <code>stasiun.csv</code> and <code>stasiun.db</code>.</p>
-<p>Write <code>lihat_db.py</code> in Notepad:</p>
+<p><strong>Open Notepad first.</strong> Paste this code. File → Save As, All files, name <code>lihat_db.py</code>, folder <code>Documents\fsiot-fs39</code>:</p>
 <pre><code class="language-python">
 HTML
             .$lihat.<<<'HTML'
@@ -701,7 +701,7 @@ HTML
             .$aturan.<<<'HTML'
 </code></pre>
 <pre><code>.\.venv\Scripts\python.exe aturan_stasiun.py</code></pre>
-<p>Change <code>AMBANG</code> to match the room, like changing the switch number in Node-RED. The command payload matches FS-35: <code>{"device_id":"esp32-meja-01","relay":"on"}</code>.</p>
+<p>Change <code>AMBANG</code> to match the room, like changing the threshold number in Node-RED. The command payload matches FS-35: <code>{"device_id":"esp32-meja-01","relay":"on"}</code>.</p>
 
 <h2>If rows do not increase</h2>
 HTML
@@ -714,8 +714,8 @@ HTML
 <li><strong>The topic differs by one letter.</strong> Copy <code>kodingindonesia/fsiot/esp32-meja-01/telemetry</code> exactly.</li>
 </ol>
 
-<h2 id="fsiot-sqlite-checklist">Checklist before FS-41</h2>
-<p>Tick an item only after you have actually done it. Target: <strong>10/10</strong>. Progress stays in this browser and is not sent to the server.</p>
+<h2 id="fsiot-sqlite-checklist">Checklist before FS-42</h2>
+<p>Tick an item only after you have actually done it. Target: <strong>10/10</strong>. FS-41 MariaDB may be skipped. Progress stays in this browser and is not sent to the server.</p>
 <ul id="fsiot-sqlite-checklist-items">
 <li>The folder <code>Documents\fsiot-fs39</code> still contains the FS-39 <code>.venv</code>.</li>
 <li><code>requirements.txt</code> pins <code>paho-mqtt==2.1.0</code>.</li>

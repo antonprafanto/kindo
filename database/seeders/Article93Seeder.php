@@ -40,7 +40,7 @@ class Article93Seeder extends Seeder
             [
                 'user_id'            => $admin->id,
                 'category_id'        => $iotCat->id,
-                'title'              => 'Relay aman: saklar listrik untuk beban kecil',
+                'title'              => 'Relay aman: sakelar listrik untuk beban kecil',
                 'title_en'           => 'Safe relay: an electrical switch for small loads',
                 'excerpt'            => 'FS-23 / #93: nyalakan modul relay dari GPIO 26. Uji di Arduino IDE: digitalWrite → klik + LED indikator. Beban DC kecil saja — belum AC 220V.',
                 'excerpt_en'         => 'FS-23 / #93: drive a relay module from GPIO 26. Test in Arduino IDE: digitalWrite → click + indicator LED. Small DC loads only — not AC mains yet.',
@@ -136,7 +136,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/kit-relay-5v.jpg" width="900" height="600" alt="Modul relay 1 channel 5V dengan terminal sekrup" loading="eager" style="display:block;width:100%;max-width:520px;height:auto;max-height:320px;object-fit:contain;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Komponen hari ini:</strong> modul <strong>relay 1 channel 5V</strong> (kotak biru + 3 pin <strong>S / + / −</strong> — alias IN / VCC / GND — + terminal sekrup NC/COM/NO). Di jalur Core: beban <strong>DC kecil</strong> saja — bukan AC 220V.
+    <strong>Komponen hari ini:</strong> modul <strong>relay 1 channel 5V</strong> (kotak biru + 3 pin <strong>S / + / −</strong> — alias IN / VCC / GND — + terminal sekrup NC/COM/NO). Di jalur ini: beban <strong>DC kecil</strong> saja — bukan AC 220V.
     <br>Sumber gambar: <a href="https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg" rel="noopener noreferrer" target="_blank">SRD-05VDC-SL-C 5V one-channel relay module</a> · Wikimedia Commons (CC BY-SA 4.0) · Suyash Dwivedi.
   </figcaption>
 </figure>
@@ -149,7 +149,7 @@ HTML;
 <figure style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem">
   <img src="/images/fsiot/kit-relay-5v.jpg" width="900" height="600" alt="5V one-channel relay module with screw terminals" loading="eager" style="display:block;width:100%;max-width:520px;height:auto;max-height:320px;object-fit:contain;margin:0 auto;border:2.5px solid #1a1a1a;border-radius:8px;background:#fff;padding:0.5rem">
   <figcaption style="font-size:0.85rem;margin-top:0.5rem;color:#1a1a1a;">
-    <strong>Parts today:</strong> a <strong>1-channel 5V relay module</strong> (blue cube + pins <strong>S / + / −</strong> — aliases IN / VCC / GND — + NC/COM/NO screw terminals). On the Core path: <strong>small DC</strong> loads only — not AC mains.
+    <strong>Parts today:</strong> a <strong>1-channel 5V relay module</strong> (blue cube + pins <strong>S / + / −</strong> — aliases IN / VCC / GND — + NC/COM/NO screw terminals). On this path: <strong>small DC</strong> loads only — not AC mains.
     <br>Image source: <a href="https://commons.wikimedia.org/wiki/File:SRD-05VDC-SL-C_5V_one-channel_relay_module.jpg" rel="noopener noreferrer" target="_blank">SRD-05VDC-SL-C 5V one-channel relay module</a> · Wikimedia Commons (CC BY-SA 4.0) · Suyash Dwivedi.
   </figcaption>
 </figure>
@@ -290,7 +290,7 @@ SVG;
     <text x="430" y="225" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#555">Latihan ini: kosongkan dulu. Nanti beban DC kecil biasanya di COM + NO.</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>Intinya:</strong> NC/COM/NO adalah jalur <em>beban</em>, bukan pin ke ESP32. Hari ini fokususkan klik + LED indikator. Sumber gambar: diagram buatan Koding Indonesia (FS-23). Simbol saklar relay (referensi): <a href="https://commons.wikimedia.org/wiki/File:SPST-NO_relay_symbol.svg" rel="noopener noreferrer" target="_blank">SPST-NO relay symbol</a> · Wikimedia Commons.
+    <strong>Intinya:</strong> NC/COM/NO adalah jalur <em>beban</em>, bukan pin ke ESP32. Hari ini fokususkan klik + LED indikator. Sumber gambar: diagram buatan Koding Indonesia (FS-23). Simbol sakelar relay (referensi): <a href="https://commons.wikimedia.org/wiki/File:SPST-NO_relay_symbol.svg" rel="noopener noreferrer" target="_blank">SPST-NO relay symbol</a> · Wikimedia Commons.
   </figcaption>
 </figure>
 SVG;
@@ -327,9 +327,9 @@ SVG;
     private function senseSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="Alur: kode ke GPIO ke relay ke klik saklar" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+<figure role="img" aria-label="Alur: kode ke GPIO ke relay ke klik sakelar" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 160" width="100%" height="auto" style="display:block;max-height:190px">
-    <text x="430" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Alur sederhana: kode → pin → klik saklar</text>
+    <text x="430" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">Alur sederhana: kode → pin → klik sakelar</text>
     <rect x="30" y="55" width="150" height="70" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="2.5"/>
     <text x="105" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="14" font-weight="700" fill="#0D47A1">digitalWrite</text>
     <text x="200" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="22" fill="#1a1a1a">→</text>
@@ -343,7 +343,7 @@ SVG;
     <text x="730" y="95" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" font-weight="700" fill="#B71C1C">Klik + LED indikator</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>Intinya:</strong> ESP32 tidak “menyentuh” beban besar — ia hanya memberi sinyal ke modul relay, lalu relay yang membuka/menutup saklar. Sumber gambar: diagram buatan Koding Indonesia (FS-23).
+    <strong>Intinya:</strong> ESP32 tidak “menyentuh” beban besar — ia hanya memberi sinyal ke modul relay, lalu relay yang membuka/menutup sakelar. Sumber gambar: diagram buatan Koding Indonesia (FS-23).
   </figcaption>
 </figure>
 SVG;
@@ -434,8 +434,8 @@ SVG;
 
         return <<<HTML
 <h2>Pendahuluan — otot kecil board</h2>
-<p>Artikel ini adalah <strong>#93 (ini)</strong> · modul <strong>FS-23</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Di <strong>FS-21</strong> dan <strong>FS-22</strong> board <em>membaca</em> dunia. Hari ini board mulai <em>menggerakkan</em> saklar lewat <strong>relay</strong>.</p>
-<p><strong>Analogi:</strong> relay seperti saklar dinding yang diganti magnet kecil. Kode ESP32 hanya “menekan” pin kontrol; yang menyambung/memutus arus beban adalah kontak di dalam modul.</p>
+<p>Artikel ini adalah <strong>#93 (ini)</strong> · modul <strong>FS-23</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em> (fase <strong>BUILDER</strong>). Di <strong>FS-21</strong> dan <strong>FS-22</strong> board <em>membaca</em> dunia. Hari ini board mulai <em>menggerakkan</em> sakelar lewat <strong>relay</strong>.</p>
+<p><strong>Analogi:</strong> relay seperti sakelar dinding yang diganti magnet kecil. Kode ESP32 hanya “menekan” pin kontrol; yang menyambung/memutus arus beban adalah kontak di dalam modul.</p>
 {$sense}
 <p><strong>Prasyarat:</strong> FS-18 (pernah Upload + <code>digitalWrite</code>) · FS-05 (kebiasaan aman listrik) · Arduino IDE sudah bisa Upload ke ESP32.</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
@@ -677,7 +677,7 @@ void loop() {
 
 <h2>Common mistakes</h2>
 <ul>
-<li><strong>Plugging in AC 220V immediately.</strong> On this Core path: <strong>forbidden</strong>. Practice click + indicator LED first.</li>
+<li><strong>Plugging in AC 220V immediately.</strong> On this path: <strong>forbidden</strong>. Practice click + indicator LED first.</li>
 <li><strong>VCC on 3V3 when the coil needs 5V.</strong> Many kit modules need 5V — weak or missing clicks.</li>
 <li><strong>Missing shared ground.</strong> Without shared GND, the IN signal has no common return.</li>
 <li><strong>Wrong pin (not GPIO 26).</strong> Match silkscreen IO26 / the FS-17 table.</li>

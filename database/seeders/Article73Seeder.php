@@ -227,7 +227,7 @@ SVG;
     <tr>
       <td><strong>Aktuator</strong></td>
       <td>“Otot” yang bergerak atau menyala.</td>
-      <td>Lampu lewat saklar kecil (relay)</td>
+      <td>Lampu lewat sakelar kecil (relay)</td>
     </tr>
     <tr>
       <td><strong>Mikrokontroler</strong></td>

@@ -42,7 +42,7 @@ class Article88Seeder extends Seeder
                 'category_id'        => $iotCat->id,
                 'title'              => 'Nyalakan LED dari kode — pinMode & digitalWrite',
                 'title_en'           => 'Turn on an LED from code — pinMode & digitalWrite',
-                'excerpt'            => 'FS-18 / #88: GPIO sebagai saklar. Uji di Arduino IDE: pinMode(OUTPUT) + digitalWrite di GPIO 2, LED kedip 1 detik.',
+                'excerpt'            => 'FS-18 / #88: GPIO sebagai sakelar. Uji di Arduino IDE: pinMode(OUTPUT) + digitalWrite di GPIO 2, LED kedip 1 detik.',
                 'excerpt_en'         => 'FS-18 / #88: GPIO as a switch. Test in Arduino IDE: pinMode(OUTPUT) + digitalWrite on GPIO 2, LED blinks 1 second.',
                 'body'               => $this->body(),
                 'body_en'            => $this->bodyEn(),
@@ -243,9 +243,9 @@ HTML;
     private function switchSvgId(): string
     {
         return <<<'SVG'
-<figure role="img" aria-label="GPIO sebagai saklar dinding: pinMode mengatur mode, digitalWrite mengatur ON atau OFF" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
+<figure role="img" aria-label="GPIO sebagai sakelar dinding: pinMode mengatur mode, digitalWrite mengatur ON atau OFF" style="margin:1.5rem 0;max-width:100%;background:#F5F5F0;border:2.5px solid #1a1a1a;border-radius:8px;padding:0.75rem 0.75rem 0.25rem">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 175" width="100%" height="auto" style="display:block;max-height:200px">
-    <text x="430" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">GPIO = saklar dinding untuk LED</text>
+    <text x="430" y="28" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="16" font-weight="700" fill="#1a1a1a">GPIO = sakelar dinding untuk LED</text>
     <rect x="40" y="50" width="220" height="88" rx="8" fill="#E8F5E9" stroke="#2E7D32" stroke-width="2.5"/>
     <text x="150" y="82" text-anchor="middle" font-family="Consolas,monospace" font-size="15" font-weight="700" fill="#1B5E20">pinMode</text>
     <text x="150" y="108" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">atur pin jadi OUTPUT</text>
@@ -259,7 +259,7 @@ HTML;
     <text x="710" y="108" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#333">terlihat berkedip</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
-    <strong>Intinya:</strong> tanpa <code>pinMode(OUTPUT)</code>, saklar belum “siap dipakai”. Sumber gambar: diagram buatan Koding Indonesia (FS-18).
+    <strong>Intinya:</strong> tanpa <code>pinMode(OUTPUT)</code>, sakelar belum “siap dipakai”. Sumber gambar: diagram buatan Koding Indonesia (FS-18).
   </figcaption>
 </figure>
 SVG;
@@ -311,7 +311,7 @@ SVG;
     <rect x="630" y="55" width="200" height="70" rx="8" fill="#ECEFF1" stroke="#455A64" stroke-width="2.5"/>
     <text x="730" y="85" text-anchor="middle" font-family="Consolas,monospace" font-size="16" font-weight="700" fill="#263238">GND</text>
     <text x="730" y="108" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#333">tanah bersama</text>
-    <text x="430" y="160" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#444">Beda FS-09: dulu LED ke 3V3 (tanpa kode). Sekarang saklarnya GPIO 2 dari sketch.</text>
+    <text x="430" y="160" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="13" fill="#444">Beda FS-09: dulu LED ke 3V3 (tanpa kode). Sekarang sakelarnya GPIO 2 dari sketch.</text>
     <text x="430" y="182" text-anchor="middle" font-family="Segoe UI,sans-serif" font-size="12" fill="#666">Catatan: beberapa board punya LED onboard di GPIO 2 — boleh ikut berkedip; wiring luar tetap dilatih.</text>
   </svg>
   <figcaption style="font-size:0.85rem;margin-top:0.35rem;color:#4A5568;">
@@ -404,9 +404,9 @@ SVG;
         $timeline = $this->timelineSvgId();
 
         return <<<HTML
-<h2>Pendahuluan — GPIO jadi saklar</h2>
-<p>Artikel ini adalah <strong>#88 (ini)</strong> · modul <strong>FS-18</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Fase <strong>BUILDER</strong> sudah dibuka di <strong>FS-17</strong> (peta pin). Hari ini GPIO dipakai sebagai <strong>saklar</strong>: LED dikendalikan dari kode.</p>
-<p><strong>Analogi:</strong> <code>pinMode</code> = memasang saklar di dinding; <code>digitalWrite</code> = menekan ON/OFF. Tanpa memasang saklar dulu, tombol tidak berguna.</p>
+<h2>Pendahuluan — GPIO jadi sakelar</h2>
+<p>Artikel ini adalah <strong>#88 (ini)</strong> · modul <strong>FS-18</strong> di jalur <em>Full Stack IoT Developer — Dari Nol</em>. Fase <strong>BUILDER</strong> sudah dibuka di <strong>FS-17</strong> (peta pin). Hari ini GPIO dipakai sebagai <strong>sakelar</strong>: LED dikendalikan dari kode.</p>
+<p><strong>Analogi:</strong> <code>pinMode</code> = memasang sakelar di dinding; <code>digitalWrite</code> = menekan ON/OFF. Tanpa memasang sakelar dulu, menekan ON/OFF tidak berguna.</p>
 <p><strong>Prasyarat:</strong> FS-17 (kenal GPIO 2 / GND) · FS-09 (pernah wiring LED + resistor di breadboard).</p>
 <p><strong>Cara pakai artikel ini (urutan kerja):</strong></p>
 <ol>
@@ -435,7 +435,7 @@ SVG;
 {$kit}
 {$polarity}
 
-<h2>GPIO sebagai saklar</h2>
+<h2>GPIO sebagai sakelar</h2>
 {$switch}
 <p><code>pinMode(pin, OUTPUT)</code> memberitahu chip: “pin ini akan mengeluarkan sinyal.” <code>digitalWrite(pin, HIGH)</code> = hampir 3,3 V (nyala). <code>digitalWrite(pin, LOW)</code> = 0 V (mati).</p>
 <p>Referensi resmi: <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/pinmode/" rel="noopener noreferrer" target="_blank">Arduino — pinMode</a> · <a href="https://docs.arduino.cc/language-reference/en/functions/digital-io/digitalwrite/" rel="noopener noreferrer" target="_blank">Arduino — digitalWrite</a>.</p>
@@ -463,7 +463,7 @@ SVG;
 <li>Jika perlu, tekan tombol <strong>EN (7)</strong> untuk restart sketch.</li>
 </ol>
 <pre><code class="language-cpp">// FS18_blink — Full Stack IoT FS-18
-// GPIO 2 sebagai saklar LED (pinMode + digitalWrite)
+// GPIO 2 sebagai sakelar LED (pinMode + digitalWrite)
 
 const int LED_PIN = 2; // tabel global FSIOT: LED belajar = GPIO 2
 
@@ -514,7 +514,7 @@ void loop() {
 </ul>
 
 <h2>Selanjutnya</h2>
-<p><strong>Intinya:</strong> kalau LED di GPIO 2 berkedip terkendali <code>pinMode</code> + <code>digitalWrite</code>, FS-18 selesai — saklar digital pertama di fase BUILDER.</p>
+<p><strong>Intinya:</strong> kalau LED di GPIO 2 berkedip terkendali <code>pinMode</code> + <code>digitalWrite</code>, FS-18 selesai — sakelar digital pertama di fase BUILDER.</p>
 <p>Lanjut ke <strong>FS-19</strong> (tombol + debounce) saat modulnya terbit. Di sana kita baca input, bukan hanya menulis output.</p>
 <p>Daftar modul lengkap: <a href="/belajar/fullstack-iot">/belajar/fullstack-iot</a>.</p>
 HTML;
@@ -534,7 +534,7 @@ HTML;
         return <<<HTML
 <h2>Introduction — GPIO as a switch</h2>
 <p>This is article <strong>#88 (this article)</strong> · module <strong>FS-18</strong> on the <em>Full Stack IoT Developer — From Zero</em> path. The <strong>BUILDER</strong> phase opened in <strong>FS-17</strong> (pin map). Today GPIO becomes a <strong>switch</strong>: the LED is controlled from code.</p>
-<p><strong>Analogy:</strong> <code>pinMode</code> = mounting a wall switch; <code>digitalWrite</code> = pressing ON/OFF. Without mounting the switch first, the button does nothing useful.</p>
+<p><strong>Analogy:</strong> <code>pinMode</code> = mounting a wall switch; <code>digitalWrite</code> = pressing ON/OFF. Without mounting the switch first, pressing ON/OFF does nothing useful.</p>
 <p><strong>Prerequisites:</strong> FS-17 (know GPIO 2 / GND) · FS-09 (you have wired an LED + resistor on a breadboard).</p>
 <p><strong>How to use this article (work order):</strong></p>
 <ol>
