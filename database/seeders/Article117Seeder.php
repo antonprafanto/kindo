@@ -420,7 +420,7 @@ HTML
 <li>Saya tidak mengubah ExecutionPolicy.</li>
 <li>Saya tidak memakai MySQL atau AC 220V hari ini.</li>
 </ul>
-<p><strong>Cara memeriksa kesiapan:</strong> ceritakan dengan kata-katamu: BotFather → berkas rahasia → <code>getUpdates</code> → MQTTX 31.2 → <code>sendMessage</code> → chat di HP. Pada FS-48, dashboard mulai jujur soal data basi. MariaDB tetap opsional.</p>
+<p><strong>Cara memeriksa kesiapan:</strong> ceritakan dengan kata-katamu: BotFather → berkas rahasia → <code>getUpdates</code> → PowerShell tetap terbuka → MQTTX 31.2 → <code>sendMessage</code> → chat di HP. Pada FS-48, dashboard mulai jujur soal data basi. MariaDB tetap opsional.</p>
 
 <h2>Kesalahan yang sering terjadi</h2>
 <ul>
@@ -638,7 +638,7 @@ HTML
 <li>I did not change ExecutionPolicy.</li>
 <li>I did not use MySQL or AC mains today.</li>
 </ul>
-<p><strong>How to check readiness:</strong> retell it in your own words: BotFather → secret file → <code>getUpdates</code> → MQTTX 31.2 → <code>sendMessage</code> → chat on the phone. In FS-48, the dashboard starts being honest about stale data. MariaDB stays optional.</p>
+<p><strong>How to check readiness:</strong> retell it in your own words: BotFather → secret file → <code>getUpdates</code> → keep PowerShell open → MQTTX 31.2 → <code>sendMessage</code> → chat on the phone. In FS-48, the dashboard starts being honest about stale data. MariaDB stays optional.</p>
 
 <h2>Common mistakes</h2>
 <ul>
