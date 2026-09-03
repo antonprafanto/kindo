@@ -67,33 +67,44 @@ check(str_contains($bodyEn, 'Four core pillars of IoT') && str_contains($bodyEn,
 check(str_contains($body, 'Smart Study Desk Station') || str_contains($body, 'Stasiun Pintar Meja Belajar'), 'Studi kasus meja belajar ID');
 check(str_contains($bodyEn, 'Smart Study Desk Station'), 'Studi kasus meja belajar EN');
 
-// 4. Diagram Visual SVG Standar
+// 4. Diagram Visual SVG Standar & Sitasi Sumber
 check(str_contains($body, 'background:#F5F5F0'), 'Figure background #F5F5F0 ID');
 check(str_contains($bodyEn, 'background:#F5F5F0'), 'Figure background #F5F5F0 EN');
 check(str_contains($body, 'viewBox="0 0 760 320"') && str_contains($body, 'viewBox="0 0 760 260"'), '2 SVG diagrams ID');
 check(str_contains($bodyEn, 'viewBox="0 0 760 320"') && str_contains($bodyEn, 'viewBox="0 0 760 260"'), '2 SVG diagrams EN');
+check(str_contains($body, '(Sumber: Desain Orisinal Tim Kurikulum Koding Indonesia'), 'Sitasi sumber gambar ID');
+check(str_contains($bodyEn, '(Source: Original Design by Koding Indonesia Curriculum Team'), 'Image source attribution EN');
 
-// 5. Micro-Quiz (3 Soal Ala Dicoding)
-check(substr_count($body, 'Pertanyaan ') === 3, '3 Soal Micro-Quiz ID');
-check(substr_count($bodyEn, 'Question ') === 3, '3 Soal Micro-Quiz EN');
+// 5. Hands-on Console Test (Tools-First Execution)
+check(str_contains($body, 'console.log("Halo Dunia IoT Koding Indonesia!");'), 'Interactive console test ID');
+check(str_contains($bodyEn, 'console.log("Hello Full Stack IoT World!");'), 'Interactive console test EN');
+check(str_contains($body, '<code class="language-javascript">') && str_contains($bodyEn, '<code class="language-javascript">'), 'Syntax highlighting class language-javascript');
+
+// 6. Micro-Quiz (3 Soal Ala Dicoding dengan Badge & Border)
+check(substr_count($body, 'Soal ') === 3 && str_contains($body, 'Soal 1 dari 3'), 'Question badges ID');
+check(substr_count($bodyEn, 'Question ') === 3 && str_contains($bodyEn, 'Question 1 of 3'), 'Question badges EN');
 check(substr_count($body, 'Kunci Jawaban:') === 3, '3 Kunci & Pembahasan ID');
 check(substr_count($bodyEn, 'Correct Answer:') === 3, '3 Kunci & Pembahasan EN');
+check(substr_count($body, 'border-left:4px solid #2E7D32') === 3, '3 Emerald borders for answers ID');
+check(substr_count($bodyEn, 'border-left:4px solid #2E7D32') === 3, '3 Emerald borders for answers EN');
 
-// 6. Paritas Heading
+// 7. Paritas Heading
 $h2Id = substr_count($body, '<h2');
 $h2En = substr_count($bodyEn, '<h2');
 check($h2Id === $h2En && $h2Id >= 6, "H2 parity ID={$h2Id} EN={$h2En} (>=6)");
 
-// 7. EYD & Standar Bahasa
+// 8. EYD & Standar Bahasa
 check(str_contains($body, 'kelembapan'), 'EYD: kelembapan (bukan kelembaban)');
 check(str_contains($body, 'sakelar'), 'EYD: sakelar (bukan saklar)');
 check(str_contains($body, 'praktis'), 'EYD: praktis');
+check(str_contains($body, 'analisis'), 'EYD: analisis');
+check(str_contains($body, 'mengubahnya'), 'EYD: mengubah (bukan merubah)');
 
-// 8. Anti-Bare #N Check
+// 9. Anti-Bare #N Check
 $plainLinked = strip_tags(preg_replace('/<a\b[^>]*>.*?<\/a>/is', '', $body) ?? '');
 check(! preg_match('/(?<![\w\/"#>])#71(?!\s*\(ini\))/', $plainLinked), 'No bare #71');
 
-// 9. ArticleHtmlSanitizer Check (Post-Sanitize Verification)
+// 10. ArticleHtmlSanitizer Check (Post-Sanitize Verification)
 $sanitizer = app(\App\Services\ArticleHtmlSanitizer::class);
 $sanitizedId = $sanitizer->sanitize($body);
 $sanitizedEn = $sanitizer->sanitize($bodyEn);
@@ -103,6 +114,8 @@ check(str_contains($sanitizedId, 'Kunci Jawaban:') && str_contains($sanitizedId,
 check(str_contains($sanitizedEn, 'Correct Answer:') && str_contains($sanitizedEn, 'Explanation:'), 'Sanitizer preserves Micro-Quiz card in EN');
 check(str_contains($sanitizedId, 'background:#F5F5F0'), 'Sanitizer preserves figure style in ID');
 check(str_contains($sanitizedEn, 'background:#F5F5F0'), 'Sanitizer preserves figure style in EN');
+check(str_contains($sanitizedId, 'console.log'), 'Sanitizer preserves console code in ID');
+check(str_contains($sanitizedEn, 'console.log'), 'Sanitizer preserves console code in EN');
 check(! str_contains($sanitizedId, '<p style='), 'Sanitizer strips any disallowed p style in ID');
 check(! str_contains($sanitizedEn, '<p style='), 'Sanitizer strips any disallowed p style in EN');
 

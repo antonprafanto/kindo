@@ -86,6 +86,19 @@ class Article71Seeder extends Seeder
   </ol>
 </div>
 
+<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
+  <p><strong style="color:#1a1a1a;">Uji Coba Praktik Pertama Kamu: Menjalankan Perintah di Peramban Web</strong></p>
+  <p>Sebelum kita menyentuh hardware fisik di modul-modul berikutnya, mari buktikan bahwa peramban web di komputermu sudah siap mengeksekusi instruksi digital tanpa perlu menginstal aplikasi tambahan:</p>
+  <ol>
+    <li>Buka tab baru di perambanmu (Google Chrome atau Microsoft Edge).</li>
+    <li>Tekan tombol <code>F12</code> pada keyboard (atau klik kanan di sembarang area kosong halaman lalu pilih <strong>Inspect / Periksa</strong>).</li>
+    <li>Pilih tab <strong>Console</strong> pada panel pengembang yang muncul di samping atau bawah layar.</li>
+    <li>Ketikkan perintah satu baris berikut lalu tekan <strong>Enter</strong>:</li>
+  </ol>
+  <pre><code class="language-javascript">console.log("Halo Dunia IoT Koding Indonesia!");</code></pre>
+  <p>Kamu akan langsung melihat pesan sambutan tersebut tercetak di layar konsol! Ini adalah bukti awal bahwa perangkat sehari-harimu sudah memiliki mesin eksekusi kode yang siap kita gunakan untuk membangun antarmuka dasbor IoT nanti.</p>
+</div>
+
 <h2>Perbedaan barang elektronik biasa vs perangkat IoT</h2>
 <p>Mari kita mulai dari hal yang paling dekat dengan kita. Kamu tentu pernah melihat termometer digital pengukur suhu tubuh yang dijual di apotek atau kipas angin meja biasa yang memiliki tombol putar kecepatan 1, 2, dan 3. Apakah alat-alat tersebut bisa disebut sebagai perangkat IoT?</p>
 
@@ -162,7 +175,7 @@ class Article71Seeder extends Seeder
     <text x="572" y="224" text-anchor="middle" font-size="12" fill="#1B5E20">• Data tersimpan rapi, bisa dianalisis 24 jam</text>
     <text x="572" y="244" text-anchor="middle" font-size="12" fill="#1B5E20">• Kontrol otomatis &amp; pantau jarak jauh via HP</text>
   </svg>
-  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Gambar 1.1: Perbandingan alur kerja elektronik konvensional tertutup vs sistem Internet of Things yang terhubung jaringan.</figcaption>
+  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Gambar 1.1: Perbandingan alur kerja elektronik konvensional tertutup vs sistem Internet of Things yang terhubung jaringan. (Sumber: Desain Orisinal Tim Kurikulum Koding Indonesia)</figcaption>
 </figure>
 
 <h2>Empat pilar utama IoT — analogi tubuh manusia</h2>
@@ -239,7 +252,7 @@ class Article71Seeder extends Seeder
     <text x="665" y="145" text-anchor="middle" font-size="12" fill="#616161">Web PWA &amp; Relay</text>
     <text x="665" y="185" text-anchor="middle" font-size="11" font-weight="600" fill="#2E7D32">Pantau &amp; Kendali</text>
   </svg>
-  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Gambar 1.2: Empat pilar fundamental arsitektur Full Stack IoT: dari penginderaan sensor fisik hingga visualisasi dasbor web.</figcaption>
+  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Gambar 1.2: Empat pilar fundamental arsitektur Full Stack IoT: dari penginderaan sensor fisik hingga visualisasi dasbor web. (Sumber: Desain Orisinal Tim Kurikulum Koding Indonesia, diadaptasi dari acuan arsitektur IEEE IoT)</figcaption>
 </figure>
 
 <h2>Studi kasus proyek kita — Stasiun Pintar Meja Belajar</h2>
@@ -277,42 +290,42 @@ class Article71Seeder extends Seeder
 <p>Yuk uji pemahamanmu terhadap konsep dasar yang baru saja kita bahas! Ujilah analisismu pada 3 pertanyaan di bawah ini:</p>
 
 <div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><strong>Pertanyaan 1:</strong> Manakah karakteristik utama yang membedakan termometer digital biasa di apotek dengan termometer berbasis IoT?</p>
+  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Soal 1 dari 3</span> <strong>Pertanyaan:</strong> Manakah karakteristik utama yang membedakan termometer digital biasa di apotek dengan termometer berbasis IoT?</p>
   <ul>
     <li>⚪ A. Termometer IoT tidak menggunakan daya baterai.</li>
     <li>⚪ B. Termometer IoT mengirimkan data suhu ke jaringan/server sehingga riwayatnya bisa dipantau dari jarak jauh.</li>
     <li>⚪ C. Termometer IoT layarnya pasti berukuran raksasa.</li>
     <li>⚪ D. Termometer IoT tidak membutuhkan sensor suhu fisik.</li>
   </ul>
-  <div style="background:#F5F5F0;border:1px solid #BDBDBD;border-radius:6px;padding:12px 16px;margin-top:10px;">
+  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
     <p><strong style="color:#2E7D32;">Kunci Jawaban: B</strong></p>
     <p><strong>Pembahasan:</strong> Termometer biasa bersifat tertutup (hanya menampilkan angka sesaat di layarnya lalu hilang). Sebaliknya, perangkat IoT memiliki pilar konektivitas yang mengirim data ke server, memungkinkan penyimpanan histori data jangka panjang dan pemantauan jarak jauh via aplikasi web atau ponsel.</p>
   </div>
 </div>
 
 <div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><strong>Pertanyaan 2:</strong> Dalam analogi tubuh manusia pada sistem IoT, komponen mikrokontroler (seperti ESP32) berperan sebagai apa?</p>
+  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Soal 2 dari 3</span> <strong>Pertanyaan:</strong> Dalam analogi tubuh manusia pada sistem IoT, komponen mikrokontroler (seperti ESP32) berperan sebagai apa?</p>
   <ul>
     <li>⚪ A. Panca indra yang merasakan lingkungan fisik.</li>
     <li>⚪ B. Otak pemroses yang membaca sinyal listrik dan mengolahnya menjadi data angka teratur.</li>
     <li>⚪ C. Otot tangan dan kaki yang menggerakkan benda fisik.</li>
     <li>⚪ D. Pembuluh darah yang menyalurkan aliran listrik.</li>
   </ul>
-  <div style="background:#F5F5F0;border:1px solid #BDBDBD;border-radius:6px;padding:12px 16px;margin-top:10px;">
+  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
     <p><strong style="color:#2E7D32;">Kunci Jawaban: B</strong></p>
     <p><strong>Pembahasan:</strong> Sensor adalah panca indra (mata, telinga, kulit), sedangkan mikrokontroler ESP32 adalah otak mini yang bertugas membaca sinyal dari sensor tersebut, menjalankan logika program, dan memutuskan data apa yang harus dikirim ke jaringan.</p>
   </div>
 </div>
 
 <div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><strong>Pertanyaan 3:</strong> Apakah kamu wajib memiliki komputer mini Raspberry Pi untuk dapat menyelesaikan kurikulum Full Stack IoT Koding Indonesia ini?</p>
+  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Soal 3 dari 3</span> <strong>Pertanyaan:</strong> Apakah kamu wajib memiliki komputer mini Raspberry Pi untuk dapat menyelesaikan kurikulum Full Stack IoT Koding Indonesia ini?</p>
   <ul>
     <li>⚪ A. Wajib, karena ESP32 tidak bisa terhubung ke internet tanpa Raspberry Pi.</li>
     <li>⚪ B. Wajib membeli server cloud berbayar dari luar negeri.</li>
     <li>⚪ C. Tidak wajib; cukup sebuah papan ESP32 murah dan laptop/PC harian sudah mampu menyelesaikan 100% materi inti.</li>
     <li>⚪ D. Tidak bisa belajar sama sekali jika hanya memiliki komputer biasa.</li>
   </ul>
-  <div style="background:#F5F5F0;border:1px solid #BDBDBD;border-radius:6px;padding:12px 16px;margin-top:10px;">
+  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
     <p><strong style="color:#2E7D32;">Kunci Jawaban: C</strong></p>
     <p><strong>Pembahasan:</strong> Kurikulum Koding Indonesia sengaja dirancang ramah kantong dan inklusif. Kamu cukup menggunakan satu papan ESP32 (~Rp 50.000) dan laptop sehari-hari untuk menyelesaikan 100% sistem dari sensor hingga dashboard web. Raspberry Pi hanyalah materi pelengkap super-upgrade mandiri di Babak 5 bagi yang memilikinya.</p>
   </div>
@@ -352,6 +365,19 @@ HTML;
     <li><strong>A Simple Notepad Application:</strong> Open Windows Notepad, Mac TextEdit, or grab a physical sheet of paper to brainstorm smart devices around your living space.</li>
     <li><strong>No Extra Software Required:</strong> For this introductory module, you <em>do not need</em> to install any code editors or connect any electrical wiring yet. We focus entirely on building your technical intuition first.</li>
   </ol>
+</div>
+
+<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
+  <p><strong style="color:#1a1a1a;">Your First Hands-On Check: Running a Command in the Browser</strong></p>
+  <p>Before handling physical hardware in upcoming modules, let us verify that your web browser is ready to execute digital instructions without installing any extra software:</p>
+  <ol>
+    <li>Open a new tab in your browser (Google Chrome or Microsoft Edge).</li>
+    <li>Press <code>F12</code> on your keyboard (or right-click anywhere on the page and select <strong>Inspect</strong>).</li>
+    <li>Click the <strong>Console</strong> tab on the developer tools panel that appears.</li>
+    <li>Type the following single command line and hit <strong>Enter</strong>:</li>
+  </ol>
+  <pre><code class="language-javascript">console.log("Hello Full Stack IoT World!");</code></pre>
+  <p>You will immediately see that greeting message printed on the console screen! This confirms that your everyday workstation already possesses a built-in code engine ready to power future IoT web dashboards.</p>
 </div>
 
 <h2>Ordinary electronics vs connected IoT devices</h2>
@@ -430,7 +456,7 @@ HTML;
     <text x="572" y="224" text-anchor="middle" font-size="12" fill="#1B5E20">• Historical data stored for deep analysis</text>
     <text x="572" y="244" text-anchor="middle" font-size="12" fill="#1B5E20">• Remote control &amp; live mobile dashboards</text>
   </svg>
-  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Figure 1.1: Conventional isolated electronic workflows versus connected Internet of Things system architectures.</figcaption>
+  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Figure 1.1: Conventional isolated electronic workflows versus connected Internet of Things system architectures. (Source: Original Design by Koding Indonesia Curriculum Team)</figcaption>
 </figure>
 
 <h2>Four core pillars of IoT — the human body analogy</h2>
@@ -507,7 +533,7 @@ HTML;
     <text x="665" y="145" text-anchor="middle" font-size="12" fill="#616161">Web PWA &amp; Relay</text>
     <text x="665" y="185" text-anchor="middle" font-size="11" font-weight="600" fill="#2E7D32">Monitor &amp; Actuate</text>
   </svg>
-  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Figure 1.2: Four fundamental pillars of Full Stack IoT architecture: from physical environmental sensing to web dashboard telemetry.</figcaption>
+  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Figure 1.2: Four fundamental pillars of Full Stack IoT architecture: from physical environmental sensing to web dashboard telemetry. (Source: Original Design by Koding Indonesia Curriculum Team, adapted from IEEE IoT architectural standards)</figcaption>
 </figure>
 
 <h2>Case study domain — the Smart Study Desk Station</h2>
@@ -545,42 +571,42 @@ HTML;
 <p>Let us test your grasp of the core concepts introduced today! Test your analysis on these three multiple-choice questions below:</p>
 
 <div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><strong>Question 1:</strong> What is the primary characteristic distinguishing a standard pharmacy digital thermometer from a connected IoT temperature monitor?</p>
+  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Question 1 of 3</span> <strong>Question:</strong> What is the primary characteristic distinguishing a standard pharmacy digital thermometer from a connected IoT temperature monitor?</p>
   <ul>
     <li>⚪ A. IoT thermometers never require battery power.</li>
     <li>⚪ B. IoT thermometers transmit temperature data over networks/servers for remote tracking and historical analysis.</li>
     <li>⚪ C. IoT thermometers always feature giant physical displays.</li>
     <li>⚪ D. IoT thermometers do not require physical temperature sensors.</li>
   </ul>
-  <div style="background:#F5F5F0;border:1px solid #BDBDBD;border-radius:6px;padding:12px 16px;margin-top:10px;">
+  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
     <p><strong style="color:#2E7D32;">Correct Answer: B</strong></p>
     <p><strong>Explanation:</strong> Conventional thermometers are isolated devices displaying values locally before disappearing. IoT devices integrate network connectivity pillars to archive telemetry in databases, enabling long-term analytics and remote monitoring via web and mobile interfaces.</p>
   </div>
 </div>
 
 <div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><strong>Question 2:</strong> In the human body analogy of IoT architectures, what role does a microcontroller (such as the ESP32) serve?</p>
+  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Question 2 of 3</span> <strong>Question:</strong> In the human body analogy of IoT architectures, what role does a microcontroller (such as the ESP32) serve?</p>
   <ul>
     <li>⚪ A. Sensory organs that perceive raw environmental properties.</li>
     <li>⚪ B. The central brain that samples electrical signals and processes them into structured numbers.</li>
     <li>⚪ C. Muscular limbs that exert physical mechanical movement.</li>
     <li>⚪ D. Circulatory blood vessels delivering electric current.</li>
   </ul>
-  <div style="background:#F5F5F0;border:1px solid #BDBDBD;border-radius:6px;padding:12px 16px;margin-top:10px;">
+  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
     <p><strong style="color:#2E7D32;">Correct Answer: B</strong></p>
     <p><strong>Explanation:</strong> Sensors act as sensory organs, while the ESP32 serves as the embedded brain executing firmware logic, parsing electrical sensor signals, and dispatching formatted telemetry to networks.</p>
   </div>
 </div>
 
 <div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><strong>Question 3:</strong> Are you strictly required to purchase a Raspberry Pi single-board computer to complete this Full Stack IoT curriculum?</p>
+  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Question 3 of 3</span> <strong>Question:</strong> Are you strictly required to purchase a Raspberry Pi single-board computer to complete this Full Stack IoT curriculum?</p>
   <ul>
     <li>⚪ A. Yes, because an ESP32 cannot connect to the internet without a Raspberry Pi.</li>
     <li>⚪ B. Yes, you must also purchase expensive international cloud servers.</li>
     <li>⚪ C. No; an affordable ESP32 board paired with your everyday PC/laptop can complete 100% of the core curriculum.</li>
     <li>⚪ D. No learning can happen with standard computers.</li>
   </ul>
-  <div style="background:#F5F5F0;border:1px solid #BDBDBD;border-radius:6px;padding:12px 16px;margin-top:10px;">
+  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
     <p><strong style="color:#2E7D32;">Correct Answer: C</strong></p>
     <p><strong>Explanation:</strong> The curriculum is deliberately designed for maximum inclusivity. A single $4 ESP32 board and your personal workstation are all you need to complete 100% of the hardware, network, backend, and dashboard pipeline. Raspberry Pi is an optional super-upgrade covered in Chapter 5.</p>
   </div>
