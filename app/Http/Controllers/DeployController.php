@@ -5700,6 +5700,44 @@ class DeployController extends Controller
         return response('Article 71 seeded as draft (id: '.$article->id.')', 200);
     }
 
+    public function seedDraftArticle72(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! $this->ensureSeederClass('database/seeders/Article72Seeder.php', \Database\Seeders\Article72Seeder::class)) {
+            return response('Article72Seeder class not found on server', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article72Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 72 seed failed: '.trim(Artisan::output()), 500);
+        }
+
+        $slug = 'fullstack-iot-mengenal-kotak-perkakas';
+        $article = Article::where('slug', $slug)->first();
+
+        if (! $article) {
+            return response('Article 72 missing after seeder', 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 72 seeded as draft (id: '.$article->id.')', 200);
+    }
+
 
     private function runDuplicateBme280Cleanup(): void
     {

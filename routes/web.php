@@ -363,6 +363,10 @@ Route::get('/deploy/seed-draft-article-71', [DeployController::class, 'seedDraft
     ->middleware('throttle:120,1')
     ->name('deploy.seed-draft-article-71');
 
+Route::get('/deploy/seed-draft-article-72', [DeployController::class, 'seedDraftArticle72'])
+    ->middleware('throttle:120,1')
+    ->name('deploy.seed-draft-article-72');
+
 
 
 Route::get('/deploy/publish-article-24', [DeployController::class, 'publishArticle24'])

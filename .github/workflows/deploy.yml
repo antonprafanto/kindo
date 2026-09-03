@@ -165,7 +165,6 @@ jobs:
             for attempt in 1 2 3; do
               if curl -fsS --connect-timeout 30 --max-time 120 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$src" "$dest"; then
                 echo "OK $src -> $dest (attempt $attempt)"
-                sleep 1
                 return 0
               fi
               echo "FAIL $src -> $dest (attempt $attempt)"
@@ -183,6 +182,7 @@ jobs:
           upload "resources/views/belajar/fullstack-iot.blade.php" "${APP}resources/views/belajar/fullstack-iot.blade.php"
           upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
           upload "database/seeders/Article71Seeder.php" "${APP}database/seeders/Article71Seeder.php"
+          upload "database/seeders/Article72Seeder.php" "${APP}database/seeders/Article72Seeder.php"
           upload "public/deploy-check.txt" "${APP}public/deploy-check.txt"
           upload "public/deploy-check.txt" "${PUB}deploy-check.txt"
           upload "public/build/manifest.json" "${APP}public/build/manifest.json"
@@ -203,6 +203,17 @@ jobs:
           if [ -n "$TOKEN" ]; then
             echo "Invoking seed-draft-article-71 deploy hook..."
             curl -fsS -H "X-Deploy-Token: $TOKEN" "https://kodingindonesia.com/deploy/seed-draft-article-71" || true
+          else
+            echo "DEPLOY_HOOK_TOKEN is empty — skipping seed hook"
+          fi
+
+      - name: Seed Article 72 draft on production
+        continue-on-error: true
+        run: |
+          TOKEN="${{ secrets.DEPLOY_HOOK_TOKEN }}"
+          if [ -n "$TOKEN" ]; then
+            echo "Invoking seed-draft-article-72 deploy hook..."
+            curl -fsS -H "X-Deploy-Token: $TOKEN" "https://kodingindonesia.com/deploy/seed-draft-article-72" || true
           else
             echo "DEPLOY_HOOK_TOKEN is empty — skipping seed hook"
           fi
@@ -350,7 +361,6 @@ jobs:
           if [ "${{ steps.curl_priority.outcome }}" = "success" ] || [ "${{ steps.curl_priority.conclusion }}" = "success" ] || [ "${{ steps.curl_priority.outputs.curl_ok }}" = "1" ]; then
             echo "::warning::Build asset FTP failed after retries — continuing because critical curl upload succeeded"
             exit 0
-          fi
           echo "::error::Build asset FTP failed after retries (Rumahweb FTPS)"
           exit 1
 
@@ -556,7 +566,6 @@ jobs:
             echo "::warning::Main SamKirkland FTP failed after retries — continuing because critical curl upload succeeded"
             exit 0
           fi
-          echo "::error::Main FTP deploy failed after retries (control socket / Rumahweb FTPS)"
           exit 1
 
       - name: Deploy vendor via FTP
