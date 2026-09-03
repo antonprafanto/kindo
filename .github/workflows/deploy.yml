@@ -174,6 +174,7 @@ jobs:
           }
           upload "app/Http/Controllers/PageController.php" "${APP}app/Http/Controllers/PageController.php"
           upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php"
+          upload "app/Services/ArticleHtmlSanitizer.php" "${APP}app/Services/ArticleHtmlSanitizer.php"
           upload "routes/web.php" "${APP}routes/web.php"
           upload "lang/id/ui.php" "${APP}lang/id/ui.php"
           upload "lang/en/ui.php" "${APP}lang/en/ui.php"

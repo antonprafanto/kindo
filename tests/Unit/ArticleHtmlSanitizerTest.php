@@ -173,4 +173,25 @@ HTML;
         $this->assertStringContainsString('loading="lazy"', $out);
         $this->assertStringContainsString('alt=""', $out);
     }
+
+    public function test_it_keeps_fsiot_quiz_attributes_and_classes(): void
+    {
+        $mirror = Mockery::mock(PublicHtmlStorageMirror::class);
+        $mirror->shouldReceive('publicDiskPathFromUrl')->andReturn(null);
+        $mirror->shouldReceive('existsOnPublicDisk')->andReturn(false);
+
+        $sanitizer = new ArticleHtmlSanitizer($mirror);
+
+        $html = '<div class="fsiot-quiz" id="quiz-1">'
+            .'<div class="fsiot-quiz-opt is-correct" data-option="B" data-correct="true" data-untrusted="strip">Pilihan B</div>'
+            .'</div>';
+
+        $out = $sanitizer->sanitize($html);
+
+        $this->assertStringContainsString('class="fsiot-quiz"', $out);
+        $this->assertStringContainsString('class="fsiot-quiz-opt is-correct"', $out);
+        $this->assertStringContainsString('data-option="B"', $out);
+        $this->assertStringContainsString('data-correct="true"', $out);
+        $this->assertStringNotContainsString('data-untrusted', $out);
+    }
 }

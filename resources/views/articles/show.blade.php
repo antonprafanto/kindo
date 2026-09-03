@@ -540,7 +540,59 @@ document.addEventListener('DOMContentLoaded', () => {
 <script>
 // FSIOT interactive widgets (ready for new modules from FS-01)
 const initFsiotInteractiveWidgets = () => {
-    // will be registered per module starting from FS-01
+    const isEn = document.documentElement.lang === 'en';
+    const quizzes = document.querySelectorAll('.fsiot-quiz');
+    if (!quizzes.length) return;
+
+    quizzes.forEach(quiz => {
+        const options = quiz.querySelectorAll('.fsiot-quiz-opt');
+        const feedback = quiz.querySelector('.fsiot-quiz-feedback');
+        const explanation = quiz.querySelector('.fsiot-quiz-explanation');
+        const toggle = quiz.querySelector('.fsiot-quiz-toggle');
+
+        options.forEach(opt => {
+            opt.addEventListener('click', () => {
+                const isCorrect = opt.getAttribute('data-correct') === 'true';
+                const optLetter = opt.getAttribute('data-option') || '';
+
+                options.forEach(o => o.classList.remove('is-correct', 'is-wrong'));
+
+                if (isCorrect) {
+                    opt.classList.add('is-correct');
+                    if (feedback) {
+                        feedback.className = 'fsiot-quiz-feedback is-correct';
+                        feedback.innerHTML = isEn
+                            ? '🎉 <strong>Spot on!</strong> Option <strong>' + optLetter + '</strong> is the correct answer.'
+                            : '🎉 <strong>Jawaban Kamu Tepat Sekali!</strong> Pilihan <strong>' + optLetter + '</strong> adalah jawaban yang benar.';
+                    }
+                    if (explanation) {
+                        explanation.classList.add('is-visible');
+                    }
+                    if (toggle) {
+                        toggle.textContent = isEn ? 'Hide Explanation' : 'Sembunyikan Pembahasan';
+                    }
+                } else {
+                    opt.classList.add('is-wrong');
+                    if (feedback) {
+                        feedback.className = 'fsiot-quiz-feedback is-wrong';
+                        feedback.innerHTML = isEn
+                            ? '❌ <strong>Not quite.</strong> Option <strong>' + optLetter + '</strong> is incorrect. Review the concepts and pick another answer!'
+                            : '❌ <strong>Jawaban belum tepat.</strong> Pilihan <strong>' + optLetter + '</strong> kurang sesuai. Coba analisis lagi dan klik pilihan lainnya ya!';
+                    }
+                }
+            });
+        });
+
+        if (toggle && explanation) {
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isOpen = explanation.classList.toggle('is-visible');
+                toggle.textContent = isOpen
+                    ? (isEn ? 'Hide Explanation' : 'Sembunyikan Pembahasan')
+                    : (isEn ? 'View Answer & Explanation' : 'Lihat Kunci & Pembahasan');
+            });
+        }
+    });
 };
 
 if (document.readyState === 'loading') {

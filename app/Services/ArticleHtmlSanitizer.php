@@ -41,8 +41,8 @@ class ArticleHtmlSanitizer
         'tr'         => [],
         'th'         => ['colspan', 'rowspan'],
         'td'         => ['colspan', 'rowspan'],
-        'span'       => ['class', 'style'],
-        'div'        => ['id', 'class', 'style'],
+        'span'       => ['class', 'style', 'data-option', 'data-correct'],
+        'div'        => ['id', 'class', 'style', 'data-option', 'data-correct', 'data-quiz-id'],
         // Diagram arsitektur artikel (SVG aman — tanpa script/foreignObject/animate)
         'svg'        => ['xmlns', 'viewbox', 'width', 'height', 'role', 'aria-label', 'style', 'fill', 'stroke'],
         'defs'       => [],
@@ -241,7 +241,7 @@ class ArticleHtmlSanitizer
             if ($lower === 'class') {
                 $parts = preg_split('/\s+/', $value) ?: [];
                 $kept = array_values(array_filter($parts, function (string $class): bool {
-                    return (bool) preg_match('/^(language-[\w+-]+|hljs[\w-]*|code-block[\w-]*)$/', $class);
+                    return (bool) preg_match('/^(language-[\w+-]+|hljs[\w-]*|code-block[\w-]*|fsiot-[\w-]+|is-[\w-]+)$/', $class);
                 }));
 
                 if ($kept === []) {
@@ -264,6 +264,24 @@ class ArticleHtmlSanitizer
             }
 
             if ($lower === 'data-timer-seconds' && (! preg_match('/^[1-9]\d{0,3}$/', $value) || (int) $value > 3600)) {
+                $el->removeAttribute($name);
+
+                continue;
+            }
+
+            if ($lower === 'data-correct' && ! in_array(strtolower($value), ['true', 'false', '1', '0'], true)) {
+                $el->removeAttribute($name);
+
+                continue;
+            }
+
+            if ($lower === 'data-option' && ! preg_match('/^[A-Za-z0-9_-]{1,10}$/', $value)) {
+                $el->removeAttribute($name);
+
+                continue;
+            }
+
+            if ($lower === 'data-quiz-id' && ! preg_match('/^[A-Za-z0-9_-]{1,30}$/', $value)) {
                 $el->removeAttribute($name);
 
                 continue;

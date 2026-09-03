@@ -80,13 +80,19 @@ check(str_contains($body, 'console.log("Halo Dunia IoT Koding Indonesia!");'), '
 check(str_contains($bodyEn, 'console.log("Hello Full Stack IoT World!");'), 'Interactive console test EN');
 check(str_contains($body, '<code class="language-javascript">') && str_contains($bodyEn, '<code class="language-javascript">'), 'Syntax highlighting class language-javascript');
 
-// 6. Micro-Quiz (3 Soal Ala Dicoding dengan Badge & Border)
+// 6. Micro-Quiz (3 Soal Interaktif Ala Dicoding dengan Clickable Options & Hidden Explanation)
 check(substr_count($body, 'Soal ') === 3 && str_contains($body, 'Soal 1 dari 3'), 'Question badges ID');
 check(substr_count($bodyEn, 'Question ') === 3 && str_contains($bodyEn, 'Question 1 of 3'), 'Question badges EN');
+check(substr_count($body, 'class="fsiot-quiz"') === 3, '3 Interactive quiz components ID');
+check(substr_count($bodyEn, 'class="fsiot-quiz"') === 3, '3 Interactive quiz components EN');
+check(substr_count($body, 'class="fsiot-quiz-opt"') === 12, '12 Clickable option cards ID');
+check(substr_count($bodyEn, 'class="fsiot-quiz-opt"') === 12, '12 Clickable option cards EN');
+check(substr_count($body, 'data-correct="true"') === 3, '3 Correct answers marked ID');
+check(substr_count($bodyEn, 'data-correct="true"') === 3, '3 Correct answers marked EN');
+check(substr_count($body, 'class="fsiot-quiz-explanation"') === 3, '3 Hidden explanation cards ID');
+check(substr_count($bodyEn, 'class="fsiot-quiz-explanation"') === 3, '3 Hidden explanation cards EN');
 check(substr_count($body, 'Kunci Jawaban:') === 3, '3 Kunci & Pembahasan ID');
 check(substr_count($bodyEn, 'Correct Answer:') === 3, '3 Kunci & Pembahasan EN');
-check(substr_count($body, 'border-left:4px solid #2E7D32') === 3, '3 Emerald borders for answers ID');
-check(substr_count($bodyEn, 'border-left:4px solid #2E7D32') === 3, '3 Emerald borders for answers EN');
 
 // 7. Paritas Heading
 $h2Id = substr_count($body, '<h2');
@@ -118,6 +124,8 @@ check(str_contains($sanitizedId, 'console.log'), 'Sanitizer preserves console co
 check(str_contains($sanitizedEn, 'console.log'), 'Sanitizer preserves console code in EN');
 check(! str_contains($sanitizedId, '<p style='), 'Sanitizer strips any disallowed p style in ID');
 check(! str_contains($sanitizedEn, '<p style='), 'Sanitizer strips any disallowed p style in EN');
+check(str_contains($sanitizedId, 'class="fsiot-quiz"') && str_contains($sanitizedId, 'data-option="B"'), 'Sanitizer preserves fsiot-quiz & data-option in ID');
+check(str_contains($sanitizedEn, 'class="fsiot-quiz"') && str_contains($sanitizedEn, 'data-option="B"'), 'Sanitizer preserves fsiot-quiz & data-option in EN');
 
 echo "\n--- HASIL AUDIT ---\n";
 echo "Passed: {$passed}\n";

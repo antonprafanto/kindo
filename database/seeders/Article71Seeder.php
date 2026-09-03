@@ -77,16 +77,16 @@ class Article71Seeder extends Seeder
 <h2>Alat yang dipakai hari ini (Tools-First)</h2>
 <p>Di Koding Indonesia, kami menerapkan prinsip <em>tools-first</em>: sebelum kamu membaca penjelasan konsep atau perintah, kami selalu memberi tahu alat apa yang perlu kamu buka terlebih dahulu agar kamu tidak kebingungan di depan layar.</p>
 
-<div style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
+<div class="fsiot-card" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
   <h3 style="margin-top:0;color:#1a1a1a;">Daftar Alat untuk Modul M-01</h3>
-  <ol style="margin-bottom:0;padding-left:20px;color:#1a1a1a;line-height:1.7;">
+  <ol style="margin-bottom:0;padding-left:20px;line-height:1.7;">
     <li><strong>Aplikasi Peramban Web (Web Browser):</strong> Buka Google Chrome, Mozilla Firefox, Microsoft Edge, atau Safari di komputer, laptop, ataupun ponsel pintarmu.</li>
     <li><strong>Buku Catatan / Aplikasi Catatan Sederhana:</strong> Buka aplikasi Notepad di Windows, TextEdit di Mac, atau selembar kertas fisik untuk mencatat ide benda pintar di sekitarmu.</li>
     <li><strong>Tidak Perlu Memasang Software Tambahan:</strong> Untuk modul pembuka ini, kamu <em>belum perlu</em> memasang aplikasi pemrograman atau menyambungkan kabel listrik apa pun. Kita fokus membangun logika berpikir terlebih dahulu.</li>
   </ol>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
   <p><strong style="color:#1a1a1a;">Uji Coba Praktik Pertama Kamu: Menjalankan Perintah di Peramban Web</strong></p>
   <p>Sebelum kita menyentuh hardware fisik di modul-modul berikutnya, mari buktikan bahwa peramban web di komputermu sudah siap mengeksekusi instruksi digital tanpa perlu menginstal aplikasi tambahan:</p>
   <ol>
@@ -181,22 +181,22 @@ class Article71Seeder extends Seeder
 <h2>Empat pilar utama IoT — analogi tubuh manusia</h2>
 <p>Agar kamu tidak bingung membayangkan arsitektur sistem yang rumit, para ahli teknologi sepakat membagi sistem IoT ke dalam <strong>4 pilar utama</strong>. Cara paling menyenangkan untuk memahaminya adalah dengan membayangkan <strong>anatomi tubuh manusia</strong>:</p>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
   <h3 style="margin-top:0;color:#2979FF;">1. Pilar Panca Indra ➔ Sensor Fisik</h3>
   <p style="margin-bottom:0;line-height:1.7;">Mata kita melihat terangnya matahari, kulit kita merasakan panasnya udara, dan telinga kita mendengar suara bising. Di dunia IoT, peran panca indra ini digantikan oleh <strong>Sensor</strong>. Contohnya adalah sensor <em>DHT22</em> yang merasakan derajat panas dan kelembapan udara, atau sensor <em>LDR</em> yang merasakan gelap terangnya ruangan belajarmu.</p>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
   <h3 style="margin-top:0;color:#2979FF;">2. Pilar Otak Pemroses ➔ Mikrokontroler (ESP32)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Ketika kulit tanganmu menyentuh cangkir kopi panas, sinyal listrik biologis dikirim ke otak untuk diterjemahkan: <em>"Wah, air ini bersuhu 80 derajat!"</em> Di sistem IoT kita, peran otak kecil ini dipegang oleh <strong>Mikrokontroler ESP32</strong>. Papan chip seukuran dua ruas jari ini membaca tegangan listrik dari sensor, mengubahnya menjadi angka desimal yang teratur, dan memutuskan tindakan apa yang perlu diambil.</p>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
   <h3 style="margin-top:0;color:#2979FF;">3. Pilar Jaringan Saraf &amp; Kurir Pesan ➔ Konektivitas (Wi-Fi &amp; MQTT)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Setelah otak mengetahui informasi tersebut, bagaimana pesan itu bisa sampai ke orang lain di seberang pulau? Melalui <strong>Konektivitas Jaringan</strong>. ESP32 dilengkapi pemancar radio Wi-Fi bawaan yang mampu berbicara menggunakan bahasa protokol data ringan bernama <strong>MQTT</strong>. Bayangkan MQTT seperti kurir kilat super cepat yang mengantar surat data dari meja belajarmu ke komputer server tanpa membebani kuota internet.</p>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
   <h3 style="margin-top:0;color:#2979FF;">4. Pilar Layar Pemantau &amp; Otot Bergerak ➔ Web Dashboard &amp; Aktuator (Relay)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Informasi tidak akan berguna jika tidak menghasilkan aksi nyata atau tidak bisa dilihat oleh manusia. Pilar keempat terdiri dari dua elemen:
   <br>• <strong>Layar Pemantau (Dashboard Web/PWA):</strong> Halaman visual menarik dengan grafik dan angka yang bisa dibuka di peramban web laptop atau layar ponsel pintarmu.
@@ -271,63 +271,123 @@ class Article71Seeder extends Seeder
 <h2>Latihan mandiri awam — memetakan 3 benda pintar di sekitarmu</h2>
 <p>Sebelum melangkah lebih jauh, mari kita latih kepekaan insting teknologimu. Luangkan waktu 2 menit untuk mengamati lingkungan di sekitarmu dan petakan 3 benda berikut ke dalam 4 pilar yang baru saja kita pelajari:</p>
 
-<div style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
+<div class="fsiot-callout" style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
   <p><strong style="color:#1a1a1a;">1. Lampu Penerangan Jalan Umum (PJU) Otomatis</strong></p>
   <p>Pernahkah kamu melihat lampu di pinggir jalan raya yang menyala sendiri tepat saat matahari terbenam dan padam saat fajar tiba? Pilar sensornya adalah <em>sensor cahaya (LDR)</em>, otaknya adalah mikrokontroler kecil di tiang lampu, dan aktuatornya adalah sakelar relay yang menghubungkan listrik berdaya besar ke bohlam lampu.</p>
 </div>
 
-<div style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
+<div class="fsiot-callout" style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
   <p><strong style="color:#1a1a1a;">2. Mesin Presensi Kartu RFID di Sekolah atau Kantor</strong></p>
   <p>Ketika kamu menempelkan kartu siswa ke mesin absensi di depan pintu gerbang, nomor unik kartu dibaca oleh sensor radio (RFID), dikirimkan seketika via Wi-Fi kantor ke database sekolah, dan layar LCD langsung menyapa: <em>"Selamat pagi, kehadiranmu tercatat pukul 06.50 WIB!"</em></p>
 </div>
 
-<div style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
+<div class="fsiot-callout" style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
   <p><strong style="color:#1a1a1a;">3. Pendingin Ruangan (AC) Pintar dengan Kontrol HP</strong></p>
   <p>Saat kamu masih dalam perjalanan pulang di dalam kereta dan merasa gerah, kamu membuka aplikasi di ponselmu dan menekan tombol <em>"Nyalakan AC 22 °C"</em>. Melalui internet, perintah tersebut melesat ke modul Wi-Fi AC di kamarmu, sehingga begitu kamu membuka pintu rumah, kamarmu sudah sejuk dan nyaman.</p>
 </div>
 
 <h2>Kuis pemahaman modul M-01 (Micro-Quiz)</h2>
-<p>Yuk uji pemahamanmu terhadap konsep dasar yang baru saja kita bahas! Ujilah analisismu pada 3 pertanyaan di bawah ini:</p>
+<p>Yuk uji pemahamanmu terhadap konsep dasar yang baru saja kita bahas! Klik salah satu pilihan jawaban di bawah ini untuk menguji analisismu secara langsung:</p>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Soal 1 dari 3</span> <strong>Pertanyaan:</strong> Manakah karakteristik utama yang membedakan termometer digital biasa di apotek dengan termometer berbasis IoT?</p>
-  <ul>
-    <li>⚪ A. Termometer IoT tidak menggunakan daya baterai.</li>
-    <li>⚪ B. Termometer IoT mengirimkan data suhu ke jaringan/server sehingga riwayatnya bisa dipantau dari jarak jauh.</li>
-    <li>⚪ C. Termometer IoT layarnya pasti berukuran raksasa.</li>
-    <li>⚪ D. Termometer IoT tidak membutuhkan sensor suhu fisik.</li>
-  </ul>
-  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
+<div class="fsiot-quiz" id="quiz-1">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <span style="background:#2979FF;color:#FFFFFF;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">Soal 1 dari 3</span>
+    <strong style="font-size:14px;">Kuis Pemahaman Arsitektur</strong>
+  </div>
+  <p class="fsiot-quiz-question">Manakah karakteristik utama yang membedakan termometer digital biasa di apotek dengan termometer berbasis IoT?</p>
+
+  <div class="fsiot-quiz-options">
+    <div class="fsiot-quiz-opt" data-option="A" data-correct="false">
+      <strong>A.</strong> Termometer IoT tidak menggunakan daya baterai.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="B" data-correct="true">
+      <strong>B.</strong> Termometer IoT mengirimkan data suhu ke jaringan/server sehingga riwayatnya bisa dipantau dari jarak jauh.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="C" data-correct="false">
+      <strong>C.</strong> Termometer IoT layarnya pasti berukuran raksasa.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="D" data-correct="false">
+      <strong>D.</strong> Termometer IoT tidak membutuhkan sensor suhu fisik.
+    </div>
+  </div>
+
+  <div class="fsiot-quiz-feedback"></div>
+
+  <div class="fsiot-quiz-explanation">
     <p><strong style="color:#2E7D32;">Kunci Jawaban: B</strong></p>
     <p><strong>Pembahasan:</strong> Termometer biasa bersifat tertutup (hanya menampilkan angka sesaat di layarnya lalu hilang). Sebaliknya, perangkat IoT memiliki pilar konektivitas yang mengirim data ke server, memungkinkan penyimpanan histori data jangka panjang dan pemantauan jarak jauh via aplikasi web atau ponsel.</p>
   </div>
-</div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Soal 2 dari 3</span> <strong>Pertanyaan:</strong> Dalam analogi tubuh manusia pada sistem IoT, komponen mikrokontroler (seperti ESP32) berperan sebagai apa?</p>
-  <ul>
-    <li>⚪ A. Panca indra yang merasakan lingkungan fisik.</li>
-    <li>⚪ B. Otak pemroses yang membaca sinyal listrik dan mengolahnya menjadi data angka teratur.</li>
-    <li>⚪ C. Otot tangan dan kaki yang menggerakkan benda fisik.</li>
-    <li>⚪ D. Pembuluh darah yang menyalurkan aliran listrik.</li>
-  </ul>
-  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
-    <p><strong style="color:#2E7D32;">Kunci Jawaban: B</strong></p>
-    <p><strong>Pembahasan:</strong> Sensor adalah panca indra (mata, telinga, kulit), sedangkan mikrokontroler ESP32 adalah otak mini yang bertugas membaca sinyal dari sensor tersebut, menjalankan logika program, dan memutuskan data apa yang harus dikirim ke jaringan.</p>
+  <div style="margin-top:10px;text-align:right;">
+    <span class="fsiot-quiz-toggle">Lihat Kunci &amp; Pembahasan</span>
   </div>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Soal 3 dari 3</span> <strong>Pertanyaan:</strong> Apakah kamu wajib memiliki komputer mini Raspberry Pi untuk dapat menyelesaikan kurikulum Full Stack IoT Koding Indonesia ini?</p>
-  <ul>
-    <li>⚪ A. Wajib, karena ESP32 tidak bisa terhubung ke internet tanpa Raspberry Pi.</li>
-    <li>⚪ B. Wajib membeli server cloud berbayar dari luar negeri.</li>
-    <li>⚪ C. Tidak wajib; cukup sebuah papan ESP32 murah dan laptop/PC harian sudah mampu menyelesaikan 100% materi inti.</li>
-    <li>⚪ D. Tidak bisa belajar sama sekali jika hanya memiliki komputer biasa.</li>
-  </ul>
-  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
+<div class="fsiot-quiz" id="quiz-2">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <span style="background:#2979FF;color:#FFFFFF;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">Soal 2 dari 3</span>
+    <strong style="font-size:14px;">Kuis Logika Hardware</strong>
+  </div>
+  <p class="fsiot-quiz-question">Dalam analogi tubuh manusia pada sistem IoT, komponen mikrokontroler (seperti ESP32) berperan sebagai apa?</p>
+
+  <div class="fsiot-quiz-options">
+    <div class="fsiot-quiz-opt" data-option="A" data-correct="false">
+      <strong>A.</strong> Panca indra yang merasakan lingkungan fisik.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="B" data-correct="true">
+      <strong>B.</strong> Otak pemroses yang membaca sinyal listrik dan mengolahnya menjadi data angka teratur.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="C" data-correct="false">
+      <strong>C.</strong> Otot tangan dan kaki yang menggerakkan benda fisik.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="D" data-correct="false">
+      <strong>D.</strong> Pembuluh darah yang menyalurkan aliran listrik.
+    </div>
+  </div>
+
+  <div class="fsiot-quiz-feedback"></div>
+
+  <div class="fsiot-quiz-explanation">
+    <p><strong style="color:#2E7D32;">Kunci Jawaban: B</strong></p>
+    <p><strong>Pembahasan:</strong> Sensor adalah panca indra (mata, telinga, kulit), sedangkan mikrokontroler ESP32 adalah otak mini yang bertugas membaca sinyal dari sensor tersebut, menjalankan logika program, dan memutuskan data apa yang harus dikirim ke jaringan.</p>
+  </div>
+
+  <div style="margin-top:10px;text-align:right;">
+    <span class="fsiot-quiz-toggle">Lihat Kunci &amp; Pembahasan</span>
+  </div>
+</div>
+
+<div class="fsiot-quiz" id="quiz-3">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <span style="background:#2979FF;color:#FFFFFF;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">Soal 3 dari 3</span>
+    <strong style="font-size:14px;">Kuis Kelayakan Ekosistem</strong>
+  </div>
+  <p class="fsiot-quiz-question">Apakah kamu wajib memiliki komputer mini Raspberry Pi untuk dapat menyelesaikan kurikulum Full Stack IoT Koding Indonesia ini?</p>
+
+  <div class="fsiot-quiz-options">
+    <div class="fsiot-quiz-opt" data-option="A" data-correct="false">
+      <strong>A.</strong> Wajib, karena ESP32 tidak bisa terhubung ke internet tanpa Raspberry Pi.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="B" data-correct="false">
+      <strong>B.</strong> Wajib membeli server cloud berbayar dari luar negeri.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="C" data-correct="true">
+      <strong>C.</strong> Tidak wajib; cukup sebuah papan ESP32 murah dan laptop/PC harian sudah mampu menyelesaikan 100% materi inti.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="D" data-correct="false">
+      <strong>D.</strong> Tidak bisa belajar sama sekali jika hanya memiliki komputer biasa.
+    </div>
+  </div>
+
+  <div class="fsiot-quiz-feedback"></div>
+
+  <div class="fsiot-quiz-explanation">
     <p><strong style="color:#2E7D32;">Kunci Jawaban: C</strong></p>
     <p><strong>Pembahasan:</strong> Kurikulum Koding Indonesia sengaja dirancang ramah kantong dan inklusif. Kamu cukup menggunakan satu papan ESP32 (~Rp 50.000) dan laptop sehari-hari untuk menyelesaikan 100% sistem dari sensor hingga dashboard web. Raspberry Pi hanyalah materi pelengkap super-upgrade mandiri di Babak 5 bagi yang memilikinya.</p>
+  </div>
+
+  <div style="margin-top:10px;text-align:right;">
+    <span class="fsiot-quiz-toggle">Lihat Kunci &amp; Pembahasan</span>
   </div>
 </div>
 
@@ -358,16 +418,16 @@ HTML;
 <h2>Tools used in this article (Tools-First)</h2>
 <p>At Koding Indonesia, we adhere strictly to a <em>tools-first</em> pedagogical approach: before presenting conceptual walkthroughs or syntax commands, we always specify what software tools you need to open first so you never feel lost before your screen.</p>
 
-<div style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
+<div class="fsiot-card" style="background:#F5F5F0;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
   <h3 style="margin-top:0;color:#1a1a1a;">Toolkit for Module M-01</h3>
-  <ol style="margin-bottom:0;padding-left:20px;color:#1a1a1a;line-height:1.7;">
+  <ol style="margin-bottom:0;padding-left:20px;line-height:1.7;">
     <li><strong>A Standard Web Browser:</strong> Open Google Chrome, Mozilla Firefox, Microsoft Edge, or Safari on your desktop PC, laptop, or smartphone.</li>
     <li><strong>A Simple Notepad Application:</strong> Open Windows Notepad, Mac TextEdit, or grab a physical sheet of paper to brainstorm smart devices around your living space.</li>
     <li><strong>No Extra Software Required:</strong> For this introductory module, you <em>do not need</em> to install any code editors or connect any electrical wiring yet. We focus entirely on building your technical intuition first.</li>
   </ol>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
   <p><strong style="color:#1a1a1a;">Your First Hands-On Check: Running a Command in the Browser</strong></p>
   <p>Before handling physical hardware in upcoming modules, let us verify that your web browser is ready to execute digital instructions without installing any extra software:</p>
   <ol>
@@ -421,23 +481,23 @@ HTML;
     <line x1="165" y1="112" x2="215" y2="112" stroke="#757575" stroke-width="2" marker-end="url(#arrowM01GrayEn)" />
 
     <rect x="225" y="85" width="115" height="55" rx="6" fill="#F5F5F5" stroke="#9E9E9E" stroke-width="1.5" />
-    <text x="282" y="110" text-anchor="middle" font-size="13" font-weight="600" fill="#212121">Local Display</text>
-    <text x="282" y="128" text-anchor="middle" font-size="11" fill="#616161">Shows Digits</text>
+    <text x="282" y="110" text-anchor="middle" font-size="13" font-weight="600" fill="#212121">Local Screen</text>
+    <text x="282" y="128" text-anchor="middle" font-size="11" fill="#616161">Displays Value</text>
 
     <rect x="45" y="175" width="295" height="85" rx="6" fill="#FFFDE7" stroke="#FBC02D" stroke-width="1.5" />
     <text x="192" y="202" text-anchor="middle" font-size="13" font-weight="700" fill="#F57F17">Limitations:</text>
-    <text x="192" y="224" text-anchor="middle" font-size="12" fill="#5D4037">• Data is lost immediately (no history)</text>
-    <text x="192" y="244" text-anchor="middle" font-size="12" fill="#5D4037">• Requires physical human presence</text>
+    <text x="192" y="224" text-anchor="middle" font-size="12" fill="#5D4037">• Data evaporates instantly (no logs)</text>
+    <text x="192" y="244" text-anchor="middle" font-size="12" fill="#5D4037">• Requires physical human presence to view</text>
 
     <!-- Right Panel: IoT -->
     <rect x="400" y="20" width="340" height="270" rx="8" fill="#FFFFFF" stroke="#2979FF" stroke-width="2.5" />
     <rect x="400" y="20" width="340" height="42" rx="8" fill="#E3F2FD" stroke="#2979FF" stroke-width="2" />
-    <text x="570" y="47" text-anchor="middle" font-size="15" font-weight="700" fill="#1565C0">IoT Architecture (Connected)</text>
+    <text x="570" y="47" text-anchor="middle" font-size="15" font-weight="700" fill="#1565C0">Connected IoT System</text>
 
     <!-- Components Right -->
     <rect x="420" y="85" width="85" height="55" rx="6" fill="#F5F5F5" stroke="#1E88E5" stroke-width="1.5" />
     <text x="462" y="110" text-anchor="middle" font-size="12" font-weight="600" fill="#0D47A1">Sensor</text>
-    <text x="462" y="128" text-anchor="middle" font-size="11" fill="#546E7A">Read Temp</text>
+    <text x="462" y="128" text-anchor="middle" font-size="11" fill="#546E7A">Measures Temp</text>
 
     <line x1="505" y1="112" x2="530" y2="112" stroke="#2979FF" stroke-width="2" marker-end="url(#arrowM01AEn)" />
 
@@ -452,32 +512,32 @@ HTML;
     <text x="687" y="128" text-anchor="middle" font-size="11" fill="#546E7A">Database</text>
 
     <rect x="420" y="175" width="305" height="85" rx="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1.5" />
-    <text x="572" y="202" text-anchor="middle" font-size="13" font-weight="700" fill="#2E7D32">IoT Strengths:</text>
-    <text x="572" y="224" text-anchor="middle" font-size="12" fill="#1B5E20">• Historical data stored for deep analysis</text>
-    <text x="572" y="244" text-anchor="middle" font-size="12" fill="#1B5E20">• Remote control &amp; live mobile dashboards</text>
+    <text x="572" y="202" text-anchor="middle" font-size="13" font-weight="700" fill="#2E7D32">The Power of IoT:</text>
+    <text x="572" y="224" text-anchor="middle" font-size="12" fill="#1B5E20">• Data saved 24/7 for analytics</text>
+    <text x="572" y="244" text-anchor="middle" font-size="12" fill="#1B5E20">• Auto control &amp; remote phone tracking</text>
   </svg>
-  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Figure 1.1: Conventional isolated electronic workflows versus connected Internet of Things system architectures. (Source: Original Design by Koding Indonesia Curriculum Team)</figcaption>
+  <figcaption style="font-size:13px;color:#616161;margin-top:12px;font-style:italic;">Figure 1.1: Operational comparison between isolated electronics and network-connected Internet of Things systems. (Source: Original Design by Koding Indonesia Curriculum Team)</figcaption>
 </figure>
 
 <h2>Four core pillars of IoT — the human body analogy</h2>
 <p>To prevent feeling overwhelmed by complex technical architecture diagrams, seasoned engineers summarize all IoT architectures into <strong>4 core pillars</strong>. The most intuitive way to remember them is through the <strong>human body analogy</strong>:</p>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
   <h3 style="margin-top:0;color:#2979FF;">1. Sensory Organs ➔ Physical Sensors</h3>
   <p style="margin-bottom:0;line-height:1.7;">Human eyes capture light intensity, skin detects thermal heat, and ears hear auditory sound waves. In the IoT ecosystem, biological organs are represented by <strong>Sensors</strong>. Common examples include the <em>DHT22</em> probe measuring ambient temperature and relative humidity, or an <em>LDR</em> photoresistor detecting ambient room brightness.</p>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
   <h3 style="margin-top:0;color:#2979FF;">2. Central Processing Brain ➔ Microcontroller (ESP32)</h3>
   <p style="margin-bottom:0;line-height:1.7;">When fingertips touch a hot mug, electrical nerve impulses race to the brain to be translated: <em>"Caution, this fluid is 80 degrees Celsius!"</em> In our system, this central processing role is handled by the <strong>ESP32 Microcontroller</strong>. This thumb-sized dual-core SoC reads raw sensor voltages, formats them into structured data, and coordinates all downstream logic.</p>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
   <h3 style="margin-top:0;color:#2979FF;">3. Nervous System &amp; Message Courier ➔ Connectivity (Wi-Fi &amp; MQTT)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Once information is processed, how does it travel to remote destinations? Through <strong>Network Connectivity</strong>. The ESP32 features integrated 2.4 GHz Wi-Fi radios communicating through an ultra-efficient protocol named <strong>MQTT</strong>. Picture MQTT as a lightning-fast courier delivering telemetry packets from your desk to local or cloud servers without wasting bandwidth.</p>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
   <h3 style="margin-top:0;color:#2979FF;">4. Monitoring Display &amp; Physical Muscles ➔ Web Dashboards &amp; Actuators (Relays)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Data holds little value unless it empowers human understanding or triggers physical action. This fourth pillar spans two domains:
   <br>• <strong>Monitoring Displays (Web PWA Dashboard):</strong> Clean, responsive graphical dashboards rendered in web browsers on laptops and mobile devices.
@@ -552,63 +612,123 @@ HTML;
 <h2>Hands-on exercise — mapping 3 smart devices in your daily life</h2>
 <p>Before moving on, take two minutes to look around your surroundings and identify how three familiar devices map into the four IoT pillars:</p>
 
-<div style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
+<div class="fsiot-callout" style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
   <p><strong style="color:#1a1a1a;">1. Automated Municipal Street Lights</strong></p>
   <p>Have you ever observed highway lampposts turning on precisely at sunset and turning off at dawn? The sensory organ is a <em>light-dependent resistor (LDR)</em>, the brain is a compact controller inside the pole casing, and the muscle is an electrical relay connecting high-voltage mains power.</p>
 </div>
 
-<div style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
+<div class="fsiot-callout" style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
   <p><strong style="color:#1a1a1a;">2. School or Office RFID Attendance Terminals</strong></p>
   <p>When tapping an ID badge against an entrance scanner, the unique token ID is captured by an RFID reader, transmitted instantly via office Wi-Fi to human resources databases, and an LCD screen greets you: <em>"Good morning, check-in logged at 07:45 AM!"</em></p>
 </div>
 
-<div style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
+<div class="fsiot-callout" style="background:#F5F5F0;border-left:4px solid #2979FF;padding:14px 18px;margin:18px 0;">
   <p><strong style="color:#1a1a1a;">3. Smart Air Conditioner with Mobile App Controls</strong></p>
   <p>While commuting home on a sweltering afternoon, you open your smartphone app and tap <em>"Cool to 22 °C"</em>. Across the internet, control packets reach your bedroom AC Wi-Fi module so your living space is chilled before you even step through the front door.</p>
 </div>
 
 <h2>Module M-01 understanding check (Micro-Quiz)</h2>
-<p>Let us test your grasp of the core concepts introduced today! Test your analysis on these three multiple-choice questions below:</p>
+<p>Let us test your grasp of the core concepts introduced today! Click one of the multiple-choice options below to test your analysis in real-time:</p>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Question 1 of 3</span> <strong>Question:</strong> What is the primary characteristic distinguishing a standard pharmacy digital thermometer from a connected IoT temperature monitor?</p>
-  <ul>
-    <li>⚪ A. IoT thermometers never require battery power.</li>
-    <li>⚪ B. IoT thermometers transmit temperature data over networks/servers for remote tracking and historical analysis.</li>
-    <li>⚪ C. IoT thermometers always feature giant physical displays.</li>
-    <li>⚪ D. IoT thermometers do not require physical temperature sensors.</li>
-  </ul>
-  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
+<div class="fsiot-quiz" id="quiz-en-1">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <span style="background:#2979FF;color:#FFFFFF;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">Question 1 of 3</span>
+    <strong style="font-size:14px;">Architecture Comprehension Quiz</strong>
+  </div>
+  <p class="fsiot-quiz-question">What is the primary characteristic distinguishing a standard pharmacy digital thermometer from a connected IoT temperature monitor?</p>
+
+  <div class="fsiot-quiz-options">
+    <div class="fsiot-quiz-opt" data-option="A" data-correct="false">
+      <strong>A.</strong> IoT thermometers never require battery power.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="B" data-correct="true">
+      <strong>B.</strong> IoT thermometers transmit temperature data over networks/servers for remote tracking and historical analysis.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="C" data-correct="false">
+      <strong>C.</strong> IoT thermometers always feature giant physical displays.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="D" data-correct="false">
+      <strong>D.</strong> IoT thermometers do not require physical temperature sensors.
+    </div>
+  </div>
+
+  <div class="fsiot-quiz-feedback"></div>
+
+  <div class="fsiot-quiz-explanation">
     <p><strong style="color:#2E7D32;">Correct Answer: B</strong></p>
     <p><strong>Explanation:</strong> Conventional thermometers are isolated devices displaying values locally before disappearing. IoT devices integrate network connectivity pillars to archive telemetry in databases, enabling long-term analytics and remote monitoring via web and mobile interfaces.</p>
   </div>
-</div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Question 2 of 3</span> <strong>Question:</strong> In the human body analogy of IoT architectures, what role does a microcontroller (such as the ESP32) serve?</p>
-  <ul>
-    <li>⚪ A. Sensory organs that perceive raw environmental properties.</li>
-    <li>⚪ B. The central brain that samples electrical signals and processes them into structured numbers.</li>
-    <li>⚪ C. Muscular limbs that exert physical mechanical movement.</li>
-    <li>⚪ D. Circulatory blood vessels delivering electric current.</li>
-  </ul>
-  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
-    <p><strong style="color:#2E7D32;">Correct Answer: B</strong></p>
-    <p><strong>Explanation:</strong> Sensors act as sensory organs, while the ESP32 serves as the embedded brain executing firmware logic, parsing electrical sensor signals, and dispatching formatted telemetry to networks.</p>
+  <div style="margin-top:10px;text-align:right;">
+    <span class="fsiot-quiz-toggle">View Answer &amp; Explanation</span>
   </div>
 </div>
 
-<div style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
-  <p><span style="background:#2979FF;color:#FFFFFF;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:6px;">Question 3 of 3</span> <strong>Question:</strong> Are you strictly required to purchase a Raspberry Pi single-board computer to complete this Full Stack IoT curriculum?</p>
-  <ul>
-    <li>⚪ A. Yes, because an ESP32 cannot connect to the internet without a Raspberry Pi.</li>
-    <li>⚪ B. Yes, you must also purchase expensive international cloud servers.</li>
-    <li>⚪ C. No; an affordable ESP32 board paired with your everyday PC/laptop can complete 100% of the core curriculum.</li>
-    <li>⚪ D. No learning can happen with standard computers.</li>
-  </ul>
-  <div style="background:#F5F5F0;border-left:4px solid #2E7D32;border-radius:0 6px 6px 0;padding:12px 16px;margin-top:10px;">
+<div class="fsiot-quiz" id="quiz-en-2">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <span style="background:#2979FF;color:#FFFFFF;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">Question 2 of 3</span>
+    <strong style="font-size:14px;">Hardware Logic Quiz</strong>
+  </div>
+  <p class="fsiot-quiz-question">In the human body analogy of IoT architectures, what role does a microcontroller (such as the ESP32) serve?</p>
+
+  <div class="fsiot-quiz-options">
+    <div class="fsiot-quiz-opt" data-option="A" data-correct="false">
+      <strong>A.</strong> Sensory organs that perceive raw environmental properties.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="B" data-correct="true">
+      <strong>B.</strong> The central brain that samples electrical signals and processes them into structured numbers.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="C" data-correct="false">
+      <strong>C.</strong> Muscular limbs that exert physical mechanical movement.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="D" data-correct="false">
+      <strong>D.</strong> Circulatory blood vessels delivering electric current.
+    </div>
+  </div>
+
+  <div class="fsiot-quiz-feedback"></div>
+
+  <div class="fsiot-quiz-explanation">
+    <p><strong style="color:#2E7D32;">Correct Answer: B</strong></p>
+    <p><strong>Explanation:</strong> Sensors act as sensory organs, while the ESP32 serves as the embedded brain executing firmware logic, parsing electrical sensor signals, and dispatching formatted telemetry to networks.</p>
+  </div>
+
+  <div style="margin-top:10px;text-align:right;">
+    <span class="fsiot-quiz-toggle">View Answer &amp; Explanation</span>
+  </div>
+</div>
+
+<div class="fsiot-quiz" id="quiz-en-3">
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+    <span style="background:#2979FF;color:#FFFFFF;padding:3px 10px;border-radius:4px;font-size:11px;font-weight:700;">Question 3 of 3</span>
+    <strong style="font-size:14px;">Ecosystem Accessibility Quiz</strong>
+  </div>
+  <p class="fsiot-quiz-question">Are you strictly required to purchase a Raspberry Pi single-board computer to complete this Full Stack IoT curriculum?</p>
+
+  <div class="fsiot-quiz-options">
+    <div class="fsiot-quiz-opt" data-option="A" data-correct="false">
+      <strong>A.</strong> Yes, because an ESP32 cannot connect to the internet without a Raspberry Pi.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="B" data-correct="false">
+      <strong>B.</strong> Yes, you must also purchase expensive international cloud servers.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="C" data-correct="true">
+      <strong>C.</strong> No; an affordable ESP32 board paired with your everyday PC/laptop can complete 100% of the core curriculum.
+    </div>
+    <div class="fsiot-quiz-opt" data-option="D" data-correct="false">
+      <strong>D.</strong> No learning can happen with standard computers.
+    </div>
+  </div>
+
+  <div class="fsiot-quiz-feedback"></div>
+
+  <div class="fsiot-quiz-explanation">
     <p><strong style="color:#2E7D32;">Correct Answer: C</strong></p>
     <p><strong>Explanation:</strong> The curriculum is deliberately designed for maximum inclusivity. A single $4 ESP32 board and your personal workstation are all you need to complete 100% of the hardware, network, backend, and dashboard pipeline. Raspberry Pi is an optional super-upgrade covered in Chapter 5.</p>
+  </div>
+
+  <div style="margin-top:10px;text-align:right;">
+    <span class="fsiot-quiz-toggle">View Answer &amp; Explanation</span>
   </div>
 </div>
 

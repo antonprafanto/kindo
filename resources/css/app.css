@@ -969,6 +969,275 @@ html.dark .article-body figure[style*="F5F5F0"] ol[style*="list-style:none"] {
     margin-bottom: 0;
 }
 
+/*
+ * ── FSIOT High Contrast & Dark Mode Protection ──
+ * Memastikan semua kartu, callout, dan kuis memiliki kontras sempurna
+ * baik di Light Mode maupun Dark Mode (tidak akan pernah putih di atas putih).
+ */
+
+/* 1. Global Safety Override untuk div bertema terang di dark mode */
+html.dark .article-body div[style*="background:#FFFFFF"],
+html.dark .article-body div[style*="background: #FFFFFF"],
+html.dark .article-body div[style*="background:#ffffff"],
+html.dark .article-body div[style*="background: #ffffff"],
+html.dark .article-body div[style*="background:#F5F5F0"],
+html.dark .article-body div[style*="background: #F5F5F0"],
+html.dark .article-body div[style*="background:#f5f5f0"],
+html.dark .article-body div[style*="background: #f5f5f0"] {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #F1F5F9 !important;
+}
+
+html.dark .article-body div[style*="background:#FFFFFF"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body div[style*="background: #FFFFFF"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body div[style*="background:#ffffff"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body div[style*="background: #ffffff"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body div[style*="background:#F5F5F0"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body div[style*="background: #F5F5F0"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body div[style*="background:#f5f5f0"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body div[style*="background: #f5f5f0"] :is(p, li, span, h3, h4, ol, ul) {
+    color: #E2E8F0 !important;
+}
+
+html.dark .article-body div[style*="background:#FFFFFF"] :is(strong, b),
+html.dark .article-body div[style*="background: #FFFFFF"] :is(strong, b),
+html.dark .article-body div[style*="background:#ffffff"] :is(strong, b),
+html.dark .article-body div[style*="background: #ffffff"] :is(strong, b),
+html.dark .article-body div[style*="background:#F5F5F0"] :is(strong, b),
+html.dark .article-body div[style*="background: #F5F5F0"] :is(strong, b),
+html.dark .article-body div[style*="background:#f5f5f0"] :is(strong, b),
+html.dark .article-body div[style*="background: #f5f5f0"] :is(strong, b) {
+    color: #FFFFFF !important;
+}
+
+/* 2. Komponen Kartu FSIOT (Light & Dark) */
+.fsiot-card {
+    background: #FFFFFF;
+    border: 2px solid #1a1a1a;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 20px 0;
+    color: #1a1a1a;
+}
+html.dark .fsiot-card {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    color: #F1F5F9 !important;
+}
+.fsiot-card :is(p, li, span, h3, h4, ol, ul) {
+    color: #1a1a1a;
+}
+html.dark .fsiot-card :is(p, li, span, h3, h4, ol, ul) {
+    color: #E2E8F0 !important;
+}
+html.dark .fsiot-card strong {
+    color: #FFFFFF !important;
+}
+
+/* 3. Komponen Callout FSIOT (Light & Dark) */
+.fsiot-callout {
+    background: #F5F5F0;
+    border-left: 4px solid #2979FF;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin: 18px 0;
+    color: #1a1a1a;
+}
+html.dark .fsiot-callout {
+    background: #1e293b !important;
+    border-left-color: #2979FF !important;
+    color: #F1F5F9 !important;
+}
+.fsiot-callout :is(p, strong, b, span) {
+    color: #1a1a1a;
+}
+html.dark .fsiot-callout :is(p, span) {
+    color: #E2E8F0 !important;
+}
+html.dark .fsiot-callout strong {
+    color: #FFFFFF !important;
+}
+
+/* 4. Interactive Micro-Quiz Kindo (Ala Dicoding) */
+.fsiot-quiz {
+    background: #FFFFFF;
+    border: 2px solid #1a1a1a;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 24px 0;
+    box-shadow: 3px 3px 0 #1a1a1a;
+    color: #1a1a1a;
+}
+html.dark .fsiot-quiz {
+    background: #1e293b !important;
+    border-color: #475569 !important;
+    box-shadow: 3px 3px 0 #0f172a;
+    color: #F1F5F9 !important;
+}
+.fsiot-quiz-question {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    color: #1a1a1a;
+}
+html.dark .fsiot-quiz-question {
+    color: #FFFFFF !important;
+}
+
+.fsiot-quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 14px;
+}
+.fsiot-quiz-opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
+    border: 2px solid #D1D5DB;
+    border-radius: 6px;
+    background: #F9FAFB;
+    color: #1F2937 !important;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+.fsiot-quiz-opt:hover {
+    border-color: #2979FF;
+    background: #EFF6FF;
+    transform: translateX(4px);
+}
+html.dark .fsiot-quiz-opt {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+    color: #E2E8F0 !important;
+}
+html.dark .fsiot-quiz-opt:hover {
+    border-color: #60A5FA !important;
+    background: #1e3a5f !important;
+    transform: translateX(4px);
+}
+
+/* Jawaban salah dipilih */
+.fsiot-quiz-opt.is-wrong {
+    border-color: #DC2626 !important;
+    background: #FEF2F2 !important;
+    color: #991B1B !important;
+    animation: fsiotShake 0.3s ease;
+}
+html.dark .fsiot-quiz-opt.is-wrong {
+    border-color: #EF4444 !important;
+    background: #450A0A !important;
+    color: #FCA5A5 !important;
+}
+
+/* Jawaban benar dipilih */
+.fsiot-quiz-opt.is-correct {
+    border-color: #16A34A !important;
+    background: #F0FDF4 !important;
+    color: #166534 !important;
+    font-weight: 700;
+}
+html.dark .fsiot-quiz-opt.is-correct {
+    border-color: #22C55E !important;
+    background: #052E16 !important;
+    color: #86EFAC !important;
+    font-weight: 700;
+}
+
+@keyframes fsiotShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-4px); }
+    75% { transform: translateX(4px); }
+}
+
+/* Banner Feedback Real-time */
+.fsiot-quiz-feedback {
+    display: none;
+    padding: 12px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+.fsiot-quiz-feedback.is-correct {
+    display: block !important;
+    background: #DCFCE7 !important;
+    border: 1px solid #86EFAC !important;
+    color: #14532D !important;
+}
+html.dark .fsiot-quiz-feedback.is-correct {
+    background: #052E16 !important;
+    border-color: #16A34A !important;
+    color: #86EFAC !important;
+}
+.fsiot-quiz-feedback.is-wrong {
+    display: block !important;
+    background: #FEE2E2 !important;
+    border: 1px solid #FCA5A5 !important;
+    color: #7F1D1D !important;
+}
+html.dark .fsiot-quiz-feedback.is-wrong {
+    background: #450A0A !important;
+    border-color: #DC2626 !important;
+    color: #FCA5A5 !important;
+}
+
+/* Kotak Pembahasan (Hidden by Default) */
+.fsiot-quiz-explanation {
+    display: none;
+    background: #F5F5F0;
+    border-left: 4px solid #16A34A;
+    border-radius: 0 6px 6px 0;
+    padding: 14px 18px;
+    margin-top: 14px;
+    color: #1F2937;
+}
+.fsiot-quiz-explanation.is-visible {
+    display: block !important;
+    animation: fsiotFadeIn 0.25s ease;
+}
+html.dark .fsiot-quiz-explanation {
+    background: #0f172a !important;
+    border-left-color: #22C55E !important;
+    color: #E2E8F0 !important;
+}
+html.dark .fsiot-quiz-explanation :is(p, strong, span) {
+    color: #E2E8F0 !important;
+}
+
+@keyframes fsiotFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tombol Toggle Pembahasan */
+.fsiot-quiz-toggle {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #6B7280;
+    text-decoration: underline;
+    transition: color 0.15s ease;
+    user-select: none;
+}
+.fsiot-quiz-toggle:hover {
+    color: #2979FF;
+}
+html.dark .fsiot-quiz-toggle {
+    color: #9CA3AF !important;
+}
+html.dark .fsiot-quiz-toggle:hover {
+    color: #60A5FA !important;
+}
+
 /* Print — article reading */
 @media print {
     nav,
