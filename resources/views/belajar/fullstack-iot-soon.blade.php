@@ -31,12 +31,51 @@
             </div>
         </div>
 
+        <div class="grid sm:grid-cols-3 gap-4 mb-10 sm:mb-14">
+            @foreach([
+                ['label' => __('ui.fsiot.stat_modules'), 'value' => '73', 'hint' => __('ui.fsiot.stat_modules_hint')],
+                ['label' => __('ui.fsiot.stat_lang'), 'value' => __('ui.fsiot.stat_lang_value'), 'hint' => __('ui.fsiot.stat_lang_hint')],
+                ['label' => __('ui.fsiot.stat_cost'), 'value' => __('ui.fsiot.stat_cost_value'), 'hint' => __('ui.fsiot.stat_cost_hint')],
+            ] as $stat)
+            <div class="p-4 sm:p-5 theme-paper border-2 border-black" style="box-shadow: 4px 4px 0 #000;">
+                <div class="text-2xl font-black" style="color:#2979FF;">{{ $stat['value'] }}</div>
+                <div class="text-xs font-bold uppercase tracking-wider theme-heading mt-1">{{ $stat['label'] }}</div>
+                <div class="text-xs theme-muted mt-1" style="font-family:'Inter',sans-serif;">{{ $stat['hint'] }}</div>
+            </div>
+            @endforeach
+        </div>
+
         <div class="p-6 sm:p-8 theme-paper border-2 border-black mb-10 sm:mb-14" style="box-shadow: 4px 4px 0 #000;">
             <h2 class="text-xl font-black mb-3 border-b-2 border-black pb-3">{{ __('ui.fsiot.soon_board_title') }}</h2>
-            <p class="theme-body" style="font-family:'Inter',sans-serif; line-height:1.75;">
+            <p class="theme-body mb-4" style="font-family:'Inter',sans-serif; line-height:1.75;">
                 {{ __('ui.fsiot.soon_board_body') }}
             </p>
+            <p class="text-sm theme-muted" style="font-family:'Inter',sans-serif;">
+                {{ __('ui.fsiot.thread_status') }}
+            </p>
         </div>
+
+        @if(!empty($phases))
+        <div class="mb-10 sm:mb-14">
+            <h2 class="text-xl sm:text-2xl font-black mb-6 relative inline-block" style="letter-spacing:-0.02em;">
+                {{ __('ui.fsiot.soon_roadmap_title') }}
+                <span class="absolute -bottom-1 left-0 w-full h-1" style="background:#FF7A2F;"></span>
+            </h2>
+            <ol class="space-y-4" style="font-family:'Inter',sans-serif;">
+                @foreach($phases as $i => $phase)
+                <li class="p-5 theme-paper border-2 border-black" style="box-shadow: 3px 3px 0 #000;">
+                    <div class="flex flex-wrap items-baseline gap-2 mb-2">
+                        <span class="text-xs font-bold px-2 py-0.5 border-2 border-black text-white" style="background:#2D3748;">{{ $i + 1 }}</span>
+                        <span class="text-xs font-mono font-bold" style="color:#2979FF;">{{ $phase['code'] }}</span>
+                        <span class="font-black theme-heading">{{ $phase['title'] }}</span>
+                    </div>
+                    <p class="text-sm theme-body mb-2" style="line-height:1.65;">{{ $phase['blurb'] }}</p>
+                    <p class="text-xs theme-muted font-mono">{{ $phase['modules'] }}</p>
+                </li>
+                @endforeach
+            </ol>
+        </div>
+        @endif
 
         <div class="flex flex-wrap gap-3 mb-10 sm:mb-14">
             <a href="{{ route('newsletter') }}" class="btn-brutal btn-primary px-6 py-3 text-sm">{{ __('ui.fsiot.soon_newsletter') }}</a>

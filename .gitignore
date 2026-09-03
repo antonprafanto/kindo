@@ -19,10 +19,12 @@
 /public/hot
 /public/storage
 /public/sitemap.xml
+/public/preview-beasiswa.html
 /storage/*.key
 /storage/pail
 /vendor
 _ide_helper.php
+/archive/
 Homestead.json
 Homestead.yaml
 Thumbs.db

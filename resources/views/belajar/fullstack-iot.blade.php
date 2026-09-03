@@ -36,7 +36,7 @@
 
         <div class="grid sm:grid-cols-3 gap-4 mb-10 sm:mb-14">
             @foreach([
-                ['label' => __('ui.fsiot.stat_modules'), 'value' => '55+', 'hint' => __('ui.fsiot.stat_modules_hint')],
+                ['label' => __('ui.fsiot.stat_modules'), 'value' => '73', 'hint' => __('ui.fsiot.stat_modules_hint')],
                 ['label' => __('ui.fsiot.stat_lang'), 'value' => __('ui.fsiot.stat_lang_value'), 'hint' => __('ui.fsiot.stat_lang_hint')],
                 ['label' => __('ui.fsiot.stat_cost'), 'value' => __('ui.fsiot.stat_cost_value'), 'hint' => __('ui.fsiot.stat_cost_hint')],
             ] as $stat)

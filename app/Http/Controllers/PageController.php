@@ -32,44 +32,51 @@ class PageController extends Controller
         $user = auth()->user();
         $canPreviewFull = $this->canPreviewFsiotPath($user);
 
+        $phases = [
+            [
+                'code' => 'BABAK 1',
+                'title' => __('ui.fsiot.phases.babak1.title'),
+                'blurb' => __('ui.fsiot.phases.babak1.blurb'),
+                'modules' => 'M-01 … M-24',
+            ],
+            [
+                'code' => 'BABAK 2',
+                'title' => __('ui.fsiot.phases.babak2.title'),
+                'blurb' => __('ui.fsiot.phases.babak2.blurb'),
+                'modules' => 'M-25 … M-38',
+            ],
+            [
+                'code' => 'BABAK 3',
+                'title' => __('ui.fsiot.phases.babak3.title'),
+                'blurb' => __('ui.fsiot.phases.babak3.blurb'),
+                'modules' => 'M-39 … M-47',
+            ],
+            [
+                'code' => 'BABAK 4',
+                'title' => __('ui.fsiot.phases.babak4.title'),
+                'blurb' => __('ui.fsiot.phases.babak4.blurb'),
+                'modules' => 'M-48 … M-55',
+            ],
+            [
+                'code' => 'BABAK 5',
+                'title' => __('ui.fsiot.phases.babak5.title'),
+                'blurb' => __('ui.fsiot.phases.babak5.blurb'),
+                'modules' => 'M-56 … M-64',
+            ],
+            [
+                'code' => 'BABAK 6',
+                'title' => __('ui.fsiot.phases.babak6.title'),
+                'blurb' => __('ui.fsiot.phases.babak6.blurb'),
+                'modules' => 'M-65 … M-73',
+            ],
+        ];
+
         if (! $isPublic && ! $canPreviewFull) {
             return view('belajar.fullstack-iot-soon', [
+                'phases' => $phases,
                 'trakteerUrl' => config('kindo.trakteer_tip_url'),
             ]);
         }
-
-        $phases = [
-            [
-                'code' => 'ZERO',
-                'title' => __('ui.fsiot.phases.zero.title'),
-                'blurb' => __('ui.fsiot.phases.zero.blurb'),
-                'modules' => 'FS-01 … FS-16',
-            ],
-            [
-                'code' => 'BUILDER',
-                'title' => __('ui.fsiot.phases.builder.title'),
-                'blurb' => __('ui.fsiot.phases.builder.blurb'),
-                'modules' => 'FS-17 … FS-28',
-            ],
-            [
-                'code' => 'CONNECTED',
-                'title' => __('ui.fsiot.phases.connected.title'),
-                'blurb' => __('ui.fsiot.phases.connected.blurb'),
-                'modules' => 'FS-29 … FS-38',
-            ],
-            [
-                'code' => 'FULLSTACK',
-                'title' => __('ui.fsiot.phases.fullstack.title'),
-                'blurb' => __('ui.fsiot.phases.fullstack.blurb'),
-                'modules' => 'FS-39 … FS-48',
-            ],
-            [
-                'code' => 'HERO',
-                'title' => __('ui.fsiot.phases.hero.title'),
-                'blurb' => __('ui.fsiot.phases.hero.blurb'),
-                'modules' => 'FS-49 … FS-56',
-            ],
-        ];
 
         return view('belajar.fullstack-iot', [
             'phases' => $phases,
