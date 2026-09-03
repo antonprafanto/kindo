@@ -150,6 +150,48 @@ jobs:
           echo "dir=$pub" >> "$GITHUB_OUTPUT"
           echo "Public webroot FTP dir: $pub"
 
+      - name: Upload changed files via curl (priority)
+        id: curl_priority
+        continue-on-error: true
+        timeout-minutes: 8
+        run: |
+          set -e
+          PROTO="${{ steps.ftp.outputs.protocol }}"
+          APP="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.ftp.outputs.dir }}"
+          PUB="${PROTO}://${{ secrets.FTP_SERVER }}${{ steps.public.outputs.dir }}"
+          AUTH="${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}"
+          upload() {
+            local src="$1" dest="$2"
+            for attempt in 1 2 3; do
+              if curl -fsS --connect-timeout 30 --max-time 120 --ftp-pasv --ftp-create-dirs --user "$AUTH" -T "$src" "$dest"; then
+                echo "OK $src -> $dest (attempt $attempt)"
+                return 0
+              fi
+              echo "FAIL $src -> $dest (attempt $attempt)"
+              sleep $((attempt * 10))
+            done
+            return 1
+          }
+          upload "app/Http/Controllers/PageController.php" "${APP}app/Http/Controllers/PageController.php"
+          upload "app/Http/Controllers/DeployController.php" "${APP}app/Http/Controllers/DeployController.php"
+          upload "routes/web.php" "${APP}routes/web.php"
+          upload "lang/id/ui.php" "${APP}lang/id/ui.php"
+          upload "lang/en/ui.php" "${APP}lang/en/ui.php"
+          upload "resources/views/belajar/fullstack-iot-soon.blade.php" "${APP}resources/views/belajar/fullstack-iot-soon.blade.php"
+          upload "resources/views/belajar/fullstack-iot.blade.php" "${APP}resources/views/belajar/fullstack-iot.blade.php"
+          upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
+          upload "public/deploy-check.txt" "${APP}public/deploy-check.txt"
+          upload "public/deploy-check.txt" "${PUB}deploy-check.txt"
+          upload "public/build/manifest.json" "${APP}public/build/manifest.json"
+          upload "public/build/manifest.json" "${PUB}build/manifest.json"
+          for asset in public/build/assets/*; do
+            if [ -f "$asset" ]; then
+              fname=$(basename "$asset")
+              upload "$asset" "${APP}public/build/assets/$fname"
+              upload "$asset" "${PUB}build/assets/$fname"
+            fi
+          done
+
       - name: Deploy build assets via FTP
         id: ftp_build
         continue-on-error: true
@@ -290,8 +332,8 @@ jobs:
             echo "Build asset FTP OK"
             exit 0
           fi
-          if [ "${{ steps.curl98.outcome }}" = "success" ] || [ "${{ steps.curl99.outcome }}" = "success" ] || [ "${{ steps.curl100.outcome }}" = "success" ] || [ "${{ steps.curl101.outcome }}" = "success" ] || [ "${{ steps.curl_gate_builder.outcome }}" = "success" ] || [ "${{ steps.curl102_priority.outcome }}" = "success" ]; then
-            echo "::warning::Build asset FTP failed after retries — continuing because a critical curl upload succeeded"
+          if [ "${{ steps.curl_priority.outcome }}" = "success" ]; then
+            echo "::warning::Build asset FTP failed after retries — continuing because critical curl upload succeeded"
             exit 0
           fi
           echo "::error::Build asset FTP failed after retries (Rumahweb FTPS)"
@@ -495,8 +537,8 @@ jobs:
             echo "Main FTP deploy OK"
             exit 0
           fi
-          if [ "${{ steps.curl98.outcome }}" = "success" ] || [ "${{ steps.curl99.outcome }}" = "success" ] || [ "${{ steps.curl100.outcome }}" = "success" ] || [ "${{ steps.curl101.outcome }}" = "success" ] || [ "${{ steps.curl_gate_builder.outcome }}" = "success" ]; then
-            echo "::warning::Main SamKirkland FTP failed after retries — continuing because critical #98/#99/#100/#101/gate curl upload succeeded"
+          if [ "${{ steps.curl_priority.outcome }}" = "success" ]; then
+            echo "::warning::Main SamKirkland FTP failed after retries — continuing because critical curl upload succeeded"
             exit 0
           fi
           echo "::error::Main FTP deploy failed after retries (control socket / Rumahweb FTPS)"
