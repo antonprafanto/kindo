@@ -975,40 +975,44 @@ html.dark .article-body figure[style*="F5F5F0"] ol[style*="list-style:none"] {
  * baik di Light Mode maupun Dark Mode (tidak akan pernah putih di atas putih).
  */
 
-/* 1. Global Safety Override untuk div bertema terang di dark mode */
-html.dark .article-body div[style*="background:#FFFFFF"],
-html.dark .article-body div[style*="background: #FFFFFF"],
-html.dark .article-body div[style*="background:#ffffff"],
-html.dark .article-body div[style*="background: #ffffff"],
-html.dark .article-body div[style*="background:#F5F5F0"],
-html.dark .article-body div[style*="background: #F5F5F0"],
-html.dark .article-body div[style*="background:#f5f5f0"],
-html.dark .article-body div[style*="background: #f5f5f0"] {
+/* 1. Global Safety Override untuk div dan figure bertema terang di dark mode */
+html.dark .article-body :is(div, figure)[style*="background:#FFFFFF"],
+html.dark .article-body :is(div, figure)[style*="background: #FFFFFF"],
+html.dark .article-body :is(div, figure)[style*="background:#ffffff"],
+html.dark .article-body :is(div, figure)[style*="background: #ffffff"],
+html.dark .article-body :is(div, figure)[style*="background:#F5F5F0"],
+html.dark .article-body :is(div, figure)[style*="background: #F5F5F0"],
+html.dark .article-body :is(div, figure)[style*="background:#f5f5f0"],
+html.dark .article-body :is(div, figure)[style*="background: #f5f5f0"] {
     background: #1e293b !important;
     border-color: #475569 !important;
     color: #F1F5F9 !important;
 }
 
-html.dark .article-body div[style*="background:#FFFFFF"] :is(p, li, span, h3, h4, ol, ul),
-html.dark .article-body div[style*="background: #FFFFFF"] :is(p, li, span, h3, h4, ol, ul),
-html.dark .article-body div[style*="background:#ffffff"] :is(p, li, span, h3, h4, ol, ul),
-html.dark .article-body div[style*="background: #ffffff"] :is(p, li, span, h3, h4, ol, ul),
-html.dark .article-body div[style*="background:#F5F5F0"] :is(p, li, span, h3, h4, ol, ul),
-html.dark .article-body div[style*="background: #F5F5F0"] :is(p, li, span, h3, h4, ol, ul),
-html.dark .article-body div[style*="background:#f5f5f0"] :is(p, li, span, h3, h4, ol, ul),
-html.dark .article-body div[style*="background: #f5f5f0"] :is(p, li, span, h3, h4, ol, ul) {
+html.dark .article-body :is(div, figure)[style*="background:#FFFFFF"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body :is(div, figure)[style*="background: #FFFFFF"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body :is(div, figure)[style*="background:#ffffff"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body :is(div, figure)[style*="background: #ffffff"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body :is(div, figure)[style*="background:#F5F5F0"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body :is(div, figure)[style*="background: #F5F5F0"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body :is(div, figure)[style*="background:#f5f5f0"] :is(p, li, span, h3, h4, ol, ul),
+html.dark .article-body :is(div, figure)[style*="background: #f5f5f0"] :is(p, li, span, h3, h4, ol, ul) {
     color: #E2E8F0 !important;
 }
 
-html.dark .article-body div[style*="background:#FFFFFF"] :is(strong, b),
-html.dark .article-body div[style*="background: #FFFFFF"] :is(strong, b),
-html.dark .article-body div[style*="background:#ffffff"] :is(strong, b),
-html.dark .article-body div[style*="background: #ffffff"] :is(strong, b),
-html.dark .article-body div[style*="background:#F5F5F0"] :is(strong, b),
-html.dark .article-body div[style*="background: #F5F5F0"] :is(strong, b),
-html.dark .article-body div[style*="background:#f5f5f0"] :is(strong, b),
-html.dark .article-body div[style*="background: #f5f5f0"] :is(strong, b) {
+html.dark .article-body :is(div, figure)[style*="background:#FFFFFF"] :is(strong, b),
+html.dark .article-body :is(div, figure)[style*="background: #FFFFFF"] :is(strong, b),
+html.dark .article-body :is(div, figure)[style*="background:#ffffff"] :is(strong, b),
+html.dark .article-body :is(div, figure)[style*="background: #ffffff"] :is(strong, b),
+html.dark .article-body :is(div, figure)[style*="background:#F5F5F0"] :is(strong, b),
+html.dark .article-body :is(div, figure)[style*="background: #F5F5F0"] :is(strong, b),
+html.dark .article-body :is(div, figure)[style*="background:#f5f5f0"] :is(strong, b),
+html.dark .article-body :is(div, figure)[style*="background: #f5f5f0"] :is(strong, b) {
     color: #FFFFFF !important;
+}
+
+html.dark .article-body figcaption {
+    color: #94A3B8 !important;
 }
 
 /* 2. Komponen Kartu FSIOT (Light & Dark) */

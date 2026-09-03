@@ -86,17 +86,17 @@ class Article71Seeder extends Seeder
   </ol>
 </div>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
+<div class="fsiot-card">
   <p><strong style="color:#1a1a1a;">Uji Coba Praktik Pertama Kamu: Menjalankan Perintah di Peramban Web</strong></p>
   <p>Sebelum kita menyentuh hardware fisik di modul-modul berikutnya, mari buktikan bahwa peramban web di komputermu sudah siap mengeksekusi instruksi digital tanpa perlu menginstal aplikasi tambahan:</p>
   <ol>
-    <li>Buka tab baru di perambanmu (Google Chrome atau Microsoft Edge).</li>
-    <li>Tekan tombol <code>F12</code> pada keyboard (atau klik kanan di sembarang area kosong halaman lalu pilih <strong>Inspect / Periksa</strong>).</li>
-    <li>Pilih tab <strong>Console</strong> pada panel pengembang yang muncul di samping atau bawah layar.</li>
-    <li>Ketikkan perintah satu baris berikut lalu tekan <strong>Enter</strong>:</li>
+    <li>Buka tab baru di perambanmu (Google Chrome, Microsoft Edge, Mozilla Firefox, atau Safari).</li>
+    <li>Tekan tombol <code>F12</code> pada keyboard (pada sebagian besar laptop, tekan bersamaan <code>Fn + F12</code>, atau cara termudah: klik kanan di sembarang area kosong halaman web lalu pilih <strong>Inspect / Periksa</strong>).</li>
+    <li>Pilih tab <strong>Console</strong> pada panel pengembang yang muncul di samping atau bawah layarmu.</li>
+    <li>Ketikkan perintah satu baris berikut lalu tekan tombol <strong>Enter</strong>:</li>
   </ol>
   <pre><code class="language-javascript">console.log("Halo Dunia IoT Koding Indonesia!");</code></pre>
-  <p>Kamu akan langsung melihat pesan sambutan tersebut tercetak di layar konsol! Ini adalah bukti awal bahwa perangkat sehari-harimu sudah memiliki mesin eksekusi kode yang siap kita gunakan untuk membangun antarmuka dasbor IoT nanti.</p>
+  <p>Kamu akan langsung melihat pesan sambutan tersebut tercetak di layar konsol! Ini adalah bukti nyata bahwa perangkat sehari-harimu sudah memiliki mesin eksekusi kode yang siap kita gunakan untuk membangun antarmuka dasbor IoT nanti.</p>
 </div>
 
 <h2>Perbedaan barang elektronik biasa vs perangkat IoT</h2>
@@ -181,26 +181,26 @@ class Article71Seeder extends Seeder
 <h2>Empat pilar utama IoT — analogi tubuh manusia</h2>
 <p>Agar kamu tidak bingung membayangkan arsitektur sistem yang rumit, para ahli teknologi sepakat membagi sistem IoT ke dalam <strong>4 pilar utama</strong>. Cara paling menyenangkan untuk memahaminya adalah dengan membayangkan <strong>anatomi tubuh manusia</strong>:</p>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card">
   <h3 style="margin-top:0;color:#2979FF;">1. Pilar Panca Indra ➔ Sensor Fisik</h3>
   <p style="margin-bottom:0;line-height:1.7;">Mata kita melihat terangnya matahari, kulit kita merasakan panasnya udara, dan telinga kita mendengar suara bising. Di dunia IoT, peran panca indra ini digantikan oleh <strong>Sensor</strong>. Contohnya adalah sensor <em>DHT22</em> yang merasakan derajat panas dan kelembapan udara, atau sensor <em>LDR</em> yang merasakan gelap terangnya ruangan belajarmu.</p>
 </div>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card">
   <h3 style="margin-top:0;color:#2979FF;">2. Pilar Otak Pemroses ➔ Mikrokontroler (ESP32)</h3>
-  <p style="margin-bottom:0;line-height:1.7;">Ketika kulit tanganmu menyentuh cangkir kopi panas, sinyal listrik biologis dikirim ke otak untuk diterjemahkan: <em>"Wah, air ini bersuhu 80 derajat!"</em> Di sistem IoT kita, peran otak kecil ini dipegang oleh <strong>Mikrokontroler ESP32</strong>. Papan chip seukuran dua ruas jari ini membaca tegangan listrik dari sensor, mengubahnya menjadi angka desimal yang teratur, dan memutuskan tindakan apa yang perlu diambil.</p>
+  <p style="margin-bottom:0;line-height:1.7;">Ketika kulit tanganmu menyentuh cangkir kopi panas, sinyal listrik biologis dikirim ke otak untuk diterjemahkan: <em>"Wah, air ini bersuhu 80 derajat!"</em> Di sistem IoT kita, peran otak pemroses ini dipegang oleh <strong>Mikrokontroler ESP32</strong>. Apa itu mikrokontroler? Bayangkan sebuah komputer mini seukuran dua ruas jari yang sangat hemat listrik, memiliki prosesor dan memori kecil, tanpa perlu layar monitor tersendiri. Papan chip pintar ini membaca tegangan listrik dari sensor, mengubahnya menjadi angka desimal yang teratur, dan memutuskan tindakan apa yang perlu diambil.</p>
 </div>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card">
   <h3 style="margin-top:0;color:#2979FF;">3. Pilar Jaringan Saraf &amp; Kurir Pesan ➔ Konektivitas (Wi-Fi &amp; MQTT)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Setelah otak mengetahui informasi tersebut, bagaimana pesan itu bisa sampai ke orang lain di seberang pulau? Melalui <strong>Konektivitas Jaringan</strong>. ESP32 dilengkapi pemancar radio Wi-Fi bawaan yang mampu berbicara menggunakan bahasa protokol data ringan bernama <strong>MQTT</strong>. Bayangkan MQTT seperti kurir kilat super cepat yang mengantar surat data dari meja belajarmu ke komputer server tanpa membebani kuota internet.</p>
 </div>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card">
   <h3 style="margin-top:0;color:#2979FF;">4. Pilar Layar Pemantau &amp; Otot Bergerak ➔ Web Dashboard &amp; Aktuator (Relay)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Informasi tidak akan berguna jika tidak menghasilkan aksi nyata atau tidak bisa dilihat oleh manusia. Pilar keempat terdiri dari dua elemen:
-  <br>• <strong>Layar Pemantau (Dashboard Web/PWA):</strong> Halaman visual menarik dengan grafik dan angka yang bisa dibuka di peramban web laptop atau layar ponsel pintarmu.
-  <br>• <strong>Otot Penggerak (Aktuator / Sakelar Relay):</strong> Komponen mekanik yang bisa menyalakan lampu belajar, memutar motor servo, atau mengaktifkan pompa air secara otomatis saat menerima sinyal perintah.</p>
+  <br>• <strong>Layar Pemantau (Dashboard Web / PWA):</strong> Halaman visual menarik dengan grafik dan angka yang bisa dibuka di peramban web laptop atau layar ponsel pintarmu.
+  <br>• <strong>Otot Penggerak (Aktuator / Sakelar Relay):</strong> Komponen fisik yang bisa menggerakkan benda nyata. Contohnya <em>sakelar relay</em>: bayangkan sakelar lampu di dinding rumahmu, namun alih-alih ditekan oleh jari tangan, sakelar ini dihidup-matikan secara elektrik oleh perintah sinyal dari ESP32.</p>
 </div>
 
 <figure style="margin:28px 0;background:#F5F5F0;border:2px solid #1a1a1a;border-radius:8px;padding:20px;text-align:center;">
@@ -427,12 +427,12 @@ HTML;
   </ol>
 </div>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:16px;margin:20px 0;">
+<div class="fsiot-card">
   <p><strong style="color:#1a1a1a;">Your First Hands-On Check: Running a Command in the Browser</strong></p>
   <p>Before handling physical hardware in upcoming modules, let us verify that your web browser is ready to execute digital instructions without installing any extra software:</p>
   <ol>
-    <li>Open a new tab in your browser (Google Chrome or Microsoft Edge).</li>
-    <li>Press <code>F12</code> on your keyboard (or right-click anywhere on the page and select <strong>Inspect</strong>).</li>
+    <li>Open a new tab in your browser (Google Chrome, Microsoft Edge, Mozilla Firefox, or Safari).</li>
+    <li>Press <code>F12</code> on your keyboard (on most laptops, press <code>Fn + F12</code> simultaneously, or simply right-click anywhere on the blank webpage and select <strong>Inspect</strong>).</li>
     <li>Click the <strong>Console</strong> tab on the developer tools panel that appears.</li>
     <li>Type the following single command line and hit <strong>Enter</strong>:</li>
   </ol>
@@ -522,26 +522,26 @@ HTML;
 <h2>Four core pillars of IoT — the human body analogy</h2>
 <p>To prevent feeling overwhelmed by complex technical architecture diagrams, seasoned engineers summarize all IoT architectures into <strong>4 core pillars</strong>. The most intuitive way to remember them is through the <strong>human body analogy</strong>:</p>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card">
   <h3 style="margin-top:0;color:#2979FF;">1. Sensory Organs ➔ Physical Sensors</h3>
   <p style="margin-bottom:0;line-height:1.7;">Human eyes capture light intensity, skin detects thermal heat, and ears hear auditory sound waves. In the IoT ecosystem, biological organs are represented by <strong>Sensors</strong>. Common examples include the <em>DHT22</em> probe measuring ambient temperature and relative humidity, or an <em>LDR</em> photoresistor detecting ambient room brightness.</p>
 </div>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card">
   <h3 style="margin-top:0;color:#2979FF;">2. Central Processing Brain ➔ Microcontroller (ESP32)</h3>
-  <p style="margin-bottom:0;line-height:1.7;">When fingertips touch a hot mug, electrical nerve impulses race to the brain to be translated: <em>"Caution, this fluid is 80 degrees Celsius!"</em> In our system, this central processing role is handled by the <strong>ESP32 Microcontroller</strong>. This thumb-sized dual-core SoC reads raw sensor voltages, formats them into structured data, and coordinates all downstream logic.</p>
+  <p style="margin-bottom:0;line-height:1.7;">When fingertips touch a hot mug, electrical nerve impulses race to the brain to be translated: <em>"Caution, this fluid is 80 degrees Celsius!"</em> In our system, this central processing role is handled by the <strong>ESP32 Microcontroller</strong>. What is a microcontroller? Think of it as a tiny, ultra-low-power computer the size of two thumb segments, equipped with its own processor and memory, operating without needing a standalone monitor. This smart chip reads sensor voltages, processes them into structured numbers, and coordinates all downstream logic.</p>
 </div>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card">
   <h3 style="margin-top:0;color:#2979FF;">3. Nervous System &amp; Message Courier ➔ Connectivity (Wi-Fi &amp; MQTT)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Once information is processed, how does it travel to remote destinations? Through <strong>Network Connectivity</strong>. The ESP32 features integrated 2.4 GHz Wi-Fi radios communicating through an ultra-efficient protocol named <strong>MQTT</strong>. Picture MQTT as a lightning-fast courier delivering telemetry packets from your desk to local or cloud servers without wasting bandwidth.</p>
 </div>
 
-<div class="fsiot-card" style="background:#FFFFFF;border:2px solid #1a1a1a;border-radius:8px;padding:18px;margin:20px 0;">
+<div class="fsiot-card">
   <h3 style="margin-top:0;color:#2979FF;">4. Monitoring Display &amp; Physical Muscles ➔ Web Dashboards &amp; Actuators (Relays)</h3>
   <p style="margin-bottom:0;line-height:1.7;">Data holds little value unless it empowers human understanding or triggers physical action. This fourth pillar spans two domains:
   <br>• <strong>Monitoring Displays (Web PWA Dashboard):</strong> Clean, responsive graphical dashboards rendered in web browsers on laptops and mobile devices.
-  <br>• <strong>Mechanical Muscles (Actuators / Relay Modules):</strong> Physical electromechanical switches capable of toggling desk lamps, moving servo motor arms, or switching irrigation water pumps upon receiving commands.</p>
+  <br>• <strong>Mechanical Muscles (Actuators / Relay Modules):</strong> Physical electromechanical components that generate real-world action. For example, an <em>electromechanical relay switch</em> acts just like a household wall switch, but instead of being toggled by a human finger, it is turned on and off electronically by signals from the ESP32.</p>
 </div>
 
 <figure style="margin:28px 0;background:#F5F5F0;border:2px solid #1a1a1a;border-radius:8px;padding:20px;text-align:center;">
