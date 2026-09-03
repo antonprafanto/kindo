@@ -5662,6 +5662,44 @@ class DeployController extends Controller
         return response('Article 70 published', 200);
     }
 
+    public function seedDraftArticle71(): Response
+    {
+        $this->authorizeDeployHook();
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        if (! $this->ensureSeederClass('database/seeders/Article71Seeder.php', \Database\Seeders\Article71Seeder::class)) {
+            return response('Article71Seeder class not found on server', 500);
+        }
+
+        $exitCode = Artisan::call('db:seed', [
+            '--class' => 'Database\\Seeders\\Article71Seeder',
+            '--force' => true,
+        ]);
+
+        if ($exitCode !== 0) {
+            return response('Article 71 seed failed: '.trim(Artisan::output()), 500);
+        }
+
+        $slug = 'fullstack-iot-pintu-masuk-iot';
+        $article = Article::where('slug', $slug)->first();
+
+        if (! $article) {
+            return response('Article 71 missing after seeder', 500);
+        }
+
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+
+        if (function_exists('opcache_reset')) {
+            opcache_reset();
+        }
+
+        return response('Article 71 seeded as draft (id: '.$article->id.')', 200);
+    }
+
 
     private function runDuplicateBme280Cleanup(): void
     {

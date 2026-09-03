@@ -180,6 +180,7 @@ jobs:
           upload "resources/views/belajar/fullstack-iot-soon.blade.php" "${APP}resources/views/belajar/fullstack-iot-soon.blade.php"
           upload "resources/views/belajar/fullstack-iot.blade.php" "${APP}resources/views/belajar/fullstack-iot.blade.php"
           upload "resources/views/articles/show.blade.php" "${APP}resources/views/articles/show.blade.php"
+          upload "database/seeders/Article71Seeder.php" "${APP}database/seeders/Article71Seeder.php"
           upload "public/deploy-check.txt" "${APP}public/deploy-check.txt"
           upload "public/deploy-check.txt" "${PUB}deploy-check.txt"
           upload "public/build/manifest.json" "${APP}public/build/manifest.json"
@@ -191,6 +192,17 @@ jobs:
               upload "$asset" "${PUB}build/assets/$fname"
             fi
           done
+
+      - name: Seed Article 71 draft on production
+        continue-on-error: true
+        run: |
+          TOKEN="${{ secrets.DEPLOY_HOOK_TOKEN }}"
+          if [ -n "$TOKEN" ]; then
+            echo "Invoking seed-draft-article-71 deploy hook..."
+            curl -fsS -H "X-Deploy-Token: $TOKEN" "https://kodingindonesia.com/deploy/seed-draft-article-71" || true
+          else
+            echo "DEPLOY_HOOK_TOKEN is empty — skipping seed hook"
+          fi
 
       - name: Deploy build assets via FTP
         id: ftp_build
